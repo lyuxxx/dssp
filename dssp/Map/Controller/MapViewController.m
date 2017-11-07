@@ -41,7 +41,7 @@
             }
         }];
         self.mapView.showsUserLocation = YES;
-        self.mapView.userTrackingMode = MAUserTrackingModeFollowWithHeading;
+        self.mapView.userTrackingMode = MAUserTrackingModeFollow;
         self.mapView.showsIndoorMap = YES;
         self.mapView.showTraffic = NO;
         self.mapView.showsScale = NO;

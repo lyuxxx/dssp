@@ -25,7 +25,7 @@
 #define kTabbarHeight (Is_Iphone_X ? 83 : 49)
 #define kBottomHeight (Is_Iphone_X ? 34 : 0)
 #define WidthCoefficient (kScreenWidth / 375.0)
-#define HeightCoefficient (kScreenHeight == 812.0 ? 667.0/667.0 : kScreenHeight/667.0)
+#define HeightCoefficient (kScreenHeight / 667.0)
 
 #define  adjustsScrollViewInsets_NO(scrollView,vc)\
 do { \
