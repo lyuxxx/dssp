@@ -69,8 +69,7 @@
         make.bottom.equalTo(self.userNameField.bottom).offset(10 * HeightCoefficient);
     }];
     
-   [[UITextField appearance] setTintColor:[UIColor whiteColor]];
-    
+  
     self.passwordField = [[UITextField alloc] init];
     self.passwordField.secureTextEntry = true;
     self.passwordField.textColor = [UIColor whiteColor];
@@ -95,7 +94,7 @@
     self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     _loginBtn.layer.borderWidth = 0.5;
-  _loginBtn.layer.cornerRadius = 3;
+  _loginBtn.layer.cornerRadius = 3; 
     
     [_loginBtn setTitle:NSLocalizedString(@"登录", nil) forState:UIControlStateNormal];
     [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
