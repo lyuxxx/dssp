@@ -37,6 +37,20 @@
                         NSLocalizedString(@"个人中心", nil)
                         ];
     
+    NSArray *imgTitles = @[
+                           @"tab_home_regular_icon",
+                           @"tab_navigation_regular_icon",
+                           @"tab_shop_regular_icon",
+                           @"tab_user_regular_icon"
+                           ];
+    
+    NSArray *selectedImgTitles = @[
+                                   @"tab_home_checked_icon",
+                                   @"tab_navigation_checked_icon",
+                                   @"tab_shop_checked_icon",
+                                   @"tab_user_checked_icon"
+                                   ];
+    
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     
     for (NSInteger i = 0; i < cls.count; i++) {
@@ -45,8 +59,8 @@
         naVC.delegate = self;
         naVC.tabBarItem.title = titles[i];
         [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
-        [naVC.tabBarItem setImage:[UIImage imageNamed:@""]];
-        [naVC.tabBarItem setSelectedImage:[UIImage imageNamed:@""]];
+        [naVC.tabBarItem setImage:[[UIImage imageNamed:imgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [naVC.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
         [viewControllers addObject:naVC];
     }

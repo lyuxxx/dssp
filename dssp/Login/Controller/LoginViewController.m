@@ -66,6 +66,7 @@
     }];
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_registerBtn addTarget:self action:@selector(registerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_registerBtn setTitle:NSLocalizedString(@"注册", nil) forState:UIControlStateNormal];
     [_registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:_registerBtn];
@@ -97,7 +98,8 @@
 }
 
 - (void)registerBtnClick:(UIButton *)sender {
-    
+    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+    [self presentViewController:registerVC animated:NO completion:nil];
 }
 
 @end
