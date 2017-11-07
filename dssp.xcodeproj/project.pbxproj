@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
+		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
+		310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapViewController.m */; };
+		310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DC1FA96BE900DC9529 /* StoreViewController.m */; };
+		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
+		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
+		31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
+		31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB91FA87CE300C8FDF8 /* NavigationController.m */; };
+		31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EBC1FA87D0900C8FDF8 /* TabBarController.m */; };
+		31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC01FA87E6900C8FDF8 /* LoginViewController.m */; };
+		31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
 		316CA4601F9F3475009F541E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA45F1F9F3475009F541E /* AppDelegate.m */; };
 		316CA4631F9F3475009F541E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4621F9F3475009F541E /* ViewController.m */; };
 		316CA4661F9F3475009F541E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4641F9F3475009F541E /* Main.storyboard */; };
@@ -14,6 +25,7 @@
 		316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
 		316CA46E1F9F3475009F541E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
 		316CA4781F9F3475009F541E /* dsspUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4771F9F3475009F541E /* dsspUITests.m */; };
+		31D4214B1FA97806004A2A96 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D4214A1FA97806004A2A96 /* WifiViewController.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
 /* End PBXBuildFile section */
@@ -31,6 +43,29 @@
 /* Begin PBXFileReference section */
 		10BBD8E837E05F1B4B40ABF6 /* Pods-dsspUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1E574CBB6F9BF8B9B4FB775F /* Pods-dsspUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		310A07CE1FA95B6D00DC9529 /* LoginResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResult.h; sourceTree = "<group>"; };
+		310A07CF1FA95B6D00DC9529 /* LoginResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginResult.m; sourceTree = "<group>"; };
+		310A07D21FA96AD500DC9529 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		310A07D31FA96AD500DC9529 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		310A07D81FA96BDB00DC9529 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		310A07D91FA96BDB00DC9529 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		310A07DB1FA96BE900DC9529 /* StoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
+		310A07DC1FA96BE900DC9529 /* StoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
+		310A07DE1FA96BF800DC9529 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
+		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
+		31699EB51FA87CC100C8FDF8 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		31699EB61FA87CC100C8FDF8 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		31699EB81FA87CE300C8FDF8 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		31699EB91FA87CE300C8FDF8 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		31699EBB1FA87D0900C8FDF8 /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		31699EBC1FA87D0900C8FDF8 /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		31699EBF1FA87E6900C8FDF8 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		31699EC01FA87E6900C8FDF8 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		31699EC21FA87E8400C8FDF8 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		316CA45B1F9F3475009F541E /* dssp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dssp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA45E1F9F3475009F541E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		316CA45F1F9F3475009F541E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -44,6 +79,8 @@
 		316CA4731F9F3475009F541E /* dsspUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dsspUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA4771F9F3475009F541E /* dsspUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dsspUITests.m; sourceTree = "<group>"; };
 		316CA4791F9F3475009F541E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31D421491FA97806004A2A96 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
+		31D4214A1FA97806004A2A96 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +116,104 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		310A07CC1FA95A2900DC9529 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				31699EBF1FA87E6900C8FDF8 /* LoginViewController.h */,
+				31699EC01FA87E6900C8FDF8 /* LoginViewController.m */,
+				31699EC21FA87E8400C8FDF8 /* RegisterViewController.h */,
+				31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		310A07CD1FA95A4400DC9529 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				310A07CE1FA95B6D00DC9529 /* LoginResult.h */,
+				310A07CF1FA95B6D00DC9529 /* LoginResult.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		310A07D11FA96A9E00DC9529 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				310A07D21FA96AD500DC9529 /* HomeViewController.h */,
+				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
+				31D421491FA97806004A2A96 /* WifiViewController.h */,
+				31D4214A1FA97806004A2A96 /* WifiViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		310A07D51FA96B6800DC9529 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				313AC7E01FAC5AC400A3662E /* Controller */,
+				313AC7DC1FAC5A9B00A3662E /* View */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		310A07D61FA96B7100DC9529 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				310A07DB1FA96BE900DC9529 /* StoreViewController.h */,
+				310A07DC1FA96BE900DC9529 /* StoreViewController.m */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		310A07D71FA96B8D00DC9529 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				310A07DE1FA96BF800DC9529 /* MineViewController.h */,
+				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		313AC7DC1FAC5A9B00A3662E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */,
+				313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		313AC7E01FAC5AC400A3662E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				310A07D81FA96BDB00DC9529 /* MapViewController.h */,
+				310A07D91FA96BDB00DC9529 /* MapViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		31699EB41FA87C7E00C8FDF8 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				31699EB51FA87CC100C8FDF8 /* BaseViewController.h */,
+				31699EB61FA87CC100C8FDF8 /* BaseViewController.m */,
+				31699EB81FA87CE300C8FDF8 /* NavigationController.h */,
+				31699EB91FA87CE300C8FDF8 /* NavigationController.m */,
+				31699EBB1FA87D0900C8FDF8 /* TabBarController.h */,
+				31699EBC1FA87D0900C8FDF8 /* TabBarController.m */,
+			);
+			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		31699EBE1FA87E5100C8FDF8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				310A07CD1FA95A4400DC9529 /* Model */,
+				310A07CC1FA95A2900DC9529 /* Controller */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		316CA4521F9F3475009F541E = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +237,12 @@
 		316CA45D1F9F3475009F541E /* dssp */ = {
 			isa = PBXGroup;
 			children = (
+				31699EBE1FA87E5100C8FDF8 /* Login */,
+				310A07D11FA96A9E00DC9529 /* Home */,
+				310A07D51FA96B6800DC9529 /* Map */,
+				310A07D61FA96B7100DC9529 /* Store */,
+				310A07D71FA96B8D00DC9529 /* Mine */,
+				31699EB41FA87C7E00C8FDF8 /* BaseClass */,
 				316CA45E1F9F3475009F541E /* AppDelegate.h */,
 				316CA45F1F9F3475009F541E /* AppDelegate.m */,
 				316CA4611F9F3475009F541E /* ViewController.h */,
@@ -111,6 +252,7 @@
 				316CA4691F9F3475009F541E /* LaunchScreen.storyboard */,
 				316CA46C1F9F3475009F541E /* Info.plist */,
 				316CA46D1F9F3475009F541E /* main.m */,
+				31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */,
 			);
 			path = dssp;
 			sourceTree = "<group>";
@@ -247,7 +389,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-dssp/Pods-dssp-resources.sh",
 				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle,
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -347,8 +490,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				316CA4631F9F3475009F541E /* ViewController.m in Sources */,
+				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
+				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
+				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
+				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
+				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
+				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
+				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
+				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
+				310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
+				31D4214B1FA97806004A2A96 /* WifiViewController.m in Sources */,
+				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
+				310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -487,7 +642,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -500,12 +655,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/PrefixHeader.pch";
 				INFOPLIST_FILE = dssp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -515,12 +674,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/PrefixHeader.pch";
 				INFOPLIST_FILE = dssp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

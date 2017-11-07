@@ -1,0 +1,1 @@
+../../../MapManager/MapManager/Classes/MapSearchManager.h
