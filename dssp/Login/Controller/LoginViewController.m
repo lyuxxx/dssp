@@ -54,7 +54,7 @@
     [self.userNameField makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(209.5*HeightCoefficient);
         make.left.equalTo(50 * WidthCoefficient);
-        make.height.equalTo(20*HeightCoefficient);
+        make.height.equalTo(25*HeightCoefficient);
         make.width.equalTo(120*WidthCoefficient);
     }];
     
@@ -102,14 +102,13 @@
     [self.view addSubview:_loginBtn];
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(540.5*HeightCoefficient);
+        make.top.equalTo(540*HeightCoefficient);
         make.height.equalTo(45*WidthCoefficient);
         make.width.equalTo(275 * WidthCoefficient);
        
     }];
     
    
-    
     UILabel *botLabel = [[UILabel alloc] init];
     botLabel.text = NSLocalizedString(@"还没有账号?", nil);
     botLabel.textColor = [UIColor colorWithHexString:@"#7b7b7b"];
