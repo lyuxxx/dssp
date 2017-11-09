@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIButton *registerBtn;
 @property (nonatomic, strong) UIButton *loginBtn;
 
+@property (nonatomic, strong) UIButton *skipBtn;
 @property (nonatomic, strong) UIImageView *attentionImgV;
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, strong) UIButton *eyeBtn;
@@ -63,13 +64,14 @@
         make.top.equalTo(64 * HeightCoefficient);
     }];
     
-    UIButton *skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [skipBtn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
-    [skipBtn.titleLabel setTextAlignment:NSTextAlignmentRight];
-    [skipBtn setTitle:NSLocalizedString(@"跳过", nil) forState:UIControlStateNormal];
-    [skipBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
-    [self.view addSubview:skipBtn];
-    [skipBtn makeConstraints:^(MASConstraintMaker *make) {
+    self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_skipBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _skipBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [_skipBtn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
+    [_skipBtn setTitle:NSLocalizedString(@"跳过", nil) forState:UIControlStateNormal];
+    [_skipBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
+    [self.view addSubview:_skipBtn];
+    [_skipBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(44 * HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.right.equalTo(-18 * WidthCoefficient);
@@ -227,7 +229,6 @@
     
     UILabel *botLabel = [[UILabel alloc] init];
     botLabel.text = NSLocalizedString(@"已经有账号?", nil);
-    botLabel.textAlignment = NSTextAlignmentRight;
     botLabel.font = [UIFont fontWithName:FontName size:13];
     botLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.view addSubview:botLabel];
@@ -239,6 +240,7 @@
     }];
     
     self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _loginBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_loginBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [_loginBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     _loginBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
@@ -248,7 +250,7 @@
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
         make.left.equalTo(botLabel.right).offset(5 * WidthCoefficient);
-        make.width.equalTo(50 * WidthCoefficient);
+        make.width.equalTo(26.5 * WidthCoefficient);
     }];
 }
 
@@ -272,6 +274,10 @@
                 [self registerSuccess];
             }
         }];
+    }
+    if (sender == self.skipBtn) {
+        TabBarController *tabVC = [[TabBarController alloc] init];
+        [self presentViewController:tabVC animated:NO completion:nil];
     }
 }
 
@@ -348,12 +354,6 @@
 }
 
 #pragma mark - UITextFieldDelegate -
-
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (textField == self.phoneField) {
-        _attentionImgV.hidden = NO;
-    }
-}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *content = nil;
