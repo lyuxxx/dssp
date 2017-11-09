@@ -44,7 +44,7 @@ _Pragma("clang diagnostic pop") \
 } while (0)
 
 #define baseUrl @"http://123.125.218.27:50001/"
-#define register [NSString stringWithFormat:@"%@register",baseUrl]
+#define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
 #define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
 #define getBasicInfo [NSString stringWithFormat:@"%@vhl/getBasicInfo",baseUrl]
 #define bind [NSString stringWithFormat:@"%@vhl/bind",baseUrl]
