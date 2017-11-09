@@ -135,10 +135,9 @@
             self.authField = field;
             
             self.authBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [_authBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             _authBtn.layer.cornerRadius = 2;
-            _authBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-            [_authBtn.titleLabel setFont:[UIFont fontWithName:NSFontAttributeName size:11]];
-            _authBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+            [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
             [_authBtn setTitle:NSLocalizedString(@"获取手机验证码", nil) forState:UIControlStateNormal];
             [_authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
             [_authBtn setBackgroundColor:[UIColor colorWithHexString:@"#2f2726"]];
@@ -278,6 +277,9 @@
     if (sender == self.skipBtn) {
         TabBarController *tabVC = [[TabBarController alloc] init];
         [self presentViewController:tabVC animated:NO completion:nil];
+    }
+    if (sender == self.authBtn) {
+        
     }
 }
 
