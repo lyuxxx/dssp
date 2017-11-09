@@ -12,6 +12,7 @@ target 'dssp' do
   pod 'YYModel', '~> 1.0.4'
   pod 'KVOController', '~> 1.2.0'
   pod 'IQKeyboardManager', '~> 5.0.4'
+  pod 'YYText', '~> 1.0.7'
 
   
   # internal pod
