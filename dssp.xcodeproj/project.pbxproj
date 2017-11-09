@@ -660,6 +660,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/PrefixHeader.pch";
 				INFOPLIST_FILE = dssp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -679,6 +680,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/PrefixHeader.pch";
 				INFOPLIST_FILE = dssp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
