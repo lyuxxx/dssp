@@ -22,10 +22,14 @@
 #define Is_Iphone_X (Is_Iphone && kScreenHeight == 812.0)
 #define kStatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height
 #define kNaviHeight (Is_Iphone_X ? 88 : 64)
+#define kSensorHeight (Is_Iphone_X ? 32 : 0)
 #define kTabbarHeight (Is_Iphone_X ? 83 : 49)
 #define kBottomHeight (Is_Iphone_X ? 34 : 0)
 #define WidthCoefficient (kScreenWidth / 375.0)
 #define HeightCoefficient (kScreenHeight / 667.0)
+
+#define FontName @"PingFangSC-Regular"
+#define GeneralColorString @"#a18e79"
 
 #define  adjustsScrollViewInsets_NO(scrollView,vc)\
 do { \
