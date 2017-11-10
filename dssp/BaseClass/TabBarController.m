@@ -8,6 +8,7 @@
 
 #import "TabBarController.h"
 #import "NavigationController.h"
+#import <YYCategoriesSub/YYCategories.h>
 
 @interface TabBarController () <UINavigationControllerDelegate>
 
@@ -31,24 +32,24 @@
                      ];
     
     NSArray *titles = @[
-                        NSLocalizedString(@"车主服务", nil),
-                        NSLocalizedString(@"地图服务", nil),
-                        NSLocalizedString(@"在线商城", nil),
-                        NSLocalizedString(@"个人中心", nil)
+                        NSLocalizedString(@"首页", nil),
+                        NSLocalizedString(@"发现", nil),
+                        NSLocalizedString(@"爱车", nil),
+                        NSLocalizedString(@"账户", nil)
                         ];
     
     NSArray *imgTitles = @[
                            @"tab_home_regular_icon",
-                           @"tab_navigation_regular_icon",
-                           @"tab_shop_regular_icon",
+                           @"tab_find_regular_icon",
+                           @"tab_car_regular_icon",
                            @"tab_user_regular_icon"
                            ];
     
     NSArray *selectedImgTitles = @[
-                                   @"tab_home_checked_icon",
-                                   @"tab_navigation_checked_icon",
-                                   @"tab_shop_checked_icon",
-                                   @"tab_user_checked_icon"
+                                   @"tab_home_icon",
+                                   @"tab_find_icon",
+                                   @"tab_car_icon",
+                                   @"tab_user_icon"
                                    ];
     
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
@@ -58,7 +59,8 @@
         NavigationController *naVC = [[NavigationController alloc] initWithRootViewController:vc];
         naVC.delegate = self;
         naVC.tabBarItem.title = titles[i];
-        [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
+        [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:11]} forState:UIControlStateSelected];
+        [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#c4b7a6"],NSFontAttributeName:[UIFont fontWithName:FontName size:11]} forState:UIControlStateNormal];
         [naVC.tabBarItem setImage:[[UIImage imageNamed:imgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [naVC.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
