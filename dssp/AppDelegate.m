@@ -35,6 +35,7 @@
 
 - (void)config {
     [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].keyboardDistanceFromTextField = 70 * HeightCoefficient;
     [AMapServices sharedServices].apiKey = @"276493345747181efd3c01d675705889";
     [AMapServices sharedServices].enableHTTPS = YES;
 }
