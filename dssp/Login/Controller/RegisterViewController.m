@@ -102,19 +102,19 @@
         [line makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
             make.height.equalTo(0.5 * HeightCoefficient);
-            make.width.equalTo(275 * WidthCoefficient);
+            make.width.equalTo(290 * WidthCoefficient);
             make.top.equalTo(yOffset[i].floatValue * HeightCoefficient);
         }];
         
         UITextField *field = [[UITextField alloc] init];
         field.delegate = self;
         field.textColor = [UIColor colorWithHexString:GeneralColorString];
-        field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:14]}];
-        field.font = [UIFont fontWithName:FontName size:14];
+        field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+        field.font = [UIFont fontWithName:FontName size:15];
         [self.view addSubview:field];
         [field makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(line);
-            make.width.equalTo(120 * WidthCoefficient);
+            make.width.equalTo(150 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
             make.bottom.equalTo(line.top).offset(-5 * HeightCoefficient);
         }];
@@ -193,13 +193,13 @@
     [self.view addSubview:_registerBtn];
     [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.equalTo(275 * WidthCoefficient);
+        make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.top.equalTo(502.5 * HeightCoefficient);
     }];
     
     NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册及表示同意<用户协议>"];
-    agreement.yy_font = [UIFont fontWithName:FontName size:11];
+    agreement.yy_font = [UIFont fontWithName:FontName size:12];
     agreement.yy_color = [UIColor colorWithHexString:@"#999999"];
     NSRange range = [@"注册及表示同意<用户协议>" rangeOfString:@"<用户协议>"];
     [agreement yy_setTextHighlightRange:range color:[UIColor redColor] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -228,13 +228,13 @@
     
     UILabel *botLabel = [[UILabel alloc] init];
     botLabel.text = NSLocalizedString(@"已经有账号?", nil);
-    botLabel.font = [UIFont fontWithName:FontName size:13];
+    botLabel.font = [UIFont fontWithName:FontName size:14];
     botLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(132.5 * WidthCoefficient);
-        make.top.equalTo(610.5 * HeightCoefficient);
-        make.width.equalTo(78.5 * WidthCoefficient);
+        make.left.equalTo(126.5 * WidthCoefficient);
+        make.top.equalTo(609.5 * HeightCoefficient);
+        make.width.equalTo(91 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
     
@@ -248,8 +248,8 @@
     [self.view addSubview:_loginBtn];
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(botLabel.right).offset(5 * WidthCoefficient);
-        make.width.equalTo(26.5 * WidthCoefficient);
+        make.left.equalTo(botLabel.right);
+        make.width.equalTo(31 * WidthCoefficient);
     }];
 }
 
@@ -266,6 +266,7 @@
         [self presentViewController:loginVC animated:NO completion:nil];
     }
     if (sender == self.registerBtn) {
+        [self.view endEditing:YES];
         [CUHTTPRequest POST:registerUrl parameters:nil response:^(id responseData) {
             if (responseData) {
                 [self registerSuccess];
@@ -338,9 +339,9 @@
     [container addSubview:label2];
     [label2 makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(300 * WidthCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(container);
-        make.top.equalTo(597.5 * HeightCoefficient);
+        make.top.equalTo(600 * HeightCoefficient);
     }];
     
     [NSTimer scheduledTimerWithTimeInterval:1 block:^(NSTimer * _Nonnull timer) {
@@ -356,6 +357,31 @@
 }
 
 #pragma mark - UITextFieldDelegate -
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    textField.attributedPlaceholder = nil;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSArray *placeHolders = @[
+                              NSLocalizedString(@"手机号", nil),
+                              NSLocalizedString(@"手机验证码", nil),
+                              NSLocalizedString(@"用户名", nil),
+                              NSLocalizedString(@"密码", nil),
+                              NSLocalizedString(@"确认密码", nil)
+                              ];
+    if (textField == self.phoneField) {
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[0] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+    } else if (textField == self.authField) {
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[1] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+    } else if (textField == self.userNameField) {
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[2] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+    } else if (textField == self.passwordField) {
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[3] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+    } else if (textField == self.confirmPasswordField) {
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[4] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+    }
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *content = nil;
