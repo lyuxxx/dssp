@@ -14,7 +14,7 @@
 #import "LoginResult.h"
 #import <YYModel/YYModel.h>
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *userNameField;
 @property (nonatomic, strong) UITextField *passwordField;
@@ -75,14 +75,15 @@
     
     self.userNameField = [[UITextField alloc] init];
     _userNameField.textColor = [UIColor whiteColor];
-    _userNameField.font = [UIFont fontWithName:FontName size:14];
+    _userNameField.delegate = self;
+    _userNameField.font = [UIFont fontWithName:FontName size:15];
     _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"用户名", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_userNameField];
     [_userNameField makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(211.5 * HeightCoefficient);
-        make.left.equalTo(50 * WidthCoefficient);
+        make.left.equalTo(42.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
-        make.width.equalTo(120 * WidthCoefficient);
+        make.width.equalTo(150 * WidthCoefficient);
     }];
     
     
@@ -93,14 +94,15 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(236.5 * HeightCoefficient);
         make.height.equalTo(0.5 * HeightCoefficient);
-        make.width.equalTo(275 * WidthCoefficient);
+        make.width.equalTo(290 * WidthCoefficient);
     }];
     
     
     self.passwordField = [[UITextField alloc] init];
     _passwordField.secureTextEntry = true;
+    _passwordField.delegate = self;
     _passwordField.textColor = [UIColor whiteColor];
-    _passwordField.font = [UIFont fontWithName:FontName size:14];
+    _passwordField.font = [UIFont fontWithName:FontName size:15];
     _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_passwordField];
     [_passwordField makeConstraints:^(MASConstraintMaker *make) {
@@ -116,7 +118,7 @@
     [self.view addSubview:_smallEyeBtn];
     [_smallEyeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(16 * WidthCoefficient);
-        make.right.equalTo(-50 * WidthCoefficient);
+        make.right.equalTo(line0);
         make.height.equalTo(10 * HeightCoefficient);
         make.top.equalTo(274.5 * HeightCoefficient);
     }];
@@ -129,7 +131,7 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(293.5 * HeightCoefficient);
         make.height.equalTo(0.5 * HeightCoefficient);
-        make.width.equalTo(275 * WidthCoefficient);
+        make.width.equalTo(290 * WidthCoefficient);
     }];
     
     
@@ -142,8 +144,8 @@
     [self.view addSubview:_forgotPassword];
     [_forgotPassword makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(70.5 * WidthCoefficient);
-        make.right.equalTo(-50 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
+        make.right.equalTo(line);
         make.top.equalTo(306 * HeightCoefficient);
     }];
     
@@ -159,7 +161,7 @@
     [self.view addSubview:_loginBtn];
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.equalTo(275 * WidthCoefficient);
+        make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.top.equalTo(390 * HeightCoefficient);
     }];
@@ -167,11 +169,11 @@
     
     UILabel *botLabel = [[UILabel alloc] init];
     botLabel.text = NSLocalizedString(@"还没有账号?", nil);
-    botLabel.font = [UIFont fontWithName:FontName size:13];
+    botLabel.font = [UIFont fontWithName:FontName size:14];
     botLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(135 * WidthCoefficient);
+        make.left.equalTo(131.5 * WidthCoefficient);
         make.top.equalTo(_loginBtn.bottom).offset(32 * HeightCoefficient);
         make.width.equalTo(78.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
@@ -180,14 +182,14 @@
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_registerBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _registerBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
+    _registerBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
     _registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_registerBtn setTitle:NSLocalizedString(@"注册", nil) forState:UIControlStateNormal];
     [_registerBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
     [self.view addSubview:self.registerBtn];
     [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(213.5 * WidthCoefficient);
+        make.left.equalTo(215.5 * WidthCoefficient);
         make.width.equalTo(30.5 * WidthCoefficient);
     }];
 }
@@ -222,6 +224,28 @@
         RegisterViewController *registerVC = [[RegisterViewController alloc] init];
         [self presentViewController:registerVC animated:NO completion:nil];
     }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    // 当输入框获得焦点时，执行该方法 （光标出现时）。
+    //开始编辑时触发，文本字段将成为first responder
+       textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+ 
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    //返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first responder
+    if (textField == self.passwordField) {
+        _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+         _passwordField.font = [UIFont fontWithName:FontName size:15];
+    }
+    else
+    {
+        _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"用户名", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+        _userNameField.font = [UIFont fontWithName:FontName size:15];
+    }
+
+    return YES;
 }
 
 
