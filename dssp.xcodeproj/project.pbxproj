@@ -13,6 +13,7 @@
 		310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DC1FA96BE900DC9529 /* StoreViewController.m */; };
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
+		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
 		31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
 		31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB91FA87CE300C8FDF8 /* NavigationController.m */; };
 		31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EBC1FA87D0900C8FDF8 /* TabBarController.m */; };
@@ -26,6 +27,7 @@
 		316CA46E1F9F3475009F541E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
 		316CA4781F9F3475009F541E /* dsspUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4771F9F3475009F541E /* dsspUITests.m */; };
 		31D4214B1FA97806004A2A96 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D4214A1FA97806004A2A96 /* WifiViewController.m */; };
+		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,8 @@
 		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
 		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
+		314E05D21FB582D6000550C7 /* TopImgButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopImgButton.h; sourceTree = "<group>"; };
+		314E05D31FB582D6000550C7 /* TopImgButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopImgButton.m; sourceTree = "<group>"; };
 		31699EB51FA87CC100C8FDF8 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		31699EB61FA87CC100C8FDF8 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		31699EB81FA87CE300C8FDF8 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 		316CA4791F9F3475009F541E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31D421491FA97806004A2A96 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
 		31D4214A1FA97806004A2A96 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
+		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
+		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,10 +145,8 @@
 		310A07D11FA96A9E00DC9529 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				310A07D21FA96AD500DC9529 /* HomeViewController.h */,
-				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
-				31D421491FA97806004A2A96 /* WifiViewController.h */,
-				31D4214A1FA97806004A2A96 /* WifiViewController.m */,
+				314E05D11FB582B8000550C7 /* Controller */,
+				314E05D01FB582AA000550C7 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -188,6 +192,28 @@
 			children = (
 				310A07D81FA96BDB00DC9529 /* MapViewController.h */,
 				310A07D91FA96BDB00DC9529 /* MapViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		314E05D01FB582AA000550C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				314E05D21FB582D6000550C7 /* TopImgButton.h */,
+				314E05D31FB582D6000550C7 /* TopImgButton.m */,
+				31E4E6161FB9295D00BF954E /* HomeTopView.h */,
+				31E4E6171FB9295D00BF954E /* HomeTopView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		314E05D11FB582B8000550C7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				310A07D21FA96AD500DC9529 /* HomeViewController.h */,
+				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
+				31D421491FA97806004A2A96 /* WifiViewController.h */,
+				31D4214A1FA97806004A2A96 /* WifiViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -494,6 +520,8 @@
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
+				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
+				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,

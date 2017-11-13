@@ -21,6 +21,7 @@
     // Do any additional setup after loading the view.
     
     [self setup];
+    [self setNavBar];
 }
 
 - (void)setup {
@@ -70,11 +71,21 @@
     self.viewControllers = viewControllers;
 }
 
+- (void)setNavBar {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, kNaviHeight);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#2c2626"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor];
+    gradient.startPoint = CGPointMake(0, 0.5);
+    gradient.endPoint = CGPointMake(1, 0.5);
+    UIImage *gradientImg = [gradient snapshotImage];
+    [[UINavigationBar appearance] setBackgroundImage:gradientImg forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[gradientImg imageByResizeToSize:CGSizeMake(kScreenWidth, 0.5)]];
+}
+
 ///处理iPhone X tabbar上移以及管理隐藏导航栏
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
     NSArray *needHideCls = @[
-                             @"HomeViewController",
                              @"MapViewController"
                              ];
     
