@@ -13,7 +13,7 @@ target 'dssp' do
   pod 'KVOController', '~> 1.2.0'
   pod 'IQKeyboardManager', '~> 5.0.4'
   pod 'YYText', '~> 1.0.7'
-
+  pod 'MJRefresh', '~> 3.1.15'
   
   # internal pod
   pod 'CUHTTPRequest', '~> 0.1.3'

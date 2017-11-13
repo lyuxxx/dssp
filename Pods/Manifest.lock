@@ -30,6 +30,7 @@ PODS:
     - AMapSearch (~> 5.4.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.15)
   - SDWebImage (4.1.2):
     - SDWebImage/Core (= 4.1.2)
   - SDWebImage/Core (4.1.2)
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - KVOController (~> 1.2.0)
   - MapManager (~> 0.1.0)
   - Masonry (~> 1.1.0)
+  - MJRefresh (~> 3.1.15)
   - UIImageViewSDWebImage (~> 0.1.3)
   - YYCategoriesSub (~> 0.1.0)
   - YYModel (~> 1.0.4)
@@ -63,12 +65,13 @@ SPEC CHECKSUMS:
   MapManager: b6203c32e7a64e1d3aa53d337511d7f654c28068
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
   SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   UIImageViewSDWebImage: 44ca36ac52ca62d2ab8095ef93b3f50cedcaff76
   YYCategoriesSub: a767b2c97a4d4698ab561849bfaa6a0f61f5814c
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 02ff4c034d289b086e3b54041ee3fefe660d8943
+PODFILE CHECKSUM: 8ef806c9ced5ecb97c3341080ab92e5d5430e672
 
 COCOAPODS: 1.3.1

@@ -33,5 +33,10 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    UIViewController *vc = [[NSClassFromString(@"CarBindingViewController") alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

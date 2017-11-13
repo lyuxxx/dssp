@@ -8,6 +8,7 @@
 
 #import "WifiViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
+#import "ModifyWifiViewController.h"
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
@@ -86,6 +87,7 @@
     }];
     
     self.passwordField = [[UITextField alloc] init];
+    _passwordField.userInteractionEnabled = NO;
     _passwordField.textColor = [UIColor colorWithHexString:@"#999999"];
     _passwordField.text = @"1234353543ds";
     [whiteV addSubview:_passwordField];
@@ -103,7 +105,7 @@
     [_secureBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
     [whiteV addSubview:_secureBtn];
     [_secureBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(25 * WidthCoefficient);
+        make.width.equalTo(20 * WidthCoefficient);
         make.height.equalTo(10 * HeightCoefficient);
         make.centerY.equalTo(_passwordField);
         make.right.equalTo(-15 * WidthCoefficient);
@@ -120,6 +122,7 @@
     }];
     
     UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    modifyBtn.layer.cornerRadius = 2;
     [modifyBtn addTarget:self action:@selector(modifyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [modifyBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
     [modifyBtn setTitle:NSLocalizedString(@"修改密码", nil) forState:UIControlStateNormal];
@@ -140,7 +143,8 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
-    
+    ModifyWifiViewController *vc = [[ModifyWifiViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
