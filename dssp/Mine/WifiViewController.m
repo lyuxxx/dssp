@@ -61,6 +61,7 @@
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
+    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
     whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
     whiteV.layer.shadowOpacity = 0.2;
     whiteV.layer.shadowRadius = 7;
