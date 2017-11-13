@@ -78,8 +78,10 @@
     gradient.startPoint = CGPointMake(0, 0.5);
     gradient.endPoint = CGPointMake(1, 0.5);
     UIImage *gradientImg = [gradient snapshotImage];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:GeneralColorString]];
     [[UINavigationBar appearance] setBackgroundImage:gradientImg forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[gradientImg imageByResizeToSize:CGSizeMake(kScreenWidth, 0.5)]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
 }
 
 ///处理iPhone X tabbar上移以及管理隐藏导航栏

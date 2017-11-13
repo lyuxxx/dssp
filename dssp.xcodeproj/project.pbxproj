@@ -19,6 +19,7 @@
 		31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EBC1FA87D0900C8FDF8 /* TabBarController.m */; };
 		31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC01FA87E6900C8FDF8 /* LoginViewController.m */; };
 		31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
+		316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CE51FB94A35008A6094 /* WifiViewController.m */; };
 		316CA4601F9F3475009F541E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA45F1F9F3475009F541E /* AppDelegate.m */; };
 		316CA4631F9F3475009F541E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4621F9F3475009F541E /* ViewController.m */; };
 		316CA4661F9F3475009F541E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4641F9F3475009F541E /* Main.storyboard */; };
@@ -26,7 +27,6 @@
 		316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
 		316CA46E1F9F3475009F541E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
 		316CA4781F9F3475009F541E /* dsspUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4771F9F3475009F541E /* dsspUITests.m */; };
-		31D4214B1FA97806004A2A96 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D4214A1FA97806004A2A96 /* WifiViewController.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
@@ -70,6 +70,8 @@
 		31699EC21FA87E8400C8FDF8 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		316B6CE41FB94A35008A6094 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
+		316B6CE51FB94A35008A6094 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
 		316CA45B1F9F3475009F541E /* dssp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dssp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA45E1F9F3475009F541E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		316CA45F1F9F3475009F541E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -83,8 +85,6 @@
 		316CA4731F9F3475009F541E /* dsspUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dsspUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA4771F9F3475009F541E /* dsspUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dsspUITests.m; sourceTree = "<group>"; };
 		316CA4791F9F3475009F541E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31D421491FA97806004A2A96 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
-		31D4214A1FA97806004A2A96 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +174,8 @@
 			children = (
 				310A07DE1FA96BF800DC9529 /* MineViewController.h */,
 				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
+				316B6CE41FB94A35008A6094 /* WifiViewController.h */,
+				316B6CE51FB94A35008A6094 /* WifiViewController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -212,8 +214,6 @@
 			children = (
 				310A07D21FA96AD500DC9529 /* HomeViewController.h */,
 				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
-				31D421491FA97806004A2A96 /* WifiViewController.h */,
-				31D4214A1FA97806004A2A96 /* WifiViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -523,13 +523,13 @@
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
+				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
 				310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
-				31D4214B1FA97806004A2A96 /* WifiViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
 				310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */,
 			);
