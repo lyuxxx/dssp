@@ -28,7 +28,7 @@
     NSArray *cls = @[
                      @"HomeViewController",
                      @"MapViewController",
-                     @"StoreViewController",
+                     @"LoveCarViewController",
                      @"MineViewController"
                      ];
     

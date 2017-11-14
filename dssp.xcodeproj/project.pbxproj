@@ -10,7 +10,6 @@
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
 		310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapViewController.m */; };
-		310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DC1FA96BE900DC9529 /* StoreViewController.m */; };
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
 		313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
 		313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
@@ -35,6 +34,8 @@
 		316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
 		316CA46E1F9F3475009F541E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
 		316CA4781F9F3475009F541E /* dsspUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4771F9F3475009F541E /* dsspUITests.m */; };
+		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
+		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
@@ -59,8 +60,6 @@
 		310A07D31FA96AD500DC9529 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		310A07D81FA96BDB00DC9529 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		310A07D91FA96BDB00DC9529 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		310A07DB1FA96BE900DC9529 /* StoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
-		310A07DC1FA96BE900DC9529 /* StoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		310A07DE1FA96BF800DC9529 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
@@ -109,6 +108,10 @@
 		316CA4731F9F3475009F541E /* dsspUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dsspUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA4771F9F3475009F541E /* dsspUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dsspUITests.m; sourceTree = "<group>"; };
 		316CA4791F9F3475009F541E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoveCarViewController.h; sourceTree = "<group>"; };
+		31DDD2501FBABA0000D37DED /* LoveCarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoveCarViewController.m; sourceTree = "<group>"; };
+		31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sudoku.h"; sourceTree = "<group>"; };
+		31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
@@ -184,15 +187,6 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		310A07D61FA96B7100DC9529 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				310A07DB1FA96BE900DC9529 /* StoreViewController.h */,
-				310A07DC1FA96BE900DC9529 /* StoreViewController.m */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
 		310A07D71FA96B8D00DC9529 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +215,8 @@
 			children = (
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
 				313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */,
+				31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */,
+				31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -312,7 +308,7 @@
 				31699EBE1FA87E5100C8FDF8 /* Login */,
 				310A07D11FA96A9E00DC9529 /* Home */,
 				310A07D51FA96B6800DC9529 /* Map */,
-				310A07D61FA96B7100DC9529 /* Store */,
+				31DDD24E1FBAB9C300D37DED /* Car */,
 				310A07D71FA96B8D00DC9529 /* Mine */,
 				31699EB41FA87C7E00C8FDF8 /* BaseClass */,
 				316CA45E1F9F3475009F541E /* AppDelegate.h */,
@@ -337,6 +333,15 @@
 				316CA4791F9F3475009F541E /* Info.plist */,
 			);
 			path = dsspUITests;
+			sourceTree = "<group>";
+		};
+		31DDD24E1FBAB9C300D37DED /* Car */ = {
+			isa = PBXGroup;
+			children = (
+				31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */,
+				31DDD2501FBABA0000D37DED /* LoveCarViewController.m */,
+			);
+			path = Car;
 			sourceTree = "<group>";
 		};
 		970D93E9BFE3ED1AE5671BF8 /* Pods */ = {
@@ -574,6 +579,7 @@
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
+				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
@@ -585,8 +591,8 @@
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
-				310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
+				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
 				310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */,
 			);
