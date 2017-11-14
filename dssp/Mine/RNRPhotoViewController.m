@@ -34,48 +34,78 @@
 - (void)setupUI {
     self.navigationItem.title = NSLocalizedString(@"上传证件照片", nil);
     
-    UIImageView *imgV = [[UIImageView alloc] init];
-    imgV.contentMode = UIViewContentModeScaleAspectFit;
-    imgV.userInteractionEnabled = YES;
-    imgV.backgroundColor = [UIColor whiteColor];
-    imgV.layer.cornerRadius = 4;
-    imgV.layer.shadowOffset = CGSizeMake(0, 4);
-    imgV.layer.shadowRadius = 7;
-    imgV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    imgV.layer.shadowOpacity = 0.2;
-    [self.view addSubview:imgV];
-    [imgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(188 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(20 * HeightCoefficient);
+    UIScrollView *scroll = [[UIScrollView alloc] init];
+    scroll.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:scroll];
+    [scroll makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, -kBottomHeight - 60 *HeightCoefficient, 0));
     }];
     
-    UIImageView *camera = [[UIImageView alloc] init];
-    camera.image = [UIImage imageNamed:@"shot"];
-    [imgV addSubview:camera];
-    [camera makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(24 * WidthCoefficient);
-        make.height.equalTo(21.5 * HeightCoefficient);
-        make.centerX.equalTo(imgV);
-        make.top.equalTo(imgV).offset(67.5 * HeightCoefficient);
+    UIView *content = [[UIView alloc] init];
+    [scroll addSubview:content];
+    [content makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(scroll);
+        make.width.equalTo(scroll);
     }];
     
-    UILabel *title = [[UILabel alloc] init];
-    title.text = NSLocalizedString(@"身份证正面", nil);
-    title.textAlignment = NSTextAlignmentCenter;
-    title.textColor = [UIColor colorWithHexString:@"#c4b7a6"];
-    title.font = [UIFont fontWithName:FontName size:16];
-    [imgV addSubview:title];
-    [title makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(214.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(camera.bottom).offset(11.5 * HeightCoefficient);
-    }];
+    NSArray *titles = @[NSLocalizedString(@"身份证正面", nil),NSLocalizedString(@"身份证反面", nil),NSLocalizedString(@"手持身份证照片", nil)];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-    [imgV addGestureRecognizer:tap];
+    UIImageView *lastView;
+    
+    for (NSInteger i = 0; i < titles.count; i++) {
+        UIImageView *imgV = [[UIImageView alloc] init];
+        imgV.contentMode = UIViewContentModeScaleAspectFit;
+        imgV.userInteractionEnabled = YES;
+        imgV.backgroundColor = [UIColor whiteColor];
+        imgV.layer.cornerRadius = 4;
+        imgV.layer.shadowOffset = CGSizeMake(0, 4);
+        imgV.layer.shadowRadius = 7;
+        imgV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+        imgV.layer.shadowOpacity = 0.2;
+        [content addSubview:imgV];
+        [imgV makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(343 * WidthCoefficient);
+            make.height.equalTo(188 * HeightCoefficient);
+            make.centerX.equalTo(0);
+            if (i == 0) {
+                make.top.equalTo((20 + 208 * i) * HeightCoefficient);
+            } else {
+                make.top.equalTo(lastView.bottom).offset(20 * HeightCoefficient);
+            }
+        }];
+        
+        lastView = imgV;
+        
+        UIImageView *camera = [[UIImageView alloc] init];
+        camera.image = [UIImage imageNamed:@"shot"];
+        [imgV addSubview:camera];
+        [camera makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(24 * WidthCoefficient);
+            make.height.equalTo(21.5 * HeightCoefficient);
+            make.centerX.equalTo(imgV);
+            make.top.equalTo(imgV).offset(67.5 * HeightCoefficient);
+        }];
+        
+        UILabel *title = [[UILabel alloc] init];
+        title.text = titles[i];
+        title.textAlignment = NSTextAlignmentCenter;
+        title.textColor = [UIColor colorWithHexString:@"#c4b7a6"];
+        title.font = [UIFont fontWithName:FontName size:16];
+        [imgV addSubview:title];
+        [title makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(214.5 * WidthCoefficient);
+            make.height.equalTo(22.5 * HeightCoefficient);
+            make.centerX.equalTo(0);
+            make.top.equalTo(camera.bottom).offset(11.5 * HeightCoefficient);
+        }];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        [imgV addGestureRecognizer:tap];
+    }
+    
+    [lastView makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(content.bottom).offset(-28 * HeightCoefficient);
+    }];
     
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [submitBtn addTarget:self action:@selector(sumitBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,10 +121,6 @@
         make.centerX.equalTo(0);
         make.bottom.equalTo(self.view.bottom).offset(-8 * HeightCoefficient - kBottomHeight);
     }];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
 }
 
 - (void)sumitBtnClick:(UIButton *)sender {
