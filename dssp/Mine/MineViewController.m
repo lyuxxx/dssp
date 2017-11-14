@@ -32,8 +32,6 @@
     // Do any additional setup after loading the view.
 
     self.navigationItem.title = NSLocalizedString(@"", nil);
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.clipsToBounds = YES;
     
     _dataArray=@[@[@"coin",@"我的积分 / 优惠券"],@[@"身份证",@"实名认证"],@[@"汽车信息",@"车辆信息"],@[@"合同信息",@"合同信息"],@[@"密码",@"账户密码"],@[@"客服",@"联系客服"],@[@"反馈中心",@"反馈中心"],@[@"常见问题",@"常见问题"],@[@"功能介绍",@"功能介绍"]];
     

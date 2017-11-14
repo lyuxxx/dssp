@@ -88,7 +88,8 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
     NSArray *needHideCls = @[
-                             @"MapViewController"
+                             @"MapViewController",
+                             @"MineViewController"
                              ];
     
     BOOL needHideNavigationBar = NO;

@@ -38,10 +38,11 @@
     scroll.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scroll];
     [scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, -kBottomHeight - 60 *HeightCoefficient, 0));
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kBottomHeight + 60 *HeightCoefficient, 0));
     }];
     
     UIView *content = [[UIView alloc] init];
+    content.backgroundColor = [UIColor whiteColor];
     [scroll addSubview:content];
     [content makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(scroll);
