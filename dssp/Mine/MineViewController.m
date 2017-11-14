@@ -35,7 +35,7 @@
 */
 //- (void)viewDidAppear:(BOOL)animated {
 //    [super viewDidAppear:animated];
-//    UIViewController *vc = [[NSClassFromString(@"RNRViewController") alloc] init];
+//    UIViewController *vc = [[NSClassFromString(@"VINBindingViewController") alloc] init];
 //    vc.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:vc animated:YES];
 //}

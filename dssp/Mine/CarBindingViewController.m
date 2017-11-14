@@ -45,6 +45,7 @@
     }];
     
     UILabel *intro = [[UILabel alloc] init];
+    intro.textAlignment = NSTextAlignmentCenter;
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     intro.text = NSLocalizedString(@"填写车辆信息完成车辆绑定", nil);
     [whiteV addSubview:intro];

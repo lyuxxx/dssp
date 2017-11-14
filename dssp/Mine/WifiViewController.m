@@ -8,7 +8,6 @@
 
 #import "WifiViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
-#import "ModifyWifiViewController.h"
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
@@ -89,8 +88,9 @@
     
     self.passwordField = [[UITextField alloc] init];
     _passwordField.userInteractionEnabled = NO;
-    _passwordField.textColor = [UIColor colorWithHexString:@"#999999"];
-    _passwordField.text = @"1234353543ds";
+    _passwordField.textColor = [UIColor colorWithHexString:@"#040000"];
+    _passwordField.font = [UIFont fontWithName:FontName size:15];
+    _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"12346363rs" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     [whiteV addSubview:_passwordField];
     [_passwordField makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);
@@ -144,8 +144,7 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
-    ModifyWifiViewController *vc = [[ModifyWifiViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 @end

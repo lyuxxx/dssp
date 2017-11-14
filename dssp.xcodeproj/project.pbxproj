@@ -12,6 +12,10 @@
 		310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapViewController.m */; };
 		310A07DD1FA96BE900DC9529 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DC1FA96BE900DC9529 /* StoreViewController.m */; };
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
+		313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
+		313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
+		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
+		313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
 		31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
@@ -20,7 +24,6 @@
 		31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC01FA87E6900C8FDF8 /* LoginViewController.m */; };
 		31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
 		316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CE51FB94A35008A6094 /* WifiViewController.m */; };
-		316B6CE91FB97300008A6094 /* ModifyWifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CE81FB97300008A6094 /* ModifyWifiViewController.m */; };
 		316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */; };
 		316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF21FB99BA7008A6094 /* CarSeriesViewController.m */; };
 		316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF51FB99F4A008A6094 /* RNRViewController.m */; };
@@ -60,6 +63,14 @@
 		310A07DC1FA96BE900DC9529 /* StoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		310A07DE1FA96BF800DC9529 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
+		313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StatusBar.m"; sourceTree = "<group>"; };
+		313070CA1FBA89C500A0DE71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		313070CC1FBA89EC00A0DE71 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		313070CD1FBA924000A0DE71 /* RNRFinishedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRFinishedViewController.h; sourceTree = "<group>"; };
+		313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRFinishedViewController.m; sourceTree = "<group>"; };
+		313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VINBindingViewController.h; sourceTree = "<group>"; };
+		313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VINBindingViewController.m; sourceTree = "<group>"; };
 		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
 		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
 		314E05D21FB582D6000550C7 /* TopImgButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopImgButton.h; sourceTree = "<group>"; };
@@ -77,8 +88,6 @@
 		31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		316B6CE41FB94A35008A6094 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
 		316B6CE51FB94A35008A6094 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
-		316B6CE71FB97300008A6094 /* ModifyWifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyWifiViewController.h; sourceTree = "<group>"; };
-		316B6CE81FB97300008A6094 /* ModifyWifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyWifiViewController.m; sourceTree = "<group>"; };
 		316B6CEA1FB97F6A008A6094 /* CarBindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingViewController.h; sourceTree = "<group>"; };
 		316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingViewController.m; sourceTree = "<group>"; };
 		316B6CF11FB99BA7008A6094 /* CarSeriesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarSeriesViewController.h; sourceTree = "<group>"; };
@@ -191,8 +200,8 @@
 				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
 				316B6CE41FB94A35008A6094 /* WifiViewController.h */,
 				316B6CE51FB94A35008A6094 /* WifiViewController.m */,
-				316B6CE71FB97300008A6094 /* ModifyWifiViewController.h */,
-				316B6CE81FB97300008A6094 /* ModifyWifiViewController.m */,
+				313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */,
+				313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */,
 				316B6CEA1FB97F6A008A6094 /* CarBindingViewController.h */,
 				316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */,
 				316B6CF11FB99BA7008A6094 /* CarSeriesViewController.h */,
@@ -201,8 +210,19 @@
 				316B6CF51FB99F4A008A6094 /* RNRViewController.m */,
 				316B6CF71FB9A56A008A6094 /* RNRPhotoViewController.h */,
 				316B6CF81FB9A56A008A6094 /* RNRPhotoViewController.m */,
+				313070CD1FBA924000A0DE71 /* RNRFinishedViewController.h */,
+				313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		313070C31FBA885300A0DE71 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
+				313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		313AC7DC1FAC5A9B00A3662E /* View */ = {
@@ -288,6 +308,7 @@
 		316CA45D1F9F3475009F541E /* dssp */ = {
 			isa = PBXGroup;
 			children = (
+				313070C31FBA885300A0DE71 /* Utils */,
 				31699EBE1FA87E5100C8FDF8 /* Login */,
 				310A07D11FA96A9E00DC9529 /* Home */,
 				310A07D51FA96B6800DC9529 /* Map */,
@@ -303,6 +324,7 @@
 				316CA4691F9F3475009F541E /* LaunchScreen.storyboard */,
 				316CA46C1F9F3475009F541E /* Info.plist */,
 				316CA46D1F9F3475009F541E /* main.m */,
+				313070CB1FBA89C500A0DE71 /* Localizable.strings */,
 				31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */,
 			);
 			path = dssp;
@@ -399,6 +421,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 316CA4521F9F3475009F541E;
 			productRefGroup = 316CA45C1F9F3475009F541E /* Products */;
@@ -417,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
+				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
 				316CA4661F9F3475009F541E /* Main.storyboard in Resources */,
 			);
@@ -547,12 +571,14 @@
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
+				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
+				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
-				316B6CE91FB97300008A6094 /* ModifyWifiViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
+				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
@@ -585,6 +611,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		313070CB1FBA89C500A0DE71 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				313070CA1FBA89C500A0DE71 /* en */,
+				313070CC1FBA89EC00A0DE71 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		316CA4641F9F3475009F541E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -608,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -663,6 +699,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

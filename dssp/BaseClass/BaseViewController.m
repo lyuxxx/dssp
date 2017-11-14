@@ -30,7 +30,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     if ([self needGradientImg]) {
         CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = CGRectMake(0, 0, kScreenWidth, 126 * HeightCoefficient);
+        gradient.frame = CGRectMake(0, 0, kScreenWidth, 96 * HeightCoefficient);
         gradient.colors = @[(id)[UIColor colorWithHexString:@"#2c2626"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor];
         gradient.startPoint = CGPointMake(0, 0.5);
         gradient.endPoint = CGPointMake(1, 0.5);
@@ -38,7 +38,7 @@
         [self.view addSubview:gradientImgV];
         [gradientImgV makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(kScreenWidth);
-            make.height.equalTo((190 - kNaviHeight) * HeightCoefficient);
+            make.height.equalTo((160 - kNaviHeight) * HeightCoefficient);
             make.top.equalTo(0);
             make.centerX.equalTo(self.view);
         }];
