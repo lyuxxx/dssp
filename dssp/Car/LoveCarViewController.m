@@ -226,6 +226,19 @@
         make.top.equalTo(storeLabel.bottom).offset(10 * HeightCoefficient);
         make.bottom.equalTo(content.bottom).offset(-40.5 * HeightCoefficient);
     }];
+    
+    UILabel *innerLabel = [[UILabel alloc] init];
+    innerLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+    innerLabel.numberOfLines = 0;
+    innerLabel.text = @"DS商城\n更多优惠 邀您选购";
+    innerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [storeImgV addSubview:innerLabel];
+    [innerLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(210 * WidthCoefficient);
+        make.height.equalTo(50 * HeightCoefficient);
+        make.left.equalTo(15 * WidthCoefficient);
+        make.top.equalTo(20 * HeightCoefficient);
+    }];
 }
 
 - (void)btnClick:(UIButton *)sender {

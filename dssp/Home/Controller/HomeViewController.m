@@ -60,6 +60,7 @@
     self.scroll = [[UIScrollView alloc] init];
     _scroll.contentInset = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);
     _scroll.scrollIndicatorInsets = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);
+    _scroll.showsVerticalScrollIndicator = NO;
     if (@available(iOS 11.0, *)) {
         _scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
@@ -67,7 +68,7 @@
     }
     [self.view addSubview:_scroll];
     [_scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
     }];
     
     UIView *content = [[UIView alloc] init];
@@ -75,7 +76,6 @@
     [content makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_scroll);
         make.width.equalTo(_scroll);
-        make.height.equalTo(1000);
     }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
@@ -127,6 +127,58 @@
         
         scroll;
      });
+    
+    UILabel *reportLabel = [[UILabel alloc] init];
+    reportLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+    reportLabel.font = [UIFont fontWithName:FontName size:16];
+    reportLabel.text = NSLocalizedString(@"行车报告", nil);
+    [content addSubview:reportLabel];
+    [reportLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(71.2 * WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.top.equalTo(_banner.bottom).offset(20 * HeightCoefficient);
+        make.left.equalTo(7.5 * WidthCoefficient);
+    }];
+    
+    UIImageView *reportImgV = [[UIImageView alloc] init];
+    reportImgV.layer.cornerRadius = 4;
+    reportImgV.backgroundColor = [UIColor colorWithHexString:@"#4d443e"];
+    [content addSubview:reportImgV];
+    [reportImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(359 * WidthCoefficient);
+        make.height.equalTo(158 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(reportLabel.bottom).offset(10 * HeightCoefficient);
+        make.bottom.equalTo(content.bottom).offset(-40 * HeightCoefficient);
+    }];
+    
+    UILabel * innerLabel = [[UILabel alloc] init];
+    innerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    innerLabel.textColor = [UIColor whiteColor];
+    innerLabel.font = [UIFont fontWithName:FontName size:14];
+    innerLabel.numberOfLines = 0;
+    innerLabel.text = @"驾驶行为周\n2017-12-07";
+    [reportImgV addSubview:innerLabel];
+    [innerLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(152.5 * WidthCoefficient);
+        make.height.equalTo(50 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(20 * HeightCoefficient);
+    }];
+    
+    UIButton *detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    detailBtn.layer.cornerRadius = 11 * HeightCoefficient;
+    [detailBtn setTitle:NSLocalizedString(@"查看详细", nil) forState:UIControlStateNormal];
+    [detailBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    detailBtn.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
+    detailBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
+    [reportImgV addSubview:detailBtn];
+    [detailBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(75 * WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.left.equalTo(9.5 * WidthCoefficient);
+        make.top.equalTo(73 * HeightCoefficient);
+    }];
     
     [self.view insertSubview:_scroll atIndex:0];
     
