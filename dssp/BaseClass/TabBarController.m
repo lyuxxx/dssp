@@ -9,6 +9,7 @@
 #import "TabBarController.h"
 #import "NavigationController.h"
 #import <YYCategoriesSub/YYCategories.h>
+#import <RTRootNavigationController/RTRootNavigationController.h>
 
 @interface TabBarController () <UINavigationControllerDelegate>
 
@@ -16,12 +17,27 @@
 
 @implementation TabBarController
 
+- (BOOL)prefersStatusBarHidden
+{
+    return self.selectedViewController.prefersStatusBarHidden;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return self.selectedViewController.preferredStatusBarUpdateAnimation;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return self.selectedViewController.preferredStatusBarStyle;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self setup];
-    [self setNavBar];
 }
 
 - (void)setup {
@@ -57,7 +73,7 @@
     
     for (NSInteger i = 0; i < cls.count; i++) {
         UIViewController *vc = [[NSClassFromString(cls[i]) alloc] init];
-        NavigationController *naVC = [[NavigationController alloc] initWithRootViewController:vc];
+        RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:vc];
         naVC.delegate = self;
         naVC.tabBarItem.title = titles[i];
         [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:11]} forState:UIControlStateSelected];
@@ -71,35 +87,22 @@
     self.viewControllers = viewControllers;
 }
 
-- (void)setNavBar {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = CGRectMake(0, 0, kScreenWidth, kNaviHeight);
-    gradient.colors = @[(id)[UIColor colorWithHexString:@"#2c2626"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor];
-    gradient.startPoint = CGPointMake(0, 0.5);
-    gradient.endPoint = CGPointMake(1, 0.5);
-    UIImage *gradientImg = [gradient snapshotImage];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:GeneralColorString]];
-    [[UINavigationBar appearance] setBackgroundImage:gradientImg forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[gradientImg imageByResizeToSize:CGSizeMake(kScreenWidth, 0.5)]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
-}
-
 ///处理iPhone X tabbar上移以及管理隐藏导航栏
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
-    NSArray *needHideCls = @[
-                             @"MapViewController",
-                             @"MineViewController"
-                             ];
-    
-    BOOL needHideNavigationBar = NO;
-    for (NSString *cl in needHideCls) {
-        if ([viewController isKindOfClass:NSClassFromString(cl)]) {
-            needHideNavigationBar = YES;
-            break;
-        }
-    }
-    [viewController.navigationController setNavigationBarHidden:needHideNavigationBar animated:YES];
+//    NSArray *needHideCls = @[
+//                             @"MapViewController",
+//                             @"MineViewController"
+//                             ];
+//
+//    BOOL needHideNavigationBar = NO;
+//    for (NSString *cl in needHideCls) {
+//        if ([viewController isKindOfClass:NSClassFromString(cl)]) {
+//            needHideNavigationBar = YES;
+//            break;
+//        }
+//    }
+//    [viewController.navigationController setNavigationBarHidden:needHideNavigationBar animated:YES];
     
     if (!Is_Iphone_X) {
         return;

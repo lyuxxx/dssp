@@ -15,6 +15,7 @@ target 'dssp' do
   pod 'YYText', '~> 1.0.7'
   pod 'MJRefresh', '~> 3.1.15'
   pod 'TBActionSheet', '~> 1.5.5'
+  pod 'RTRootNavigationController', '~> 0.6.3'
   
   # internal pod
   pod 'CUHTTPRequest', '~> 0.1.3'

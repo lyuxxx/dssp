@@ -112,8 +112,7 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-//    RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
-    UIViewController *vc = [[NSClassFromString(@"CarSeriesViewController") alloc] init];
+    RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
