@@ -184,8 +184,9 @@
     
     [self.KVOController observe:self.scroll keyPath:@"contentOffset" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
-        CGFloat newOffset = offset.y + 355 * HeightCoefficient;
-        if (offset.y >= -145 * HeightCoefficient) {
+//        CGFloat newOffset = offset.y + 355 * HeightCoefficient;
+        CGFloat newOffset = offset.y + 92 * WidthCoefficient + 53 * HeightCoefficient + 210 * HeightCoefficient;
+        if (offset.y >= -(92 * WidthCoefficient + 53 * HeightCoefficient)) {
             [_topView updateConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(-210 * HeightCoefficient);
             }];

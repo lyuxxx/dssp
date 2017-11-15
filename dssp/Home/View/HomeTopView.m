@@ -224,7 +224,7 @@
             make.top.equalTo(_locationLabel.bottom).offset(17 * HeightCoefficient);
             make.centerX.equalTo(0);
             make.width.equalTo(360 * WidthCoefficient);
-            make.height.equalTo(92 * HeightCoefficient);
+            make.height.equalTo(92 * WidthCoefficient);
         }];
         
         NSArray *btnImgTitles = @[
@@ -258,8 +258,8 @@
         
         [btns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:12 * WidthCoefficient leadSpacing:16 * WidthCoefficient tailSpacing:16 * WidthCoefficient];
         [btns makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(16 * HeightCoefficient);
-            make.bottom.equalTo(-16 * HeightCoefficient);
+            make.top.equalTo(16 * WidthCoefficient);
+            make.bottom.equalTo(-16 * WidthCoefficient);
         }];
         
         self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
