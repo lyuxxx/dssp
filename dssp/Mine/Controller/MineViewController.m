@@ -11,6 +11,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
 #import "RNRViewController.h"
+#import "CarInfoViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -245,14 +246,6 @@
     return 3;
 }
 
-//-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//
-//
-//    self.tableView.tableFooterView = [UIView new];
-//    UIView *footView = [[UIView alloc]init];
-//    return footView;
-//}
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *Tcell = @"cell";
@@ -353,6 +346,9 @@
         
         }else if (indexPath.row == 2)
         {
+            CarInfoViewController *vc=[[CarInfoViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
         }else if (indexPath.row == 3)
         {
