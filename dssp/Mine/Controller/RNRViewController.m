@@ -45,8 +45,9 @@
     }];
     
     UILabel *intro = [[UILabel alloc] init];
+    intro.textAlignment = NSTextAlignmentCenter;
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    intro.text = NSLocalizedString(@"填写车辆信息完成车辆绑定", nil);
+    intro.text = NSLocalizedString(@"请完成实名制认证", nil);
     [whiteV addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);
@@ -111,7 +112,8 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
+//    RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
+    UIViewController *vc = [[NSClassFromString(@"CarSeriesViewController") alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

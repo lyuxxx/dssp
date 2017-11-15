@@ -87,7 +87,6 @@
     }];
     
     self.passwordField = [[UITextField alloc] init];
-    _passwordField.userInteractionEnabled = NO;
     _passwordField.textColor = [UIColor colorWithHexString:@"#040000"];
     _passwordField.font = [UIFont fontWithName:FontName size:15];
     _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"12346363rs" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];

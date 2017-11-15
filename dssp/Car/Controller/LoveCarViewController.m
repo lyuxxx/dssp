@@ -183,6 +183,7 @@
     
     for (NSInteger i = 0; i < titles.count; i++) {
         TopImgButton *btn = [TopImgButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = 100 + i;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitleColor:[UIColor colorWithHexString:@"#040000"] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont fontWithName:FontName size:13];
@@ -242,7 +243,11 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
-    
+    if (sender.tag == 104) {
+        UIViewController *vc = [[NSClassFromString(@"WifiViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end
