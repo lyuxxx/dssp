@@ -36,6 +36,7 @@
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
+		459F22591FBC118300BA13CB /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
 /* End PBXBuildFile section */
@@ -112,6 +113,8 @@
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
+		459F22571FBC118300BA13CB /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
+		459F22581FBC118300BA13CB /* MineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -352,6 +355,8 @@
 				313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */,
 				459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */,
 				459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */,
+				459F22571FBC118300BA13CB /* MineCell.h */,
+				459F22581FBC118300BA13CB /* MineCell.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -610,6 +615,7 @@
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
+				459F22591FBC118300BA13CB /* MineCell.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,

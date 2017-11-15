@@ -13,10 +13,11 @@
 #import "RNRViewController.h"
 #import "CarInfoViewController.h"
 #import "VINBindingViewController.h"
+#import "MineCell.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray<NSArray *> *dataArray;
 @property (nonatomic, strong) UIButton *photoBtn;
 @property (nonatomic, strong) UIButton *setBtn;
 @property (nonatomic, strong) UIImageView *img;
@@ -35,7 +36,10 @@
 
     self.navigationItem.title = NSLocalizedString(@"", nil);
     
-    _dataArray=@[@[@"coin",@"我的积分 / 优惠券"],@[@"身份证",@"实名认证"],@[@"汽车信息",@"车辆信息"],@[@"合同信息",@"合同信息"],@[@"密码",@"账户密码"],@[@"客服",@"联系客服"],@[@"反馈中心",@"反馈中心"],@[@"常见问题",@"常见问题"],@[@"功能介绍",@"功能介绍"]];
+    self.navigationController.navigationBarHidden = YES;
+    
+    _dataArray=@[@[@[@"coin",@"我的积分 / 优惠券"],@[@"身份证",@"实名认证"],@[@"汽车信息",@"车辆信息"],@[@"合同信息",@"合同信息"],@[@"密码",@"账户密码"]],
+  @[@[@"客服",@"联系客服"],@[@"反馈中心",@"反馈中心"]],@[@[@"常见问题",@"常见问题"],@[@"功能介绍",@"功能介绍"]]];
     
     [self initTableView];
     [self setupUI];
@@ -43,13 +47,25 @@
 
 -(void)initTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTabbarHeight) style:UITableViewStyleGrouped];
-    _tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+//    _tableView.estimatedRowHeight = 0;
+//    _tableView.estimatedSectionFooterHeight = 0;
+//    _tableView.estimatedSectionHeaderHeight = 0;
+//    _tableView.tableFooterView = [UIView new];
+//    _tableView.tableHeaderView = [UIView new];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     adjustsScrollViewInsets_NO(_tableView,self);
     _tableView.delegate=self;
     _tableView.dataSource=self;
+    //不回弹
+    _tableView.bounces=NO;
+    //滚动条隐藏
+    _tableView.showsVerticalScrollIndicator = NO;
     _tableView.backgroundColor=[UIColor colorWithHexString:@"#EEEEEE"];
     [self.view addSubview:_tableView];
+    [_tableView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
+    }];
 }
 
 -(void)setupUI
@@ -225,10 +241,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section==0) {
-        return 5;
-    }
-    return 2;
+    return _dataArray[section].count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -238,102 +251,72 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.1;
+    return 0.0001;
 }
-
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 20*HeightCoefficient;
 }
 
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *viewss=[UIView new];
+//    viewss.frame=CGRectMake(0, 0,375 , 0.0001);
+//    viewss.backgroundColor=[UIColor redColor];
+//
+//   return viewss;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHFooterInSection:(NSInteger)section
+//{
+//
+//    UIView *views=[UIView new];
+//    views.frame=CGRectMake(0, 0,375 , 20*HeightCoefficient);
+//    views.backgroundColor=[UIColor redColor];
+//    return views;
+//}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return _dataArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *Tcell = @"cell";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@""];
-    if (!cell) {
-        
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Tcell];
-        
+    
+    
+    static NSString *cellID = @"MineCellName";
+    MineCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == nil) {
+        cell = [[MineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    UILabel *lab=[[UILabel alloc] init];
-    lab.font=[UIFont fontWithName:FontName size:16];
-    [cell addSubview:lab];
-    [lab makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(11 * HeightCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.width.equalTo(211 * WidthCoefficient);
-        make.left.equalTo(59 * WidthCoefficient);
-    }];
     
-    UIImageView *img = [[UIImageView alloc] init];
-    [cell addSubview:img];
-    [img makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(11 * HeightCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.width.equalTo(22 * WidthCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
-    }];
+    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
+    cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
+    cell.ArrowImg.image=[UIImage imageNamed:@"arrownext"];
+    if (indexPath.section==0) {
+        if (indexPath.row==1) {
+            cell.RealName.text=NSLocalizedString(@"未实名", nil);
+        }
+        if (indexPath.row==4) {
+            cell.whiteView.hidden=YES;
+        }
+    }
     
-    UIView *whiteView = [UIView new];
-    whiteView.backgroundColor = [UIColor colorWithHexString:@"#D8D8D8"];
-    [cell addSubview:whiteView];
-    [whiteView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(44 * HeightCoefficient);
-        make.height.equalTo(1 * HeightCoefficient);
-        make.width.equalTo(kScreenWidth);
-        make.left.equalTo(59*WidthCoefficient);
-    }];
+    if (indexPath.section==1) {
+        if (indexPath.row==1) {
+            cell.whiteView.hidden=YES;
+        }
+    }
     
-    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.section==2) {
+        if (indexPath.row==1) {
+            cell.whiteView.hidden=YES;
+        }
+    }
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    
-    if (indexPath.section == 0) {
-        
-        if (indexPath.row == 1) {
-            
-            UILabel *lab = [[UILabel alloc] init];
-            lab.font = [UIFont fontWithName:FontName size:12];
-            lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
-            lab.textAlignment = NSTextAlignmentRight;
-            lab.text = NSLocalizedString(@"未实名", nil);
-            [cell addSubview:lab];
-            [lab makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(11 * HeightCoefficient);
-                make.height.equalTo(22 * HeightCoefficient);
-                make.width.equalTo(90 * WidthCoefficient);
-                make.right.equalTo(-40 * WidthCoefficient);
-            }];
-        }
-        NSArray *array=_dataArray[indexPath.row];
-        img.image=[UIImage imageNamed:array[0]];
-        lab.text=array[1];
-        if (indexPath.row == 4) {
-            whiteView.hidden = YES;
-        }
-        return cell;
-        
-    }else if(indexPath.section == 1)  {
-        
-        NSArray *array=_dataArray[indexPath.row+5];
-        img.image=[UIImage imageNamed:array[0]];
-        lab.text=array[1];
-        whiteView.hidden = indexPath.row != 0;
-        return cell;
-        
-    }else if(indexPath.section == 2){
-        
-        NSArray *array=_dataArray[indexPath.row+7];
-        img.image=[UIImage imageNamed:array[0]];
-        lab.text=array[1];
-        whiteView.hidden = indexPath.row != 0;
-        return cell;
-    }
-    return nil;
+    return cell;
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -502,7 +485,7 @@
     return newimage;
 }
 
--(void)singleTapAction:(UIGestureRecognizer *)tap
+-(void)singleTapAction:(UITapGestureRecognizer *)tap
 {
     VINBindingViewController*vc=[[VINBindingViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
