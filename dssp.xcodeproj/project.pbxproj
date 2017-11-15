@@ -28,8 +28,6 @@
 		316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF51FB99F4A008A6094 /* RNRViewController.m */; };
 		316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF81FB9A56A008A6094 /* RNRPhotoViewController.m */; };
 		316CA4601F9F3475009F541E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA45F1F9F3475009F541E /* AppDelegate.m */; };
-		316CA4631F9F3475009F541E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4621F9F3475009F541E /* ViewController.m */; };
-		316CA4661F9F3475009F541E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4641F9F3475009F541E /* Main.storyboard */; };
 		316CA4681F9F3475009F541E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4671F9F3475009F541E /* Assets.xcassets */; };
 		316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
 		316CA46E1F9F3475009F541E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
@@ -98,9 +96,6 @@
 		316CA45B1F9F3475009F541E /* dssp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dssp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA45E1F9F3475009F541E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		316CA45F1F9F3475009F541E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		316CA4611F9F3475009F541E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		316CA4621F9F3475009F541E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		316CA4651F9F3475009F541E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		316CA4671F9F3475009F541E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		316CA46A1F9F3475009F541E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		316CA46C1F9F3475009F541E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -190,22 +185,7 @@
 		310A07D71FA96B8D00DC9529 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				310A07DE1FA96BF800DC9529 /* MineViewController.h */,
-				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
-				316B6CE41FB94A35008A6094 /* WifiViewController.h */,
-				316B6CE51FB94A35008A6094 /* WifiViewController.m */,
-				313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */,
-				313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */,
-				316B6CEA1FB97F6A008A6094 /* CarBindingViewController.h */,
-				316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */,
-				316B6CF11FB99BA7008A6094 /* CarSeriesViewController.h */,
-				316B6CF21FB99BA7008A6094 /* CarSeriesViewController.m */,
-				316B6CF41FB99F4A008A6094 /* RNRViewController.h */,
-				316B6CF51FB99F4A008A6094 /* RNRViewController.m */,
-				316B6CF71FB9A56A008A6094 /* RNRPhotoViewController.h */,
-				316B6CF81FB9A56A008A6094 /* RNRPhotoViewController.m */,
-				313070CD1FBA924000A0DE71 /* RNRFinishedViewController.h */,
-				313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */,
+				31EEDDDF1FBBC9FE0012BA92 /* Controller */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -311,17 +291,10 @@
 				31DDD24E1FBAB9C300D37DED /* Car */,
 				310A07D71FA96B8D00DC9529 /* Mine */,
 				31699EB41FA87C7E00C8FDF8 /* BaseClass */,
-				316CA45E1F9F3475009F541E /* AppDelegate.h */,
-				316CA45F1F9F3475009F541E /* AppDelegate.m */,
-				316CA4611F9F3475009F541E /* ViewController.h */,
-				316CA4621F9F3475009F541E /* ViewController.m */,
-				316CA4641F9F3475009F541E /* Main.storyboard */,
+				31EEDDDE1FBBC9520012BA92 /* Supporting Files */,
 				316CA4671F9F3475009F541E /* Assets.xcassets */,
 				316CA4691F9F3475009F541E /* LaunchScreen.storyboard */,
 				316CA46C1F9F3475009F541E /* Info.plist */,
-				316CA46D1F9F3475009F541E /* main.m */,
-				313070CB1FBA89C500A0DE71 /* Localizable.strings */,
-				31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */,
 			);
 			path = dssp;
 			sourceTree = "<group>";
@@ -338,10 +311,53 @@
 		31DDD24E1FBAB9C300D37DED /* Car */ = {
 			isa = PBXGroup;
 			children = (
+				31EEDDE01FBBCA140012BA92 /* Controller */,
+			);
+			path = Car;
+			sourceTree = "<group>";
+		};
+		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				316CA45E1F9F3475009F541E /* AppDelegate.h */,
+				316CA45F1F9F3475009F541E /* AppDelegate.m */,
+				316CA46D1F9F3475009F541E /* main.m */,
+				313070CB1FBA89C500A0DE71 /* Localizable.strings */,
+				31699EC51FA87F8100C8FDF8 /* PrefixHeader.pch */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		31EEDDDF1FBBC9FE0012BA92 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				310A07DE1FA96BF800DC9529 /* MineViewController.h */,
+				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
+				316B6CE41FB94A35008A6094 /* WifiViewController.h */,
+				316B6CE51FB94A35008A6094 /* WifiViewController.m */,
+				313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */,
+				313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */,
+				316B6CEA1FB97F6A008A6094 /* CarBindingViewController.h */,
+				316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */,
+				316B6CF11FB99BA7008A6094 /* CarSeriesViewController.h */,
+				316B6CF21FB99BA7008A6094 /* CarSeriesViewController.m */,
+				316B6CF41FB99F4A008A6094 /* RNRViewController.h */,
+				316B6CF51FB99F4A008A6094 /* RNRViewController.m */,
+				316B6CF71FB9A56A008A6094 /* RNRPhotoViewController.h */,
+				316B6CF81FB9A56A008A6094 /* RNRPhotoViewController.m */,
+				313070CD1FBA924000A0DE71 /* RNRFinishedViewController.h */,
+				313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		31EEDDE01FBBCA140012BA92 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */,
 				31DDD2501FBABA0000D37DED /* LoveCarViewController.m */,
 			);
-			path = Car;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		970D93E9BFE3ED1AE5671BF8 /* Pods */ = {
@@ -447,7 +463,6 @@
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
-				316CA4661F9F3475009F541E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,7 +585,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				316CA4631F9F3475009F541E /* ViewController.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
@@ -624,14 +638,6 @@
 				313070CC1FBA89EC00A0DE71 /* zh-Hans */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		316CA4641F9F3475009F541E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				316CA4651F9F3475009F541E /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		316CA4691F9F3475009F541E /* LaunchScreen.storyboard */ = {
@@ -760,7 +766,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = dssp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -780,7 +786,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = dssp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
