@@ -19,7 +19,7 @@ target 'dssp' do
   
   # internal pod
   pod 'CUHTTPRequest', '~> 0.1.3'
-  pod 'CUProgressHUD', '~> 0.1.3'
+  pod 'CUProgressHUD', '~> 0.1.4'
   pod 'UIImageViewSDWebImage', '~> 0.1.3'
   pod 'YYCategoriesSub', '~> 0.1.0'
   pod 'MapManager', '~> 0.1.0'

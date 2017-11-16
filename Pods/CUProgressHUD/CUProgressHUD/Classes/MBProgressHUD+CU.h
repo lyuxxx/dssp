@@ -11,6 +11,13 @@
 @interface MBProgressHUD (CU)
 
 /**
+ 只显示文字
+
+ @param text 要显示的文字
+ */
++ (void)showText:(NSString *)text;
+
+/**
  提示成功信息
 
  @param success 提示的信息

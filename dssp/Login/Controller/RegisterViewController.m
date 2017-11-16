@@ -12,6 +12,7 @@
 #import <YYText.h>
 #import "TabBarController.h"
 #import <CUHTTPRequest/CUHTTPRequest.h>
+#import <MBProgressHUD+CU.h>
 
 @interface RegisterViewController () <UITextFieldDelegate>
 
@@ -267,13 +268,41 @@
     }
     if (sender == self.registerBtn) {
         [self.view endEditing:YES];
-        [CUHTTPRequest POST:registerUrl parameters:nil response:^(id responseData) {
-            if (responseData) {
-                [self registerSuccess];
+        if (_attentionImgV.hidden == YES && [UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])] && _agreeBtn.selected == YES) {
+            NSDictionary *paras = @{
+                                    @"userName": _userNameField.text,
+                                    @"userPassword": _passwordField.text,
+                                    @"mobile": _phoneField.text
+                                    };
+            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+            [CUHTTPRequest POST:registerUrl parameters:paras response:^(id responseData) {
+                if (responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [hud hideAnimated:YES];
+                        [self registerSuccess];
+                    } else {
+                        hud.label.text = [dic objectForKey:@"msg"];
+                        [hud hideAnimated:YES afterDelay:1];
+                    }
+                } else {
+                    hud.label.text = NSLocalizedString(@"请求失败", nil);
+                    [hud hideAnimated:YES afterDelay:1];
+                }
+            }];
+        } else {
+            if (_attentionImgV.hidden == NO) {
+                [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
             } else {
-                [self registerSuccess];
+                if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
+                    [MBProgressHUD showText:NSLocalizedString(@"请确认两次密码", nil)];
+                } else {
+                    if (_agreeBtn.selected == NO) {
+                        [MBProgressHUD showText:NSLocalizedString(@"请同意用户协议", nil)];
+                    }
+                }
             }
-        }];
+        }
     }
     if (sender == self.skipBtn) {
         TabBarController *tabVC = [[TabBarController alloc] init];

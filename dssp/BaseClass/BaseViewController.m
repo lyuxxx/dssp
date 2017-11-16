@@ -8,7 +8,6 @@
 
 #import "BaseViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
-#import <RTRootNavigationController/RTRootNavigationController.h>
 
 @interface BaseViewController ()
 @property (nonatomic, assign) BOOL needGradientImg;

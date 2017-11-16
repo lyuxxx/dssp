@@ -9,6 +9,21 @@
 
 @implementation MBProgressHUD (CU)
 
++ (void)showText:(NSString *)text view:(UIView *)view {
+    if (view == nil) {
+        view = [[UIApplication sharedApplication].windows lastObject];
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.label.text = text;
+    hud.mode = MBProgressHUDModeText;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hideAnimated:YES afterDelay:1];
+}
+
++ (void)showText:(NSString *)text {
+    [self showText:text view:nil];
+}
+
 + (void)show:(NSString *)text icon:(NSString *)icon view:(UIView *)view {
     if (view == nil) {
         view = [[UIApplication sharedApplication].windows lastObject];
