@@ -8,6 +8,9 @@
 
 #import "CarInfoViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
+#import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
+#import "CarInfoModel.h"
 @interface CarInfoViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong)UIScrollView *sc;
 @end
@@ -22,7 +25,42 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupUI];
+    [self getCarInfo];
+    
 }
+
+- (void)getCarInfo
+{
+    [self carinfoWithVin:@""];
+}
+
+- (void)carinfoWithVin:(NSString *)vin  {
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    NSDictionary *paras = @{
+                            @"vin": vin,
+                           
+                            };
+    [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
+        if (responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic];
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                [hud hideAnimated:YES];
+                
+                
+                
+            } else {
+                hud.label.text = [dic objectForKey:@"msg"];
+                [hud hideAnimated:YES afterDelay:1];
+            }
+        } else {
+            hud.label.text = NSLocalizedString(@"请求失败", nil);
+            [hud hideAnimated:YES afterDelay:1];
+        }
+    }];
+}
+
 
 - (void)setupUI {
     self.navigationItem.title = NSLocalizedString(@"车辆信息", nil);
