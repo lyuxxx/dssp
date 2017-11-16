@@ -9,6 +9,7 @@
 #import "CarBindingViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "CarSeriesViewController.h"
+#import <CUHTTPRequest.h>
 
 @interface CarBindingViewController ()
 @property (nonatomic, strong) UILabel *carSeries;
@@ -143,6 +144,21 @@
 - (void)seriesLabelTap:(UITapGestureRecognizer *)sender {
     CarSeriesViewController *vc = [[CarSeriesViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)bindCarWithVIN:(NSString *)vin userId:(NSString *)userId doptCode:(NSString *)doptCode customerName:(NSString *)customerName vhlLicense:(NSString *)vhlLicense {
+    NSDictionary *paras = @{
+                            @"vin": vin,
+                            @"userId": userId,
+                            @"doptCode": doptCode,
+                            @"customerName": customerName,
+                            @"vhlLicense": vhlLicense
+                            };
+    [CUHTTPRequest POST:bind parameters:paras response:^(id responseData) {
+        if (responseData) {
+            
+        }
+    }];
 }
 
 @end

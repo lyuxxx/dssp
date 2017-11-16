@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "RNRInput.h"
 
 @interface RNRPhotoViewController : BaseViewController
+
+@property (nonatomic, strong) RNRInput *rnrInfo;
 
 @end
