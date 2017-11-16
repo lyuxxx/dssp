@@ -13,11 +13,12 @@
 #import "RegisterViewController.h"
 #import "LoginResult.h"
 #import <YYModel/YYModel.h>
+#import <MBProgressHUD+CU.h>
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *userNameField;
-@property (nonatomic, strong) UITextField *passwordField;
+@property (nonatomic, strong) UITextField *passWordField;
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *registerBtn;
 @property (nonatomic, strong) UIButton *forgotPassword;
@@ -98,14 +99,14 @@
     }];
     
     
-    self.passwordField = [[UITextField alloc] init];
-    _passwordField.secureTextEntry = true;
-    _passwordField.delegate = self;
-    _passwordField.textColor = [UIColor whiteColor];
-    _passwordField.font = [UIFont fontWithName:FontName size:15];
-    _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
-    [self.view addSubview:_passwordField];
-    [_passwordField makeConstraints:^(MASConstraintMaker *make) {
+    self.passWordField = [[UITextField alloc] init];
+    _passWordField.secureTextEntry = true;
+    _passWordField.delegate = self;
+    _passWordField.textColor = [UIColor whiteColor];
+    _passWordField.font = [UIFont fontWithName:FontName size:15];
+    _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    [self.view addSubview:_passWordField];
+    [_passWordField makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(269 * HeightCoefficient);
         make.right.left.height.equalTo(_userNameField);
     }];
@@ -199,8 +200,9 @@
                             @"userName": username,
                             @"userPassword": password
                             };
-    [CUHTTPRequest POST:@"" parameters:paras response:^(id responseData) {
-//        LoginResult *result = [LoginResult yy_modelWithDictionary:responseData];
+    [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+//        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
     }];
 }
 
@@ -211,14 +213,51 @@
     }
     if (sender == self.smallEyeBtn) {
         sender.selected = !sender.selected;
-        self.passwordField.secureTextEntry = !sender.selected;
+        self.passWordField.secureTextEntry = !sender.selected;
     }
     if (sender == self.forgotPassword) {
        
     }
     if (sender == self.loginBtn) {
-        TabBarController *tabVC = [[TabBarController alloc] init];
-        [self presentViewController:tabVC animated:NO completion:nil];
+        
+        [self.view endEditing:YES];
+        NSString *userName = _userNameField.text;
+        NSString *passWord = _passWordField.text;
+        
+        if (userName.length == 0 || passWord.length == 0) {
+        [MBProgressHUD showText:NSLocalizedString(@"用户名或密码不能为空", nil)];
+        }
+        else
+        {
+            NSDictionary *paras = @{
+                                    @"userName": userName,
+                                    @"userPassword": passWord
+                                    };
+            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+            [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
+                
+                if (responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [hud hideAnimated:YES];
+                        
+                        TabBarController *tabVC = [[TabBarController alloc] init];
+                        [self presentViewController:tabVC animated:NO completion:nil];
+                        
+                    } else {
+                        hud.label.text = [dic objectForKey:@"msg"];
+                        [hud hideAnimated:YES afterDelay:1];
+                    }
+                } else {
+                    hud.label.text = NSLocalizedString(@"请求失败", nil);
+                    [hud hideAnimated:YES afterDelay:1];
+                }
+                
+            }];
+            
+        }
+        
     }
     if (sender == self.registerBtn) {
         RegisterViewController *registerVC = [[RegisterViewController alloc] init];
@@ -229,15 +268,15 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     // 当输入框获得焦点时，执行该方法 （光标出现时）。
     //开始编辑时触发，文本字段将成为first responder
-       textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    textField.attributedPlaceholder = nil;
  
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     //返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first responder
-    if (textField == self.passwordField) {
-        _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
-         _passwordField.font = [UIFont fontWithName:FontName size:15];
+    if (textField == self.passWordField) {
+        _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+         _passWordField.font = [UIFont fontWithName:FontName size:15];
     }
     else
     {
