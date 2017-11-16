@@ -8,7 +8,7 @@
 
 #import "VINBindingViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
-#import "CarBindingViewController.h"
+#import "CarInfoViewController.h"
 
 @interface VINBindingViewController ()
 
@@ -100,7 +100,7 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+    CarInfoViewController *vc = [[CarInfoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
