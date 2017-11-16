@@ -11,6 +11,7 @@
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "CarInfoModel.h"
+#import "CarBindingViewController.h"
 @interface CarInfoViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong)UIScrollView *sc;
 @end
@@ -184,7 +185,8 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    
+    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

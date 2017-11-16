@@ -182,10 +182,6 @@
     UIImageView *carImg = [[UIImageView alloc] init];
     [carImg setContentMode:UIViewContentModeScaleAspectFit];
     carImg.image = [UIImage imageNamed:@"11"];
-    carImg.userInteractionEnabled = YES;//打开用户交互
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
-    //为图片添加手势
-    [carImg addGestureRecognizer:singleTap];
     [whiteView addSubview:carImg];
     [carImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(6 * HeightCoefficient);
@@ -334,7 +330,7 @@
         
         }else if (indexPath.row == 2)
         {
-            CarInfoViewController *vc=[[CarInfoViewController alloc] init];
+            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
@@ -484,17 +480,6 @@
     }
     return newimage;
 }
-
--(void)singleTapAction:(UITapGestureRecognizer *)tap
-{
-    VINBindingViewController*vc=[[VINBindingViewController alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
