@@ -14,6 +14,8 @@
 #import "CarInfoViewController.h"
 #import "VINBindingViewController.h"
 #import "MineCell.h"
+#import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -492,7 +494,16 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
+- (void)RealnameWithUserId:(NSString *)userId UserName:(NSString *)userName {
+    NSDictionary *paras = @{
+                            @"userId": userId,
+                            @"userName": userName,
+                           
+                            };
+    [CUHTTPRequest POST:queryCustByMobile parameters:paras response:^(id responseData) {
+        
+    }];
+}
 
 
 

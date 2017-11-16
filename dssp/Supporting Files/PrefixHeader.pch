@@ -53,5 +53,5 @@ _Pragma("clang diagnostic pop") \
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
 #define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrl]
 #define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
-
+#define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrl]
 #endif /* PrefixHeader_pch */
