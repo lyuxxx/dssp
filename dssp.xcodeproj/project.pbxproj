@@ -35,6 +35,7 @@
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		451F5F3C1FBD5F0600DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F3B1FBD5F0600DFD3F5 /* CarInfoModel.m */; };
 		459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
 		459F22591FBC118300BA13CB /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
@@ -111,6 +112,8 @@
 		31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
+		451F5F3A1FBD5F0600DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
+		451F5F3B1FBD5F0600DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
 		459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		459F22571FBC118300BA13CB /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 		310A07D71FA96B8D00DC9529 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				451F5F391FBD5EA100DFD3F5 /* Model */,
 				31EEDDDF1FBBC9FE0012BA92 /* Controller */,
 			);
 			path = Mine;
@@ -368,6 +372,15 @@
 				31DDD2501FBABA0000D37DED /* LoveCarViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		451F5F391FBD5EA100DFD3F5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				451F5F3A1FBD5F0600DFD3F5 /* CarInfoModel.h */,
+				451F5F3B1FBD5F0600DFD3F5 /* CarInfoModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		970D93E9BFE3ED1AE5671BF8 /* Pods */ = {
@@ -595,6 +608,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451F5F3C1FBD5F0600DFD3F5 /* CarInfoModel.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
