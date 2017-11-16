@@ -9,8 +9,16 @@
 #import "RNRViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "RNRPhotoViewController.h"
+#import "RNRInput.h"
 
 @interface RNRViewController ()
+
+@property (nonatomic, strong) UITextField *customerNameField;
+@property (nonatomic, strong) UITextField *customerSexField;
+@property (nonatomic, strong) UITextField *ownercerttypeField;
+@property (nonatomic, strong) UITextField *ownercertidField;
+@property (nonatomic, strong) UITextField *msisdnField;
+@property (nonatomic, strong) UITextField *ownercertaddrField;
 
 @end
 
@@ -93,6 +101,20 @@
                 make.top.equalTo(label.bottom).offset(14 * HeightCoefficient);
             }];
         }
+        
+        if (i == 0) {
+            self.customerNameField = field;
+        } else if (i == 1) {
+            self.customerSexField = field;
+        } else if (i == 2) {
+            self.ownercerttypeField = field;
+        } else if (i == 3) {
+            self.ownercertidField = field;
+        } else if (i == 4) {
+            self.msisdnField = field;
+        } else if (i == 5) {
+            self.ownercertaddrField = field;
+        }
     }
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -112,7 +134,15 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
+    RNRInput *rnrInfo = [[RNRInput alloc] init];
+    rnrInfo.customerName = self.customerNameField.text;
+    rnrInfo.customerSex = self.customerSexField.text;
+    rnrInfo.ownercerttype = self.ownercerttypeField.text;
+    rnrInfo.ownercertid = self.ownercertidField.text;
+    rnrInfo.msisdn = self.msisdnField.text;
+    rnrInfo.ownercertaddr = self.ownercertaddrField.text;
     RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
+    vc.rnrInfo = rnrInfo;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -162,7 +162,7 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

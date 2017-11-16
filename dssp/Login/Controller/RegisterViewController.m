@@ -217,6 +217,7 @@
     }];
     
     self.agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _agreeBtn.selected = YES;
     [_agreeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_agreeBtn setImage:[UIImage imageNamed:@"check grey"] forState:UIControlStateNormal];
     [_agreeBtn setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];

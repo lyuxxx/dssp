@@ -8,6 +8,7 @@
 
 #import "WifiViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
+#import <CUHTTPRequest.h>
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
@@ -144,6 +145,30 @@
 
 - (void)modifyBtnClick:(UIButton *)sender {
 
+}
+
+- (void)getWifiWithVIN:(NSString *)vin telephone:(NSNumber *)telephone email:(NSString *)email type:(NSNumber *)type {
+    NSDictionary *paras = @{
+                            @"vin": vin,
+                            @"telephone": telephone,
+                            @"emailAddr": email,
+                            @"type": type
+                            };
+    [CUHTTPRequest POST:getWifi parameters:paras response:^(id responseData) {
+        
+    }];
+}
+
+- (void)modifyWifiWithVIN:(NSString *)vin telephone:(NSNumber *)telephone wifiSsid:(NSString *)ssid password:(NSString *)password {
+    NSDictionary *paras = @{
+                            @"vin": vin,
+                            @"telephone": telephone,
+                            @"wifiSsid": ssid,
+                            @"wifiPassword": password
+                            };
+    [CUHTTPRequest POST:setWifi parameters:paras response:^(id responseData) {
+        
+    }];
 }
 
 @end

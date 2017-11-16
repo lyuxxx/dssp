@@ -12,10 +12,15 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImagePickerController+StatusBar.h"
 #import "RNRFinishedViewController.h"
+#import <YYModel/YYModel.h>
+#import <CUHTTPRequest.h>
 
 @interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *selectedImgV;
+@property (nonatomic, strong) UIImageView *pic1ImgV;
+@property (nonatomic, strong) UIImageView *pic2ImgV;
+@property (nonatomic, strong) UIImageView *facepicImgV;
 
 @end
 
@@ -102,6 +107,14 @@
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
         [imgV addGestureRecognizer:tap];
+        
+        if (i == 0) {
+            self.pic1ImgV = imgV;
+        } else if (i == 1) {
+            self.pic2ImgV = imgV;
+        } else if (i == 2) {
+            self.facepicImgV = imgV;
+        }
     }
     
     [lastView makeConstraints:^(MASConstraintMaker *make) {
@@ -125,6 +138,19 @@
 }
 
 - (void)sumitBtnClick:(UIButton *)sender {
+    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.1) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.1) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.1) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
+    
+    [CUHTTPRequest POST:receivernrInfo parameters:dic response:^(id responseData) {
+        if (responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"%@",dic);
+        }
+    }];
+    
     RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
