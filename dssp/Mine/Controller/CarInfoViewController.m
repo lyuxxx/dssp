@@ -32,7 +32,7 @@
 
 - (void)getCarInfo
 {
-//    [self carinfoWithVin:@""];
+    [self carinfoWithVin:_vin];
 }
 
 - (void)carinfoWithVin:(NSString *)vin  {
