@@ -8,7 +8,6 @@
 
 #import "RNRFinishedViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
-
 @interface RNRFinishedViewController ()
 
 @end

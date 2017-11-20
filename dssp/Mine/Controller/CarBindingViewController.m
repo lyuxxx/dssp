@@ -11,7 +11,9 @@
 #import "CarSeriesViewController.h"
 #import <CUHTTPRequest.h>
 #import "CarBindingInput.h"
-
+#import "RNRViewController.h"
+#import "HomeViewController.h"
+#import "MineViewController.h"
 @interface CarBindingViewController ()
 @property (nonatomic, strong) UILabel *carSeries;
 @property (nonatomic, strong) CarBindingInput *bindingInput;
@@ -140,7 +142,19 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[HomeViewController class]]) {
+            NSLog(@"是从HomeViewController过来的页面");
+            RNRViewController *vc=[[RNRViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+       else 
+        {
+           NSLog(@"是从MineViewController过来的页面");
+        }
+    }];
 }
 
 - (void)seriesLabelTap:(UITapGestureRecognizer *)sender {

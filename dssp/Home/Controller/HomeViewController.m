@@ -13,6 +13,8 @@
 #import "TopImgButton.h"
 #import "HomeTopView.h"
 #import <NSObject+FBKVOController.h>
+#import "VINBindingViewController.h"
+#import <CUHTTPRequest.h>
 
 @interface HomeViewController () <UIScrollViewDelegate>
 
@@ -36,8 +38,69 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                   message:@"检测到您未绑定车辆信息,请绑定！"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        //响应事件
+        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+    }];
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+//    [self postCustByMobile];
     [self setupUI];
+   
+}
+
+- (void)postCustByMobile
+{
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    NSDictionary *paras = @{
+                            @"userId": @"",
+                            @"userName": @"",
+                            
+                            };
+    [CUHTTPRequest POST:queryCustByMobile parameters:paras response:^(id responseData) {
+        if (responseData) {
+            
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+//        CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+//            [hud hideAnimated:YES];
+            
+    
+        } else {
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+            message:@"检测到您未绑定车辆信息,请绑定！"
+            preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                //响应事件
+                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
+//            hud.label.text = [dic objectForKey:@"msg"];
+//            [hud hideAnimated:YES afterDelay:1];
+        }
+            
+        }
+    }];
 }
 
 - (void)setupUI {
