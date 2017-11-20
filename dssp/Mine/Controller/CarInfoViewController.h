@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface CarInfoViewController : BaseViewController
-
+@property (nonatomic, copy) NSString *vin;
 @end
