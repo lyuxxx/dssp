@@ -67,4 +67,7 @@
 @property (nonatomic, copy) NSString *seriesName;
 ///车型名称
 @property (nonatomic, copy) NSString *typeName;
+///当前VIN号是否绑定用户信息
+@property (nonatomic, copy) NSString *userRel;
+
 @end

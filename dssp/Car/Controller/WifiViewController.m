@@ -9,6 +9,7 @@
 #import "WifiViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import <CUHTTPRequest.h>
+#import <MBProgressHUD+CU.h>
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
@@ -51,7 +52,7 @@
     self.wifiLabel = [[UILabel alloc] init];
     _wifiLabel.textColor = [UIColor whiteColor];
     _wifiLabel.font = [UIFont fontWithName:FontName size:16];
-    _wifiLabel.text = @"DS9292";
+    _wifiLabel.text = @"";
     [self.view addSubview:_wifiLabel];
     [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(imgV);
@@ -90,7 +91,6 @@
     self.passwordField = [[UITextField alloc] init];
     _passwordField.textColor = [UIColor colorWithHexString:@"#040000"];
     _passwordField.font = [UIFont fontWithName:FontName size:15];
-    _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"12346363rs" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     [whiteV addSubview:_passwordField];
     [_passwordField makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);
@@ -136,6 +136,8 @@
         make.centerX.equalTo(0);
         make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
     }];
+    
+    [self getWifiWithVIN:@"" userId:@"" telephone:@0];
 }
 
 - (void)secureBtnClick:(UIButton *)sender {
@@ -144,7 +146,7 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
-
+    [self modifyWifiWithVIN:@"" userId:@"" wifiSsid:_wifiLabel.text password:_passwordField.text];
 }
 
 - (void)getWifiWithVIN:(NSString *)vin userId:(NSString *)userId telephone:(NSNumber *)telephone {
@@ -158,6 +160,8 @@
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
             NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
+            _wifiLabel.text = wifiSsid;
+            _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
         } else {
             
         }
@@ -171,12 +175,21 @@
                             @"wifiSsid": ssid,
                             @"wifiPassword": password
                             };
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:setWifi parameters:paras response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             BOOL setFinish = [dic[@"data"] boolValue];
+            if (setFinish) {
+                hud.label.text = dic[@"msg"];
+                [hud hideAnimated:YES afterDelay:1];
+            } else {
+                hud.label.text = NSLocalizedString(@"修改失败", nil);
+                [hud hideAnimated:YES];
+            }
         } else {
-            
+            hud.label.text = NSLocalizedString(@"连接失败", nil);
+            [hud hideAnimated:YES afterDelay:1];
         }
     }];
 }

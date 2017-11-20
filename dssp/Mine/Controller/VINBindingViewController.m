@@ -9,8 +9,11 @@
 #import "VINBindingViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "CarInfoViewController.h"
+#import <MBProgressHUD+CU.h>
 
 @interface VINBindingViewController ()
+
+@property (nonatomic, strong) UITextField *vinField;
 
 @end
 
@@ -67,16 +70,16 @@
         make.top.equalTo(logo.bottom).offset(24 * HeightCoefficient);
     }];
     
-    UITextField *field = [[UITextField alloc] init];
-    field.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
-    field.leftViewMode = UITextFieldViewModeAlways;
-    field.textColor = [UIColor colorWithHexString:@"#040000"];
-    field.font = [UIFont fontWithName:FontName size:16];
-    field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请在这里输入" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
-    field.layer.cornerRadius = 2;
-    field.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
-    [whiteV addSubview:field];
-    [field makeConstraints:^(MASConstraintMaker *make) {
+    self.vinField = [[UITextField alloc] init];
+    _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
+    _vinField.leftViewMode = UITextFieldViewModeAlways;
+    _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
+    _vinField.font = [UIFont fontWithName:FontName size:16];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请在这里输入" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.layer.cornerRadius = 2;
+    _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
+    [whiteV addSubview:_vinField];
+    [_vinField makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(280 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
@@ -100,8 +103,13 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (![_vinField.text isEqualToString:@""]) {
+        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
+        vc.vin = _vinField.text;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
+    }
 }
 
 @end
