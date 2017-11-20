@@ -13,12 +13,12 @@
 
 @interface RNRViewController ()
 
-@property (nonatomic, strong) UITextField *customerNameField;
-@property (nonatomic, strong) UITextField *customerSexField;
+@property (nonatomic, strong) UITextField *usernameField;
+@property (nonatomic, strong) UITextField *genderField;
 @property (nonatomic, strong) UITextField *ownercerttypeField;
 @property (nonatomic, strong) UITextField *ownercertidField;
-@property (nonatomic, strong) UITextField *msisdnField;
 @property (nonatomic, strong) UITextField *ownercertaddrField;
+@property (nonatomic, strong) UITextField *servnumberField;
 
 @end
 
@@ -103,15 +103,15 @@
         }
         
         if (i == 0) {
-            self.customerNameField = field;
+            self.usernameField = field;
         } else if (i == 1) {
-            self.customerSexField = field;
+            self.genderField = field;
         } else if (i == 2) {
             self.ownercerttypeField = field;
         } else if (i == 3) {
             self.ownercertidField = field;
         } else if (i == 4) {
-            self.msisdnField = field;
+            self.servnumberField = field;
         } else if (i == 5) {
             self.ownercertaddrField = field;
         }
@@ -135,12 +135,12 @@
 
 - (void)nextBtnClick:(UIButton *)sender {
     RNRInput *rnrInfo = [[RNRInput alloc] init];
-    rnrInfo.customerName = self.customerNameField.text;
-    rnrInfo.customerSex = self.customerSexField.text;
+    rnrInfo.username = self.usernameField.text;
+    rnrInfo.gender = self.genderField.text;
     rnrInfo.ownercerttype = self.ownercerttypeField.text;
     rnrInfo.ownercertid = self.ownercertidField.text;
-    rnrInfo.msisdn = self.msisdnField.text;
     rnrInfo.ownercertaddr = self.ownercertaddrField.text;
+    rnrInfo.servnumber = self.servnumberField.text;
     RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
     vc.rnrInfo = rnrInfo;
     [self.navigationController pushViewController:vc animated:YES];

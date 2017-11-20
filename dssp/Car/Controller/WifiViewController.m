@@ -147,27 +147,37 @@
 
 }
 
-- (void)getWifiWithVIN:(NSString *)vin telephone:(NSNumber *)telephone email:(NSString *)email type:(NSNumber *)type {
+- (void)getWifiWithVIN:(NSString *)vin userId:(NSString *)userId telephone:(NSNumber *)telephone {
     NSDictionary *paras = @{
                             @"vin": vin,
-                            @"telephone": telephone,
-                            @"emailAddr": email,
-                            @"type": type
+                            @"userId": userId,
+                            @"telephone": telephone
                             };
     [CUHTTPRequest POST:getWifi parameters:paras response:^(id responseData) {
-        
+        if (responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
+            NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
+        } else {
+            
+        }
     }];
 }
 
-- (void)modifyWifiWithVIN:(NSString *)vin telephone:(NSNumber *)telephone wifiSsid:(NSString *)ssid password:(NSString *)password {
+- (void)modifyWifiWithVIN:(NSString *)vin userId:(NSString *)userId wifiSsid:(NSString *)ssid password:(NSString *)password {
     NSDictionary *paras = @{
                             @"vin": vin,
-                            @"telephone": telephone,
+                            @"userId": userId,
                             @"wifiSsid": ssid,
                             @"wifiPassword": password
                             };
     [CUHTTPRequest POST:setWifi parameters:paras response:^(id responseData) {
-        
+        if (responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            BOOL setFinish = [dic[@"data"] boolValue];
+        } else {
+            
+        }
     }];
 }
 

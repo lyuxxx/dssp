@@ -10,15 +10,23 @@
 
 @interface RNRInput : NSObject
 
-@property (nonatomic, copy) NSString *customerName;
-@property (nonatomic, copy) NSString *customerSex;
+///姓名
+@property (nonatomic, copy) NSString *username;
+///性别
+@property (nonatomic, copy) NSString *gender;
+///证件类型
 @property (nonatomic, copy) NSString *ownercerttype;
+///证件号码
 @property (nonatomic, copy) NSString *ownercertid;
-@property (nonatomic, copy) NSString *msisdn;
+///所有人证件地址
 @property (nonatomic, copy) NSString *ownercertaddr;
+///证件正面
 @property (nonatomic, copy) NSString *pic1;
+///证件背面
 @property (nonatomic, copy) NSString *pic2;
+///手持证件照
 @property (nonatomic, copy) NSString *facepic;
-@property (nonatomic, copy) NSString *userId;
+///联系电话
+@property (nonatomic, copy) NSString *servnumber;
 
 @end

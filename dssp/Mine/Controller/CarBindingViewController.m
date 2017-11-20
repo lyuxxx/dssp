@@ -10,9 +10,11 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "CarSeriesViewController.h"
 #import <CUHTTPRequest.h>
+#import "CarBindingInput.h"
 
 @interface CarBindingViewController ()
 @property (nonatomic, strong) UILabel *carSeries;
+@property (nonatomic, strong) CarBindingInput *bindingInput;
 @end
 
 @implementation CarBindingViewController
@@ -146,13 +148,20 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)bindCarWithVIN:(NSString *)vin userId:(NSString *)userId doptCode:(NSString *)doptCode customerName:(NSString *)customerName vhlLicense:(NSString *)vhlLicense {
+- (void)bindCar {
     NSDictionary *paras = @{
-                            @"vin": vin,
-                            @"userId": userId,
-                            @"doptCode": doptCode,
-                            @"customerName": customerName,
-                            @"vhlLicense": vhlLicense
+                            @"vin": self.bindingInput.vin,
+                            @"customerName": self.bindingInput.customerName,
+                            @"credentials": self.bindingInput.credentials,
+                            @"credentialsNum": self.bindingInput.credentialsNum,
+                            @"sex": self.bindingInput.sex,
+                            @"mobilePhone": self.bindingInput.mobilePhone,
+                            @"phone": self.bindingInput.phone,
+                            @"email": self.bindingInput.email,
+                            @"vhlType": self.bindingInput.vhlType,
+                            @"vhlLicense": self.bindingInput.vhlLicense,
+                            @"remark": self.bindingInput.remark,
+                            @"doptCode": self.bindingInput.doptCode
                             };
     [CUHTTPRequest POST:bind parameters:paras response:^(id responseData) {
         if (responseData) {

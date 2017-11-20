@@ -49,7 +49,7 @@ _Pragma("clang diagnostic pop") \
 #define registerUrl @"http://172.23.105.29:10095/register"
 #define appLogin @"http://172.23.105.209:18281/userInfo/appLogin"
 #define getBasicInfo [NSString stringWithFormat:@"%@vhl/getBasicInfo",baseUrl]
-#define bind [NSString stringWithFormat:@"%@vhl/bind",baseUrl]
+#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
 #define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrl]
 #define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
