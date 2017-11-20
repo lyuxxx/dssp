@@ -11,6 +11,14 @@
 
 @implementation CUHTTPRequest
 
++ (void)setHTTPHeader:(NSDictionary *)header {
+    AFHTTPSessionManager *manager = [self getSessionManagerCustom];
+    for (NSString *key in header) {
+        NSString *value = header[key];
+        [manager.requestSerializer setValue:value forHTTPHeaderField:key];
+    }
+}
+
 #pragma mark --网络状态--
 
 + (void)netWorkDuplicates:(BOOL)isDuplicates status:(void (^)(CUHTTPNetworkType))statusNetWork {

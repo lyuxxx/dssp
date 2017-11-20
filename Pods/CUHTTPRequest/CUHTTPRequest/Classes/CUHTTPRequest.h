@@ -11,6 +11,13 @@
 
 @interface CUHTTPRequest : NSObject
 
+/**
+ 设置请求头
+
+ @param header 请求头字典
+ */
++ (void)setHTTPHeader:(NSDictionary *)header;
+
 #pragma mark --网络状态--
 
 /**

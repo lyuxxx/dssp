@@ -18,7 +18,7 @@ target 'dssp' do
   pod 'RTRootNavigationController', '~> 0.6.3'
   
   # internal pod
-  pod 'CUHTTPRequest', '~> 0.1.3'
+  pod 'CUHTTPRequest', '~> 0.1.4'
   pod 'CUProgressHUD', '~> 0.1.4'
   pod 'UIImageViewSDWebImage', '~> 0.1.3'
   pod 'YYCategoriesSub', '~> 0.1.0'
