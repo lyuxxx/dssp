@@ -239,7 +239,7 @@
                 if (responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    if ([result.code isEqualToString:@"200"]) {
                         [hud hideAnimated:YES];
                         
                         TabBarController *tabVC = [[TabBarController alloc] init];

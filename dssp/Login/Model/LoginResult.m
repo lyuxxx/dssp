@@ -18,6 +18,20 @@
 
 @implementation LoginResultData
 
+- (void)setUserId:(NSInteger)userId {
+    if (_userId != userId) {
+        _userId = userId;
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
+    }
+}
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"roles": [RoleVO class],
+             @"permissions": [PermissionVO class]
+             };
+}
+
 @end
 
 @implementation LoginResult

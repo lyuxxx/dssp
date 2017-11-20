@@ -187,6 +187,7 @@
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitleColor:[UIColor colorWithHexString:@"#040000"] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont fontWithName:FontName size:13];
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [btn setTitle:titles[i] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
         [btnContainer addSubview:btn];

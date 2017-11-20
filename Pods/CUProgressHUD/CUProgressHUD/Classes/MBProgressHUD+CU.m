@@ -11,7 +11,7 @@
 
 + (void)showText:(NSString *)text view:(UIView *)view {
     if (view == nil) {
-        view = [[UIApplication sharedApplication].windows lastObject];
+        view = [UIApplication sharedApplication].keyWindow;
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = text;
@@ -26,7 +26,7 @@
 
 + (void)show:(NSString *)text icon:(NSString *)icon view:(UIView *)view {
     if (view == nil) {
-        view = [[UIApplication sharedApplication].windows lastObject];
+        view = [UIApplication sharedApplication].keyWindow;
     }
     //快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -51,7 +51,7 @@
 
 + (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
     if (view == nil) {
-        view = [[UIApplication sharedApplication].windows lastObject];
+        view = [UIApplication sharedApplication].keyWindow;
     }
     //快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -76,7 +76,7 @@
 
 + (void)hideHUDForView:(UIView *)view {
     if (view == nil) {
-        view = [[UIApplication sharedApplication].windows lastObject];
+        view = [UIApplication sharedApplication].keyWindow;
     }
     [self hideHUDForView:view animated:YES];
 }
