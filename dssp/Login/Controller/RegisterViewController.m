@@ -36,6 +36,10 @@
 
 @implementation RegisterViewController
 
+{
+    dispatch_source_t _authTimer;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
@@ -62,7 +66,7 @@
         make.centerX.equalTo(self.view);
         make.width.equalTo(131 * WidthCoefficient);
         make.height.equalTo(99.5 * HeightCoefficient);
-        make.top.equalTo(64 * HeightCoefficient);
+        make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
     }];
     
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,7 +77,7 @@
     [_skipBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
     [self.view addSubview:_skipBtn];
     [_skipBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(44 * HeightCoefficient);
+        make.top.equalTo(24 * HeightCoefficient + kStatusBarHeight);
         make.height.equalTo(20 * HeightCoefficient);
         make.right.equalTo(-18 * WidthCoefficient);
         make.width.equalTo(50 * WidthCoefficient);
@@ -88,11 +92,11 @@
                               ];
     
     NSArray<NSNumber *> *yOffset = @[
-                                     @236.5,
-                                     @294.0,
-                                     @351.0,
-                                     @408.5,
-                                     @466.0
+                                     @(216.5 * HeightCoefficient + kStatusBarHeight),
+                                     @(274.0 * HeightCoefficient + kStatusBarHeight),
+                                     @(331.0 * HeightCoefficient + kStatusBarHeight),
+                                     @(388.5 * HeightCoefficient + kStatusBarHeight),
+                                     @(446.0 * HeightCoefficient + kStatusBarHeight)
                           ];
     
     for (NSInteger i = 0; i < placeHolders.count; i++) {
@@ -104,7 +108,7 @@
             make.centerX.equalTo(self.view);
             make.height.equalTo(0.5 * HeightCoefficient);
             make.width.equalTo(290 * WidthCoefficient);
-            make.top.equalTo(yOffset[i].floatValue * HeightCoefficient);
+            make.top.equalTo(yOffset[i].floatValue);
         }];
         
         UITextField *field = [[UITextField alloc] init];
@@ -183,22 +187,6 @@
         }
     }
     
-    self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_registerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _registerBtn.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
-    _registerBtn.layer.borderWidth = 0.75;
-    _registerBtn.layer.cornerRadius = 2;
-    [_registerBtn.titleLabel setFont:[UIFont fontWithName:FontName size:16]];
-    [_registerBtn setTitle:NSLocalizedString(@"注册", nil) forState:UIControlStateNormal];
-    [_registerBtn setTitleColor:[UIColor colorWithHexString:@"#c4b7a6"] forState:UIControlStateNormal];
-    [self.view addSubview:_registerBtn];
-    [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.width.equalTo(290 * WidthCoefficient);
-        make.height.equalTo(44 * HeightCoefficient);
-        make.top.equalTo(502.5 * HeightCoefficient);
-    }];
-    
     NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册及表示同意<用户协议>"];
     agreement.yy_font = [UIFont fontWithName:FontName size:12];
     agreement.yy_color = [UIColor colorWithHexString:@"#999999"];
@@ -211,7 +199,7 @@
     [self.view addSubview:agreeLabel];
     [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(125 * WidthCoefficient);
-        make.top.equalTo(562.5 * HeightCoefficient);
+        make.top.equalTo(466.5 * HeightCoefficient + kStatusBarHeight);
         make.width.equalTo(150 * WidthCoefficient);
         make.height.equalTo(16 * HeightCoefficient);
     }];
@@ -228,6 +216,22 @@
         make.right.equalTo(agreeLabel.left).offset(-12 * WidthCoefficient);
     }];
     
+    self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_registerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _registerBtn.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
+    _registerBtn.layer.borderWidth = 0.75;
+    _registerBtn.layer.cornerRadius = 2;
+    [_registerBtn.titleLabel setFont:[UIFont fontWithName:FontName size:16]];
+    [_registerBtn setTitle:NSLocalizedString(@"注册", nil) forState:UIControlStateNormal];
+    [_registerBtn setTitleColor:[UIColor colorWithHexString:@"#c4b7a6"] forState:UIControlStateNormal];
+    [self.view addSubview:_registerBtn];
+    [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(290 * WidthCoefficient);
+        make.height.equalTo(44 * HeightCoefficient);
+        make.top.equalTo(agreeLabel.bottom).offset(30.5 * HeightCoefficient);
+    }];
+    
     UILabel *botLabel = [[UILabel alloc] init];
     botLabel.text = NSLocalizedString(@"已经有账号?", nil);
     botLabel.font = [UIFont fontWithName:FontName size:14];
@@ -235,7 +239,7 @@
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(126.5 * WidthCoefficient);
-        make.top.equalTo(609.5 * HeightCoefficient);
+        make.top.equalTo(_registerBtn.bottom).offset(25 * HeightCoefficient);
         make.width.equalTo(91 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
@@ -309,8 +313,25 @@
         TabBarController *tabVC = [[TabBarController alloc] init];
         [self presentViewController:tabVC animated:NO completion:nil];
     }
-    if (sender == self.authBtn) {
-        
+    if (sender == self.authBtn) {//验证码按钮
+        _authBtn.enabled = NO;
+        __block NSInteger timeLeft = 60;
+        _authTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+        dispatch_source_set_timer(_authTimer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+        dispatch_source_set_event_handler(_authTimer, ^{
+            timeLeft--;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_authBtn setTitle:[NSString stringWithFormat:@"%lds",timeLeft] forState:UIControlStateNormal];
+            });
+            if (timeLeft == 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_authBtn setTitle:NSLocalizedString(@"获取手机验证码", nil) forState:UIControlStateNormal];
+                    _authBtn.enabled = YES;
+                });
+                dispatch_source_cancel(_authTimer);
+            }
+        });
+        dispatch_resume(_authTimer);
     }
 }
 
