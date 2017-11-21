@@ -41,7 +41,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     btn.layer.cornerRadius = 2;
-    [btn setTitle:NSLocalizedString(@"返回个人中心", nil) forState:UIControlStateNormal];
+    [btn setTitle:NSLocalizedString(@"完成", nil) forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     btn.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
@@ -55,6 +55,9 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"yes" forKey:@"isbool"];
+    [defaults synchronize];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
