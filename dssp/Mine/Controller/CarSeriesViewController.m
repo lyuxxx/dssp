@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSArray<NSString *> *series;
 @property (nonatomic, strong) NSArray<NSString *> *types;
 
+@property (nonatomic, copy) NSString *carSeries;
+
 @end
 
 @implementation CarSeriesViewController
@@ -162,6 +164,7 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
+    self.carSeriesSelct(_carSeries);
     [self.navigationController popViewControllerAnimated:YES];
 }
 

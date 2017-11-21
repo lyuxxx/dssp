@@ -7,6 +7,7 @@
 //
 
 #import "LoginResult.h"
+#import <CUHTTPRequest.h>
 
 @implementation RoleVO
 
@@ -18,6 +19,13 @@
 
 @implementation LoginResultData
 
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"roles": [RoleVO class],
+             @"permissions": [PermissionVO class]
+             };
+}
+
 - (void)setUserId:(NSInteger)userId {
     if (_userId != userId) {
         _userId = userId;
@@ -25,11 +33,13 @@
     }
 }
 
-+ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
-    return @{
-             @"roles": [RoleVO class],
-             @"permissions": [PermissionVO class]
-             };
+- (void)setToken:(NSString *)token {
+    if (_token != token) {
+        _token = token;
+        [CUHTTPRequest setHTTPHeader:@{
+                                       @"token": token
+                                       }];
+    }
 }
 
 @end

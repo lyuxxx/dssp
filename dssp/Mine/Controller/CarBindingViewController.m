@@ -159,6 +159,9 @@
 
 - (void)seriesLabelTap:(UITapGestureRecognizer *)sender {
     CarSeriesViewController *vc = [[CarSeriesViewController alloc] init];
+    vc.carSeriesSelct = ^(NSString *carSeries) {
+        _carSeries.text = carSeries;
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 
