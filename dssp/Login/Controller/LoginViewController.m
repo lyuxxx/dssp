@@ -56,10 +56,10 @@
     logoView.image = [UIImage imageNamed:@"logo"];
     [self.view addSubview:logoView];
     [logoView makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(122*WidthCoefficient);
-        make.width.equalTo(131*WidthCoefficient);
-        make.height.equalTo(99.5*HeightCoefficient);
-        make.top.equalTo(64*HeightCoefficient);
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(131 * WidthCoefficient);
+        make.height.equalTo(99.5 * HeightCoefficient);
+        make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
     }];
     
     
@@ -71,7 +71,7 @@
     [_skipBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
     [self.view addSubview:_skipBtn];
     [_skipBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(22 * HeightCoefficient+kStatusBarHeight);
+        make.top.equalTo(24 * HeightCoefficient+kStatusBarHeight);
         make.right.equalTo(-18 * WidthCoefficient);
         make.width.equalTo(50 * WidthCoefficient);
          make.height.equalTo(20 * HeightCoefficient);
@@ -85,7 +85,7 @@
     _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"用户名", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_userNameField];
     [_userNameField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(211.5 * HeightCoefficient);
+        make.top.equalTo(191.5 * HeightCoefficient +kStatusBarHeight);
         make.left.equalTo(42.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
@@ -100,7 +100,7 @@
     _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneField];
     [_phoneField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(211.5 * HeightCoefficient);
+        make.top.equalTo(191.5 * HeightCoefficient +kStatusBarHeight);
         make.left.equalTo(42.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
@@ -112,7 +112,7 @@
     [self.view addSubview:line0];
     [line0 makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(236.5 * HeightCoefficient);
+        make.top.equalTo(216.5 * HeightCoefficient +kStatusBarHeight);
         make.height.equalTo(0.5 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
@@ -126,7 +126,7 @@
     _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_passWordField];
     [_passWordField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(269 * HeightCoefficient);
+        make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
     
@@ -140,7 +140,7 @@
     _phoneCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机验证码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneCodeField];
     [_phoneCodeField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(269 * HeightCoefficient);
+        make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_phoneField);
     }];
 
@@ -154,7 +154,7 @@
         make.width.equalTo(16 * WidthCoefficient);
         make.right.equalTo(line0);
         make.height.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(274.5 * HeightCoefficient);
+        make.top.equalTo(254.5 * HeightCoefficient + kStatusBarHeight);
     }];
     
     
@@ -163,7 +163,7 @@
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(293.5 * HeightCoefficient);
+        make.top.equalTo(273.5 * HeightCoefficient + kStatusBarHeight);
         make.height.equalTo(0.5 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
@@ -199,7 +199,7 @@
         make.width.equalTo(112 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(line);
-        make.top.equalTo(306 * HeightCoefficient);
+        make.top.equalTo(286 * HeightCoefficient + kStatusBarHeight);
     }];
     
     
@@ -214,7 +214,7 @@
         make.width.equalTo(70.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.right.equalTo(line);
-        make.top.equalTo(306 * HeightCoefficient);
+        make.top.equalTo(286 * HeightCoefficient + kStatusBarHeight);
     }];
     
     
@@ -231,7 +231,7 @@
         make.centerX.equalTo(self.view);
         make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
-        make.top.equalTo(390 * HeightCoefficient);
+        make.top.equalTo(370 * HeightCoefficient + kStatusBarHeight);
     }];
     
     
@@ -308,7 +308,7 @@
                 int seconds = time % 60;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //设置按钮显示读秒效果
-                    [self.authBtn setTitle:[NSString stringWithFormat:@"重新发送(%.2d)", seconds] forState:UIControlStateNormal];
+                    [self.authBtn setTitle:[NSString stringWithFormat:@"重新发送(%.2ds)", seconds] forState:UIControlStateNormal];
                     [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
                     [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
                     self.authBtn.userInteractionEnabled = NO;
