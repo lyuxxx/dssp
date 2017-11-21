@@ -11,18 +11,18 @@ target 'dssp' do
   pod 'Masonry', '~> 1.1.0'
   pod 'YYModel', '~> 1.0.4'
   pod 'KVOController', '~> 1.2.0'
-  pod 'IQKeyboardManager', '~> 5.0.4'
+  pod 'IQKeyboardManager', '~> 5.0.6'
   pod 'YYText', '~> 1.0.7'
   pod 'MJRefresh', '~> 3.1.15'
   pod 'TBActionSheet', '~> 1.5.5'
-  pod 'RTRootNavigationController', '~> 0.6.3'
+  pod 'RTRootNavigationController', '~> 0.6.4'
   
   # internal pod
   pod 'CUHTTPRequest', '~> 0.1.4'
-  pod 'CUProgressHUD', '~> 0.1.5'
-  pod 'UIImageViewSDWebImage', '~> 0.1.3'
+  pod 'CUProgressHUD', '~> 0.1.6'
+  pod 'UIImageViewSDWebImage', '~> 0.1.4'
   pod 'YYCategoriesSub', '~> 0.1.0'
-  pod 'MapManager', '~> 0.1.0'
+  pod 'MapManager', '~> 0.1.1'
 
   target 'dsspUITests' do
     inherit! :search_paths

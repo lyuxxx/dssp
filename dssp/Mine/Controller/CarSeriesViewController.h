@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+typedef void(^CarSeriesSelect)(NSString *);
+
 @interface CarSeriesViewController : BaseViewController
+
+@property (nonatomic, copy) CarSeriesSelect carSeriesSelct;
 
 @end

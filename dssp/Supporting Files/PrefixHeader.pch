@@ -12,6 +12,12 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+#ifdef DEBUG
+#define NSLog(format, ...) printf("\n[%s] %s [line:%d] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+#else
+#define NSLog(format, ...)
+#endif
+
 #define MAS_SHORTHAND
 #define MAS_SHORTHAND_GLOBALS
 #import "Masonry.h"
