@@ -19,11 +19,15 @@
 
 @property (nonatomic, strong) UITextField *userNameField;
 @property (nonatomic, strong) UITextField *passWordField;
+@property (nonatomic, strong) UITextField *phoneField;
+@property (nonatomic, strong) UITextField *phoneCodeField;
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *registerBtn;
 @property (nonatomic, strong) UIButton *forgotPassword;
+@property (nonatomic, strong) UIButton *switchBtn;
 @property (nonatomic, strong) UIButton *skipBtn;
 @property (nonatomic, strong) UIButton *smallEyeBtn;
+@property (nonatomic, strong) UIButton *authBtn;
 @end
 
 @implementation LoginViewController
@@ -88,6 +92,21 @@
     }];
     
     
+    self.phoneField = [[UITextField alloc] init];
+    _phoneField.textColor = [UIColor whiteColor];
+    _phoneField.delegate = self;
+    _phoneField.hidden = YES;
+    _phoneField.font = [UIFont fontWithName:FontName size:15];
+    _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    [self.view addSubview:_phoneField];
+    [_phoneField makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(211.5 * HeightCoefficient);
+        make.left.equalTo(42.5 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.width.equalTo(150 * WidthCoefficient);
+    }];
+    
+
     UIView *line0 = [[UIView alloc] init];
     line0.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
     [self.view addSubview:line0];
@@ -111,6 +130,20 @@
         make.right.left.height.equalTo(_userNameField);
     }];
     
+    
+    self.phoneCodeField = [[UITextField alloc] init];
+//    _phoneCodeField.secureTextEntry = true;
+    _phoneCodeField.hidden = YES;
+    _phoneCodeField.delegate = self;
+    _phoneCodeField.textColor = [UIColor whiteColor];
+    _phoneCodeField.font = [UIFont fontWithName:FontName size:15];
+    _phoneCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机验证码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    [self.view addSubview:_phoneCodeField];
+    [_phoneCodeField makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(269 * HeightCoefficient);
+        make.right.left.height.equalTo(_phoneField);
+    }];
+
     
     self.smallEyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_smallEyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
@@ -136,11 +169,45 @@
     }];
     
     
+    self.authBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_authBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _authBtn.layer.cornerRadius = 2;
+    _authBtn.hidden = YES;
+    [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
+    [_authBtn setTitle:NSLocalizedString(@"获取手机验证码", nil) forState:UIControlStateNormal];
+    [_authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
+    [_authBtn setBackgroundColor:[UIColor colorWithHexString:@"#2f2726"]];
+    [self.view addSubview:_authBtn];
+    [_authBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(line.right);
+        make.width.equalTo(105 * WidthCoefficient);
+        make.height.equalTo(28 * HeightCoefficient);
+        make.bottom.equalTo(line.top).offset(- 4.5 * HeightCoefficient);
+    }];
+    
+   
+    self.switchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _switchBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
+
+    [_switchBtn setTitle:NSLocalizedString(@"用短信验证码登录", nil) forState:UIControlStateNormal];
+    [_switchBtn setTitle:NSLocalizedString(@"用账号密码登录", nil) forState:UIControlStateSelected];
+    _switchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_switchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_switchBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_switchBtn];
+    [_switchBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(112 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(line);
+        make.top.equalTo(306 * HeightCoefficient);
+    }];
+    
+    
     self.forgotPassword = [UIButton buttonWithType:UIButtonTypeCustom];
-    _forgotPassword.titleLabel.font = [UIFont fontWithName:FontName size:13];
+    _forgotPassword.titleLabel.font = [UIFont fontWithName:FontName size:14];
     [_forgotPassword setTitle:NSLocalizedString(@"忘记密码", nil) forState:UIControlStateNormal];
     _forgotPassword.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [_forgotPassword setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_forgotPassword setTitleColor:[UIColor colorWithHexString:  GeneralColorString] forState:UIControlStateNormal];
     [_forgotPassword addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_forgotPassword];
     [_forgotPassword makeConstraints:^(MASConstraintMaker *make) {
@@ -215,48 +282,107 @@
         sender.selected = !sender.selected;
         self.passWordField.secureTextEntry = !sender.selected;
     }
-    if (sender == self.forgotPassword) {
+    if(sender == self.authBtn) {
+        
        
     }
-    if (sender == self.loginBtn) {
+    if (sender == self.forgotPassword) {
         
-        [self.view endEditing:YES];
-        NSString *userName = _userNameField.text;
-        NSString *passWord = _passWordField.text;
-        
-        if (userName.length == 0 || passWord.length == 0) {
-        [MBProgressHUD showText:NSLocalizedString(@"用户名或密码不能为空", nil)];
+    }
+    if (sender == self.switchBtn) {
+         sender.selected = !sender.selected;
+        if(sender.selected)
+        {
+            _authBtn.hidden = NO;
+            _phoneField.hidden = NO;
+            _phoneCodeField.hidden = NO;
+            _userNameField.hidden = YES;
+            _passWordField.hidden =YES;
+            _smallEyeBtn.hidden=YES;
+            
         }
         else
         {
-            NSDictionary *paras = @{
-                                    @"userName": userName,
-                                    @"userPassword": passWord
-                                    };
-            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-            [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
-                if (responseData) {
-                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                    if ([result.code isEqualToString:@"200"]) {
-                        [hud hideAnimated:YES];
-                        
-                        TabBarController *tabVC = [[TabBarController alloc] init];
-                        [self presentViewController:tabVC animated:NO completion:nil];
-                        
+            _authBtn.hidden = YES;
+            _phoneField.hidden = YES;
+            _phoneCodeField.hidden = YES;
+            _userNameField.hidden = NO;
+            _passWordField.hidden =NO;
+             _smallEyeBtn.hidden=NO;
+        }
+    }
+    if (sender == self.loginBtn) {
+        [self.view endEditing:YES];
+        if(self.switchBtn.selected)
+        {
+            if (_phoneField.text.length == 0 || _phoneCodeField.text.length == 0) {
+                [MBProgressHUD showText:NSLocalizedString(@"手机号不能为空", nil)];
+            }
+            else
+            {
+                NSDictionary *paras = @{
+//                                        @"userName": userName,
+//                                        @"userPassword": passWord
+                                        };
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
+                    if (responseData) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                        if ([result.code isEqualToString:@"200"]) {
+                            
+                            [hud hideAnimated:YES];
+                            TabBarController *tabVC = [[TabBarController alloc] init];
+                            [self presentViewController:tabVC animated:NO completion:nil];
+                            
+                        } else {
+                            hud.label.text = [dic objectForKey:@"msg"];
+                            [hud hideAnimated:YES afterDelay:1];
+                        }
                     } else {
-                        hud.label.text = [dic objectForKey:@"msg"];
+                        hud.label.text = NSLocalizedString(@"请求失败", nil);
                         [hud hideAnimated:YES afterDelay:1];
                     }
+                    
+                }];
+                
+            }
+            
+        }
+        else
+        {
+            if (_userNameField.text.length == 0 || _passWordField.text.length == 0) {
+            [MBProgressHUD showText:NSLocalizedString(@"用户名或密码不能为空", nil)];
+            }
+            else
+            {
+                NSDictionary *paras = @{
+                        @"userName": _userNameField.text,
+                        @"userPassword": _passWordField.text
+                                        };
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
+                if (responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                if ([result.code isEqualToString:@"200"]) {
+                    
+                   [hud hideAnimated:YES];
+                   TabBarController *tabVC = [[TabBarController alloc] init];
+                   [self presentViewController:tabVC animated:NO completion:nil];
+            
+                } else {
+                    hud.label.text = [dic objectForKey:@"msg"];
+                    [hud hideAnimated:YES afterDelay:1];
+                }
                 } else {
                     hud.label.text = NSLocalizedString(@"请求失败", nil);
                     [hud hideAnimated:YES afterDelay:1];
-                }
-                
-            }];
+                    }
+                }];
             
+                    }
         }
-        
     }
     if (sender == self.registerBtn) {
         RegisterViewController *registerVC = [[RegisterViewController alloc] init];
@@ -277,10 +403,20 @@
         _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
          _passWordField.font = [UIFont fontWithName:FontName size:15];
     }
-    else
+    else if(textField == self.userNameField)
     {
         _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"用户名", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
         _userNameField.font = [UIFont fontWithName:FontName size:15];
+    }
+    
+    else if(textField == self.phoneField) {
+        _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+        _phoneField.font = [UIFont fontWithName:FontName size:15];
+    }
+    else
+    {
+        _phoneCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机验证码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+        _phoneCodeField.font = [UIFont fontWithName:FontName size:15];
     }
 
     return YES;
