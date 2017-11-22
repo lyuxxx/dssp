@@ -19,7 +19,7 @@ PODS:
   - AMapFoundation (1.4.2)
   - AMapSearch (5.5.0):
     - AMapFoundation (~> 1.4)
-  - CUHTTPRequest (0.1.4):
+  - CUHTTPRequest (0.1.5):
     - AFNetworking (~> 3.1.0)
   - CUProgressHUD (0.1.6):
     - MBProgressHUD (~> 1.1.0)
@@ -45,7 +45,7 @@ PODS:
   - YYText (1.0.7)
 
 DEPENDENCIES:
-  - CUHTTPRequest (~> 0.1.4)
+  - CUHTTPRequest (~> 0.1.5)
   - CUProgressHUD (~> 0.1.6)
   - IQKeyboardManager (~> 5.0.6)
   - KVOController (~> 1.2.0)
@@ -64,7 +64,7 @@ SPEC CHECKSUMS:
   AMap3DMap: 548723d9646c082b7d9b6102a8b070f712d83924
   AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
-  CUHTTPRequest: 2cbf2eaaea115cca9271ca858654de44852009ee
+  CUHTTPRequest: cf00568270835ae7bdb22a81ba1bd7618791aaa3
   CUProgressHUD: d58424e4116a86b9ffb39deaf05797772b002bae
   IQKeyboardManager: 077b7f691dfa9d69db9cff66f2bed68ebfc02d9b
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
@@ -80,6 +80,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: feab82d3ae45c3315bfb17b0f6b5fce7c7ef0ec2
+PODFILE CHECKSUM: 587cf1433066f66bc02efce764f4145c4a52a69b
 
 COCOAPODS: 1.3.1

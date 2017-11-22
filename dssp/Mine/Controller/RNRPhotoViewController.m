@@ -136,12 +136,23 @@
         make.centerX.equalTo(0);
         make.bottom.equalTo(self.view.bottom).offset(-8 * HeightCoefficient - kBottomHeight);
     }];
+    
 }
 
 - (void)sumitBtnClick:(UIButton *)sender {
-    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.1) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.1) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.1) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    if (!self.pic1ImgV.image) {
+        [MBProgressHUD showText:NSLocalizedString(@"身份证正面未上传!", nil)];
+        return;
+    } else if (!self.pic2ImgV.image) {
+        [MBProgressHUD showText:NSLocalizedString(@"身份证背面未上传!", nil)];
+        return;
+    } else if (!self.facepicImgV.image) {
+        [MBProgressHUD showText:NSLocalizedString(@"手持身份证照片未上传", nil)];
+        return;
+    }
+    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
     NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
     

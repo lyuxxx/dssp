@@ -113,7 +113,7 @@
         
         UITextField *field = [[UITextField alloc] init];
         field.delegate = self;
-        field.textColor = [UIColor colorWithHexString:GeneralColorString];
+        field.textColor = [UIColor whiteColor];
         field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
         field.font = [UIFont fontWithName:FontName size:15];
         [self.view addSubview:field];

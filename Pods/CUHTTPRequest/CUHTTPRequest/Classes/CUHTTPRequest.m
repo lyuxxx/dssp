@@ -70,6 +70,7 @@ static AFHTTPSessionManager *sessionManager = nil;
         sessionManager = [AFHTTPSessionManager manager];
         sessionManager.attemptsToRecreateUploadTasksForBackgroundSessions = YES;
         sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+        sessionManager.requestSerializer.timeoutInterval = 10.0;
         sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"application/force-download", @"application/soap+xml; charset=utf-8",@"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/html; charset=iso-8859-1", @"text/html; charset=utf-8", @"text/plain",@"text/css",@"application/x-plist",@"image/*", nil];
     });

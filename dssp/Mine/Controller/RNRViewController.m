@@ -10,8 +10,10 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "RNRPhotoViewController.h"
 #import "RNRInput.h"
+#import <MBProgressHUD+CU.h>
+#import <IQUIView+IQKeyboardToolbar.h>
 
-@interface RNRViewController ()
+@interface RNRViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *genderField;
@@ -19,6 +21,17 @@
 @property (nonatomic, strong) UITextField *ownercertidField;
 @property (nonatomic, strong) UITextField *ownercertaddrField;
 @property (nonatomic, strong) UITextField *servnumberField;
+
+@property (nonatomic, strong) UIPickerView *picker;
+
+@property (nonatomic, strong) NSArray<NSString *> *genders;
+@property (nonatomic, strong) NSArray<NSString *> *certtypes;
+
+@property (nonatomic, strong) NSArray *dataSource;
+
+@property (nonatomic, strong) UITextField *selectedField;
+
+@property (nonatomic, copy) NSString *selectedStr;
 
 @end
 
@@ -106,6 +119,7 @@
             self.usernameField = field;
         } else if (i == 1) {
             self.genderField = field;
+            self.genderField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
         } else if (i == 2) {
             self.ownercerttypeField = field;
         } else if (i == 3) {
@@ -131,19 +145,119 @@
         make.centerX.equalTo(0);
         make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
     }];
+    
+    self.picker = [[UIPickerView alloc] init];
+    _picker.dataSource = self;
+    _picker.delegate = self;
+    _genderField.inputView = _picker;
+    _ownercerttypeField.inputView = _picker;
+    
+    _genderField.delegate = self;
+    _ownercerttypeField.delegate = self;
+    
+    [_genderField.keyboardToolbar.doneBarButton setTarget:self action:@selector(genderDoneAction:)];
+    [_ownercerttypeField.keyboardToolbar.doneBarButton setTarget:self action:@selector(certtypeDoneAction:)];
+}
+
+- (void)genderDoneAction:(UIBarButtonItem *)barButton {
+    _genderField.text = self.genders[[self.picker selectedRowInComponent:0]];
+}
+
+- (void)certtypeDoneAction:(UIBarButtonItem *)barButton {
+    _ownercerttypeField.text = self.certtypes[[self.picker selectedRowInComponent:0]];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    _selectedField = textField;
+    if (textField == _genderField) {
+        self.dataSource = self.genders;
+        [self.picker reloadAllComponents];
+    } else if (textField == _ownercerttypeField) {
+        self.dataSource = self.certtypes;
+        [self.picker reloadAllComponents];
+    }
+    return YES;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.dataSource.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.dataSource[row];
+}
+
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+//    _selectedStr = self.dataSource[row];
+//}
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [[NSAttributedString alloc] initWithString:self.dataSource[row] attributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
+    if (!self.usernameField.text || [self.usernameField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写姓名", nil)];
+        return;
+    } else if (!self.genderField.text || [self.genderField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择性别", nil)];
+        return;
+    } else if (!self.ownercerttypeField.text || [self.ownercerttypeField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择证件类型", nil)];
+        return;
+    } else if (!self.ownercertidField.text || [self.ownercertidField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写证件号码", nil)];
+        return;
+    } else if (!self.servnumberField.text || [self.servnumberField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写电话码", nil)];
+        return;
+    } else if (!self.ownercertaddrField.text || [self.ownercertaddrField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写证件地址", nil)];
+        return;
+    }
     RNRInput *rnrInfo = [[RNRInput alloc] init];
     rnrInfo.username = self.usernameField.text;
-    rnrInfo.gender = self.genderField.text;
-    rnrInfo.ownercerttype = self.ownercerttypeField.text;
+    rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text] + 1];
+    rnrInfo.ownercerttype = [NSString stringWithFormat:@"%ld",[self.certtypes indexOfObject:self.ownercerttypeField.text] + 1];
     rnrInfo.ownercertid = self.ownercertidField.text;
     rnrInfo.ownercertaddr = self.ownercertaddrField.text;
     rnrInfo.servnumber = self.servnumberField.text;
     RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
     vc.rnrInfo = rnrInfo;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (NSArray<NSString *> *)genders {
+    if (!_genders) {
+        _genders = @[
+                     NSLocalizedString(@"男", nil),
+                     NSLocalizedString(@"女", nil)
+                     ];
+    }
+    return _genders;
+}
+
+- (NSArray<NSString *> *)certtypes {
+    if (!_certtypes) {
+        _certtypes = @[
+                       NSLocalizedString(@"身份证", nil),
+                       NSLocalizedString(@"护照", nil),
+                       NSLocalizedString(@"军官证", nil),
+                       NSLocalizedString(@"港澳通行证", nil)
+                       ];
+    }
+    return _certtypes;
+}
+
+- (NSArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[NSArray alloc] init];
+    }
+    return _dataSource;
 }
 
 @end
