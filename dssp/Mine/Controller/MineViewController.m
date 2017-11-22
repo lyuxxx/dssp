@@ -495,8 +495,10 @@
         if (responseData) {
             
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-
-            _realNames=[dic[@"data"] objectForKey:@"certificationStatusName"];
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                 _realNames=[dic[@"data"] objectForKey:@"certificationStatusName"];
+            }
+          
     }
         
     }];

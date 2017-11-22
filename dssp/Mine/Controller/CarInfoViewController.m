@@ -156,7 +156,7 @@
         make.top.equalTo(20 * HeightCoefficient);
     }];
     
-    
+   
     _sc=[[UIScrollView alloc] init];
     [whiteV addSubview:_sc];
     [_sc makeConstraints:^(MASConstraintMaker *make) {
