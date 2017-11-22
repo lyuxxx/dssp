@@ -10,8 +10,8 @@
 
 @interface MineCell : UITableViewCell
 @property (nonatomic, strong) UIImageView *img;
-@property (nonatomic, strong) UIImageView *ArrowImg;
+@property (nonatomic, strong) UIImageView *arrowImg;
 @property (nonatomic, strong) UILabel *lab;
-@property (nonatomic, strong) UILabel *RealName;
+@property (nonatomic, strong) UILabel *realName;
 @property (nonatomic, strong) UIView *whiteView;
 @end

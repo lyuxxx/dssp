@@ -57,7 +57,7 @@
         img;
     });
     
-    self.ArrowImg=({
+    self.arrowImg=({
         UIImageView *img = [[UIImageView alloc] init];
         [self.contentView addSubview:img];
         //    _img.image=[UIImage imageNamed:data[0]];
@@ -85,7 +85,7 @@
     });
     
     
-    self.RealName=({
+    self.realName=({
         
       UILabel *RealNamelab = [[UILabel alloc] init];
         RealNamelab.font = [UIFont fontWithName:FontName size:12];

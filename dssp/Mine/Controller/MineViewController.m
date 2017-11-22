@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UIButton *setBtn;
 @property (nonatomic, strong) UIImageView *img;
 @property(nonatomic, strong) NSData *fileData;
-@property(nonatomic, copy) NSString *realName;
+@property(nonatomic, copy) NSString *realNames;
 @end
 
 @interface MineViewController ()
@@ -293,10 +293,10 @@
     
     cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
     cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
-    cell.ArrowImg.image=[UIImage imageNamed:@"arrownext"];
+    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
     if (indexPath.section==0) {
         if (indexPath.row==1) {
-            cell.RealName.text=_realName?_realName:NSLocalizedString(@"未实名", nil);
+            cell.realName.text=_realNames?_realNames:NSLocalizedString(@"未实名", nil);
         }
         if (indexPath.row==4) {
             cell.whiteView.hidden=YES;
@@ -496,7 +496,7 @@
             
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
 
-            _realName=[dic[@"data"] objectForKey:@"certificationStatusName"];
+            _realNames=[dic[@"data"] objectForKey:@"certificationStatusName"];
     }
         
     }];

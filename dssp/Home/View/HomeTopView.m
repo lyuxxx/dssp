@@ -190,7 +190,7 @@
             make.right.equalTo(- 15.2 * WidthCoefficient);
         }];
         
-        NSString *str = @"深圳市龙华区观澜街道观光路1226号";
+        NSString *str = @"五号院";
         self.locationLabel = [[NoResponseYYLabel alloc] init];
         _locationLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
         NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
