@@ -47,7 +47,7 @@
 - (void)postCustByMobile
 {
       NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-      NSString *isbool = [defaults objectForKey:@"isbool"];
+      NSString *isbool = [defaults objectForKey:@"isBinded"];
     //根据键值取
     if (isbool) {
        

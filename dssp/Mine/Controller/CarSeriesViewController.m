@@ -184,6 +184,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    _carSeries = self.dataSource[indexPath.row];
 }
 
 - (NSArray<NSString *> *)dataSource {

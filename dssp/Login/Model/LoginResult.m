@@ -37,6 +37,7 @@
     if (_token != token) {
         _token = token;
         [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [CUHTTPRequest setHTTPHeader:@{
                                        @"token": token
                                        }];

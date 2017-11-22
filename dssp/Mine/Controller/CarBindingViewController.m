@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) CarBindingInput *bindingInput;
 
+@property (nonatomic, strong) UITextField *customerNameField;
 @property (nonatomic, strong) UITextField *vinField;
 @property (nonatomic, strong) UITextField *doptField;
 @property (nonatomic, strong) UILabel *carSeries;
@@ -70,7 +71,7 @@
     }];
     
     NSArray<NSString *> *titles = @[NSLocalizedString(@"车主姓名", nil),NSLocalizedString(@"VIN", nil),NSLocalizedString(@"发动机号", nil),NSLocalizedString(@"车系", nil),NSLocalizedString(@"车牌号", nil)];
-    NSArray<NSString *> *placeHolders = @[NSLocalizedString(@"", nil),NSLocalizedString(@"请填写VIN号", nil),NSLocalizedString(@"请填写发动机号", nil),NSLocalizedString(@"", nil),NSLocalizedString(@"请填写车牌号", nil)];
+    NSArray<NSString *> *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"请填写VIN号", nil),NSLocalizedString(@"请填写发动机号", nil),NSLocalizedString(@"", nil),NSLocalizedString(@"请填写车牌号", nil)];
     for (NSInteger i = 0; i < titles.count; i++) {
         
         UILabel *label = [[UILabel alloc] init];
@@ -99,8 +100,13 @@
             }];
             
             if (i == 0) {
-                field.text = @"张三";
-                field.userInteractionEnabled = NO;
+                self.customerNameField = field;
+            } else if (i == 1) {
+                self.vinField = field;
+            } else if (i == 2) {
+                self.doptField = field;
+            } else if (i == 4) {
+                self.vhlLicenceField = field;
             }
             
         } else {
@@ -151,8 +157,25 @@
 
 - (void)confirmBtnClick:(UIButton *)sender {
     
+    if (!_customerNameField.text || [_customerNameField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写姓名", nil)];
+        return;
+    } else if (!_vinField.text || [_vinField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写VIN号", nil)];
+        return;
+    } else if (!_doptField.text || [_doptField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写发动机号", nil)];
+        return;
+    } else if ([_carSeries.text isEqualToString:NSLocalizedString(@"请选择车系", nil)]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择车系", nil)];
+        return;
+    } else if (!_vhlLicenceField.text || [_vhlLicenceField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写车牌号", nil)];
+        return;
+    }
+    
     self.bindingInput.vin = _vinField.text;
-    self.bindingInput.customerName = @"张三";
+    self.bindingInput.customerName = @"";
     self.bindingInput.credentials = @"";
     self.bindingInput.credentialsNum = @"";
     self.bindingInput.sex = @"";
@@ -181,6 +204,8 @@
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBinded"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 NSArray *viewControllers = self.navigationController.viewControllers;
                 [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj isKindOfClass:[HomeViewController class]]) {
@@ -212,6 +237,13 @@
         _carSeries.text = carSeries;
     };
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (CarBindingInput *)bindingInput {
+    if (!_bindingInput) {
+        _bindingInput = [[CarBindingInput alloc] init];
+    }
+    return _bindingInput;
 }
 
 @end

@@ -55,9 +55,6 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
-    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-    [defaults setObject:@"yes" forKey:@"isbool"];
-    [defaults synchronize];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

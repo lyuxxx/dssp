@@ -164,7 +164,7 @@
                 RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
                 [self.navigationController pushViewController:vc animated:YES];
             } else {
-                [MBProgressHUD showText:NSLocalizedString(@"实名认证失败", nil)];
+                [MBProgressHUD showText:dic[@"msg"]];
             }
         } else {
             [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];
