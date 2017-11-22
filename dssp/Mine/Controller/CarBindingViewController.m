@@ -14,9 +14,17 @@
 #import "RNRViewController.h"
 #import "HomeViewController.h"
 #import "MineViewController.h"
+#import <MBProgressHUD+CU.h>
+
 @interface CarBindingViewController ()
-@property (nonatomic, strong) UILabel *carSeries;
+
 @property (nonatomic, strong) CarBindingInput *bindingInput;
+
+@property (nonatomic, strong) UITextField *vinField;
+@property (nonatomic, strong) UITextField *doptField;
+@property (nonatomic, strong) UILabel *carSeries;
+@property (nonatomic, strong) UITextField *vhlLicenceField;
+
 @end
 
 @implementation CarBindingViewController
@@ -142,30 +150,19 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[HomeViewController class]]) {
-            NSLog(@"是从HomeViewController过来的页面");
-            RNRViewController *vc=[[RNRViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-       else 
-        {
-           NSLog(@"是从MineViewController过来的页面");
-        }
-    }];
-}
-
-- (void)seriesLabelTap:(UITapGestureRecognizer *)sender {
-    CarSeriesViewController *vc = [[CarSeriesViewController alloc] init];
-    vc.carSeriesSelct = ^(NSString *carSeries) {
-        _carSeries.text = carSeries;
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)bindCar {
+    
+    self.bindingInput.vin = _vinField.text;
+    self.bindingInput.customerName = @"张三";
+    self.bindingInput.credentials = @"";
+    self.bindingInput.credentialsNum = @"";
+    self.bindingInput.sex = @"";
+    self.bindingInput.mobilePhone = @"";
+    self.bindingInput.phone = @"";
+    self.bindingInput.email = @"";
+    self.bindingInput.vhlType =  _carSeries.text;
+    self.bindingInput.vhlLicence = _vhlLicenceField.text;
+    self.bindingInput.remark = @"";
+    self.bindingInput.doptCode = _doptField.text;
     NSDictionary *paras = @{
                             @"vin": self.bindingInput.vin,
                             @"customerName": self.bindingInput.customerName,
@@ -176,15 +173,45 @@
                             @"phone": self.bindingInput.phone,
                             @"email": self.bindingInput.email,
                             @"vhlType": self.bindingInput.vhlType,
-                            @"vhlLicense": self.bindingInput.vhlLicense,
+                            @"vhlLicense": self.bindingInput.vhlLicence,
                             @"remark": self.bindingInput.remark,
                             @"doptCode": self.bindingInput.doptCode
                             };
     [CUHTTPRequest POST:bind parameters:paras response:^(id responseData) {
         if (responseData) {
-            
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                NSArray *viewControllers = self.navigationController.viewControllers;
+                [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isKindOfClass:[HomeViewController class]]) {
+                        NSLog(@"是从HomeViewController过来的页面");
+                        RNRViewController *vc=[[RNRViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    else
+                    {
+                        NSLog(@"是从MineViewController过来的页面");
+                        [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
+                    }
+                }];
+            } else {
+                [MBProgressHUD showText:NSLocalizedString(@"绑定失败", nil)];
+            }
+        } else {
+            [MBProgressHUD showText:@""];
         }
     }];
+    
+    
+}
+
+- (void)seriesLabelTap:(UITapGestureRecognizer *)sender {
+    CarSeriesViewController *vc = [[CarSeriesViewController alloc] init];
+    vc.carSeriesSelct = ^(NSString *carSeries) {
+        _carSeries.text = carSeries;
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -29,7 +29,7 @@
 ///车型
 @property (nonatomic, copy) NSString *vhlType;
 ///车牌号
-@property (nonatomic, copy) NSString *vhlLicense;
+@property (nonatomic, copy) NSString *vhlLicence;
 ///备注
 @property (nonatomic, copy) NSString *remark;
 ///发动机号

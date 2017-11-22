@@ -36,9 +36,16 @@
 - (void)setToken:(NSString *)token {
     if (_token != token) {
         _token = token;
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
         [CUHTTPRequest setHTTPHeader:@{
                                        @"token": token
                                        }];
+    }
+}
+
+- (void)setExpiredTime:(NSInteger)expiredTime {
+    if (_expiredTime != expiredTime) {
+        _expiredTime = expiredTime;
     }
 }
 

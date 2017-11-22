@@ -137,7 +137,7 @@
         make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
     }];
     
-    [self getWifiWithVIN:@"" userId:@"" telephone:@0];
+    [self getWifiInfo];
 }
 
 - (void)secureBtnClick:(UIButton *)sender {
@@ -146,33 +146,30 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
-    [self modifyWifiWithVIN:@"" userId:@"" wifiSsid:_wifiLabel.text password:_passwordField.text];
+    [self modifyWifiWithPassword:_passwordField.text];
 }
 
-- (void)getWifiWithVIN:(NSString *)vin userId:(NSString *)userId telephone:(NSNumber *)telephone {
-    NSDictionary *paras = @{
-                            @"vin": vin,
-                            @"userId": userId,
-                            @"telephone": telephone
-                            };
-    [CUHTTPRequest POST:getWifi parameters:paras response:^(id responseData) {
+- (void)getWifiInfo {
+    [CUHTTPRequest POST:getWifi parameters:nil response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
-            NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
-            _wifiLabel.text = wifiSsid;
-            _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+            NSLog(@"%@",dic);
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
+                NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
+                _wifiLabel.text = wifiSsid;
+                _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+            } else {
+                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
+            }
         } else {
-            
+            [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];
         }
     }];
 }
 
-- (void)modifyWifiWithVIN:(NSString *)vin userId:(NSString *)userId wifiSsid:(NSString *)ssid password:(NSString *)password {
+- (void)modifyWifiWithPassword:(NSString *)password {
     NSDictionary *paras = @{
-                            @"vin": vin,
-                            @"userId": userId,
-                            @"wifiSsid": ssid,
                             @"wifiPassword": password
                             };
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];

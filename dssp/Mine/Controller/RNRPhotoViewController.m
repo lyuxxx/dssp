@@ -14,6 +14,7 @@
 #import "RNRFinishedViewController.h"
 #import <YYModel/YYModel.h>
 #import <CUHTTPRequest.h>
+#import <MBProgressHUD+CU.h>
 
 @interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -148,11 +149,17 @@
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             NSLog(@"%@",dic);
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            } else {
+                [MBProgressHUD showText:NSLocalizedString(@"实名认证失败", nil)];
+            }
+        } else {
+            [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];
         }
     }];
     
-    RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didTap:(UITapGestureRecognizer *)sender
@@ -173,12 +180,13 @@
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
         imagePickerVC.delegate = self;
+        imagePickerVC.allowsEditing = YES;
         if (buttonIndex == 0) {
             imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerVC.cameraDevice = UIImagePickerControllerCameraDeviceFront;
             imagePickerVC.showsCameraControls = YES;
         } else if (buttonIndex == 1) {
             imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            imagePickerVC.allowsEditing = YES;
             imagePickerVC.mediaTypes = @[(NSString *)kUTTypeImage];
         }
         [self presentViewController:imagePickerVC animated:YES completion:nil];
@@ -196,6 +204,9 @@
     if (image) {
         _selectedImgV.image = image;
        [_selectedImgV removeAllSubviews];
+    } else {
+        _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
+        [_selectedImgV removeAllSubviews];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

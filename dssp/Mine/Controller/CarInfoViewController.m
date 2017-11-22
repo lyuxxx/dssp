@@ -13,7 +13,32 @@
 #import "CarInfoModel.h"
 #import "CarBindingViewController.h"
 @interface CarInfoViewController ()<UIScrollViewDelegate>
+
 @property (nonatomic, strong)UIScrollView *sc;
+@property (nonatomic, strong) UILabel *carId;
+@property (nonatomic, strong) UILabel *vinLabel;
+@property (nonatomic, strong) UILabel *customerName;
+@property (nonatomic, strong) UILabel *customerCredentials;
+@property (nonatomic, strong) UILabel *customerCredentialsNum;
+@property (nonatomic, strong) UILabel *customerSex;
+@property (nonatomic, strong) UILabel *customerMobilePhone;
+@property (nonatomic, strong) UILabel *customerHomePhone;
+@property (nonatomic, strong) UILabel *customerEmail;
+@property (nonatomic, strong) UILabel *colorName;
+@property (nonatomic, strong) UILabel *brandName;
+@property (nonatomic, strong) UILabel *seriesName;
+@property (nonatomic, strong) UILabel *typeName;
+@property (nonatomic, strong) UILabel *vhlLicence;
+@property (nonatomic, strong) UILabel *remark;
+@property (nonatomic, strong) UILabel *vhlStatusName;
+@property (nonatomic, strong) UILabel *serviceLevelId;
+@property (nonatomic, strong) UILabel *insuranceCompany;
+@property (nonatomic, strong) UILabel *insuranceNum;
+@property (nonatomic, strong) UILabel *dueDate;
+@property (nonatomic, strong) UILabel *saleDate;
+@property (nonatomic, strong) UILabel *recordStatus;
+@property (nonatomic, strong) UILabel *createTime;
+
 @end
 
 @implementation CarInfoViewController
@@ -32,7 +57,7 @@
 
 - (void)getCarInfo
 {
-//    [self carinfoWithVin:_vin];
+    [self carinfoWithVin:_vin];
 }
 
 - (void)carinfoWithVin:(NSString *)vin  {
@@ -45,11 +70,33 @@
     [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic];
+            CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                 [hud hideAnimated:YES];
                 
-                
+                self.carId.text = CarInfo.carId;
+                self.vinLabel.text = CarInfo.vin;
+                self.customerName.text = CarInfo.customerName;
+                self.customerCredentials.text = CarInfo.customerCredentials;
+                self.customerCredentialsNum.text = CarInfo.customerCredentialsNum;
+                self.customerSex.text = CarInfo.customerSex;
+                self.customerMobilePhone.text = CarInfo.customerMobilePhone;
+                self.customerHomePhone.text = CarInfo.customerHomePhone;
+                self.customerEmail.text = CarInfo.customerEmail;
+                self.colorName.text = CarInfo.colorName;
+                self.brandName.text = CarInfo.brandName;
+                self.seriesName.text = CarInfo.seriesName;
+                self.typeName.text = CarInfo.typeName;
+                self.vhlLicence.text = CarInfo.vhlLicence;
+                self.remark.text = CarInfo.remark;
+                self.vhlStatusName.text = CarInfo.vhlStatusName;
+                self.serviceLevelId.text = CarInfo.serviceLevelId;
+                self.insuranceCompany.text = CarInfo.insuranceCompany;
+                self.insuranceNum.text = CarInfo.insuranceNum;
+//                self.dueDate.text = CarInfo.dueDate;
+//                self.saleDate.text = CarInfo.saleDate;
+                self.recordStatus.text = CarInfo.recordStatus;
+//                self.createTime.text = CarInfo.createTime;
                 
             } else {
                 hud.label.text = [dic objectForKey:@"msg"];
@@ -136,8 +183,6 @@
         NSLocalizedString(@"保险到期日",nil),
         NSLocalizedString(@"销售时间",nil),
         NSLocalizedString(@"记录状态",nil),
-        NSLocalizedString(@"套餐id",nil),
-        NSLocalizedString(@"套餐名称",nil),
         NSLocalizedString(@"创建时间",nil)
         ];
     
@@ -166,6 +211,54 @@
             make.left.equalTo(label.right).offset(27*WidthCoefficient);
             make.top.equalTo((0 + 30 * i) * HeightCoefficient);
         }];
+        
+        if (i == 0) {
+            self.carId = rightLabel;
+        } else if (i == 1) {
+            self.vinLabel = rightLabel;
+        } else if (i == 2) {
+            self.customerName = rightLabel;
+        } else if (i == 3) {
+            self.customerCredentials = rightLabel;
+        } else if (i == 4) {
+            self.customerCredentialsNum = rightLabel;
+        } else if (i == 5) {
+            self.customerSex = rightLabel;
+        } else if (i == 6) {
+            self.customerMobilePhone = rightLabel;
+        } else if (i == 7) {
+            self.customerHomePhone = rightLabel;
+        } else if (i == 8) {
+            self.customerEmail = rightLabel;
+        } else if (i == 9) {
+            self.colorName = rightLabel;
+        } else if (i == 10) {
+            self.brandName = rightLabel;
+        } else if (i == 11) {
+            self.seriesName = rightLabel;
+        } else if (i == 12) {
+            self.typeName = rightLabel;
+        } else if (i == 13) {
+            self.vhlLicence = rightLabel;
+        } else if (i == 14) {
+            self.remark = rightLabel;
+        } else if (i == 15) {
+            self.vhlStatusName = rightLabel;
+        } else if (i == 16) {
+            self.serviceLevelId = rightLabel;
+        } else if (i == 17) {
+            self.insuranceCompany = rightLabel;
+        } else if (i == 18) {
+            self.insuranceNum = rightLabel;
+        } else if (i == 19) {
+            self.dueDate = rightLabel;
+        } else if (i == 20) {
+            self.saleDate = rightLabel;
+        } else if (i == 21) {
+            self.recordStatus = rightLabel;
+        } else if (i == 22) {
+            self.createTime = rightLabel;
+        }
     }
 
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -189,20 +282,5 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
