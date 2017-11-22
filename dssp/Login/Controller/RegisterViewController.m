@@ -70,6 +70,7 @@
     }];
     
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _skipBtn.enabled = NO;
     [_skipBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     _skipBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_skipBtn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
