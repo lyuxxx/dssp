@@ -398,6 +398,7 @@
                 [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
                 if (responseData) {
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    
                 LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                 if ([result.code isEqualToString:@"200"]) {
                     

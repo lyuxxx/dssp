@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIButton *setBtn;
 @property (nonatomic, strong) UIImageView *img;
 @property(nonatomic, strong) NSData *fileData;
+@property(nonatomic, copy) NSString *realName;
 @end
 
 @interface MineViewController ()
@@ -43,6 +44,7 @@
     _dataArray=@[@[@[@"coin",@"我的积分 / 优惠券"],@[@"身份证",@"实名认证"],@[@"汽车信息",@"车辆信息"],@[@"合同信息",@"合同信息"],@[@"密码",@"账户密码"]],
   @[@[@"客服",@"联系客服"],@[@"反馈中心",@"反馈中心"]],@[@[@"常见问题",@"常见问题"],@[@"功能介绍",@"功能介绍"]]];
     
+    [self RealnameUserName:@""];
     [self initTableView];
     [self setupUI];
 }
@@ -294,7 +296,7 @@
     cell.ArrowImg.image=[UIImage imageNamed:@"arrownext"];
     if (indexPath.section==0) {
         if (indexPath.row==1) {
-            cell.RealName.text=NSLocalizedString(@"未实名", nil);
+            cell.RealName.text=_realName?_realName:NSLocalizedString(@"未实名", nil);
         }
         if (indexPath.row==4) {
             cell.whiteView.hidden=YES;
@@ -483,13 +485,19 @@
     return newimage;
 }
 
-- (void)RealnameWithUserId:(NSString *)userId UserName:(NSString *)userName {
+- (void)RealnameUserName:(NSString *)userName {
     NSDictionary *paras = @{
-                            @"userId": userId,
-                            @"userName": userName,
+                          
+                            @"userName": userName
                            
                             };
     [CUHTTPRequest POST:queryCustByMobile parameters:paras response:^(id responseData) {
+        if (responseData) {
+            
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+
+            _realName=[dic[@"data"] objectForKey:@"certificationStatusName"];
+    }
         
     }];
 }

@@ -24,13 +24,9 @@
 @property (nonatomic, strong) UILabel *customerMobilePhone;
 @property (nonatomic, strong) UILabel *customerHomePhone;
 @property (nonatomic, strong) UILabel *customerEmail;
-@property (nonatomic, strong) UILabel *colorName;
-@property (nonatomic, strong) UILabel *brandName;
-@property (nonatomic, strong) UILabel *seriesName;
-@property (nonatomic, strong) UILabel *typeName;
 @property (nonatomic, strong) UILabel *vhlLicence;
 @property (nonatomic, strong) UILabel *remark;
-@property (nonatomic, strong) UILabel *vhlStatusName;
+@property (nonatomic, strong) UILabel *vhlStatus;
 @property (nonatomic, strong) UILabel *serviceLevelId;
 @property (nonatomic, strong) UILabel *insuranceCompany;
 @property (nonatomic, strong) UILabel *insuranceNum;
@@ -38,7 +34,17 @@
 @property (nonatomic, strong) UILabel *saleDate;
 @property (nonatomic, strong) UILabel *recordStatus;
 @property (nonatomic, strong) UILabel *createTime;
-
+@property (nonatomic, strong) UILabel *updateTime;
+@property (nonatomic, strong) UILabel *brandName;
+@property (nonatomic, strong) UILabel *dealerName;
+@property (nonatomic, strong) UILabel *colorName;
+@property (nonatomic, strong) UILabel *seriesName;
+@property (nonatomic, strong) UILabel *typeName;
+@property (nonatomic, strong) UILabel *credentialsName;
+@property (nonatomic, strong) UILabel *recordStatusName;
+@property (nonatomic, strong) UILabel *customerSexName;
+@property (nonatomic, strong) UILabel *vhlStatusName;
+@property (nonatomic, strong) UILabel *userRel;
 @end
 
 @implementation CarInfoViewController
@@ -52,7 +58,7 @@
     // Do any additional setup after loading the view.
     [self setupUI];
     [self getCarInfo];
-    
+  
 }
 
 - (void)getCarInfo
@@ -62,7 +68,7 @@
 
 - (void)carinfoWithVin:(NSString *)vin  {
     
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+
     NSDictionary *paras = @{
                             @"vin": vin,
                            
@@ -72,7 +78,7 @@
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                [hud hideAnimated:YES];
+//                [hud hideAnimated:YES];
                 
                 self.carId.text = CarInfo.carId;
                 self.vinLabel.text = CarInfo.vin;
@@ -83,28 +89,36 @@
                 self.customerMobilePhone.text = CarInfo.customerMobilePhone;
                 self.customerHomePhone.text = CarInfo.customerHomePhone;
                 self.customerEmail.text = CarInfo.customerEmail;
-                self.colorName.text = CarInfo.colorName;
-                self.brandName.text = CarInfo.brandName;
-                self.seriesName.text = CarInfo.seriesName;
-                self.typeName.text = CarInfo.typeName;
                 self.vhlLicence.text = CarInfo.vhlLicence;
                 self.remark.text = CarInfo.remark;
-                self.vhlStatusName.text = CarInfo.vhlStatusName;
+                self.vhlStatus.text=CarInfo.vhlStatus;
                 self.serviceLevelId.text = CarInfo.serviceLevelId;
-                self.insuranceCompany.text = CarInfo.insuranceCompany;
-                self.insuranceNum.text = CarInfo.insuranceNum;
-//                self.dueDate.text = CarInfo.dueDate;
-//                self.saleDate.text = CarInfo.saleDate;
+                self.insuranceCompany.text = CarInfo.insruanceCompany;
+                self.insuranceNum.text = CarInfo.insruanceNum;
+                self.dueDate.text = [self setWithTimeString:CarInfo.dueDate];
+                self.saleDate.text = [self setWithTimeString:CarInfo.saleDate];
                 self.recordStatus.text = CarInfo.recordStatus;
-//                self.createTime.text = CarInfo.createTime;
-                
+                self.createTime.text = [self setWithTimeString:CarInfo.createTime];
+                self.updateTime.text = [self setWithTimeString:CarInfo.updateTime];
+                self.brandName.text = CarInfo.brandName;
+                self.dealerName.text = CarInfo.dealerName;
+                self.colorName.text = CarInfo.colorName;
+                self.seriesName.text = CarInfo.seriesName;
+                self.typeName.text = CarInfo.typeName;
+                self.credentialsName.text = CarInfo.credentialsName;
+                self.recordStatusName.text = CarInfo.recordStatusName;
+                self.customerSexName.text = CarInfo.customerSexName;
+                self.vhlStatusName.text = CarInfo.vhlStatusName;
+                self.userRel.text = CarInfo.userRel;
+               
+              
             } else {
-                hud.label.text = [dic objectForKey:@"msg"];
-                [hud hideAnimated:YES afterDelay:1];
+            [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
+               
             }
         } else {
-            hud.label.text = NSLocalizedString(@"请求失败", nil);
-            [hud hideAnimated:YES afterDelay:1];
+             [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+          
         }
     }];
 }
@@ -150,7 +164,7 @@
         make.top.equalTo(62.5 * HeightCoefficient);
         make.bottom.equalTo(-50*HeightCoefficient);
     }];
-    _sc.contentSize = CGSizeMake(whiteV.frame.size.width, 750*HeightCoefficient);
+    _sc.contentSize = CGSizeMake(whiteV.frame.size.width, 930*HeightCoefficient);
     //    sc.contentOffset = CGPointMake(0, 0);
     _sc.pagingEnabled = NO;
     _sc.showsHorizontalScrollIndicator = YES;
@@ -163,27 +177,34 @@
     NSArray<NSString *> *titles = @[
         NSLocalizedString(@"车辆编码", nil),
         NSLocalizedString(@"车架号", nil),
-        NSLocalizedString(@"车主名称", nil),
-        NSLocalizedString(@"证件类型", nil),
+        NSLocalizedString(@"客户姓名", nil),
+        NSLocalizedString(@"证件类型编码", nil),
         NSLocalizedString(@"证件号码", nil),
-        NSLocalizedString(@"性别",nil),
-        NSLocalizedString(@"移动电话",nil),
-        NSLocalizedString(@"家庭电话",nil),
-        NSLocalizedString(@"邮箱",nil),
-        NSLocalizedString(@"车辆颜色",nil),
-        NSLocalizedString(@"车辆品牌",nil),
-        NSLocalizedString(@"车系",nil),
-        NSLocalizedString(@"车型",nil),
-        NSLocalizedString(@"车牌号",nil),
-        NSLocalizedString(@"备注",nil),
-        NSLocalizedString(@"车辆状态",nil),
+        NSLocalizedString(@"性别编码", nil),
+        NSLocalizedString(@"手机号码", nil),
+        NSLocalizedString(@"家庭电话", nil),
+        NSLocalizedString(@"用户邮箱", nil),
+        NSLocalizedString(@"车牌号", nil),
+        NSLocalizedString(@"备注", nil),
+        NSLocalizedString(@"车辆状态编码",nil),
         NSLocalizedString(@"服务等级",nil),
         NSLocalizedString(@"保险公司名称",nil),
         NSLocalizedString(@"保单号",nil),
         NSLocalizedString(@"保险到期日",nil),
         NSLocalizedString(@"销售时间",nil),
+        NSLocalizedString(@"记录状态编码",nil),
+        NSLocalizedString(@"创建时间",nil),
+        NSLocalizedString(@"最后更新时间",nil),
+        NSLocalizedString(@"品牌名称",nil),
+        NSLocalizedString(@"经销商姓名",nil),
+        NSLocalizedString(@"车辆状态",nil),
         NSLocalizedString(@"记录状态",nil),
-        NSLocalizedString(@"创建时间",nil)
+        NSLocalizedString(@"经销商姓名",nil),
+        NSLocalizedString(@"颜色名称",nil),
+        NSLocalizedString(@"车系名称",nil),
+        NSLocalizedString(@"客户性别",nil),
+        NSLocalizedString(@"车辆状态",nil),
+        NSLocalizedString(@"是否绑定信息",nil)
         ];
     
 
@@ -231,33 +252,54 @@
         } else if (i == 8) {
             self.customerEmail = rightLabel;
         } else if (i == 9) {
-            self.colorName = rightLabel;
-        } else if (i == 10) {
-            self.brandName = rightLabel;
-        } else if (i == 11) {
-            self.seriesName = rightLabel;
-        } else if (i == 12) {
-            self.typeName = rightLabel;
-        } else if (i == 13) {
             self.vhlLicence = rightLabel;
-        } else if (i == 14) {
+        } else if (i == 10) {
             self.remark = rightLabel;
-        } else if (i == 15) {
-            self.vhlStatusName = rightLabel;
-        } else if (i == 16) {
+        } else if (i == 11) {
+            self.vhlStatus = rightLabel;
+        } else if (i == 12) {
             self.serviceLevelId = rightLabel;
-        } else if (i == 17) {
+        } else if (i == 13) {
             self.insuranceCompany = rightLabel;
-        } else if (i == 18) {
+        } else if (i == 14) {
             self.insuranceNum = rightLabel;
-        } else if (i == 19) {
+        } else if (i == 15) {
             self.dueDate = rightLabel;
-        } else if (i == 20) {
+        } else if (i == 16) {
             self.saleDate = rightLabel;
-        } else if (i == 21) {
+        } else if (i == 17) {
             self.recordStatus = rightLabel;
-        } else if (i == 22) {
+        } else if (i == 18) {
             self.createTime = rightLabel;
+        } else if (i == 19) {
+            self.updateTime = rightLabel;
+        } else if (i == 20) {
+            self.brandName = rightLabel;
+        } else if (i == 21) {
+            self.dealerName = rightLabel;
+        } else if (i == 22) {
+            self.colorName = rightLabel;
+        }
+        else if (i == 23) {
+            self.seriesName = rightLabel;
+        }
+        else if (i == 24) {
+            self.typeName = rightLabel;
+        }
+        else if (i == 25) {
+            self.credentialsName = rightLabel;
+        }
+        else if (i == 26) {
+            self.recordStatusName = rightLabel;
+        }
+        else if (i == 27) {
+            self.customerSexName = rightLabel;
+        }
+        else if (i == 28) {
+            self.vhlStatusName = rightLabel;
+        }
+        else if (i == 29) {
+            self.userRel = rightLabel;
         }
     }
 
@@ -275,12 +317,27 @@
         make.centerX.equalTo(0);
         make.top.equalTo(whiteV.bottom).offset(25 * HeightCoefficient);
     }];
+    
 }
+
 
 - (void)confirmBtnClick:(UIButton *)sender {
     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     
+}
+
+-(NSString *)setWithTimeString:(NSInteger)time
+{
+    NSInteger someInt = time;
+    NSString *dueDateStr = [NSString stringWithFormat: @"%ld", someInt];
+    NSTimeInterval times=[dueDateStr doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:times];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [formatter stringFromDate: date];
+    
+    return dateString;
 }
 
 @end

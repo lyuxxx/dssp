@@ -38,19 +38,19 @@
 ///服务等级
 @property (nonatomic, copy) NSString *serviceLevelId;
 ///保险公司名称
-@property (nonatomic, copy) NSString *insuranceCompany;
+@property (nonatomic, copy) NSString *insruanceCompany;
 ///保单号
-@property (nonatomic, copy) NSString *insuranceNum;
+@property (nonatomic, copy) NSString *insruanceNum;
 ///保险到期日
-@property (nonatomic, strong) NSDate *dueDate;
+@property (nonatomic, assign) NSInteger dueDate;
 ///销售时间
-@property (nonatomic, strong) NSDate *saleDate;
+@property (nonatomic, assign) NSInteger saleDate;
 ///记录状态编码
 @property (nonatomic, copy) NSString *recordStatus;
 ///创建时间
-@property (nonatomic, strong) NSDate *createTime;
+@property (nonatomic, assign) NSInteger createTime;
 ///最后更新时间
-@property (nonatomic, strong) NSDate *updateTime;
+@property (nonatomic, assign) NSInteger updateTime;
 ///客户证件类型
 @property (nonatomic, copy) NSString *credentialsName;
 ///客户性别
