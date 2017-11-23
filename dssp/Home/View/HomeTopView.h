@@ -21,7 +21,11 @@
 
 @end
 
+typedef void(^btnClickBlock)(UIButton *);
+
 @interface HomeTopView : UIView
+
+@property (nonatomic, copy) btnClickBlock clickBlock;
 
 - (void)didTapWithPoint:(CGPoint)point;
 

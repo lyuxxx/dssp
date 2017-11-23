@@ -33,6 +33,9 @@
 		316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
 		316CA46E1F9F3475009F541E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
 		316CA4781F9F3475009F541E /* dsspUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA4771F9F3475009F541E /* dsspUITests.m */; };
+		316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
+		316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
+		316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
 		31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
@@ -110,6 +113,12 @@
 		316CA4731F9F3475009F541E /* dsspUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dsspUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		316CA4771F9F3475009F541E /* dsspUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dsspUITests.m; sourceTree = "<group>"; };
 		316CA4791F9F3475009F541E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		316CCCB21FC57CCC00AFF915 /* LeftImgButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftImgButton.h; sourceTree = "<group>"; };
+		316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftImgButton.m; sourceTree = "<group>"; };
+		316CCCBB1FC66E6800AFF915 /* MapSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapSearchCell.h; sourceTree = "<group>"; };
+		316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchCell.m; sourceTree = "<group>"; };
+		316CCCBE1FC68C6000AFF915 /* DiscoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
+		316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		31CFB26B1FC2733C00130C52 /* CarBindingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingInput.h; sourceTree = "<group>"; };
 		31CFB26C1FC2733C00130C52 /* CarBindingInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingInput.m; sourceTree = "<group>"; };
 		31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoveCarViewController.h; sourceTree = "<group>"; };
@@ -188,13 +197,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		310A07D51FA96B6800DC9529 /* Map */ = {
+		310A07D51FA96B6800DC9529 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
 				313AC7E01FAC5AC400A3662E /* Controller */,
 				313AC7DC1FAC5A9B00A3662E /* View */,
 			);
-			path = Map;
+			path = Discover;
 			sourceTree = "<group>";
 		};
 		310A07D71FA96B8D00DC9529 /* Mine */ = {
@@ -222,6 +231,8 @@
 			children = (
 				313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */,
 				313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */,
+				316CCCBB1FC66E6800AFF915 /* MapSearchCell.h */,
+				316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -229,8 +240,8 @@
 		313AC7E01FAC5AC400A3662E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				310A07D81FA96BDB00DC9529 /* MapViewController.h */,
-				310A07D91FA96BDB00DC9529 /* MapViewController.m */,
+				316CCCBE1FC68C6000AFF915 /* DiscoverViewController.h */,
+				316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -240,6 +251,8 @@
 			children = (
 				314E05D21FB582D6000550C7 /* TopImgButton.h */,
 				314E05D31FB582D6000550C7 /* TopImgButton.m */,
+				316CCCB21FC57CCC00AFF915 /* LeftImgButton.h */,
+				316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */,
 				31E4E6161FB9295D00BF954E /* HomeTopView.h */,
 				31E4E6171FB9295D00BF954E /* HomeTopView.m */,
 			);
@@ -251,6 +264,8 @@
 			children = (
 				310A07D21FA96AD500DC9529 /* HomeViewController.h */,
 				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
+				310A07D81FA96BDB00DC9529 /* MapViewController.h */,
+				310A07D91FA96BDB00DC9529 /* MapViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -316,7 +331,7 @@
 				313070C31FBA885300A0DE71 /* Utils */,
 				31699EBE1FA87E5100C8FDF8 /* Login */,
 				310A07D11FA96A9E00DC9529 /* Home */,
-				310A07D51FA96B6800DC9529 /* Map */,
+				310A07D51FA96B6800DC9529 /* Discover */,
 				31DDD24E1FBAB9C300D37DED /* Car */,
 				310A07D71FA96B8D00DC9529 /* Mine */,
 				31699EB41FA87C7E00C8FDF8 /* BaseClass */,
@@ -630,12 +645,15 @@
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
+				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
+				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
+				316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,

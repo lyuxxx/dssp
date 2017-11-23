@@ -43,7 +43,7 @@
 - (void)setup {
     NSArray *cls = @[
                      @"HomeViewController",
-                     @"MapViewController",
+                     @"DiscoverViewController",
                      @"LoveCarViewController",
                      @"MineViewController"
                      ];

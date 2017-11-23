@@ -14,8 +14,13 @@
 @property (nonatomic, strong) AMapSearchAPI *searchAPI;
 
 @property (nonatomic, copy) KeyWordSearchBlock keyWordSearchBlock;
+@property (nonatomic, copy) KeyWordAroundBlock keyWordAroundBlock;
 @property (nonatomic, copy) TipsSearchBlock tipsSearchBlock;
 @property (nonatomic, copy) ReGeocodeSearchBlock reGeocodeSearchBlock;
+@property (nonatomic, copy) ReGeoInfoBlock reGeoInfoBlock;
+
+@property (nonatomic, assign) BOOL needReGeoInfo;
+@property (nonatomic, assign) BOOL isAround;
 
 @end
 
@@ -32,7 +37,8 @@
     return manager;
 }
 
-- (void)keyWordsSearch:(NSString *)keyword city:(NSString *)city returnBlock:(TipsSearchBlock)block {
+- (void)keyWordsSearch:(NSString *)keyword city:(NSString *)city returnBlock:(KeyWordSearchBlock)block {
+    self.isAround = NO;
     if (keyword.length) {
         self.keyWordSearchBlock = block;
         
@@ -46,6 +52,23 @@
         request.requireSubPOIs = YES;
         
         [self.searchAPI AMapPOIKeywordsSearch:request];
+    }
+}
+
+- (void)keyWordsAround:(NSString *)keyword location:(CLLocationCoordinate2D)coordinate returnBlock:(KeyWordAroundBlock)block {
+    self.isAround = YES;
+    if (keyword.length) {
+        self.keyWordAroundBlock = block;
+        
+        AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+        request.location = [AMapGeoPoint locationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+        request.keywords = keyword;
+        request.sortrule = 0;
+        request.radius = 5000;
+        
+        request.requireExtension = YES;
+        
+        [self.searchAPI AMapPOIAroundSearch:request];
     }
 }
 
@@ -65,6 +88,7 @@
 }
 
 - (void)poiReGeocode:(CLLocationCoordinate2D)coordinate returnBlock:(ReGeocodeSearchBlock)block {
+    self.needReGeoInfo = NO;
     if (coordinate.latitude > 0 && coordinate.longitude > 0) {
         self.reGeocodeSearchBlock = block;
         
@@ -76,7 +100,26 @@
     }
 }
 
+- (void)reGeoInfo:(CLLocationCoordinate2D)coordinate returnBlock:(ReGeoInfoBlock)block {
+    self.needReGeoInfo = YES;
+    if (coordinate.latitude > 0 && coordinate.longitude > 0) {
+        self.reGeoInfoBlock = block;
+        
+        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+        request.location = [AMapGeoPoint locationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+        request.requireExtension = YES;
+        
+        [self.searchAPI AMapReGoecodeSearch:request];
+    }
+}
+
 #pragma mark - AMapSearchDelegate -
+
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    if (self.searchFailBlock) {
+        self.searchFailBlock(error);
+    }
+}
 
 - (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response {
     if (response.pois.count == 0) {
@@ -87,14 +130,20 @@
     [response.pois enumerateObjectsUsingBlock:^(AMapPOI * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         MapSearchPointAnnotation *annotation = [[MapSearchPointAnnotation alloc] init];
         [annotation setCoordinate:CLLocationCoordinate2DMake(obj.location.latitude, obj.location.longitude)];
-        [annotation setTitle:obj.name];
-        [annotation setSubtitle:obj.address];
+        annotation.name = obj.name;
+        annotation.address = obj.address;
         
         [poiAnnotations addObject:annotation];
     }];
     
-    if (self.keyWordSearchBlock) {
-        self.keyWordSearchBlock(poiAnnotations);
+    if (self.isAround) {
+        if (self.keyWordAroundBlock) {
+            self.keyWordAroundBlock(poiAnnotations);
+        }
+    } else {
+        if (self.keyWordSearchBlock) {
+            self.keyWordSearchBlock(poiAnnotations);
+        }
     }
 }
 
@@ -106,16 +155,15 @@
     NSMutableArray *tips = [[NSMutableArray alloc] init];
     
     for (AMapTip *tip in response.tips) {
-        if (tip.location.latitude != 0 && ![tip.uid isEqualToString:@""]) {
-            MapSearchTip *mTip = [[MapSearchTip alloc] init];
-            mTip.name = tip.name;
-            mTip.adcode = tip.adcode;
-            mTip.district = tip.district;
-            mTip.address = tip.address;
-            mTip.coordinate = CLLocationCoordinate2DMake(tip.location.latitude, tip.location.longitude);
-            
-            [tips addObject:mTip];
-        }
+        MapSearchTip *mTip = [[MapSearchTip alloc] init];
+        mTip.uid = tip.uid;
+        mTip.name = tip.name;
+        mTip.adcode = tip.adcode;
+        mTip.district = tip.district;
+        mTip.address = tip.address;
+        mTip.coordinate = CLLocationCoordinate2DMake(tip.location.latitude, tip.location.longitude);
+        
+        [tips addObject:mTip];
     }
     
     if (self.tipsSearchBlock) {
@@ -124,22 +172,44 @@
 }
 
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
-    if (response && response.regeocode) {
-        NSMutableArray *pois = [[NSMutableArray alloc] init];
-        
-        for (AMapPOI *poi in response.regeocode.pois) {
-            MapSearchPoi *mPoi = [[MapSearchPoi alloc] init];
-            mPoi.name = poi.name;
-            mPoi.address = poi.name;
-            mPoi.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
-            mPoi.city = poi.city;
-            mPoi.cityCode = poi.citycode;
+    if (self.needReGeoInfo) {
+        if (response && response.regeocode) {
+            MapReGeoInfo *info = [[MapReGeoInfo alloc] init];
             
-            [pois addObject:mPoi];
+            AMapAddressComponent *addressComponent = response.regeocode.addressComponent;
+            info.formattedAddress = response.regeocode.formattedAddress;
+            info.province = addressComponent.province;
+            info.city = addressComponent.city;
+            info.citycode = addressComponent.citycode;
+            info.district = addressComponent.district;
+            info.adcode = addressComponent.adcode;
+            info.township = addressComponent.township;
+            info.towncode = addressComponent.towncode;
+            info.neighborhood = addressComponent.neighborhood;
+            info.building = addressComponent.building;
+            
+            if (self.reGeoInfoBlock) {
+                self.reGeoInfoBlock(info);
+            }
         }
-        
-        if (self.reGeocodeSearchBlock) {
-            self.reGeocodeSearchBlock(pois);
+    } else {
+        if (response && response.regeocode) {
+            NSMutableArray *pois = [[NSMutableArray alloc] init];
+            
+            for (AMapPOI *poi in response.regeocode.pois) {
+                MapSearchPoi *mPoi = [[MapSearchPoi alloc] init];
+                mPoi.name = poi.name;
+                mPoi.address = poi.name;
+                mPoi.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
+                mPoi.city = poi.city;
+                mPoi.cityCode = poi.citycode;
+                
+                [pois addObject:mPoi];
+            }
+            
+            if (self.reGeocodeSearchBlock) {
+                self.reGeocodeSearchBlock(pois);
+            }
         }
     }
 }

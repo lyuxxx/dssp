@@ -15,6 +15,7 @@
 #import <NSObject+FBKVOController.h>
 #import "VINBindingViewController.h"
 #import <CUHTTPRequest.h>
+#import "MapViewController.h"
 
 @interface HomeViewController () <UIScrollViewDelegate>
 
@@ -130,6 +131,16 @@
         make.left.right.equalTo(0);
         make.height.equalTo(355 * HeightCoefficient);
     }];
+    
+    weakifySelf
+    self.topView.clickBlock = ^(UIButton *btn) {
+        strongifySelf
+        if (btn.tag == 1000 + 1) {//出行
+            MapViewController *mapVC = [[MapViewController alloc] init];
+            mapVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:mapVC animated:YES];
+        }
+    };
     
     self.scroll = [[UIScrollView alloc] init];
     _scroll.contentInset = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);

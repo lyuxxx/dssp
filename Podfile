@@ -22,7 +22,7 @@ target 'dssp' do
   pod 'CUProgressHUD', '~> 0.1.6'
   pod 'UIImageViewSDWebImage', '~> 0.1.4'
   pod 'YYCategoriesSub', '~> 0.1.0'
-  pod 'MapManager', '~> 0.1.1'
+  pod 'MapManager', '~> 0.1.9'
 
   target 'dsspUITests' do
     inherit! :search_paths

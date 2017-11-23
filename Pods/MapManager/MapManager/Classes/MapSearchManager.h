@@ -9,11 +9,25 @@
 #import "MapSearchObject.h"
 
 /**
+ 搜索失败block
+
+ @param error 返回的错误信息
+ */
+typedef void(^SearchFailBlock)(NSError *error);
+
+/**
  关键字搜索回调block
 
  @param pointAnnotations 返回的点标注数组
  */
 typedef void(^KeyWordSearchBlock)(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations);
+
+/**
+ 周边搜索回调block
+
+ @param pointAnnotations 返回的点标注数组
+ */
+typedef void(^KeyWordAroundBlock)(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations);
 
 /**
  tips搜索回调block
@@ -29,7 +43,17 @@ typedef void(^TipsSearchBlock)(NSArray<__kindof MapSearchTip *> *tips);
  */
 typedef void(^ReGeocodeSearchBlock)(NSArray<__kindof MapSearchPoi *> *pois);
 
+/**
+ 逆地理编码地址信息回调
+
+ @param regeoInfo 回调的地址信息
+ */
+typedef void(^ReGeoInfoBlock)(MapReGeoInfo *regeoInfo);
+
 @interface MapSearchManager : NSObject
+
+///失败block
+@property (nonatomic, copy) SearchFailBlock searchFailBlock;
 
 /**
  单例模式
@@ -48,7 +72,18 @@ typedef void(^ReGeocodeSearchBlock)(NSArray<__kindof MapSearchPoi *> *pois);
  */
 - (void)keyWordsSearch:(NSString *)keyword
                   city:(NSString *)city
-           returnBlock:(TipsSearchBlock)block;
+           returnBlock:(KeyWordSearchBlock)block;
+
+/**
+ 周边关键字搜索
+
+ @param keyword 关键字
+ @param coordinate 位置
+ @param block 返回的block
+ */
+- (void)keyWordsAround:(NSString *)keyword
+              location:(CLLocationCoordinate2D)coordinate
+           returnBlock:(KeyWordAroundBlock)block;
 
 /**
  输入提示查询
@@ -69,5 +104,14 @@ typedef void(^ReGeocodeSearchBlock)(NSArray<__kindof MapSearchPoi *> *pois);
  */
 - (void)poiReGeocode:(CLLocationCoordinate2D)coordinate
          returnBlock:(ReGeocodeSearchBlock)block;
+
+/**
+ 根据经纬度逆地理编码查询地址信息
+
+ @param coordinate 传入的经纬度
+ @param block 返回的地址信息
+ */
+- (void)reGeoInfo:(CLLocationCoordinate2D)coordinate
+      returnBlock:(ReGeoInfoBlock)block;
 
 @end

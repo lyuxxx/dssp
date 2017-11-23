@@ -18,6 +18,14 @@
 #define NSLog(format, ...)
 #endif
 
+//定义了一个__weak的self_weak_变量
+#define weakifySelf  \
+__weak __typeof(&*self)weakSelf = self;
+
+//局域定义了一个__strong的self指针指向self_weak
+#define strongifySelf \
+__strong __typeof(&*weakSelf)self = weakSelf;
+
 #define MAS_SHORTHAND
 #define MAS_SHORTHAND_GLOBALS
 #import "Masonry.h"

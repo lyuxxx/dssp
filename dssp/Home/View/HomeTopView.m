@@ -245,6 +245,7 @@
         NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
         for (NSInteger i = 0; i < btnImgTitles.count; i++) {
             TopImgButton *btn = [TopImgButton buttonWithType:UIButtonTypeCustom];
+            btn.tag = 1000 + i;
             btn.userInteractionEnabled = NO;
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [btn setImage:[UIImage imageNamed:btnImgTitles[i]] forState:UIControlStateNormal];
@@ -277,6 +278,7 @@
 
 - (void)btnClick:(UIButton *)sender {
     NSLog(@"click");
+    self.clickBlock(sender);
 }
 
 - (void)listSubviewsOfView:(UIView *)view {

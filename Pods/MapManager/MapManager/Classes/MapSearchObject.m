@@ -22,3 +22,7 @@
 @implementation MapSearchPoi
 
 @end
+
+@implementation MapReGeoInfo
+
+@end

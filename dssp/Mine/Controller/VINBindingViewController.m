@@ -10,6 +10,8 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "CarInfoViewController.h"
 #import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
+#import "CarBindingViewController.h"
 
 @interface VINBindingViewController ()
 
@@ -104,12 +106,23 @@
 
 - (void)nextBtnClick:(UIButton *)sender {
     if (![_vinField.text isEqualToString:@""]) {
-        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-        vc.vin = _vinField.text;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self getCarInfoWithVIN:_vinField.text];
     } else {
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
+}
+
+- (void)getCarInfoWithVIN:(NSString *)vin {
+    [CUHTTPRequest POST:getBasicInfo parameters:@{@"vin": vin} response:^(id responseData) {
+        if (responseData) {
+            CarInfoViewController *vc = [[CarInfoViewController alloc] init];
+            vc.vin = _vinField.text;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }];
 }
 
 @end
