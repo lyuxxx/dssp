@@ -156,24 +156,6 @@
         make.top.equalTo(20 * HeightCoefficient);
     }];
     
-   
-    _sc=[[UIScrollView alloc] init];
-    [whiteV addSubview:_sc];
-    [_sc makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(whiteV);
-        make.top.equalTo(62.5 * HeightCoefficient);
-        make.bottom.equalTo(-50*HeightCoefficient);
-    }];
-    _sc.contentSize = CGSizeMake(whiteV.frame.size.width, 930*HeightCoefficient);
-    //    sc.contentOffset = CGPointMake(0, 0);
-    _sc.pagingEnabled = NO;
-    _sc.showsHorizontalScrollIndicator = YES;
-    //隐藏纵向滚动条
-    _sc.showsVerticalScrollIndicator = NO;
-    _sc.bounces = YES;
-    _sc.delegate = self;
-  
-    
     NSArray<NSString *> *titles = @[
         NSLocalizedString(@"车辆编码", nil),
         NSLocalizedString(@"车架号", nil),
@@ -207,101 +189,156 @@
         NSLocalizedString(@"是否绑定信息",nil)
         ];
     
-    for (NSInteger i = 0; i < titles.count; i++) {
-        UILabel *label = [[UILabel alloc] init];
-        label.text = titles[i];
-        label.textColor = [UIColor colorWithHexString:@"#040000"];
-        label.font = [UIFont fontWithName:FontName size:14];
-        [_sc  addSubview:label];
-        [label makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(85 * WidthCoefficient);
-            make.height.equalTo(20 * HeightCoefficient);
-            make.left.equalTo(15 * WidthCoefficient);
-            make.top.equalTo((0 + 30 * i) * HeightCoefficient);
+    
+    self.sc = ({
+        UIScrollView *scroll = [[UIScrollView alloc] init];
+        scroll.showsVerticalScrollIndicator = NO;
+        if (@available(iOS 11.0, *)) {
+            scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
+        [whiteV addSubview:scroll];
+        [scroll makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(62.5 * HeightCoefficient, 0, 50 * HeightCoefficient, 0));
         }];
         
-        UILabel *rightLabel = [[UILabel alloc] init];
-        rightLabel.text = titles[i];
-        rightLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-        rightLabel.font = [UIFont fontWithName:FontName size:14];
-        [_sc  addSubview:rightLabel];
-        [rightLabel makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(198 * WidthCoefficient);
-            make.height.equalTo(20 * HeightCoefficient);
-            make.left.equalTo(label.right).offset(27*WidthCoefficient);
-            make.top.equalTo((0 + 30 * i) * HeightCoefficient);
+        UIView *contentView = [[UIView alloc] init];
+        [scroll addSubview:contentView];
+        [contentView makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(scroll);
+            make.width.equalTo(whiteV.width);
         }];
         
-        if (i == 0) {
-            self.carId = rightLabel;
-        } else if (i == 1) {
-            self.vinLabel = rightLabel;
-        } else if (i == 2) {
-            self.customerName = rightLabel;
-        } else if (i == 3) {
-            self.customerCredentials = rightLabel;
-        } else if (i == 4) {
-            self.customerCredentialsNum = rightLabel;
-        } else if (i == 5) {
-            self.customerSex = rightLabel;
-        } else if (i == 6) {
-            self.customerMobilePhone = rightLabel;
-        } else if (i == 7) {
-            self.customerHomePhone = rightLabel;
-        } else if (i == 8) {
-            self.customerEmail = rightLabel;
-        } else if (i == 9) {
-            self.vhlLicence = rightLabel;
-        } else if (i == 10) {
-            self.remark = rightLabel;
-        } else if (i == 11) {
-            self.vhlStatus = rightLabel;
-        } else if (i == 12) {
-            self.serviceLevelId = rightLabel;
-        } else if (i == 13) {
-            self.insuranceCompany = rightLabel;
-        } else if (i == 14) {
-            self.insuranceNum = rightLabel;
-        } else if (i == 15) {
-            self.dueDate = rightLabel;
-        } else if (i == 16) {
-            self.saleDate = rightLabel;
-        } else if (i == 17) {
-            self.recordStatus = rightLabel;
-        } else if (i == 18) {
-            self.createTime = rightLabel;
-        } else if (i == 19) {
-            self.updateTime = rightLabel;
-        } else if (i == 20) {
-            self.brandName = rightLabel;
-        } else if (i == 21) {
-            self.dealerName = rightLabel;
-        } else if (i == 22) {
-            self.colorName = rightLabel;
+        UILabel *lastLabel = nil;
+        
+        for (NSInteger i = 0 ; i < titles.count; i++) {
+            UILabel *label = [[UILabel alloc] init];
+            label.text = titles[i];
+            label.textColor = [UIColor colorWithHexString:@"#040000"];
+            label.font = [UIFont fontWithName:FontName size:14];
+            [contentView addSubview:label];
+            
+            UILabel *rightLabel = [[UILabel alloc] init];
+            rightLabel.text = titles[i];
+            rightLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+            rightLabel.font = [UIFont fontWithName:FontName size:14];
+            [contentView  addSubview:rightLabel];
+            
+            if (i == 0) {
+                [label makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(85 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(15*WidthCoefficient);
+                    make.top.equalTo(0);
+                    
+                }];
+                [rightLabel makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(85 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(label.right).offset(27*WidthCoefficient);
+                    make.top.equalTo(0);
+                    
+                }];
+                
+            } else {
+                [label makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(85 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(15*WidthCoefficient);
+                    make.top.equalTo(lastLabel.bottom).offset(10);
+                }];
+                
+                [rightLabel makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(85 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(label.right).offset(27*WidthCoefficient);
+                    make.top.equalTo(lastLabel.bottom).offset(10);
+                }];
+                
+            }
+            lastLabel = label;
+           
+            
+            if (i == 0) {
+                self.carId = rightLabel;
+            } else if (i == 1) {
+                self.vinLabel = rightLabel;
+            } else if (i == 2) {
+                self.customerName = rightLabel;
+            } else if (i == 3) {
+                self.customerCredentials = rightLabel;
+            } else if (i == 4) {
+                self.customerCredentialsNum = rightLabel;
+            } else if (i == 5) {
+                self.customerSex = rightLabel;
+            } else if (i == 6) {
+                self.customerMobilePhone = rightLabel;
+            } else if (i == 7) {
+                self.customerHomePhone = rightLabel;
+            } else if (i == 8) {
+                self.customerEmail = rightLabel;
+            } else if (i == 9) {
+                self.vhlLicence = rightLabel;
+            } else if (i == 10) {
+                self.remark = rightLabel;
+            } else if (i == 11) {
+                self.vhlStatus = rightLabel;
+            } else if (i == 12) {
+                self.serviceLevelId = rightLabel;
+            } else if (i == 13) {
+                self.insuranceCompany = rightLabel;
+            } else if (i == 14) {
+                self.insuranceNum = rightLabel;
+            } else if (i == 15) {
+                self.dueDate = rightLabel;
+            } else if (i == 16) {
+                self.saleDate = rightLabel;
+            } else if (i == 17) {
+                self.recordStatus = rightLabel;
+            } else if (i == 18) {
+                self.createTime = rightLabel;
+            } else if (i == 19) {
+                self.updateTime = rightLabel;
+            } else if (i == 20) {
+                self.brandName = rightLabel;
+            } else if (i == 21) {
+                self.dealerName = rightLabel;
+            } else if (i == 22) {
+                self.colorName = rightLabel;
+            }
+            else if (i == 23) {
+                self.seriesName = rightLabel;
+            }
+            else if (i == 24) {
+                self.typeName = rightLabel;
+            }
+            else if (i == 25) {
+                self.credentialsName = rightLabel;
+            }
+            else if (i == 26) {
+                self.recordStatusName = rightLabel;
+            }
+            else if (i == 27) {
+                self.customerSexName = rightLabel;
+            }
+            else if (i == 28) {
+                self.vhlStatusName = rightLabel;
+            }
+            else if (i == 29) {
+                self.userRel = rightLabel;
+            }
         }
-        else if (i == 23) {
-            self.seriesName = rightLabel;
-        }
-        else if (i == 24) {
-            self.typeName = rightLabel;
-        }
-        else if (i == 25) {
-            self.credentialsName = rightLabel;
-        }
-        else if (i == 26) {
-            self.recordStatusName = rightLabel;
-        }
-        else if (i == 27) {
-            self.customerSexName = rightLabel;
-        }
-        else if (i == 28) {
-            self.vhlStatusName = rightLabel;
-        }
-        else if (i == 29) {
-            self.userRel = rightLabel;
-        }
-    }
-
+        
+        [contentView makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(lastLabel.bottom).offset(0);
+            
+        }];
+        
+        scroll;
+    });
+    
+    
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     confirmBtn.layer.cornerRadius = 2;
@@ -319,7 +356,6 @@
     
 }
 
-
 - (void)confirmBtnClick:(UIButton *)sender {
     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -328,7 +364,6 @@
 
 -(NSString *)setWithTimeString:(NSInteger)time
 {
-   
     NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
     NSTimeInterval times=[dueDateStr doubleValue];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:times];
