@@ -207,7 +207,6 @@
         NSLocalizedString(@"是否绑定信息",nil)
         ];
     
-
     for (NSInteger i = 0; i < titles.count; i++) {
         UILabel *label = [[UILabel alloc] init];
         label.text = titles[i];
