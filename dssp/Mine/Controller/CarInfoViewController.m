@@ -45,6 +45,7 @@
 @property (nonatomic, strong) UILabel *customerSexName;
 @property (nonatomic, strong) UILabel *vhlStatusName;
 @property (nonatomic, strong) UILabel *userRel;
+@property (nonatomic, strong) UILabel *vhlTStatus;
 @end
 
 @implementation CarInfoViewController
@@ -70,7 +71,7 @@
     
 
     NSDictionary *paras = @{
-                            @"vin": vin,
+                            @"vin": vin
                            
                             };
     [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
@@ -186,7 +187,8 @@
         NSLocalizedString(@"车系名称",nil),
         NSLocalizedString(@"客户性别",nil),
         NSLocalizedString(@"车辆状态",nil),
-        NSLocalizedString(@"是否绑定信息",nil)
+        NSLocalizedString(@"是否绑定信息",nil),
+        NSLocalizedString(@"车辆T状态",nil)
         ];
     
     
@@ -259,7 +261,6 @@
             }
             lastLabel = label;
            
-            
             if (i == 0) {
                 self.carId = rightLabel;
             } else if (i == 1) {
@@ -306,28 +307,25 @@
                 self.dealerName = rightLabel;
             } else if (i == 22) {
                 self.colorName = rightLabel;
-            }
-            else if (i == 23) {
+            }else if (i == 23) {
                 self.seriesName = rightLabel;
-            }
-            else if (i == 24) {
+            }else if (i == 24) {
                 self.typeName = rightLabel;
-            }
-            else if (i == 25) {
+            }else if (i == 25) {
                 self.credentialsName = rightLabel;
-            }
-            else if (i == 26) {
+            }else if (i == 26) {
                 self.recordStatusName = rightLabel;
-            }
-            else if (i == 27) {
+            }else if (i == 27) {
                 self.customerSexName = rightLabel;
-            }
-            else if (i == 28) {
+            }else if (i == 28) {
                 self.vhlStatusName = rightLabel;
-            }
-            else if (i == 29) {
+            }else if (i == 29) {
                 self.userRel = rightLabel;
             }
+            else if (i == 30) {
+                self.vhlTStatus = rightLabel;
+            }
+            
         }
         
         [contentView makeConstraints:^(MASConstraintMaker *make) {

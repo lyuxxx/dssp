@@ -52,7 +52,10 @@ _Pragma("clang diagnostic pop") \
 #define baseUrl @"http://172.23.102.73:10095/"
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
-#define appLogin @"http://172.23.105.209:18281/userInfo/appLogin"
+//#define appLogin @"http://172.23.102.73:18281/login/telephone"
+
+#define appLogin @"http://172.23.102.73:10095/login/telephone"
+
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 #define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
@@ -60,5 +63,5 @@ _Pragma("clang diagnostic pop") \
 #define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
 #define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrl]
 #define queryUserRel [NSString stringWithFormat:@"%@queryUserRel",baseUrl]
-
+#define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrl]
 #endif /* PrefixHeader_pch */
