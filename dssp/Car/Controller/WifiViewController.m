@@ -161,7 +161,9 @@
                 _wifiLabel.text = wifiSsid;
                 _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
             } else {
-                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
+//                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
+                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                
             }
         } else {
             [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];

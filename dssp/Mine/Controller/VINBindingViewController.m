@@ -126,13 +126,14 @@
                     {
                         ///非T跳这个
                         CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-        
+                        vc.bingVin = _vinField.text;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     
         
                 } else {
-                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
+//                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
+                    [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                     
                 }
             } else {

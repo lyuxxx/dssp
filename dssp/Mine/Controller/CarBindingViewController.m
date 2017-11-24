@@ -174,7 +174,8 @@
         return;
     }
     
-    self.bindingInput.vin = _vinField.text;
+   
+    self.bindingInput.vin = _bingVin;
     self.bindingInput.customerName = @"";
     self.bindingInput.credentials = @"";
     self.bindingInput.credentialsNum = @"";

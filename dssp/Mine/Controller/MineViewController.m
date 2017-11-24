@@ -350,7 +350,7 @@
             }
             else if([_certificationStatus isEqualToString:@"3"])
             {
-                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名4", nil)];
+                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名", nil)];
             }
             else if([_certificationStatus isEqualToString:@"4"])
             {

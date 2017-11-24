@@ -356,6 +356,7 @@
 
 - (void)confirmBtnClick:(UIButton *)sender {
     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+    vc.bingVin=self.vin;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
