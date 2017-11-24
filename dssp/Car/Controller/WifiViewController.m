@@ -150,6 +150,7 @@
 }
 
 - (void)getWifiInfo {
+  
     [CUHTTPRequest POST:getWifi parameters:@{} response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

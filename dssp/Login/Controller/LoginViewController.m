@@ -64,7 +64,7 @@
     
     
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _skipBtn.enabled = NO;
+//    _skipBtn.enabled = NO;
     [_skipBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     _skipBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
     _skipBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -83,7 +83,7 @@
     _userNameField.textColor = [UIColor whiteColor];
     _userNameField.delegate = self;
     _userNameField.font = [UIFont fontWithName:FontName size:15];
-    _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"用户名", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_userNameField];
     [_userNameField makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(191.5 * HeightCoefficient +kStatusBarHeight);
@@ -284,13 +284,45 @@
         self.passWordField.secureTextEntry = !sender.selected;
     }
     if(sender == self.authBtn) {
-      
-        __block NSInteger time = 59; //倒计时时间
         
+        if (_phoneField.text.length == 0) {
+            [MBProgressHUD showText:NSLocalizedString(@"手机号不能为空", nil)];
+        }
+        else
+        {
+            NSDictionary *paras = @{
+                                    @"telephone":_phoneField.text,
+                                    @"randomCodeType":@"login"
+                                    
+                                    };
+          
+          
+            [CUHTTPRequest POST:getRandomCode parameters:paras response:^(id responseData) {
+                if (responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                         [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
+//                        [hud hideAnimated:YES];
+                        
+                    } else {
+                        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                        hud.label.text = [dic objectForKey:@"msg"];
+                        [hud hideAnimated:YES afterDelay:1];
+                    }
+                } else {
+                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                    hud.label.text = NSLocalizedString(@"获取验证码失败", nil);
+                    [hud hideAnimated:YES afterDelay:1];
+                }
+                
+            }];
+        }
+       
+        __block NSInteger time = 59; //倒计时时间
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-        
-        dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
         
         dispatch_source_set_event_handler(_timer, ^{
             
@@ -304,8 +336,8 @@
                      [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
                     self.authBtn.userInteractionEnabled = YES;
                 });
-                
             }else{
+                
                 int seconds = time % 60;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //设置按钮显示读秒效果
@@ -318,8 +350,7 @@
             }
         });
         dispatch_resume(_timer);
-        
-       
+    
     }
     if (sender == self.forgotPassword) {
         
@@ -356,21 +387,26 @@
             else
             {
                 NSDictionary *paras = @{
-//                                        @"userName": userName,
-//                                        @"userPassword": passWord
+                                @"telephone":_phoneField.text,
+                                @"randomCode":_phoneCodeField.text
+
                                         };
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                
+                NSLog(@"%@t",paras);
                 [CUHTTPRequest POST:appLogin parameters:paras response:^(id responseData) {
                     if (responseData) {
                         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                         LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                         if ([result.code isEqualToString:@"200"]) {
-                            
+                           
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [self presentViewController:tabVC animated:NO completion:nil];
                             
                         } else {
+                             [hud hideAnimated:YES];
+                            [MBProgressHUD showText:NSLocalizedString(@"登录失败", nil)];
                             hud.label.text = [dic objectForKey:@"msg"];
                             [hud hideAnimated:YES afterDelay:1];
                         }

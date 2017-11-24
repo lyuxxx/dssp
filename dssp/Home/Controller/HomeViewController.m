@@ -55,6 +55,10 @@
     }
     else
     {
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
                                                                        message:@"检测到您未绑定车辆信息,请绑定！"
                                                                 preferredStyle:UIAlertControllerStyleAlert];

@@ -204,23 +204,43 @@
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
+                
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBinded"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                NSArray *viewControllers = self.navigationController.viewControllers;
-                [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj isKindOfClass:[HomeViewController class]]) {
-                        NSLog(@"是从HomeViewController过来的页面");
-                        RNRViewController *vc=[[RNRViewController alloc] init];
-                        vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                    else
-                    {
-                        NSLog(@"是从MineViewController过来的页面");
-                        [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
-                    }
-                }];
-            } else {
+                
+                NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+                NSString *isPush = [defaults objectForKey:@"isPush"];
+              
+                if (isPush) {
+                    
+                    RNRViewController *vc=[[RNRViewController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                }else
+                {
+                    NSLog(@"是从MineViewController过来的页面");
+                    [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
+                    
+                }
+                
+//                NSArray *viewControllers = self.navigationController.viewControllers;
+//                [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    if ([obj isKindOfClass:[HomeViewController class]]) {
+//                        NSLog(@"是从HomeViewController过来的页面");
+//                        RNRViewController *vc=[[RNRViewController alloc] init];
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    }
+//                    else
+//                    {
+//                        NSLog(@"是从MineViewController过来的页面");
+//                        [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
+//                    }
+//                }];
+            }
+            
+            else {
                 [MBProgressHUD showText:NSLocalizedString(@"绑定失败", nil)];
             }
         } else {

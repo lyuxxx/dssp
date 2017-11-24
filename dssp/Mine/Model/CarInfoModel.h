@@ -69,5 +69,7 @@
 @property (nonatomic, copy) NSString *typeName;
 ///当前VIN号是否绑定用户信息
 @property (nonatomic, copy) NSString *userRel;
+///车辆T状态
+@property (nonatomic, copy) NSString *vhlTStatus;
 
 @end
