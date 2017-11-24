@@ -15,6 +15,7 @@
 #import "MapSearchCell.h"
 #import "LeftImgButton.h"
 #import <MapManager/MapSearchManager.h>
+#import "MapSearchHistory.h"
 
 @interface MapViewController () <MAMapViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -40,9 +41,12 @@
 @property (nonatomic, strong) UIButton *showClearBtn;
 @property (nonatomic, strong) UIView *infoView;
 
-@property (nonatomic, strong) NSString *city;
+@property (nonatomic, copy) NSString *city;
 
-@property (nonatomic, strong) NSMutableArray<MapAnnotation> *annotations;
+@property (nonatomic, strong) NSMutableArray<MapSearchObject *> *annotations;
+
+@property (nonatomic, strong) UIView *tableFooter;
+@property (nonatomic, strong) UIButton *clearHistoryBtn;
 
 @end
 
@@ -58,6 +62,7 @@
     self.navigationController.navigationBar.hidden = YES;
     [self createMap];
     [self setupUI];
+    [self getHistory];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,7 +74,6 @@
         }]];
         [self presentViewController:alert animated:true completion:nil];
     };
-    [self getUserLocation];
 }
 
 - (void)createMap {
@@ -144,12 +148,25 @@
     }];
     
     self.locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_locationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_locationBtn setImage:[UIImage imageNamed:@"map_location"] forState:UIControlStateNormal];
     [self.view addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.height.equalTo(_carLocationBtn);
         make.top.equalTo(_carLocationBtn.bottom).offset(15 * HeightCoefficient);
     }];
+}
+
+- (void)getHistory {
+    NSLog(@"getAllHistory");
+    self.annotations = [MapSearchHistory selectAllHistoryWithTimeStampDesc];
+    if (self.annotations.count > 0) {
+        self.resultTable.tableFooterView = self.tableFooter;
+    } else {
+        self.resultTable.tableFooterView = [UIView new];
+    }
+    [self.resultTable reloadData];
+    [self.resultTable scrollToTopAnimated:NO];
 }
 
 - (void)initSearchView {
@@ -208,6 +225,7 @@
         }];
         
         self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_searchBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_searchBtn setTitle:NSLocalizedString(@"搜索", nil) forState:UIControlStateNormal];
         _searchBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
         [_searchBtn setTitleColor:[UIColor colorWithHexString:@"#040000"] forState:UIControlStateNormal];
@@ -270,42 +288,11 @@
         [btns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedItemLength:69 * WidthCoefficient leadSpacing:15 * WidthCoefficient tailSpacing:15 * WidthCoefficient];
         [btns makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(btnContainer);
-            make.height.equalTo(22 * WidthCoefficient);
+            make.height.equalTo(23.5 * WidthCoefficient);
         }];
         
         [self.view layoutIfNeeded];
     }
-}
-
-- (void)showSearchView {
-    [self hideInfoView];
-    [self initSearchView];
-    _tmpField.hidden = YES;
-    [UIView animateWithDuration:0.5 animations:^{
-        [_topBar updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
-        }];
-        [_resultTable updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view);
-        }];
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        if ([_searchField canBecomeFirstResponder]) {
-            [_searchField becomeFirstResponder];
-        }
-    }];
-}
-
-- (void)hideSearchView {
-    [_searchField resignFirstResponder];
-    _tmpField.hidden = NO;
-    [_topBar updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(-50 * HeightCoefficient);
-    }];
-    [_resultTable updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
-    }];
-    [self.view layoutIfNeeded];
 }
 
 - (void)btnClick:(UIButton *)sender {
@@ -314,6 +301,7 @@
         [[MapSearchManager sharedManager] keyWordsAround:sender.titleLabel.text location:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations) {
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
+            _resultTable.tableFooterView = [UIView new];
             [_resultTable reloadData];
         }];
     }
@@ -332,17 +320,29 @@
     if (sender == _clearBtn) {
         _searchField.text = @"";
         [self.annotations removeAllObjects];
-        [_resultTable reloadData];
+        [self getHistory];
+    }
+    if (sender == _searchBtn) {
+        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations) {
+            [self.annotations removeAllObjects];
+            [self.annotations addObjectsFromArray:pointAnnotations];
+            _resultTable.tableFooterView = [UIView new];
+            [_resultTable reloadData];
+        }];
     }
     if (sender == _showBackBtn) {
         [self hideInfoView];
-        [self showSearchView];
+        [self showSearchViewFromLeft:YES];
     }
     if (sender == _showClearBtn) {
         [self hideInfoView];
         _tmpField.hidden = NO;
         [self clear];
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:NO];
+    }
+    if (sender == _clearHistoryBtn) {
+        [MapSearchHistory dropAllHistory];
+        [self getHistory];
     }
 }
 
@@ -352,7 +352,7 @@
     }];
 }
 
-- (void)clearAndShowAnnotationWithAnnotationInfo:(id<MapAnnotation>)annotationInfo {
+- (void)clearAndShowAnnotationWithAnnotationInfo:(MapSearchObject *)annotationInfo {
     [self clear];
     MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
     annotation.coordinate = annotationInfo.coordinate;
@@ -388,7 +388,64 @@
     return str;
 }
 
-- (void)showInfoWithAnnotationInfo:(id <MapAnnotation>)annotationInfo {
+- (void)showSearchViewFromLeft:(BOOL)fromLeft {
+    [self clear];
+    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:NO];
+    [self initSearchView];
+    [self hideInfoView];
+    _tmpField.hidden = YES;
+    if (fromLeft) {
+        [_topBar updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.left.equalTo(-kScreenWidth);
+        }];
+        [_resultTable updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view);
+            make.left.equalTo(-kScreenWidth);
+        }];
+        [self.view layoutIfNeeded];
+    } else {
+        [_topBar updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(-50 * HeightCoefficient);
+            make.left.equalTo(8 * WidthCoefficient);
+        }];
+        [_resultTable updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(8 * WidthCoefficient);
+            //            make.bottom.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
+        }];
+        [self.view layoutIfNeeded];
+    }
+    [UIView animateWithDuration:0.5 animations:^{
+        [_topBar updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.left.equalTo(8 * WidthCoefficient);
+        }];
+        [_resultTable updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view);
+            make.left.equalTo(8 * WidthCoefficient);
+        }];
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if ([_searchField canBecomeFirstResponder]) {
+            [_searchField becomeFirstResponder];
+        }
+    }];
+}
+
+- (void)hideSearchView {
+    [_searchField resignFirstResponder];
+    _tmpField.hidden = NO;
+    [_topBar updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(-50 * HeightCoefficient);
+    }];
+    [_resultTable updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
+    }];
+    [self.view layoutIfNeeded];
+}
+
+- (void)showInfoWithAnnotationInfo:(MapSearchObject *)annotationInfo {
     _tmpField.hidden = YES;
     if (self.infoView) {
         [_infoView removeFromSuperview];
@@ -464,6 +521,9 @@
     subTitle.font = [UIFont fontWithName:FontName size:13];
     subTitle.textColor = [UIColor colorWithHexString:@"#666666"];
     subTitle.text = [NSString stringWithFormat:@"%@ 丨 %@",[self distanceFromUsr:annotationInfo.coordinate],annotationInfo.address];
+    if (!annotationInfo.address || [annotationInfo.address isEqualToString:@""]) {
+        subTitle.text = [NSString stringWithFormat:@"%@",[self distanceFromUsr:annotationInfo.coordinate]];
+    }
     [_infoView addSubview:subTitle];
     [subTitle makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(9 * WidthCoefficient);
@@ -487,11 +547,14 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == _tmpField) {
-        [self showSearchView];
+        [self showSearchViewFromLeft:NO];
         return NO;
     }
     if (textField == _showField) {
         return NO;
+    }
+    if (textField == _searchField) {
+        [self getHistory];
     }
     return YES;
 }
@@ -510,6 +573,7 @@
                 [self.annotations addObject:tip];
             }
         }
+        _resultTable.tableFooterView = [UIView new];
         [_resultTable reloadData];
     }];
     return YES;
@@ -525,9 +589,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    id<MapAnnotation> annotation = self.annotations[indexPath.row];
+    MapSearchObject * annotation = self.annotations[indexPath.row];
     [self hideSearchView];
     [self clearAndShowAnnotationWithAnnotationInfo:annotation];
+    MapSearchHistory *history = [[MapSearchHistory alloc] initWithName:annotation.name address:annotation.address coordinate:annotation.coordinate timeStamp:[[NSDate date] timeIntervalSince1970]];
+    [MapSearchHistory updateWithHistory:history];
+    [self getHistory];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -555,6 +622,9 @@
 #pragma mark - MAMapViewDelegate-
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+    if (!self.city) {
+        [self getUserLocation];
+    }
     if (!updatingLocation && _locationAnnotationView != nil)
     {
         [UIView animateWithDuration:0.1 animations:^{
@@ -566,6 +636,7 @@
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
     if ([annotation isKindOfClass:[MAUserLocation class]])
     {
+        return nil;
         static NSString *userLocationStyleReuseIdetifier = @"userLocationStyleReuseIndetifier";
         MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:userLocationStyleReuseIdetifier];
         if (annotationView == nil)
@@ -623,13 +694,14 @@
         _resultTable.delegate = self;
         _resultTable.dataSource = self;
         _resultTable.tableFooterView = [UIView new];
-        _resultTable.backgroundColor = [UIColor whiteColor];
+        _resultTable.backgroundColor = [UIColor clearColor];
         _resultTable.showsVerticalScrollIndicator = NO;
+        _resultTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _resultTable;
 }
 
-- (NSMutableArray<MapAnnotation> *)annotations {
+- (NSMutableArray<MapSearchObject *> *)annotations {
     if (!_annotations) {
         _annotations = [[NSMutableArray alloc] init];
     }
@@ -642,6 +714,25 @@
         _infoView.backgroundColor = [UIColor whiteColor];
     }
     return _infoView;
+}
+
+- (UIView *)tableFooter {
+    if (!_tableFooter) {
+        _tableFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 359 * WidthCoefficient, 52 * WidthCoefficient)];
+        _tableFooter.backgroundColor = [UIColor whiteColor];
+        self.clearHistoryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_clearHistoryBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_clearHistoryBtn setTitle:NSLocalizedString(@"清空历史记录", nil) forState:UIControlStateNormal];
+        [_clearHistoryBtn setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        _clearHistoryBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
+        [_tableFooter addSubview:_clearHistoryBtn];
+        [_clearHistoryBtn makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(222 * WidthCoefficient);
+            make.height.equalTo(21 * WidthCoefficient);
+            make.center.equalTo(_tableFooter);
+        }];
+    }
+    return _tableFooter;
 }
 
 @end

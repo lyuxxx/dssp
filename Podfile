@@ -16,13 +16,15 @@ target 'dssp' do
   pod 'MJRefresh', '~> 3.1.15'
   pod 'TBActionSheet', '~> 1.5.5'
   pod 'RTRootNavigationController', '~> 0.6.4'
+  pod 'FMDB/SQLCipher'
+  pod 'LKDBHelper', '~> 2.4.6'
   
   # internal pod
   pod 'CUHTTPRequest', '~> 0.1.5'
   pod 'CUProgressHUD', '~> 0.1.6'
   pod 'UIImageViewSDWebImage', '~> 0.1.4'
   pod 'YYCategoriesSub', '~> 0.1.0'
-  pod 'MapManager', '~> 0.1.9'
+  pod 'MapManager', '~> 0.1.10'
 
   target 'dsspUITests' do
     inherit! :search_paths
