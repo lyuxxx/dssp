@@ -91,6 +91,7 @@
             field.font = [UIFont fontWithName:FontName size:15];
             field.textColor = [UIColor colorWithHexString:@"333333"];
             field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+            
             [whiteV addSubview:field];
             [field makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(label.right).offset(30 * WidthCoefficient);
@@ -102,6 +103,7 @@
             if (i == 0) {
                 self.customerNameField = field;
             } else if (i == 1) {
+                field.text = _bingVin;
                 self.vinField = field;
             } else if (i == 2) {
                 self.doptField = field;
@@ -175,7 +177,7 @@
     }
     
    
-    self.bindingInput.vin = _bingVin;
+    self.bindingInput.vin = _vinField.text;
     self.bindingInput.customerName = @"";
     self.bindingInput.credentials = @"";
     self.bindingInput.credentialsNum = @"";
