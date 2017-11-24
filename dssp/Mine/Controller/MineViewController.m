@@ -16,6 +16,7 @@
 #import "MineCell.h"
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
+#import "CarBindingViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -350,7 +351,7 @@
             }
             else if([_certificationStatus isEqualToString:@"3"])
             {
-                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名4", nil)];
+                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名", nil)];
             }
             else if([_certificationStatus isEqualToString:@"4"])
             {
@@ -375,8 +376,6 @@
                 [self presentViewController:alert animated:YES completion:nil];
                 
             }
-          
-        
         }else if (indexPath.row == 2)
         {
             VINBindingViewController *vc=[[VINBindingViewController alloc] init];
@@ -385,6 +384,9 @@
             
         }else if (indexPath.row == 3)
         {
+//            CarBindingViewController *vc=[[CarBindingViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
             
         }else if (indexPath.row == 4)
         {

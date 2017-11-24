@@ -62,8 +62,9 @@ _Pragma("clang diagnostic pop") \
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
 //#define appLogin @"http://172.23.102.73:18281/login/telephone"
 
-#define appLogin @"http://172.23.102.73:10095/login/telephone"
+#define telephoneLogin @"http://172.23.102.73:10095/login/telephone"
 
+#define userNameLogin @"http://172.23.102.73:10095/login/userName"
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 #define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]

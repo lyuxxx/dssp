@@ -96,8 +96,9 @@
                                      @(216.5 * HeightCoefficient + kStatusBarHeight),
                                      @(274.0 * HeightCoefficient + kStatusBarHeight),
                                      @(331.0 * HeightCoefficient + kStatusBarHeight),
-                                     @(388.5 * HeightCoefficient + kStatusBarHeight),
-                                     @(446.0 * HeightCoefficient + kStatusBarHeight)
+                                     @(388.5 * HeightCoefficient + kStatusBarHeight)
+//                                     ,
+//                                     @(446.0 * HeightCoefficient + kStatusBarHeight)
                           ];
     
     for (NSInteger i = 0; i < placeHolders.count; i++) {
@@ -155,9 +156,13 @@
                 make.bottom.equalTo(line.top).offset(- 4.5 * HeightCoefficient);
             }];
             
-        } else if (i == 2) {
-            self.userNameField = field;
-        } else if (i == 3) {
+        }
+        
+//        else if (i == 2) {
+//            self.userNameField = field;
+//        }
+        
+        else if (i == 2) {
             self.passwordField = field;
             self.passwordField.secureTextEntry = YES;
             
@@ -173,7 +178,7 @@
                 make.right.equalTo(line);
             }];
             
-        } else if (i == 4) {
+        } else if (i == 3) {
             self.confirmPasswordField = field;
             self.confirmPasswordField.secureTextEntry = YES;
             
@@ -278,11 +283,12 @@
             NSDictionary *paras = @{
                                     
             @"randomCode": _authField.text,
-            @"username": _phoneField.text,
+            @"userName": _phoneField.text,
             @"userPassword": _passwordField.text
             
-        }
-                                   ;
+        };
+            
+            NSLog(@"6666%@",paras);
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
             [CUHTTPRequest POST:registerUrl parameters:paras response:^(id responseData) {
                 if (responseData) {
@@ -350,40 +356,42 @@
                 
             }];
             
+                    __block NSInteger time = 59; //倒计时时间
+                    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+                    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+            
+                    dispatch_source_set_event_handler(_timer, ^{
+            
+                        if(time <= 0){ //倒计时结束，关闭
+            
+                            dispatch_source_cancel(_timer);
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                //设置按钮的样式
+                                [self.authBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+                                [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
+                                [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
+                                self.authBtn.userInteractionEnabled = YES;
+                            });
+            
+                        }else{
+            
+                            int seconds = time % 60;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                //设置按钮显示读秒效果
+                                [self.authBtn setTitle:[NSString stringWithFormat:@"重新发送(%.2ds)", seconds] forState:UIControlStateNormal];
+                                [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
+                                [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
+                                self.authBtn.userInteractionEnabled = NO;
+                            });
+                            time--;
+                        }
+                    });
+                    dispatch_resume(_timer);
+            
         }
 
-//        __block NSInteger time = 59; //倒计时时间
-//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-//        dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-//
-//        dispatch_source_set_event_handler(_timer, ^{
-//
-//            if(time <= 0){ //倒计时结束，关闭
-//
-//                dispatch_source_cancel(_timer);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    //设置按钮的样式
-//                    [self.authBtn setTitle:@"重新发送" forState:UIControlStateNormal];
-//                    [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
-//                    [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
-//                    self.authBtn.userInteractionEnabled = YES;
-//                });
-//
-//            }else{
-//
-//                int seconds = time % 60;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    //设置按钮显示读秒效果
-//                    [self.authBtn setTitle:[NSString stringWithFormat:@"重新发送(%.2ds)", seconds] forState:UIControlStateNormal];
-//                    [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
-//                    [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
-//                    self.authBtn.userInteractionEnabled = NO;
-//                });
-//                time--;
-//            }
-//        });
-//        dispatch_resume(_timer);
+
 //
         
 //        _authBtn.enabled = NO;
@@ -471,8 +479,8 @@
         time -= 1;
         label2.text = [NSString stringWithFormat:@"%lds后自动跳过",time];
         if (time == 0) {
-            TabBarController *tabVC = [[TabBarController alloc] init];
-            [self presentViewController:tabVC animated:NO completion:nil];
+            LoginViewController *LoginVC = [[LoginViewController alloc] init];
+            [self presentViewController:LoginVC animated:NO completion:nil];
             [timer invalidate];
             timer = nil;
         }

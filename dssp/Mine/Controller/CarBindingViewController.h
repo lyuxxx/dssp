@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface CarBindingViewController : BaseViewController
-
+@property (nonatomic, copy) NSString *bingVin;
 @end
