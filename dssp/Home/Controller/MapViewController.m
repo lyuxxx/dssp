@@ -341,8 +341,15 @@
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:NO];
     }
     if (sender == _clearHistoryBtn) {
-        [MapSearchHistory dropAllHistory];
-        [self getHistory];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"提示!", nil) message:NSLocalizedString(@"清空历史记录?", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"立即清空", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [MapSearchHistory dropAllHistory];
+            [self getHistory];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -431,6 +438,9 @@
             [_searchField becomeFirstResponder];
         }
     }];
+    _searchField.text = @"";
+    [self.annotations removeAllObjects];
+    [self getHistory];
 }
 
 - (void)hideSearchView {
