@@ -122,14 +122,10 @@
         // 指定代理,代理中获取位置数据
         _mgr.delegate = self;
         // 兼容iOS8之后的方法
-        // 方法一:判断iOS版本号
-        if ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0) {
+        
+       //    判断位置管理者能否响应iOS8之后的授权方法
+        if ([_mgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
             [_mgr requestWhenInUseAuthorization];
-            [_mgr requestAlwaysAuthorization];
-        }
-        // 方法二:判断位置管理者能否响应iOS8之后的授权方法
-        if ([_mgr respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-            [_mgr requestAlwaysAuthorization];
         }
     }
     return _mgr;
