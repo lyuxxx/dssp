@@ -190,7 +190,7 @@
             make.right.equalTo(- 15.2 * WidthCoefficient);
         }];
         
-        NSString *str = @"五号院";
+        NSString *str = @"未定位";
         self.locationLabel = [[NoResponseYYLabel alloc] init];
         _locationLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
         NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
@@ -275,6 +275,30 @@
     }
     return self;
 }
+
+- (void)setLocationStr:(NSString *)locationStr {
+    if (![_locationStr isEqualToString:locationStr]) {
+        _locationStr = locationStr;
+        NSMutableAttributedString *location = [NSMutableAttributedString new];
+        UIFont *locationFont = [UIFont fontWithName:FontName size:13];
+        NSMutableAttributedString *attachment = nil;
+        UIImage *locationImage = [UIImage imageNamed:@"location"];
+        attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
+        [location appendAttributedString:attachment];
+        [location yy_appendString:_locationStr];
+        location.yy_alignment = NSTextAlignmentCenter;
+        [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationStr rangeOfString:_locationStr].length + 1)];
+        _locationLabel.attributedText = location;
+        CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+        YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
+        [self addSubview:_locationLabel];
+        [_locationLabel updateConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
+        }];
+        [self layoutIfNeeded];
+    }
+}
+
 
 - (void)btnClick:(UIButton *)sender {
     NSLog(@"click");

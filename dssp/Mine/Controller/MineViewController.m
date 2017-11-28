@@ -17,7 +17,8 @@
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "CarBindingViewController.h"
-@interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import <CoreLocation/CoreLocation.h>
+@interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) NSArray<NSArray *> *dataArray;
@@ -26,6 +27,9 @@
 @property (nonatomic, strong) UIImageView *img;
 @property(nonatomic, strong) NSData *fileData;
 @property(nonatomic, copy) NSString *certificationStatus;
+@property (nonatomic, strong) NoResponseYYLabel *locationLabel;
+@property(nonatomic,strong) CLLocationManager *mgr;
+@property(nonatomic, copy) NSString *locationName;
 @end
 
 @interface MineViewController ()
@@ -49,6 +53,137 @@
     [self initTableView];
     [self setupUI];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.mgr startUpdatingLocation];
+    /**
+     kCLLocationAccuracyBestForNavigation; --> 最适合导航
+     kCLLocationAccuracyBest; --> 最好的
+     kCLLocationAccuracyNearestTenMeters; --> 附近10米
+     kCLLocationAccuracyHundredMeters; --> 100米
+     kCLLocationAccuracyKilometer; --> 1000米
+     kCLLocationAccuracyThreeKilometers; --> 3000米
+     */
+    // 设置定位所需的精度 枚举值 精确度越高越耗电
+    self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
+    // 每100米更新一次定位
+    self.mgr.distanceFilter = 100;
+    
+}
+
+- (CLLocationManager *)mgr
+{
+    if (_mgr == nil) {
+        // 实例化位置管理者
+        _mgr = [[CLLocationManager alloc] init];
+        // 指定代理,代理中获取位置数据
+        _mgr.delegate = self;
+        
+        // 兼容iOS8之后的方法
+        // 方法一:判断iOS版本号
+        if ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0) {
+            
+            // 前台定位授权 官方文档中说明info.plist中必须有NSLocationWhenInUseUsageDescription键
+            [_mgr requestWhenInUseAuthorization];
+            // 前后台定位授权 官方文档中说明info.plist中必须有NSLocationAlwaysUsageDescription键
+            [_mgr requestAlwaysAuthorization];
+        }
+        // 方法二:判断位置管理者能否响应iOS8之后的授权方法
+        if ([_mgr respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            // 前台定位授权 官方文档中说明info.plist中必须有NSLocationWhenInUseUsageDescription键
+            // [_mgr requestWhenInUseAuthorization];
+            // 前后台定位授权 官方文档中说明info.plist中必须有NSLocationAlwaysUsageDescription键
+            [_mgr requestAlwaysAuthorization];
+        }
+    }
+    return _mgr;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"定位失败");
+    [_mgr stopUpdatingLocation];//关闭定位
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    NSLog(@"定位成功");
+    [_mgr stopUpdatingLocation];//关闭定位
+    
+    CLLocation *newLocation = locations[0];
+    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+    
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark * placemark in placemarks) {
+            NSDictionary *test = [placemark addressDictionary];
+            // Country(国家)
+            //            State(城市) SubLocality(区)
+            NSLog(@"%@", [test objectForKey:@"State"]);
+            NSLog(@"%@", [test objectForKey:@"City"]);
+            //            _locationLabel.text= [[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
+            
+            _locationName=[[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
+            
+            [self setupUI];
+        }
+    }];
+}
+
+/// 代理方法中监听授权的改变,被拒绝有两种情况,一是真正被拒绝,二是服务关闭了
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+        {
+            NSLog(@"用户未决定");
+            break;
+        }
+            // 系统预留字段,暂时还没用到
+        case kCLAuthorizationStatusRestricted:
+        {
+            NSLog(@"受限制");
+            break;
+        }
+        case kCLAuthorizationStatusDenied:
+        {
+            // 被拒绝有两种情况 1.设备不支持定位服务 2.定位服务被关闭
+            if ([CLLocationManager locationServicesEnabled]) {
+                NSLog(@"真正被拒绝");
+                
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"温馨提示"
+                                                                               message:@"请在设置中打开定位服务功能！"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    //响应事件
+                    // 跳转到设置界面
+                    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                        
+                        [[UIApplication sharedApplication] openURL:url];
+                    }
+                    
+                }];
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    
+                }];
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+                [self presentViewController:alert animated:YES completion:nil];
+                
+            }
+            else {
+                NSLog(@"没有开启此功能");
+            }
+            break;
+        }
+      
+        default:
+            break;
+    }
+}
+
 
 -(void)initTableView
 {
@@ -160,30 +295,52 @@
     }];
     
     
-    UIImageView *locationImg = [[UIImageView alloc] init];
-    locationImg.image = [UIImage imageNamed:@"location"];
-    [_headerView addSubview:locationImg];
-    [locationImg makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
-        make.left.equalTo(146*WidthCoefficient);
-        make.width.height.equalTo(12*WidthCoefficient);
-    }];
+//    UIImageView *locationImg = [[UIImageView alloc] init];
+//    locationImg.image = [UIImage imageNamed:@"location"];
+//    [_headerView addSubview:locationImg];
+//    [locationImg makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
+//        make.left.equalTo(146*WidthCoefficient);
+//        make.width.height.equalTo(12*WidthCoefficient);
+//    }];
+//
+//
+//    UILabel * locationLabel= [[UILabel alloc] init];
+//    locationLabel.font=[UIFont fontWithName:FontName size:13];
+//    locationLabel.textColor=[UIColor whiteColor];
+//    locationLabel.text=NSLocalizedString(@"湖北 武汉", nil);
+//    locationLabel.textAlignment = NSTextAlignmentCenter;
+//    [_headerView addSubview:locationLabel];
+//    [locationLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(namelabel.bottom).offset(6*HeightCoefficient);
+//        make.left.equalTo(165*WidthCoefficient);
+//        make.height.equalTo(18.5 * HeightCoefficient);
+//        make.width.equalTo(60 * WidthCoefficient);
+//    }];
     
-    
-    UILabel * locationLabel= [[UILabel alloc] init];
-    locationLabel.font=[UIFont fontWithName:FontName size:13];
-    locationLabel.textColor=[UIColor whiteColor];
-    locationLabel.text=NSLocalizedString(@"湖北 武汉", nil);
-    locationLabel.textAlignment = NSTextAlignmentCenter;
-    [_headerView addSubview:locationLabel];
-    [locationLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(namelabel.bottom).offset(6*HeightCoefficient);
-        make.left.equalTo(165*WidthCoefficient);
+    self.locationLabel = [[NoResponseYYLabel alloc] init];
+    _locationLabel.backgroundColor = [UIColor clearColor];
+    NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
+    UIFont *locationFont = [UIFont fontWithName:FontName size:13];
+    NSMutableAttributedString *attachment = nil;
+    UIImage *locationImage = [UIImage imageNamed:@"location"];
+    attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
+    [locationStr appendAttributedString:attachment];
+    [locationStr yy_appendString:_locationName?_locationName:@"未定位"];
+    locationStr.yy_alignment = NSTextAlignmentCenter;
+    [locationStr addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationName?_locationName:@"未定位" rangeOfString:_locationName?_locationName:@"未定位"].length + 1)];
+    _locationLabel.attributedText = locationStr;
+    CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:locationStr];
+    [_headerView addSubview:_locationLabel];
+    [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
         make.height.equalTo(18.5 * HeightCoefficient);
-        make.width.equalTo(60 * WidthCoefficient);
+        make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
+        make.top.equalTo(namelabel.bottom).offset(10 * HeightCoefficient);
     }];
     
-    
+
     UIImageView *carImg = [[UIImageView alloc] init];
     [carImg setContentMode:UIViewContentModeScaleAspectFit];
     carImg.image = [UIImage imageNamed:@"11"];

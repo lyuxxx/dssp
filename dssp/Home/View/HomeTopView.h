@@ -26,7 +26,7 @@ typedef void(^btnClickBlock)(UIButton *);
 @interface HomeTopView : UIView
 
 @property (nonatomic, copy) btnClickBlock clickBlock;
-
+@property (nonatomic, copy) NSString *locationStr;
 - (void)didTapWithPoint:(CGPoint)point;
 
 @end

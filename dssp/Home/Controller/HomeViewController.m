@@ -16,14 +16,14 @@
 #import "VINBindingViewController.h"
 #import <CUHTTPRequest.h>
 #import "MapViewController.h"
-
-@interface HomeViewController () <UIScrollViewDelegate>
+#import <CoreLocation/CoreLocation.h>
+@interface HomeViewController () <UIScrollViewDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
 @property (nonatomic, strong) HomeTopView *topView;
 @property (nonatomic, strong) UIScrollView *scroll;
 @property (nonatomic, strong) UIScrollView *banner;
-
+@property(nonatomic,strong) CLLocationManager *mgr;
 @end
 
 @implementation HomeViewController
@@ -40,10 +40,126 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
+    [self.mgr startUpdatingLocation];
+    // 设置定位所需的精度 枚举值 精确度越高越耗电
+    self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
+    // 每100米更新一次定位
+    self.mgr.distanceFilter = 100;
     [self postCustByMobile];
     [self setupUI];
    
 }
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    [self.mgr startUpdatingLocation];
+//    // 设置定位所需的精度 枚举值 精确度越高越耗电
+//    self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
+//    // 每100米更新一次定位
+//    self.mgr.distanceFilter = 100;
+//}
+
+/// 代理方法中监听授权的改变,被拒绝有两种情况,一是真正被拒绝,二是服务关闭了
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+        {
+            NSLog(@"用户未决定");
+            break;
+        }
+        // 系统预留字段,暂时还没用到
+        case kCLAuthorizationStatusRestricted:
+        {
+            NSLog(@"受限制");
+            break;
+        }
+        case kCLAuthorizationStatusDenied:
+        {
+            // 被拒绝有两种情况 1.设备不支持定位服务 2.定位服务被关闭
+            if ([CLLocationManager locationServicesEnabled]) {
+                NSLog(@"真正被拒绝");
+                
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"温馨提示"
+               message:@"请在设置中打开定位服务功能！"
+               preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    //响应事件
+                    // 跳转到设置界面
+                    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                        
+                        [[UIApplication sharedApplication] openURL:url];
+                    }
+                    
+                }];
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    
+                }];
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+                [self presentViewController:alert animated:YES completion:nil];
+                
+            }
+            else {
+                NSLog(@"没有开启此功能");
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+
+- (CLLocationManager *)mgr
+{
+    if (_mgr == nil) {
+        // 实例化位置管理者
+        _mgr = [[CLLocationManager alloc] init];
+        // 指定代理,代理中获取位置数据
+        _mgr.delegate = self;
+        // 兼容iOS8之后的方法
+        // 方法一:判断iOS版本号
+        if ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0) {
+            [_mgr requestWhenInUseAuthorization];
+            [_mgr requestAlwaysAuthorization];
+        }
+        // 方法二:判断位置管理者能否响应iOS8之后的授权方法
+        if ([_mgr respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [_mgr requestAlwaysAuthorization];
+        }
+    }
+    return _mgr;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"定位失败");
+    [_mgr stopUpdatingLocation];//关闭定位
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    NSLog(@"定位成功");
+    [_mgr stopUpdatingLocation];//关闭定位
+    CLLocation *newLocation = locations[0];
+    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark * placemark in placemarks) {
+            NSDictionary *test = [placemark addressDictionary];
+            // Country(国家)
+            // State(城市) SubLocality(区)
+            //            NSString *location= [[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
+            
+            NSArray *location=[test objectForKey:@"FormattedAddressLines"];
+            NSString *str= [location objectAtIndex:0];
+            self.topView.locationStr = str;
+        }
+    }];
+}
+
 
 - (void)postCustByMobile
 {
@@ -60,8 +176,8 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                       message:@"检测到您未绑定车辆信息,请绑定！"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
+       message:@"检测到您未绑定车辆信息,请绑定！"
+       preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             //响应事件

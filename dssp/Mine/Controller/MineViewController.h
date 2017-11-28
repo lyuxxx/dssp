@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import <YYText.h>
+@interface NoResponseYYLabel : YYLabel
 
+@end
 @interface MineViewController : BaseViewController
 
 @end
