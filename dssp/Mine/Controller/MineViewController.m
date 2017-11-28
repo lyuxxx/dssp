@@ -56,21 +56,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+     [super viewWillAppear:animated];
     [self.mgr startUpdatingLocation];
-    /**
-     kCLLocationAccuracyBestForNavigation; --> 最适合导航
-     kCLLocationAccuracyBest; --> 最好的
-     kCLLocationAccuracyNearestTenMeters; --> 附近10米
-     kCLLocationAccuracyHundredMeters; --> 100米
-     kCLLocationAccuracyKilometer; --> 1000米
-     kCLLocationAccuracyThreeKilometers; --> 3000米
-     */
-    // 设置定位所需的精度 枚举值 精确度越高越耗电
-    self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
-    // 每100米更新一次定位
-    self.mgr.distanceFilter = 100;
-    
 }
+
 
 - (CLLocationManager *)mgr
 {
@@ -79,6 +68,10 @@
         _mgr = [[CLLocationManager alloc] init];
         // 指定代理,代理中获取位置数据
         _mgr.delegate = self;
+        // 设置定位所需的精度 枚举值 精确度越高越耗电
+        self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
+        // 每100米更新一次定位
+        self.mgr.distanceFilter = 100;
 
         // 兼容iOS8之后的方法
         if ([_mgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {

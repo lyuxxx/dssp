@@ -40,25 +40,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
-    [self.mgr startUpdatingLocation];
-    // 设置定位所需的精度 枚举值 精确度越高越耗电
-    self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
-    // 每100米更新一次定位
-    self.mgr.distanceFilter = 100;
     [self postCustByMobile];
     [self setupUI];
    
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    [self.mgr startUpdatingLocation];
-//    // 设置定位所需的精度 枚举值 精确度越高越耗电
-//    self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
-//    // 每100米更新一次定位
-//    self.mgr.distanceFilter = 100;
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.mgr startUpdatingLocation];
+}
+
+- (CLLocationManager *)mgr
+{
+    if (_mgr == nil) {
+        // 实例化位置管理者
+        _mgr = [[CLLocationManager alloc] init];
+        // 指定代理,代理中获取位置数据
+        _mgr.delegate = self;
+        // 兼容iOS8之后的方法
+        // 设置定位所需的精度 枚举值 精确度越高越耗电
+        self.mgr.desiredAccuracy = kCLLocationAccuracyBest;
+        // 每100米更新一次定位
+        self.mgr.distanceFilter = 100;
+        //    判断位置管理者能否响应iOS8之后的授权方法
+        if ([_mgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [_mgr requestWhenInUseAuthorization];
+        }
+    }
+    return _mgr;
+}
 
 /// 代理方法中监听授权的改变,被拒绝有两种情况,一是真正被拒绝,二是服务关闭了
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -114,23 +125,6 @@
 }
 
 
-- (CLLocationManager *)mgr
-{
-    if (_mgr == nil) {
-        // 实例化位置管理者
-        _mgr = [[CLLocationManager alloc] init];
-        // 指定代理,代理中获取位置数据
-        _mgr.delegate = self;
-        // 兼容iOS8之后的方法
-        
-       //    判断位置管理者能否响应iOS8之后的授权方法
-        if ([_mgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-            [_mgr requestWhenInUseAuthorization];
-        }
-    }
-    return _mgr;
-}
-
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"定位失败");
     [_mgr stopUpdatingLocation];//关闭定位
@@ -140,7 +134,7 @@
     NSLog(@"定位成功");
     [_mgr stopUpdatingLocation];//关闭定位
     CLLocation *newLocation = locations[0];
-    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+//    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark * placemark in placemarks) {
