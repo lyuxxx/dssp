@@ -295,7 +295,6 @@
                 @"telephone":_phoneField.text,
                 @"randomCodeType":@"login"
                                         };
-                
                 [CUHTTPRequest POST:getRandomCode parameters:paras response:^(id responseData) {
                     if (responseData) {
                         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -353,9 +352,7 @@
             {
                  [MBProgressHUD showText:NSLocalizedString(@"请输入正确的手机号", nil)];
             }
-            
         }
-        
     }
     if (sender == self.forgotPassword) {
         
