@@ -284,7 +284,7 @@
                                     
             @"randomCode": _authField.text,
             @"userName": _phoneField.text,
-            @"userPassword": _passwordField.text
+            @"userPassword": [_passwordField.text md5String]
             
         };
             

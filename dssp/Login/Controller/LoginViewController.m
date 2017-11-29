@@ -397,7 +397,7 @@
 
                                         };
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                [CUHTTPRequest POST:telephoneLogin parameters:paras response:^(id responseData) {
+                [CUHTTPRequest POST:telephoneLogins parameters:paras response:^(id responseData) {
                     if (responseData) {
                         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                         LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
@@ -439,10 +439,10 @@
                 {
                     NSDictionary *paras = @{
                                             @"userName": _userNameField.text,
-                                            @"userPassword": _passWordField.text
+                                            @"userPassword": [_passWordField.text md5String]
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                    [CUHTTPRequest POST:userNameLogin parameters:paras response:^(id responseData) {
+                    [CUHTTPRequest POST:userNameLogins parameters:paras response:^(id responseData) {
                         if (responseData) {
                             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                             

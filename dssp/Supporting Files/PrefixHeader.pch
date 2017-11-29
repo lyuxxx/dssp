@@ -58,19 +58,23 @@ _Pragma("clang diagnostic pop") \
 } while (0)
 
 #define baseUrl @"http://172.23.102.73:10095/"
-#define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
+#define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/"
+#define registerUrl [NSString stringWithFormat:@"%@register",baseUrls]
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
 //#define appLogin @"http://172.23.102.73:18281/login/telephone"
+//外网地址
+#define userNameLogins @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/login/userName"
+#define telephoneLogins @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/login/telephone"
 
+///内网地址
 #define telephoneLogin @"http://172.23.102.73:10095/login/telephone"
-
 #define userNameLogin @"http://172.23.102.73:10095/login/userName"
-#define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
-#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
-#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
-#define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrl]
-#define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
-#define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrl]
-#define queryUserRel [NSString stringWithFormat:@"%@queryUserRel",baseUrl]
-#define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrl]
+#define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrls]
+#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrls]
+#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+#define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrls]
+#define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrls]
+#define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrls]
+#define queryUserRel [NSString stringWithFormat:@"%@queryUserRel",baseUrls]
+#define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrls]
 #endif /* PrefixHeader_pch */
