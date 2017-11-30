@@ -263,9 +263,10 @@
     NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"selfPhoto.jpg"];
     NSLog(@"imageFile->>%@",imageFilePath);
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
+    
     //头像
     self.photoBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    [_photoBtn setImage:selfPhoto forState:UIControlStateNormal];
+    [_photoBtn setImage:selfPhoto?selfPhoto:[UIImage imageNamed:@"Image_head"] forState:UIControlStateNormal];
     [_photoBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     _photoBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
     _photoBtn.clipsToBounds=YES;
