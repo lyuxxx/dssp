@@ -112,7 +112,6 @@
                 [alert addAction:defaultAction];
                 [alert addAction:cancelAction];
                 [self presentViewController:alert animated:YES completion:nil];
-                
             }
             else {
                 NSLog(@"没有开启此功能");

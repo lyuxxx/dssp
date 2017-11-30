@@ -159,7 +159,7 @@
                 NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
                 NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
                 _wifiLabel.text = wifiSsid;
-                _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+                _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword?wifiPassword:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
             } else {
 //                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
                  [MBProgressHUD showText:[dic objectForKey:@"msg"]];

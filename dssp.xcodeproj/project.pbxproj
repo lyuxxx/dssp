@@ -213,6 +213,7 @@
 		310A07D71FA96B8D00DC9529 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				45A145BB1FCFA4B2002C0A78 /* View */,
 				315EE1041FBD34CC00067FC6 /* Model */,
 				31EEDDDF1FBBC9FE0012BA92 /* Controller */,
 			);
@@ -404,8 +405,6 @@
 				313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */,
 				459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */,
 				459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */,
-				459F22571FBC118300BA13CB /* MineCell.h */,
-				459F22581FBC118300BA13CB /* MineCell.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -419,6 +418,15 @@
 				316B6CE51FB94A35008A6094 /* WifiViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		45A145BB1FCFA4B2002C0A78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				459F22571FBC118300BA13CB /* MineCell.h */,
+				459F22581FBC118300BA13CB /* MineCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		970D93E9BFE3ED1AE5671BF8 /* Pods */ = {

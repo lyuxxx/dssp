@@ -18,6 +18,7 @@
 #import <CUHTTPRequest.h>
 #import "CarBindingViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import <YYText.h>
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -27,7 +28,7 @@
 @property (nonatomic, strong) UIImageView *img;
 @property(nonatomic, strong) NSData *fileData;
 @property(nonatomic, copy) NSString *certificationStatus;
-@property (nonatomic, strong) NoResponseYYLabel *locationLabel;
+@property (nonatomic, strong) YYLabel *locationLabel;
 @property(nonatomic,strong) CLLocationManager *mgr;
 @property(nonatomic, copy) NSString *locationName;
 @end
@@ -98,17 +99,35 @@
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark * placemark in placemarks) {
             NSDictionary *test = [placemark addressDictionary];
-            // Country(国家)
-            //            State(城市) SubLocality(区)
-            NSLog(@"%@", [test objectForKey:@"State"]);
-            NSLog(@"%@", [test objectForKey:@"City"]);
-            //            _locationLabel.text= [[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
-            
             _locationName=[[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
-            
-            [self setupUI];
+             self.locationStr = _locationName;
         }
     }];
+}
+
+- (void)setLocationStr:(NSString *)locationStr
+{
+    
+    if (![_locationStr isEqualToString:locationStr]) {
+        _locationStr = locationStr;
+        NSMutableAttributedString *location = [NSMutableAttributedString new];
+        UIFont *locationFont = [UIFont fontWithName:FontName size:13];
+        NSMutableAttributedString *attachment = nil;
+        UIImage *locationImage = [UIImage imageNamed:@"location"];
+        attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
+        [location appendAttributedString:attachment];
+        [location yy_appendString:_locationStr];
+        location.yy_alignment = NSTextAlignmentCenter;
+        [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationStr rangeOfString:_locationStr].length + 1)];
+        _locationLabel.attributedText = location;
+        CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+        YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
+        [self.headerView addSubview:_locationLabel];
+        [_locationLabel updateConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
+        }];
+        [self.headerView layoutIfNeeded];
+    }
 }
 
 /// 代理方法中监听授权的改变,被拒绝有两种情况,一是真正被拒绝,二是服务关闭了
@@ -169,9 +188,9 @@
 -(void)initTableView
 {
     _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-//    _tableView.estimatedRowHeight = 0;
-//    _tableView.estimatedSectionFooterHeight = 0;
-//    _tableView.estimatedSectionHeaderHeight = 0;
+    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedSectionFooterHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
 //    _tableView.tableFooterView = [UIView new];
 //    _tableView.tableHeaderView = [UIView new];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -299,7 +318,7 @@
 //        make.width.equalTo(60 * WidthCoefficient);
 //    }];
     
-    self.locationLabel = [[NoResponseYYLabel alloc] init];
+    self.locationLabel = [[YYLabel alloc] init];
     _locationLabel.backgroundColor = [UIColor clearColor];
     NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
     UIFont *locationFont = [UIFont fontWithName:FontName size:13];

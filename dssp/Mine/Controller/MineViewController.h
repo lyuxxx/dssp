@@ -7,10 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import <YYText.h>
-@interface NoResponseYYLabel : YYLabel
-
-@end
 @interface MineViewController : BaseViewController
-
+@property (nonatomic, copy) NSString *locationStr;
 @end
