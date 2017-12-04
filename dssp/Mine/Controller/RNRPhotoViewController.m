@@ -162,8 +162,13 @@
             NSLog(@"%@",dic);
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+                vc.codeName = dic[@"code"];
                 [self.navigationController pushViewController:vc animated:YES];
-            } else {
+            }else if ([dic[@"code"] isEqualToString:@"201"]) {
+                RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+                vc.codeName = dic[@"code"];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else {
                 [MBProgressHUD showText:dic[@"msg"]];
             }
         } else {

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface RNRFinishedViewController : BaseViewController
-
+@property (nonatomic, copy) NSString *codeName;
 @end

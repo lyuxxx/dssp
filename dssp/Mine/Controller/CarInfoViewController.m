@@ -112,7 +112,6 @@
                 self.vhlStatusName.text = CarInfo.vhlStatusName;
                 self.userRel.text = CarInfo.userRel;
                
-              
             } else {
             [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
                

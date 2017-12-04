@@ -29,7 +29,14 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor colorWithHexString:GeneralColorString];
     label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    label.text = NSLocalizedString(@"实名制已完成", nil);
+     if ([_codeName isEqualToString:@"200"])
+     {
+        label.text = NSLocalizedString(@"实名制已完成", nil);
+     }
+    else
+    {
+        label.text = NSLocalizedString(@"进入人工实名认证", nil);
+    }
     [self.view addSubview:label];
     [label makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(214.5 * WidthCoefficient);
@@ -55,7 +62,16 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([_codeName isEqualToString:@"200"])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isCodeName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 @end
