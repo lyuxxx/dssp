@@ -37,6 +37,13 @@
 		316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
 		316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
 		316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
+		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
+		31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
+		31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
+		31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */; };
+		31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */; };
+		31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
+		31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
 		31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
@@ -122,6 +129,13 @@
 		316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchCell.m; sourceTree = "<group>"; };
 		316CCCBE1FC68C6000AFF915 /* DiscoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
+		31C176EB1FD5444A006E4AEA /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
+		31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
+		31C176ED1FD5444A006E4AEA /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
+		31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewCell.swift; sourceTree = "<group>"; };
+		31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
+		31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewLayout.swift; sourceTree = "<group>"; };
+		31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
 		31CFB26B1FC2733C00130C52 /* CarBindingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingInput.h; sourceTree = "<group>"; };
 		31CFB26C1FC2733C00130C52 /* CarBindingInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingInput.m; sourceTree = "<group>"; };
 		31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoveCarViewController.h; sourceTree = "<group>"; };
@@ -232,6 +246,7 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
 				313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */,
 				31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */,
@@ -364,6 +379,20 @@
 				316CA4791F9F3475009F541E /* Info.plist */,
 			);
 			path = dsspUITests;
+			sourceTree = "<group>";
+		};
+		31C176EA1FD5444A006E4AEA /* FSPagerView */ = {
+			isa = PBXGroup;
+			children = (
+				31C176EB1FD5444A006E4AEA /* FSPageControl.swift */,
+				31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */,
+				31C176ED1FD5444A006E4AEA /* FSPagerView.swift */,
+				31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */,
+				31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */,
+				31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */,
+				31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */,
+			);
+			path = FSPagerView;
 			sourceTree = "<group>";
 		};
 		31DDD24E1FBAB9C300D37DED /* Car */ = {
@@ -656,7 +685,9 @@
 			files = (
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
+				31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */,
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
+				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
@@ -666,16 +697,21 @@
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
+				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
+				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
+				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
+				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,
 				316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */,
+				31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
@@ -847,6 +883,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
@@ -857,6 +894,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e57466c2-cbe3-45f0-b4e0-3cb7e02da36a";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -870,6 +908,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
@@ -880,6 +919,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6abb9ce5-7d90-43c5-bb44-b3f69d80517b";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -889,6 +929,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1E574CBB6F9BF8B9B4FB775F /* Pods-dsspUITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
@@ -906,6 +947,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10BBD8E837E05F1B4B40ABF6 /* Pods-dsspUITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
