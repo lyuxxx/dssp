@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '8.0'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'http://172.23.105.201:4080/cusc-ios-base-component/CUSpecs.git'
 
@@ -18,6 +18,7 @@ target 'dssp' do
   pod 'RTRootNavigationController', '~> 0.6.4'
   pod 'FMDB/SQLCipher'
   pod 'LKDBHelper', '~> 2.4.6'
+  pod 'CocoaLumberjack', '~> 3.3.0'
   
   # internal pod
   pod 'CUHTTPRequest', '~> 0.1.5'

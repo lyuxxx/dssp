@@ -80,6 +80,7 @@
     
     
     self.userNameField = [[UITextField alloc] init];
+    _userNameField.keyboardType = UIKeyboardTypePhonePad;
     _userNameField.textColor = [UIColor whiteColor];
     _userNameField.delegate = self;
     _userNameField.font = [UIFont fontWithName:FontName size:15];

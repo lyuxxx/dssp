@@ -37,6 +37,7 @@
 		316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
 		316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
 		316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
+		318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
 		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
 		31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
 		31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
@@ -129,6 +130,8 @@
 		316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchCell.m; sourceTree = "<group>"; };
 		316CCCBE1FC68C6000AFF915 /* DiscoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
+		318148061FD6964300F00A4D /* WBAFNetworkingLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBAFNetworkingLogger.h; sourceTree = "<group>"; };
+		318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBAFNetworkingLogger.m; sourceTree = "<group>"; };
 		31C176EB1FD5444A006E4AEA /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
 		31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
 		31C176ED1FD5444A006E4AEA /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
@@ -246,6 +249,7 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
 				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
 				313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */,
@@ -379,6 +383,15 @@
 				316CA4791F9F3475009F541E /* Info.plist */,
 			);
 			path = dsspUITests;
+			sourceTree = "<group>";
+		};
+		318148051FD6964300F00A4D /* WBAFNetworkingLogger */ = {
+			isa = PBXGroup;
+			children = (
+				318148061FD6964300F00A4D /* WBAFNetworkingLogger.h */,
+				318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */,
+			);
+			path = WBAFNetworkingLogger;
 			sourceTree = "<group>";
 		};
 		31C176EA1FD5444A006E4AEA /* FSPagerView */ = {
@@ -722,6 +735,7 @@
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
+				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
 				310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

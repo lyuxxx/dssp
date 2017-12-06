@@ -12,11 +12,18 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+//定义并导入CoCoaLumberJack框架
+#define LOG_LEVEL_DEF ddLogLevel
+#import <CocoaLumberjack.h>
+
+//通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
 #ifdef DEBUG
-#define NSLog(format, ...) printf("\n[%s] %s [line:%d] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #else
-#define NSLog(format, ...)
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 #endif
+
+#define NSLog(format, ...) DDLogError((@"[Func:%s]" "[Line:%d]" format), __FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 //定义了一个__weak的self_weak_变量
 #define weakifySelf  \
