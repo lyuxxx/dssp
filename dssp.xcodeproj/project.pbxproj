@@ -495,6 +495,7 @@
 				316CA4591F9F3475009F541E /* Resources */,
 				68EF9FBDC53D8AC6E25122F8 /* [CP] Embed Pods Frameworks */,
 				05C64E39358AA185453321F5 /* [CP] Copy Pods Resources */,
+				3181480B1FD7969700F00A4D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -625,6 +626,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		3181480B1FD7969700F00A4D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Scripts/iconVersioning.sh\"";
 		};
 		62E58E38BCA19D55CE3FA9BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -906,7 +920,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e57466c2-cbe3-45f0-b4e0-3cb7e02da36a";
+				PROVISIONING_PROFILE = "72eb3a77-ccf4-430c-acf4-95cb4f76e027";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
