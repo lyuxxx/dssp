@@ -46,6 +46,7 @@
      self.img=({
         UIImageView *img = [[UIImageView alloc] init];
         [self.contentView addSubview:img];
+        [img setContentMode:UIViewContentModeScaleAspectFit];
         //    _img.image=[UIImage imageNamed:data[0]];
         [img makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(11 * HeightCoefficient);
