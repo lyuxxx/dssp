@@ -638,7 +638,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Scripts/iconVersioning.sh\"";
+			shellScript = "\"${SRCROOT}/Scripts/iconVersioning.sh\"\n\"${SRCROOT}/Scripts/Move_dSYM_To_Storage.sh\"";
 		};
 		62E58E38BCA19D55CE3FA9BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -911,6 +911,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -936,6 +937,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
