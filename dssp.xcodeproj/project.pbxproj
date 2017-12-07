@@ -17,6 +17,7 @@
 		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
 		313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
+		314B98621FD7F24C00ABB638 /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
 		315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
 		31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
@@ -92,6 +93,8 @@
 		313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VINBindingViewController.m; sourceTree = "<group>"; };
 		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
 		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
+		314B98601FD7F24C00ABB638 /* POI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POI.h; sourceTree = "<group>"; };
+		314B98611FD7F24C00ABB638 /* POI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POI.m; sourceTree = "<group>"; };
 		314E05D21FB582D6000550C7 /* TopImgButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopImgButton.h; sourceTree = "<group>"; };
 		314E05D31FB582D6000550C7 /* TopImgButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopImgButton.m; sourceTree = "<group>"; };
 		315EE1051FBD34E800067FC6 /* RNRInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRInput.h; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 			children = (
 				310C75071FC7B5C300B3A7D0 /* MapSearchHistory.h */,
 				310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */,
+				314B98601FD7F24C00ABB638 /* POI.h */,
+				314B98611FD7F24C00ABB638 /* POI.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -750,6 +755,7 @@
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
+				314B98621FD7F24C00ABB638 /* POI.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,

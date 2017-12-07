@@ -68,7 +68,7 @@
         make.height.equalTo(99.5 * HeightCoefficient);
         make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
     }];
-    
+    /**
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _skipBtn.enabled = NO;
     [_skipBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -83,7 +83,7 @@
         make.right.equalTo(-18 * WidthCoefficient);
         make.width.equalTo(50 * WidthCoefficient);
     }];
-    
+    **/
     NSArray *placeHolders = @[
                               NSLocalizedString(@"手机号", nil),
                               NSLocalizedString(@"手机验证码", nil),

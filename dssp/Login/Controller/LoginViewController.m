@@ -62,7 +62,7 @@
         make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
     }];
     
-    
+    /**
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    _skipBtn.enabled = NO;
     [_skipBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -77,7 +77,7 @@
         make.width.equalTo(50 * WidthCoefficient);
          make.height.equalTo(20 * HeightCoefficient);
     }];
-    
+    **/
     
     self.userNameField = [[UITextField alloc] init];
     _userNameField.keyboardType = UIKeyboardTypePhonePad;
