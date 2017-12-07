@@ -66,22 +66,54 @@ _Pragma("clang diagnostic pop") \
 
 #define baseUrl @"http://172.23.102.73:10095/"
 #define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/"
+//用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrls]
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
 //#define appLogin @"http://172.23.102.73:18281/login/telephone"
 //外网地址
+//用户名密码登录
 #define userNameLogins @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/login/userName"
+//用户名验证码登录
 #define telephoneLogins @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/login/telephone"
 
 ///内网地址
 #define telephoneLogin @"http://172.23.102.73:10095/login/telephone"
 #define userNameLogin @"http://172.23.102.73:10095/login/userName"
+//查询车辆销售信息和套餐信息接口
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrls]
+//绑定客户-车辆信息
 #define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrls]
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+//WIFI密码查询
 #define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrls]
+//WIFI密码修改
 #define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrls]
+//根据Vin查询实名认证状态
 #define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrls]
-#define queryUserRel [NSString stringWithFormat:@"%@queryUserRel",baseUrls]
+//接收用户上传图片及实名制信息
+#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+//删除POI收藏点
+#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrls]
+//添加POI收藏点
+#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",baseUrls]
+//POI下发
+#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",baseUrls]
+//查询车辆信息接口
+#define queryVhl [NSString stringWithFormat:@"%@queryVhl",baseUrls]
+//服务合同信息列表查询接口
+#define queryContract [NSString stringWithFormat:@"%@queryContract",baseUrls]
+//车辆信息修改接口
+#define updateVhl [NSString stringWithFormat:@"%@updateVhl",baseUrls]
+//服务合同信息详细信息接口
+#define findServiceByVin [NSString stringWithFormat:@"%@findServiceByVin",baseUrls]
+//验证手机号及验证码接口
+#define verificationMobile [NSString stringWithFormat:@"%@verificationMobile",baseUrls]
+//重置新密码接口
+#define resetNewPWD [NSString stringWithFormat:@"%@resetNewPWD",baseUrls]
+//修改密码接口
+#define resetPWD [NSString stringWithFormat:@"%@resetPWD",baseUrls]
+//退出登录接口
+#define loginout [NSString stringWithFormat:@"%@loginout",baseUrls]
+//获取验证码
 #define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrls]
 #endif /* PrefixHeader_pch */

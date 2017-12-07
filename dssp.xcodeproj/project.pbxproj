@@ -53,6 +53,8 @@
 		459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
 		459F22591FBC118300BA13CB /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
 		45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
+		45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C71FD8D61B002C0A78 /* ContractModel.m */; };
+		45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
 /* End PBXBuildFile section */
@@ -156,6 +158,10 @@
 		459F22581FBC118300BA13CB /* MineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
 		45A145C31FD7E239002C0A78 /* VhlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VhlModel.h; sourceTree = "<group>"; };
 		45A145C41FD7E239002C0A78 /* VhlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VhlModel.m; sourceTree = "<group>"; };
+		45A145C61FD8D61B002C0A78 /* ContractModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractModel.h; sourceTree = "<group>"; };
+		45A145C71FD8D61B002C0A78 /* ContractModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractModel.m; sourceTree = "<group>"; };
+		45A145C91FD8DC69002C0A78 /* ContractDetailed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractDetailed.h; sourceTree = "<group>"; };
+		45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractDetailed.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +323,10 @@
 				451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */,
 				31CFB26B1FC2733C00130C52 /* CarBindingInput.h */,
 				31CFB26C1FC2733C00130C52 /* CarBindingInput.m */,
+				45A145C61FD8D61B002C0A78 /* ContractModel.h */,
+				45A145C71FD8D61B002C0A78 /* ContractModel.m */,
+				45A145C91FD8DC69002C0A78 /* ContractDetailed.h */,
+				45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -755,8 +765,10 @@
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
+				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,
 				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
 				310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */,
+				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
