@@ -26,6 +26,7 @@ target 'dssp' do
   pod 'UIImageViewSDWebImage', '~> 0.1.4'
   pod 'YYCategoriesSub', '~> 0.1.0'
   pod 'MapManager', '~> 0.1.10'
+  # pod 'UMPush', '~> 1.5.0'
 
   target 'dsspUITests' do
     inherit! :search_paths

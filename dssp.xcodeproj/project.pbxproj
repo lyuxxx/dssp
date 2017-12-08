@@ -17,6 +17,7 @@
 		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
 		313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
+		3147871E1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3147871C1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a */; };
 		314B98621FD7F24C00ABB638 /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
 		315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
@@ -83,6 +84,7 @@
 		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		310C75071FC7B5C300B3A7D0 /* MapSearchHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapSearchHistory.h; sourceTree = "<group>"; };
 		310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchHistory.m; sourceTree = "<group>"; };
+		3118E4851FDA37D300F9E11A /* dssp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dssp.entitlements; sourceTree = "<group>"; };
 		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
 		313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StatusBar.m"; sourceTree = "<group>"; };
 		313070CA1FBA89C500A0DE71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -93,6 +95,8 @@
 		313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VINBindingViewController.m; sourceTree = "<group>"; };
 		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
 		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
+		3147871C1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
+		3147871D1FDA40F1003D4F26 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		314B98601FD7F24C00ABB638 /* POI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POI.h; sourceTree = "<group>"; };
 		314B98611FD7F24C00ABB638 /* POI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POI.m; sourceTree = "<group>"; };
 		314E05D21FB582D6000550C7 /* TopImgButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopImgButton.h; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */,
+				3147871E1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +268,7 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3147871B1FDA40F1003D4F26 /* UMessage_Sdk_1.5.0a */,
 				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
 				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
@@ -287,6 +293,15 @@
 				316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		3147871B1FDA40F1003D4F26 /* UMessage_Sdk_1.5.0a */ = {
+			isa = PBXGroup;
+			children = (
+				3147871C1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a */,
+				3147871D1FDA40F1003D4F26 /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.5.0a;
 			sourceTree = "<group>";
 		};
 		314E05D01FB582AA000550C7 /* View */ = {
@@ -381,6 +396,7 @@
 		316CA45D1F9F3475009F541E /* dssp */ = {
 			isa = PBXGroup;
 			children = (
+				3118E4851FDA37D300F9E11A /* dssp.entitlements */,
 				313070C31FBA885300A0DE71 /* Utils */,
 				31699EBE1FA87E5100C8FDF8 /* Login */,
 				310A07D11FA96A9E00DC9529 /* Home */,
@@ -559,6 +575,11 @@
 					316CA45A1F9F3475009F541E = {
 						CreatedOnToolsVersion = 9.0.1;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					316CA4721F9F3475009F541E = {
 						CreatedOnToolsVersion = 9.0.1;
@@ -932,6 +953,7 @@
 			baseConfigurationReference = FD90459FB3727141B8AEA1F4 /* Pods-dssp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -943,9 +965,14 @@
 				INFOPLIST_FILE = dssp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "72eb3a77-ccf4-430c-acf4-95cb4f76e027";
+				PROVISIONING_PROFILE = "00be2727-97ff-43ca-b4e4-a9c3afd8c5bc";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -958,6 +985,7 @@
 			baseConfigurationReference = 811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -969,6 +997,11 @@
 				INFOPLIST_FILE = dssp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6abb9ce5-7d90-43c5-bb44-b3f69d80517b";
