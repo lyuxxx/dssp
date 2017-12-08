@@ -92,7 +92,6 @@
 @property (nonatomic , assign) NSInteger createTime;
 //最后更新时间
 @property (nonatomic , assign) NSInteger lastUpdateTime;
-
 @end
 
 

@@ -9,9 +9,14 @@
 #import "ContractModel.h"
 
 @implementation ContractModel
+
+@end
+
+@implementation result
 + (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
     return @{
              @"contractId" : @"id"
              };
 }
 @end
+

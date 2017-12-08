@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ContractModel : NSObject
+@interface result : NSObject
 //页数
 @property (nonatomic , copy) NSString *pageSize;
 //当前页条数
@@ -19,8 +19,6 @@
 @property (nonatomic , copy) NSString *contractCode;
 //车主id
 @property (nonatomic , copy) NSString *customerId;
-//车辆使用人id
-@property (nonatomic , copy) NSString *vhlUserId;
 //车架号
 @property (nonatomic , copy) NSString *vin;
 //保养状态
@@ -75,5 +73,21 @@
 @property (nonatomic , copy) NSString *servicePaceagId;
 //发票地址
 @property (nonatomic , copy) NSString *billUrl;
+
+@end
+
+
+@interface ContractModel : NSObject
+//当前页条数
+@property (nonatomic , copy) NSString *pageSize;
+//页数
+@property (nonatomic , copy) NSString *currentPage;
+//sql页码
+@property (nonatomic , copy) NSString *currentPageSql;
+//总页数
+@property (nonatomic , copy) NSString *totalPage;
+//总记录数
+@property (nonatomic , copy) NSString *totalCount;
+@property (nonatomic, strong) NSArray <result *> *resultdata;
 
 @end
