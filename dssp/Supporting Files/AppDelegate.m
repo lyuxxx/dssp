@@ -11,7 +11,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "WBAFNetworkingLogger.h"
-#import "UMessage.h"
+#import <UMessage.h>
 #import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>

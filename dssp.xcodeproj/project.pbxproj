@@ -17,7 +17,6 @@
 		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
 		313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
-		3147871E1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3147871C1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a */; };
 		314B98621FD7F24C00ABB638 /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
 		315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
@@ -95,8 +94,6 @@
 		313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VINBindingViewController.m; sourceTree = "<group>"; };
 		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
 		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
-		3147871C1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
-		3147871D1FDA40F1003D4F26 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		314B98601FD7F24C00ABB638 /* POI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POI.h; sourceTree = "<group>"; };
 		314B98611FD7F24C00ABB638 /* POI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POI.m; sourceTree = "<group>"; };
 		314E05D21FB582D6000550C7 /* TopImgButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopImgButton.h; sourceTree = "<group>"; };
@@ -181,7 +178,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */,
-				3147871E1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +264,6 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3147871B1FDA40F1003D4F26 /* UMessage_Sdk_1.5.0a */,
 				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
 				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
@@ -293,15 +288,6 @@
 				316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		3147871B1FDA40F1003D4F26 /* UMessage_Sdk_1.5.0a */ = {
-			isa = PBXGroup;
-			children = (
-				3147871C1FDA40F1003D4F26 /* libUMessage_Sdk_1.5.0a.a */,
-				3147871D1FDA40F1003D4F26 /* UMessage.h */,
-			);
-			path = UMessage_Sdk_1.5.0a;
 			sourceTree = "<group>";
 		};
 		314E05D01FB582AA000550C7 /* View */ = {

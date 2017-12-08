@@ -60,6 +60,7 @@ PODS:
   - TBActionSheet (1.5.5)
   - UIImageViewSDWebImage (0.1.4):
     - SDWebImage (~> 4.2.2)
+  - UMPush (1.5.0)
   - YYCategoriesSub (0.1.0)
   - YYModel (1.0.4)
   - YYText (1.0.7)
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - RTRootNavigationController (~> 0.6.4)
   - TBActionSheet (~> 1.5.5)
   - UIImageViewSDWebImage (~> 0.1.4)
+  - UMPush (~> 1.5.0)
   - YYCategoriesSub (~> 0.1.0)
   - YYModel (~> 1.0.4)
   - YYText (~> 1.0.7)
@@ -103,10 +105,11 @@ SPEC CHECKSUMS:
   SQLCipher: 43d12c0eb9c57fb438749618fc3ce0065509a559
   TBActionSheet: f1c95530f81b41b6dd75d9f653331e953fb3c7f5
   UIImageViewSDWebImage: ec096894e98f08dd8b4bc3750a41966bee6fb521
+  UMPush: 1337f376fa4a157c8d0b5977388c0811856cb531
   YYCategoriesSub: a767b2c97a4d4698ab561849bfaa6a0f61f5814c
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 68de33aabcb745687b51294c25b45d3534768648
+PODFILE CHECKSUM: 7e4966dacbfc08a07f44749dd4d700415caa271e
 
 COCOAPODS: 1.3.1
