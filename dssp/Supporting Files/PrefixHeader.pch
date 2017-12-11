@@ -116,4 +116,13 @@ _Pragma("clang diagnostic pop") \
 #define loginout [NSString stringWithFormat:@"%@loginout",baseUrls]
 //获取验证码
 #define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrls]
+//查询附近加油站列表接口
+#define queryNearbyGasCooperateAction [NSString stringWithFormat:@"%@queryNearbyGasCooperateAction",baseUrls]
+//查询加油站详情
+#define getStationDetailCooperateAction [NSString stringWithFormat:@"%@getStationDetailCooperateAction",baseUrls]
+//天气实况查询
+#define getObserve [NSString stringWithFormat:@"%@getObserve",baseUrls]
+//常规预报
+#define getForecast [NSString stringWithFormat:@"%@getForecast",baseUrls]
+
 #endif /* PrefixHeader_pch */
