@@ -50,9 +50,9 @@
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
-		4592B3A21FDE1F4D000ADCA0 /* RoutineForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B3A11FDE1F4D000ADCA0 /* RoutineForecast.m */; };
 		459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
 		459F22591FBC118300BA13CB /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
 		45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
@@ -156,12 +156,12 @@
 		31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
+		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
+		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
-		4592B3A01FDE1F4D000ADCA0 /* RoutineForecast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineForecast.h; sourceTree = "<group>"; };
-		4592B3A11FDE1F4D000ADCA0 /* RoutineForecast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoutineForecast.m; sourceTree = "<group>"; };
 		459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		459F22571FBC118300BA13CB /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
@@ -265,8 +265,8 @@
 				314B98611FD7F24C00ABB638 /* POI.m */,
 				4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */,
 				4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */,
-				4592B3A01FDE1F4D000ADCA0 /* RoutineForecast.h */,
-				4592B3A11FDE1F4D000ADCA0 /* RoutineForecast.m */,
+				450C7A261FDE3FA700E4652F /* ForecastModel.h */,
+				450C7A271FDE3FA700E4652F /* ForecastModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,7 +757,6 @@
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
-				4592B3A21FDE1F4D000ADCA0 /* RoutineForecast.m in Sources */,
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
@@ -767,6 +766,7 @@
 				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
+				450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,

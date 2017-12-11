@@ -42,7 +42,7 @@
 @end
 
 
-@interface Data :NSObject
+@interface ObserveData :NSObject
 
 @property (nonatomic , strong) WeatherObserve *WeatherObserve;
 
@@ -52,7 +52,7 @@
 @interface WeatherModel :NSObject
 @property (nonatomic , copy) NSString *code;
 @property (nonatomic , copy) NSString *msg;
-@property (nonatomic , strong) Data *data;
+@property (nonatomic , strong) ObserveData *data;
 
 @end
 

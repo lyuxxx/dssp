@@ -1,5 +1,5 @@
 //
-//  WeatherForecast.h
+//  ForecastModel.h
 //  dssp
 //
 //  Created by qinbo on 2017/12/11.
@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface ForecastInfoItem :NSObject
 //预报日期
 @property (nonatomic , copy) NSString *ForcastDate;
@@ -64,17 +63,17 @@
 @property (nonatomic , copy) NSString *RecordCount;
 //发布时间
 @property (nonatomic , copy) NSString *PublishTime;
-@property (nonatomic , strong) NSArray <ForecastInfoItem *>              * forecastInfo;
+@property (nonatomic , strong) NSArray <ForecastInfoItem *> *forecastInfo;
 @end
 
 
-@interface Data :NSObject
+@interface WeatherData :NSObject
 @property (nonatomic , strong) WeatherForecast *forecast;
 @end
 
 
-@interface RoutineForecast :NSObject
+@interface ForecastModel : NSObject
 @property (nonatomic , copy) NSString *code;
 @property (nonatomic , copy) NSString *msg;
-@property (nonatomic , strong) Data *data;
+@property (nonatomic , strong) WeatherData *data;
 @end

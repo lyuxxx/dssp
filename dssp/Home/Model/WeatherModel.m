@@ -8,15 +8,14 @@
 
 #import "WeatherModel.h"
 
-@implementation WeatherModel
-
-@end
-
-@implementation Data
-
-@end
-
 @implementation WeatherObserve
 
 @end
 
+@implementation ObserveData
+
+@end
+
+@implementation WeatherModel
+
+@end

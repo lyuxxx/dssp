@@ -8,19 +8,6 @@
 
 #import "ContractDetailed.h"
 
-@implementation ContractDetailed
-
-@end
-
-
-@implementation ContractData
-+ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
-    return @{
-             @"packageId" : @"id"
-             };
-}
-@end
-
 @implementation vhlTypeModel
 + (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
     return @{
@@ -43,6 +30,23 @@
              @"brandId" : @"id"
              };
 }
+
 @end
+
+
+@implementation ContractData
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"packageId" : @"id"
+             };
+}
+@end
+
+
+@implementation ContractDetailed
+
+@end
+
+
 
 
