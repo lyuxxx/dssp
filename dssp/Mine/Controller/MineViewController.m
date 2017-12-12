@@ -358,7 +358,7 @@
     plateLabel.font=[UIFont fontWithName:FontName size:16];
     plateLabel.font = [UIFont boldSystemFontOfSize:16];
     plateLabel.textColor=[UIColor blackColor];
-    plateLabel.text=NSLocalizedString(@"车牌号: 鄂A123456", nil);
+    plateLabel.text=NSLocalizedString(@"车牌号: xxxxxx", nil);
     //    plateLabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:plateLabel];
     [plateLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -372,7 +372,7 @@
     UILabel * carStyleLabel= [[UILabel alloc] init];
     carStyleLabel.font=[UIFont fontWithName:FontName size:13];
     carStyleLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-    carStyleLabel.text=NSLocalizedString(@"2018款DS 5", nil);
+    carStyleLabel.text=NSLocalizedString(@"xxxxxx", nil);
     //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:carStyleLabel];
     [carStyleLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -386,7 +386,7 @@
     UILabel *timeLabel= [[UILabel alloc] init];
     timeLabel.font=[UIFont fontWithName:FontName size:11];
     timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    timeLabel.text=NSLocalizedString(@"上次于2017-12-23登录", nil);
+    timeLabel.text=NSLocalizedString(@"上次于xxxxxx登录", nil);
     //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:timeLabel];
     [timeLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -709,7 +709,6 @@
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                  _certificationStatus=[dic[@"data"] objectForKey:@"certificationStatus"];
             }
-          
     }
         
     }];

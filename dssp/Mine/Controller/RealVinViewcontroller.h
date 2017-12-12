@@ -6,8 +6,9 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface RealVinViewcontroller : UIViewController
+//#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
+@interface RealVinViewcontroller : BaseViewController
 @property (nonatomic, copy) NSString *vin;
+@property (nonatomic, copy) NSString *isSuccess;
 @end

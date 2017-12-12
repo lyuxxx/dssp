@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UIButton *skipBtn;
 @property (nonatomic, strong) UIButton *smallEyeBtn;
 @property (nonatomic, strong) UIButton *authBtn;
+@property (nonatomic, copy) NSString *phoneCode;
 @end
 
 @implementation LoginViewController
@@ -92,7 +93,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-    _userNameField.text = @"15871707603";
+//    _userNameField.text = @"15871707603";
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.textColor = [UIColor whiteColor];
@@ -131,7 +132,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-     _passWordField.text = @"qinbo";
+//     _passWordField.text = @"qinbo";
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -292,7 +293,7 @@
         }
         else
         {
-            if ([self checkTelNumber:_phoneField.text]){
+            if ([self valiMobile:_phoneField.text]){
                 NSDictionary *paras = @{
                 @"telephone":_phoneField.text,
                 @"randomCodeType":@"login"
@@ -303,7 +304,8 @@
                         // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                             [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-                            //                        [hud hideAnimated:YES];
+                            
+                            _phoneCodeField.text = dic[@"data"];
                             
                         } else {
                             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -352,7 +354,7 @@
             }
             else
             {
-                 [MBProgressHUD showText:NSLocalizedString(@"请输入正确的手机号", nil)];
+                 [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
             }
         }
     }
@@ -391,7 +393,7 @@
             else
             {
                 
-                if(![self checkTelNumber:_phoneField.text])
+                if(![self valiMobile:_phoneField.text])
                 {
                     [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
                     return;
@@ -444,7 +446,7 @@
             else
             {
                 
-                if([self checkTelNumber:_userNameField.text])
+                if([self valiMobile:_userNameField.text])
                 {
                     NSDictionary *paras = @{
                                             @"userName": _userNameField.text,
@@ -475,7 +477,7 @@
                 }
                 else{
                     
-                    [MBProgressHUD showText:NSLocalizedString(@"请输入正确的手机号", nil)];
+                    [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
                 }
                 
             }
@@ -519,13 +521,47 @@
     return YES;
 }
 
-
 - (BOOL)checkTelNumber:(NSString *)telNumber
 {
     NSString *pattern = @"^1+[3578]+\\d{9}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:telNumber];
     return isMatch;
+}
+
+//判断手机号码格式是否正确
+- (BOOL)valiMobile:(NSString *)mobile
+{
+    //    mobile = [mobile stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (mobile.length != 11)
+    {
+        return NO;
+    }else{
+        /**
+         * 移动号段正则表达式
+         */
+        NSString *CM_NUM = @"^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$";
+        /**
+         * 联通号段正则表达式
+         */
+        NSString *CU_NUM = @"^((13[0-2])|(145)|(15[5-6])|(176)|(18[5,6]))\\d{8}|(1709)\\d{7}$";
+        /**
+         * 电信号段正则表达式
+         */
+        NSString *CT_NUM = @"^((133)|(153)|(177)|(18[0,1,9]))\\d{8}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
+        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
+        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
+        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
+        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
+        
+        if (isMatch1 || isMatch2 || isMatch3) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
 }
 
 

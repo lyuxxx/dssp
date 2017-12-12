@@ -31,8 +31,17 @@
 }
 
 - (void)setupUI {
-    self.navigationItem.title = NSLocalizedString(@"实名制", nil);
     
+    if(_isSuccess)
+    {
+         self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+    else
+    {
+        
+    }
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.title = NSLocalizedString(@"实名制", nil);
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);

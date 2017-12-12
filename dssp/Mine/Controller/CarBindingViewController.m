@@ -92,6 +92,8 @@
             field.font = [UIFont fontWithName:FontName size:15];
             field.textColor = [UIColor colorWithHexString:@"333333"];
             field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+         
+            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
             
             [whiteV addSubview:field];
             [field makeConstraints:^(MASConstraintMaker *make) {
@@ -109,6 +111,7 @@
                 self.vinField = field;
                 field.userInteractionEnabled=NO;
             } else if (i == 2) {
+               
                 self.doptField = field;
             } else if (i == 4) {
                 self.vhlLicenceField = field;
@@ -160,6 +163,15 @@
     }];
 }
 
+-(void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.doptField) {
+        if (textField.text.length > 7) {
+            textField.text = [textField.text substringToIndex:7];
+        }
+    }
+}
+
 - (void)confirmBtnClick:(UIButton *)sender {
     
     if (!_customerNameField.text || [_customerNameField.text isEqualToString:@""]) {
@@ -179,14 +191,13 @@
         return;
     }
     
-   
     self.bindingInput.vin = _vinField.text;
     self.bindingInput.customerName = _carInfo.customerName;
     self.bindingInput.credentials = _carInfo.customerCredentials;
     self.bindingInput.credentialsNum = _carInfo.customerCredentialsNum;
     self.bindingInput.sex = _carInfo.customerSex;
     self.bindingInput.mobilePhone = _carInfo.customerMobilePhone;
-    self.bindingInput.phone = _carInfo.customerHomePhone?_carInfo.customerHomePhone:@"664443";
+    self.bindingInput.phone = _carInfo.customerHomePhone?_carInfo.customerHomePhone:@"15871707603";
     self.bindingInput.email = _carInfo.customerEmail;
     self.bindingInput.vhlType =  _carSeries.text;
     self.bindingInput.vhlLicence = _vhlLicenceField.text;
@@ -218,11 +229,29 @@
                 NSString *isPush = [defaults objectForKey:@"isPush"];
               
                 if (isPush) {
-                    //跳实名制vin
-                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-                    vc.vin=_carInfo.vin;
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+                    message:@"车辆绑定成功,是否跳转实名制页面"
+                    preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        //响应事件
+                        //跳实名制vin
+                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                        vc.vin=_carInfo.vin;
+                        vc.isSuccess = @"1";
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }];
+                    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        MineViewController *vc=[[MineViewController alloc] init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }];
+                    [alert addAction:defaultAction];
+                    [alert addAction:cancelAction];
+                    [self presentViewController:alert animated:YES completion:nil];
                     
                 }else
                 {

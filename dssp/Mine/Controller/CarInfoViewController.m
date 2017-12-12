@@ -128,7 +128,6 @@
 
 - (void)setupUI {
     self.navigationItem.title = NSLocalizedString(@"车辆信息", nil);
-    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);

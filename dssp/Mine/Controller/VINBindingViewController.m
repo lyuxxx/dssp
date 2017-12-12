@@ -25,6 +25,7 @@
     return YES;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -32,9 +33,12 @@
     [self setupUI];
 }
 
+
 - (void)setupUI {
-    self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
     
+//    self.navigationItem.leftBarButtonItem=nil;
+    self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
+   
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);
