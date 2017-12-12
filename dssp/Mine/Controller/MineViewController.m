@@ -50,7 +50,7 @@
     _dataArray=@[@[@[@"coin",@"我的积分 / 优惠券"],@[@"身份证",@"实名认证"],@[@"汽车信息",@"车辆信息"],@[@"合同信息",@"合同信息"],@[@"密码",@"账户密码"]],
   @[@[@"客服",@"联系客服"],@[@"反馈中心",@"反馈中心"]],@[@[@"常见问题",@"常见问题"],@[@"功能介绍",@"功能介绍"]]];
     
-    [self RealnameUserName:@""];
+    [self RealnameUserName];
     [self initTableView];
     [self setupUI];
 }
@@ -696,11 +696,10 @@
     return newimage;
 }
 
-- (void)RealnameUserName:(NSString *)userName {
+- (void)RealnameUserName {
     NSDictionary *paras = @{
-                          
-                            @"userName": userName
-                           
+                            @"userName": @"",
+                            @"Vin": @""
                             };
     [CUHTTPRequest POST:queryCustByMobile parameters:paras response:^(id responseData) {
         if (responseData) {

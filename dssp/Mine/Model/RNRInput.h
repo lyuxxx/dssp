@@ -28,5 +28,6 @@
 @property (nonatomic, copy) NSString *facepic;
 ///联系电话
 @property (nonatomic, copy) NSString *servnumber;
-
+///ICCID
+@property (nonatomic, copy) NSString *iccid;
 @end

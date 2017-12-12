@@ -46,7 +46,7 @@
 @property (nonatomic, strong) UILabel *vhlStatusName;
 @property (nonatomic, strong) UILabel *userRel;
 @property (nonatomic, strong) UILabel *vhlTStatus;
-@property (nonatomic, strong) CarInfoModel *CarInfo;
+@property (nonatomic, strong) CarInfoModel *carInfo;
 
 @end
 
@@ -79,40 +79,40 @@
     [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            _CarInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
+            _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
 //                [hud hideAnimated:YES];
                 
-                self.carId.text = _CarInfo.carId;
-                self.vinLabel.text = _CarInfo.vin;
-                self.customerName.text = _CarInfo.customerName;
-                self.customerCredentials.text = _CarInfo.customerCredentials;
-                self.customerCredentialsNum.text = _CarInfo.customerCredentialsNum;
-                self.customerSex.text = _CarInfo.customerSex;
-                self.customerMobilePhone.text = _CarInfo.customerMobilePhone;
-                self.customerHomePhone.text = _CarInfo.customerHomePhone;
-                self.customerEmail.text = _CarInfo.customerEmail;
-                self.vhlLicence.text = _CarInfo.vhlLicence;
-                self.remark.text = _CarInfo.remark;
-                self.vhlStatus.text=_CarInfo.vhlStatus;
-                self.serviceLevelId.text = _CarInfo.serviceLevelId;
-                self.insuranceCompany.text = _CarInfo.insruanceCompany;
-                self.insuranceNum.text = _CarInfo.insruanceNum;
-                self.dueDate.text = [self setWithTimeString:_CarInfo.dueDate];
-                self.saleDate.text = [self setWithTimeString:_CarInfo.saleDate];
-                self.recordStatus.text = _CarInfo.recordStatus;
-                self.createTime.text = [self setWithTimeString:_CarInfo.createTime];
-                self.updateTime.text = [self setWithTimeString:_CarInfo.updateTime];
-                self.brandName.text = _CarInfo.brandName;
-                self.dealerName.text = _CarInfo.dealerName;
-                self.colorName.text = _CarInfo.colorName;
-                self.seriesName.text = _CarInfo.seriesName;
-                self.typeName.text = _CarInfo.typeName;
-                self.credentialsName.text = _CarInfo.credentialsName;
-                self.recordStatusName.text = _CarInfo.recordStatusName;
-                self.customerSexName.text = _CarInfo.customerSexName;
-                self.vhlStatusName.text = _CarInfo.vhlStatusName;
-                self.userRel.text = _CarInfo.userRel;
+                self.carId.text = _carInfo.carId;
+                self.vinLabel.text = _carInfo.vin;
+                self.customerName.text = _carInfo.customerName;
+                self.customerCredentials.text = _carInfo.customerCredentials;
+                self.customerCredentialsNum.text = _carInfo.customerCredentialsNum;
+                self.customerSex.text = _carInfo.customerSex;
+                self.customerMobilePhone.text = _carInfo.customerMobilePhone;
+                self.customerHomePhone.text = _carInfo.customerHomePhone;
+                self.customerEmail.text = _carInfo.customerEmail;
+                self.vhlLicence.text = _carInfo.vhlLicence;
+                self.remark.text = _carInfo.remark;
+                self.vhlStatus.text=_carInfo.vhlStatus;
+                self.serviceLevelId.text = _carInfo.serviceLevelId;
+                self.insuranceCompany.text = _carInfo.insruanceCompany;
+                self.insuranceNum.text = _carInfo.insruanceNum;
+                self.dueDate.text = [self setWithTimeString:_carInfo.dueDate];
+                self.saleDate.text = [self setWithTimeString:_carInfo.saleDate];
+                self.recordStatus.text = _carInfo.recordStatus;
+                self.createTime.text = [self setWithTimeString:_carInfo.createTime];
+                self.updateTime.text = [self setWithTimeString:_carInfo.updateTime];
+                self.brandName.text = _carInfo.brandName;
+                self.dealerName.text = _carInfo.dealerName;
+                self.colorName.text = _carInfo.colorName;
+                self.seriesName.text = _carInfo.seriesName;
+                self.typeName.text = _carInfo.typeName;
+                self.credentialsName.text = _carInfo.credentialsName;
+                self.recordStatusName.text = _carInfo.recordStatusName;
+                self.customerSexName.text = _carInfo.customerSexName;
+                self.vhlStatusName.text = _carInfo.vhlStatusName;
+                self.userRel.text = _carInfo.userRel;
                
             } else {
             [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
@@ -357,7 +357,7 @@
 - (void)confirmBtnClick:(UIButton *)sender {
     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
     vc.bingVin=self.vin;
-    vc.carInfo = self.CarInfo;
+    vc.carInfo = self.carInfo;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
