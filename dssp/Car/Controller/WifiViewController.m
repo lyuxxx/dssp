@@ -170,15 +170,17 @@
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             NSLog(@"%@",dic);
+             NSLog(@"123%@", [dic objectForKey:@"msg"]);
+          
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
                 NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
                 _wifiLabel.text = wifiSsid;
                 _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword?wifiPassword:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+                
             } else {
 //                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
                  [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-                
             }
         } else {
             [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];

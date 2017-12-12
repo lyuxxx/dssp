@@ -124,7 +124,19 @@ _Pragma("clang diagnostic pop") \
 #define getObserve [NSString stringWithFormat:@"%@getObserve",baseUrls]
 //常规预报
 #define getForecast [NSString stringWithFormat:@"%@getForecast",baseUrls]
-//
+//vin查实名制
 #define checkCerStatusByVin [NSString stringWithFormat:@"%@checkCerStatusByVin",baseUrls]
+//查询菜单接口
+#define findAppPushChannelInfoList [NSString stringWithFormat:@"%@appPushChannel/findAppPushChannelInfoList",baseUrls]
+//查询菜单对应的列表接口
+#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@appPushContent/findAppPushContentAppViewByAll",baseUrls]
+//菜单对应列表详情接口
+#define findAppPushContentInfoById [NSString stringWithFormat:@"%@appPushContent/findAppPushContentInfoById",baseUrls]
+//查询通知消息列表接口
+#define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxTitleByVin",baseUrls]
+//消息详情查询接口
+#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxInfoByVin",baseUrls]
+//修改消息状态 删除单条消息
+#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrls]
 
 #endif /* PrefixHeader_pch */

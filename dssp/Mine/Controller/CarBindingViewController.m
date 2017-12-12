@@ -192,13 +192,13 @@
     }
     
     self.bindingInput.vin = _vinField.text;
-    self.bindingInput.customerName = _carInfo.customerName;
-    self.bindingInput.credentials = _carInfo.customerCredentials;
+    self.bindingInput.customerName = _carInfo.customerName?_carInfo.customerName:@"";
+    self.bindingInput.credentials = _carInfo.customerCredentials?_carInfo.customerCredentials:@"";
     self.bindingInput.credentialsNum = _carInfo.customerCredentialsNum;
-    self.bindingInput.sex = _carInfo.customerSex;
-    self.bindingInput.mobilePhone = _carInfo.customerMobilePhone;
+    self.bindingInput.sex = _carInfo.customerSex?_carInfo.customerSex:@"";
+    self.bindingInput.mobilePhone = _carInfo.customerMobilePhone?_carInfo.customerMobilePhone:@"";
     self.bindingInput.phone = _carInfo.customerHomePhone?_carInfo.customerHomePhone:@"15871707603";
-    self.bindingInput.email = _carInfo.customerEmail;
+    self.bindingInput.email = _carInfo.customerEmail?_carInfo.customerEmail:@"";
     self.bindingInput.vhlType =  _carSeries.text;
     self.bindingInput.vhlLicence = _vhlLicenceField.text;
     self.bindingInput.remark = _carInfo.remark?_carInfo.remark:@"备注";
