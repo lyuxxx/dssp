@@ -310,7 +310,7 @@
                 [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
             } else {
                 if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
-                    [MBProgressHUD showText:NSLocalizedString(@"请确认两次密码", nil)];
+                    [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];
                 } else {
                     if (_agreeBtn.selected == NO) {
                         [MBProgressHUD showText:NSLocalizedString(@"请同意用户协议", nil)];

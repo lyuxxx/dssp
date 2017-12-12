@@ -46,6 +46,8 @@
 @property (nonatomic, strong) UILabel *vhlStatusName;
 @property (nonatomic, strong) UILabel *userRel;
 @property (nonatomic, strong) UILabel *vhlTStatus;
+@property (nonatomic, strong) CarInfoModel *CarInfo;
+
 @end
 
 @implementation CarInfoViewController
@@ -77,40 +79,40 @@
     [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
+            _CarInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
 //                [hud hideAnimated:YES];
                 
-                self.carId.text = CarInfo.carId;
-                self.vinLabel.text = CarInfo.vin;
-                self.customerName.text = CarInfo.customerName;
-                self.customerCredentials.text = CarInfo.customerCredentials;
-                self.customerCredentialsNum.text = CarInfo.customerCredentialsNum;
-                self.customerSex.text = CarInfo.customerSex;
-                self.customerMobilePhone.text = CarInfo.customerMobilePhone;
-                self.customerHomePhone.text = CarInfo.customerHomePhone;
-                self.customerEmail.text = CarInfo.customerEmail;
-                self.vhlLicence.text = CarInfo.vhlLicence;
-                self.remark.text = CarInfo.remark;
-                self.vhlStatus.text=CarInfo.vhlStatus;
-                self.serviceLevelId.text = CarInfo.serviceLevelId;
-                self.insuranceCompany.text = CarInfo.insruanceCompany;
-                self.insuranceNum.text = CarInfo.insruanceNum;
-                self.dueDate.text = [self setWithTimeString:CarInfo.dueDate];
-                self.saleDate.text = [self setWithTimeString:CarInfo.saleDate];
-                self.recordStatus.text = CarInfo.recordStatus;
-                self.createTime.text = [self setWithTimeString:CarInfo.createTime];
-                self.updateTime.text = [self setWithTimeString:CarInfo.updateTime];
-                self.brandName.text = CarInfo.brandName;
-                self.dealerName.text = CarInfo.dealerName;
-                self.colorName.text = CarInfo.colorName;
-                self.seriesName.text = CarInfo.seriesName;
-                self.typeName.text = CarInfo.typeName;
-                self.credentialsName.text = CarInfo.credentialsName;
-                self.recordStatusName.text = CarInfo.recordStatusName;
-                self.customerSexName.text = CarInfo.customerSexName;
-                self.vhlStatusName.text = CarInfo.vhlStatusName;
-                self.userRel.text = CarInfo.userRel;
+                self.carId.text = _CarInfo.carId;
+                self.vinLabel.text = _CarInfo.vin;
+                self.customerName.text = _CarInfo.customerName;
+                self.customerCredentials.text = _CarInfo.customerCredentials;
+                self.customerCredentialsNum.text = _CarInfo.customerCredentialsNum;
+                self.customerSex.text = _CarInfo.customerSex;
+                self.customerMobilePhone.text = _CarInfo.customerMobilePhone;
+                self.customerHomePhone.text = _CarInfo.customerHomePhone;
+                self.customerEmail.text = _CarInfo.customerEmail;
+                self.vhlLicence.text = _CarInfo.vhlLicence;
+                self.remark.text = _CarInfo.remark;
+                self.vhlStatus.text=_CarInfo.vhlStatus;
+                self.serviceLevelId.text = _CarInfo.serviceLevelId;
+                self.insuranceCompany.text = _CarInfo.insruanceCompany;
+                self.insuranceNum.text = _CarInfo.insruanceNum;
+                self.dueDate.text = [self setWithTimeString:_CarInfo.dueDate];
+                self.saleDate.text = [self setWithTimeString:_CarInfo.saleDate];
+                self.recordStatus.text = _CarInfo.recordStatus;
+                self.createTime.text = [self setWithTimeString:_CarInfo.createTime];
+                self.updateTime.text = [self setWithTimeString:_CarInfo.updateTime];
+                self.brandName.text = _CarInfo.brandName;
+                self.dealerName.text = _CarInfo.dealerName;
+                self.colorName.text = _CarInfo.colorName;
+                self.seriesName.text = _CarInfo.seriesName;
+                self.typeName.text = _CarInfo.typeName;
+                self.credentialsName.text = _CarInfo.credentialsName;
+                self.recordStatusName.text = _CarInfo.recordStatusName;
+                self.customerSexName.text = _CarInfo.customerSexName;
+                self.vhlStatusName.text = _CarInfo.vhlStatusName;
+                self.userRel.text = _CarInfo.userRel;
                
             } else {
             [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
@@ -235,7 +237,7 @@
                     
                 }];
                 [rightLabel makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(150 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(label.right).offset(27*WidthCoefficient);
                     make.top.equalTo(0);
@@ -251,7 +253,7 @@
                 }];
                 
                 [rightLabel makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(150 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(label.right).offset(27*WidthCoefficient);
                     make.top.equalTo(lastLabel.bottom).offset(10);
@@ -356,6 +358,7 @@
 - (void)confirmBtnClick:(UIButton *)sender {
     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
     vc.bingVin=self.vin;
+    vc.carInfo = self.CarInfo;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

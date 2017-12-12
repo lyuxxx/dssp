@@ -124,5 +124,7 @@ _Pragma("clang diagnostic pop") \
 #define getObserve [NSString stringWithFormat:@"%@getObserve",baseUrls]
 //常规预报
 #define getForecast [NSString stringWithFormat:@"%@getForecast",baseUrls]
+//
+#define checkCerStatusByVin [NSString stringWithFormat:@"%@checkCerStatusByVin",baseUrls]
 
 #endif /* PrefixHeader_pch */

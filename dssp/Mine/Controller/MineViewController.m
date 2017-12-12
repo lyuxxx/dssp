@@ -285,7 +285,7 @@
     UILabel *namelabel = [[UILabel alloc] init];
     namelabel.font=[UIFont fontWithName:FontName size:16];
     namelabel.textColor=[UIColor colorWithHexString:@"#C4B7A6"];
-    namelabel.text=NSLocalizedString(@"秦波", nil);
+    namelabel.text=NSLocalizedString(@"xxxxxx", nil);
     namelabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:namelabel];
     [namelabel makeConstraints:^(MASConstraintMaker *make) {

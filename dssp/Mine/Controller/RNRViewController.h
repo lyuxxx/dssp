@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface RNRViewController : BaseViewController
-
+@property (nonatomic, copy) NSString *bingVin;
 @end

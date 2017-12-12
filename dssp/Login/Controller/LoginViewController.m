@@ -92,7 +92,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-    
+    _userNameField.text = @"15871707603";
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.textColor = [UIColor whiteColor];
@@ -131,9 +131,10 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-    
+     _passWordField.text = @"qinbo";
     
     self.phoneCodeField = [[UITextField alloc] init];
+    _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
 //    _phoneCodeField.secureTextEntry = true;
     _phoneCodeField.hidden = YES;
     _phoneCodeField.delegate = self;
@@ -389,44 +390,51 @@
             }
             else
             {
-                if([self checkTelNumber:_userNameField.text])
-                {
                 
-                NSDictionary *paras = @{
-                                @"telephone":_phoneField.text,
-                                @"randomCode":_phoneCodeField.text
-
-                                        };
-                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                [CUHTTPRequest POST:telephoneLogins parameters:paras response:^(id responseData) {
-                    if (responseData) {
-                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                        if ([result.code isEqualToString:@"200"]) {
-                           
-                            [hud hideAnimated:YES];
-                            TabBarController *tabVC = [[TabBarController alloc] init];
-                            [self presentViewController:tabVC animated:NO completion:nil];
-                            
-                        } else {
-                             [hud hideAnimated:YES];
-//                            [MBProgressHUD showText:NSLocalizedString(@"登录失败", nil)];
-                            hud.label.text = [dic objectForKey:@"msg"];
-                            [hud hideAnimated:YES afterDelay:1];
-                        }
-                    } else {
-                        hud.label.text = NSLocalizedString(@"请求失败", nil);
-                        [hud hideAnimated:YES afterDelay:1];
-                    }
-                    
-                }];
-                    
-              }
+                if(![self checkTelNumber:_phoneField.text])
+                {
+                    [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
+                    return;
+                }
+                else if(_phoneCodeField.text.length != 6)
+                {
+                    [MBProgressHUD showText:NSLocalizedString(@"验证码有误", nil)];
+                     return;
+                }
                 else
                 {
-                    [MBProgressHUD showText:NSLocalizedString(@"请输入正确的手机号", nil)];
+                    NSDictionary *paras = @{
+                                            @"telephone":_phoneField.text,
+                                            @"randomCode":_phoneCodeField.text
+                                            
+                                            };
+                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                    [CUHTTPRequest POST:telephoneLogins parameters:paras response:^(id responseData) {
+                        if (responseData) {
+                            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                            LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                            if ([result.code isEqualToString:@"200"]) {
+                                
+                                [hud hideAnimated:YES];
+                                TabBarController *tabVC = [[TabBarController alloc] init];
+                                [self presentViewController:tabVC animated:NO completion:nil];
+                                
+                            }
+                            else {
+                                [hud hideAnimated:YES];
+                                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                             
+                            }
+                        }
+                        else {
+                            [hud hideAnimated:YES];
+                            [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+                        }
+                    }];
                 }
-            }
+                    
+                }
+
         }
         else
         {

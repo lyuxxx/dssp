@@ -15,6 +15,7 @@
 #import "HomeViewController.h"
 #import "MineViewController.h"
 #import <MBProgressHUD+CU.h>
+#import "RealVinViewcontroller.h"
 
 @interface CarBindingViewController ()
 
@@ -97,14 +98,16 @@
                 make.left.equalTo(label.right).offset(30 * WidthCoefficient);
                 make.centerY.equalTo(label);
                 make.height.equalTo(label);
-                make.width.equalTo(150 * WidthCoefficient);
+                make.width.equalTo(190 * WidthCoefficient);
             }];
             
             if (i == 0) {
+                field.text = _carInfo.customerName;
                 self.customerNameField = field;
             } else if (i == 1) {
-                field.text = _bingVin;
+                field.text = _carInfo.vin;
                 self.vinField = field;
+                field.userInteractionEnabled=NO;
             } else if (i == 2) {
                 self.doptField = field;
             } else if (i == 4) {
@@ -178,16 +181,16 @@
     
    
     self.bindingInput.vin = _vinField.text;
-    self.bindingInput.customerName = @"";
-    self.bindingInput.credentials = @"";
-    self.bindingInput.credentialsNum = @"";
-    self.bindingInput.sex = @"";
-    self.bindingInput.mobilePhone = @"";
-    self.bindingInput.phone = @"";
-    self.bindingInput.email = @"";
+    self.bindingInput.customerName = _carInfo.customerName;
+    self.bindingInput.credentials = _carInfo.customerCredentials;
+    self.bindingInput.credentialsNum = _carInfo.customerCredentialsNum;
+    self.bindingInput.sex = _carInfo.customerSex;
+    self.bindingInput.mobilePhone = _carInfo.customerMobilePhone;
+    self.bindingInput.phone = _carInfo.customerHomePhone?_carInfo.customerHomePhone:@"664443";
+    self.bindingInput.email = _carInfo.customerEmail;
     self.bindingInput.vhlType =  _carSeries.text;
     self.bindingInput.vhlLicence = _vhlLicenceField.text;
-    self.bindingInput.remark = @"";
+    self.bindingInput.remark = _carInfo.remark?_carInfo.remark:@"备注";
     self.bindingInput.doptCode = _doptField.text;
     NSDictionary *paras = @{
                             @"vin": self.bindingInput.vin,
@@ -215,8 +218,9 @@
                 NSString *isPush = [defaults objectForKey:@"isPush"];
               
                 if (isPush) {
-                    
-                    RNRViewController *vc=[[RNRViewController alloc] init];
+                    //跳实名制vin
+                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                    vc.vin=_carInfo.vin;
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                     
@@ -244,10 +248,10 @@
             }
             
             else {
-                [MBProgressHUD showText:NSLocalizedString(@"绑定失败", nil)];
+                [MBProgressHUD showText:dic[@"msg"]];
             }
         } else {
-            [MBProgressHUD showText:@""];
+            [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
         }
     }];
     
