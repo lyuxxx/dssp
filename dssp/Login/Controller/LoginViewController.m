@@ -96,6 +96,7 @@
 //    _userNameField.text = @"15871707603";
     
     self.phoneField = [[UITextField alloc] init];
+    _phoneField.keyboardType = UIKeyboardTypePhonePad;
     _phoneField.textColor = [UIColor whiteColor];
     _phoneField.delegate = self;
     _phoneField.hidden = YES;

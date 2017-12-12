@@ -19,6 +19,7 @@
 #import "CarBindingViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <YYText.h>
+#import "RealVinViewcontroller.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -503,43 +504,47 @@
             
         }else if (indexPath.row == 1)
         {
-            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]) {
-                
-                RNRViewController *vc=[[RNRViewController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-            else if([_certificationStatus isEqualToString:@"1"])
-            {
-                
-            }
-            else if([_certificationStatus isEqualToString:@"3"])
-            {
-                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名", nil)];
-            }
-            else if([_certificationStatus isEqualToString:@"4"])
-            {
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-                        message:@"当前用户未绑定车辆,请绑定！"
-                    preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    //响应事件
-                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
-                    
-                }];
-                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    
-                }];
-                [alert addAction:defaultAction];
-                [alert addAction:cancelAction];
-                [self presentViewController:alert animated:YES completion:nil];
-                
-            }
+            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+//            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]) {
+//
+//                RNRViewController *vc=[[RNRViewController alloc] init];
+//                vc.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:vc animated:YES];
+//            }
+//            else if([_certificationStatus isEqualToString:@"1"])
+//            {
+//
+//            }
+//            else if([_certificationStatus isEqualToString:@"3"])
+//            {
+//                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名", nil)];
+//            }
+//            else if([_certificationStatus isEqualToString:@"4"])
+//            {
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+//                        message:@"当前用户未绑定车辆,请绑定！"
+//                    preferredStyle:UIAlertControllerStyleAlert];
+//
+//                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//                    //响应事件
+//                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                    vc.hidesBottomBarWhenPushed = YES;
+//                    [self.navigationController pushViewController:vc animated:YES];
+//
+//                }];
+//                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//
+//                }];
+//                [alert addAction:defaultAction];
+//                [alert addAction:cancelAction];
+//                [self presentViewController:alert animated:YES completion:nil];
+//
+//            }
         }else if (indexPath.row == 2)
         {
             VINBindingViewController *vc=[[VINBindingViewController alloc] init];
