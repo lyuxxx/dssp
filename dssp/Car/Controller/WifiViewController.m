@@ -122,6 +122,17 @@
         make.top.equalTo(_passwordField.bottom).offset(14 * HeightCoefficient);
     }];
     
+    UILabel *tipLabel = [[UILabel alloc] init];
+    tipLabel.text = @"*请输入除去0、1以外的数字,除去I、O的大写字母任意组合的八位字符";
+    tipLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+    [whiteV addSubview:tipLabel];
+    [tipLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(line);
+        make.top.equalTo(line.bottom).offset(20 * HeightCoefficient);
+        make.height.equalTo(30 * HeightCoefficient);
+    }];
+    tipLabel.adjustsFontSizeToFitWidth = YES;
+    
     UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     modifyBtn.layer.cornerRadius = 2;
     [modifyBtn addTarget:self action:@selector(modifyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -146,6 +157,10 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
+    if (![self checkWifi:_passwordField.text]) {
+        [MBProgressHUD showText:NSLocalizedString(@"字符不合法!", nil)];
+        return;
+    }
     [self modifyWifiWithPassword:_passwordField.text];
 }
 
@@ -192,6 +207,13 @@
             [hud hideAnimated:YES afterDelay:1];
         }
     }];
+}
+
+- (BOOL)checkWifi:(NSString *)wifi
+{
+    NSString *pattern = @"[2-9A-HJ-NP-Z]{8}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    return [pred evaluateWithObject:wifi];
 }
 
 @end
