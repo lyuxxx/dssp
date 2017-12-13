@@ -9,11 +9,14 @@
 #import "ForgotViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "NewPasswordViewController.h"
+#import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
 @interface ForgotViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *phoneField;
 @property (nonatomic, strong) UITextField *phoneCodeField;
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, strong) UIButton *nextBtn;
+@property (nonatomic,copy) NSString *codes;
 @end
 
 @implementation ForgotViewController
@@ -49,7 +52,6 @@
     }];
     
     UIImageView *logoView = [[UIImageView alloc] init];
-//    logoView.backgroundColor=[UIColor redColor];
     logoView.image = [UIImage imageNamed:@"resetpassword_icon"];
     logoView.layer.cornerRadius = 64 / 2;
     logoView.layer.masksToBounds = YES;
@@ -61,7 +63,7 @@
         make.top.equalTo(65.5 * HeightCoefficient + kStatusBarHeight);
     }];
     
-   
+
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
     _phoneField.textColor = [UIColor whiteColor];
@@ -151,12 +153,147 @@
 - (void)BtnClick:(UIButton *)sender {
     if (sender == self.authBtn) {
      //获取手机验证码
+        if (_phoneField.text.length == 0) {
+            [MBProgressHUD showText:NSLocalizedString(@"手机号不能为空", nil)];
+        }
+        else
+        {
+            if ([self valiMobile:_phoneField.text]){
+                NSDictionary *paras = @{
+                                        @"telephone":_phoneField.text,
+                                        @"randomCodeType":@"login"
+                                        };
+                [CUHTTPRequest POST:verificationMobile parameters:paras response:^(id responseData) {
+                    if (responseData) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                        // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                            [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
+                            
+                            _phoneCodeField.text = dic[@"data"];
+                            _codes = dic[@"code"];
+                            
+                        } else {
+                            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                            hud.label.text = [dic objectForKey:@"msg"];
+                            [hud hideAnimated:YES afterDelay:1];
+                        }
+                    } else {
+                        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                        hud.label.text = NSLocalizedString(@"获取验证码失败", nil);
+                        [hud hideAnimated:YES afterDelay:1];
+                    }
+                    
+                }];
+                
+                __block NSInteger time = 59; //倒计时时间
+                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+                dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+                
+                dispatch_source_set_event_handler(_timer, ^{
+                    
+                    if(time <= 0){ //倒计时结束，关闭
+                        dispatch_source_cancel(_timer);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //设置按钮的样式
+                            [self.authBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+                            [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
+                            [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
+                            self.authBtn.userInteractionEnabled = YES;
+                        });
+                    }else{
+                        
+                        int seconds = time % 60;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //设置按钮显示读秒效果
+                            [self.authBtn setTitle:[NSString stringWithFormat:@"重新发送(%.2ds)", seconds] forState:UIControlStateNormal];
+                            [self.authBtn setTitleColor:[UIColor colorWithHexString:@"c4b7a6"] forState:UIControlStateNormal];
+                            [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
+                            self.authBtn.userInteractionEnabled = NO;
+                        });
+                        time--;
+                    }
+                });
+                dispatch_resume(_timer);
+            }
+            else
+            {
+                [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
+            }
+        }
      
     }
     if (sender == self.nextBtn) {
-    //下一步
-        NewPasswordViewController *VC = [[NewPasswordViewController alloc] init];
-        [self.navigationController pushViewController:VC animated:YES];
+    
+        if (_phoneField.text.length == 0) {
+            [MBProgressHUD showText:NSLocalizedString(@"手机号不能为空", nil)];
+        }
+        else if (_phoneCodeField.text.length == 0)
+        {
+          [MBProgressHUD showText:NSLocalizedString(@"验证码不能为空", nil)];
+            
+        }
+        else
+        {
+            if(![self valiMobile:_phoneField.text])
+            {
+                [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
+                return;
+            }
+            else if(_phoneCodeField.text.length != 6)
+            {
+                [MBProgressHUD showText:NSLocalizedString(@"验证码有误", nil)];
+                return;
+            }
+            else
+            {
+                NSDictionary *paras = @{
+                                        @"userName":_phoneField.text,
+                                        @"randomCode":_phoneCodeField.text
+                                        
+                                        };
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:telephoneLogins parameters:paras response:^(id responseData) {
+                    if (responseData) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+//                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                        if ([dic[@"code"] isEqualToString:@"200"]) {
+                            
+                            [hud hideAnimated:YES];
+                            NewPasswordViewController *VC = [[NewPasswordViewController alloc] init];
+                            VC.phone = _phoneField.text;
+                            [self.navigationController pushViewController:VC animated:YES];
+                            
+                        }
+                        else {
+                            [hud hideAnimated:YES];
+                            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                            
+                        }
+                    }
+                    else {
+                        [hud hideAnimated:YES];
+                        [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+                    }
+                }];
+            }
+            
+        }
+
+        
+        
+//        //下一步
+//        if ([_codes isEqualToString:@"200"]) {
+//            NewPasswordViewController *VC = [[NewPasswordViewController alloc] init];
+//            [self.navigationController pushViewController:VC animated:YES];
+//        }
+//        else
+//        {
+//            [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
+//
+//        }
+        
     }
 }
 
@@ -182,6 +319,43 @@
     
     return YES;
 }
+
+//判断手机号码格式是否正确
+- (BOOL)valiMobile:(NSString *)mobile
+{
+    //    mobile = [mobile stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (mobile.length != 11)
+    {
+        return NO;
+    }else{
+        /**
+         * 移动号段正则表达式
+         */
+        NSString *CM_NUM = @"^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$";
+        /**
+         * 联通号段正则表达式
+         */
+        NSString *CU_NUM = @"^((13[0-2])|(145)|(15[5-6])|(176)|(18[5,6]))\\d{8}|(1709)\\d{7}$";
+        /**
+         * 电信号段正则表达式
+         */
+        NSString *CT_NUM = @"^((133)|(153)|(177)|(18[0,1,9]))\\d{8}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
+        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
+        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
+        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
+        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
+        
+        if (isMatch1 || isMatch2 || isMatch3) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

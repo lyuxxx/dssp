@@ -8,6 +8,13 @@
 
 #import "FindByAllModel.h"
 
-@implementation FindByAllModel
+//@implementation ResultItem
+//@end
+//
+//
+//@implementation FindByAllData
+//@end
 
+
+@implementation FindByAllModel
 @end

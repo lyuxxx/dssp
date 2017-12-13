@@ -191,7 +191,6 @@
         NSLocalizedString(@"车辆T状态",nil)
         ];
     
-    
     self.sc = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
         scroll.showsVerticalScrollIndicator = NO;

@@ -9,6 +9,31 @@
 #import <Foundation/Foundation.h>
 //查询菜单对应的列表接口
 
-@interface FindByAllModel : NSObject
+//@interface ResultItem :NSObject
+//@property (nonatomic , assign) NSInteger              currentPage;
+//@property (nonatomic , assign) NSInteger              pageSize;
+//@property (nonatomic , copy) NSString              * ids;
+//@property (nonatomic , copy) NSString              * channelId;
+//@property (nonatomic , copy) NSString              * title;
+//@property (nonatomic , assign) NSInteger              createTime;
+//@property (nonatomic , copy) NSString              * isTop;
+//
+//@end
+//
+//
+//@interface FindByAllData :NSObject
+//@property (nonatomic , assign) NSInteger  pageSize;
+//@property (nonatomic , assign) NSInteger  currentPage;
+//@property (nonatomic , assign) NSInteger  totalPage;
+//@property (nonatomic , assign) NSInteger  totalCount;
+//@property (nonatomic , strong) NSArray <ResultItem *> *result;
+//
+//@end
+//
+
+@interface FindByAllModel :NSObject
+@property (nonatomic , copy) NSString *code;
+@property (nonatomic , copy) NSString *msg;
+//@property (nonatomic , strong) FindByAllData *data;
 
 @end

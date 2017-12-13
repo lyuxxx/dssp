@@ -12,12 +12,16 @@
 
 #import "NewPasswordViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
+#import "NewPasswordViewController.h"
+#import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
 @interface NewPasswordViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *newpassphoneField;
 @property (nonatomic, strong) UITextField *confirmField;
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, strong) UIButton *smallEyeBtn;
 @property (nonatomic, strong) UIButton *smallEyeBtn1;
+@property (nonatomic, strong) UIButton *nextBtn;
 @end
 
 @implementation NewPasswordViewController
@@ -128,16 +132,16 @@
         make.top.equalTo(263.5 * HeightCoefficient + kStatusBarHeight);
     }];
     
-    UIButton *nextBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    nextBtn.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
-    nextBtn.layer.borderWidth = 0.75;
-    nextBtn.layer.cornerRadius = 2;
-    nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-    [nextBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
-    [nextBtn setTitleColor:[UIColor colorWithHexString:@"#C4B7A6"] forState:UIControlStateNormal];
-    [nextBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:nextBtn];
-    [nextBtn makeConstraints:^(MASConstraintMaker *make) {
+    self.nextBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nextBtn.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
+    _nextBtn.layer.borderWidth = 0.75;
+    _nextBtn.layer.cornerRadius = 2;
+    _nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+    [_nextBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [_nextBtn setTitleColor:[UIColor colorWithHexString:@"#C4B7A6"] forState:UIControlStateNormal];
+    [_nextBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_nextBtn];
+    [_nextBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
@@ -157,6 +161,51 @@
         sender.selected = !sender.selected;
         self.confirmField.secureTextEntry = !sender.selected;
     }
+    if (self.nextBtn) {
+     
+        if (_newpassphoneField.text.length==0) {
+            [MBProgressHUD showText:NSLocalizedString(@"新密码不能为空", nil)];
+        }
+        else if(_confirmField.text.length==0)
+        {
+            [MBProgressHUD showText:NSLocalizedString(@"确认新密码不能为空", nil)];
+        }
+        else if ([_newpassphoneField.text isEqualToString:_confirmField.text])
+        {
+            NSDictionary *paras = @{
+                                    @"userName":_phone,
+                                    @"newPassword":_newpassphoneField.text
+                                    };
+            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+            [CUHTTPRequest POST:resetNewPWD parameters:paras response:^(id responseData) {
+                if (responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                
+                    if ([dic[@"code"] isEqualToString:@"200"]) {
+                        
+                         [hud hideAnimated:YES];
+                         [MBProgressHUD showText:NSLocalizedString(@"重置密码成功", nil)];
+                    }
+                    else {
+                        [hud hideAnimated:YES];
+                        [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                        
+                    }
+                }
+                else {
+                    [hud hideAnimated:YES];
+                    [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+                }
+            }];
+        }
+        }
+        else
+        {
+             [MBProgressHUD showText:NSLocalizedString(@"两次密码不一致，请重新输入", nil)];
+        }
+        
+        
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -178,7 +227,6 @@
         _confirmField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"确认新密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
         _confirmField.font = [UIFont fontWithName:FontName size:15];
     }
-    
     return YES;
 }
 

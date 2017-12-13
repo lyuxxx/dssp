@@ -34,7 +34,7 @@
     
     if(_isSuccess)
     {
-         self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     else
     {
@@ -122,20 +122,22 @@
                
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                     
-                    if ([[dic[@"data"] objectForKey:@"certificationStatus"] isEqualToString:@"1"]) {
-                        ///已实名
-                        [MBProgressHUD showText:NSLocalizedString(@"该vin已实名", nil)];
-                    }
-                    else if ([[dic[@"data"] objectForKey:@"certificationStatus"] isEqualToString:@"0"])
-                    {
+                    NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
+                    if ([str isEqualToString:@"0"]) {
                         ///未实名
                         RNRViewController *vc = [[RNRViewController alloc] init];
                         vc.bingVin = _vinField.text;
                         [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    else if ([str isEqualToString:@"1"])
+                    {
+                        ///已实名
+                        [MBProgressHUD showText:NSLocalizedString(@"该vin已实名", nil)];
                     }
                     
                 } else {
-                    //                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
+                    
                     [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                     
                 }

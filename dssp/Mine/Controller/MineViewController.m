@@ -457,22 +457,22 @@
         NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
         NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==1) {
-            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]||[_certificationStatus isEqualToString:@"4"]) {
-               cell.realName.text=_certificationStatus?NSLocalizedString(@"待实名", nil):NSLocalizedString(@"未实名", nil);
-            }
-            else if ([_certificationStatus isEqualToString:@"3"])
-            {
-                 cell.realName.text=NSLocalizedString(@"", nil);
-            }
-            else if (isCodeName)
-            {
-                //如果实名认证成功，code返回200，就显示已实名
-                cell.realName.text=NSLocalizedString(@"已实名", nil);
-            }
-            else
-            {
-               cell.realName.text=_certificationStatus?NSLocalizedString(@"已实名", nil):NSLocalizedString(@"未实名", nil);
-            }
+//            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]||[_certificationStatus isEqualToString:@"4"]) {
+//               cell.realName.text=_certificationStatus?NSLocalizedString(@"待实名", nil):NSLocalizedString(@"未实名", nil);
+//            }
+//            else if ([_certificationStatus isEqualToString:@"3"])
+//            {
+//                 cell.realName.text=NSLocalizedString(@"", nil);
+//            }
+//            else if (isCodeName)
+//            {
+//                //如果实名认证成功，code返回200，就显示已实名
+//                cell.realName.text=NSLocalizedString(@"已实名", nil);
+//            }
+//            else
+//            {
+//               cell.realName.text=_certificationStatus?NSLocalizedString(@"已实名", nil):NSLocalizedString(@"未实名", nil);
+//            }
         }
         if (indexPath.row==4) {
             cell.whiteView.hidden=YES;
