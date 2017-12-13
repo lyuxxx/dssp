@@ -30,4 +30,6 @@
 @property (nonatomic, copy) NSString *servnumber;
 ///ICCID
 @property (nonatomic, copy) NSString *iccid;
+//vin
+@property (nonatomic, copy) NSString *vin;
 @end

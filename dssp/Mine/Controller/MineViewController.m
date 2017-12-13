@@ -20,6 +20,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <YYText.h>
 #import "RealVinViewcontroller.h"
+#import "ContractViewController.h"
+#import "ContractdetailViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -454,8 +456,8 @@
     cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
     cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
     if (indexPath.section==0) {
-        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
+//        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+//        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==1) {
 //            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]||[_certificationStatus isEqualToString:@"4"]) {
 //               cell.realName.text=_certificationStatus?NSLocalizedString(@"待实名", nil):NSLocalizedString(@"未实名", nil);
@@ -553,12 +555,18 @@
             
         }else if (indexPath.row == 3)
         {
-//            CarBindingViewController *vc=[[CarBindingViewController alloc] init];
+//            ContractViewController *vc=[[ContractViewController alloc] init];
 //            vc.hidesBottomBarWhenPushed = YES;
 //            [self.navigationController pushViewController:vc animated:YES];
             
+            
         }else if (indexPath.row == 4)
         {
+            
+//            ContractdetailViewController *vc=[[ContractdetailViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+            
             
         }
         

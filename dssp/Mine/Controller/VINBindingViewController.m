@@ -16,6 +16,8 @@
 @interface VINBindingViewController ()
 
 @property (nonatomic, strong) UITextField *vinField;
+@property (nonatomic, strong) UITextField *enginenNumber;
+@property (nonatomic, strong) CarInfoModel *carInfo;
 
 @end
 
@@ -49,7 +51,7 @@
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(287.5 * HeightCoefficient);
+        make.height.equalTo(270.5 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20 * HeightCoefficient);
     }];
@@ -81,7 +83,7 @@
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
     _vinField.font = [UIFont fontWithName:FontName size:16];
-    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请在这里输入" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"vin号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _vinField.layer.cornerRadius = 2;
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];
@@ -91,6 +93,25 @@
         make.centerX.equalTo(0);
         make.top.equalTo(intro.bottom).offset(27.5 * HeightCoefficient);
     }];
+    
+    
+//    self.enginenNumber = [[UITextField alloc] init];
+//    _enginenNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
+//    _enginenNumber.leftViewMode = UITextFieldViewModeAlways;
+//    _enginenNumber.textColor = [UIColor colorWithHexString:@"#040000"];
+//    _enginenNumber.font = [UIFont fontWithName:FontName size:16];
+//    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"发动机号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+//    _enginenNumber.layer.cornerRadius = 2;
+//    _enginenNumber.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
+//    [whiteV addSubview:_enginenNumber];
+//    [_enginenNumber makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(280 * WidthCoefficient);
+//        make.height.equalTo(44 * HeightCoefficient);
+//        make.centerX.equalTo(0);
+//        make.top.equalTo(_vinField.bottom).offset(27.5 * HeightCoefficient);
+//    }];
+    
+    
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -117,20 +138,23 @@
         [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
             if (responseData) {
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
+                _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                    if ([CarInfo.vhlTStatus isEqualToString:@"1"]) {
+                    if ([_carInfo.vhlTStatus isEqualToString:@"1"]) {
+                        
                         ///T车跳这个
-                        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-                        vc.vin = _vinField.text;
+                        CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                        vc.carInfo = self.carInfo;
+//                        vc.bingVin = _vinField.text;
                         [self.navigationController pushViewController:vc animated:YES];
                         
                     }
-                    else if ([CarInfo.vhlTStatus isEqualToString:@"0"])
+                    else if ([_carInfo.vhlTStatus isEqualToString:@"0"])
                     {
                         ///非T跳这个
                         CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                        vc.bingVin = _vinField.text;
+                        vc.carInfo = self.carInfo;
+//                        vc.bingVin = _vinField.text;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     

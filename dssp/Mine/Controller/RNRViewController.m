@@ -217,6 +217,7 @@
     }
     RNRInput *rnrInfo = [[RNRInput alloc] init];
     rnrInfo.username = self.usernameField.text;
+    rnrInfo.vin = _bingVin;
     rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text] + 1];
     rnrInfo.ownercerttype = [NSString stringWithFormat:@"%ld",[self.certtypes indexOfObject:self.ownercerttypeField.text] + 1];
     rnrInfo.ownercertid = self.ownercertidField.text;
