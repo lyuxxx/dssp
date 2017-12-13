@@ -47,15 +47,14 @@
     self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     [self setupUI];
-}
 
+}
 
 //- (void)viewWillDisappear:(BOOL)animated
 //{
 //    [super viewWillDisappear:animated];
 //    self.navigationController.navigationBarHidden = YES;
 //}
-
 
 - (void)setupUI {
 

@@ -186,10 +186,11 @@
     } else if ([_carSeries.text isEqualToString:NSLocalizedString(@"请选择车系", nil)]) {
         [MBProgressHUD showText:NSLocalizedString(@"请选择车系", nil)];
         return;
-    } else if (!_vhlLicenceField.text || [_vhlLicenceField.text isEqualToString:@""]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请填写车牌号", nil)];
-        return;
     }
+//    else if (!_vhlLicenceField.text || [_vhlLicenceField.text isEqualToString:@""]) {
+//        [MBProgressHUD showText:NSLocalizedString(@"请填写车牌号", nil)];
+//        return;
+//    }
     
     self.bindingInput.vin = _vinField.text;
     self.bindingInput.customerName = _carInfo.customerName?_carInfo.customerName:@"";

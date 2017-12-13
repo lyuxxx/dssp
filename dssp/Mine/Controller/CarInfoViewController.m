@@ -364,15 +364,32 @@
 
 -(NSString *)setWithTimeString:(NSInteger)time
 {
-    NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
-    NSTimeInterval times=[dueDateStr doubleValue];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:times];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    NSString *dateString = [formatter stringFromDate: date];
-    
-    return dateString;
+    if (time) {
+        
+        NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
+        NSTimeInterval times=[dueDateStr doubleValue];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:times];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSString *dateString = [formatter stringFromDate: date];
+        
+        return dateString;
+        
+    }else
+    {
+         return nil;
+        
+    }
+//    NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
+//    NSTimeInterval times=[dueDateStr doubleValue];
+//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:times];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+//    NSString *dateString = [formatter stringFromDate: date];
+//
+//    return dateString;
 }
 
 @end
