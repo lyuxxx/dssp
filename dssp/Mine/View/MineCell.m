@@ -27,7 +27,6 @@
 -(void)createUI
 {
     
-    
     self.whiteView=({
         UIView *whiteView = [[UIView alloc] init];
         whiteView.backgroundColor = [UIColor colorWithHexString:@"#D8D8D8"];

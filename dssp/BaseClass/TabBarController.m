@@ -45,7 +45,7 @@
                      @"HomeViewController",
                      @"DiscoverViewController",
                      @"LoveCarViewController",
-                     @"MineViewController"
+                     @"MineViewController",
                      ];
     
     NSArray *titles = @[
@@ -93,6 +93,7 @@
 //    NSArray *needHideCls = @[
 //                             @"MapViewController",
 //                             @"MineViewController"
+//                             @"LoginViewController"
 //                             ];
 //
 //    BOOL needHideNavigationBar = NO;
@@ -103,7 +104,7 @@
 //        }
 //    }
 //    [viewController.navigationController setNavigationBarHidden:needHideNavigationBar animated:YES];
-    
+//    
     if (!Is_Iphone_X) {
         return;
     }

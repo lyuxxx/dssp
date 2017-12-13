@@ -54,6 +54,10 @@
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
+		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
+		4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */; };
+		459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679901FE0B7DE008A0C67 /* ForgotViewController.m */; };
+		459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */; };
 		459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
 		459F22591FBC118300BA13CB /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
 		45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
@@ -165,6 +169,14 @@
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
 		459679861FDF700A008A0C67 /* RealVinViewcontroller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RealVinViewcontroller.m; sourceTree = "<group>"; };
+		459679891FDFDA9C008A0C67 /* FindlistModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindlistModel.h; sourceTree = "<group>"; };
+		4596798A1FDFDA9C008A0C67 /* FindlistModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindlistModel.m; sourceTree = "<group>"; };
+		4596798C1FDFDCCD008A0C67 /* FindByAllModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindByAllModel.h; sourceTree = "<group>"; };
+		4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindByAllModel.m; sourceTree = "<group>"; };
+		4596798F1FE0B7DE008A0C67 /* ForgotViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
+		459679901FE0B7DE008A0C67 /* ForgotViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
+		459679941FE0CAA4008A0C67 /* NewPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPasswordViewController.h; sourceTree = "<group>"; };
+		459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPasswordViewController.m; sourceTree = "<group>"; };
 		459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		459F22571FBC118300BA13CB /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
@@ -217,6 +229,10 @@
 				31699EC01FA87E6900C8FDF8 /* LoginViewController.m */,
 				31699EC21FA87E8400C8FDF8 /* RegisterViewController.h */,
 				31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */,
+				4596798F1FE0B7DE008A0C67 /* ForgotViewController.h */,
+				459679901FE0B7DE008A0C67 /* ForgotViewController.m */,
+				459679941FE0CAA4008A0C67 /* NewPasswordViewController.h */,
+				459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -243,6 +259,7 @@
 		310A07D51FA96B6800DC9529 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				459679881FDFD979008A0C67 /* Model */,
 				313AC7E01FAC5AC400A3662E /* Controller */,
 				313AC7DC1FAC5A9B00A3662E /* View */,
 			);
@@ -497,6 +514,17 @@
 				316B6CE51FB94A35008A6094 /* WifiViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		459679881FDFD979008A0C67 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				459679891FDFDA9C008A0C67 /* FindlistModel.h */,
+				4596798A1FDFDA9C008A0C67 /* FindlistModel.m */,
+				4596798C1FDFDCCD008A0C67 /* FindByAllModel.h */,
+				4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		45A145BB1FCFA4B2002C0A78 /* View */ = {
@@ -766,6 +794,7 @@
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
+				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
 				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
@@ -789,11 +818,14 @@
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
+				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,
 				451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */,
+				4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */,
 				459F22591FBC118300BA13CB /* MineCell.m in Sources */,
 				315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
+				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,

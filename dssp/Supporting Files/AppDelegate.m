@@ -13,7 +13,8 @@
 #import "WBAFNetworkingLogger.h"
 #import <UMessage.h>
 #import <UserNotifications/UserNotifications.h>
-
+#import "NavigationController.h"
+#import "RTRootNavigationController.h"
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
@@ -27,7 +28,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     LoginViewController *loginVC = [[LoginViewController alloc] init];
-    self.window.rootViewController = loginVC;
+    
+    RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
+    self.window.rootViewController = naVC;
     
     [self.window makeKeyAndVisible];
     

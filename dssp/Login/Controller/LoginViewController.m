@@ -14,6 +14,9 @@
 #import "LoginResult.h"
 #import <YYModel/YYModel.h>
 #import <MBProgressHUD+CU.h>
+#import "ForgotViewController.h"
+#import "NavigationController.h"
+#import "NewPasswordViewController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -39,12 +42,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = NSLocalizedString(@"", nil);
+    self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     [self setupUI];
 }
 
+
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    self.navigationController.navigationBarHidden = YES;
+//}
+
+
 - (void)setupUI {
-    
+
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud"];
     [self.view addSubview:bgImgV];
@@ -93,7 +107,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-//    _userNameField.text = @"15871707603";
+    _userNameField.text = @"15871707603";
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
@@ -133,7 +147,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-//     _passWordField.text = @"qinbo";
+     _passWordField.text = @"qinbo";
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -360,7 +374,12 @@
         }
     }
     if (sender == self.forgotPassword) {
+        ForgotViewController *VC = [[ForgotViewController alloc] init];
         
+       
+//         NavigationController *naVC = [[NavigationController alloc] initWithRootViewController:VC];
+//        [self presentViewController:naVC animated:NO completion:nil];
+       [self.navigationController pushViewController:VC animated:YES];
     }
     if (sender == self.switchBtn) {
          sender.selected = !sender.selected;
@@ -499,17 +518,9 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     //返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first responder
-    if (textField == self.passWordField) {
-        _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
-         _passWordField.font = [UIFont fontWithName:FontName size:15];
-    }
-    else if(textField == self.userNameField)
-    {
-        _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
-        _userNameField.font = [UIFont fontWithName:FontName size:15];
-    }
     
-    else if(textField == self.phoneField) {
+    
+    if(textField == self.phoneField) {
         _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
         _phoneField.font = [UIFont fontWithName:FontName size:15];
     }

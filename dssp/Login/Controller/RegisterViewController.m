@@ -275,7 +275,9 @@
     }
     if (sender == self.loginBtn) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
-        [self presentViewController:loginVC animated:NO completion:nil];
+         RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:naVC animated:NO completion:nil];
+//         [self.navigationController pushViewController:loginVC animated:YES];
     }
     if (sender == self.registerBtn) {
         [self.view endEditing:YES];
