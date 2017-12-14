@@ -11,8 +11,10 @@
 #import <MBProgressHUD+CU.h>
 #import "CarInfoModel.h"
 #import <CUHTTPRequest.h>
+#import "ContractCell.h"
 @interface ContractViewController ()
-
+<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 
@@ -26,15 +28,70 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    [self setupUI];
+     self.navigationItem.title = NSLocalizedString(@"合同服务", nil);
+//    [self setupUI];
+    [self initTableView];
 }
+
+
+-(void)initTableView
+{
+    _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedSectionFooterHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
+    //    _tableView.tableFooterView = [UIView new];
+    //    _tableView.tableHeaderView = [UIView new];
+     //取消cell的线
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    adjustsScrollViewInsets_NO(_tableView,self);
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    //不回弹
+//    _tableView.bounces=NO;
+    //滚动条隐藏
+//    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.backgroundColor=[UIColor clearColor];
+    [self.view addSubview:_tableView];
+    [_tableView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(20 *HeightCoefficient, 0, 0, 0));
+    }];
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellID = @"MineCellName";
+    ContractCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == nil) {
+        cell = [[ContractCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    }
+    
+//    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
+//    cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
+//    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
+    cell.backgroundColor=[UIColor clearColor];
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    return cell;
+    
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 215*HeightCoefficient;
+}
+
+
 
 -(void)setupUI
 {
     
     self.navigationItem.title = NSLocalizedString(@"合同服务", nil);
-    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);

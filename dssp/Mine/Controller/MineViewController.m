@@ -22,6 +22,7 @@
 #import "RealVinViewcontroller.h"
 #import "ContractViewController.h"
 #import "ContractdetailViewController.h"
+#import "CarUnbindViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -445,7 +446,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *cellID = @"MineCellName";
     MineCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
@@ -503,6 +503,10 @@
         
         if (indexPath.row == 0) {
             
+            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            
             
         }else if (indexPath.row == 1)
         {
@@ -555,17 +559,17 @@
             
         }else if (indexPath.row == 3)
         {
-//            ContractViewController *vc=[[ContractViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+            ContractViewController *vc=[[ContractViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
             
         }else if (indexPath.row == 4)
         {
             
-//            ContractdetailViewController *vc=[[ContractdetailViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+            ContractdetailViewController *vc=[[ContractdetailViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
             
         }

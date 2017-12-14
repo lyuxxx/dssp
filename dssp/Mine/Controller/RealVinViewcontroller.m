@@ -126,7 +126,7 @@
                     if ([str isEqualToString:@"0"]) {
                         ///未实名
                         RNRViewController *vc = [[RNRViewController alloc] init];
-                        vc.bingVin = _vinField.text;
+                        vc.bingVin = _vin?_vin:_vinField.text;
                         [self.navigationController pushViewController:vc animated:YES];
                         
                     }

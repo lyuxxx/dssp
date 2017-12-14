@@ -203,9 +203,6 @@
         {
              [MBProgressHUD showText:NSLocalizedString(@"两次密码不一致，请重新输入", nil)];
         }
-        
-        
-    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{

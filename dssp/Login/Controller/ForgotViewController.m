@@ -278,22 +278,7 @@
                     }
                 }];
             }
-            
         }
-
-        
-        
-//        //下一步
-//        if ([_codes isEqualToString:@"200"]) {
-//            NewPasswordViewController *VC = [[NewPasswordViewController alloc] init];
-//            [self.navigationController pushViewController:VC animated:YES];
-//        }
-//        else
-//        {
-//            [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
-//
-//        }
-        
     }
 }
 

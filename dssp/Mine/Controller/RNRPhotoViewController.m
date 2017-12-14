@@ -159,7 +159,7 @@
     [CUHTTPRequest POST:receivernrInfo parameters:dic response:^(id responseData) {
         if (responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"%@",dic);
+            NSLog(@"666%@",dic);
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
                 vc.codeName = dic[@"code"];

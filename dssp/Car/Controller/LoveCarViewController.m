@@ -34,8 +34,8 @@
 }
 
 - (void)setupUI {
-    self.navigationItem.title = NSLocalizedString(@"爱车", nil);
     
+    self.navigationItem.title = NSLocalizedString(@"爱车", nil);
     UIScrollView *scroll = [[UIScrollView alloc] init];
     scroll.showsVerticalScrollIndicator = NO;
     if (@available(iOS 11.0, *)) {

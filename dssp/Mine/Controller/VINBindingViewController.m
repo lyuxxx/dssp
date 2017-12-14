@@ -164,9 +164,10 @@
                     [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                     
                 }
-            } else {
+            }
+            else {
                 [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
-                
+
             }
         }];
         

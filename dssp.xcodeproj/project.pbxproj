@@ -52,6 +52,8 @@
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
+		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
+		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
 		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
@@ -167,6 +169,10 @@
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
+		455036071FE246FC0088DAE0 /* ContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractCell.h; sourceTree = "<group>"; };
+		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
+		4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindViewController.h; sourceTree = "<group>"; };
+		4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarUnbindViewController.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
@@ -511,6 +517,8 @@
 				459679981FE13328008A0C67 /* ContractViewController.m */,
 				4596799A1FE1417C008A0C67 /* ContractdetailViewController.h */,
 				4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */,
+				4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */,
+				4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -542,6 +550,8 @@
 			children = (
 				459F22571FBC118300BA13CB /* MineCell.h */,
 				459F22581FBC118300BA13CB /* MineCell.m */,
+				455036071FE246FC0088DAE0 /* ContractCell.h */,
+				455036081FE246FC0088DAE0 /* ContractCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -793,6 +803,7 @@
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
 				4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */,
+				455036091FE246FC0088DAE0 /* ContractCell.m in Sources */,
 				31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */,
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
@@ -822,6 +833,7 @@
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
+				4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */,
 				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,
 				316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */,
 				31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */,

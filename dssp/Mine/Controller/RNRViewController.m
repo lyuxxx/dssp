@@ -27,6 +27,8 @@
 @property (nonatomic, strong) NSArray<NSString *> *genders;
 @property (nonatomic, strong) NSArray<NSString *> *certtypes;
 
+@property (nonatomic, strong) NSArray *typeid;
+
 @property (nonatomic, strong) NSArray *dataSource;
 
 @property (nonatomic, strong) UITextField *selectedField;
@@ -48,6 +50,20 @@
 }
 
 - (void)setupUI {
+    
+    _typeid = @[
+                NSLocalizedString(@"IDCARD", nil),
+                NSLocalizedString(@"OTHERLICENCE", nil),
+                NSLocalizedString(@"PASSPORT", nil),
+                NSLocalizedString(@"PLA", nil),
+                NSLocalizedString(@"POLICEPAPER", nil),
+                NSLocalizedString(@"TAIBAOZHENG", nil),
+                NSLocalizedString(@"UNITCREDITCODE", nil),
+                
+                ];
+
+    
+    
     self.navigationItem.title = NSLocalizedString(@"实名制", nil);
     
     UIView *whiteV = [[UIView alloc] init];
@@ -161,6 +177,8 @@
 
 - (void)genderDoneAction:(UIBarButtonItem *)barButton {
     _genderField.text = self.genders[[self.picker selectedRowInComponent:0]];
+    
+    
 }
 
 - (void)certtypeDoneAction:(UIBarButtonItem *)barButton {
@@ -218,8 +236,11 @@
     RNRInput *rnrInfo = [[RNRInput alloc] init];
     rnrInfo.username = self.usernameField.text;
     rnrInfo.vin = _bingVin;
-    rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text] + 1];
-    rnrInfo.ownercerttype = [NSString stringWithFormat:@"%ld",[self.certtypes indexOfObject:self.ownercerttypeField.text] + 1];
+    rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text]];
+//    rnrInfo.ownercerttype = [NSString stringWithFormat:@"%ld",[self.certtypes indexOfObject:self.ownercerttypeField.text] + 1];
+    
+    rnrInfo.ownercerttype = [_typeid objectAtIndex:[self.certtypes indexOfObject:self.ownercerttypeField.text]];
+    
     rnrInfo.ownercertid = self.ownercertidField.text;
     rnrInfo.ownercertaddr = self.ownercertaddrField.text;
     rnrInfo.servnumber = self.servnumberField.text;
@@ -242,13 +263,34 @@
     if (!_certtypes) {
         _certtypes = @[
                        NSLocalizedString(@"身份证", nil),
+                       NSLocalizedString(@"其他", nil),
                        NSLocalizedString(@"护照", nil),
                        NSLocalizedString(@"军官证", nil),
-                       NSLocalizedString(@"港澳通行证", nil)
+                       NSLocalizedString(@"警官证", nil),
+                       NSLocalizedString(@"台湾居民来往大陆通行证", nil),
+                       NSLocalizedString(@"统一社会信用代码", nil)
+                     
                        ];
     }
     return _certtypes;
 }
+
+//- (NSArray<NSString *> *)typeid {
+//    if (!_typeid) {
+//        _typeid = @[
+//                       NSLocalizedString(@"IDCARD", nil),
+//                       NSLocalizedString(@"OTHERLICENCE", nil),
+//                       NSLocalizedString(@"PASSPORT", nil),
+//                       NSLocalizedString(@"PLA", nil),
+//                       NSLocalizedString(@"POLICEPAPER", nil),
+//                       NSLocalizedString(@"TAIBAOZHENG", nil),
+//                       NSLocalizedString(@"UNITCREDITCODE", nil),
+//
+//                       ];
+//    }
+//    return _typeid;
+//}
+
 
 - (NSArray *)dataSource {
     if (!_dataSource) {

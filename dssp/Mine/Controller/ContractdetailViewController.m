@@ -35,6 +35,26 @@
     
     self.navigationItem.title = NSLocalizedString(@"合同详细", nil);
     
+    UIScrollView *scroll = [[UIScrollView alloc] init];
+    scroll.showsVerticalScrollIndicator = NO;
+    if (@available(iOS 11.0, *)) {
+        scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+    }
+    [self.view addSubview:scroll];
+    [scroll makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
+    }];
+    
+    UIView *content = [[UIView alloc] init];
+    [scroll addSubview:content];
+    [content makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(scroll);
+        make.width.equalTo(kScreenWidth);
+    }];
+    
+    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOpacity = 0.5;// 阴影透明度
@@ -46,7 +66,7 @@
     whiteV.layer.shadowOpacity = 0.2;
     whiteV.layer.shadowRadius = 7;
     whiteV.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:whiteV];
+    [content addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
         make.height.equalTo(200 * HeightCoefficient);
@@ -67,6 +87,48 @@
         make.left.equalTo(10 * HeightCoefficient);
         make.top.equalTo(10 * HeightCoefficient);
     }];
+    
+    
+    UILabel *typeLabel = [[UILabel alloc] init];
+    typeLabel.textAlignment = NSTextAlignmentLeft;
+    typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    typeLabel.text = NSLocalizedString(@"类型:", nil);
+    typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:typeLabel];
+    [typeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(41.5 * WidthCoefficient);
+        make.height.equalTo(22.5 * HeightCoefficient);
+        make.left.equalTo(10 * HeightCoefficient);
+        make.top.equalTo(vipLabel.bottom).offset(10 * HeightCoefficient);
+    }];
+    
+    UILabel *timeLabel = [[UILabel alloc] init];
+    timeLabel.textAlignment = NSTextAlignmentLeft;
+    timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    timeLabel.text = NSLocalizedString(@"有效时间:", nil);
+    timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:timeLabel];
+    [timeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(70 * WidthCoefficient);
+        make.height.equalTo(22.5 * HeightCoefficient);
+        make.left.equalTo(10 * HeightCoefficient);
+        make.top.equalTo(typeLabel.bottom).offset(10 * HeightCoefficient);
+    }];
+    
+    UILabel *describeLabel = [[UILabel alloc] init];
+    describeLabel.textAlignment = NSTextAlignmentLeft;
+    describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    describeLabel.text = NSLocalizedString(@"描述:", nil);
+    describeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:describeLabel];
+    [describeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(41.5 * WidthCoefficient);
+        make.height.equalTo(22.5 * HeightCoefficient);
+        make.left.equalTo(10 * HeightCoefficient);
+        make.top.equalTo(timeLabel.bottom).offset(10 * HeightCoefficient);
+    }];
+    
+    
     
     UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -100,7 +162,7 @@
     
     UIView *btnContainer = [[UIView alloc] init];
     btnContainer.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:btnContainer];
+    [content addSubview:btnContainer];
     [btnContainer makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view);
         make.height.equalTo(270 * WidthCoefficient);
@@ -128,8 +190,6 @@
     
     [btns mas_distributeSudokuViewsWithFixedItemWidth:52.5 * WidthCoefficient fixedItemHeight:62 * WidthCoefficient warpCount:4 topSpacing:14.5 * WidthCoefficient bottomSpacing:23.5 * WidthCoefficient leadSpacing:29 * WidthCoefficient tailSpacing:29 * WidthCoefficient];
 
-  
-    
 }
 
 - (void)didReceiveMemoryWarning {
