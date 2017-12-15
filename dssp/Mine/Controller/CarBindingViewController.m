@@ -269,7 +269,7 @@
                     }];
                     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         MineViewController *vc=[[MineViewController alloc] init];
-                        [self.navigationController pushViewController:vc animated:YES];
+                        [self.navigationController popToViewController:vc animated:YES];
                         
                     }];
                     [alert addAction:defaultAction];

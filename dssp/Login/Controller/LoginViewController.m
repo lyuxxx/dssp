@@ -48,43 +48,47 @@
     self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     [self setupUI];
-//    [self network];
+    [self network];
 
 }
 
-//-(void)network{
-//
-//    [CUHTTPRequest netWorkDuplicates:YES status:^(CUHTTPNetworkType type) {
-//
-//        switch (type) {
-//
-//
-//            case 0:
-//                type = AFNetworkReachabilityStatusUnknown;
-//                break;
-//            case 1://实际上是2G
-//                type =  AFNetworkReachabilityStatusNotReachable;
-//                break;
-//            case 2:
-//                type =  AFNetworkReachabilityStatusReachableViaWWAN;
-//                break;
-//            case 3:
-//                type = AFNetworkReachabilityStatusReachableViaWiFi;
-//                break;
-//
-//            default:
-//                type = AFNetworkReachabilityStatusUnknown;
-//                break;
+-(void)network{
+
+    [CUHTTPRequest netWorkDuplicates:YES status:^(CUHTTPNetworkType type) {
+
+        switch (type) {
+            case NetworkType_Unknown:
+               
+                break;
+            case NetworkType_NO:
+            [MBProgressHUD showText:NSLocalizedString(@"网络不可用", nil)];
+          
+                break;
+            case NetworkType_WiFi:
+              
+                break;
+            case NetworkType_WWAN:
+              
+                break;
+
+            default:
+                break;
+        }
+        
+//        if(type ==NetworkType_WWAN || type == NetworkType_WiFi)
+//        {
+//            NSLog(@"有网");
+//        }else
+//        {
+//            NSLog(@"没有网");
+//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"网络失去连接" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+//            alert.delegate = self;
+//            [alert show];
 //        }
-//
-//
-//
-//
-//
-//    }];
-//
-//
-//}
+
+    }];
+
+}
 
 //- (void)viewWillDisappear:(BOOL)animated
 //{
