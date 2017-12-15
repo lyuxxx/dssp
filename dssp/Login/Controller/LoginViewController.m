@@ -17,6 +17,7 @@
 #import "ForgotViewController.h"
 #import "NavigationController.h"
 #import "NewPasswordViewController.h"
+#import <AFNetworkReachabilityManager.h>
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -47,8 +48,43 @@
     self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     [self setupUI];
+//    [self network];
 
 }
+
+//-(void)network{
+//
+//    [CUHTTPRequest netWorkDuplicates:YES status:^(CUHTTPNetworkType type) {
+//
+//        switch (type) {
+//
+//
+//            case 0:
+//                type = AFNetworkReachabilityStatusUnknown;
+//                break;
+//            case 1://实际上是2G
+//                type =  AFNetworkReachabilityStatusNotReachable;
+//                break;
+//            case 2:
+//                type =  AFNetworkReachabilityStatusReachableViaWWAN;
+//                break;
+//            case 3:
+//                type = AFNetworkReachabilityStatusReachableViaWiFi;
+//                break;
+//
+//            default:
+//                type = AFNetworkReachabilityStatusUnknown;
+//                break;
+//        }
+//
+//
+//
+//
+//
+//    }];
+//
+//
+//}
 
 //- (void)viewWillDisappear:(BOOL)animated
 //{
@@ -307,6 +343,7 @@
         }
         else
         {
+            
             if ([self valiMobile:_phoneField.text]){
                 NSDictionary *paras = @{
                 @"telephone":_phoneField.text,
@@ -390,7 +427,6 @@
             _userNameField.hidden = YES;
             _passWordField.hidden =YES;
             _smallEyeBtn.hidden=YES;
-            
         }
         else
         {
@@ -411,7 +447,6 @@
             }
             else
             {
-                
                 if(![self valiMobile:_phoneField.text])
                 {
                     [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
@@ -425,8 +460,8 @@
                 else
                 {
                     NSDictionary *paras = @{
-                                            @"telephone":_phoneField.text,
-                                            @"randomCode":_phoneCodeField.text
+                                @"telephone":_phoneField.text,
+                                @"randomCode":_phoneCodeField.text
                                             
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -453,20 +488,20 @@
                         }
                     }];
                 }
-                    
-                }
-
+            }
         }
         else
         {
             if (_userNameField.text.length == 0 || _passWordField.text.length == 0) {
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
             }
+            
             else
             {
-                
+
                 if([self valiMobile:_userNameField.text])
                 {
+                  
                     NSDictionary *paras = @{
                                             @"userName": _userNameField.text,
                                             @"userPassword": [_passWordField.text md5String]

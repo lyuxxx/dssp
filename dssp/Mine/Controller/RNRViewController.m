@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSArray<NSString *> *certtypes;
 
 @property (nonatomic, strong) NSArray *typeid;
+@property (nonatomic, strong) NSArray *mfid;
 
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -61,6 +62,13 @@
                 NSLocalizedString(@"UNITCREDITCODE", nil),
                 
                 ];
+    
+    _mfid = @[
+                NSLocalizedString(@"M", nil),
+                NSLocalizedString(@"F", nil),
+               
+                ];
+    
 
     
     
@@ -236,7 +244,11 @@
     RNRInput *rnrInfo = [[RNRInput alloc] init];
     rnrInfo.username = self.usernameField.text;
     rnrInfo.vin = _bingVin;
-    rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text]];
+    rnrInfo.gender = [_mfid objectAtIndex:[self.genders indexOfObject:self.genderField.text]];
+    
+//    rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text]];
+    
+
 //    rnrInfo.ownercerttype = [NSString stringWithFormat:@"%ld",[self.certtypes indexOfObject:self.ownercerttypeField.text] + 1];
     
     rnrInfo.ownercerttype = [_typeid objectAtIndex:[self.certtypes indexOfObject:self.ownercerttypeField.text]];

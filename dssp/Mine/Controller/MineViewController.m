@@ -503,9 +503,9 @@
         
         if (indexPath.row == 0) {
             
-            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+//            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
             
             
         }else if (indexPath.row == 1)
@@ -559,17 +559,17 @@
             
         }else if (indexPath.row == 3)
         {
-            ContractViewController *vc=[[ContractViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+//            ContractViewController *vc=[[ContractViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
             
             
         }else if (indexPath.row == 4)
         {
             
-            ContractdetailViewController *vc=[[ContractdetailViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+//            ContractdetailViewController *vc=[[ContractdetailViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
             
             
         }

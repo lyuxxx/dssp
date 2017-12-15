@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UITextField *customerNameField;
 @property (nonatomic, strong) UITextField *vinField;
 @property (nonatomic, strong) UITextField *doptField;
-@property (nonatomic, strong) UILabel *carSeries;
+@property (nonatomic, strong) UITextField *carSeries;
 @property (nonatomic, strong) UITextField *vhlLicenceField;
 
 @end
@@ -113,25 +113,47 @@
             } else if (i == 2) {
                
                 self.doptField = field;
-            } else if (i == 4) {
+            }
+            else if (i == 4) {
                 self.vhlLicenceField = field;
             }
             
-        } else {
-            self.carSeries = [[UILabel alloc] init];
-            _carSeries.userInteractionEnabled = YES;
-            _carSeries.text = NSLocalizedString(@"请选择车系", nil);
-            _carSeries.font = [UIFont fontWithName:FontName size:15];
-            _carSeries.textColor = [UIColor colorWithHexString:@"#040000"];
-            [whiteV addSubview:_carSeries];
-            [_carSeries makeConstraints:^(MASConstraintMaker *make) {
+        }
+        else {
+            
+            UITextField *field = [[UITextField alloc] init];
+            field.font = [UIFont fontWithName:FontName size:15];
+            field.textColor = [UIColor colorWithHexString:@"333333"];
+            field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"请填写车系", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+            
+            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+            
+            [whiteV addSubview:field];
+            [field makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(label.right).offset(30 * WidthCoefficient);
                 make.centerY.equalTo(label);
                 make.height.equalTo(label);
-                make.width.equalTo(150 * WidthCoefficient);
+                make.width.equalTo(190 * WidthCoefficient);
             }];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seriesLabelTap:)];
-            [_carSeries addGestureRecognizer:tap];
+            
+            
+             self.carSeries = field;
+            
+            
+//            self.carSeries = [[UILabel alloc] init];
+//            _carSeries.userInteractionEnabled = YES;
+//            _carSeries.text = NSLocalizedString(@"请选择车系", nil);
+//            _carSeries.font = [UIFont fontWithName:FontName size:15];
+//            _carSeries.textColor = [UIColor colorWithHexString:@"#040000"];
+//            [whiteV addSubview:_carSeries];
+//            [_carSeries makeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(label.right).offset(30 * WidthCoefficient);
+//                make.centerY.equalTo(label);
+//                make.height.equalTo(label);
+//                make.width.equalTo(150 * WidthCoefficient);
+//            }];
+//            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seriesLabelTap:)];
+//            [_carSeries addGestureRecognizer:tap];
         }
         
         if (i < titles.count - 1) {

@@ -103,7 +103,10 @@ static void * WBNetworkRequestStartDate = &WBNetworkRequestStartDate;
     id responseObject = nil;
     if (notification.userInfo) {
         responseObject = notification.userInfo[AFNetworkingTaskDidCompleteSerializedResponseKey];
-        responseObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];//data->dic
+        if (responseObject) {
+            responseObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            //data->dic
+        }
     }
     
     NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:objc_getAssociatedObject(notification.object, WBNetworkRequestStartDate)];
