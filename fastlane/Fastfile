@@ -41,7 +41,7 @@ platform :ios do
   #   scan
   # end
 
-  desc "Submit a new Build to fir.im"
+  desc "Submit a new Build to pgyer"
   lane :pgyer do |options|
     # match(type: "appstore") # more information: https://codesigning.guide
     # increment_build_number
@@ -61,7 +61,7 @@ platform :ios do
       # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
       export_method: "development",
       # 指定输出文件夹
-      output_directory:"./fastlane/build/fir",
+      output_directory:"./fastlane/build/pgyer",
       #指定输出名称
       output_name: "#{scheme}_#{full_version}.ipa",
       # Xcode9将不会允许你访问钥匙串里的内容，除非设置allowProvisioningUpdates
