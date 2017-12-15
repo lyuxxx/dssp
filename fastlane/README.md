@@ -30,9 +30,9 @@ xcode-select --install
 
 # Available Actions
 ## iOS
-### ios fir
+### ios pgyer
 ```
-fastlane ios fir
+fastlane ios pgyer
 ```
 Submit a new Build to fir.im
 ### ios beta

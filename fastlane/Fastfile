@@ -11,13 +11,13 @@
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
-fastlane_version "2.66.2"
+fastlane_version "2.69.3"
 
 default_platform :ios
 
 scheme = "dssp"
 
-fir_token = "f831e571d4da65e5dafe5b75838b7132"
+# fir_token = "f831e571d4da65e5dafe5b75838b7132"
 
 def prepare_version(options)
     increment_version_number(
@@ -42,7 +42,7 @@ platform :ios do
   # end
 
   desc "Submit a new Build to fir.im"
-  lane :fir do |options|
+  lane :pgyer do |options|
     # match(type: "appstore") # more information: https://codesigning.guide
     # increment_build_number
 
@@ -73,8 +73,10 @@ platform :ios do
             }
     })
 
-    sh "fir publish './build/fir/#{scheme}_#{full_version}.ipa' -T #{fir_token}"
+    pgyer(api_key: "48d1d59d9823dca4b598f72f061f33b1", user_key: "8aa45942b973f228b28fcd0465c2abff")
+    # sh "fir publish './build/fir/#{scheme}_#{full_version}.ipa' -T #{fir_token}"
     # You can also use other beta testing services here (run `fastlane actions`)
+    
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
