@@ -13,6 +13,7 @@
 #import "CarInfoModel.h"
 #import <CUHTTPRequest.h>
 #import "CarBindingViewController.h"
+#import "MineViewController.h"
 @interface VINBindingViewController ()
 
 @property (nonatomic, strong) UITextField *vinField;
@@ -130,6 +131,8 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
+    
+   
     if (![_vinField.text isEqualToString:@""]) {
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
@@ -176,6 +179,7 @@
 //        vc.vin = _vinField.text;
 //        [self.navigationController pushViewController:vc animated:YES];
     } else {
+      
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }

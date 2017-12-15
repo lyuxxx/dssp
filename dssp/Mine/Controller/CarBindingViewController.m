@@ -195,7 +195,6 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    
     if (!_customerNameField.text || [_customerNameField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写姓名", nil)];
         return;
@@ -268,8 +267,7 @@
                         
                     }];
                     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        MineViewController *vc=[[MineViewController alloc] init];
-                        [self.navigationController popToViewController:vc animated:YES];
+                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] -3)] animated:YES];
                         
                     }];
                     [alert addAction:defaultAction];
