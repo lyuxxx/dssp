@@ -34,7 +34,7 @@ xcode-select --install
 ```
 fastlane ios pgyer
 ```
-Submit a new Build to fir.im
+Submit a new Build to pgyer
 ### ios beta
 ```
 fastlane ios beta
