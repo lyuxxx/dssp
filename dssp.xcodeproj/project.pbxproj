@@ -49,6 +49,7 @@
 		31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */; };
 		31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
 		31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
+		31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
 		31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
@@ -175,6 +176,8 @@
 		31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
 		31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewLayout.swift; sourceTree = "<group>"; };
 		31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
+		31CA75F81FE75DEE007BDC97 /* RemindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindViewController.h; sourceTree = "<group>"; };
+		31CA75F91FE75DEE007BDC97 /* RemindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindViewController.m; sourceTree = "<group>"; };
 		31CFB26B1FC2733C00130C52 /* CarBindingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingInput.h; sourceTree = "<group>"; };
 		31CFB26C1FC2733C00130C52 /* CarBindingInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingInput.m; sourceTree = "<group>"; };
 		31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoveCarViewController.h; sourceTree = "<group>"; };
@@ -361,6 +364,8 @@
 				455974521FE7AA5A00D7910A /* NoticeViewController.m */,
 				455974541FE7AA7A00D7910A /* SubscribeViewController.h */,
 				455974551FE7AA7A00D7910A /* SubscribeViewController.m */,
+				31CA75F81FE75DEE007BDC97 /* RemindViewController.h */,
+				31CA75F91FE75DEE007BDC97 /* RemindViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -917,6 +922,7 @@
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
+				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,

@@ -15,6 +15,7 @@
 #import <GTSDK/GeTuiSdk.h>
 // iOS10 及以上需导入 UserNotifications.framework
 #import <UserNotifications/UserNotifications.h>
+#endif
 #import "NavigationController.h"
 #import "RTRootNavigationController.h"
 #import <CUHTTPRequest.h>
