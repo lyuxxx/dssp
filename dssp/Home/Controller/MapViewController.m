@@ -16,6 +16,8 @@
 #import "LeftImgButton.h"
 #import <MapManager/MapSearchManager.h>
 #import "MapSearchHistory.h"
+#import "POISendBtn.h"
+#import "FavoritesViewController.h"
 
 @interface MapViewController () <MAMapViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -24,6 +26,7 @@
 
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UITextField *tmpField;
+@property (nonatomic, strong) UIButton *favoriteBtn;
 @property (nonatomic, strong) UIButton *carLocationBtn;
 @property (nonatomic, strong) UIButton *locationBtn;
 
@@ -40,6 +43,9 @@
 @property (nonatomic, strong) UIButton *showBackBtn;
 @property (nonatomic, strong) UIButton *showClearBtn;
 @property (nonatomic, strong) UIView *infoView;
+@property (nonatomic, strong) LeftImgButton *infoFavoriteBtn;
+@property (nonatomic, strong) LeftImgButton *infoAroundBtn;
+@property (nonatomic, strong) LeftImgButton *infoFenceBtn;
 
 @property (nonatomic, copy) NSString *city;
 
@@ -47,6 +53,8 @@
 
 @property (nonatomic, strong) UIView *tableFooter;
 @property (nonatomic, strong) UIButton *clearHistoryBtn;
+
+@property (nonatomic, strong) MapSearchObject *currentAnnotationInfo;
 
 @end
 
@@ -138,22 +146,33 @@
         make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
     }];
     
+    self.favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_favoriteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"favoritesfolder"] forState:UIControlStateNormal];
+    [self.view addSubview:_favoriteBtn];
+    [_favoriteBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(48 * WidthCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
+        make.top.equalTo(_tmpField.bottom).offset(245 * HeightCoefficient);
+    }];
+    
     self.carLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_carLocationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_carLocationBtn setImage:[UIImage imageNamed:@"location_car"] forState:UIControlStateNormal];
     [self.view addSubview:_carLocationBtn];
     [_carLocationBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(33 * WidthCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
-        make.top.equalTo(_tmpField.bottom).offset(333 * HeightCoefficient);
+        make.left.width.height.equalTo(_favoriteBtn);
+        make.top.equalTo(_favoriteBtn.bottom).offset(7.5 * HeightCoefficient);
     }];
     
     self.locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_locationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_locationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_locationBtn setImage:[UIImage imageNamed:@"map_location"] forState:UIControlStateNormal];
     [self.view addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.height.equalTo(_carLocationBtn);
-        make.top.equalTo(_carLocationBtn.bottom).offset(15 * HeightCoefficient);
+        make.top.equalTo(_carLocationBtn.bottom).offset(7.5 * HeightCoefficient);
     }];
 }
 
@@ -296,7 +315,7 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
-    if (sender.tag >= 100) {
+    if (sender.tag >= 1000) {//上方按钮
         _searchField.text = sender.titleLabel.text;
         [[MapSearchManager sharedManager] keyWordsAround:sender.titleLabel.text location:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations) {
             [self.annotations removeAllObjects];
@@ -308,10 +327,14 @@
     if (sender == _backBtn) {
        [self.navigationController popViewControllerAnimated:YES];
     }
-    if (sender == _locationBtn) {
+    if (sender == _favoriteBtn) {//收藏夹按钮
+        FavoritesViewController *vc = [[FavoritesViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (sender == _locationBtn) {//定位按钮
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
     }
-    if (sender == _carLocationBtn) {
+    if (sender == _carLocationBtn) {//车定位按钮
         
     }
     if (sender == _topBackBtn) {
@@ -332,7 +355,7 @@
     }
     if (sender == _showBackBtn) {
         [self hideInfoView];
-        [self showSearchViewFromLeft:YES];
+        [self showSearchViewFromLeft:YES animated:YES];
     }
     if (sender == _showClearBtn) {
         [self hideInfoView];
@@ -350,6 +373,15 @@
             [self getHistory];
         }]];
         [self presentViewController:alert animated:YES completion:nil];
+    }
+    if (sender == _infoFavoriteBtn) {
+        
+    }
+    if (sender == _infoAroundBtn) {
+
+    }
+    if (sender == _infoFenceBtn) {
+        
     }
 }
 
@@ -369,6 +401,7 @@
     [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
     
     [self showInfoWithAnnotationInfo:annotationInfo];
+    self.currentAnnotationInfo = annotationInfo;
 }
 
 - (void)clear {
@@ -395,7 +428,7 @@
     return str;
 }
 
-- (void)showSearchViewFromLeft:(BOOL)fromLeft {
+- (void)showSearchViewFromLeft:(BOOL)fromLeft animated:(BOOL)animated {
     [self clear];
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:NO];
     [self initSearchView];
@@ -423,7 +456,23 @@
         }];
         [self.view layoutIfNeeded];
     }
-    [UIView animateWithDuration:0.5 animations:^{
+    if (animated) {
+        [UIView animateWithDuration:0.5 animations:^{
+            [_topBar updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+                make.left.equalTo(8 * WidthCoefficient);
+            }];
+            [_resultTable updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.view);
+                make.left.equalTo(8 * WidthCoefficient);
+            }];
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if ([_searchField canBecomeFirstResponder]) {
+                [_searchField becomeFirstResponder];
+            }
+        }];
+    } else {
         [_topBar updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
             make.left.equalTo(8 * WidthCoefficient);
@@ -433,11 +482,11 @@
             make.left.equalTo(8 * WidthCoefficient);
         }];
         [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
         if ([_searchField canBecomeFirstResponder]) {
             [_searchField becomeFirstResponder];
         }
-    }];
+    }
+    
     _searchField.text = @"";
     [self.annotations removeAllObjects];
     [self getHistory];
@@ -511,20 +560,35 @@
     [self.view addSubview:self.infoView];
     [_infoView makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(360 * WidthCoefficient);
-        make.height.equalTo(67 * HeightCoefficient);
+        make.height.equalTo(159 * WidthCoefficient);
         make.centerX.equalTo(0);
-        make.bottom.equalTo(- 25 * HeightCoefficient - kBottomHeight);
+        make.bottom.equalTo(- 15 * HeightCoefficient - kBottomHeight);
+    }];
+    
+    UIView *infoTop = [[UIView alloc] init];
+    infoTop.layer.cornerRadius = 1;
+    infoTop.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+    infoTop.layer.shadowOffset = CGSizeMake(0, 5);
+    infoTop.layer.shadowOpacity = 0.5;
+    infoTop.layer.shadowRadius = 15;
+    infoTop.backgroundColor = [UIColor whiteColor];
+    [_infoView addSubview:infoTop];
+    [infoTop makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_infoView);
+        make.height.equalTo(80 * WidthCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(30 * WidthCoefficient);
     }];
     
     UILabel *title = [[UILabel alloc] init];
     title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title.textColor = [UIColor colorWithHexString:@"#040000"];
     title.text = annotationInfo.name;
-    [_infoView addSubview:title];
+    [infoTop addSubview:title];
     [title makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(8 * WidthCoefficient);
-        make.top.equalTo(10 * HeightCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(15 * WidthCoefficient);
+        make.height.equalTo(22 * WidthCoefficient);
     }];
     
     UILabel *subTitle = [[UILabel alloc] init];
@@ -534,11 +598,78 @@
     if (!annotationInfo.address || [annotationInfo.address isEqualToString:@""]) {
         subTitle.text = [NSString stringWithFormat:@"%@",[self distanceFromUsr:annotationInfo.coordinate]];
     }
-    [_infoView addSubview:subTitle];
+    [infoTop addSubview:subTitle];
     [subTitle makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(9 * WidthCoefficient);
-        make.top.equalTo(title.bottom).offset(6 * HeightCoefficient);
-        make.height.equalTo(18.5 * HeightCoefficient);
+        make.left.equalTo(title);
+        make.top.equalTo(title.bottom).offset(5 * WidthCoefficient);
+        make.height.equalTo(16 * WidthCoefficient);
+    }];
+    
+    POISendBtn *sendPOIBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
+    [sendPOIBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
+    [_infoView addSubview:sendPOIBtn];
+    [sendPOIBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(60 * WidthCoefficient);
+        make.top.equalTo(0);
+        make.right.equalTo(-10 * WidthCoefficient);
+    }];
+    
+    UIView *infoBot = [[UIView alloc] init];
+    infoBot.layer.cornerRadius = 1;
+    infoBot.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+    infoBot.layer.shadowOffset = CGSizeMake(0, 5);
+    infoBot.layer.shadowOpacity = 0.5;
+    infoBot.layer.shadowRadius = 15;
+    infoBot.backgroundColor = [UIColor whiteColor];
+    [_infoView addSubview:infoBot];
+    [infoBot makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_infoView);
+        make.height.equalTo(44 * WidthCoefficient);
+        make.centerX.equalTo(0);
+        make.bottom.equalTo(0);
+    }];
+    
+    NSMutableArray *botBtns = [[NSMutableArray alloc] init];
+    
+    NSArray *arr = @[
+                     NSLocalizedString(@"收藏", nil),
+                     NSLocalizedString(@"搜周边", nil),
+                     NSLocalizedString(@"电子围栏", nil)
+                     ];
+    NSArray *imgTitles = @[
+                           @"收藏 4",
+                           @"周边",
+                           @"电子围栏"
+                           ];
+    
+    for (NSInteger i = 0; i < arr.count; i++) {
+        LeftImgButton *btn = [LeftImgButton buttonWithType:UIButtonTypeCustom];
+        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:arr[i] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+        btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [infoBot addSubview:btn];
+        [botBtns addObject:btn];
+        if (i == 0) {
+            self.infoFavoriteBtn = btn;
+            [btn setTitle:NSLocalizedString(@"已收藏", nil) forState:UIControlStateSelected];
+            [btn setImage:[UIImage imageNamed:@"已收藏"] forState:UIControlStateSelected];
+            btn.selected = YES;
+        }
+        if (i == 1) {
+            self.infoAroundBtn = btn;
+        }
+        if (i == 2) {
+            self.infoFenceBtn = btn;
+        }
+    }
+    
+    [botBtns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:36 * WidthCoefficient leadSpacing:20 * WidthCoefficient tailSpacing:20 * WidthCoefficient];
+    [botBtns makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(13 * WidthCoefficient);
+        make.bottom.equalTo(-13 * WidthCoefficient);
     }];
 }
 
@@ -557,7 +688,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == _tmpField) {
-        [self showSearchViewFromLeft:NO];
+        [self showSearchViewFromLeft:NO animated:YES];
         return NO;
     }
     if (textField == _showField) {
@@ -721,7 +852,6 @@
 - (UIView *)infoView {
     if (!_infoView) {
         _infoView = [[UIView alloc] init];
-        _infoView.backgroundColor = [UIColor whiteColor];
     }
     return _infoView;
 }

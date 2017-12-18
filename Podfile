@@ -8,25 +8,25 @@ target 'dssp' do
   # use_frameworks!
 
   # Pods for dssp
-  pod 'Masonry', '~> 1.1.0'
-  pod 'YYModel', '~> 1.0.4'
-  pod 'KVOController', '~> 1.2.0'
-  pod 'IQKeyboardManager', '~> 5.0.6'
-  pod 'YYText', '~> 1.0.7'
-  pod 'MJRefresh', '~> 3.1.15'
-  pod 'TBActionSheet', '~> 1.5.5'
-  pod 'RTRootNavigationController', '~> 0.6.4'
+  pod 'Masonry'
+  pod 'YYModel'
+  pod 'KVOController'
+  pod 'IQKeyboardManager'
+  pod 'YYText'
+  pod 'MJRefresh'
+  pod 'TBActionSheet'
+  pod 'RTRootNavigationController'
   pod 'FMDB/SQLCipher'
-  pod 'LKDBHelper', '~> 2.4.6'
-  pod 'CocoaLumberjack', '~> 3.3.0'
+  pod 'LKDBHelper'
+  pod 'CocoaLumberjack'
+  pod 'GTSDK'
   
   # internal pod
-  pod 'CUHTTPRequest', '~> 0.1.5'
-  pod 'CUProgressHUD', '~> 0.1.6'
-  pod 'UIImageViewSDWebImage', '~> 0.1.4'
-  pod 'YYCategoriesSub', '~> 0.1.0'
-  pod 'MapManager', '~> 0.1.10'
-  pod 'UMPush', '~> 1.5.0'
+  pod 'CUHTTPRequest'
+  pod 'CUProgressHUD'
+  pod 'UIImageViewSDWebImage'
+  pod 'YYCategoriesSub'
+  pod 'MapManager', :git => 'http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git', :tag => '0.1.10'
 
   target 'dsspUITests' do
     inherit! :search_paths

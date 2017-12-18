@@ -39,6 +39,9 @@
 		316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
 		316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
 		318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
+		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
+		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
+		31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD66261FDFD5BB0049D48D /* FavoriteCell.m */; };
 		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
 		31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
 		31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
@@ -150,6 +153,12 @@
 		316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		318148061FD6964300F00A4D /* WBAFNetworkingLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBAFNetworkingLogger.h; sourceTree = "<group>"; };
 		318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBAFNetworkingLogger.m; sourceTree = "<group>"; };
+		3196AB901FDF717F009B9189 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		3196AB911FDF717F009B9189 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		31A3B9141FDE184700B8FBD3 /* POISendBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POISendBtn.h; sourceTree = "<group>"; };
+		31A3B9151FDE184700B8FBD3 /* POISendBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POISendBtn.m; sourceTree = "<group>"; };
+		31AD66251FDFD5BB0049D48D /* FavoriteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteCell.h; sourceTree = "<group>"; };
+		31AD66261FDFD5BB0049D48D /* FavoriteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
 		31C176EB1FD5444A006E4AEA /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
 		31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
 		31C176ED1FD5444A006E4AEA /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
@@ -345,6 +354,10 @@
 				313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */,
 				316CCCBB1FC66E6800AFF915 /* MapSearchCell.h */,
 				316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */,
+				31A3B9141FDE184700B8FBD3 /* POISendBtn.h */,
+				31A3B9151FDE184700B8FBD3 /* POISendBtn.m */,
+				31AD66251FDFD5BB0049D48D /* FavoriteCell.h */,
+				31AD66261FDFD5BB0049D48D /* FavoriteCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -356,6 +369,8 @@
 				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
 				310A07D81FA96BDB00DC9529 /* MapViewController.h */,
 				310A07D91FA96BDB00DC9529 /* MapViewController.m */,
+				3196AB901FDF717F009B9189 /* FavoritesViewController.h */,
+				3196AB911FDF717F009B9189 /* FavoritesViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -809,6 +824,7 @@
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
 				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
+				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
@@ -828,10 +844,12 @@
 				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
+				31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */,
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
 				314B98621FD7F24C00ABB638 /* POI.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
+				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */,
 				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,

@@ -11,13 +11,16 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "WBAFNetworkingLogger.h"
-#import <UMessage.h>
+
+#import <GTSDK/GeTuiSdk.h>
+// iOS10 及以上需导入 UserNotifications.framework
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 #import <UserNotifications/UserNotifications.h>
 #import "NavigationController.h"
 #import "RTRootNavigationController.h"
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
-@interface AppDelegate () <UNUserNotificationCenterDelegate>
+@interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
 
 @end
 
@@ -46,7 +49,7 @@
 - (void)configWithOptions:(NSDictionary *)launchOptions {
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].keyboardDistanceFromTextField = 70 * HeightCoefficient;
-    [AMapServices sharedServices].apiKey = @"276493345747181efd3c01d675705889";
+    [AMapServices sharedServices].apiKey = @"e3aed20c93efeea15495d8bf27a87fac";
     [AMapServices sharedServices].enableHTTPS = YES;
     
 //    [DDLog addLogger:[DDASLLogger sharedInstance]];
@@ -67,64 +70,68 @@
     [[WBAFNetworkingLogger sharedLogger] startLogging];
     [[WBAFNetworkingLogger sharedLogger] setLevel:WBLoggerLevelDebug];
     
-    [self setupUMPushWithOptions:launchOptions];
+    [self setupGeTui];
 }
 
-- (void)setupUMPushWithOptions:(NSDictionary *)launchOptions {
-    [UMessage startWithAppkey:@"5a29ffbaf29d98735e000059" launchOptions:launchOptions httpsEnable:YES];
-    [UMessage registerForRemoteNotifications];
-    
-    //iOS10
-    if (@available(iOS 10.0, *)) {
-        UNUserNotificationCenter *center= [UNUserNotificationCenter currentNotificationCenter];
+- (void)setupGeTui {
+    [GeTuiSdk startSdkWithAppId:@"lpFxdUx2Oi5P6KXqmqzOC7" appKey:@"3jbhgfE1jD7xPBw8n1uE3A" appSecret:@"AOv1mRuxb8AxR8oPZEVTZ3" delegate:self];
+    [self registerRemoteNotification];
+}
+
+- (void)registerRemoteNotification {
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0 // Xcode 8编译会调用
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
-        UNAuthorizationOptions types10 = UNAuthorizationOptionBadge | UNAuthorizationOptionAlert | UNAuthorizationOptionSound;
-        [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError *_Nullable error) {
             if (granted) {
                 
             } else {
                 
             }
         }];
-    } else {
-        // Fallback on earlier versions
+        
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+#else // Xcode 7编译会调用
+        UIUserNotificationType types = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+#endif
+    } else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        UIUserNotificationType types = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
-    [UMessage setLogEnabled:YES];
-    
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//    [UMessage registerDeviceToken:deviceToken];
     NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSLog(@"%@",token);
+    [GeTuiSdk registerDeviceToken:token];
 }
 
-//iOS10以下
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [UMessage setAutoAlert:NO];
-    [UMessage didReceiveRemoteNotification:userInfo];
+    [GeTuiSdk handleRemoteNotification:userInfo];
 }
 
-//iOS10新增
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
     if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时远程推送接收
-        [UMessage setAutoAlert:NO];
-        [UMessage didReceiveRemoteNotification:userInfo];
+        
     } else {
         //应用处于前台时本地推送接收
     }
     completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
 }
 
-//iOS10新增
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *userInfo = response.notification.request.content.userInfo;
     if ([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时远程推送接收
-        [UMessage setAutoAlert:NO];
-        [UMessage didReceiveRemoteNotification:userInfo];
+        [GeTuiSdk handleRemoteNotification:response.notification.request.content.userInfo];
     } else {
         //应用处于后台时本地推送接收
     }
