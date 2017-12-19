@@ -13,7 +13,9 @@
 #import "CarInfoModel.h"
 
 @interface CarUnbindViewController ()
-@property (nonatomic, strong)UIScrollView *sc;
+@property (nonatomic, strong) UIScrollView *sc;
+@property (nonatomic, strong) UIButton *unbindBtn;
+@property (nonatomic, strong) UIBarButtonItem *rightBarItem;
 @end
 
 @implementation CarUnbindViewController
@@ -31,12 +33,12 @@
 
 
 - (void)setupUI {
-    self.navigationItem.title = NSLocalizedString(@"车辆信息", nil);
     
-    
-    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(onClickedOKbtn)];
-    [rightBarItem setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = rightBarItem;
+    self.navigationItem.title = NSLocalizedString(@"解绑车辆", nil);
+
+    self.rightBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(BtnClick:)];
+    [_rightBarItem setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = _rightBarItem;
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
@@ -176,71 +178,6 @@
             lastLabel = label;
             lastView =whiteView;
             
-            //            if (i == 0) {
-            //                self.carId = rightLabel;
-            //            } else if (i == 1) {
-            //                self.vinLabel = rightLabel;
-            //            } else if (i == 2) {
-            //                self.customerName = rightLabel;
-            //            } else if (i == 3) {
-            //                self.customerCredentials = rightLabel;
-            //            } else if (i == 4) {
-            //                self.customerCredentialsNum = rightLabel;
-            //            } else if (i == 5) {
-            //                self.customerSex = rightLabel;
-            //            } else if (i == 6) {
-            //                self.customerMobilePhone = rightLabel;
-            //            } else if (i == 7) {
-            //                self.customerHomePhone = rightLabel;
-            //            } else if (i == 8) {
-            //                self.customerEmail = rightLabel;
-            //            } else if (i == 9) {
-            //                self.vhlLicence = rightLabel;
-            //            } else if (i == 10) {
-            //                self.remark = rightLabel;
-            //            } else if (i == 11) {
-            //                self.vhlStatus = rightLabel;
-            //            } else if (i == 12) {
-            //                self.serviceLevelId = rightLabel;
-            //            } else if (i == 13) {
-            //                self.insuranceCompany = rightLabel;
-            //            } else if (i == 14) {
-            //                self.insuranceNum = rightLabel;
-            //            } else if (i == 15) {
-            //                self.dueDate = rightLabel;
-            //            } else if (i == 16) {
-            //                self.saleDate = rightLabel;
-            //            } else if (i == 17) {
-            //                self.recordStatus = rightLabel;
-            //            } else if (i == 18) {
-            //                self.createTime = rightLabel;
-            //            } else if (i == 19) {
-            //                self.updateTime = rightLabel;
-            //            } else if (i == 20) {
-            //                self.brandName = rightLabel;
-            //            } else if (i == 21) {
-            //                self.dealerName = rightLabel;
-            //            } else if (i == 22) {
-            //                self.colorName = rightLabel;
-            //            }else if (i == 23) {
-            //                self.seriesName = rightLabel;
-            //            }else if (i == 24) {
-            //                self.typeName = rightLabel;
-            //            }else if (i == 25) {
-            //                self.credentialsName = rightLabel;
-            //            }else if (i == 26) {
-            //                self.recordStatusName = rightLabel;
-            //            }else if (i == 27) {
-            //                self.customerSexName = rightLabel;
-            //            }else if (i == 28) {
-            //                self.vhlStatusName = rightLabel;
-            //            }else if (i == 29) {
-            //                self.userRel = rightLabel;
-            //            }
-            //            else if (i == 30) {
-            //                self.vhlTStatus = rightLabel;
-            //            }
-            
         }
         
         [contentView makeConstraints:^(MASConstraintMaker *make) {
@@ -252,15 +189,15 @@
     });
     
     
-    UIButton *unbindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    unbindBtn.layer.cornerRadius = 2;
-    [unbindBtn setTitle:NSLocalizedString(@"解绑车辆", nil) forState:UIControlStateNormal];
-    [unbindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    unbindBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-    [unbindBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
-    [self.view addSubview:unbindBtn];
-    [unbindBtn makeConstraints:^(MASConstraintMaker *make) {
+    self.unbindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_unbindBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _unbindBtn.layer.cornerRadius = 2;
+    [_unbindBtn setTitle:NSLocalizedString(@"解绑车辆", nil) forState:UIControlStateNormal];
+    [_unbindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _unbindBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+    [_unbindBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
+    [self.view addSubview:_unbindBtn];
+    [_unbindBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
@@ -269,6 +206,16 @@
     
 }
 
+-(void)BtnClick:(UIButton *)btn
+{
+    if (self.rightBarItem == btn) {
+        
+    }
+    if (self.unbindBtn == btn) {
+        
+    }
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

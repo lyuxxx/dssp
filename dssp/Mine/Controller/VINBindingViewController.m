@@ -84,7 +84,7 @@
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
     _vinField.font = [UIFont fontWithName:FontName size:16];
-    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"vin号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _vinField.layer.cornerRadius = 2;
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];

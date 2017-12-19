@@ -24,6 +24,7 @@
 #import "ContractdetailViewController.h"
 #import "CarUnbindViewController.h"
 #import "AccountViewController.h"
+#import "LoginViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -54,7 +55,7 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"实车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
+    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"退出登录",@"退出登录"]]];
     
     [self RealnameUserName];
@@ -302,14 +303,14 @@
     make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(22 * WidthCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
-        make.width.equalTo(60 * WidthCoefficient);
+        make.width.equalTo(80 * WidthCoefficient);
     }];
     
     
     self.bindingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _bindingBtn.frame=CGRectMake(283 * WidthCoefficient, 20*HeightCoefficient, 60 * WidthCoefficient, 24 *HeightCoefficient);
 //    _bindingBtn.layer.cornerRadius = 24 * HeightCoefficient/2;
-    [_bindingBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_bindingBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_bindingBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
     [_bindingBtn setTitle:NSLocalizedString(@"未绑定", nil) forState:UIControlStateNormal];
     [_bindingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -328,83 +329,6 @@
     maskLayer.path = maskPath.CGPath;
     _bindingBtn.layer.mask = maskLayer;
     
-//    self.locationLabel = [[YYLabel alloc] init];
-//    _locationLabel.backgroundColor = [UIColor clearColor];
-//    NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
-//    UIFont *locationFont = [UIFont fontWithName:FontName size:13];
-//    NSMutableAttributedString *attachment = nil;
-//    UIImage *locationImage = [UIImage imageNamed:@"location"];
-//    attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
-//    [locationStr appendAttributedString:attachment];
-//    [locationStr yy_appendString:_locationName?_locationName:@"未定位"];
-//    locationStr.yy_alignment = NSTextAlignmentCenter;
-//    [locationStr addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationName?_locationName:@"未定位" rangeOfString:_locationName?_locationName:@"未定位"].length + 1)];
-//    _locationLabel.attributedText = locationStr;
-//    CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
-//    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:locationStr];
-//    [_headerView addSubview:_locationLabel];
-//    [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.view);
-//        make.height.equalTo(18.5 * HeightCoefficient);
-//        make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
-//        make.top.equalTo(namelabel.bottom).offset(10 * HeightCoefficient);
-//    }];
-    
-
-//    UIImageView *carImg = [[UIImageView alloc] init];
-//    [carImg setContentMode:UIViewContentModeScaleAspectFit];
-//    carImg.image = [UIImage imageNamed:@"11"];
-//    [whiteView addSubview:carImg];
-//    [carImg makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(6 * HeightCoefficient);
-//        make.left.equalTo(7.5 * WidthCoefficient);
-//        make.width.equalTo(96 * WidthCoefficient);
-//        make.height.equalTo(72 * WidthCoefficient);
-//    }];
-//
-    
-//    UILabel * plateLabel= [[UILabel alloc] init];
-//    plateLabel.font=[UIFont fontWithName:FontName size:16];
-//    plateLabel.font = [UIFont boldSystemFontOfSize:16];
-//    plateLabel.textColor=[UIColor blackColor];
-//    plateLabel.text=NSLocalizedString(@"车牌号: xxxxxx", nil);
-//    //    plateLabel.textAlignment = NSTextAlignmentCenter;
-//    [whiteView addSubview:plateLabel];
-//    [plateLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(10 * HeightCoefficient);
-//        make.left.equalTo(123.5*WidthCoefficient);
-//        make.height.equalTo(22.5 * HeightCoefficient);
-//        make.width.equalTo(155.5 * WidthCoefficient);
-//    }];
-//
-    
-//    UILabel * carStyleLabel= [[UILabel alloc] init];
-//    carStyleLabel.font=[UIFont fontWithName:FontName size:13];
-//    carStyleLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-//    carStyleLabel.text=NSLocalizedString(@"xxxxxx", nil);
-//    //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
-//    [whiteView addSubview:carStyleLabel];
-//    [carStyleLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(32.5 * HeightCoefficient);
-//        make.left.equalTo(123.5*WidthCoefficient);
-//        make.height.equalTo(18.5 * HeightCoefficient);
-//        make.width.equalTo(155.5 * WidthCoefficient);
-//    }];
-    
-    
-//    UILabel *timeLabel= [[UILabel alloc] init];
-//    timeLabel.font=[UIFont fontWithName:FontName size:11];
-//    timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-//    timeLabel.text=NSLocalizedString(@"上次于xxxxxx登录", nil);
-//    //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
-//    [whiteView addSubview:timeLabel];
-//    [timeLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(57 * HeightCoefficient);
-//        make.left.equalTo(123.5*WidthCoefficient);
-//        make.height.equalTo(15 * HeightCoefficient);
-//        make.width.equalTo(155.5 * WidthCoefficient);
-//    }];
-//
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -502,9 +426,9 @@
         
         if (indexPath.row == 0) {
             
-//            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
             
         }else if (indexPath.row == 1)
@@ -556,12 +480,10 @@
             RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-            
-           
-            
+        
         }else if (indexPath.row == 3)
         {
-            ContractdetailViewController *vc=[[ContractdetailViewController                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alloc] init];
+            ContractViewController *vc=[[ContractViewController                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
@@ -579,22 +501,26 @@
     }else if (indexPath.section == 1){
         
         if (indexPath.row==0) {
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                    message:@"是否退出登录！"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
             
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                //响应事件
+                LoginViewController *vc=[[LoginViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
             
-        }else if (indexPath.row==1)
-        {
             
         }
-        
-    }else if (indexPath.section==2){
-        if (indexPath.row==0) {
-            
-            
-        }else if (indexPath.row==1)
-        {
-            
-        }
-        
         
     }
     
@@ -636,6 +562,9 @@
         }]];
         
         [self presentViewController:alertController animated:YES completion:nil];
+    }
+    if (sender==self.bindingBtn) {
+        
     }
 }
 
