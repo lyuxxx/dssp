@@ -105,6 +105,8 @@
 
 - (void)resetColor {
     self.white.backgroundColor = [UIColor whiteColor];
+    
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

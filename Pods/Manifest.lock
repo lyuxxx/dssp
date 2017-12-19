@@ -64,6 +64,7 @@ PODS:
   - YYCategoriesSub (0.1.0)
   - YYModel (1.0.4)
   - YYText (1.0.7)
+  - ZXScrollPageView (1.1.1)
 
 DEPENDENCIES:
   - CocoaLumberjack
@@ -83,6 +84,7 @@ DEPENDENCIES:
   - YYCategoriesSub
   - YYModel
   - YYText
+  - ZXScrollPageView
 
 EXTERNAL SOURCES:
   MapManager:
@@ -119,7 +121,8 @@ SPEC CHECKSUMS:
   YYCategoriesSub: a767b2c97a4d4698ab561849bfaa6a0f61f5814c
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  ZXScrollPageView: aa6bb53f7a58245883914cd757b28cb7115c1076
 
-PODFILE CHECKSUM: 00e630ef2d940349d7aa79bdf816c65efd1d7fa1
+PODFILE CHECKSUM: d9e69e2035a68c173b9c2c8236ddbb935239f8a2
 
 COCOAPODS: 1.3.1

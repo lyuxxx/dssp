@@ -138,5 +138,15 @@ _Pragma("clang diagnostic pop") \
 #define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxInfoByVin",baseUrls]
 //修改消息状态 删除单条消息
 #define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrls]
+//实时总流量查询接口
+#define current [NSString stringWithFormat:@"%@flow/current",baseUrls]
+//分类流量使用明细查询接口
+#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrls]
+//车辆-客户解绑
+#define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrls]
+//实名制解绑
+#define UnbundlingRNR [NSString stringWithFormat:@"%@UnbundlingRNR",baseUrls]
+//查询通知未读消息数量
+#define findUnreadNumberByVin [NSString stringWithFormat:@"%@appPushInbox/findUnreadNumberByVin",baseUrls]
 
 #endif /* PrefixHeader_pch */

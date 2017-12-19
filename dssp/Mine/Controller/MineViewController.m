@@ -23,6 +23,7 @@
 #import "ContractViewController.h"
 #import "ContractdetailViewController.h"
 #import "CarUnbindViewController.h"
+#import "AccountViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -32,9 +33,11 @@
 @property (nonatomic, strong) UIImageView *img;
 @property(nonatomic, strong) NSData *fileData;
 @property(nonatomic, copy) NSString *certificationStatus;
-@property (nonatomic, strong) YYLabel *locationLabel;
+//@property (nonatomic, strong) YYLabel *locationLabel;
 @property(nonatomic,strong) CLLocationManager *mgr;
 @property(nonatomic, copy) NSString *locationName;
+@property(nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UIButton *bindingBtn;
 @end
 
 @interface MineViewController ()
@@ -51,8 +54,8 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    _dataArray=@[@[@[@"coin",@"我的积分 / 优惠券"],@[@"身份证",@"实名认证"],@[@"汽车信息",@"车辆信息"],@[@"合同信息",@"合同信息"],@[@"密码",@"账户密码"]],
-  @[@[@"客服",@"联系客服"],@[@"反馈中心",@"反馈中心"]],@[@[@"常见问题",@"常见问题"],@[@"功能介绍",@"功能介绍"]]];
+    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"实车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
+  @[@[@"退出登录",@"退出登录"]]];
     
     [self RealnameUserName];
     [self initTableView];
@@ -111,27 +114,7 @@
 
 - (void)setLocationStr:(NSString *)locationStr
 {
-    
-    if (![_locationStr isEqualToString:locationStr]) {
-        _locationStr = locationStr;
-        NSMutableAttributedString *location = [NSMutableAttributedString new];
-        UIFont *locationFont = [UIFont fontWithName:FontName size:13];
-        NSMutableAttributedString *attachment = nil;
-        UIImage *locationImage = [UIImage imageNamed:@"location"];
-        attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
-        [location appendAttributedString:attachment];
-        [location yy_appendString:_locationStr];
-        location.yy_alignment = NSTextAlignmentCenter;
-        [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationStr rangeOfString:_locationStr].length + 1)];
-        _locationLabel.attributedText = location;
-        CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
-        YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
-        [self.headerView addSubview:_locationLabel];
-        [_locationLabel updateConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
-        }];
-        [self.headerView layoutIfNeeded];
-    }
+    _locationLabel.text=NSLocalizedString(locationStr, nil);
 }
 
 /// 代理方法中监听授权的改变,被拒绝有两种情况,一是真正被拒绝,二是服务关闭了
@@ -205,7 +188,7 @@
     _tableView.bounces=NO;
     //滚动条隐藏
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor colorWithHexString:@"#EEEEEE"];
+    _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
@@ -214,17 +197,17 @@
 
 -(void)setupUI
 {
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,251*HeightCoefficient+kStatusBarHeight)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
     _headerView.backgroundColor=[UIColor whiteColor];
     _tableView.tableHeaderView=_headerView;
     
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"个人中心"];
+    bgImgV.image = [UIImage imageNamed:@"backgroud"];
     [_headerView addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
-        make.height.equalTo(190*HeightCoefficient+kStatusBarHeight);
+        make.height.equalTo(140*HeightCoefficient+kStatusBarHeight);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
@@ -239,8 +222,8 @@
     whiteView.layer.shadowRadius = 20.5;//阴影半径，默认3
     [_headerView addSubview:whiteView];
     [whiteView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(147.5 * HeightCoefficient+kStatusBarHeight);
-        make.height.equalTo(83.5 * HeightCoefficient);
+        make.top.equalTo(63.5 * HeightCoefficient+kStatusBarHeight);
+        make.height.equalTo(100 * HeightCoefficient);
         make.width.equalTo(343 * WidthCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
     }];
@@ -251,14 +234,14 @@
     [_setBtn setContentMode:UIViewContentModeScaleAspectFit];
     _setBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
     _setBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [_setBtn setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [_setBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
     [_setBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
     [_headerView addSubview:_setBtn];
     [_setBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(10.5 * HeightCoefficient+kStatusBarHeight);
         make.right.equalTo(-16 * WidthCoefficient);
-        make.width.equalTo(23 * WidthCoefficient);
-        make.height.equalTo(23 * WidthCoefficient);
+        make.width.equalTo(24 * WidthCoefficient);
+        make.height.equalTo(24 * WidthCoefficient);
     }];
     
     
@@ -274,132 +257,154 @@
     [_photoBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     _photoBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
     _photoBtn.clipsToBounds=YES;
-    _photoBtn.layer.cornerRadius=62/2;
-    
-    
-    [_headerView addSubview:_photoBtn];
+    _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;
+
+
+    [whiteView addSubview:_photoBtn];
     [_photoBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_setBtn.bottom).offset(-4 * HeightCoefficient);
-        make.centerX.equalTo(_headerView);
-        make.width.equalTo(62 * WidthCoefficient);
-        make.height.equalTo(62 * WidthCoefficient);
+        make.top.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.width.equalTo(60 * HeightCoefficient);
+        make.height.equalTo(60 * HeightCoefficient);
     }];
-    
+
     
     UILabel *namelabel = [[UILabel alloc] init];
     namelabel.font=[UIFont fontWithName:FontName size:16];
-    namelabel.textColor=[UIColor colorWithHexString:@"#C4B7A6"];
+    namelabel.textColor=[UIColor colorWithHexString:@"#333333"];
     namelabel.text=NSLocalizedString(@"xxxxxx", nil);
-    namelabel.textAlignment = NSTextAlignmentCenter;
-    [_headerView addSubview:namelabel];
+    namelabel.textAlignment = NSTextAlignmentLeft;
+    [whiteView addSubview:namelabel];
     [namelabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_photoBtn.bottom).offset(4*HeightCoefficient);
-        make.centerX.equalTo(_headerView);
+    make.top.equalTo(26*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
+          make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
         make.width.equalTo(98 * WidthCoefficient);
     }];
+
     
-    
-//    UIImageView *locationImg = [[UIImageView alloc] init];
-//    locationImg.image = [UIImage imageNamed:@"location"];
-//    [_headerView addSubview:locationImg];
-//    [locationImg makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
-//        make.left.equalTo(146*WidthCoefficient);
-//        make.width.height.equalTo(12*WidthCoefficient);
-//    }];
-//
-//
-//    UILabel * locationLabel= [[UILabel alloc] init];
-//    locationLabel.font=[UIFont fontWithName:FontName size:13];
-//    locationLabel.textColor=[UIColor whiteColor];
-//    locationLabel.text=NSLocalizedString(@"湖北 武汉", nil);
-//    locationLabel.textAlignment = NSTextAlignmentCenter;
-//    [_headerView addSubview:locationLabel];
-//    [locationLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(namelabel.bottom).offset(6*HeightCoefficient);
-//        make.left.equalTo(165*WidthCoefficient);
-//        make.height.equalTo(18.5 * HeightCoefficient);
-//        make.width.equalTo(60 * WidthCoefficient);
-//    }];
-    
-    self.locationLabel = [[YYLabel alloc] init];
-    _locationLabel.backgroundColor = [UIColor clearColor];
-    NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
-    UIFont *locationFont = [UIFont fontWithName:FontName size:13];
-    NSMutableAttributedString *attachment = nil;
-    UIImage *locationImage = [UIImage imageNamed:@"location"];
-    attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
-    [locationStr appendAttributedString:attachment];
-    [locationStr yy_appendString:_locationName?_locationName:@"未定位"];
-    locationStr.yy_alignment = NSTextAlignmentCenter;
-    [locationStr addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationName?_locationName:@"未定位" rangeOfString:_locationName?_locationName:@"未定位"].length + 1)];
-    _locationLabel.attributedText = locationStr;
-    CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
-    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:locationStr];
-    [_headerView addSubview:_locationLabel];
-    [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.height.equalTo(18.5 * HeightCoefficient);
-        make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
-        make.top.equalTo(namelabel.bottom).offset(10 * HeightCoefficient);
+    UIImageView *locationImg = [[UIImageView alloc] init];
+    locationImg.image = [UIImage imageNamed:@"location"];
+    [whiteView addSubview:locationImg];
+    [locationImg makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(namelabel.bottom).offset(11.5*HeightCoefficient);
+        make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
+        make.width.height.equalTo(12*WidthCoefficient);
     }];
+
+    self.locationLabel= [[UILabel alloc] init];
+    _locationLabel.font=[UIFont fontWithName:FontName size:11];
+    _locationLabel.textColor=[UIColor colorWithHexString:@"#666666"];
+    _locationLabel.text=NSLocalizedString(_locationName?_locationName:@"未定位", nil);
+    _locationLabel.textAlignment = NSTextAlignmentLeft;
+    [whiteView addSubview:_locationLabel];
+    [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
+        make.left.equalTo(_photoBtn.right).offset(22 * WidthCoefficient);
+        make.height.equalTo(15 * HeightCoefficient);
+        make.width.equalTo(60 * WidthCoefficient);
+    }];
+    
+    
+    self.bindingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bindingBtn.frame=CGRectMake(283 * WidthCoefficient, 20*HeightCoefficient, 60 * WidthCoefficient, 24 *HeightCoefficient);
+//    _bindingBtn.layer.cornerRadius = 24 * HeightCoefficient/2;
+    [_bindingBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_bindingBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
+    [_bindingBtn setTitle:NSLocalizedString(@"未绑定", nil) forState:UIControlStateNormal];
+    [_bindingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _bindingBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
+    [whiteView addSubview:_bindingBtn];
+//    [_bindingBtn makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(60 * WidthCoefficient);
+//        make.height.equalTo(24 * HeightCoefficient);
+//        make.right.equalTo(0 *WidthCoefficient);
+//        make.top.equalTo(20 * HeightCoefficient);
+//    }];
+   
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_bindingBtn.bounds   byRoundingCorners:UIRectCornerBottomLeft |    UIRectCornerTopLeft   cornerRadii:CGSizeMake(24 * HeightCoefficient/2, 24 * HeightCoefficient/2)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _bindingBtn.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _bindingBtn.layer.mask = maskLayer;
+    
+//    self.locationLabel = [[YYLabel alloc] init];
+//    _locationLabel.backgroundColor = [UIColor clearColor];
+//    NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
+//    UIFont *locationFont = [UIFont fontWithName:FontName size:13];
+//    NSMutableAttributedString *attachment = nil;
+//    UIImage *locationImage = [UIImage imageNamed:@"location"];
+//    attachment = [NSMutableAttributedString yy_attachmentStringWithContent:locationImage contentMode:UIViewContentModeCenter attachmentSize:locationImage.size alignToFont:locationFont alignment:YYTextVerticalAlignmentCenter];
+//    [locationStr appendAttributedString:attachment];
+//    [locationStr yy_appendString:_locationName?_locationName:@"未定位"];
+//    locationStr.yy_alignment = NSTextAlignmentCenter;
+//    [locationStr addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationName?_locationName:@"未定位" rangeOfString:_locationName?_locationName:@"未定位"].length + 1)];
+//    _locationLabel.attributedText = locationStr;
+//    CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+//    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:locationStr];
+//    [_headerView addSubview:_locationLabel];
+//    [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.view);
+//        make.height.equalTo(18.5 * HeightCoefficient);
+//        make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
+//        make.top.equalTo(namelabel.bottom).offset(10 * HeightCoefficient);
+//    }];
     
 
-    UIImageView *carImg = [[UIImageView alloc] init];
-    [carImg setContentMode:UIViewContentModeScaleAspectFit];
-    carImg.image = [UIImage imageNamed:@"11"];
-    [whiteView addSubview:carImg];
-    [carImg makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(6 * HeightCoefficient);
-        make.left.equalTo(7.5 * WidthCoefficient);
-        make.width.equalTo(96 * WidthCoefficient);
-        make.height.equalTo(72 * WidthCoefficient);
-    }];
+//    UIImageView *carImg = [[UIImageView alloc] init];
+//    [carImg setContentMode:UIViewContentModeScaleAspectFit];
+//    carImg.image = [UIImage imageNamed:@"11"];
+//    [whiteView addSubview:carImg];
+//    [carImg makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(6 * HeightCoefficient);
+//        make.left.equalTo(7.5 * WidthCoefficient);
+//        make.width.equalTo(96 * WidthCoefficient);
+//        make.height.equalTo(72 * WidthCoefficient);
+//    }];
+//
+    
+//    UILabel * plateLabel= [[UILabel alloc] init];
+//    plateLabel.font=[UIFont fontWithName:FontName size:16];
+//    plateLabel.font = [UIFont boldSystemFontOfSize:16];
+//    plateLabel.textColor=[UIColor blackColor];
+//    plateLabel.text=NSLocalizedString(@"车牌号: xxxxxx", nil);
+//    //    plateLabel.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:plateLabel];
+//    [plateLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(10 * HeightCoefficient);
+//        make.left.equalTo(123.5*WidthCoefficient);
+//        make.height.equalTo(22.5 * HeightCoefficient);
+//        make.width.equalTo(155.5 * WidthCoefficient);
+//    }];
+//
+    
+//    UILabel * carStyleLabel= [[UILabel alloc] init];
+//    carStyleLabel.font=[UIFont fontWithName:FontName size:13];
+//    carStyleLabel.textColor=[UIColor colorWithHexString:@"#666666"];
+//    carStyleLabel.text=NSLocalizedString(@"xxxxxx", nil);
+//    //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:carStyleLabel];
+//    [carStyleLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(32.5 * HeightCoefficient);
+//        make.left.equalTo(123.5*WidthCoefficient);
+//        make.height.equalTo(18.5 * HeightCoefficient);
+//        make.width.equalTo(155.5 * WidthCoefficient);
+//    }];
     
     
-    UILabel * plateLabel= [[UILabel alloc] init];
-    plateLabel.font=[UIFont fontWithName:FontName size:16];
-    plateLabel.font = [UIFont boldSystemFontOfSize:16];
-    plateLabel.textColor=[UIColor blackColor];
-    plateLabel.text=NSLocalizedString(@"车牌号: xxxxxx", nil);
-    //    plateLabel.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:plateLabel];
-    [plateLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(10 * HeightCoefficient);
-        make.left.equalTo(123.5*WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.width.equalTo(155.5 * WidthCoefficient);
-    }];
-    
-    
-    UILabel * carStyleLabel= [[UILabel alloc] init];
-    carStyleLabel.font=[UIFont fontWithName:FontName size:13];
-    carStyleLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-    carStyleLabel.text=NSLocalizedString(@"xxxxxx", nil);
-    //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:carStyleLabel];
-    [carStyleLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(32.5 * HeightCoefficient);
-        make.left.equalTo(123.5*WidthCoefficient);
-        make.height.equalTo(18.5 * HeightCoefficient);
-        make.width.equalTo(155.5 * WidthCoefficient);
-    }];
-    
-    
-    UILabel *timeLabel= [[UILabel alloc] init];
-    timeLabel.font=[UIFont fontWithName:FontName size:11];
-    timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    timeLabel.text=NSLocalizedString(@"上次于xxxxxx登录", nil);
-    //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:timeLabel];
-    [timeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(57 * HeightCoefficient);
-        make.left.equalTo(123.5*WidthCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
-        make.width.equalTo(155.5 * WidthCoefficient);
-    }];
-    
+//    UILabel *timeLabel= [[UILabel alloc] init];
+//    timeLabel.font=[UIFont fontWithName:FontName size:11];
+//    timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+//    timeLabel.text=NSLocalizedString(@"上次于xxxxxx登录", nil);
+//    //    carStyleLabel.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:timeLabel];
+//    [timeLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(57 * HeightCoefficient);
+//        make.left.equalTo(123.5*WidthCoefficient);
+//        make.height.equalTo(15 * HeightCoefficient);
+//        make.width.equalTo(155.5 * WidthCoefficient);
+//    }];
+//
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -482,13 +487,7 @@
     }
     
     if (indexPath.section==1) {
-        if (indexPath.row==1) {
-            cell.whiteView.hidden=YES;
-        }
-    }
-    
-    if (indexPath.section==2) {
-        if (indexPath.row==1) {
+        if (indexPath.row==0) {
             cell.whiteView.hidden=YES;
         }
     }
@@ -510,7 +509,7 @@
             
         }else if (indexPath.row == 1)
         {
-            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
@@ -553,23 +552,26 @@
 //            }
         }else if (indexPath.row == 2)
         {
-            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+            
+            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
+           
+            
         }else if (indexPath.row == 3)
         {
-//            ContractViewController *vc=[[ContractViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+            ContractdetailViewController *vc=[[ContractdetailViewController                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
             
         }else if (indexPath.row == 4)
         {
             
-//            ContractdetailViewController *vc=[[ContractdetailViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+            AccountViewController *vc=[[AccountViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
             
         }
