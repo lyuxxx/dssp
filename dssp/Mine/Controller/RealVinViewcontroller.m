@@ -116,37 +116,33 @@
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
                                 };
-        [CUHTTPRequest POST:checkCerStatusByVin parameters:paras response:^(id responseData) {
-            if (responseData) {
-                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-               
-                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                    
-                    NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-                    if ([str isEqualToString:@"0"]) {
-                        ///未实名
-                        RNRViewController *vc = [[RNRViewController alloc] init];
-                        vc.bingVin = _vin?_vin:_vinField.text;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                    }
-                    else if ([str isEqualToString:@"1"])
-                    {
-                        ///已实名
-                        [MBProgressHUD showText:NSLocalizedString(@"该vin已实名", nil)];
-                    }
-                    
-                } else {
-                    
-                    [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+        [CUHTTPRequest POST:checkCerStatusByVin parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                
+                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
+                if ([str isEqualToString:@"0"]) {
+                    ///未实名
+                    RNRViewController *vc = [[RNRViewController alloc] init];
+                    vc.bingVin = _vin?_vin:_vinField.text;
+                    [self.navigationController pushViewController:vc animated:YES];
                     
                 }
+                else if ([str isEqualToString:@"1"])
+                {
+                    ///已实名
+                    [MBProgressHUD showText:NSLocalizedString(@"该vin已实名", nil)];
+                }
+                
             } else {
-                [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+                
+                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
+        } failure:^(NSInteger code) {
+            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
-        
         
         //        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
         //        vc.vin = _vinField.text;
@@ -155,19 +151,6 @@
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }
-
-//- (void)getCarInfoWithVIN:(NSString *)vin {
-//    [CUHTTPRequest POST:getBasicInfo parameters:@{@"vin": vin} response:^(id responseData) {
-//        if (responseData) {
-//            CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-//            vc.vin = _vinField.text;
-//            [self.navigationController pushViewController:vc animated:YES];
-//        } else {
-//            CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//    }];
-//}
 
 @end
 /*

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MGSwipeTableCell.h>
 
-@interface FavoriteCell : UITableViewCell
+@interface FavoriteCell : MGSwipeTableCell
 
 @end

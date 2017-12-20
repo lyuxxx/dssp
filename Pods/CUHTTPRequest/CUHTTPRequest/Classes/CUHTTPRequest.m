@@ -84,22 +84,24 @@ static AFHTTPSessionManager *sessionManager = nil;
 #pragma mark --GET--
 
 //GET请求获得数据
-+ (void)GET:(NSString *)URL parameters:(id)parameters response:(void (^)(id))response {
++ (void)GET:(NSString *)URL parameters:(id)parameters success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     [session GET:URL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (response) {
-            response(responseObject);
+        if (success) {
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 //GET下载文件
-+ (void)GETDownload:(NSString *)URL parameters:(id)parameters filePath:(NSString *)filePath response:(void (^)(id))response {
++ (void)GETDownload:(NSString *)URL parameters:(id)parameters filePath:(NSString *)filePath success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     [session GET:URL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -108,91 +110,101 @@ static AFHTTPSessionManager *sessionManager = nil;
         if (!isOK) {
             NSLog(@"写入文件错误,文件无法下载到指定位置");
         } else {
-            if (response) {
-                response(finalFilePath);
+            if (success) {
+                success(finalFilePath);
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 #pragma mark --HEAD--
 
-+ (void)HEAD:(NSString *)URL parameters:(id)parameters response:(void (^)(id))response {
++ (void)HEAD:(NSString *)URL parameters:(id)parameters success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     [session HEAD:URL parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task) {
-        if (response) {
+        if (success) {
             NSDictionary *dict = @{
                                    @"任务描述性标签":task.taskDescription,
                                    @"文件类型":task.response.suggestedFilename,
                                    @"收到的字节数":[NSString stringWithFormat:@"%lld",task.countOfBytesReceived],
                                    @"希望收到的字节数":[NSString stringWithFormat:@"%lld",task.countOfBytesExpectedToReceive]
                                    };
-            response(dict);
+            success(dict);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 #pragma mark --PUT--
 
-+ (void)PUT:(NSString *)URL parameters:(id)parameters response:(void (^)(id))response {
++ (void)PUT:(NSString *)URL parameters:(id)parameters success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     //PUT 文件上传
     [session PUT:URL parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (response) {
-            response(responseObject);
+        if (success) {
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 #pragma mark --PATCH--
 
-+ (void)PATCH:(NSString *)URL parameters:(id)parameters response:(void (^)(id))response {
++ (void)PATCH:(NSString *)URL parameters:(id)parameters success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     [session PATCH:URL parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (response) {
-            response(responseObject);
+        if (success) {
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 #pragma mark --DELETE--
 
-+ (void)DELETE:(NSString *)URL parameters:(id)parameters response:(void (^)(id))response {
++ (void)DELETE:(NSString *)URL parameters:(id)parameters success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     [session DELETE:URL parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (response) {
-            response(responseObject);
+        if (success) {
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 #pragma mark --POST--
 //POST请求获得数据
-+ (void)POST:(NSString *)URL parameters:(id)parameters response:(void (^)(id))response {
++ (void)POST:(NSString *)URL parameters:(id)parameters success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     if (parameters && [parameters isKindOfClass:[NSString class]]) {
@@ -205,17 +217,19 @@ static AFHTTPSessionManager *sessionManager = nil;
         }];
     }
     [session POST:URL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (response) {
-            response(responseObject);
+        if (success) {
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
-+ (void)POSTUpload:(NSString *)URL parameters:(id)parameters uploadType:(CUHTTPNetworkUploadDownloadType)uploadType dataArray:(NSArray<NSData *> *)arrayData response:(void (^)(id))response {
++ (void)POSTUpload:(NSString *)URL parameters:(id)parameters uploadType:(CUHTTPNetworkUploadDownloadType)uploadType dataArray:(NSArray<NSData *> *)arrayData success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     //    NSString *stringBoundary = @"---------";
@@ -247,27 +261,31 @@ static AFHTTPSessionManager *sessionManager = nil;
             NSLog(@"没有选择上传类型,不能上传");
         }
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (response) {
-            response(responseObject);
+        if (success) {
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (response) {
-            response(nil);
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+        NSInteger statusCode = [response statusCode];
+        if (failure) {
+            failure(statusCode);
         }
     }];
 }
 
 #pragma mark --断点上传--
 
-+ (void)upload:(NSString *)URL uploadData:(NSData *)uploadData reponse:(void (^)(id))response {
++ (void)upload:(NSString *)URL uploadData:(NSData *)uploadData success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     //采用的是uploadTaskWithRequest: fromData:方法上传的数据
     NSURLSessionUploadTask *task = [session uploadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]] fromData:uploadData progress:nil completionHandler:^(NSURLResponse * _Nonnull responses, id  _Nullable responseObject, NSError * _Nullable error) {
         if (error) {
-            response(error);
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+            NSInteger statusCode = [response statusCode];
+            failure(statusCode);
         } else {
-            response(responseObject);
+            success(responseObject);
         }
     }];
     [task resume];
@@ -275,7 +293,7 @@ static AFHTTPSessionManager *sessionManager = nil;
 
 #pragma mark --下载--
 
-+ (void)download:(NSString *)URL filePath:(NSString *)filePath response:(void (^)(id))response {
++ (void)download:(NSString *)URL filePath:(NSString *)filePath success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     URL = [CUHTTPRequest URLEncoding:URL];
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]] progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull responses) {
@@ -284,15 +302,17 @@ static AFHTTPSessionManager *sessionManager = nil;
         return [NSURL fileURLWithPath:path];
     } completionHandler:^(NSURLResponse * _Nonnull responses, NSURL * _Nullable filePath, NSError * _Nullable error) {
         if (error) {
-            response(error);
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+            NSInteger statusCode = [response statusCode];
+            failure(statusCode);
         } else {
-            response(filePath);
+            success(filePath);
         }
     }];
     [task resume];
 }
 
-+ (void)downloadBreakpoint:(NSData *)data filePath:(NSString *)filePath response:(void (^)(id))response {
++ (void)downloadBreakpoint:(NSData *)data filePath:(NSString *)filePath success:(void (^)(id))success failure:(void (^)(NSInteger))failure {
     AFHTTPSessionManager *session = [self.class getSessionManagerCustom];
     NSURLSessionDownloadTask *task = [session downloadTaskWithResumeData:data progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull responses) {
         //将下载文件保存在缓存路径中,指定下载文件保存的路径
@@ -300,9 +320,11 @@ static AFHTTPSessionManager *sessionManager = nil;
         return [NSURL fileURLWithPath:path];
     } completionHandler:^(NSURLResponse * _Nonnull responses, NSURL * _Nullable filePath, NSError * _Nullable error) {
         if (error) {
-            response(error);
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
+            NSInteger statusCode = [response statusCode];
+            failure(statusCode);
         } else {
-            response(filePath);
+            success(filePath);
         }
     }];
     [task resume];

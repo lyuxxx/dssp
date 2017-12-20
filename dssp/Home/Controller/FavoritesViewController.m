@@ -9,8 +9,10 @@
 #import "FavoritesViewController.h"
 #import <YYCategories.h>
 #import "FavoriteCell.h"
+#import <MJRefresh.h>
+#import <MGSwipeTableCell.h>
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -38,6 +40,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    return;
     if (self.editingIndexPath) {
         [self configSwipeButton];
     }
@@ -137,19 +140,11 @@
         make.width.equalTo(130 * WidthCoefficient);
     }];
     _allBtn.titleEdgeInsets = UIEdgeInsetsMake(10 * WidthCoefficient, 10 * WidthCoefficient, 10 * WidthCoefficient, 0);
+    
 }
 
 - (void)createTable {
-    
-    self.tableView = [[UITableView alloc] init];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.tableFooterView = [UIView new];
-    _tableView.allowsMultipleSelection = YES;
-    _tableView.allowsSelectionDuringEditing = YES;
-    _tableView.allowsMultipleSelectionDuringEditing = YES;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -159,12 +154,31 @@
         [self.dataSource addObject:indexPath];
     }
     
+    [self setupFooter];
+}
+
+- (void)setupFooter {
+    if (self.tableView.mj_footer == nil) {
+        weakifySelf
+        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            strongifySelf
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.tableView.mj_footer endRefreshing];
+            });
+        }];
+        //    footer.refreshingTitleHidden = YES;
+        [footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
+        self.tableView.mj_footer = footer;
+    } else {
+        [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+    }
 }
 
 - (void)btnClick:(UIButton *)sender {
     if (sender == _editBtn) {
         sender.selected = !sender.selected;
-        if (sender.isSelected) {
+        if (sender.isSelected) {//编辑
             // 这个是fix掉:当你左滑删除的时候，再点击右上角编辑按钮， cell上的删除按钮不会消失掉的bug。且必须放在 设置tableView.editing = YES;的前面。
             [self.tableView reloadData];
             
@@ -173,12 +187,28 @@
             _allBtn.selected = NO;
             
             [self showDeleteButton];
-        } else {
+            
+            self.tableView.mj_footer = nil;
+            
+            if (Is_Iphone_X) {
+                _tableView.contentInset = UIEdgeInsetsZero;
+                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+            }
+
+        } else {//完成
+            if (Is_Iphone_X) {
+                _tableView.contentInset = UIEdgeInsetsMake(0, 0, kBottomHeight, 0);
+                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+            }
+            
+            [self setupFooter];
+            
             [self.selectedDatas removeAllObjects];
             
             [self.tableView setEditing:NO animated:YES];
             
             [self hideDeleteButton];
+            
         }
     }
     if (sender == _allBtn) {
@@ -223,10 +253,12 @@
     [self.dataSource removeObjectsInArray:self.selectedDatas];
     [self.selectedDatas removeAllObjects];
     
+//    [UIView setAnimationsEnabled:NO];
     // 删除选中项
-    [self.tableView beginUpdates];
+//    [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
+//    [self.tableView endUpdates];
+//    [UIView setAnimationsEnabled:YES];
     
     // 验证数据源
     [self indexPathsForSelectedRowsCountDidChange:self.tableView.indexPathsForSelectedRows];
@@ -247,6 +279,7 @@
         
     }
     
+    [self setupFooter];
 }
 
 - (void)indexPathsForSelectedRowsCountDidChange:(NSArray *)selectedRows
@@ -275,6 +308,7 @@
     if (!cell) {
         cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
+    cell.delegate = self;
     return cell;
 }
 
@@ -302,29 +336,29 @@
     }
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //title调整按钮大小
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"        " handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {//delete
-        [tableView setEditing:NO animated:YES];
-        NSIndexPath *indexPathM = self.dataSource[indexPath.row];
-        if (![self.selectedDatas containsObject:indexPathM]) {
-            [self.selectedDatas addObject:indexPathM];
-        }
-        [self deleteSelectIndexPaths:@[indexPath]];
-    }];
-    return @[deleteAction];
-}
-
+//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    //title调整按钮大小
+//    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"        " handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {//delete
+//        [tableView setEditing:NO animated:YES];
+//        NSIndexPath *indexPathM = self.dataSource[indexPath.row];
+//        if (![self.selectedDatas containsObject:indexPathM]) {
+//            [self.selectedDatas addObject:indexPathM];
+//        }
+//        [self deleteSelectIndexPaths:@[indexPath]];
+//    }];
+//    return @[deleteAction];
+//}
+//
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.isEditing) {
         // 多选
         return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
     }else{
         // 删除
-        return UITableViewCellEditingStyleDelete;
+        return UITableViewCellEditingStyleNone;
     }
 }
-
+//
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //只要实现这个方法，就实现了默认滑动删除！！！！！
     if (editingStyle == UITableViewCellEditingStyleDelete)
@@ -336,18 +370,38 @@
         [self deleteSelectIndexPaths:@[indexPath]];
     }
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return NSLocalizedString(@"删除", nil);
+//
+////- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+////    return NSLocalizedString(@"删除", nil);
+////}
+//
+//- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+//    self.editingIndexPath = indexPath;
+//    [self.view setNeedsLayout]; //触发-(void)viewDidLayoutSubviews
+//}
+//
+//- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+//    self.editingIndexPath = nil;
 //}
 
-- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.editingIndexPath = indexPath;
-    [self.view setNeedsLayout]; //触发-(void)viewDidLayoutSubviews
+#pragma mark - MGSwipeTableCellDelegate
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+    NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPathM = self.dataSource[tmp.row];
+            if (![self.selectedDatas containsObject:indexPathM]) {
+                [self.selectedDatas addObject:indexPathM];
+            }
+    [self deleteSelectIndexPaths:@[[self.tableView indexPathForCell:cell]]];
+    return YES;
 }
 
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.editingIndexPath = nil;
+- (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
+    direction = MGSwipeDirectionRightToLeft;
+    swipeSettings.transition = MGSwipeTransitionClipCenter;
+//    expansionSettings.buttonIndex = 0;
+//    expansionSettings.fillOnTrigger = YES;
+    return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
 }
 
 #pragma mark - 显示和隐藏 删除按钮
@@ -364,7 +418,7 @@
 - (void)hideDeleteButton
 {
     [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view);
+        make.bottom.equalTo(self.view.bottom);
     }];
     
     // 更新约束
@@ -386,6 +440,33 @@
 }
 
 #pragma mark -getter
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] init];
+        if (@available(iOS 11.0, *)) {
+            if (Is_Iphone_X) {
+                _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                _tableView.contentInset = UIEdgeInsetsMake(0, 0, kBottomHeight, 0);
+                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+//        _tableView.tableFooterView = [UIView new];
+//        _tableView.rowHeight = UITableViewAutomaticDimension;
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+//        _tableView.allowsMultipleSelection = YES;
+//        _tableView.allowsSelectionDuringEditing = YES;
+//        _tableView.allowsMultipleSelectionDuringEditing = YES;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _tableView;
+}
 
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {

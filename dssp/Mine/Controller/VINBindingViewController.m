@@ -138,42 +138,37 @@
                                 @"vin": _vinField.text
                                 
                                 };
-        [CUHTTPRequest POST:getBasicInfo parameters:paras response:^(id responseData) {
-            if (responseData) {
-                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
-                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                    if ([_carInfo.vhlTStatus isEqualToString:@"1"]) {
-                        
-                        ///T车跳这个
-                        CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                        vc.carInfo = self.carInfo;
-//                        vc.bingVin = _vinField.text;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                    }
-                    else if ([_carInfo.vhlTStatus isEqualToString:@"0"])
-                    {
-                        ///非T跳这个
-                        CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                        vc.carInfo = self.carInfo;
-//                        vc.bingVin = _vinField.text;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
+        [CUHTTPRequest POST:getBasicInfo parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                if ([_carInfo.vhlTStatus isEqualToString:@"1"]) {
                     
-        
-                } else {
-//                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
-                    [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                    ///T车跳这个
+                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                    vc.carInfo = self.carInfo;
+                    //                        vc.bingVin = _vinField.text;
+                    [self.navigationController pushViewController:vc animated:YES];
                     
                 }
+                else if ([_carInfo.vhlTStatus isEqualToString:@"0"])
+                {
+                    ///非T跳这个
+                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                    vc.carInfo = self.carInfo;
+                    //                        vc.bingVin = _vinField.text;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                
+                
+            } else {
+                //                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
+                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                
             }
-            else {
-                [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
-
-            }
+        } failure:^(NSInteger code) {
+            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
-        
         
 //        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
 //        vc.vin = _vinField.text;
@@ -182,19 +177,6 @@
       
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
-}
-
-- (void)getCarInfoWithVIN:(NSString *)vin {
-    [CUHTTPRequest POST:getBasicInfo parameters:@{@"vin": vin} response:^(id responseData) {
-        if (responseData) {
-            CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-            vc.vin = _vinField.text;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else {
-            CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-    }];
 }
 
 @end

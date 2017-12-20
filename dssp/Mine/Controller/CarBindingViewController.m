@@ -239,73 +239,70 @@
                             @"remark": self.bindingInput.remark,
                             @"doptCode": self.bindingInput.doptCode
                             };
-    [CUHTTPRequest POST:bind parameters:paras response:^(id responseData) {
-        if (responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([dic[@"code"] isEqualToString:@"200"]) {
+    [CUHTTPRequest POST:bind parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBinded"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+            NSString *isPush = [defaults objectForKey:@"isPush"];
+            
+            if (isPush) {
                 
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isBinded"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                               message:@"车辆绑定成功,是否跳转实名制页面"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
                 
-                NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-                NSString *isPush = [defaults objectForKey:@"isPush"];
-              
-                if (isPush) {
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    //响应事件
+                    //跳实名制vin
+                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                    vc.vin=_carInfo.vin;
+                    vc.isSuccess = @"1";
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
                     
-                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-                    message:@"车辆绑定成功,是否跳转实名制页面"
-                    preferredStyle:UIAlertControllerStyleAlert];
+                }];
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] -3)] animated:YES];
                     
-                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        //响应事件
-                        //跳实名制vin
-                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-                        vc.vin=_carInfo.vin;
-                        vc.isSuccess = @"1";
-                        vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                    }];
-                    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                      [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] -3)] animated:YES];
-                        
-                    }];
-                    [alert addAction:defaultAction];
-                    [alert addAction:cancelAction];
-                    [self presentViewController:alert animated:YES completion:nil];
-                    
-                }else
-                {
-                    NSLog(@"是从MineViewController过来的页面");
-                    [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
-                    
-                }
+                }];
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+                [self presentViewController:alert animated:YES completion:nil];
                 
-//                NSArray *viewControllers = self.navigationController.viewControllers;
-//                [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    if ([obj isKindOfClass:[HomeViewController class]]) {
-//                        NSLog(@"是从HomeViewController过来的页面");
-//                        RNRViewController *vc=[[RNRViewController alloc] init];
-//                        vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
-//                    }
-//                    else
-//                    {
-//                        NSLog(@"是从MineViewController过来的页面");
-//                        [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
-//                    }
-//                }];
+            }else
+            {
+                NSLog(@"是从MineViewController过来的页面");
+                [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
+                
             }
             
-            else {
-                [MBProgressHUD showText:dic[@"msg"]];
-            }
-        } else {
-            [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+            //                NSArray *viewControllers = self.navigationController.viewControllers;
+            //                [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            //                    if ([obj isKindOfClass:[HomeViewController class]]) {
+            //                        NSLog(@"是从HomeViewController过来的页面");
+            //                        RNRViewController *vc=[[RNRViewController alloc] init];
+            //                        vc.hidesBottomBarWhenPushed = YES;
+            //                        [self.navigationController pushViewController:vc animated:YES];
+            //                    }
+            //                    else
+            //                    {
+            //                        NSLog(@"是从MineViewController过来的页面");
+            //                        [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
+            //                    }
+            //                }];
         }
+        
+        else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
-    
-    
+
 }
 
 - (void)seriesLabelTap:(UITapGestureRecognizer *)sender {

@@ -111,7 +111,7 @@
     [logoView makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.width.equalTo(131 * WidthCoefficient);
-        make.height.equalTo(99.5 * HeightCoefficient);
+        make.height.equalTo(99.5 * WidthCoefficient);
         make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
     }];
     
@@ -324,9 +324,11 @@
                             @"userName": username,
                             @"userPassword": password
                             };
-    [CUHTTPRequest POST:telephoneLogin parameters:paras response:^(id responseData) {
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+    [CUHTTPRequest POST:telephoneLogin parameters:paras success:^(id responseData) {
+        //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        //        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+    } failure:^(NSInteger code) {
+        
     }];
 }
 
@@ -352,26 +354,23 @@
                 @"telephone":_phoneField.text,
                 @"randomCodeType":@"login"
                                         };
-                [CUHTTPRequest POST:getRandomCode parameters:paras response:^(id responseData) {
-                    if (responseData) {
-                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                        // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                            [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-                            
-                            _phoneCodeField.text = dic[@"data"];
-                            
-                        } else {
-                            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                            hud.label.text = [dic objectForKey:@"msg"];
-                            [hud hideAnimated:YES afterDelay:1];
-                        }
+                [CUHTTPRequest POST:getRandomCode parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
+                        
+                        _phoneCodeField.text = dic[@"data"];
+                        
                     } else {
                         MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                        hud.label.text = NSLocalizedString(@"获取验证码失败", nil);
+                        hud.label.text = [dic objectForKey:@"msg"];
                         [hud hideAnimated:YES afterDelay:1];
                     }
-                    
+                } failure:^(NSInteger code) {
+                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"获取验证码失败", nil),code];
+                    [hud hideAnimated:YES afterDelay:1];
                 }];
                 
                 __block NSInteger time = 59; //倒计时时间
@@ -468,27 +467,23 @@
                                             
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                    [CUHTTPRequest POST:telephoneLogins parameters:paras response:^(id responseData) {
-                        if (responseData) {
-                            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                            LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                            if ([result.code isEqualToString:@"200"]) {
-                                
-                                [hud hideAnimated:YES];
-                                TabBarController *tabVC = [[TabBarController alloc] init];
-                                [self presentViewController:tabVC animated:NO completion:nil];
-                                
-                            }
-                            else {
-                                [hud hideAnimated:YES];
-                                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-                             
-                            }
+                    [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                        if ([result.code isEqualToString:@"200"]) {
+                            
+                            [hud hideAnimated:YES];
+                            TabBarController *tabVC = [[TabBarController alloc] init];
+                            [self presentViewController:tabVC animated:NO completion:nil];
                         }
                         else {
                             [hud hideAnimated:YES];
-                            [MBProgressHUD showText:NSLocalizedString(@"请求失败", nil)];
+                            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                            
                         }
+                    } failure:^(NSInteger code) {
+                        [hud hideAnimated:YES];
+                        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
                     }];
                 }
             }
@@ -510,25 +505,23 @@
                                             @"userPassword": [_passWordField.text md5String]
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                    [CUHTTPRequest POST:userNameLogins parameters:paras response:^(id responseData) {
-                        if (responseData) {
-                            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                        
+                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                        if ([result.code isEqualToString:@"200"]) {
                             
-                            LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                            if ([result.code isEqualToString:@"200"]) {
-                                
-                                [hud hideAnimated:YES];
-                                TabBarController *tabVC = [[TabBarController alloc] init];
-                                [self presentViewController:tabVC animated:NO completion:nil];
-                                
-                            } else {
-                                hud.label.text = [dic objectForKey:@"msg"];
-                                [hud hideAnimated:YES afterDelay:1];
-                            }
+                            [hud hideAnimated:YES];
+                            TabBarController *tabVC = [[TabBarController alloc] init];
+                            [self presentViewController:tabVC animated:NO completion:nil];
+                            
                         } else {
-                            hud.label.text = NSLocalizedString(@"请求失败", nil);
+                            hud.label.text = [dic objectForKey:@"msg"];
                             [hud hideAnimated:YES afterDelay:1];
                         }
+                    } failure:^(NSInteger code) {
+                        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                        [hud hideAnimated:YES afterDelay:1];
                     }];
                     
                 }

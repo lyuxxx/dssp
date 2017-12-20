@@ -214,6 +214,7 @@
         }];
         
         self.btnContainer = [[NoResponseView alloc] init];
+        _btnContainer.layer.cornerRadius = 4;
         _btnContainer.backgroundColor = [UIColor whiteColor];
         _btnContainer.layer.shadowOffset = CGSizeMake(0, 4);
         _btnContainer.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;

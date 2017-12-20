@@ -165,26 +165,23 @@
 }
 
 - (void)getWifiInfo {
-  
-    [CUHTTPRequest POST:getWifi parameters:@{} response:^(id responseData) {
-        if (responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"%@",dic);
-             NSLog(@"123%@", [dic objectForKey:@"msg"]);
-          
-            if ([dic[@"code"] isEqualToString:@"200"]) {
-                NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
-                NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
-                _wifiLabel.text = wifiSsid;
-                _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword?wifiPassword:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
-                
-            } else {
-//                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
-                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-            }
+    [CUHTTPRequest POST:getWifi parameters:@{} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"%@",dic);
+        NSLog(@"123%@", [dic objectForKey:@"msg"]);
+        
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
+            NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
+            _wifiLabel.text = wifiSsid;
+            _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword?wifiPassword:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+            
         } else {
-            [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];
+            //                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
+            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
         }
+    } failure:^(NSInteger code) {
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code]];
     }];
 }
 
@@ -193,21 +190,19 @@
                             @"wifiPassword": password
                             };
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:setWifi parameters:paras response:^(id responseData) {
-        if (responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            BOOL setFinish = [dic[@"data"] boolValue];
-            if (setFinish) {
-                hud.label.text = dic[@"msg"];
-                [hud hideAnimated:YES afterDelay:1];
-            } else {
-                hud.label.text = NSLocalizedString(@"修改失败", nil);
-                [hud hideAnimated:YES];
-            }
-        } else {
-            hud.label.text = NSLocalizedString(@"连接失败", nil);
+    [CUHTTPRequest POST:setWifi parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        BOOL setFinish = [dic[@"data"] boolValue];
+        if (setFinish) {
+            hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
+        } else {
+            hud.label.text = NSLocalizedString(@"修改失败", nil);
+            [hud hideAnimated:YES];
         }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 

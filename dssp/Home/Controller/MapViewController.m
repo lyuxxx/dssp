@@ -18,11 +18,14 @@
 #import "MapSearchHistory.h"
 #import "POISendBtn.h"
 #import "FavoritesViewController.h"
+#import <CUAlertController.h>
 
 @interface MapViewController () <MAMapViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) LocationAnnotationView *locationAnnotationView;
+
+@property (nonatomic, strong) UIView *shade;
 
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UITextField *tmpField;
@@ -149,7 +152,7 @@
     self.favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_favoriteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_favoriteBtn setImage:[UIImage imageNamed:@"favoritesfolder"] forState:UIControlStateNormal];
-    [self.view addSubview:_favoriteBtn];
+    [self.mapView addSubview:_favoriteBtn];
     [_favoriteBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(48 * WidthCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
@@ -159,7 +162,7 @@
     self.carLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_carLocationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_carLocationBtn setImage:[UIImage imageNamed:@"location_car"] forState:UIControlStateNormal];
-    [self.view addSubview:_carLocationBtn];
+    [self.mapView addSubview:_carLocationBtn];
     [_carLocationBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.height.equalTo(_favoriteBtn);
         make.top.equalTo(_favoriteBtn.bottom).offset(7.5 * HeightCoefficient);
@@ -169,7 +172,7 @@
     [_locationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_locationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_locationBtn setImage:[UIImage imageNamed:@"map_location"] forState:UIControlStateNormal];
-    [self.view addSubview:_locationBtn];
+    [self.mapView addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.height.equalTo(_carLocationBtn);
         make.top.equalTo(_carLocationBtn.bottom).offset(7.5 * HeightCoefficient);
@@ -383,6 +386,19 @@
     if (sender == _infoFenceBtn) {
         
     }
+    if ([sender isKindOfClass:[POISendBtn class]]) {
+        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+        NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
+        [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
+        CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"mobile-phone-2"] attributedMessage:message];
+        [alert addButtonWithTitle:@"取消" type:CUButtonTypeCancel clicked:^{
+            
+        }];
+        [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
+            
+        }];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)getUserLocation {
@@ -428,7 +444,24 @@
     return str;
 }
 
+- (void)showShade {
+    if (!_shade) {
+        _shade = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _shade.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+        [self.view addSubview:_shade];
+        [self.view insertSubview:_shade aboveSubview:self.mapView];
+    }
+}
+
+- (void)hideShade {
+    if (_shade) {
+        [_shade removeFromSuperview];
+        _shade = nil;
+    }
+}
+
 - (void)showSearchViewFromLeft:(BOOL)fromLeft animated:(BOOL)animated {
+    [self showShade];
     [self clear];
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:NO];
     [self initSearchView];
@@ -493,6 +526,7 @@
 }
 
 - (void)hideSearchView {
+    [self hideShade];
     [_searchField resignFirstResponder];
     _tmpField.hidden = NO;
     [_topBar updateConstraints:^(MASConstraintMaker *make) {
@@ -566,12 +600,12 @@
     }];
     
     UIView *infoTop = [[UIView alloc] init];
+    infoTop.backgroundColor = [UIColor whiteColor];
     infoTop.layer.cornerRadius = 1;
     infoTop.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
     infoTop.layer.shadowOffset = CGSizeMake(0, 5);
     infoTop.layer.shadowOpacity = 0.5;
     infoTop.layer.shadowRadius = 15;
-    infoTop.backgroundColor = [UIColor whiteColor];
     [_infoView addSubview:infoTop];
     [infoTop makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(_infoView);
@@ -606,6 +640,7 @@
     }];
     
     POISendBtn *sendPOIBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
+    [sendPOIBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [sendPOIBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
     [_infoView addSubview:sendPOIBtn];
     [sendPOIBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -615,12 +650,12 @@
     }];
     
     UIView *infoBot = [[UIView alloc] init];
+    infoBot.backgroundColor = [UIColor whiteColor];
     infoBot.layer.cornerRadius = 1;
     infoBot.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
     infoBot.layer.shadowOffset = CGSizeMake(0, 5);
     infoBot.layer.shadowOpacity = 0.5;
     infoBot.layer.shadowRadius = 15;
-    infoBot.backgroundColor = [UIColor whiteColor];
     [_infoView addSubview:infoBot];
     [infoBot makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(_infoView);
@@ -778,20 +813,20 @@
     if ([annotation isKindOfClass:[MAUserLocation class]])
     {
         return nil;
-        static NSString *userLocationStyleReuseIdetifier = @"userLocationStyleReuseIndetifier";
-        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:userLocationStyleReuseIdetifier];
-        if (annotationView == nil)
-        {
-            annotationView = [[LocationAnnotationView alloc] initWithAnnotation:annotation
-                                                                reuseIdentifier:userLocationStyleReuseIdetifier];
-            
-            annotationView.canShowCallout = YES;
-        }
-        
-        _locationAnnotationView = (LocationAnnotationView *)annotationView;
-        [_locationAnnotationView updateImage:[UIImage imageNamed:@"gps_icon"]];
-        
-        return annotationView;
+//        static NSString *userLocationStyleReuseIdetifier = @"userLocationStyleReuseIndetifier";
+//        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:userLocationStyleReuseIdetifier];
+//        if (annotationView == nil)
+//        {
+//            annotationView = [[LocationAnnotationView alloc] initWithAnnotation:annotation
+//                                                                reuseIdentifier:userLocationStyleReuseIdetifier];
+//
+//            annotationView.canShowCallout = YES;
+//        }
+//
+//        _locationAnnotationView = (LocationAnnotationView *)annotationView;
+//        [_locationAnnotationView updateImage:[UIImage imageNamed:@"gps_icon"]];
+//
+//        return annotationView;
     }
     if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
         static NSString *tipId = @"tipId";
@@ -820,6 +855,11 @@
     if (!_topBar) {
         _topBar = [[UIView alloc] init];
         _topBar.backgroundColor = [UIColor whiteColor];
+        _topBar.layer.cornerRadius = 2;
+        _topBar.layer.shadowColor = [UIColor colorWithHexString:@"#e7e7e7"].CGColor;
+        _topBar.layer.shadowOffset = CGSizeMake(0, -1.5);
+        _topBar.layer.shadowRadius = 15;
+        _topBar.layer.shadowOpacity = 0.5;
     }
     return _topBar;
 }

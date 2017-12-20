@@ -649,14 +649,12 @@
                             @"userName": @"",
                             @"Vin": @""
                             };
-    [CUHTTPRequest POST:queryCustByMobile parameters:paras response:^(id responseData) {
-        if (responseData) {
-            
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                 _certificationStatus=[dic[@"data"] objectForKey:@"certificationStatus"];
-            }
-    }
+    [CUHTTPRequest POST:queryCustByMobile parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            _certificationStatus=[dic[@"data"] objectForKey:@"certificationStatus"];
+        }
+    } failure:^(NSInteger code) {
         
     }];
 }

@@ -156,24 +156,22 @@
     
     NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
     
-    [CUHTTPRequest POST:receivernrInfo parameters:dic response:^(id responseData) {
-        if (responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"666%@",dic);
-            if ([dic[@"code"] isEqualToString:@"200"]) {
-                RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-                vc.codeName = dic[@"code"];
-                [self.navigationController pushViewController:vc animated:YES];
-            }else if ([dic[@"code"] isEqualToString:@"201"]) {
-                RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-                vc.codeName = dic[@"code"];
-                [self.navigationController pushViewController:vc animated:YES];
-            }else {
-                [MBProgressHUD showText:dic[@"msg"]];
-            }
-        } else {
-            [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];
+    [CUHTTPRequest POST:receivernrInfo parameters:dic success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"666%@",dic);
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+            vc.codeName = dic[@"code"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if ([dic[@"code"] isEqualToString:@"201"]) {
+            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+            vc.codeName = dic[@"code"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            [MBProgressHUD showText:dic[@"msg"]];
         }
+    } failure:^(NSInteger code) {
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code]];
     }];
     
 }

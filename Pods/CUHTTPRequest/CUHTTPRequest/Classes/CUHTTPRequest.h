@@ -33,144 +33,166 @@
 
 /**
  GET请求，请求普通接口(客户端请求开始连接，服务器返回数据结束连接)
- 
+
  @param URL 请求的URL
  @param parameters 请求的参数
- @param response 响应的结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)GET:(NSString *)URL
  parameters:(id)parameters
-   response:(void (^)(id responseData))response;
+    success:(void (^)(id responseData))success
+    failure:(void (^)(NSInteger code))failure;
 
 /**
- GET下载文件
- 
+  GET下载文件
+
  @param URL 下载的文件的URL
  @param parameters 请求的参数
  @param filePath 文件夹的路径(不包括具体文件,会覆盖,请分清楚文件夹的路径和具体文件)
- @param response 响应的结果,返回的下载的文件的路径
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)GETDownload:(NSString *)URL
          parameters:(id)parameters
            filePath:(NSString *)filePath
-           response:(void (^)(id responseData))response;
+            success:(void (^)(id responseData))success
+            failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --HEAD--
 
 /**
- HEAD请求，请求普通接口(客户端请求开始连接，服务器返回数据结束连接)
- 
+  HEAD请求，请求普通接口(客户端请求开始连接，服务器返回数据结束连接)
+
  @param URL 请求的URL
  @param parameters 请求的参数
- @param response 响应的结果,(数据的描述)
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)HEAD:(NSString *)URL
   parameters:(id)parameters
-    response:(void (^)(id responseData))response;
+     success:(void (^)(id responseData))success
+     failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --PUT--
 
 /**
- PUT请求，请求普通接口(客户端请求开始连接,服务器返回数据结束连接)
- 
+  PUT请求，请求普通接口(客户端请求开始连接,服务器返回数据结束连接)
+
  @param URL 请求的URL
  @param parameters 请求的参数
- @param response 响应的结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)PUT:(NSString *)URL
  parameters:(id)parameters
-   response:(void (^)(id responseData))response;
+    success:(void (^)(id responseData))success
+    failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --PATCH--
 
 /**
- PATCH请求，请求普通接口(客户端请求开始连接,服务器返回数据结束连接)
- 
+  PATCH请求，请求普通接口(客户端请求开始连接,服务器返回数据结束连接)
+
  @param URL 请求的URL
  @param parameters 请求的参数
- @param response 响应的结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)PATCH:(NSString *)URL
    parameters:(id)parameters
-     response:(void (^)(id responseData))response;
+      success:(void (^)(id responseData))success
+      failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --DELETE--
 
 /**
- DELETE请求,请求普通接口(客户端请求开始连接，服务器返回数据结束连接)
- 
+  DELETE请求,请求普通接口(客户端请求开始连接，服务器返回数据结束连接)
+
  @param URL 请求的URL
  @param parameters 请求的参数
- @param response 响应的结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)DELETE:(NSString *)URL
     parameters:(id)parameters
-      response:(void (^)(id responseData))response;
+       success:(void (^)(id responseData))success
+       failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --POST--
 
 /**
  POST请求,请求普通接口(客户端请求开始连接,服务器返回数据结束连接)
- 
+
  @param URL 请求的URL
  @param parameters 请求的参数
- @param response 响应的结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)POST:(NSString *)URL
   parameters:(id)parameters
-    response:(void (^)(id responseData))response;
+     success:(void (^)(id responseData))success
+     failure:(void (^)(NSInteger code))failure;
 
 /**
  POST请求上传图片,MP3,视频,文件
- 
+
  @param URL 上传的URL
  @param parameters 上传的参数
  @param uploadType 上传的是图片还是视频
  @param arrayData 装的NSData对象 @[NSData *]
- @param response 响应的结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)POSTUpload:(NSString *)URL
         parameters:(id)parameters
         uploadType:(CUHTTPNetworkUploadDownloadType)uploadType
          dataArray:(NSArray<NSData *> *)arrayData
-          response:(void (^)(id responseData))response;
+           success:(void (^)(id responseData))success
+           failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --断点上传--
 
 /**
  Upload断点上传
- 
+
  @param URL 上传的URL
  @param uploadData 文件的二进制流
- @param response 上传的响应结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)upload:(NSString *)URL
     uploadData:(NSData *)uploadData
-       reponse:(void (^)(id responseData))response;
+       success:(void (^)(id responseData))success
+       failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --下载--
 
 /**
  download普通下载
- 
+
  @param URL 下载的URL
  @param filePath 下载到沙盒中文件的位置
- @param response 下载的响应结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)download:(NSString *)URL
         filePath:(NSString *)filePath
-        response:(void (^)(id responseData))response;
+         success:(void (^)(id responseData))success
+         failure:(void (^)(NSInteger code))failure;
 
 /**
  断点下载,过程:先进行普通下载,然后不可以调用cancel方法,要用cacelByProducingResumeData方法,接收下载时的详细数据保存:http://blog.csdn.net/majiakun1/article/details/38133789
- 
+
  @param data 断点下载中需要恢复下载的数据
  @param filePath 下载到沙盒中文件的位置
- @param response 下载的响应结果
+ @param success 成功回调
+ @param failure 失败回调
  */
 + (void)downloadBreakpoint:(NSData *)data
                   filePath:(NSString *)filePath
-                  response:(void (^)(id responseData))response;
+                   success:(void (^)(id responseData))success
+                   failure:(void (^)(NSInteger code))failure;
 
 #pragma mark --NSURLSessionTask相关--
 

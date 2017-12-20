@@ -13,13 +13,14 @@ target 'dssp' do
   pod 'KVOController'
   pod 'IQKeyboardManager'
   pod 'YYText'
-  pod 'MJRefresh'
   pod 'TBActionSheet'
   pod 'RTRootNavigationController'
   pod 'FMDB/SQLCipher'
   pod 'LKDBHelper'
   pod 'CocoaLumberjack'
   pod 'GTSDK'
+  pod 'MJRefresh'
+  pod 'MGSwipeTableCell'
   
   # internal pod
   pod 'CUHTTPRequest'
@@ -27,6 +28,7 @@ target 'dssp' do
   pod 'UIImageViewSDWebImage'
   pod 'YYCategoriesSub'
   pod 'MapManager', :git => 'http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git', :tag => '0.1.10'
+  pod 'CUAlertController'
 
   target 'dsspUITests' do
     inherit! :search_paths

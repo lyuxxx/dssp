@@ -292,20 +292,18 @@
             
             NSLog(@"6666%@",paras);
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-            [CUHTTPRequest POST:registerUrl parameters:paras response:^(id responseData) {
-                if (responseData) {
-                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        [hud hideAnimated:YES];
-                        [self registerSuccess];
-                    } else {
-                        hud.label.text = [dic objectForKey:@"msg"];
-                        [hud hideAnimated:YES afterDelay:1];
-                    }
+            [CUHTTPRequest POST:registerUrl parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    [hud hideAnimated:YES];
+                    [self registerSuccess];
                 } else {
-                    hud.label.text = NSLocalizedString(@"请求失败", nil);
+                    hud.label.text = [dic objectForKey:@"msg"];
                     [hud hideAnimated:YES afterDelay:1];
                 }
+            } failure:^(NSInteger code) {
+                hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                [hud hideAnimated:YES afterDelay:1];
             }];
         } else {
             if (_attentionImgV.hidden == NO) {
@@ -341,22 +339,20 @@
                         @"telephone":_phoneField.text,
                         @"randomCodeType":@"register"
                                         };
-                [CUHTTPRequest POST:getRandomCode parameters:paras response:^(id responseData) {
-                    if (responseData) {
-                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                            [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-                            _authField.text = dic[@"data"];
-                        } else {
-                            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                            hud.label.text = [dic objectForKey:@"msg"];
-                            [hud hideAnimated:YES afterDelay:1];
-                        }
+                [CUHTTPRequest POST:getRandomCode parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
+                        _authField.text = dic[@"data"];
                     } else {
                         MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                        hud.label.text = NSLocalizedString(@"获取验证码失败", nil);
+                        hud.label.text = [dic objectForKey:@"msg"];
                         [hud hideAnimated:YES afterDelay:1];
                     }
+                } failure:^(NSInteger code) {
+                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"获取验证码失败", nil),code];
+                    [hud hideAnimated:YES afterDelay:1];
                 }];
                 __block NSInteger time = 59; //倒计时时间
                 dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
