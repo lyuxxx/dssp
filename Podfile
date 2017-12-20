@@ -20,7 +20,6 @@ target 'dssp' do
   pod 'LKDBHelper'
   pod 'CocoaLumberjack'
   pod 'GTSDK'
-  pod 'ZXScrollPageView'
   
   # internal pod
   pod 'CUHTTPRequest'
