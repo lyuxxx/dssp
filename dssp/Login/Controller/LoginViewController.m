@@ -472,6 +472,12 @@
                         LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                         if ([result.code isEqualToString:@"200"]) {
                             
+                            NSDictionary *dic1 =dic[@"data"];
+                            NSString *str=dic1[@"userName"];
+                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                            [defaults setObject:str forKey:@"userName"];
+                            [defaults synchronize];
+                            
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [self presentViewController:tabVC animated:NO completion:nil];

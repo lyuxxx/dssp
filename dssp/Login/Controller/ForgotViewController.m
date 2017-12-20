@@ -163,7 +163,7 @@
                                         @"telephone":_phoneField.text,
                                         @"randomCodeType":@"login"
                                         };
-                [CUHTTPRequest POST:verificationMobile parameters:paras success:^(id responseData) {
+                [CUHTTPRequest POST:getRandomCode parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
@@ -251,7 +251,7 @@
                                         
                                         };
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {
+                [CUHTTPRequest POST:verificationMobile parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     //                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                     if ([dic[@"code"] isEqualToString:@"200"]) {

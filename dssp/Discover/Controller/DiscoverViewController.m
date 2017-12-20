@@ -69,6 +69,12 @@
                               NSLocalizedString(@"订阅", nil),
                            
                               ];
+    NSArray *imgArray = @[
+                              NSLocalizedString(@"通知_icon", nil),
+                              NSLocalizedString(@"订阅_icon", nil),
+                              
+                              ];
+    
     UIButton *lastBtn = nil;
     UIImageView *lastimg = nil;
     UILabel *lastLabel = nil;
@@ -90,7 +96,7 @@
         imgV.layer.cornerRadius = 36 * HeightCoefficient/2;
         imgV.layer.masksToBounds =YES;
         imgV.backgroundColor=[UIColor redColor];
-        imgV.image = [UIImage imageNamed:@"Image_head"];
+        imgV.image = [UIImage imageNamed:imgArray[i]];
         [_noticeBtn addSubview:imgV];
        
         
