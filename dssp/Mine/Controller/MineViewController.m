@@ -426,16 +426,19 @@
         
         if (indexPath.row == 0) {
             
-            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
+            
+            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+           
             
             
         }else if (indexPath.row == 1)
         {
-            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+           
             
 //            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]) {
 //
@@ -491,6 +494,8 @@
         }else if (indexPath.row == 4)
         {
             
+            
+            
             AccountViewController *vc=[[AccountViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -506,10 +511,30 @@
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                //响应事件
-                LoginViewController *vc=[[LoginViewController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+                
+                NSDictionary *paras = @{
+                                     
+                                        };
+                
+                
+                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [hud hideAnimated:YES];
+                        //响应事件
+                        LoginViewController *vc=[[LoginViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    } else {
+                         [MBProgressHUD showText:dic[@"msg"]];
+                    }
+                } failure:^(NSInteger code) {
+                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
+                
+        
                 
             }];
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {

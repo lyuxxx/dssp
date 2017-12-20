@@ -60,7 +60,7 @@
 - (ZXCategorySliderBar *)sliderBar
 {
     if (!_sliderBar) {
-        _sliderBar = [[ZXCategorySliderBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _sliderBar = [[ZXCategorySliderBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40*HeightCoefficient)];
         _sliderBar.delegate = self;
     }
     return _sliderBar;
@@ -70,7 +70,7 @@
 {
     if (!_pageVC) {
          CGFloat height =  kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
-        _pageVC = [[ZXPageCollectionView alloc]initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, height-40)];
+        _pageVC = [[ZXPageCollectionView alloc]initWithFrame:CGRectMake(0, 40*HeightCoefficient, self.view.frame.size.width, height)];
         _pageVC.dataSource = self;
         _pageVC.delegate = self;
         _pageVC.mainScrollView.bounces = NO;
@@ -101,10 +101,11 @@
 - (void)ZXPageViewDidEndChangeIndex:(ZXPageCollectionView *)pageView currentView:(UIView *)view{
     NSLog(@"=====%s=====", __func__);
     //滚动结束后加载页面
-    //    childVIew *cv = (childVIew *)view;
-    //    if (cv.dataArray.count == 0) {
-    //        [cv fetchData];
-    //    }
+        childVIew *cv = (childVIew *)view;
+        if (cv.dataArray.count == 0) {
+            [cv fetchData];
+        }
+   
     [self.sliderBar setSelectIndex:pageView.currentIndex];
 }
 

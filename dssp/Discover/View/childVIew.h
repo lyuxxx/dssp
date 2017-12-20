@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface childVIew : UIView
+@interface childVIew : UIView<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, assign) NSInteger index;
-
+@property (nonatomic,strong) UITableView *tableView;
 - (void)fetchData;
 
 @end

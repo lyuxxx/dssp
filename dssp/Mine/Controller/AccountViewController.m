@@ -222,7 +222,30 @@
         }
         else
         {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *userName = [defaults objectForKey:@"userName"];
             
+            NSDictionary *paras = @{
+                                    @"userName":userName,
+                                    @"newPassword":_newsPasswordField.text,
+                                    @"password":_originalField.text
+
+                                    };
+            
+            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+            [CUHTTPRequest POST:resetPWD parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    [hud hideAnimated:YES];
+                    //响应事件
+                    [MBProgressHUD showText:NSLocalizedString(@"密码修改成功", nil)];
+                } else {
+                    [MBProgressHUD showText:dic[@"msg"]];
+                }
+            } failure:^(NSInteger code) {
+                hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                [hud hideAnimated:YES afterDelay:1];
+            }];
             
         }
         

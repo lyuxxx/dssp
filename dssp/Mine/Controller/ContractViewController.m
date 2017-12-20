@@ -12,8 +12,12 @@
 #import "CarInfoModel.h"
 #import <CUHTTPRequest.h>
 #import "ContractCell.h"
+#import "ContractModel.h"
 @interface ContractViewController ()
 <UITableViewDataSource,UITableViewDelegate>
+{
+    ContractModel *contract;
+}
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
@@ -29,8 +33,32 @@
     // Do any additional setup after loading the view.
     
      self.navigationItem.title = NSLocalizedString(@"合同服务", nil);
-//    [self setupUI];
+    [self requestData];
     [self initTableView];
+}
+
+-(void)requestData
+{
+    
+    NSDictionary *paras = @{
+                            @"vin": @"LPACAPSA031431810"
+                            };
+
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:queryContract parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            //响应事件
+           
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
 }
 
 
@@ -66,7 +94,7 @@
     if (cell == nil) {
         cell = [[ContractCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    
+     cell.contractModel=contract;
 //    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
 //    cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
 //    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
@@ -78,7 +106,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,11 +114,8 @@
     return 215*HeightCoefficient;
 }
 
-
-
 -(void)setupUI
 {
-    
     self.navigationItem.title = NSLocalizedString(@"合同服务", nil);
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
@@ -293,8 +318,6 @@
         }
         lastLabels = label;
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {

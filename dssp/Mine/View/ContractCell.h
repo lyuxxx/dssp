@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ContractModel.h"
 @interface ContractCell : UITableViewCell
-
+@property (nonatomic, strong) ContractModel *contractModel;
+@property (nonatomic,strong) UILabel *moneyLabel;
 @end

@@ -54,6 +54,7 @@
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
@@ -186,6 +187,8 @@
 		31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
+		450AF16D1FE9F9B900E48445 /* SubscriCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriCell.h; sourceTree = "<group>"; };
+		450AF16E1FE9F9B900E48445 /* SubscriCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriCell.m; sourceTree = "<group>"; };
 		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				455974761FE8ECE700D7910A /* childVIew.m */,
 				455974661FE8EAB300D7910A /* NoticeCell.h */,
 				455974671FE8EAB300D7910A /* NoticeCell.m */,
+				450AF16D1FE9F9B900E48445 /* SubscriCell.h */,
+				450AF16E1FE9F9B900E48445 /* SubscriCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -924,6 +929,7 @@
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,
+				450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,
 				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,

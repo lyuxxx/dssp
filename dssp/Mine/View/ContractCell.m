@@ -45,7 +45,7 @@
     
     UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    testdriveBtn.layer.cornerRadius = 10;
+    testdriveBtn.layer.cornerRadius = 20 * HeightCoefficient/2;
     [testdriveBtn setTitle:NSLocalizedString(@"试驾", nil) forState:UIControlStateNormal];
     [testdriveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     testdriveBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
@@ -72,13 +72,15 @@
     
     
     NSArray<NSString *> *titles = @[
+                                  
                                     NSLocalizedString(@"开始时间:", nil),
                                     NSLocalizedString(@"结束时间:", nil),
                                     NSLocalizedString(@"支付方式:", nil),
                                     NSLocalizedString(@"支付时间:", nil),
                                     NSLocalizedString(@"支付金额:", nil)
+
                                     ];
-    
+
     
     UILabel *lastLabel = nil;
     UIView *lastView =nil;
@@ -184,13 +186,13 @@
             
         }else if (i == 4) {
             
-            UILabel *moneyLabel = [[UILabel alloc] init];
-            moneyLabel.text = @"¥300";
-            moneyLabel.textAlignment = NSTextAlignmentLeft;
-            moneyLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
-            moneyLabel.font = [UIFont fontWithName:FontName size:15];
-            [whiteV addSubview:moneyLabel];
-            [moneyLabel makeConstraints:^(MASConstraintMaker *make) {
+            _moneyLabel = [[UILabel alloc] init];
+//            _moneyLabel.text = @"¥300";
+            _moneyLabel.textAlignment = NSTextAlignmentLeft;
+            _moneyLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            _moneyLabel.font = [UIFont fontWithName:FontName size:15];
+            [whiteV addSubview:_moneyLabel];
+            [_moneyLabel makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(85 * WidthCoefficient);
                 make.height.equalTo(20 * HeightCoefficient);
                 make.left.equalTo(0);
@@ -200,7 +202,13 @@
         }
     }
 }
+
+
+-(void)setContractModel:(ContractModel *)contractModel
+{
+//    _moneyLabel.text =contractModel.contractMoney;
     
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
