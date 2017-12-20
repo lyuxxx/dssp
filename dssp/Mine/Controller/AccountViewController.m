@@ -243,55 +243,6 @@
 //    [self modifyWifiWithPassword:_passwordField.text];
 //}
 
-- (void)getWifiInfo {
-    
-    [CUHTTPRequest POST:getWifi parameters:@{} response:^(id responseData) {
-        if (responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"%@",dic);
-            NSLog(@"123%@", [dic objectForKey:@"msg"]);
-            
-            if ([dic[@"code"] isEqualToString:@"200"]) {
-                NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
-                NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
-                
-                //                _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword?wifiPassword:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
-                
-            } else {
-                //                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
-                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-            }
-        } else {
-            [MBProgressHUD showText:NSLocalizedString(@"连接失败", nil)];
-        }
-    }];
-}
-
-- (void)modifyWifiWithPassword:(NSString *)password {
-    NSDictionary *paras = @{
-                            @"wifiPassword": password
-                            };
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:setWifi parameters:paras response:^(id responseData) {
-        if (responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            BOOL setFinish = [dic[@"data"] boolValue];
-            if (setFinish) {
-                hud.label.text = dic[@"msg"];
-                [hud hideAnimated:YES afterDelay:1];
-            } else {
-                hud.label.text = NSLocalizedString(@"修改失败", nil);
-                [hud hideAnimated:YES];
-            }
-        } else {
-            hud.label.text = NSLocalizedString(@"连接失败", nil);
-            [hud hideAnimated:YES afterDelay:1];
-        }
-    }];
-}
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
