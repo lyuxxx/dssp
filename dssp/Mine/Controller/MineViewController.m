@@ -204,7 +204,7 @@
     
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud"];
+    bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
     [_headerView addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -254,7 +254,7 @@
     
     //头像
     self.photoBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    [_photoBtn setImage:selfPhoto?selfPhoto:[UIImage imageNamed:@"Image_head"] forState:UIControlStateNormal];
+    [_photoBtn setImage:selfPhoto?selfPhoto:[UIImage imageNamed:@"avatar"] forState:UIControlStateNormal];
     [_photoBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     _photoBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
     _photoBtn.clipsToBounds=YES;
@@ -285,12 +285,14 @@
 
     
     UIImageView *locationImg = [[UIImageView alloc] init];
-    locationImg.image = [UIImage imageNamed:@"location"];
+    locationImg.contentMode = UIViewContentModeScaleAspectFit;
+    locationImg.image = [UIImage imageNamed:@"location_mine"];
     [whiteView addSubview:locationImg];
     [locationImg makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(namelabel.bottom).offset(11.5*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
-        make.width.height.equalTo(12*WidthCoefficient);
+        make.width.equalTo(12 * WidthCoefficient);
+         make.height.equalTo(12 * HeightCoefficient);
     }];
 
     self.locationLabel= [[UILabel alloc] init];

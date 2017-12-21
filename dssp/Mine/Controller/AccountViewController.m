@@ -45,9 +45,9 @@
     }];
     
     UIImageView *imgV = [[UIImageView alloc] init];
-    imgV.layer.cornerRadius = 31/2;
+    imgV.layer.cornerRadius = 31 * WidthCoefficient / 2;
     imgV.layer.masksToBounds =YES;
-    imgV.image = [UIImage imageNamed:@"Image_head"];
+    imgV.image = [UIImage imageNamed:@"avatar"];
     [self.view addSubview:imgV];
     [imgV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(31 * WidthCoefficient);
@@ -59,7 +59,7 @@
     self.nameLabel = [[UILabel alloc] init];
     _nameLabel.textColor = [UIColor colorWithHexString:@"#C4B7A6"];
     _nameLabel.font = [UIFont fontWithName:FontName size:16];
-    _nameLabel.text = @"李晓明";
+    _nameLabel.text = @"XXXXXX";
     [self.view addSubview:_nameLabel];
     [_nameLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(imgV);

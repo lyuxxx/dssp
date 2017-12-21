@@ -188,11 +188,16 @@
 }
 
 - (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
-    direction = MGSwipeDirectionRightToLeft;
-    swipeSettings.transition = MGSwipeTransitionClipCenter;
-    //    expansionSettings.buttonIndex = 0;
-    //    expansionSettings.fillOnTrigger = YES;
-    return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+    
+    if (direction == MGSwipeDirectionRightToLeft) {
+        swipeSettings.transition = MGSwipeTransitionClipCenter;
+        //            expansionSettings.buttonIndex = 0;
+        //            expansionSettings.fillOnTrigger = YES;
+        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+    } else {
+        return nil;
+    }
+    
 }
 
 
