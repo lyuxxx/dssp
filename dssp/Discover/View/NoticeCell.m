@@ -51,8 +51,9 @@
         whiteV.layer.shadowOpacity = 0.5;
         [self.contentView addSubview:whiteV];
         [whiteV makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 8 * WidthCoefficient, 5 * WidthCoefficient, 8 * WidthCoefficient));
+            make.edges.equalTo(UIEdgeInsetsMake(10 * WidthCoefficient, 8 * WidthCoefficient, 0 * WidthCoefficient, 8 * WidthCoefficient));
             make.height.equalTo(100 * WidthCoefficient);
+           
         }];
         
         whiteV;

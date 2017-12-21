@@ -19,16 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
     [self initTableView];
    
 }
 
 -(void)initTableView
 {
-    
-    
-    
+
     _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.estimatedRowHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;

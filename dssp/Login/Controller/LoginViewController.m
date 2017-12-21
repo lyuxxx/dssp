@@ -145,7 +145,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-    _userNameField.text = @"15871707603";
+//    _userNameField.text = @"15871707603";
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
@@ -185,7 +185,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-     _passWordField.text = @"qinbo";
+//     _passWordField.text = @"qinbo";
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;

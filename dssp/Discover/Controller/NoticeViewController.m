@@ -121,7 +121,7 @@
     if (!cell) {
         cell = [[NoticeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-//    cell.backgroundColor=[UIColor redColor];
+    cell.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     return cell;

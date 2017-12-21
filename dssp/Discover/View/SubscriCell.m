@@ -38,7 +38,7 @@
     
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud"];
+    bgImgV.image = [UIImage imageNamed:@"cell_bg"];
     bgImgV.layer.cornerRadius = 6;
     bgImgV.layer.masksToBounds =YES;
     [whiteV addSubview:bgImgV];
@@ -55,7 +55,7 @@
     remindLabel.textAlignment = NSTextAlignmentLeft;
     remindLabel.textColor = [UIColor whiteColor];
     remindLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    remindLabel.text = NSLocalizedString(@"前卫驱动 精准操控", nil);
+    remindLabel.text = NSLocalizedString(@"", nil);
     [bgImgV addSubview:remindLabel];
     [remindLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
