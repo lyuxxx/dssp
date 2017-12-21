@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface NoticeCell : UITableViewCell
+#import <MGSwipeTableCell.h>
+@interface NoticeCell : MGSwipeTableCell
 
 @end

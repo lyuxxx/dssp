@@ -35,7 +35,7 @@
     
     self.navigationItem.title = NSLocalizedString(@"POI收藏夹", nil);
     [self createTable];
-    [self setupUI];
+//    [self setupUI];
 }
 
 - (void)viewDidLayoutSubviews {

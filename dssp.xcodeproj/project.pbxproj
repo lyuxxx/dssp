@@ -55,6 +55,7 @@
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
+		450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
@@ -189,6 +190,8 @@
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		450AF16D1FE9F9B900E48445 /* SubscriCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriCell.h; sourceTree = "<group>"; };
 		450AF16E1FE9F9B900E48445 /* SubscriCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriCell.m; sourceTree = "<group>"; };
+		450AF1721FEB502900E48445 /* PersonInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInViewController.h; sourceTree = "<group>"; };
+		450AF1731FEB502900E48445 /* PersonInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInViewController.m; sourceTree = "<group>"; };
 		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
@@ -568,6 +571,8 @@
 				4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */,
 				4559744E1FE77B1F00D7910A /* AccountViewController.h */,
 				4559744F1FE77B1F00D7910A /* AccountViewController.m */,
+				450AF1721FEB502900E48445 /* PersonInViewController.h */,
+				450AF1731FEB502900E48445 /* PersonInViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -905,6 +910,7 @@
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
+				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
 				455974741FE8EB0900D7910A /* ZXPageCollectionView.m in Sources */,
 				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
