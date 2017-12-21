@@ -86,12 +86,10 @@
 
 - (void)btnClick:(UIButton *)sender {
     if (sender.tag == 100) {
-        self.buttonItems[0].clicked();
         if (self.delegate && [self.delegate respondsToSelector:@selector(alertButtonClicked:)]) {
             [self.delegate alertButtonClicked:self.buttonItems[0].clicked];
         }
     } else {
-        self.buttonItems[1].clicked();
         if (self.delegate && [self.delegate respondsToSelector:@selector(alertButtonClicked:)]) {
             [self.delegate alertButtonClicked:self.buttonItems[1].clicked];
         }

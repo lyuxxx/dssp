@@ -25,7 +25,7 @@ PODS:
   - CocoaLumberjack/Default (3.3.0)
   - CocoaLumberjack/Extensions (3.3.0):
     - CocoaLumberjack/Default
-  - CUAlertController (0.1.0)
+  - CUAlertController (0.1.1)
   - CUHTTPRequest (0.1.6):
     - AFNetworking (~> 3.1.0)
   - CUProgressHUD (0.1.6):
@@ -48,7 +48,7 @@ PODS:
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MGSwipeTableCell (1.6.6)
-  - MJRefresh (3.1.10)
+  - MJRefresh (3.1.15.1)
   - RTRootNavigationController (0.6.4):
     - RTRootNavigationController/Core (= 0.6.4)
   - RTRootNavigationController/Core (0.6.4)
@@ -106,7 +106,7 @@ SPEC CHECKSUMS:
   AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
-  CUAlertController: 228658aaf002ab590a1c9b96cd786c87ebc2ff25
+  CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
   CUHTTPRequest: f20c18e38c56c15dec606e65e56eb41f68289126
   CUProgressHUD: d58424e4116a86b9ffb39deaf05797772b002bae
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
@@ -118,7 +118,7 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
-  MJRefresh: bb72948c985914b0b5cecac573a2c69a8915fb02
+  MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
   RTRootNavigationController: 4c969c21fc3e61ea3056e3f4346578569ed79b09
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   SQLCipher: 43d12c0eb9c57fb438749618fc3ce0065509a559
