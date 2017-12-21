@@ -233,7 +233,7 @@
         _searchField.rightViewMode = UITextFieldViewModeAlways;
         [_clearBtn makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(36 * WidthCoefficient);
-            make.height.equalTo(16 * WidthCoefficient);
+            make.height.equalTo(36 * WidthCoefficient);
         }];
         
         UIView *line = [[UIView alloc] init];
