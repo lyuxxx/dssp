@@ -25,6 +25,7 @@
 #import "CarUnbindViewController.h"
 #import "AccountViewController.h"
 #import "LoginViewController.h"
+#import <CUAlertController.h>
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -481,7 +482,6 @@
 //            }
         }else if (indexPath.row == 2)
         {
-            
             RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -495,31 +495,26 @@
             
         }else if (indexPath.row == 4)
         {
-            
-            
-            
             AccountViewController *vc=[[AccountViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-            
-            
         }
         
     }else if (indexPath.section == 1){
         
         if (indexPath.row==0) {
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                    message:@"是否退出登录！"
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否退出登录?" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
             
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
+            [alert addButtonWithTitle:@"是" type:CUButtonTypeCancel clicked:^{
+                
                 
                 NSDictionary *paras = @{
-                                     
+                                        
                                         };
                 
                 
-                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
@@ -529,23 +524,19 @@
                         vc.hidesBottomBarWhenPushed = YES;
                         [self.navigationController pushViewController:vc animated:YES];
                     } else {
-                         [MBProgressHUD showText:dic[@"msg"]];
+                        [MBProgressHUD showText:dic[@"msg"]];
                     }
                 } failure:^(NSInteger code) {
                     hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
                     [hud hideAnimated:YES afterDelay:1];
                 }];
                 
-        
                 
             }];
-            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [alert addButtonWithTitle:@"否" type:CUButtonTypeNormal clicked:^{
                 
             }];
-            [alert addAction:defaultAction];
-            [alert addAction:cancelAction];
             [self presentViewController:alert animated:YES completion:nil];
-            
             
         }
         

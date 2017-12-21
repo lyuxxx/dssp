@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "WMPageController.h"
 
-@interface SubscribeViewController : BaseViewController
-
+typedef NS_ENUM(NSUInteger, WMMenuViewPosition) {
+    WMMenuViewPositionDefault,
+    WMMenuViewPositionBottom,
+};
+@interface SubscribeViewController : WMPageController
+@property (nonatomic, assign) WMMenuViewPosition menuViewPosition;
 @end

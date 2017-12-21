@@ -57,6 +57,11 @@
 		450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
 		450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
+		451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */; };
+		451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EC1FEB99A4008CC890 /* WMSecondViewController.m */; };
+		451744F41FEB99A4008CC890 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
+		451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F71FEB9A6B008CC890 /* WMImageViewCell.m */; };
+		451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F91FEB9A6B008CC890 /* WMLoopView.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
 		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
@@ -64,11 +69,6 @@
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
 		455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
 		455974681FE8EAB400D7910A /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
-		455974711FE8EB0900D7910A /* ZXCategoryItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559746B1FE8EB0900D7910A /* ZXCategoryItemView.m */; };
-		455974721FE8EB0900D7910A /* ZXCategoryItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4559746C1FE8EB0900D7910A /* ZXCategoryItemView.xib */; };
-		455974731FE8EB0900D7910A /* ZXCategorySliderBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559746E1FE8EB0900D7910A /* ZXCategorySliderBar.m */; };
-		455974741FE8EB0900D7910A /* ZXPageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974701FE8EB0900D7910A /* ZXPageCollectionView.m */; };
-		455974771FE8ECE700D7910A /* childVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974761FE8ECE700D7910A /* childVIew.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
 		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
@@ -194,6 +194,16 @@
 		450AF1731FEB502900E48445 /* PersonInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInViewController.m; sourceTree = "<group>"; };
 		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
+		451744E91FEB99A4008CC890 /* WMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCollectionViewController.h; sourceTree = "<group>"; };
+		451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMCollectionViewController.m; sourceTree = "<group>"; };
+		451744EB1FEB99A4008CC890 /* WMSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSecondViewController.h; sourceTree = "<group>"; };
+		451744EC1FEB99A4008CC890 /* WMSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMSecondViewController.m; sourceTree = "<group>"; };
+		451744EF1FEB99A4008CC890 /* WMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMViewController.h; sourceTree = "<group>"; };
+		451744F01FEB99A4008CC890 /* WMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMViewController.m; sourceTree = "<group>"; };
+		451744F61FEB9A6B008CC890 /* WMImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMImageViewCell.h; sourceTree = "<group>"; };
+		451744F71FEB9A6B008CC890 /* WMImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMImageViewCell.m; sourceTree = "<group>"; };
+		451744F81FEB9A6B008CC890 /* WMLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLoopView.h; sourceTree = "<group>"; };
+		451744F91FEB9A6B008CC890 /* WMLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLoopView.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
 		455036071FE246FC0088DAE0 /* ContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractCell.h; sourceTree = "<group>"; };
@@ -208,15 +218,6 @@
 		455974551FE7AA7A00D7910A /* SubscribeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
 		455974661FE8EAB300D7910A /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
 		455974671FE8EAB300D7910A /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
-		4559746A1FE8EB0900D7910A /* ZXCategoryItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCategoryItemView.h; sourceTree = "<group>"; };
-		4559746B1FE8EB0900D7910A /* ZXCategoryItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCategoryItemView.m; sourceTree = "<group>"; };
-		4559746C1FE8EB0900D7910A /* ZXCategoryItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZXCategoryItemView.xib; sourceTree = "<group>"; };
-		4559746D1FE8EB0900D7910A /* ZXCategorySliderBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCategorySliderBar.h; sourceTree = "<group>"; };
-		4559746E1FE8EB0900D7910A /* ZXCategorySliderBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCategorySliderBar.m; sourceTree = "<group>"; };
-		4559746F1FE8EB0900D7910A /* ZXPageCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXPageCollectionView.h; sourceTree = "<group>"; };
-		455974701FE8EB0900D7910A /* ZXPageCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXPageCollectionView.m; sourceTree = "<group>"; };
-		455974751FE8ECE700D7910A /* childVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = childVIew.h; sourceTree = "<group>"; };
-		455974761FE8ECE700D7910A /* childVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = childVIew.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
@@ -350,7 +351,6 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				455974691FE8EB0900D7910A /* ZXScrollPageView */,
 				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
 				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
@@ -364,6 +364,8 @@
 		313AC7E01FAC5AC400A3662E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				451744F51FEB9A6B008CC890 /* Views */,
+				451744E81FEB99A4008CC890 /* Controller */,
 				316CCCBE1FC68C6000AFF915 /* DiscoverViewController.h */,
 				316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */,
 				455974511FE7AA5A00D7910A /* NoticeViewController.h */,
@@ -588,31 +590,39 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		451744E81FEB99A4008CC890 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				451744E91FEB99A4008CC890 /* WMCollectionViewController.h */,
+				451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */,
+				451744EB1FEB99A4008CC890 /* WMSecondViewController.h */,
+				451744EC1FEB99A4008CC890 /* WMSecondViewController.m */,
+				451744EF1FEB99A4008CC890 /* WMViewController.h */,
+				451744F01FEB99A4008CC890 /* WMViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		451744F51FEB9A6B008CC890 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				451744F61FEB9A6B008CC890 /* WMImageViewCell.h */,
+				451744F71FEB9A6B008CC890 /* WMImageViewCell.m */,
+				451744F81FEB9A6B008CC890 /* WMLoopView.h */,
+				451744F91FEB9A6B008CC890 /* WMLoopView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		455974651FE8EAB300D7910A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				455974751FE8ECE700D7910A /* childVIew.h */,
-				455974761FE8ECE700D7910A /* childVIew.m */,
 				455974661FE8EAB300D7910A /* NoticeCell.h */,
 				455974671FE8EAB300D7910A /* NoticeCell.m */,
 				450AF16D1FE9F9B900E48445 /* SubscriCell.h */,
 				450AF16E1FE9F9B900E48445 /* SubscriCell.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		455974691FE8EB0900D7910A /* ZXScrollPageView */ = {
-			isa = PBXGroup;
-			children = (
-				4559746A1FE8EB0900D7910A /* ZXCategoryItemView.h */,
-				4559746B1FE8EB0900D7910A /* ZXCategoryItemView.m */,
-				4559746C1FE8EB0900D7910A /* ZXCategoryItemView.xib */,
-				4559746D1FE8EB0900D7910A /* ZXCategorySliderBar.h */,
-				4559746E1FE8EB0900D7910A /* ZXCategorySliderBar.m */,
-				4559746F1FE8EB0900D7910A /* ZXPageCollectionView.h */,
-				455974701FE8EB0900D7910A /* ZXPageCollectionView.m */,
-			);
-			path = ZXScrollPageView;
 			sourceTree = "<group>";
 		};
 		459679881FDFD979008A0C67 /* Model */ = {
@@ -744,7 +754,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
-				455974721FE8EB0900D7910A /* ZXCategoryItemView.xib in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
 			);
@@ -891,7 +900,6 @@
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
 				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
-				455974711FE8EB0900D7910A /* ZXCategoryItemView.m in Sources */,
 				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
@@ -900,8 +908,8 @@
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
-				455974771FE8ECE700D7910A /* childVIew.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
+				451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
 				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
@@ -911,7 +919,6 @@
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
 				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
-				455974741FE8EB0900D7910A /* ZXPageCollectionView.m in Sources */,
 				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
@@ -924,21 +931,24 @@
 				455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */,
 				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
+				451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */,
 				4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */,
-				455974731FE8EB0900D7910A /* ZXCategorySliderBar.m in Sources */,
 				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,
 				316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */,
 				31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */,
+				451744F41FEB99A4008CC890 /* WMViewController.m in Sources */,
 				455974681FE8EAB400D7910A /* NoticeCell.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
+				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,
 				450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */,
 				316CA46E1F9F3475009F541E /* main.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,
 				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,
+				451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */,
 				451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */,
 				4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */,
 				459F22591FBC118300BA13CB /* MineCell.m in Sources */,

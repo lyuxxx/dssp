@@ -18,6 +18,7 @@
 #import "MapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "dssp-Swift.h"
+#import <CUAlertController.h>
 
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource>
 
@@ -74,23 +75,26 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                       message:@"检测到您未绑定车辆信息,请绑定！"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"检测到您未绑定车辆信息,请绑定!" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+        
+        CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
+        [alert addButtonWithTitle:@"确定" type:CUButtonTypeCancel clicked:^{
+            
             //响应事件
             VINBindingViewController *vc=[[VINBindingViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+
+        }];
+        [alert addButtonWithTitle:@"取消" type:CUButtonTypeNormal clicked:^{
+            
+         
             
         }];
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            
-        }];
-        [alert addAction:defaultAction];
-        [alert addAction:cancelAction];
         [self presentViewController:alert animated:YES completion:nil];
+        
+        
         
         
     }

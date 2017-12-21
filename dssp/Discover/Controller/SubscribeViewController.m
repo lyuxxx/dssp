@@ -7,123 +7,107 @@
 //
 
 #import "SubscribeViewController.h"
-#import "ZXCategorySliderBar.h"
-#import "ZXPageCollectionView.h"
-#import "childVIew.h"
-@interface SubscribeViewController ()<ZXCategorySliderBarDelegate, ZXPageCollectionViewDelegate, ZXPageCollectionViewDataSource>
+#import "WMViewController.h"
+#import "WMCollectionViewController.h"
+
+
+
+@interface SubscribeViewController ()
 @property (nonatomic, strong) NSArray *itemArray;
-@property (nonatomic, strong) ZXPageCollectionView *pageVC;
-@property (nonatomic, strong) ZXCategorySliderBar *sliderBar;
-@property (nonatomic, strong) UIButton *reloadButton;
+@property (nonatomic, strong) UIView *redView;
+@property (nonatomic, strong) NSArray *placeHolders;
 @end
 
 @implementation SubscribeViewController
 
+- (UIView *)redView {
+    if (!_redView) {
+        _redView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 44, self.view.frame.size.width, 2.0)];
+        _redView.backgroundColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
+    }
+    return _redView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.menuViewStyle == WMMenuViewStyleTriangle) {
+        [self.view addSubview:self.redView];
+    }
     
-    self.view.backgroundColor=[UIColor grayColor];
-    
-    self.itemArray =@[@"品牌", @"新品发布", @"服务", @"DS精神", @"金融活动",@"推广"];
-    self.sliderBar.originIndex = 0;
-    self.sliderBar.itemArray = self.itemArray;
-    [self.view addSubview:self.sliderBar];
-    [self.view addSubview:self.pageVC];
-//     [self.view addSubview:self.reloadButton];
-    self.sliderBar.moniterScrollView = self.pageVC.mainScrollView;
-
+    self.automaticallyCalculatesItemWidths = YES;
+    self.placeHolders = @[
+                              NSLocalizedString(@"品牌", nil),
+                              NSLocalizedString(@"新品发布", nil),
+                              NSLocalizedString(@"服务", nil),
+                              NSLocalizedString(@"DS精神", nil),
+                              NSLocalizedString(@"金融活动", nil),
+                              NSLocalizedString(@"推广", nil)
+                              ];
 }
-
-//- (UIButton *)reloadButton
-//{
-//    if (!_reloadButton) {
-//        _reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _reloadButton.frame  = CGRectMake(self.view.frame.size.width - 80, self.view.frame.size.height - 80, 60, 60);
-//        _reloadButton.backgroundColor = [UIColor redColor];
-//        [_reloadButton setTitle:@"reload" forState:UIControlStateNormal];
-//        [_reloadButton addTarget:self action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _reloadButton;
-//}
-//
-//- (void)reload{
-//    self.itemArray = @[@"家电", @"大家电", @"小家电", @"厨房电器", @"生活用品",@"家电"];
-//    [self.pageVC reloadPageView];
-//    self.sliderBar.originIndex = arc4random() % 6;
-//    self.sliderBar.isMoniteScroll = NO;
-//    self.sliderBar.itemArray = self.itemArray;
-//    self.sliderBar.moniterScrollView = self.pageVC.mainScrollView;
-//}
-
-
-- (ZXCategorySliderBar *)sliderBar
-{
-    if (!_sliderBar) {
-        _sliderBar = [[ZXCategorySliderBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40*HeightCoefficient)];
-        _sliderBar.delegate = self;
-    }
-    return _sliderBar;
-}
-
-- (ZXPageCollectionView *)pageVC
-{
-    if (!_pageVC) {
-         CGFloat height =  kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
-        _pageVC = [[ZXPageCollectionView alloc]initWithFrame:CGRectMake(0, 40*HeightCoefficient, self.view.frame.size.width, height)];
-        _pageVC.dataSource = self;
-        _pageVC.delegate = self;
-        _pageVC.mainScrollView.bounces = NO;
-    }
-    return _pageVC;
-}
-
-- (NSInteger)numberOfItemsInZXPageCollectionView:(ZXPageCollectionView *)ZXPageCollectionView{
-    return self.itemArray.count;
-}
-
-- (void)ZXPageViewDidScroll:(UIScrollView *)scrollView direction:(NSString *)direction{
-    [self.sliderBar adjustIndicateViewX:scrollView direction:direction];
-}
-
-- (UIView *)ZXPageCollectionView:(ZXPageCollectionView *)ZXPageCollectionView
-              viewForItemAtIndex:(NSInteger)index{
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"childView%ld", (long)index];
-    childVIew *childView1 = (childVIew *)[ZXPageCollectionView dequeueReuseViewWithReuseIdentifier:reuseIdentifier forIndex:index];
-    if (!childView1) {
-        childView1 = [[childVIew alloc]initWithFrame:CGRectMake(0, 0, ZXPageCollectionView.frame.size.width, ZXPageCollectionView.frame.size.height)];
-        childView1.reuseIdentifier = reuseIdentifier;
-        childView1.index = index;
-    }
-    return childView1;
-}
-
-- (void)ZXPageViewDidEndChangeIndex:(ZXPageCollectionView *)pageView currentView:(UIView *)view{
-    NSLog(@"=====%s=====", __func__);
-    //滚动结束后加载页面
-        childVIew *cv = (childVIew *)view;
-        if (cv.dataArray.count == 0) {
-            [cv fetchData];
-        }
-   
-    [self.sliderBar setSelectIndex:pageView.currentIndex];
-}
-
-- (void)ZXPageViewWillBeginDragging:(ZXPageCollectionView *)pageView
-{
-    self.sliderBar.isMoniteScroll = YES;
-    self.sliderBar.scrollViewLastContentOffset = pageView.mainScrollView.contentOffset.x;
-}
-
-- (void)didSelectedIndex:(NSInteger)index{
-    [self.pageVC moveToIndex:index animation:NO];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
+    switch (self.menuViewStyle) {
+//        case WMMenuViewStyleFlood: return 3;
+//        case WMMenuViewStyleSegmented: return 3;
+        default: return 6;
+    }
+}
+
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+   switch (index) {
+        case 0: return @"品牌";
+        case 1: return @"新品发布";
+        case 2: return @"服务";
+        case 3: return @"DS精神";
+        case 4: return @"金融活动";
+        case 5: return @"推广";
+      
+   }
+   return @"NONE";
+    
+}
+
+- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
+    switch (index) {
+        case 0: return [[WMViewController alloc] init];
+        case 1: return [[WMViewController alloc] init];
+        case 2: return [[WMCollectionViewController alloc] init];
+    }
+   return [[WMViewController alloc] init];
+}
+
+- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
+    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
+    return width + 16;
+}
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
+    if (self.menuViewPosition == WMMenuViewPositionBottom) {
+        menuView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+        return CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
+    }
+    CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
+//    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    return CGRectMake(leftMargin+10, 0, self.view.frame.size.width - 2*leftMargin, 44);
+}
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
+    if (self.menuViewPosition == WMMenuViewPositionBottom) {
+        return CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64 - 44);
+    }
+    CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
+    if (self.menuViewStyle == WMMenuViewStyleTriangle) {
+        originY += self.redView.frame.size.height;
+    }
+    return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
+}
+
 
 /*
 #pragma mark - Navigation
