@@ -21,6 +21,7 @@ target 'dssp' do
   pod 'GTSDK'
   pod 'MJRefresh'
   pod 'MGSwipeTableCell'
+  pod 'WMPageController'
   
   # internal pod
   pod 'CUHTTPRequest'
