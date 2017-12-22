@@ -11,4 +11,8 @@
 @interface ContractCell : UITableViewCell
 @property (nonatomic, strong) ContractModel *contractModel;
 @property (nonatomic,strong) UILabel *moneyLabel;
+@property (nonatomic,strong) UILabel *paymentLabel;
+@property (nonatomic,strong) UILabel *endLabel;
+@property (nonatomic,strong) UILabel *modeLabel;
+@property (nonatomic,strong) UILabel *startLabel;
 @end

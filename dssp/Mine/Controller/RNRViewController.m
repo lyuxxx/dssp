@@ -102,7 +102,7 @@
     }];
     
     NSArray<NSString *> *titles = @[NSLocalizedString(@"姓名", nil),NSLocalizedString(@"性别", nil),NSLocalizedString(@"证件类型", nil),NSLocalizedString(@"证件号码", nil),NSLocalizedString(@"电话号码", nil),NSLocalizedString(@"证件地址", nil)];
-    NSArray *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"未选择", nil),NSLocalizedString(@"请选择证件类型", nil),NSLocalizedString(@"请填写证件号码", nil),NSLocalizedString(@"请填写电话码", nil),NSLocalizedString(@"请填写证件地址", nil)];
+    NSArray *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"未选择", nil),NSLocalizedString(@"请选择证件类型", nil),NSLocalizedString(@"请填写证件号码", nil),NSLocalizedString(@"请填写电话号码", nil),NSLocalizedString(@"请填写证件地址", nil)];
     for (NSInteger i = 0; i < titles.count; i++) {
         UILabel *label = [[UILabel alloc] init];
         label.text = titles[i];

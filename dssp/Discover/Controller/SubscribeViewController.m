@@ -9,8 +9,8 @@
 #import "SubscribeViewController.h"
 #import "WMViewController.h"
 #import "WMCollectionViewController.h"
-
-
+#import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
 
 @interface SubscribeViewController ()
 @property (nonatomic, strong) NSArray *itemArray;
@@ -44,7 +44,39 @@
                               NSLocalizedString(@"金融活动", nil),
                               NSLocalizedString(@"推广", nil)
                               ];
+    
+    [self requestData];
 }
+
+
+-(void)requestData
+{
+    
+    NSDictionary *paras = @{
+                            @"isEnable":@"0"
+                            };
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:findAppPushChannelInfoList parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            //            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
+            //            [_tableView reloadData];
+            
+            //响应事件
+            
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -133,45 +133,64 @@
         
         
         if (i == 0) {
-            
+            self.startLabel=({
             UILabel *startLabel = [[UILabel alloc] init];
-            startLabel.text = @"2017/12/31";
+//            startLabel.text = @"2017/12/31";
             startLabel.textAlignment = NSTextAlignmentLeft;
             startLabel.textColor = [UIColor colorWithHexString:@"#999999"];
             startLabel.font = [UIFont fontWithName:FontName size:14];
             [whiteV addSubview:startLabel];
             [startLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(85 * WidthCoefficient);
+                make.width.equalTo(185 * WidthCoefficient);
                 make.height.equalTo(20 * HeightCoefficient);
                 make.left.equalTo(0 * WidthCoefficient);
                 make.top.equalTo(0);
             }];
-            
+                  startLabel;
+              });
             
            
         } else if (i == 1) {
             
+            self.endLabel=({
             UILabel *endLabel = [[UILabel alloc] init];
-            endLabel.text = @"2018/12/31";
+//            endLabel.text = @"2018/12/31";
             endLabel.textAlignment = NSTextAlignmentLeft;
             endLabel.textColor = [UIColor colorWithHexString:@"#999999"];
             endLabel.font = [UIFont fontWithName:FontName size:14];
             [whiteV addSubview:endLabel];
             [endLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(85 * WidthCoefficient);
+                make.width.equalTo(185 * WidthCoefficient);
                 make.height.equalTo(20 * HeightCoefficient);
                 make.left.equalTo(0 * WidthCoefficient);
                 make.top.equalTo(0);
             }];
-            
+                endLabel;
+            });
             
         } else if (i == 2) {
+            self.modeLabel=({
+                UILabel *modeLabel = [[UILabel alloc] init];
+//                modeLabel.text = @"2018/12/31";
+                modeLabel.textAlignment = NSTextAlignmentLeft;
+                modeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+                modeLabel.font = [UIFont fontWithName:FontName size:14];
+                [whiteV addSubview:modeLabel];
+                [modeLabel makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(85 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(0 * WidthCoefficient);
+                    make.top.equalTo(0);
+                }];
+                modeLabel;
+            });
             
         }
         else if (i == 3) {
             
+            self.paymentLabel=({
             UILabel *paymentLabel = [[UILabel alloc] init];
-            paymentLabel.text = @"2018/12/31 13:22:22";
+//            paymentLabel.text = @"2018/12/31 13:22:22";
             paymentLabel.textAlignment = NSTextAlignmentLeft;
             paymentLabel.textColor = [UIColor colorWithHexString:@"#999999"];
             paymentLabel.font = [UIFont fontWithName:FontName size:14];
@@ -182,23 +201,27 @@
                 make.left.equalTo(0 * WidthCoefficient);
                 make.top.equalTo(0);
             }];
-            
+                paymentLabel;
+            });
             
         }else if (i == 4) {
             
-            _moneyLabel = [[UILabel alloc] init];
-//            _moneyLabel.text = @"¥300";
-            _moneyLabel.textAlignment = NSTextAlignmentLeft;
-            _moneyLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
-            _moneyLabel.font = [UIFont fontWithName:FontName size:15];
-            [whiteV addSubview:_moneyLabel];
-            [_moneyLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(85 * WidthCoefficient);
-                make.height.equalTo(20 * HeightCoefficient);
-                make.left.equalTo(0);
-                make.top.equalTo(0);
-            }];
             
+            self.moneyLabel=({
+               UILabel *moneyLabel = [[UILabel alloc] init];
+                //            _moneyLabel.text = @"¥300";
+                moneyLabel.textAlignment = NSTextAlignmentLeft;
+                moneyLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                moneyLabel.font = [UIFont fontWithName:FontName size:15];
+                [whiteV addSubview:moneyLabel];
+                [moneyLabel makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(185 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(0);
+                    make.top.equalTo(0);
+                }];
+                moneyLabel;
+            });
         }
     }
 }
@@ -206,8 +229,12 @@
 
 -(void)setContractModel:(ContractModel *)contractModel
 {
-//    _moneyLabel.text =contractModel.contractMoney;
-    
+    _startLabel.text = contractModel.contractBeginTime;
+    _endLabel.text = contractModel.contractEndTime;
+    _modeLabel.text = [contractModel.payMode isEqualToString:@"1"]?NSLocalizedString(@"分期付款", nil):NSLocalizedString(@"一次性付款", nil);
+    _paymentLabel.text = contractModel.payDate;
+    _moneyLabel.text = contractModel.contractMoney;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

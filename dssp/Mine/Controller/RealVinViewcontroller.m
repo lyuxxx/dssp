@@ -69,7 +69,7 @@
     UILabel *intro = [[UILabel alloc] init];
     intro.textAlignment = NSTextAlignmentCenter;
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    intro.text = NSLocalizedString(@"请输入车辆VIN号", nil);
+    intro.text = NSLocalizedString(@"输入车辆VIN号", nil);
     [whiteV addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);
@@ -84,7 +84,7 @@
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
     _vinField.font = [UIFont fontWithName:FontName size:16];
-    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请填写VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _vinField.layer.cornerRadius = 2;
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];

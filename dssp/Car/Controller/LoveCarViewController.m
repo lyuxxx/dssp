@@ -250,6 +250,16 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
+    if (sender.tag == 105) {
+        UIViewController *vc = [[NSClassFromString(@"UpkeepViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (sender.tag == 106) {
+        UIViewController *vc = [[NSClassFromString(@"CarflowViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

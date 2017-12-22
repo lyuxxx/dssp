@@ -32,11 +32,11 @@
         whiteView.backgroundColor = [UIColor colorWithHexString:@"#D8D8D8"];
         [self.contentView addSubview:whiteView];
         [whiteView makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(43 * HeightCoefficient);
+//            make.top.equalTo(43 * HeightCoefficient);
 //            make.centerY.equalTo(self.contentView);
             make.height.equalTo(1);
             make.left.equalTo(59*WidthCoefficient);
-            make.right.equalTo(-0);
+            make.right.equalTo(0);
             make.bottom.equalTo(1 - 1 * HeightCoefficient);
         }];
         whiteView;
@@ -76,10 +76,11 @@
         lab.font=[UIFont fontWithName:FontName size:16];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(11 * HeightCoefficient);
+//            make.top.equalTo(11 * HeightCoefficient);
             make.height.equalTo(22 * HeightCoefficient);
             make.width.equalTo(211 * WidthCoefficient);
             make.left.equalTo(59 * WidthCoefficient);
+            make.centerY.equalTo(self.contentView);
         }];
         lab;
     });

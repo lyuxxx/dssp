@@ -9,5 +9,5 @@
 
 #import "BaseViewController.h"
 @interface ContractdetailViewController : BaseViewController
-
+@property (nonatomic,copy) NSString *contractCode;
 @end

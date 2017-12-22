@@ -26,6 +26,8 @@
 #import "AccountViewController.h"
 #import "LoginViewController.h"
 #import <CUAlertController.h>
+#import "PersonInViewController.h"
+#import "RealnameViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -390,6 +392,17 @@
     if (indexPath.section==0) {
 //        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
+        if (indexPath.row==0) {
+            
+//            [cell.lab updateConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(19 * HeightCoefficient);
+//                make.height.equalTo(22 * HeightCoefficient);
+//                make.width.equalTo(211 * WidthCoefficient);
+//                make.left.equalTo(59 * WidthCoefficient);
+//
+//            }];
+            
+        }
         if (indexPath.row==1) {
 //            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]||[_certificationStatus isEqualToString:@"4"]) {
 //               cell.realName.text=_certificationStatus?NSLocalizedString(@"待实名", nil):NSLocalizedString(@"未实名", nil);
@@ -482,9 +495,12 @@
 //            }
         }else if (indexPath.row == 2)
         {
-            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+            
+            RealnameViewController *vc=[[RealnameViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+            
+
         
         }else if (indexPath.row == 3)
         {
@@ -552,34 +568,38 @@
     }
     if (sender ==self.photoBtn) {
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择照片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        PersonInViewController *vc=[[PersonInViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-            
-        }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"照相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.delegate = self;
-            imagePicker.allowsEditing = YES;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            [self presentViewController:imagePicker animated:YES completion:nil];
-            
-        }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.delegate = self;
-            imagePicker.allowsEditing = YES;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:imagePicker animated:YES completion:nil];
-            
-        }]];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择照片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//            
+//            NSLog(@"点击取消");
+//            
+//        }]];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"照相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+//            imagePicker.delegate = self;
+//            imagePicker.allowsEditing = YES;
+//            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//            [self presentViewController:imagePicker animated:YES completion:nil];
+//            
+//        }]];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            
+//            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+//            imagePicker.delegate = self;
+//            imagePicker.allowsEditing = YES;
+//            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//            [self presentViewController:imagePicker animated:YES completion:nil];
+//            
+//        }]];
+//        
+//        [self presentViewController:alertController animated:YES completion:nil];
     }
     if (sender==self.bindingBtn) {
         

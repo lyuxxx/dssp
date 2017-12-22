@@ -10,8 +10,8 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
-
-
+#import "CUAlertController.h"
+#import "LoginViewController.h"
 @interface AccountViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UITextField * originalField;
@@ -237,8 +237,20 @@
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                     [hud hideAnimated:YES];
-                    //响应事件
-                    [MBProgressHUD showText:NSLocalizedString(@"密码修改成功", nil)];
+                    NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"密码修改成功,是否退出重新登录?" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+                    
+                    CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
+                    [alert addButtonWithTitle:@"是" type:CUButtonTypeCancel clicked:^{
+                        
+                        LoginViewController *vc=[[LoginViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+        
+                    }];
+                    [alert addButtonWithTitle:@"否" type:CUButtonTypeNormal clicked:^{
+                        
+                    }];
+                    [self presentViewController:alert animated:YES completion:nil];
                 } else {
                     [MBProgressHUD showText:dic[@"msg"]];
                 }

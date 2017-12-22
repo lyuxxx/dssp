@@ -8,14 +8,18 @@
 
 #import "ContractModel.h"
 
-@implementation result
+//@implementation result
+//+ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+//    return @{
+//             @"contractId" : @"id"
+//             };
+//}
+//@end
+
+@implementation ContractModel
 + (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
     return @{
              @"contractId" : @"id"
              };
 }
-@end
-
-@implementation ContractModel
-
 @end

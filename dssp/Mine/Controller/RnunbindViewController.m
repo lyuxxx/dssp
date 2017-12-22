@@ -1,33 +1,23 @@
 //
-//  VinBindingViewController.m
+//  RnunbindViewController.m
 //  dssp
 //
-//  Created by yxliu on 2017/11/14.
+//  Created by qinbo on 2017/12/22.
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "VINBindingViewController.h"
+#import "RnunbindViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
-#import "CarInfoViewController.h"
 #import <MBProgressHUD+CU.h>
-#import "CarInfoModel.h"
 #import <CUHTTPRequest.h>
-#import "CarBindingViewController.h"
-#import "MineViewController.h"
-@interface VINBindingViewController ()
-
+@interface RnunbindViewController ()
 @property (nonatomic, strong) UITextField *vinField;
-@property (nonatomic, strong) UITextField *enginenNumber;
-@property (nonatomic, strong) CarInfoModel *carInfo;
-
 @end
 
-@implementation VINBindingViewController
-
+@implementation RnunbindViewController
 - (BOOL)needGradientImg {
     return YES;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,12 +26,10 @@
     [self setupUI];
 }
 
-
 - (void)setupUI {
     
-//    self.navigationItem.leftBarButtonItem=nil;
-    self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
-   
+    
+    self.navigationItem.title = NSLocalizedString(@"实名制解绑", nil);
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);
@@ -52,7 +40,7 @@
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(320 * HeightCoefficient);
+        make.height.equalTo(287.5 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20 * HeightCoefficient);
     }];
@@ -70,7 +58,7 @@
     UILabel *intro = [[UILabel alloc] init];
     intro.textAlignment = NSTextAlignmentCenter;
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    intro.text = NSLocalizedString(@"输入车辆VIN号和发动机号", nil);
+    intro.text = NSLocalizedString(@"输入车辆VIN号", nil);
     [whiteV addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);
@@ -80,6 +68,7 @@
     }];
     
     self.vinField = [[UITextField alloc] init];
+    //    _vinField.text=_vin?_vin:NSLocalizedString(@"", nil);
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -95,29 +84,10 @@
         make.top.equalTo(intro.bottom).offset(27.5 * HeightCoefficient);
     }];
     
-    
-    self.enginenNumber = [[UITextField alloc] init];
-    _enginenNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
-    _enginenNumber.leftViewMode = UITextFieldViewModeAlways;
-    _enginenNumber.textColor = [UIColor colorWithHexString:@"#040000"];
-    _enginenNumber.font = [UIFont fontWithName:FontName size:16];
-    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请填写发动机号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
-    _enginenNumber.layer.cornerRadius = 2;
-    _enginenNumber.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
-    [whiteV addSubview:_enginenNumber];
-    [_enginenNumber makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(280 * WidthCoefficient);
-        make.height.equalTo(44 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(_vinField.bottom).offset(20 * HeightCoefficient);
-    }];
-    
-    
-    
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.layer.cornerRadius = 2;
-    [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
+    [nextBtn setTitle:NSLocalizedString(@"查询", nil) forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
@@ -131,37 +101,27 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    
     if (![_vinField.text isEqualToString:@""]) {
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
-                                
                                 };
-        [CUHTTPRequest POST:getBasicInfo parameters:paras success:^(id responseData) {
+        [CUHTTPRequest POST:checkCerStatusByVin parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
+            
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                if ([_carInfo.vhlTStatus isEqualToString:@"1"]) {
-                    
-                    ///T车跳这个
-                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                    vc.carInfo = self.carInfo;
-                    //                        vc.bingVin = _vinField.text;
-                    [self.navigationController pushViewController:vc animated:YES];
-                    
-                }
-                else if ([_carInfo.vhlTStatus isEqualToString:@"0"])
-                {
-                    ///非T跳这个
-                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                    vc.carInfo = self.carInfo;
-                    //                        vc.bingVin = _vinField.text;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
                 
+                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
+                if ([str isEqualToString:@"0"]) {
+                    
+                    
+                }
+                else if ([str isEqualToString:@"1"])
+                {
+                    
+                }
                 
             } else {
-                //                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
+                
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
@@ -169,13 +129,27 @@
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         
-//        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-//        vc.vin = _vinField.text;
-//        [self.navigationController pushViewController:vc animated:YES];
+        //        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
+        //        vc.vin = _vinField.text;
+        //        [self.navigationController pushViewController:vc animated:YES];
     } else {
-      
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
