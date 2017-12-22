@@ -40,14 +40,14 @@
     
     [self.window makeKeyAndVisible];
     
-    [self configWithOptions:launchOptions];
+    [self config];
    
     
     return YES;
 }
 
 
-- (void)configWithOptions:(NSDictionary *)launchOptions {
+- (void)config {
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].keyboardDistanceFromTextField = 70 * HeightCoefficient;
     [AMapServices sharedServices].apiKey = @"e3aed20c93efeea15495d8bf27a87fac";
@@ -113,6 +113,10 @@
     [GeTuiSdk registerDeviceToken:token];
 }
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"推送注册失败:%@",error.localizedDescription);
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [GeTuiSdk handleRemoteNotification:userInfo];
 }
@@ -140,8 +144,14 @@
     completionHandler();
 }
 
+#pragma mark - GeTuiSdkDelegate
+
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     NSLog(@"%@",clientId);
+}
+
+- (void)GeTuiSdkDidOccurError:(NSError *)error {
+    NSLog(@"[GTSdk error]:%@",error.localizedDescription);
 }
 
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
@@ -153,6 +163,10 @@
     
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+}
+
+- (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {
+    NSLog(@"[GTSdk SdkState]:%u\n\n",aStatus);
 }
 
 @end
