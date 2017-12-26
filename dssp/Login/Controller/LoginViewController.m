@@ -96,7 +96,7 @@
 //}
 
 - (void)setupUI {
-
+    
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud"];
     [self.view addSubview:bgImgV];

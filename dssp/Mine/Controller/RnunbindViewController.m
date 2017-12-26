@@ -10,7 +10,8 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
-@interface RnunbindViewController ()
+#import "InputAlertView.h"
+@interface RnunbindViewController ()<InputAlertviewDelegate>
 @property (nonatomic, strong) UITextField *vinField;
 @end
 
@@ -87,7 +88,7 @@
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.layer.cornerRadius = 2;
-    [nextBtn setTitle:NSLocalizedString(@"查询", nil) forState:UIControlStateNormal];
+    [nextBtn setTitle:NSLocalizedString(@"解绑", nil) forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
@@ -133,9 +134,53 @@
         //        vc.vin = _vinField.text;
         //        [self.navigationController pushViewController:vc animated:YES];
     } else {
-        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
+        
+//         [self loadAlertView:@"请输入PIN码" contentStr:nil btnNum:2 btnStrArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] type:11];
+        
+        
+//        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+//        NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
+//        [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
+        
+        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [InputalertView initWithTitle:@"请输入PIN码" img:@"警告" type:11 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: InputalertView];
+        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+            if (btn.tag == 100) {//左边按钮
+            
+            }
+            if(btn.tag ==101)
+            {
+            //右边按钮
+                NSLog(@"666%@",str);
+                
+                
+            }
+            
+        };
+        
+//        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }
+
+
+-(void)didClickButtonAtIndex:(NSUInteger)index password:(NSString *)password{
+    switch (index) {
+        case 101:
+            NSLog(@"%@",password);
+            
+            NSLog(@"Click ok");
+            break;
+        case 100:
+            NSLog(@"Click cancle");
+            
+            break;
+        default:
+            break;
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

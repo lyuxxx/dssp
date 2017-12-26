@@ -126,7 +126,7 @@
     }
     CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
 //    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    return CGRectMake(leftMargin+10, 0, self.view.frame.size.width - 2*leftMargin, 44);
+    return CGRectMake(leftMargin+0, 0, self.view.frame.size.width - 2*leftMargin, 44);
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {

@@ -28,6 +28,7 @@
 #import <CUAlertController.h>
 #import "PersonInViewController.h"
 #import "RealnameViewController.h"
+#import "InputAlertView.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -201,6 +202,19 @@
 
 -(void)setupUI
 {
+    
+//    NSString *textString = @"是否确定将\"光谷广场\"位置发送到车";
+//    //字体大小、颜色不统一,只改变一种
+//    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kScreenWidth - 20, 50)];
+//    label2.backgroundColor = [UIColor cyanColor];
+//    [self.view addSubview:label2];
+//    NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:textString];
+//    [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 5)];
+////    [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(9, )];
+//    [str2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:35] range:NSMakeRange(5, 6)];
+//    label2.attributedText = str2;
+   
+    
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
     _headerView.backgroundColor=[UIColor whiteColor];
     _tableView.tableHeaderView=_headerView;
@@ -519,40 +533,85 @@
     }else if (indexPath.section == 1){
         
         if (indexPath.row==0) {
-            NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否退出登录?" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
             
-            CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
-            [alert addButtonWithTitle:@"是" type:CUButtonTypeCancel clicked:^{
-                
-                
-                NSDictionary *paras = @{
-                                        
+            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [InputalertView initWithTitle:@"是否退出登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+//            InputalertView.delegate = self;
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: InputalertView];
+            
+            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                if (btn.tag == 100) {//左边按钮
+                   
+                    NSDictionary *paras = @{
+                                            
                                         };
-                
-                
+                    
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
-                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        [hud hideAnimated:YES];
-                        //响应事件
-                        LoginViewController *vc=[[LoginViewController alloc] init];
-                        vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    } else {
-                        [MBProgressHUD showText:dic[@"msg"]];
-                    }
-                } failure:^(NSInteger code) {
-                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-                    [hud hideAnimated:YES afterDelay:1];
-                }];
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                                    [hud hideAnimated:YES];
+                                    //响应事件
+                                    LoginViewController *vc=[[LoginViewController alloc] init];
+                                    vc.hidesBottomBarWhenPushed = YES;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                    } else {
+                                    [MBProgressHUD showText:dic[@"msg"]];
+                                    }
+                                    } failure:^(NSInteger code) {
+                                                                hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                                                                [hud hideAnimated:YES afterDelay:1];
+                                                            }];
+                    
+                    
+                }
+                if(btn.tag ==101)
+                {
+                    //右边按钮
+                    NSLog(@"666%@",str);
+                    
+                   
                 
+                    
+                    
+                }
                 
-            }];
-            [alert addButtonWithTitle:@"否" type:CUButtonTypeNormal clicked:^{
-                
-            }];
-            [self presentViewController:alert animated:YES completion:nil];
+            };
+            
+//            NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否退出登录?" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+//
+//            CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
+//            [alert addButtonWithTitle:@"是" type:CUButtonTypeCancel clicked:^{
+//
+//
+//                NSDictionary *paras = @{
+//
+//                                        };
+//
+//                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//                [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
+//                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+//                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+//                        [hud hideAnimated:YES];
+//                        //响应事件
+//                        LoginViewController *vc=[[LoginViewController alloc] init];
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    } else {
+//                        [MBProgressHUD showText:dic[@"msg"]];
+//                    }
+//                } failure:^(NSInteger code) {
+//                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//                    [hud hideAnimated:YES afterDelay:1];
+//                }];
+//
+//
+//            }];
+//            [alert addButtonWithTitle:@"否" type:CUButtonTypeNormal clicked:^{
+//
+//            }];
+//            [self presentViewController:alert animated:YES completion:nil];
             
         }
         

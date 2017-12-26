@@ -19,8 +19,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "dssp-Swift.h"
 #import <CUAlertController.h>
+#import "InputAlertView.h"
 
-@interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource>
+@interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
 @property (nonatomic, strong) HomeTopView *topView;
@@ -75,24 +76,47 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
+        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [InputalertView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: InputalertView];
         
-        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"检测到您未绑定车辆信息,请绑定!" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
-        
-        CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
-        [alert addButtonWithTitle:@"确定" type:CUButtonTypeCancel clicked:^{
-            
-            //响应事件
-            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+            if (btn.tag == 100) {//左边按钮
+               
+            }
+            if(btn.tag ==101)
+            {
+                //右边按钮
+                //响应事件
+                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
 
-        }];
-        [alert addButtonWithTitle:@"取消" type:CUButtonTypeNormal clicked:^{
+            }
             
-         
-            
-        }];
-        [self presentViewController:alert animated:YES completion:nil];
+        };
+        
+        
+        
+//        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"检测到您未绑定车辆信息,请绑定!" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+//
+//        CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
+//        [alert addButtonWithTitle:@"确定" type:CUButtonTypeCancel clicked:^{
+//
+//            //响应事件
+//            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+//
+//        }];
+//        [alert addButtonWithTitle:@"取消" type:CUButtonTypeNormal clicked:^{
+//
+//
+//
+//        }];
+//        [self presentViewController:alert animated:YES completion:nil];
         
         
         

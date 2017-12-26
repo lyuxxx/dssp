@@ -75,6 +75,7 @@
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
 		455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
 		455974681FE8EAB400D7910A /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
+		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
 		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
@@ -236,6 +237,8 @@
 		455974551FE7AA7A00D7910A /* SubscribeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
 		455974661FE8EAB300D7910A /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
 		455974671FE8EAB300D7910A /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
+		4564549F1FF09E2700B30401 /* InputAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAlertView.h; sourceTree = "<group>"; };
+		456454A01FF09E2700B30401 /* InputAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputAlertView.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
@@ -689,6 +692,8 @@
 				459F22581FBC118300BA13CB /* MineCell.m */,
 				455036071FE246FC0088DAE0 /* ContractCell.h */,
 				455036081FE246FC0088DAE0 /* ContractCell.m */,
+				4564549F1FF09E2700B30401 /* InputAlertView.h */,
+				456454A01FF09E2700B30401 /* InputAlertView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -964,6 +969,7 @@
 				4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */,
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
 				450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */,
+				456454A11FF09E2700B30401 /* InputAlertView.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,

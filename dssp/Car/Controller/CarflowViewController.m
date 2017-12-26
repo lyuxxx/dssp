@@ -191,7 +191,6 @@
     
     
    
-    
     UILabel *totalflowlabel = [[UILabel alloc] init];
     totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     totalflowlabel.textColor=[UIColor blackColor];

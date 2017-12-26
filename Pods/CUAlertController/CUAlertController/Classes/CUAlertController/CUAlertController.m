@@ -157,6 +157,7 @@
     [self.view addSubview:self.alertView];
 }
 
+
 - (void)didTap:(UITapGestureRecognizer *)tap {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -171,10 +172,14 @@
     return [CUDismissAnimation new];
 }
 
+
+
 - (void)alertButtonClicked:(void (^)(void))clicked {
+    
     [self dismissViewControllerAnimated:YES completion:^{
         if (clicked) {
             clicked();
+
         }
     }];
 }
