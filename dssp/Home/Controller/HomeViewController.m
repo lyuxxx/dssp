@@ -15,7 +15,7 @@
 #import <NSObject+FBKVOController.h>
 #import "VINBindingViewController.h"
 #import <CUHTTPRequest.h>
-#import "MapViewController.h"
+#import "MapHomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "dssp-Swift.h"
 #import <CUAlertController.h>
@@ -183,7 +183,7 @@
     self.topView.clickBlock = ^(UIButton *btn) {
         strongifySelf
         if (btn.tag == 1000 + 1) {//出行
-            MapViewController *mapVC = [[MapViewController alloc] init];
+            MapHomeViewController *mapVC = [[MapHomeViewController alloc] init];
             mapVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:mapVC animated:YES];
         }

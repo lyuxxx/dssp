@@ -147,7 +147,7 @@
 #pragma mark - GeTuiSdkDelegate
 
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
-    NSLog(@"%@",clientId);
+    NSLog(@"[GTSdk cid]%@",clientId);
 }
 
 - (void)GeTuiSdkDidOccurError:(NSError *)error {

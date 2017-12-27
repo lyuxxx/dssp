@@ -30,6 +30,13 @@ typedef void(^KeyWordSearchBlock)(NSArray<__kindof MapSearchPointAnnotation *> *
 typedef void(^KeyWordAroundBlock)(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations);
 
 /**
+ id搜索poi数据回调
+
+ @param pointAnnotation 返回的点标注数据
+ */
+typedef void(^IDSearchBlock)(MapSearchPointAnnotation *pointAnnotation);
+
+/**
  tips搜索回调block
 
  @param tips 返回的tips数组
@@ -86,6 +93,15 @@ typedef void(^ReGeoInfoBlock)(MapReGeoInfo *regeoInfo);
            returnBlock:(KeyWordAroundBlock)block;
 
 /**
+ id检索poi数据回调
+
+ @param idStr id
+ @param block 返回的block
+ */
+- (void)idSearch:(NSString *)idStr
+     returnBlock:(IDSearchBlock)block;
+
+/**
  输入提示查询
 
  @param keyword 关键字
@@ -94,6 +110,19 @@ typedef void(^ReGeoInfoBlock)(MapReGeoInfo *regeoInfo);
  */
 - (void)inputTipsSearch:(NSString *)keyword
                    city:(NSString *)city
+            returnBlock:(TipsSearchBlock)block;
+
+/**
+ 根据location输入提示查询
+
+ @param keyword 关键字
+ @param city 城市
+ @param location 位置,在此location附近优先返回搜索关键词信息
+ @param block 返回的tips
+ */
+- (void)inputTipsSearch:(NSString *)keyword
+                   city:(NSString *)city
+               location:(CLLocationCoordinate2D)location
             returnBlock:(TipsSearchBlock)block;
 
 /**

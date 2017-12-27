@@ -91,7 +91,7 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
 //    NSArray *needHideCls = @[
-//                             @"MapViewController",
+//                             @"MapHomeViewController",
 //                             @"MineViewController"
 //                             @"LoginViewController"
 //                             ];

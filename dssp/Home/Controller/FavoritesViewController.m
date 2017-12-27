@@ -11,6 +11,8 @@
 #import "FavoriteCell.h"
 #import <MJRefresh.h>
 #import <MGSwipeTableCell.h>
+#import "POI.h"
+#import <CUHTTPRequest.h>
 
 @interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate>
 
@@ -19,11 +21,13 @@
 @property (nonatomic, strong) UIButton *allBtn;
 @property (nonatomic, strong) UIButton *editBtn;
 
-@property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) NSMutableArray *selectedDatas;
+@property (nonatomic, strong) NSMutableArray<ResultItem *> *dataSource;
+@property (nonatomic, strong) NSMutableArray<ResultItem *> *selectedDatas;
 @property (nonatomic, strong) UIButton *deleteBtn;
 
 @property (nonatomic, strong) NSIndexPath *editingIndexPath;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) NSInteger totalPage;
 
 @end
 
@@ -34,55 +38,58 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = NSLocalizedString(@"POI收藏夹", nil);
+    self.totalPage = 1;
+    
     [self createTable];
-//    [self setupUI];
+    [self setupUI];
+    [self.tableView.mj_footer beginRefreshing];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    return;
-    if (self.editingIndexPath) {
-        [self configSwipeButton];
-    }
-}
-
-- (void)configSwipeButton {
-    if (@available(iOS 11.0, *)) {
-        // iOS 11层级 (Xcode 9编译): UITableView -> UISwipeActionPullView
-        for (UIView *subview in self.tableView.subviews) {
-            if ([subview isKindOfClass:NSClassFromString(@"UISwipeActionPullView")] && [subview.subviews count] >= 1) {
-                //和iOS10按钮顺序相反 0  1
-                UIButton *deleteButton = subview.subviews[0];
-                if (deleteButton) {
-                    [self configDeleteButton:deleteButton];
-                }
-                [subview setBackgroundColor:[UIColor clearColor]];
-            }
-        }
-    } else {
-        // iOS 8-10层级: UITableView -> UITableViewCell -> UITableViewCellDeleteConfirmationView
-        FavoriteCell *tableCell = [self.tableView cellForRowAtIndexPath:self.editingIndexPath];
-        for (UIView *subview in tableCell.subviews) {
-            if ([subview isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")] && [subview.subviews count] >= 1) {
-                //按钮顺序 1 0
-                UIButton *deleteButton = subview.subviews[0];
-                if (deleteButton) {
-                    [self configDeleteButton:deleteButton];
-                }
-                [subview setBackgroundColor:[UIColor clearColor]];
-            }
-        }
-    }
-}
-
-- (void)configDeleteButton:(UIButton *)deleteButton {
-    [deleteButton setImage:[UIImage imageNamed:@"delete_icon"] forState:UIControlStateNormal];
-    deleteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    deleteButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [deleteButton setBackgroundColor:[UIColor clearColor]];
-    [deleteButton.subviews[0] setBackgroundColor:[UIColor clearColor]];
-    deleteButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15 * WidthCoefficient, 0, 0);
-}
+//- (void)viewDidLayoutSubviews {
+//    [super viewDidLayoutSubviews];
+//    return;
+//    if (self.editingIndexPath) {
+//        [self configSwipeButton];
+//    }
+//}
+//
+//- (void)configSwipeButton {
+//    if (@available(iOS 11.0, *)) {
+//        // iOS 11层级 (Xcode 9编译): UITableView -> UISwipeActionPullView
+//        for (UIView *subview in self.tableView.subviews) {
+//            if ([subview isKindOfClass:NSClassFromString(@"UISwipeActionPullView")] && [subview.subviews count] >= 1) {
+//                //和iOS10按钮顺序相反 0  1
+//                UIButton *deleteButton = subview.subviews[0];
+//                if (deleteButton) {
+//                    [self configDeleteButton:deleteButton];
+//                }
+//                [subview setBackgroundColor:[UIColor clearColor]];
+//            }
+//        }
+//    } else {
+//        // iOS 8-10层级: UITableView -> UITableViewCell -> UITableViewCellDeleteConfirmationView
+//        FavoriteCell *tableCell = [self.tableView cellForRowAtIndexPath:self.editingIndexPath];
+//        for (UIView *subview in tableCell.subviews) {
+//            if ([subview isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")] && [subview.subviews count] >= 1) {
+//                //按钮顺序 1 0
+//                UIButton *deleteButton = subview.subviews[0];
+//                if (deleteButton) {
+//                    [self configDeleteButton:deleteButton];
+//                }
+//                [subview setBackgroundColor:[UIColor clearColor]];
+//            }
+//        }
+//    }
+//}
+//
+//- (void)configDeleteButton:(UIButton *)deleteButton {
+//    [deleteButton setImage:[UIImage imageNamed:@"delete_icon"] forState:UIControlStateNormal];
+//    deleteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+////    deleteButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//    [deleteButton setBackgroundColor:[UIColor clearColor]];
+//    [deleteButton.subviews[0] setBackgroundColor:[UIColor clearColor]];
+//    deleteButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15 * WidthCoefficient, 0, 0);
+//}
 
 - (void)setupUI {
     self.editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -148,30 +155,42 @@
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-
-    for (NSInteger i = 0; i < 30; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [self.dataSource addObject:indexPath];
-    }
     
     [self setupFooter];
 }
 
 - (void)setupFooter {
     if (self.tableView.mj_footer == nil) {
-        weakifySelf
-        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            strongifySelf
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.tableView.mj_footer endRefreshing];
-            });
-        }];
+        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(pullData)];
         //    footer.refreshingTitleHidden = YES;
         [footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
         footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
         self.tableView.mj_footer = footer;
     } else {
         [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+    }
+}
+
+- (void)pullData {
+    if (self.currentPage > self.totalPage - 1) {
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+    }
+    [CUHTTPRequest POST:findPoiFavoritesService parameters:@{@"vin":@"VF7CAPSA000000002",@"pageSize":@"20",@"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage]} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        POIList *list = [POIList yy_modelWithDictionary:dic];
+        self.totalPage = list.data.totalPage;
+        NSArray<ResultItem *> *resultArr = list.data.result;
+        [self.dataSource addObjectsFromArray:resultArr];
+        self.currentPage += 1;
+        [self.tableView reloadData];
+        [self.tableView.mj_footer endRefreshing];
+    } failure:^(NSInteger code) {
+        [self.tableView.mj_footer endRefreshing];
+    }];
+    if (self.dataSource.count == 0) {
+        self.editBtn.enabled = NO;
+    } else {
+        self.editBtn.enabled = YES;
     }
 }
 
@@ -218,9 +237,9 @@
             NSInteger count = self.dataSource.count;
             for (NSInteger i = 0 ; i < count; i++)
             {
-                NSIndexPath *indexPath = self.dataSource[i];
-                if (![self.selectedDatas containsObject:indexPath]) {
-                    [self.selectedDatas addObject:indexPath];
+                ResultItem *item = self.dataSource[i];
+                if (![self.selectedDatas containsObject:item]) {
+                    [self.selectedDatas addObject:item];
                 }
                 [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
                 
@@ -230,9 +249,9 @@
             NSInteger count = self.dataSource.count;
             for (NSInteger i = 0 ; i < count; i++)
             {
-                NSIndexPath *indexPath = self.dataSource[i];
-                if ([self.selectedDatas containsObject:indexPath]) {
-                    [self.selectedDatas removeObject:indexPath];
+                ResultItem *item = self.dataSource[i];
+                if ([self.selectedDatas containsObject:item]) {
+                    [self.selectedDatas removeObject:item];
                     
                 }
                 [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] animated:YES];
@@ -249,6 +268,13 @@
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
+    
+    if (indexPaths.count == 1) {
+        
+    } else {
+        
+    }
+    
     // 删除数据源
     [self.dataSource removeObjectsInArray:self.selectedDatas];
     [self.selectedDatas removeAllObjects];
@@ -314,9 +340,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.isEditing) {
-        NSIndexPath *indexPathM = self.dataSource[indexPath.row];
-        if (![self.selectedDatas containsObject:indexPathM]) {
-            [self.selectedDatas addObject:indexPathM];
+        ResultItem *item = self.dataSource[indexPath.row];
+        if (![self.selectedDatas containsObject:item]) {
+            [self.selectedDatas addObject:item];
         }
         [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
         return;
@@ -327,9 +353,9 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.isEditing)
     {
-        NSIndexPath *indexPathM = self.dataSource[indexPath.row];
-        if ([self.selectedDatas containsObject:indexPathM]) {
-            [self.selectedDatas removeObject:indexPathM];
+        ResultItem *item = self.dataSource[indexPath.row];
+        if ([self.selectedDatas containsObject:item]) {
+            [self.selectedDatas removeObject:item];
         }
         
         [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
@@ -363,9 +389,9 @@
     //只要实现这个方法，就实现了默认滑动删除！！！！！
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        NSIndexPath *indexPathM = self.dataSource[indexPath.row];
-        if (![self.selectedDatas containsObject:indexPathM]) {
-            [self.selectedDatas addObject:indexPathM];
+        ResultItem *item = self.dataSource[indexPath.row];
+        if (![self.selectedDatas containsObject:item]) {
+            [self.selectedDatas addObject:item];
         }
         [self deleteSelectIndexPaths:@[indexPath]];
     }
@@ -388,10 +414,10 @@
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
     NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
-    NSIndexPath *indexPathM = self.dataSource[tmp.row];
-            if (![self.selectedDatas containsObject:indexPathM]) {
-                [self.selectedDatas addObject:indexPathM];
-            }
+    ResultItem *item = self.dataSource[tmp.row];
+    if (![self.selectedDatas containsObject:item]) {
+        [self.selectedDatas addObject:item];
+    }
     [self deleteSelectIndexPaths:@[[self.tableView indexPathForCell:cell]]];
     return YES;
 }

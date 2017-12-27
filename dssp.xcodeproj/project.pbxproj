@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
-		310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapViewController.m */; };
+		310A07DA1FA96BDB00DC9529 /* MapHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */; };
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
 		310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */; };
 		313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
@@ -41,6 +41,9 @@
 		318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
 		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
+		31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
+		31A469F31FF1E78B00C8236E /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F11FF1E78B00C8236E /* MapView.m */; };
+		31A469F61FF1EC5E00C8236E /* SearchAroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */; };
 		31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD66261FDFD5BB0049D48D /* FavoriteCell.m */; };
 		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
 		31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
@@ -54,6 +57,7 @@
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */; };
 		4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99B1FECA94A00A1E47E /* CarflowViewController.m */; };
 		4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99E1FECA97100A1E47E /* UpkeepViewController.m */; };
 		4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A31FECAB0200A1E47E /* CarflowCell.m */; };
@@ -110,8 +114,8 @@
 		310A07CF1FA95B6D00DC9529 /* LoginResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginResult.m; sourceTree = "<group>"; };
 		310A07D21FA96AD500DC9529 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		310A07D31FA96AD500DC9529 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		310A07D81FA96BDB00DC9529 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		310A07D91FA96BDB00DC9529 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		310A07D81FA96BDB00DC9529 /* MapHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapHomeViewController.h; sourceTree = "<group>"; };
+		310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapHomeViewController.m; sourceTree = "<group>"; };
 		310A07DE1FA96BF800DC9529 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		310C75071FC7B5C300B3A7D0 /* MapSearchHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapSearchHistory.h; sourceTree = "<group>"; };
@@ -176,6 +180,12 @@
 		3196AB911FDF717F009B9189 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		31A3B9141FDE184700B8FBD3 /* POISendBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POISendBtn.h; sourceTree = "<group>"; };
 		31A3B9151FDE184700B8FBD3 /* POISendBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POISendBtn.m; sourceTree = "<group>"; };
+		31A469EE1FF1E75100C8236E /* MapBaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapBaseController.h; sourceTree = "<group>"; };
+		31A469EF1FF1E75100C8236E /* MapBaseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapBaseController.m; sourceTree = "<group>"; };
+		31A469F11FF1E78B00C8236E /* MapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
+		31A469F21FF1E78B00C8236E /* MapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
+		31A469F41FF1EC5E00C8236E /* SearchAroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchAroundViewController.h; sourceTree = "<group>"; };
+		31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchAroundViewController.m; sourceTree = "<group>"; };
 		31AD66251FDFD5BB0049D48D /* FavoriteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteCell.h; sourceTree = "<group>"; };
 		31AD66261FDFD5BB0049D48D /* FavoriteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
 		31C176EB1FD5444A006E4AEA /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
@@ -195,6 +205,8 @@
 		31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
+		31F0B7FD1FF3A9BF00A25F4B /* RefuelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefuelViewController.h; sourceTree = "<group>"; };
+		31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefuelViewController.m; sourceTree = "<group>"; };
 		4505B99A1FECA94A00A1E47E /* CarflowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarflowViewController.h; sourceTree = "<group>"; };
 		4505B99B1FECA94A00A1E47E /* CarflowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowViewController.m; sourceTree = "<group>"; };
 		4505B99D1FECA97100A1E47E /* UpkeepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpkeepViewController.h; sourceTree = "<group>"; };
@@ -402,6 +414,8 @@
 		314E05D01FB582AA000550C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				31A469F21FF1E78B00C8236E /* MapView.h */,
+				31A469F11FF1E78B00C8236E /* MapView.m */,
 				314E05D21FB582D6000550C7 /* TopImgButton.h */,
 				314E05D31FB582D6000550C7 /* TopImgButton.m */,
 				316CCCB21FC57CCC00AFF915 /* LeftImgButton.h */,
@@ -425,8 +439,12 @@
 			children = (
 				310A07D21FA96AD500DC9529 /* HomeViewController.h */,
 				310A07D31FA96AD500DC9529 /* HomeViewController.m */,
-				310A07D81FA96BDB00DC9529 /* MapViewController.h */,
-				310A07D91FA96BDB00DC9529 /* MapViewController.m */,
+				310A07D81FA96BDB00DC9529 /* MapHomeViewController.h */,
+				310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */,
+				31A469F41FF1EC5E00C8236E /* SearchAroundViewController.h */,
+				31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */,
+				31F0B7FD1FF3A9BF00A25F4B /* RefuelViewController.h */,
+				31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */,
 				3196AB901FDF717F009B9189 /* FavoritesViewController.h */,
 				3196AB911FDF717F009B9189 /* FavoritesViewController.m */,
 			);
@@ -457,6 +475,8 @@
 			children = (
 				31699EB51FA87CC100C8FDF8 /* BaseViewController.h */,
 				31699EB61FA87CC100C8FDF8 /* BaseViewController.m */,
+				31A469EE1FF1E75100C8236E /* MapBaseController.h */,
+				31A469EF1FF1E75100C8236E /* MapBaseController.m */,
 				31699EB81FA87CE300C8FDF8 /* NavigationController.h */,
 				31699EB91FA87CE300C8FDF8 /* NavigationController.m */,
 				31699EBB1FA87D0900C8FDF8 /* TabBarController.h */,
@@ -765,7 +785,7 @@
 				TargetAttributes = {
 					316CA45A1F9F3475009F541E = {
 						CreatedOnToolsVersion = 9.0.1;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -958,11 +978,13 @@
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
+				31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
+				31A469F61FF1EC5E00C8236E /* SearchAroundViewController.m in Sources */,
 				4505B9AD1FECF6CE00A1E47E /* RnunbindViewController.m in Sources */,
 				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
@@ -980,9 +1002,11 @@
 				31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */,
 				4505B9A71FECE45E00A1E47E /* RealnameViewController.m in Sources */,
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
+				31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */,
 				314B98621FD7F24C00ABB638 /* POI.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
+				31A469F31FF1E78B00C8236E /* MapView.m in Sources */,
 				455974501FE77B1F00D7910A /* AccountViewController.m in Sources */,
 				455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */,
 				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,
@@ -1018,7 +1042,7 @@
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,
 				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
-				310A07DA1FA96BDB00DC9529 /* MapViewController.m in Sources */,
+				310A07DA1FA96BDB00DC9529 /* MapHomeViewController.m in Sources */,
 				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1179,7 +1203,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1196,8 +1220,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "00be2727-97ff-43ca-b4e4-a9c3afd8c5bc";
-				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1210,8 +1234,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1228,8 +1252,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6abb9ce5-7d90-43c5-bb44-b3f69d80517b";
-				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

@@ -9,6 +9,12 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 
+typedef NS_ENUM(NSUInteger, SearchType) {
+    SearchTypeKeyWord,
+    SearchTypeKeyWordAround,
+    SearchTypeId,
+};
+
 @interface MapSearchManager ()<AMapSearchDelegate>
 
 @property (nonatomic, strong) AMapSearchAPI *searchAPI;
@@ -16,11 +22,12 @@
 @property (nonatomic, copy) KeyWordSearchBlock keyWordSearchBlock;
 @property (nonatomic, copy) KeyWordAroundBlock keyWordAroundBlock;
 @property (nonatomic, copy) TipsSearchBlock tipsSearchBlock;
+@property (nonatomic, copy) IDSearchBlock idSearchBlock;
 @property (nonatomic, copy) ReGeocodeSearchBlock reGeocodeSearchBlock;
 @property (nonatomic, copy) ReGeoInfoBlock reGeoInfoBlock;
 
 @property (nonatomic, assign) BOOL needReGeoInfo;
-@property (nonatomic, assign) BOOL isAround;
+@property (nonatomic, assign) SearchType searchType;
 
 @end
 
@@ -38,7 +45,7 @@
 }
 
 - (void)keyWordsSearch:(NSString *)keyword city:(NSString *)city returnBlock:(KeyWordSearchBlock)block {
-    self.isAround = NO;
+    self.searchType = SearchTypeKeyWord;
     if (keyword.length) {
         self.keyWordSearchBlock = block;
         
@@ -56,7 +63,7 @@
 }
 
 - (void)keyWordsAround:(NSString *)keyword location:(CLLocationCoordinate2D)coordinate returnBlock:(KeyWordAroundBlock)block {
-    self.isAround = YES;
+    self.searchType = SearchTypeKeyWordAround;
     if (keyword.length) {
         self.keyWordAroundBlock = block;
         
@@ -72,6 +79,17 @@
     }
 }
 
+- (void)idSearch:(NSString *)idStr returnBlock:(IDSearchBlock)block {
+    self.searchType = SearchTypeId;
+    self.idSearchBlock = block;
+    
+    AMapPOIIDSearchRequest *request = [[AMapPOIIDSearchRequest alloc] init];
+    request.uid = idStr;
+    request.requireExtension = YES;
+    
+    [self.searchAPI AMapPOIIDSearch:request];
+}
+
 - (void)inputTipsSearch:(NSString *)keyword city:(NSString *)city returnBlock:(TipsSearchBlock)block {
     if (keyword.length) {
         self.tipsSearchBlock = block;
@@ -81,6 +99,22 @@
         if (city.length) {
             request.city = city;
 //            request.cityLimit = YES;
+        }
+        
+        [self.searchAPI AMapInputTipsSearch:request];
+    }
+}
+
+- (void)inputTipsSearch:(NSString *)keyword city:(NSString *)city location:(CLLocationCoordinate2D)location returnBlock:(TipsSearchBlock)block {
+    if (keyword.length) {
+        self.tipsSearchBlock = block;
+        
+        AMapInputTipsSearchRequest *request = [[AMapInputTipsSearchRequest alloc] init];
+        request.keywords = keyword;
+        if (city.length) {
+            request.city = city;
+            request.location = [NSString stringWithFormat:@"%f,%f",location.longitude,location.latitude];
+            //            request.cityLimit = YES;
         }
         
         [self.searchAPI AMapInputTipsSearch:request];
@@ -136,13 +170,19 @@
         [poiAnnotations addObject:annotation];
     }];
     
-    if (self.isAround) {
+    if (self.searchType == SearchTypeKeyWordAround) {
         if (self.keyWordAroundBlock) {
             self.keyWordAroundBlock(poiAnnotations);
         }
-    } else {
+    }
+    if (self.searchType == SearchTypeKeyWord) {
         if (self.keyWordSearchBlock) {
             self.keyWordSearchBlock(poiAnnotations);
+        }
+    }
+    if (self.searchType == SearchTypeId) {
+        if (self.idSearchBlock) {
+            self.idSearchBlock(poiAnnotations[0]);
         }
     }
 }

@@ -92,6 +92,7 @@ _Pragma("clang diagnostic pop") \
 #define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrls]
 //接收用户上传图片及实名制信息
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+#define findPoiFavoritesService [NSString stringWithFormat:@"%@findPoiFavoritesService",baseUrls]
 //删除POI收藏点
 #define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrls]
 //添加POI收藏点
