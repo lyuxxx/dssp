@@ -53,11 +53,14 @@
 {
     
     NSDictionary *paras = @{
-                            @"isEnable":@"0"
+                          
                             };
     
+
+     NSString *NumberByVin = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
+    
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:findAppPushChannelInfoList parameters:paras success:^(id responseData) {
+    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];

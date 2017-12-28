@@ -15,11 +15,13 @@
 #import <MGSwipeTableCell.h>
 #import <MJRefresh.h>
 #import "FavoriteCell.h"
+#import "NoticeModel.h"
 @interface NoticeViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectedDatas;
 @property (nonatomic, strong) UIButton *deleteBtn;
+ @property (nonatomic, strong) NSMutableArray *noticeDatas;
 @end
 
 @implementation NoticeViewController
@@ -27,19 +29,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
+//    self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
+    self.view.backgroundColor= [UIColor redColor];
+    [self requestData];
     [self createTable];
+}
+
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                           
+                            };
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findAppPushInboxTitleByVin];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+//            [hud hideAnimated:YES];
+           
+            NSArray *dataArray = dic[@"data"];
+            _noticeDatas =[NSMutableArray new];
+            for (NSDictionary *dic in dataArray) {
+                NoticeModel *notice = [NoticeModel yy_modelWithDictionary:dic];
+                [self.noticeDatas addObject:notice];
+            }
+         
+          [_tableView reloadData];
+            //响应事件
+            
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//        [hud hideAnimated:YES afterDelay:1];
+    }];
 }
 
 - (void)createTable {
     [self.view addSubview:self.tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
 //        make.edges.equalTo(self.view);
-        
           make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0 *HeightCoefficient, 0, -kNaviHeight, 0));
     }];
     
-    for (NSInteger i = 0; i < 10; i++) {
+//    NSLog(@"%lu",self.noticeDatas.count);
+    for (NSInteger i = 0; i < 12; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [self.dataSource addObject:indexPath];
     }
@@ -75,7 +113,7 @@
     
     //    [UIView setAnimationsEnabled:NO];
     // 删除选中项
-    //    [self.tableView beginUpdates];
+//        [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     //    [self.tableView endUpdates];
     //    [UIView setAnimationsEnabled:YES];
@@ -88,8 +126,8 @@
     if (self.dataSource.count == 0)
     {
         //没有收藏数据
-      
-        
+
+
     }
     
     [self setupFooter];
@@ -97,18 +135,18 @@
 
 - (void)indexPathsForSelectedRowsCountDidChange:(NSArray *)selectedRows
 {
-    NSInteger currentCount = [selectedRows count];
-    NSInteger allCount = self.dataSource.count;
-//    self.allBtn.selected = (currentCount == allCount);
-    NSString *title = (currentCount > 0) ? [NSString stringWithFormat:@"删除(%zd)",currentCount] : @"删除";
-    [self.deleteBtn setTitle:title forState:UIControlStateNormal];
-    self.deleteBtn.enabled = currentCount > 0;
+//    NSInteger currentCount = [selectedRows count];
+//    NSInteger allCount = self.dataSource.count;
+////    self.allBtn.selected = (currentCount == allCount);
+//    NSString *title = (currentCount > 0) ? [NSString stringWithFormat:@"删除(%zd)",currentCount] : @"删除";
+//    [self.deleteBtn setTitle:title forState:UIControlStateNormal];
+//    self.deleteBtn.enabled = currentCount > 0;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataSource.count;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -121,7 +159,17 @@
     if (!cell) {
         cell = [[NoticeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
+    
+ 
+    
+    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor]insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+    cell.rightSwipeSettings.transition = MGSwipeTransition3D;
+    
+    
+//    NoticeModel *notice=self.dataSource[indexPath.row];
+//    cell.noticeModel = notice;
     cell.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+//     cell.backgroundColor=[UIColor redColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     return cell;
@@ -152,7 +200,6 @@
 }
 
 
-
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.isEditing) {
         // 多选
@@ -161,8 +208,11 @@
         // 删除
         return UITableViewCellEditingStyleNone;
     }
+    
+   
 }
-//
+
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //只要实现这个方法，就实现了默认滑动删除！！！！！
     if (editingStyle == UITableViewCellEditingStyleDelete)
@@ -171,35 +221,45 @@
         if (![self.selectedDatas containsObject:indexPathM]) {
             [self.selectedDatas addObject:indexPathM];
         }
-//        [self deleteSelectIndexPaths:@[indexPath]];
+        [self.dataSource removeObjectAtIndex:indexPath.row];
+        [self.selectedDatas removeAllObjects];
+        [self deleteSelectIndexPaths:@[indexPath]];
     }
 }
+
 
 #pragma mark - MGSwipeTableCellDelegate
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+    
+//    [self.noticeDatas removeObjectAtIndex:indexPath.row];//移除数据源的数据
+//    
+//    [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath.row] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
+//    
+  
+    
+    
     NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
     NSIndexPath *indexPathM = self.dataSource[tmp.row];
     if (![self.selectedDatas containsObject:indexPathM]) {
         [self.selectedDatas addObject:indexPathM];
     }
-    [self deleteSelectIndexPaths:@[[self.tableView indexPathForCell:cell]]];
+   [self deleteSelectIndexPaths:@[[self.tableView indexPathForCell:cell]]];
     return YES;
 }
 
-- (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
-    
-    if (direction == MGSwipeDirectionRightToLeft) {
-        swipeSettings.transition = MGSwipeTransitionClipCenter;
-        //            expansionSettings.buttonIndex = 0;
-        //            expansionSettings.fillOnTrigger = YES;
-        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
-    } else {
-        return nil;
-    }
-    
-}
 
+//- (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
+//
+//    if (direction == MGSwipeDirectionRightToLeft) {
+//        swipeSettings.transition = MGSwipeTransitionClipCenter;
+//        //            expansionSettings.buttonIndex = 0;
+//        //            expansionSettings.fillOnTrigger = YES;
+//        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+//    } else {
+//        return nil;
+//    }
+//}
 
 #pragma mark -getter
 
@@ -225,6 +285,7 @@
         //        _tableView.allowsMultipleSelection = YES;
         //        _tableView.allowsSelectionDuringEditing = YES;
         //        _tableView.allowsMultipleSelectionDuringEditing = YES;
+        _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;

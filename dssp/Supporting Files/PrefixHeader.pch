@@ -15,6 +15,9 @@
 //定义并导入CoCoaLumberJack框架
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>
+#import <YYCategoriesSub/YYCategories.h>
+#import <MBProgressHUD+CU.h>
+#import <CUHTTPRequest.h>
 
 //通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
 #ifdef DEBUG
@@ -64,90 +67,94 @@ vc.automaticallyAdjustsScrollViewInsets = NO;\
 _Pragma("clang diagnostic pop") \
 } while (0)
 
-#define baseUrl @"http://172.23.102.73:10095/"
+#define baseUrl @"http:172.23.105.209:10095/"
 #define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/"
 //用户注册
-#define registerUrl [NSString stringWithFormat:@"%@register",baseUrls]
+#define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
 //#define appLogin @"http://172.23.102.73:18281/login/telephone"
 //外网地址
 //用户名密码登录
-#define userNameLogins @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/login/userName"
+#define userNameLogins [NSString stringWithFormat:@"%@login/userName",baseUrl]
+
 //用户名验证码登录
-#define telephoneLogins @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/login/telephone"
+#define telephoneLogins [NSString stringWithFormat:@"%@login/telephone",baseUrl]
 
 ///内网地址
 #define telephoneLogin @"http://172.23.102.73:10095/login/telephone"
 #define userNameLogin @"http://172.23.102.73:10095/login/userName"
 //查询车辆销售信息和套餐信息接口
-#define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrls]
+#define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 //绑定客户-车辆信息
-#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrls]
-#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
+#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
 //WIFI密码查询
-#define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrls]
+#define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrl]
 //WIFI密码修改
-#define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrls]
+#define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
 //根据Vin查询实名认证状态
-#define queryCustByMobile [NSString stringWithFormat:@"%@queryCustByMobile",baseUrls]
+#define queryCustByMobile [NSString stringWithFormat:@"%@                                                                                 ",baseUrls]
 //接收用户上传图片及实名制信息
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
 #define findPoiFavoritesService [NSString stringWithFormat:@"%@findPoiFavoritesService",baseUrls]
 //删除POI收藏点
-#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrls]
+#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrl]
 //添加POI收藏点
-#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",baseUrls]
+#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",baseUrl]
 //POI下发
-#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",baseUrls]
+#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",baseUrl]
 //查询车辆信息接口
-#define queryVhl [NSString stringWithFormat:@"%@queryVhl",baseUrls]
+#define queryVhl [NSString stringWithFormat:@"%@queryVhl",baseUrl]
 //服务合同信息列表查询接口
-#define queryContract [NSString stringWithFormat:@"%@queryContract",baseUrls]
+#define queryContractForApp [NSString stringWithFormat:@"%@queryContractForApp",baseUrl]
 //车辆信息修改接口
-#define updateVhl [NSString stringWithFormat:@"%@updateVhl",baseUrls]
+#define updateVhl [NSString stringWithFormat:@"%@updateVhl",baseUrl]
 //服务合同信息详细信息接口
-#define findServiceByVin [NSString stringWithFormat:@"%@findServiceByVin",baseUrls]
+#define findServiceByVin [NSString stringWithFormat:@"%@findServiceByVin",baseUrl]
 //验证手机号及验证码接口
-#define verificationMobile [NSString stringWithFormat:@"%@verificationMobile",baseUrls]
+#define verificationMobile [NSString stringWithFormat:@"%@verificationMobile",baseUrl]
 //重置新密码接口
-#define resetNewPWD [NSString stringWithFormat:@"%@resetNewPWD",baseUrls]
+#define resetNewPWD [NSString stringWithFormat:@"%@resetNewPWD",baseUrl]
 //修改密码接口
-#define resetPWD [NSString stringWithFormat:@"%@resetPWD",baseUrls]
+#define resetPWD [NSString stringWithFormat:@"%@resetPWD",baseUrl]
 //退出登录接口
-#define loginout [NSString stringWithFormat:@"%@loginout",baseUrls]
+#define loginout [NSString stringWithFormat:@"%@loginout",baseUrl]
 //获取验证码
-#define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrls]
+#define getRandomCode [NSString stringWithFormat:@"%@getRandomCode",baseUrl]
 //查询附近加油站列表接口
-#define queryNearbyGasCooperateAction [NSString stringWithFormat:@"%@queryNearbyGasCooperateAction",baseUrls]
+#define queryNearbyGasCooperateAction [NSString stringWithFormat:@"%@queryNearbyGasCooperateAction",baseUrl]
 //查询加油站详情
-#define getStationDetailCooperateAction [NSString stringWithFormat:@"%@getStationDetailCooperateAction",baseUrls]
+#define getStationDetailCooperateAction [NSString stringWithFormat:@"%@getStationDetailCooperateAction",baseUrl]
 //天气实况查询
-#define getObserve [NSString stringWithFormat:@"%@getObserve",baseUrls]
+#define getObserve [NSString stringWithFormat:@"%@getObserve",baseUrl]
 //常规预报
-#define getForecast [NSString stringWithFormat:@"%@getForecast",baseUrls]
+#define getForecast [NSString stringWithFormat:@"%@getForecast",baseUrl]
 //vin查实名制
-#define checkCerStatusByVin [NSString stringWithFormat:@"%@checkCerStatusByVin",baseUrls]
+#define checkCerStatusByVin [NSString stringWithFormat:@"%@checkCerStatusByVin",baseUrl]
 //查询菜单接口
-#define findAppPushChannelInfoList [NSString stringWithFormat:@"%@appPushChannel/findAppPushChannelInfoList",baseUrls]
+#define findAppPushChannelInfoList [NSString stringWithFormat:@"%@findAppPushChannelInfoList",baseUrl]
 //查询菜单对应的列表接口
-#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@appPushContent/findAppPushContentAppViewByAll",baseUrls]
+#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@appPushContent/findAppPushContentAppViewByAll",baseUrl]
 //菜单对应列表详情接口
-#define findAppPushContentInfoById [NSString stringWithFormat:@"%@appPushContent/findAppPushContentInfoById",baseUrls]
+#define findAppPushContentInfoById [NSString stringWithFormat:@"%@appPushContent/findAppPushContentInfoById",baseUrl]
 //查询通知消息列表接口
-#define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxTitleByVin",baseUrls]
+#define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@findAppPushInboxTitleByVin",baseUrl]
 //消息详情查询接口
-#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxInfoByVin",baseUrls]
+#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxInfoByVin",baseUrl]
 //修改消息状态 删除单条消息
-#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrls]
+#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrl]
 //实时总流量查询接口
-#define current [NSString stringWithFormat:@"%@flow/current",baseUrls]
+#define current [NSString stringWithFormat:@"%@flow/current",baseUrl]
 //分类流量使用明细查询接口
-#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrls]
+#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
 //车辆-客户解绑
-#define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrls]
+#define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrl]
 //实名制解绑
-#define UnbundlingRNR [NSString stringWithFormat:@"%@UnbundlingRNR",baseUrls]
+#define UnbundlingRNR [NSString stringWithFormat:@"%@UnbundlingRNR",baseUrl]
 //查询通知未读消息数量
-#define findUnreadNumberByVin [NSString stringWithFormat:@"%@appPushInbox/findUnreadNumberByVin",baseUrls]
-
+#define findUnreadNumberByVin [NSString stringWithFormat:@"%@findUnreadNumberByVin",baseUrl]
+//刷新token
+#define refreshToken [NSString stringWithFormat:@"%@refreshToken",baseUrl]
+//车辆绑定校验接口
+#define checkBindByVin [NSString stringWithFormat:@"%@checkBindByVin",baseUrl]
 #endif /* PrefixHeader_pch */

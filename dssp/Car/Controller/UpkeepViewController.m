@@ -147,7 +147,6 @@
     }];
     
     
-  
     UILabel *totalflowlabel = [[UILabel alloc] init];
     totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     totalflowlabel.textColor=[UIColor blackColor];
@@ -160,7 +159,6 @@
         make.left.equalTo(lineView.left).offset(0);
         make.right.equalTo(0);
     }];
-    
     
     
     UILabel *totalflow = [[UILabel alloc] init];

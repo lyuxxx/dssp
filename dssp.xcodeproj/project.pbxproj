@@ -79,6 +79,7 @@
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
 		455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
 		455974681FE8EAB400D7910A /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
+		455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
 		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
@@ -88,6 +89,9 @@
 		459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */; };
 		459679991FE13328008A0C67 /* ContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679981FE13328008A0C67 /* ContractViewController.m */; };
 		4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */; };
+		4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9B81FF1E70800B23713 /* PersonInCell.m */; };
+		4599C9BC1FF1F00900B23713 /* ModifyPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */; };
+		4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */; };
 		459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
 		459F22591FBC118300BA13CB /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
 		45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
@@ -249,6 +253,8 @@
 		455974551FE7AA7A00D7910A /* SubscribeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
 		455974661FE8EAB300D7910A /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
 		455974671FE8EAB300D7910A /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
+		455F36861FF3A4A500D09A63 /* NoticeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeModel.h; sourceTree = "<group>"; };
+		455F36871FF3A4A500D09A63 /* NoticeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeModel.m; sourceTree = "<group>"; };
 		4564549F1FF09E2700B30401 /* InputAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAlertView.h; sourceTree = "<group>"; };
 		456454A01FF09E2700B30401 /* InputAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputAlertView.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
@@ -267,6 +273,12 @@
 		459679981FE13328008A0C67 /* ContractViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractViewController.m; sourceTree = "<group>"; };
 		4596799A1FE1417C008A0C67 /* ContractdetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractdetailViewController.h; sourceTree = "<group>"; };
 		4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractdetailViewController.m; sourceTree = "<group>"; };
+		4599C9B71FF1E70800B23713 /* PersonInCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInCell.h; sourceTree = "<group>"; };
+		4599C9B81FF1E70800B23713 /* PersonInCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInCell.m; sourceTree = "<group>"; };
+		4599C9BA1FF1F00900B23713 /* ModifyPhoneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyPhoneController.h; sourceTree = "<group>"; };
+		4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyPhoneController.m; sourceTree = "<group>"; };
+		4599C9BD1FF21BBD00B23713 /* ModifyPhonesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyPhonesController.h; sourceTree = "<group>"; };
+		4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyPhonesController.m; sourceTree = "<group>"; };
 		459F22521FBBCD7D00BA13CB /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		459F22571FBC118300BA13CB /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
@@ -624,6 +636,10 @@
 				4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */,
 				4505B9AB1FECF6CE00A1E47E /* RnunbindViewController.h */,
 				4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */,
+				4599C9BA1FF1F00900B23713 /* ModifyPhoneController.h */,
+				4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */,
+				4599C9BD1FF21BBD00B23713 /* ModifyPhonesController.h */,
+				4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -701,6 +717,8 @@
 				4596798A1FDFDA9C008A0C67 /* FindlistModel.m */,
 				4596798C1FDFDCCD008A0C67 /* FindByAllModel.h */,
 				4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */,
+				455F36861FF3A4A500D09A63 /* NoticeModel.h */,
+				455F36871FF3A4A500D09A63 /* NoticeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -714,6 +732,8 @@
 				455036081FE246FC0088DAE0 /* ContractCell.m */,
 				4564549F1FF09E2700B30401 /* InputAlertView.h */,
 				456454A01FF09E2700B30401 /* InputAlertView.m */,
+				4599C9B71FF1E70800B23713 /* PersonInCell.h */,
+				4599C9B81FF1E70800B23713 /* PersonInCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -988,6 +1008,7 @@
 				4505B9AD1FECF6CE00A1E47E /* RnunbindViewController.m in Sources */,
 				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
+				4599C9BC1FF1F00900B23713 /* ModifyPhoneController.m in Sources */,
 				4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */,
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
 				450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */,
@@ -998,6 +1019,8 @@
 				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
 				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
+				455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */,
+				4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */,
 				4505B9A71FECE45E00A1E47E /* RealnameViewController.m in Sources */,
@@ -1020,6 +1043,7 @@
 				455974681FE8EAB400D7910A /* NoticeCell.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
+				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,

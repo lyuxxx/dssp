@@ -13,6 +13,9 @@
 @property (nonatomic, strong) UIImageView *icon;
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *address;
+@property (nonatomic, strong) UILabel *remindLabel;
+@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *contentLabel;
 @end
 
 @implementation NoticeCell
@@ -59,27 +62,26 @@
         whiteV;
     });
     
-    UILabel *timeLabel = [[UILabel alloc] init];
-    timeLabel.textAlignment = NSTextAlignmentRight;
-    timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:11];
-    timeLabel.text = NSLocalizedString(@"2018/12/31", nil);
-    [_white addSubview:timeLabel];
-    [timeLabel makeConstraints:^(MASConstraintMaker *make) {
+    self.timeLabel = [[UILabel alloc] init];
+    _timeLabel.textAlignment = NSTextAlignmentRight;
+    _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:11];
+    _timeLabel.text = NSLocalizedString(@"2018/12/31", nil);
+    [_white addSubview:_timeLabel];
+    [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(13 * HeightCoefficient);
         make.right.equalTo(-10 * HeightCoefficient);
         make.top.equalTo(14.5 * HeightCoefficient);
     }];
 
-
-    UILabel *remindLabel = [[UILabel alloc] init];
-    remindLabel.textAlignment = NSTextAlignmentLeft;
-    remindLabel.textColor = [UIColor colorWithHexString:@"#040000"];
-    remindLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    remindLabel.text = NSLocalizedString(@"流量提醒", nil);
-    [_white addSubview:remindLabel];
-    [remindLabel makeConstraints:^(MASConstraintMaker *make) {
+    self.remindLabel = [[UILabel alloc] init];
+    _remindLabel.textAlignment = NSTextAlignmentLeft;
+    _remindLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+    _remindLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    _remindLabel.text = NSLocalizedString(@"流量提醒", nil);
+    [_white addSubview:_remindLabel];
+    [_remindLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
@@ -87,19 +89,48 @@
     }];
 
 
-    UILabel *contentLabel = [[UILabel alloc] init];
-    [contentLabel setNumberOfLines:0];
-    contentLabel.textAlignment = NSTextAlignmentLeft;
-    contentLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    contentLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    contentLabel.text = NSLocalizedString(@"今年的广州车展期间,国产东风正式亮相,新车定位于紧凑型SUV，是目前DS品牌的全新的车型", nil);
-    [_white addSubview:contentLabel];
-    [contentLabel makeConstraints:^(MASConstraintMaker *make) {
+    self.contentLabel = [[UILabel alloc] init];
+    [_contentLabel setNumberOfLines:0];
+    _contentLabel.textAlignment = NSTextAlignmentLeft;
+    _contentLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    _contentLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    _contentLabel.text = NSLocalizedString(@"今年的广州车展期间,国产东风正式亮相,新车定位于紧凑型SUV，是目前DS品牌的全新的车型", nil);
+    [_white addSubview:_contentLabel];
+    [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(339 * WidthCoefficient);
         make.height.equalTo(40 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(remindLabel.bottom).offset(10*HeightCoefficient);
+        make.top.equalTo(_remindLabel.bottom).offset(10*HeightCoefficient);
     }];
+}
+
+
+-(void)setNoticeModel:(NoticeModel *)noticeModel
+{
+//    _remindLabel.text = NSLocalizedString(noticeModel.title, nil);
+//    _timeLabel.text = [self setWithTimeString:noticeModel.lastUpdateTime];
+//    _contentLabel.text =NSLocalizedString(noticeModel.depict, nil);
+
+}
+
+
+-(NSString *)setWithTimeString:(NSInteger)time
+{
+    if (time) {
+        NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
+        NSTimeInterval times=[dueDateStr doubleValue];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:times/1000];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSString *dateString = [formatter stringFromDate: date];
+        return dateString;
+    }else
+    {
+        return nil;
+        
+    }
+   
 }
 
 

@@ -88,7 +88,7 @@
 //@property (nonatomic , copy) NSString *totalPage;
 ////总记录数
 //@property (nonatomic , copy) NSString *totalCount;
-//@property (nonatomic, strong) NSArray <result *> *resultdata;
+//@property (nonatomic, strong) NSArray <result *> *result;
 
 //页数
 @property (nonatomic , copy) NSString *pageSize;

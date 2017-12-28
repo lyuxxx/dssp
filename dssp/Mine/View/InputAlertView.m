@@ -23,9 +23,8 @@
         [self addSubview:_blackView];
         
         
-        
         //创建alert
-        self.alertview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 270, 210)];
+        self.alertview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 270*WidthCoefficient , 210 *HeightCoefficient)];
         self.alertview.center = self.center;
         self.alertview.layer.cornerRadius = 4;
         self.alertview.clipsToBounds = YES;

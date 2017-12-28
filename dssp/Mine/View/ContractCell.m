@@ -229,11 +229,12 @@
 
 -(void)setContractModel:(ContractModel *)contractModel
 {
-    _startLabel.text = contractModel.contractBeginTime;
-    _endLabel.text = contractModel.contractEndTime;
-    _modeLabel.text = [contractModel.payMode isEqualToString:@"1"]?NSLocalizedString(@"分期付款", nil):NSLocalizedString(@"一次性付款", nil);
-    _paymentLabel.text = contractModel.payDate;
-    _moneyLabel.text = contractModel.contractMoney;
+    
+    _startLabel.text = NSLocalizedString(contractModel.contractBeginTime, nil);
+    _endLabel.text = NSLocalizedString(contractModel.contractEndTime, nil);
+    _modeLabel.text = NSLocalizedString(contractModel.payDate, nil);
+    _paymentLabel.text = NSLocalizedString(contractModel.payDate, nil);[contractModel valueForKey:@"payDate"];
+    _moneyLabel.text = NSLocalizedString(contractModel.contractMoney, nil);
 
 }
 

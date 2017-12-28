@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MGSwipeTableCell.h>
+#import "NoticeModel.h"
 @interface NoticeCell : MGSwipeTableCell
-
+@property (nonatomic ,strong)NoticeModel *noticeModel;
 @end

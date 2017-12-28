@@ -18,8 +18,11 @@
 <UITableViewDataSource,UITableViewDelegate>
 {
     ContractModel *contract;
+    
 }
+
 @property (nonatomic, strong) UITableView *tableView;
+
 @end
 
 
@@ -42,17 +45,28 @@
 {
     
     NSDictionary *paras = @{
-                            @"vin": @"LPACAPSA031431810"
+                            @"vin": @"V2017122700000001",
+                            @"currentPage":@"1",
+                            @"pageSize":@"20"
                             };
 
-    
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:queryContract parameters:paras success:^(id responseData) {
+    [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-             [_tableView reloadData];
+            
+          
+            NSArray *dataArray =dic[@"data"][@"result"];
+            for (NSDictionary *dic in dataArray) {
+                contract = [ContractModel yy_modelWithDictionary:dic];
+            }
+            
+        
+            NSLog(@"333%@",contract.contractBeginTime);
+
+            [_tableView reloadData];
+           
            
             //响应事件
            
@@ -98,6 +112,8 @@
     if (cell == nil) {
         cell = [[ContractCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
+    
+//    ContractModel *contract =[ContractModel new];
      cell.contractModel = contract;
 //    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
 //    cell.moneyLabel.text = contract.userId;

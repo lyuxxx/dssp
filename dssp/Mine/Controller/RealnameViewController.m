@@ -33,8 +33,6 @@
     self.navigationItem.title = NSLocalizedString(@"实名制认证", nil);
     self.view.backgroundColor = [UIColor whiteColor];
     
- 
-    
     NSArray *titles = @[
                         NSLocalizedString(@"实名制认证 | 入口", nil),
                         NSLocalizedString(@"实名制结果 | 查询", nil),
@@ -57,7 +55,6 @@
         make.left.equalTo(0);
     }];
     
-
     UIView *lastView = nil;
     for (NSInteger i = 0 ; i < titles.count; i++) {
         UIView *whiteV = [[UIView alloc] init];

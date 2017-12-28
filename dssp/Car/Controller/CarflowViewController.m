@@ -14,6 +14,8 @@
 @interface CarflowViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) NSDictionary *dic;
+@property (nonatomic, strong) NSMutableArray *DataArray;
 @end
 
 @implementation CarflowViewController
@@ -24,6 +26,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self requestData];
+    [self requestContentFlows];
     [self initTableView];
     [self setupUI];
 }
@@ -34,20 +37,23 @@
     
     NSDictionary *paras = @{
                           
-                            };
+                            
+                        };
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:report parameters:paras success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+    [CUHTTPRequest POST:current parameters:paras success:^(id responseData) {
+        _dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[_dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-            //            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-            //            [_tableView reloadData];
+            
+             NSLog(@"7777%@",_dic[@"data"][@"totalFlow"]);
+         
+            [_tableView reloadData];
             
             //响应事件
             
         } else {
-            [MBProgressHUD showText:dic[@"msg"]];
+            [MBProgressHUD showText:_dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
@@ -55,8 +61,42 @@
     }];
 }
 
+-(void)requestContentFlows
+{
+    
+    NSDictionary *paras = @{
+                            
+                            
+                            };
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:report parameters:paras success:^(id responseData) {
+        _dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+         _DataArray=[NSMutableArray array];
+        if ([[_dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            
+            NSMutableArray *FlowDatas=_dic[@"data"][@"contentFlows"];
+            for (NSDictionary *dic in FlowDatas) {
+                NSMutableArray *array=[NSMutableArray array];
+                [array addObject:[dic objectForKey:@"contentTypeName"]];
+                [array addObject:[dic objectForKey:@"useFlow"]];
+                [_DataArray addObject:array ];
+            }
+            [_tableView reloadData];
+            
+            //响应事件
+            
+        } else {
+            [MBProgressHUD showText:_dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
 
-
+}
 
 -(void)initTableView
 {
@@ -85,8 +125,6 @@
 
 -(void)setupUI
 {
-    
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.title = NSLocalizedString(@"流量", nil);
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,197*HeightCoefficient)];
@@ -124,7 +162,7 @@
     UILabel *flowlabel = [[UILabel alloc] init];
     flowlabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:28];
     flowlabel.textColor=[UIColor whiteColor];
-    flowlabel.text=NSLocalizedString(@"200M", nil);
+    flowlabel.text=NSLocalizedString(_dic[@"data"][@"remainFlow"]?_dic[@"data"][@"remainFlow"]:@"0", nil);
     flowlabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:flowlabel];
     [flowlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -149,7 +187,6 @@
     }];
     
     
-    
     UIView *lineView = [UIView new];
     lineView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     
@@ -165,7 +202,7 @@
     UILabel *employflowlabel = [[UILabel alloc] init];
     employflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     employflowlabel.textColor=[UIColor blackColor];
-    employflowlabel.text=NSLocalizedString(@"800M", nil);
+    employflowlabel.text=NSLocalizedString(_dic[@"data"][@"useFlow"]?_dic[@"data"][@"useFlow"]:@"0", nil);
     employflowlabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:employflowlabel];
     [employflowlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -194,7 +231,7 @@
     UILabel *totalflowlabel = [[UILabel alloc] init];
     totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     totalflowlabel.textColor=[UIColor blackColor];
-    totalflowlabel.text=NSLocalizedString(@"1000M", nil);
+    totalflowlabel.text=NSLocalizedString(_dic[@"data"][@"totalFlow"]?_dic[@"data"][@"totalFlow"]:@"0", nil);
     totalflowlabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:totalflowlabel];
     [totalflowlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -242,10 +279,11 @@
         cell = [[CarflowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
+    NSArray *titles = @[NSLocalizedString(@"在线音乐", nil),NSLocalizedString(@"在线电台", nil),NSLocalizedString(@"OTA升级", nil),NSLocalizedString(@"WIFI", nil)];
 
-     cell.toplab.text =@"在线音乐";
+    cell.toplab.text =_DataArray[0][indexPath.row]?_DataArray[0][indexPath.row]:titles[indexPath.row];
      cell.bottolab.text =@"最近使用:2017/12/31";
-     cell.rightlab.text =@"45M";
+    cell.rightlab.text =_DataArray[1][indexPath.row]?_DataArray[1][indexPath.row]:@"0M";
    
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;

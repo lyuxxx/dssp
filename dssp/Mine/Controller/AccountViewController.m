@@ -227,8 +227,8 @@
             
             NSDictionary *paras = @{
                                     @"userName":userName,
-                                    @"newPassword":_newsPasswordField.text,
-                                    @"password":_originalField.text
+                                    @"newPassword":[_newsPasswordField.text md5String],
+                                    @"password":[_originalField.text md5String]
 
                                     };
             
@@ -253,10 +253,12 @@
                     [self presentViewController:alert animated:YES completion:nil];
                 } else {
                     [MBProgressHUD showText:dic[@"msg"]];
+                    [hud hideAnimated:YES];
                 }
             } failure:^(NSInteger code) {
                 hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
                 [hud hideAnimated:YES afterDelay:1];
+                [hud hideAnimated:YES];
             }];
             
         }

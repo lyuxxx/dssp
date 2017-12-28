@@ -134,10 +134,11 @@
     
     if (![_vinField.text isEqualToString:@""]) {
         NSDictionary *paras = @{
-                                @"vin": _vinField.text
-                                
+                                @"vin": _vinField.text,
+                                @"doptCode":@"1222956"
+
                                 };
-        [CUHTTPRequest POST:getBasicInfo parameters:paras success:^(id responseData) {
+        [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {

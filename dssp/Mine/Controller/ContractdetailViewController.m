@@ -34,7 +34,7 @@
 {
     
     NSDictionary *paras = @{
-                            @"contractCode": _contractCode
+                            @"contractCode": _contractCode?_contractCode:@"0"
                             };
     
     

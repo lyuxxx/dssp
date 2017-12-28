@@ -49,11 +49,9 @@
 
 -(void)requestData
 {
-    
     NSDictionary *paras = @{
                             @"vin": @"LPACAPSA031431810"
                             };
-    
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryVhl parameters:paras success:^(id responseData) {
@@ -63,7 +61,6 @@
             
             
           
-            
         } else {
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];

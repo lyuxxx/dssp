@@ -141,26 +141,26 @@
 //        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
 //        NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
 //        [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
-        
         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         [InputalertView initWithTitle:@"请输入PIN码" img:@"警告" type:11 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: InputalertView];
         InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
             if (btn.tag == 100) {//左边按钮
-            
+                
             }
             if(btn.tag ==101)
             {
-            //右边按钮
+                //右边按钮
                 NSLog(@"666%@",str);
                 
                 
             }
             
         };
+      
         
-//        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
+        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }
 

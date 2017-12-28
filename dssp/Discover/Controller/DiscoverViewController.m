@@ -28,9 +28,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-  
+    [self requestData];
     [self setupUI];
 }
+
+
+-(void)requestData
+{
+    
+    NSDictionary *paras = @{
+                       
+                            };
+    
+    
+   NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findUnreadNumberByVin];
+    
+
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            //            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
+            //            [_tableView reloadData];
+            
+            //响应事件
+            
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+}
+
 
 -(void)setupUI
 {
@@ -181,6 +213,8 @@
         lastLabels = bottomLabel;
       }
 
+    
+    
    
     self.line1 = [[UIView alloc] init];
     _line1.backgroundColor = [UIColor colorWithHexString:@"#C4B7A6"];

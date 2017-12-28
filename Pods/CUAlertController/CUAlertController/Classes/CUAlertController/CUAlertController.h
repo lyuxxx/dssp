@@ -15,7 +15,7 @@
 
  @param image 上方显示的图片
  @param attributedMessage attributedString类型的信息
- @return 返回的实例
+ @return 返回的实例     
  */
 + (instancetype)alertWithImage:(UIImage *)image attributedMessage:(NSAttributedString *)attributedMessage;
 

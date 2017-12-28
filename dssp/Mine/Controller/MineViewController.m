@@ -62,7 +62,7 @@
     _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"身份证",@"车辆信息"],@[@"汽车信息",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"signout",@"退出登录"]]];
     
-    [self RealnameUserName];
+//    [self RealnameUserName];
     [self initTableView];
     [self setupUI];
 }
@@ -202,18 +202,6 @@
 
 -(void)setupUI
 {
-    
-//    NSString *textString = @"是否确定将\"光谷广场\"位置发送到车";
-//    //字体大小、颜色不统一,只改变一种
-//    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kScreenWidth - 20, 50)];
-//    label2.backgroundColor = [UIColor cyanColor];
-//    [self.view addSubview:label2];
-//    NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:textString];
-//    [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 5)];
-////    [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(9, )];
-//    [str2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:35] range:NSMakeRange(5, 6)];
-//    label2.attributedText = str2;
-   
     
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
     _headerView.backgroundColor=[UIColor whiteColor];

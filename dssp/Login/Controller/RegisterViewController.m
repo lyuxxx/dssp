@@ -180,7 +180,7 @@
             
         } else if (i == 3) {
             self.confirmPasswordField = field;
-            self.confirmPasswordField.secureTextEntry = YES;
+//            self.confirmPasswordField.secureTextEntry = YES;
             
             self.checkImgV = [[UIImageView alloc] init];
             _checkImgV.image = [UIImage imageNamed:@"check grey"];
@@ -287,7 +287,7 @@
             @"randomCode": _authField.text,
             @"userName": _phoneField.text,
             @"userPassword": [_passwordField.text md5String]
-            
+
         };
             
             NSLog(@"6666%@",paras);

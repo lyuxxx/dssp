@@ -97,13 +97,14 @@
 
 - (void)setupUI {
     
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    NSLog(@"%@",uuid);
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
     
     UIImageView *logoView = [[UIImageView alloc] init];
     logoView.image = [UIImage imageNamed:@"logo"];
@@ -145,7 +146,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-//    _userNameField.text = @"15871707603";
+    _userNameField.text = @"15871707603";
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
@@ -185,7 +186,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-//     _passWordField.text = @"qinbo";
+     _passWordField.text = @"123456";
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -463,8 +464,8 @@
                 {
                     NSDictionary *paras = @{
                                 @"telephone":_phoneField.text,
-                                @"randomCode":_phoneCodeField.text
-                                            
+                                @"randomCode":_phoneCodeField.text,
+                                @"phoneToken":@"1"
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {
@@ -499,17 +500,15 @@
             if (_userNameField.text.length == 0 || _passWordField.text.length == 0) {
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
             }
-            
             else
             {
-
                 if([self valiMobile:_userNameField.text])
                 {
-                  
-                    NSDictionary *paras = @{
-                                            @"userName": _userNameField.text,
-                                            @"userPassword": [_passWordField.text md5String]
-                                            };
+                       NSDictionary *paras = @{
+                       @"userName": _userNameField.text,
+                       @"userPassword": [_passWordField.text md5String],
+                       @"phoneToken":@"1"
+                 };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
                         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -529,10 +528,15 @@
                             
 
                         } else {
+//                            TabBarController *tabVC = [[TabBarController alloc] init];
+//                            [self presentViewController:tabVC animated:NO completion:nil];
                             hud.label.text = [dic objectForKey:@"msg"];
                             [hud hideAnimated:YES afterDelay:1];
                         }
                     } failure:^(NSInteger code) {
+                        
+//                        TabBarController *tabVC = [[TabBarController alloc] init];
+//                        [self presentViewController:tabVC animated:NO completion:nil];
                         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
                         [hud hideAnimated:YES afterDelay:1];
                     }];

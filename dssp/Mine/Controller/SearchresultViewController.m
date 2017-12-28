@@ -112,14 +112,7 @@
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                 
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-                if ([str isEqualToString:@"0"]) {
-                  
-                    
-                }
-                else if ([str isEqualToString:@"1"])
-                {
-                   
-                }
+               
                 
             } else {
                 
@@ -130,9 +123,7 @@
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         
-        //        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-        //        vc.vin = _vinField.text;
-        //        [self.navigationController pushViewController:vc animated:YES];
+      
     } else {
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }

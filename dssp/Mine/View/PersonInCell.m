@@ -1,14 +1,14 @@
 //
-//  MineCell.m
+//  PersonInCellTableViewCell.m
 //  dssp
 //
-//  Created by qinbo on 2017/11/15.
+//  Created by qinbo on 2017/12/26.
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "MineCell.h"
+#import "PersonInCell.h"
 #import <YYCategoriesSub/YYCategories.h>
-@implementation MineCell
+@implementation PersonInCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -18,7 +18,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-       [self createUI];
+        [self createUI];
         
     }
     return self;
@@ -32,30 +32,17 @@
         whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
         [self.contentView addSubview:whiteView];
         [whiteView makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(43 * HeightCoefficient);
-//            make.centerY.equalTo(self.contentView);
+            //            make.top.equalTo(43 * HeightCoefficient);
+            //            make.centerY.equalTo(self.contentView);
             make.height.equalTo(1 *HeightCoefficient);
-            make.left.equalTo(59*WidthCoefficient);
+            make.left.equalTo(16*WidthCoefficient);
             make.right.equalTo(0);
             make.bottom.equalTo(1 - 1 * HeightCoefficient);
         }];
         whiteView;
     });
     
-     self.img=({
-        UIImageView *img = [[UIImageView alloc] init];
-        [self.contentView addSubview:img];
-        [img setContentMode:UIViewContentModeScaleAspectFit];
-        //    _img.image=[UIImage imageNamed:data[0]];
-        [img makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(11 * HeightCoefficient);
-            make.height.equalTo(22 * HeightCoefficient);
-            make.width.equalTo(22 * WidthCoefficient);
-            make.left.equalTo(16 * WidthCoefficient);
-        }];
-        
-        img;
-    });
+   
     
     self.arrowImg=({
         UIImageView *img = [[UIImageView alloc] init];
@@ -71,15 +58,37 @@
         img;
     });
     
+    
+    self.img=({
+        UIImageView *img = [[UIImageView alloc] init];
+        [self.contentView addSubview:img];
+        img.clipsToBounds=YES;
+        img.layer.cornerRadius=32 * WidthCoefficient/2;
+
+        [img setContentMode:UIViewContentModeScaleAspectFit];
+        //    _img.image=[UIImage imageNamed:data[0]];
+        [img makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView);
+            make.height.equalTo(32 * WidthCoefficient);
+            make.width.equalTo(32 * WidthCoefficient);
+            make.right.equalTo(_arrowImg.left).offset(-10.5*WidthCoefficient);
+        }];
+        
+        img;
+    });
+    
+    
     self.lab=({
-    UILabel *lab=[[UILabel alloc] init];
+  
+        UILabel *lab=[[UILabel alloc] init];
         lab.font=[UIFont fontWithName:FontName size:16];
+        lab.textColor =[UIColor colorWithHexString:@"#333333"];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(11 * HeightCoefficient);
+            //            make.top.equalTo(11 * HeightCoefficient);
             make.height.equalTo(22 * HeightCoefficient);
             make.width.equalTo(211 * WidthCoefficient);
-            make.left.equalTo(59 * WidthCoefficient);
+            make.left.equalTo(16 * WidthCoefficient);
             make.centerY.equalTo(self.contentView);
         }];
         lab;
@@ -88,31 +97,25 @@
     
     self.realName=({
         
-      UILabel *RealNamelab = [[UILabel alloc] init];
+        UILabel *RealNamelab = [[UILabel alloc] init];
         RealNamelab.font = [UIFont fontWithName:FontName size:12];
-        RealNamelab.textColor = [UIColor colorWithHexString:@"#AC0042"];
+        RealNamelab.textColor = [UIColor colorWithHexString:@"#999999"];
         RealNamelab.textAlignment = NSTextAlignmentRight;
-//        RealNamelab.text = NSLocalizedString(@"未实名", nil);
+        //        RealNamelab.text = NSLocalizedString(@"未实名", nil);
         [self.contentView addSubview:RealNamelab];
         [RealNamelab makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(11 * HeightCoefficient);
-                    make.height.equalTo(22 * HeightCoefficient);
-                    make.width.equalTo(90 * WidthCoefficient);
-                    make.right.equalTo(-40 * WidthCoefficient);
-                }];
+            make.centerY.equalTo(self.contentView);
+            make.height.equalTo(18 * HeightCoefficient);
+            make.width.equalTo(90 * WidthCoefficient);
+            make.right.equalTo(_arrowImg.left).offset(-10.5*WidthCoefficient);
+        }];
         RealNamelab;
-     });
+    });
     
     
     
 }
 
-//- (void)configUI
-//{
-//
-////    NSArray *array=_dataArray[indexPath.row];
-//    _img.image=[UIImage imageNamed:data[0]];
-//}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
