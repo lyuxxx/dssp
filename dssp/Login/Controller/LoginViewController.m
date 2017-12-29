@@ -48,7 +48,7 @@
     // Do any additional setup after loading the view.
     [self setupUI];
     [self network];
-
+    
 }
 
 -(void)network{
@@ -119,7 +119,7 @@
     /**
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    _skipBtn.enabled = NO;
-    [_skipBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_skipBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     _skipBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
     _skipBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_skipBtn setTitle:NSLocalizedString(@"跳过", nil) forState:UIControlStateNormal];
@@ -206,7 +206,7 @@
     self.smallEyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_smallEyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
     [_smallEyeBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
-    [_smallEyeBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_smallEyeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_smallEyeBtn];
     [_smallEyeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(16 * WidthCoefficient);
@@ -228,7 +228,7 @@
     
     
     self.authBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_authBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_authBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     _authBtn.layer.cornerRadius = 2;
     _authBtn.hidden = YES;
     [_authBtn.titleLabel setFont:[UIFont fontWithName:FontName size:11]];
@@ -251,7 +251,7 @@
     [_switchBtn setTitle:NSLocalizedString(@"用账号密码登录", nil) forState:UIControlStateSelected];
     _switchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_switchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_switchBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_switchBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_switchBtn];
     [_switchBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(112 * WidthCoefficient);
@@ -266,7 +266,7 @@
     [_forgotPassword setTitle:NSLocalizedString(@"忘记密码", nil) forState:UIControlStateNormal];
     _forgotPassword.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_forgotPassword setTitleColor:[UIColor colorWithHexString:  GeneralColorString] forState:UIControlStateNormal];
-    [_forgotPassword addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_forgotPassword addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_forgotPassword];
     [_forgotPassword makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(70.5 * WidthCoefficient);
@@ -283,7 +283,7 @@
     _loginBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [_loginBtn setTitle:NSLocalizedString(@"登录", nil) forState:UIControlStateNormal];
     [_loginBtn setTitleColor:[UIColor colorWithHexString:@"#C4B7A6"] forState:UIControlStateNormal];
-    [_loginBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_loginBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_loginBtn];
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
@@ -307,7 +307,7 @@
     
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_registerBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_registerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     _registerBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
     _registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_registerBtn setTitle:NSLocalizedString(@"注册", nil) forState:UIControlStateNormal];
@@ -320,20 +320,7 @@
     }];
 }
 
-- (void)loginWithUserName:(NSString *)username password:(NSString *)password {
-    NSDictionary *paras = @{
-                            @"userName": username,
-                            @"userPassword": password
-                            };
-    [CUHTTPRequest POST:telephoneLogin parameters:paras success:^(id responseData) {
-        //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        //        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-    } failure:^(NSInteger code) {
-        
-    }];
-}
-
-- (void)BtnClick:(UIButton *)sender {
+- (void)btnClick:(UIButton *)sender {
     if (sender == self.skipBtn) {
         TabBarController *tabVC = [[TabBarController alloc] init];
         [self presentViewController:tabVC animated:NO completion:nil];

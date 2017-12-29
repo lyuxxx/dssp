@@ -54,6 +54,7 @@
 		31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
 		31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
 		31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
+		31D1FDCE1FF494440021D47C /* OilStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D1FDCD1FF494440021D47C /* OilStation.m */; };
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
@@ -203,6 +204,8 @@
 		31CA75F91FE75DEE007BDC97 /* RemindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindViewController.m; sourceTree = "<group>"; };
 		31CFB26B1FC2733C00130C52 /* CarBindingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingInput.h; sourceTree = "<group>"; };
 		31CFB26C1FC2733C00130C52 /* CarBindingInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingInput.m; sourceTree = "<group>"; };
+		31D1FDCC1FF494440021D47C /* OilStation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OilStation.h; sourceTree = "<group>"; };
+		31D1FDCD1FF494440021D47C /* OilStation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OilStation.m; sourceTree = "<group>"; };
 		31DDD24F1FBABA0000D37DED /* LoveCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoveCarViewController.h; sourceTree = "<group>"; };
 		31DDD2501FBABA0000D37DED /* LoveCarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoveCarViewController.m; sourceTree = "<group>"; };
 		31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sudoku.h"; sourceTree = "<group>"; };
@@ -385,6 +388,8 @@
 				310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */,
 				314B98601FD7F24C00ABB638 /* POI.h */,
 				314B98611FD7F24C00ABB638 /* POI.m */,
+				31D1FDCC1FF494440021D47C /* OilStation.h */,
+				31D1FDCD1FF494440021D47C /* OilStation.m */,
 				4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */,
 				4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */,
 				450C7A261FDE3FA700E4652F /* ForecastModel.h */,
@@ -1034,6 +1039,7 @@
 				455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */,
 				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
+				31D1FDCE1FF494440021D47C /* OilStation.m in Sources */,
 				451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */,
 				4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */,
 				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,

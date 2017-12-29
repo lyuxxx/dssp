@@ -245,6 +245,16 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
+    if (sender.tag == 100) {
+        UIViewController *vc = [[NSClassFromString(@"MapHomeViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (sender.tag == 102) {
+        UIViewController *vc = [[NSClassFromString(@"RefuelViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     if (sender.tag == 104) {
         UIViewController *vc = [[NSClassFromString(@"WifiViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
