@@ -162,11 +162,30 @@ typedef NS_ENUM(NSUInteger, SearchType) {
     
     NSMutableArray *poiAnnotations = [[NSMutableArray alloc] init];
     [response.pois enumerateObjectsUsingBlock:^(AMapPOI * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MapSearchPointAnnotation *annotation = [[MapSearchPointAnnotation alloc] init];
+        MapPoiInfo *annotation = [[MapPoiInfo alloc] init];
         [annotation setCoordinate:CLLocationCoordinate2DMake(obj.location.latitude, obj.location.longitude)];
         annotation.name = obj.name;
         annotation.address = obj.address;
-        
+        annotation.uid = obj.uid;
+        annotation.adcode = obj.adcode;
+        annotation.district = obj.district;
+        annotation.type = obj.type;
+        annotation.typecode = obj.typecode;
+        annotation.tel = obj.tel;
+        annotation.distance = obj.distance;
+        annotation.parkingType = obj.parkingType;
+        annotation.shopID = obj.shopID;
+        annotation.postcode = obj.postcode;
+        annotation.website = obj.website;
+        annotation.email = obj.email;
+        annotation.province = obj.province;
+        annotation.pcode = obj.pcode;
+        annotation.city = obj.city;
+        annotation.citycode = obj.citycode;
+        annotation.gridcode = obj.gridcode;
+        annotation.direction = obj.direction;
+        annotation.businessArea = obj.businessArea;
+
         [poiAnnotations addObject:annotation];
     }];
     
@@ -195,13 +214,14 @@ typedef NS_ENUM(NSUInteger, SearchType) {
     NSMutableArray *tips = [[NSMutableArray alloc] init];
     
     for (AMapTip *tip in response.tips) {
-        MapSearchTip *mTip = [[MapSearchTip alloc] init];
+        MapPoiInfo *mTip = [[MapPoiInfo alloc] init];
         mTip.uid = tip.uid;
         mTip.name = tip.name;
         mTip.adcode = tip.adcode;
         mTip.district = tip.district;
         mTip.address = tip.address;
         mTip.coordinate = CLLocationCoordinate2DMake(tip.location.latitude, tip.location.longitude);
+        mTip.typecode = tip.typecode;
         
         [tips addObject:mTip];
     }
@@ -236,15 +256,32 @@ typedef NS_ENUM(NSUInteger, SearchType) {
         if (response && response.regeocode) {
             NSMutableArray *pois = [[NSMutableArray alloc] init];
             
-            for (AMapPOI *poi in response.regeocode.pois) {
-                MapSearchPoi *mPoi = [[MapSearchPoi alloc] init];
-                mPoi.name = poi.name;
-                mPoi.address = poi.name;
-                mPoi.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
-                mPoi.city = poi.city;
-                mPoi.cityCode = poi.citycode;
+            for (AMapPOI *obj in response.regeocode.pois) {
+                MapPoiInfo *annotation = [[MapPoiInfo alloc] init];
+                [annotation setCoordinate:CLLocationCoordinate2DMake(obj.location.latitude, obj.location.longitude)];
+                annotation.name = obj.name;
+                annotation.address = obj.address;
+                annotation.uid = obj.uid;
+                annotation.adcode = obj.adcode;
+                annotation.district = obj.district;
+                annotation.type = obj.type;
+                annotation.typecode = obj.typecode;
+                annotation.tel = obj.tel;
+                annotation.distance = obj.distance;
+                annotation.parkingType = obj.parkingType;
+                annotation.shopID = obj.shopID;
+                annotation.postcode = obj.postcode;
+                annotation.website = obj.website;
+                annotation.email = obj.email;
+                annotation.province = obj.province;
+                annotation.pcode = obj.pcode;
+                annotation.city = obj.city;
+                annotation.citycode = obj.citycode;
+                annotation.gridcode = obj.gridcode;
+                annotation.direction = obj.direction;
+                annotation.businessArea = obj.businessArea;
                 
-                [pois addObject:mPoi];
+                [pois addObject:annotation];
             }
             
             if (self.reGeocodeSearchBlock) {

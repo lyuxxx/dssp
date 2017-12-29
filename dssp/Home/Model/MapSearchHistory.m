@@ -14,27 +14,40 @@
     [self removePropertyWithColumnName:@"coordinate"];
 }
 
-- (instancetype)initWithName:(NSString *)name address:(NSString *)address coordinate:(CLLocationCoordinate2D)coordinate {
+- (instancetype)initWithPoiInfo:(MapPoiInfo *)info {
     if (self = [super init]) {
-        self.name = name;
-        self.address = address;
-        self.coordinate = coordinate;
-        self.latitude = coordinate.latitude;
-        self.longitude = coordinate.longitude;
+        self.name = info.name;
+        self.address = info.address;
+        self.coordinate = info.coordinate;
+        self.latitude = info.coordinate.latitude;
+        self.longitude = info.coordinate.longitude;
+        self.uid = info.uid;
+        self.adcode = info.adcode;
+        self.district = info.district;
+        self.type = info.type;
+        self.typecode = info.typecode;
+        self.tel = info.tel;
+        self.distance = info.distance;
+        self.parkingType = info.parkingType;
+        self.shopID = info.shopID;
+        self.postcode = info.postcode;
+        self.website = info.website;
+        self.email = info.email;
+        self.province = info.province;
+        self.pcode = info.pcode;
+        self.city = info.city;
+        self.citycode = info.citycode;
+        self.gridcode = info.gridcode;
+        self.direction = info.direction;
+        self.businessArea = info.businessArea;
     }
     return self;
 }
 
-- (instancetype)initWithName:(NSString *)name address:(NSString *)address coordinate:(CLLocationCoordinate2D)coordinate timeStamp:(NSTimeInterval)timeStamp {
-    if (self = [super init]) {
-        self.name = name;
-        self.address = address;
-        self.coordinate = coordinate;
-        self.timeStamp = timeStamp;
-        self.latitude = coordinate.latitude;
-        self.longitude = coordinate.longitude;
-    }
-    return self;
+- (instancetype)initWithPoiInfo:(MapPoiInfo *)info timeStamp:(NSTimeInterval)timeStamp {
+    MapSearchHistory *obj = [self initWithPoiInfo:info];
+    obj.timeStamp = timeStamp;
+    return obj;
 }
 
 + (LKDBHelper *)getUsingLKDBHelper {

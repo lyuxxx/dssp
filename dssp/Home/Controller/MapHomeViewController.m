@@ -47,12 +47,12 @@
 
 @property (nonatomic, copy) NSString *city;
 
-@property (nonatomic, strong) NSMutableArray<MapSearchObject *> *annotations;
+@property (nonatomic, strong) NSMutableArray<MapPoiInfo *> *annotations;
 
 @property (nonatomic, strong) UIView *tableFooter;
 @property (nonatomic, strong) UIButton *clearHistoryBtn;
 
-@property (nonatomic, strong) MapSearchObject *currentAnnotationInfo;
+@property (nonatomic, strong) MapPoiInfo *currentPoi;
 
 @end
 
@@ -259,7 +259,7 @@
 - (void)btnClick:(UIButton *)sender {
     if (sender.tag >= 1000) {//上方按钮
         _searchField.text = sender.titleLabel.text;
-        [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations) {
+        [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
             _resultTable.tableFooterView = [UIView new];
@@ -280,7 +280,7 @@
         [self getHistory];
     }
     if (sender == _searchBtn) {
-        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations) {
+        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
             _resultTable.tableFooterView = [UIView new];
@@ -312,7 +312,7 @@
         sender.selected = !sender.selected;
     }
     if (sender == _infoAroundBtn) {
-        SearchAroundViewController *vc = [[SearchAroundViewController alloc] initWithAddress:self.currentAnnotationInfo];
+        SearchAroundViewController *vc = [[SearchAroundViewController alloc] initWithAddress:self.currentPoi];
         [self.navigationController pushViewController:vc animated:NO];
     }
     if (sender == _infoFenceBtn) {
@@ -339,7 +339,7 @@
     }];
 }
 
-- (void)clearAndAddAnnotationWithAnnotationInfo:(MapSearchObject *)annotationInfo {
+- (void)clearAndAddAnnotationWithAnnotationInfo:(MapPoiInfo *)annotationInfo {
     [self clear];
     MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
     annotation.coordinate = annotationInfo.coordinate;
@@ -467,8 +467,17 @@
     [self.view layoutIfNeeded];
 }
 
-- (void)showInfoWithAnnotationInfo:(MapSearchObject *)annotationInfo {
-    self.currentAnnotationInfo = annotationInfo;
+- (void)checkPoiIsFavorited {
+    [CUHTTPRequest POST:checkPOICollected parameters:@{@"cpId":[NSString stringWithFormat:@"%ld",(long)self.currentPoi.uid]} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        BOOL isFavorite = [dic[@"data"] boolValue];
+    } failure:^(NSInteger code) {
+        
+    }];
+}
+
+- (void)showInfoWithAnnotationInfo:(MapPoiInfo *)annotationInfo {
+    self.currentPoi = annotationInfo;
     _tmpField.hidden = YES;
     if (self.infoView) {
         [_infoView removeFromSuperview];
@@ -667,9 +676,9 @@
 }
 
 - (void)textFieldEditChanged:(UITextField *)textField {
-    [[MapSearchManager sharedManager] inputTipsSearch:textField.text city:self.city returnBlock:^(NSArray<__kindof MapSearchTip *> *tips) {
+    [[MapSearchManager sharedManager] inputTipsSearch:textField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
         [self.annotations removeAllObjects];
-        for (MapSearchTip *tip in tips) {
+        for (MapPoiInfo *tip in tips) {
             if (tip.uid && tip.coordinate.longitude > 0 && tip.coordinate.latitude) {
                 [self.annotations addObject:tip];
             }
@@ -681,7 +690,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == _searchField) {
-        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations) {
+        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
             _resultTable.tableFooterView = [UIView new];
@@ -701,10 +710,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MapSearchObject * annotation = self.annotations[indexPath.row];
+    MapPoiInfo * annotation = self.annotations[indexPath.row];
     [self hideSearchView];
     [self clearAndAddAnnotationWithAnnotationInfo:annotation];
-    MapSearchHistory *history = [[MapSearchHistory alloc] initWithName:annotation.name address:annotation.address coordinate:annotation.coordinate timeStamp:[[NSDate date] timeIntervalSince1970]];
+    MapSearchHistory *history = [[MapSearchHistory alloc] initWithPoiInfo:annotation timeStamp:[[NSDate date] timeIntervalSince1970]];
     [MapSearchHistory updateWithHistory:history];
     [self getHistory];
 }
@@ -725,7 +734,7 @@
     if (!cell) {
         cell = [[MapSearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    id<MapAnnotation> annotation = self.annotations[indexPath.row];
+    MapPoiInfo *annotation = self.annotations[indexPath.row];
     cell.titleLabel.text = annotation.name;
     cell.subTitleLabel.text = annotation.address;
     return cell;
@@ -782,9 +791,13 @@
         return;
     }
     MATouchPoi *touchPOI = pois[0];
+    MapPoiInfo *info = [[MapPoiInfo alloc] init];
+    info.name = touchPOI.name;
+    info.coordinate = touchPOI.coordinate;
+    info.uid = touchPOI.uid;
+    self.currentPoi = info;
     if (touchPOI) {
-        
-        [[MapSearchManager sharedManager] idSearch:touchPOI.uid returnBlock:^(MapSearchPointAnnotation *pointAnnotation) {
+        [[MapSearchManager sharedManager] idSearch:touchPOI.uid returnBlock:^(MapPoiInfo *pointAnnotation) {
             [self clear];
             MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
             annotation.coordinate = touchPOI.coordinate;
@@ -798,11 +811,10 @@
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
     [self.mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
-    MapSearchObject *annotation = [[MapSearchObject alloc] init];
-    annotation.coordinate = view.annotation.coordinate;
-    annotation.name = view.annotation.title;
-    annotation.address = view.annotation.subtitle;
-    [self showInfoWithAnnotationInfo:annotation];
+    self.currentPoi.coordinate = view.annotation.coordinate;
+    self.currentPoi.name = view.annotation.title;
+    self.currentPoi.address = view.annotation.subtitle;
+    [self showInfoWithAnnotationInfo:self.currentPoi];
 }
 
 #pragma mark - lazy load -
@@ -838,7 +850,7 @@
     return _resultTable;
 }
 
-- (NSMutableArray<MapSearchObject *> *)annotations {
+- (NSMutableArray<MapPoiInfo *> *)annotations {
     if (!_annotations) {
         _annotations = [[NSMutableArray alloc] init];
     }

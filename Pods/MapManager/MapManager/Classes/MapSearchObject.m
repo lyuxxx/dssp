@@ -11,15 +11,7 @@
 
 @end
 
-@implementation MapSearchTip
-
-@end
-
-@implementation MapSearchPointAnnotation
-
-@end
-
-@implementation MapSearchPoi
+@implementation MapPoiInfo
 
 @end
 

@@ -84,6 +84,16 @@
     [self.mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(20 * WidthCoefficient, 20 * WidthCoefficient, 20 * WidthCoefficient, 20 * WidthCoefficient) animated:YES];
 }
 
+- (void)checkPoiIsFavorited {
+    [CUHTTPRequest POST:checkPOICollected parameters:@{@"cpId":[NSString stringWithFormat:@"%ld",(long)self.currentStation.stationid]} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        BOOL isFavorite = [dic[@"data"] boolValue];
+        [self showInfoWithStation:self.currentStation isFavorite:isFavorite];
+    } failure:^(NSInteger code) {
+        
+    }];
+}
+
 - (OilStation *)checkCorrespondingStation:(MAAnnotationView *)view {
     for (OilStation *station in self.stations) {
         if (station.coordinatex == view.annotation.coordinate.longitude && station.coordinatey == view.annotation.coordinate.latitude) {
@@ -93,7 +103,7 @@
     return nil;
 }
 
-- (void)showInfoWithStation:(OilStation *)station {
+- (void)showInfoWithStation:(OilStation *)station isFavorite:(BOOL)isFavorite {
     self.currentStation = station;
     if (_infoView) {
         self.infoView = [[UIView alloc] init];
@@ -182,7 +192,7 @@
         _addressLabel.text = [NSString stringWithFormat:@"%ldkm",station.distance];
     }
     
-    _infoFavoriteBtn.selected = YES;
+    _infoFavoriteBtn.selected = isFavorite;
 }
 
 - (void)hideInfo {
@@ -375,7 +385,7 @@
     }
     if (sender == self.shrinkBtn) {
         [self hideDetail];
-        [self showInfoWithStation:self.currentStation];
+        [self checkPoiIsFavorited];
     }
     if (sender == self.poiSendBtn || sender == self.detailSendBtn) {
         [self sendPOIWith:self.currentStation];
@@ -433,7 +443,8 @@
     }
     _currentAnnotaionView = view;
     view.image = [UIImage imageNamed:@"oilPin_selected"];
-    [self showInfoWithStation:[self checkCorrespondingStation:view]];
+    self.currentStation = [self checkCorrespondingStation:view];
+    [self checkPoiIsFavorited];
 }
 
 #pragma mark - lazy load

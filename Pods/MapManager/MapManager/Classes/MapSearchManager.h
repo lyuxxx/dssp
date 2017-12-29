@@ -20,35 +20,35 @@ typedef void(^SearchFailBlock)(NSError *error);
 
  @param pointAnnotations 返回的点标注数组
  */
-typedef void(^KeyWordSearchBlock)(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations);
+typedef void(^KeyWordSearchBlock)(NSArray<__kindof MapPoiInfo *> *pointAnnotations);
 
 /**
  周边搜索回调block
 
  @param pointAnnotations 返回的点标注数组
  */
-typedef void(^KeyWordAroundBlock)(NSArray<__kindof MapSearchPointAnnotation *> *pointAnnotations);
+typedef void(^KeyWordAroundBlock)(NSArray<__kindof MapPoiInfo *> *pointAnnotations);
 
 /**
  id搜索poi数据回调
 
  @param pointAnnotation 返回的点标注数据
  */
-typedef void(^IDSearchBlock)(MapSearchPointAnnotation *pointAnnotation);
+typedef void(^IDSearchBlock)(MapPoiInfo *pointAnnotation);
 
 /**
  tips搜索回调block
 
  @param tips 返回的tips数组
  */
-typedef void(^TipsSearchBlock)(NSArray<__kindof MapSearchTip *> *tips);
+typedef void(^TipsSearchBlock)(NSArray<__kindof MapPoiInfo *> *tips);
 
 /**
  逆地理编码周边poi回调
 
  @param pois 回调的pois
  */
-typedef void(^ReGeocodeSearchBlock)(NSArray<__kindof MapSearchPoi *> *pois);
+typedef void(^ReGeocodeSearchBlock)(NSArray<__kindof MapPoiInfo *> *pois);
 
 /**
  逆地理编码地址信息回调

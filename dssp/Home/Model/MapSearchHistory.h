@@ -9,15 +9,15 @@
 #import <MapSearchManager.h>
 #import <LKDBHelper.h>
 
-@interface MapSearchHistory : MapSearchObject
+@interface MapSearchHistory : MapPoiInfo
 
 @property (nonatomic, assign) NSTimeInterval timeStamp;
 @property (nonatomic, assign) CLLocationDegrees latitude;
 @property (nonatomic, assign) CLLocationDegrees longitude;
 
-- (instancetype)initWithName:(NSString *)name address:(NSString *)address coordinate:(CLLocationCoordinate2D)coordinate;
+- (instancetype)initWithPoiInfo:(MapPoiInfo *)info;
 
-- (instancetype)initWithName:(NSString *)name address:(NSString *)address coordinate:(CLLocationCoordinate2D)coordinate timeStamp:(NSTimeInterval)timeStamp;
+- (instancetype)initWithPoiInfo:(MapPoiInfo *)info timeStamp:(NSTimeInterval)timeStamp;
 
 ///包含insert和update
 + (void)updateWithHistory:(MapSearchHistory *)history;
