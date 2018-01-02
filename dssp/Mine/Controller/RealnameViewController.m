@@ -40,7 +40,7 @@
                         ];
     
     NSArray *imgArray= @[
-                         NSLocalizedString(@"business", nil),
+                         NSLocalizedString(@"business-card-6", nil),
                          NSLocalizedString(@"len", nil),
                          NSLocalizedString(@"解绑", nil)
                          ];

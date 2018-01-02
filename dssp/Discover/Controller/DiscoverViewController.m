@@ -213,9 +213,6 @@
         lastLabels = bottomLabel;
       }
 
-    
-    
-   
     self.line1 = [[UIView alloc] init];
     _line1.backgroundColor = [UIColor colorWithHexString:@"#C4B7A6"];
     [self.view addSubview:_line1];
@@ -306,38 +303,28 @@
 -(void)loadNoticeVC
 {
     _noticeVC = [[NoticeViewController alloc] init];
-    CGFloat height =  kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
-    self.noticeVC.view.frame = CGRectMake(0, 74 * HeightCoefficient+kStatusBarHeight, kScreenWidth, height);
-
     [self.view addSubview:self.noticeVC.view];
     [self addChildViewController:self.noticeVC];
     [_subscribeVC.view removeFromSuperview];
+    [self.noticeVC.view makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_noticeBtn.bottom).offset(0);
+            make.width.equalTo(kScreenWidth);
+            make.bottom.equalTo(-kTabbarHeight);
+           }];
 }
 
 
 -(void)loadSubscribeVC
 {
-    CGFloat height =  kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
     _subscribeVC = [[SubscribeViewController alloc] init];
-    self.subscribeVC.view.frame = CGRectMake(0, 74 * HeightCoefficient+kStatusBarHeight, kScreenWidth, height);
-  
     [self.view addSubview:self.subscribeVC.view];
     [self addChildViewController:self.subscribeVC];
     [_noticeVC.view removeFromSuperview];
-    
-//    _subscribeVC = [[SubscribeViewController alloc] init];
-//    _subscribeVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 400);
-//    [self addChildViewController:_subscribeVC];
-//     [_scrollView addSubview:_subscribeVC.view];
-////    [_subscribeVC.view makeConstraints:^(MASConstraintMaker *make) {
-////        make.left.equalTo(kScreenWidth);
-////        make.top.equalTo(_noticeBtn.bottom).offset(0);
-//////        make.height.equalTo(kScreenHeight-kTabbarHeight);
-////        make.width.equalTo(kScreenWidth);
-////        make.bottom.equalTo(self.view).offset(kTabbarHeight);
-////    }];
-//    NSLog(@"101");
-//
+    [self.subscribeVC.view makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_noticeBtn.bottom).offset(0);
+        make.width.equalTo(kScreenWidth);
+        make.bottom.equalTo(-kTabbarHeight);
+    }];
     
 }
 

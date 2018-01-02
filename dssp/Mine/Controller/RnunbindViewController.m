@@ -13,6 +13,7 @@
 #import "InputAlertView.h"
 @interface RnunbindViewController ()<InputAlertviewDelegate>
 @property (nonatomic, strong) UITextField *vinField;
+@property (nonatomic, copy) NSString *pinName;
 @end
 
 @implementation RnunbindViewController
@@ -28,7 +29,6 @@
 }
 
 - (void)setupUI {
-    
     
     self.navigationItem.title = NSLocalizedString(@"实名制解绑", nil);
     UIView *whiteV = [[UIView alloc] init];
@@ -103,44 +103,15 @@
 
 - (void)nextBtnClick:(UIButton *)sender {
     if (![_vinField.text isEqualToString:@""]) {
-        NSDictionary *paras = @{
-                                @"vin": _vinField.text
-                                };
-        [CUHTTPRequest POST:checkCerStatusByVin parameters:paras success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                
-                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-                if ([str isEqualToString:@"0"]) {
-                    
-                    
-                }
-                else if ([str isEqualToString:@"1"])
-                {
-                    
-                }
-                
-            } else {
-                
-                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-                
-            }
-        } failure:^(NSInteger code) {
-            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-        }];
-        
-        //        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-        //        vc.vin = _vinField.text;
-        //        [self.navigationController pushViewController:vc animated:YES];
-    } else {
-        
-//         [self loadAlertView:@"请输入PIN码" contentStr:nil btnNum:2 btnStrArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] type:11];
         
         
-//        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
-//        NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
-//        [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
+        
+        //         [self loadAlertView:@"请输入PIN码" contentStr:nil btnNum:2 btnStrArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] type:11];
+        
+        
+        //        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+        //        NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
+        //        [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         [InputalertView initWithTitle:@"请输入PIN码" img:@"警告" type:11 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
@@ -151,14 +122,54 @@
             }
             if(btn.tag ==101)
             {
-                //右边按钮
-                NSLog(@"666%@",str);
                 
-                
+                self.pinName =str;
+                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [InputalertView initWithTitle:@"是否解绑？" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: InputalertView];
+                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if (btn.tag == 100) {//左边按钮
+                        
+                    }
+                    if(btn.tag ==101)
+                    {
+                      
+                NSDictionary *paras = @{
+                                        @"vin": _vinField.text,
+                                        @"pin": _pinName
+                                        };
+                [CUHTTPRequest POST:UnbundlingRNR parameters:paras success:^(id responseData) {
+                                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                        
+                                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                               
+                                          [MBProgressHUD showText:NSLocalizedString(@"实名制解绑成功", nil)];
+                        
+                                    } else {
+                        
+                                        [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                        
+                                    }
+                                } failure:^(NSInteger code) {
+                                    [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+                                }];
+
+                    }
+                    
+                    //右边按钮
+                    NSLog(@"666%@",str);
+                    
+                    
+                };
             }
             
         };
-      
+        
+
+    } else {
+ 
         
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }

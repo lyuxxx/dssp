@@ -142,13 +142,13 @@ _Pragma("clang diagnostic pop") \
 //查询通知消息列表接口
 #define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@findAppPushInboxTitleByVin",baseUrl]
 //消息详情查询接口
-#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxInfoByVin",baseUrl]
+#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@findAppPushInboxInfoByVin",baseUrl]
 //修改消息状态 删除单条消息
 #define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrl]
 //实时总流量查询接口
-#define current [NSString stringWithFormat:@"%@flow/current",baseUrl]
-//分类流量使用明细查询接口
-#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
+#define findSimRealTimeFlowByIccid [NSString stringWithFormat:@"%@findSimRealTimeFlowByIccid",baseUrl]
+////分类流量使用明细查询接口
+//#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
 //车辆-客户解绑
 #define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrl]
 //实名制解绑

@@ -66,7 +66,7 @@
     _timeLabel.textAlignment = NSTextAlignmentRight;
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:11];
-    _timeLabel.text = NSLocalizedString(@"2018/12/31", nil);
+//    _timeLabel.text = NSLocalizedString(@"2018/12/31", nil);
     [_white addSubview:_timeLabel];
     [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
@@ -79,7 +79,7 @@
     _remindLabel.textAlignment = NSTextAlignmentLeft;
     _remindLabel.textColor = [UIColor colorWithHexString:@"#040000"];
     _remindLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _remindLabel.text = NSLocalizedString(@"流量提醒", nil);
+//    _remindLabel.text = NSLocalizedString(@"流量提醒", nil);
     [_white addSubview:_remindLabel];
     [_remindLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
@@ -94,7 +94,7 @@
     _contentLabel.textAlignment = NSTextAlignmentLeft;
     _contentLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _contentLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    _contentLabel.text = NSLocalizedString(@"今年的广州车展期间,国产东风正式亮相,新车定位于紧凑型SUV，是目前DS品牌的全新的车型", nil);
+//    _contentLabel.text = NSLocalizedString(@"今年的广州车展期间,国产东风正式亮相,新车定位于紧凑型SUV，是目前DS品牌的全新的车型", nil);
     [_white addSubview:_contentLabel];
     [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(339 * WidthCoefficient);
@@ -107,9 +107,9 @@
 
 -(void)setNoticeModel:(NoticeModel *)noticeModel
 {
-//    _remindLabel.text = NSLocalizedString(noticeModel.title, nil);
-//    _timeLabel.text = [self setWithTimeString:noticeModel.lastUpdateTime];
-//    _contentLabel.text =NSLocalizedString(noticeModel.depict, nil);
+    _remindLabel.text = NSLocalizedString(noticeModel.title, nil);
+    _timeLabel.text = [self setWithTimeString:noticeModel.lastUpdateTime];
+    _contentLabel.text =NSLocalizedString(noticeModel.noticeData, nil);
 
 }
 

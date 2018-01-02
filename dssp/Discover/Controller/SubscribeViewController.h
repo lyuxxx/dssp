@@ -6,7 +6,7 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+//#import "BaseViewController.h"
 #import "WMPageController.h"
 
 typedef NS_ENUM(NSUInteger, WMMenuViewPosition) {

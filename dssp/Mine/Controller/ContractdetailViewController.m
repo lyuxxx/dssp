@@ -34,12 +34,14 @@
 {
     
     NSDictionary *paras = @{
-                            @"contractCode": _contractCode?_contractCode:@"0"
+//                            @"contractCode": _contractCode?_contractCode:@"VF7CAPSA000000002"
                             };
     
     
+      NSString *findServiceVin = [NSString stringWithFormat:@"%@/contractCode",findServiceByVin];
+    
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:findServiceByVin parameters:paras success:^(id responseData) {
+    [CUHTTPRequest POST:findServiceVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];

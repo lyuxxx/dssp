@@ -81,6 +81,9 @@
 		455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
 		455974681FE8EAB400D7910A /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
 		455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
+		455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
+		455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
+		455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36971FF6140F00D09A63 /* CarflowModel.m */; };
 		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
@@ -258,6 +261,12 @@
 		455974671FE8EAB300D7910A /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
 		455F36861FF3A4A500D09A63 /* NoticeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeModel.h; sourceTree = "<group>"; };
 		455F36871FF3A4A500D09A63 /* NoticeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeModel.m; sourceTree = "<group>"; };
+		455F36901FF4CCF400D09A63 /* QueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
+		455F36911FF4CCF400D09A63 /* QueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
+		455F36931FF4F3BA00D09A63 /* SubscribeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscribeModel.h; sourceTree = "<group>"; };
+		455F36941FF4F3BA00D09A63 /* SubscribeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeModel.m; sourceTree = "<group>"; };
+		455F36961FF6140F00D09A63 /* CarflowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarflowModel.h; sourceTree = "<group>"; };
+		455F36971FF6140F00D09A63 /* CarflowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowModel.m; sourceTree = "<group>"; };
 		4564549F1FF09E2700B30401 /* InputAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAlertView.h; sourceTree = "<group>"; };
 		456454A01FF09E2700B30401 /* InputAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputAlertView.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
@@ -645,6 +654,8 @@
 				4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */,
 				4599C9BD1FF21BBD00B23713 /* ModifyPhonesController.h */,
 				4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */,
+				455F36901FF4CCF400D09A63 /* QueryViewController.h */,
+				455F36911FF4CCF400D09A63 /* QueryViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -667,6 +678,8 @@
 		4505B9A01FECAAD600A1E47E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				455F36961FF6140F00D09A63 /* CarflowModel.h */,
+				455F36971FF6140F00D09A63 /* CarflowModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -724,6 +737,8 @@
 				4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */,
 				455F36861FF3A4A500D09A63 /* NoticeModel.h */,
 				455F36871FF3A4A500D09A63 /* NoticeModel.m */,
+				455F36931FF4F3BA00D09A63 /* SubscribeModel.h */,
+				455F36941FF4F3BA00D09A63 /* SubscribeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1050,6 +1065,8 @@
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
+				455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */,
+				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
@@ -1068,6 +1085,7 @@
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
+				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,

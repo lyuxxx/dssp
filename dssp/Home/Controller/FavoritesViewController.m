@@ -268,7 +268,6 @@
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
-    
     if (indexPaths.count == 1) {
         
     } else {
