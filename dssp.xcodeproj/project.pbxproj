@@ -85,6 +85,8 @@
 		455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
 		455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36971FF6140F00D09A63 /* CarflowModel.m */; };
 		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
+		4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */; };
+		4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
 		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
@@ -269,6 +271,10 @@
 		455F36971FF6140F00D09A63 /* CarflowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowModel.m; sourceTree = "<group>"; };
 		4564549F1FF09E2700B30401 /* InputAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAlertView.h; sourceTree = "<group>"; };
 		456454A01FF09E2700B30401 /* InputAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputAlertView.m; sourceTree = "<group>"; };
+		4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarbinddetailViewController.h; sourceTree = "<group>"; };
+		4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarbinddetailViewController.m; sourceTree = "<group>"; };
+		4570EFDA1FFB939F00FA6355 /* BindCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindCarViewController.h; sourceTree = "<group>"; };
+		4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindCarViewController.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
@@ -620,6 +626,8 @@
 				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
 				313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */,
 				313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */,
+				4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */,
+				4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */,
 				316B6CEA1FB97F6A008A6094 /* CarBindingViewController.h */,
 				316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */,
 				316B6CF11FB99BA7008A6094 /* CarSeriesViewController.h */,
@@ -640,6 +648,8 @@
 				4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */,
 				4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */,
 				4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */,
+				4570EFDA1FFB939F00FA6355 /* BindCarViewController.h */,
+				4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */,
 				4559744E1FE77B1F00D7910A /* AccountViewController.h */,
 				4559744F1FE77B1F00D7910A /* AccountViewController.m */,
 				450AF1721FEB502900E48445 /* PersonInViewController.h */,
@@ -1041,6 +1051,7 @@
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */,
 				4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */,
+				4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */,
 				4505B9A71FECE45E00A1E47E /* RealnameViewController.m in Sources */,
@@ -1069,6 +1080,7 @@
 				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
+				4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */,
 				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,
 				450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */,

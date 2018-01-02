@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UILabel *remindLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) UIImageView *unreadImgV;
 @end
 
 @implementation NoticeCell
@@ -75,6 +76,25 @@
         make.top.equalTo(14.5 * HeightCoefficient);
     }];
 
+    
+    
+    
+    self.unreadImgV = [[UIImageView alloc] init];
+    _unreadImgV.image = [UIImage imageNamed:@"unread"];
+    _unreadImgV.layer.cornerRadius = 7 * WidthCoefficient/2;
+    _unreadImgV.layer.masksToBounds =YES;
+    [_white addSubview:_unreadImgV];
+    [_unreadImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(17 * HeightCoefficient);
+        make.height.equalTo(7 * WidthCoefficient);
+        make.width.equalTo(7 * WidthCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+      
+        
+    }];
+    
+    
+    
     self.remindLabel = [[UILabel alloc] init];
     _remindLabel.textAlignment = NSTextAlignmentLeft;
     _remindLabel.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -84,7 +104,7 @@
     [_remindLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
-        make.left.equalTo(10 * HeightCoefficient);
+        make.left.equalTo(21 * HeightCoefficient);
         make.top.equalTo(10 * HeightCoefficient);
     }];
 
@@ -107,6 +127,20 @@
 
 -(void)setNoticeModel:(NoticeModel *)noticeModel
 {
+    if ([noticeModel.readStatus isEqualToString:@"1"]) {
+        _unreadImgV.hidden = YES;
+        [_remindLabel updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(10 * HeightCoefficient);
+        }];
+    }else
+    {
+        _unreadImgV.hidden = NO;
+        [_remindLabel updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(21 * HeightCoefficient);
+           
+        }];
+    }
+    
     _remindLabel.text = NSLocalizedString(noticeModel.title, nil);
     _timeLabel.text = [self setWithTimeString:noticeModel.lastUpdateTime];
     _contentLabel.text =NSLocalizedString(noticeModel.noticeData, nil);

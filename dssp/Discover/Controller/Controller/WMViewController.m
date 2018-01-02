@@ -20,9 +20,46 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
+    [self requestData];
     [self initTableView];
    
 }
+
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                                @"channelId":@"1",
+                                @"currentPage":@"0",
+                                @"pageSize":@"10"
+                            };
+    
+    [CUHTTPRequest POST:findAppPushContentAppViewByAll parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            
+            NSArray *dataArray = dic[@"data"];
+            NSMutableArray *array=[NSMutableArray array];
+//            _subscribeArray =[NSMutableArray array];
+            for (NSDictionary *dic in dataArray) {
+//                SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
+//                [self.titleData addObject:subscribe.name];
+                
+            }
+            //            [_subscribeArray addObjectsFromArray:array];
+//            NSLog(@"777%lu",self.titleData.count);
+//            [self reloadData];
+            //响应事件
+            
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        
+    }];
+}
+
 
 -(void)initTableView
 {

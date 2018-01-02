@@ -36,13 +36,40 @@
     self.navigationItem.title = self.intro;
     self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     [self requestNoticeData];
+    [self requestNoticeData1];
     [self setupUI];
 }
 
 
--(void)requestNoticeData
+-(void)requestNoticeData1
 {
     
+    NSDictionary *paras = @{
+                            @"readStatus":@"1",
+                            @"isDel":@"0",
+                            @"id":_noticeId
+                            };
+    [CUHTTPRequest POST:updateReadStatusOrIsDelByVinAndType parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+//            NoticedatailModel *notice = [NoticedatailModel yy_modelWithDictionary:dic[@"data"]];
+//            self.notice = notice;
+            
+        } else {
+            
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        
+        
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        
+    }];
+}
+
+-(void)requestNoticeData
+{
     NSDictionary *paras = @{
                             @"vin":_vin,
                             @"businType":_businType
@@ -51,10 +78,7 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-          
-           
                NoticedatailModel *notice = [NoticedatailModel yy_modelWithDictionary:dic[@"data"]];
-
                self.notice = notice;
         
         } else {

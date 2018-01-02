@@ -95,11 +95,14 @@
 
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0: return [[WMViewController alloc] init];
-        case 1: return [[WMViewController alloc] init];
-        case 2: return [[WMCollectionViewController alloc] init];
-    }
+//    switch (index) {
+//        case 0: return [[WMViewController alloc] init];
+//        case 1: return [[WMViewController alloc] init];
+//        case 2: return [[WMCollectionViewController alloc] init];
+//    }
+    
+    
+   
     return [[WMViewController alloc] init];
 }
 
@@ -130,9 +133,6 @@
     }
     return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

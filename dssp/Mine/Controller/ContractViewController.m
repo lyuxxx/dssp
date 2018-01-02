@@ -43,7 +43,6 @@
 
 -(void)requestData
 {
-    
     NSDictionary *paras = @{
                             @"vin": @"V2017122700000001",
                             @"currentPage":@"1",

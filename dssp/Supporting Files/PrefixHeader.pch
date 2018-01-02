@@ -86,7 +86,7 @@ _Pragma("clang diagnostic pop") \
 //查询车辆销售信息和套餐信息接口
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 //绑定客户-车辆信息
-#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
+#define bindVhlWithUser [NSString stringWithFormat:@"%@bindVhlWithUser",baseUrl]
 //WIFI密码查询
 #define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrl]
 //WIFI密码修改
@@ -136,15 +136,15 @@ _Pragma("clang diagnostic pop") \
 //查询菜单接口
 #define findAppPushChannelInfoList [NSString stringWithFormat:@"%@findAppPushChannelInfoList",baseUrl]
 //查询菜单对应的列表接口
-#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@appPushContent/findAppPushContentAppViewByAll",baseUrl]
+#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@findAppPushContentAppViewByAll",baseUrl]
 //菜单对应列表详情接口
-#define findAppPushContentInfoById [NSString stringWithFormat:@"%@appPushContent/findAppPushContentInfoById",baseUrl]
+#define findAppPushContentInfoById [NSString stringWithFormat:@"%@findAppPushContentInfoById",baseUrl]
 //查询通知消息列表接口
 #define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@findAppPushInboxTitleByVin",baseUrl]
 //消息详情查询接口
 #define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@findAppPushInboxInfoByVin",baseUrl]
 //修改消息状态 删除单条消息
-#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrl]
+#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@updateReadStatusOrIsDelByVinAndType",baseUrl]
 //实时总流量查询接口
 #define findSimRealTimeFlowByIccid [NSString stringWithFormat:@"%@findSimRealTimeFlowByIccid",baseUrl]
 ////分类流量使用明细查询接口

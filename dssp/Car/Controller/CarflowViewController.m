@@ -46,7 +46,7 @@
                          
                         };
     
-     NSString *NumberByVin = [NSString stringWithFormat:@"%@/V2017122700000001",findSimRealTimeFlowByIccid];
+     NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000101",findSimRealTimeFlowByIccid];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
@@ -57,7 +57,7 @@
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
 //            self.carflow = carflow;
             [_tableView reloadData];
-            
+            [self setupUI];
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
         }

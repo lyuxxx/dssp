@@ -506,10 +506,28 @@
                             
                             
                             NSDictionary *dic1 =dic[@"data"];
-                            NSString *str=dic1[@"userName"];
+                            NSString *userName=dic1[@"userName"];
+                            NSString *vin=dic1[@"vin"];
+                            
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                            [defaults setObject:str forKey:@"userName"];
+                            [defaults setObject:userName forKey:@"userName"];
                             [defaults synchronize];
+                        
+                            
+                            if ((NSNull *)vin == [NSNull null]) {
+                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                                [defaults1 setObject:@"0" forKey:@"vin"];
+                                [defaults1 synchronize];
+                            }
+                            else
+                            {
+                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                                [defaults1 setObject:vin forKey:@"vin"];
+                                [defaults1 synchronize];
+                                
+                            }
+                          
+            
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [self presentViewController:tabVC animated:NO completion:nil];

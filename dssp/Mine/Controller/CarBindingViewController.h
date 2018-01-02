@@ -10,6 +10,8 @@
 #import "CarInfoModel.h"
 @interface CarBindingViewController : BaseViewController
 @property (nonatomic, copy) NSString *bingVin;
+@property (nonatomic, copy) NSString *doptCode;
 @property (nonatomic, strong) NSObject *bingVins;
 @property (nonatomic, strong) CarInfoModel *carInfo;
+@property (nonatomic,strong) CarbindModel *carbind;
 @end

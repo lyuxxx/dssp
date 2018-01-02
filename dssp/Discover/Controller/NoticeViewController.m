@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *selectedDatas;
 @property (nonatomic, strong) UIButton *deleteBtn;
  @property (nonatomic, strong) NSMutableArray *noticeDatas;
+@property (nonatomic, strong) NoticeModel *notice;
 @end
 
 @implementation NoticeViewController
@@ -36,6 +37,14 @@
 //    [self.tableView.mj_footer beginRefreshing];
 }
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self requestNoticeData];
+    [self createTable];
+    
+}
 
 
 - (void)createTable {
@@ -64,7 +73,7 @@
 {
     NSDictionary *paras = @{
                             
-                            };
+                          };
     NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findAppPushInboxTitleByVin];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -73,8 +82,8 @@
             NSArray *dataArray = dic[@"data"];
             _noticeDatas =[NSMutableArray new];
             for (NSDictionary *dic in dataArray) {
-                NoticeModel *notice = [NoticeModel yy_modelWithDictionary:dic];
-                [self.dataSource addObject:notice];
+                self.notice = [NoticeModel yy_modelWithDictionary:dic];
+                [self.dataSource addObject:_notice];
             }
 //            [self.dataSource addObjectsFromArray:_noticeDatas];
             [_tableView reloadData];
@@ -96,6 +105,39 @@
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
+    
+    if (indexPaths.count == 1) {
+        
+        NSDictionary *paras = @{
+                                @"readStatus":@"0",
+                                @"isDel":@"1",
+                                @"id":_notice.noticeId
+                                };
+        [CUHTTPRequest POST:updateReadStatusOrIsDelByVinAndType parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+              
+                
+            } else {
+                
+                [MBProgressHUD showText:dic[@"msg"]];
+            }
+        } failure:^(NSInteger code) {
+            
+            
+            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+            
+        }];
+        
+        
+        
+    } else {
+      
+        
+    }
+    
+    
     // 删除数据源
     [self.dataSource removeObjectsInArray:self.selectedDatas];
     [self.selectedDatas removeAllObjects];
@@ -163,6 +205,7 @@
     RemindViewController *remindView =[[RemindViewController alloc] init];
     remindView.vin= notice.vin;
     remindView.businType= notice.businType;
+    remindView.noticeId = notice.noticeId;
     remindView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:remindView animated:YES];
 }
@@ -174,7 +217,6 @@
         if ([self.selectedDatas containsObject:indexPathM]) {
             [self.selectedDatas removeObject:indexPathM];
         }
-        
 //        [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
     }
 }

@@ -22,6 +22,7 @@
 @property (nonatomic, assign) NSInteger lastUpdateTime;
 @property (nonatomic, copy)   NSString *isDel;
 @property (nonatomic, copy)   NSString *noticeData;
+@property (nonatomic, copy)   NSString *readStatus;
 @end
 
 

@@ -29,6 +29,7 @@
 #import "PersonInViewController.h"
 #import "RealnameViewController.h"
 #import "InputAlertView.h"
+#import "BindCarViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -202,6 +203,8 @@
 
 -(void)setupUI
 {
+    
+   
     
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
     _headerView.backgroundColor=[UIColor whiteColor];
@@ -396,6 +399,12 @@
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==0) {
             
+            
+            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+            NSString *vin = [defaults1 objectForKey:@"vin"];
+            cell.lab.text = [vin isEqualToString:@"0"]?NSLocalizedString(@"绑定车辆", nil):NSLocalizedString(@"解绑车辆", nil);
+            
+            
 //            [cell.lab updateConstraints:^(MASConstraintMaker *make) {
 //                make.top.equalTo(19 * HeightCoefficient);
 //                make.height.equalTo(22 * HeightCoefficient);
@@ -441,16 +450,34 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        
         if (indexPath.row == 0) {
             
+            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+            NSString *vin = [defaults1 objectForKey:@"vin"];
             
-            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-           
-            
-            
+            if ([vin isEqualToString:@"0"]) {
+//                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                vc.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:vc animated:YES];
+                
+                
+                BindCarViewController *vc =[[BindCarViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }
+            else
+            {
+                
+                CarBindingViewController *vc =[[CarBindingViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+                
+                
+                
+                
+            }
         }else if (indexPath.row == 1)
         {
             CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
