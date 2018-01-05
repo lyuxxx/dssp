@@ -254,7 +254,7 @@
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     confirmBtn.layer.cornerRadius = 2;
-    [confirmBtn setTitle:NSLocalizedString(@"确认并绑定", nil) forState:UIControlStateNormal];
+    [confirmBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
     [confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     confirmBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [confirmBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
@@ -265,6 +265,11 @@
         make.centerX.equalTo(0);
         make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
     }];
+}
+
+-(void)confirmBtnClick:(UIButton *)btn
+{
+     [self.navigationController popToRootViewControllerAnimated:YES];    
 }
 
 -(void)textFieldDidChange:(UITextField *)textField

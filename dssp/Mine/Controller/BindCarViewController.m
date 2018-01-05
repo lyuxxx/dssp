@@ -7,7 +7,9 @@
 //
 
 #import "BindCarViewController.h"
-
+#import "VhlModel.h"
+#import "NSObject+YYModel.h"
+#import "InputAlertView.h"
 @interface BindCarViewController ()
 @property (nonatomic, strong) UIScrollView *sc;
 @property (nonatomic, strong) UIButton *unbindBtn;
@@ -28,6 +30,8 @@
 
 @property (nonatomic, strong) UIImageView *modifyImg;
 @property (nonatomic, strong) UIImageView *modifyImg1;
+
+@property (nonatomic, strong) VhlModel *vhl;
 @end
 
 @implementation BindCarViewController
@@ -39,12 +43,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [self requestData];
+    [self requestData];
     [self setupUI];
 }
 
 -(void)requestData
 {
+    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    NSString *vin = [defaults1 objectForKey:@"vin"];
+    NSDictionary *paras = @{
+                           
+                           };
+    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,vin];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:queryVhls parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        self.vhl =[VhlModel yy_modelWithDictionary:dic[@"data"]];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            
+            self.vinField.text = _vhl.vin;
+            self.doptCodeField.text = _vhl.doptCode;
+            self.vhlLisenceField.text =_vhl.vhlLisence;
+            self.colorField.text =_vhl.color;
+            self.vhlStatusField.text = _vhl.vhlStatus;
+            self.isTestField.text = _vhl.isTest;
+            self.vhlBrandField.text = _vhl.brandName;
+            self.vhlTStatusField.text = _vhl.vhlTStatus;
+            self.seriesNameField.text = _vhl.seriesName;
+            self.typeNameField.text = _vhl.typeName;
+            
+            
+            
+        } else {
+            [hud hideAnimated:YES];
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+         [hud hideAnimated:YES];
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+    
+    
+    
     
 }
 
@@ -220,7 +262,7 @@
                 [whiteV addSubview:_field];
                 [_field makeConstraints:^(MASConstraintMaker *make) {
                     
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(180 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(0 * WidthCoefficient);
                     make.top.equalTo(0);
@@ -228,34 +270,34 @@
                 }];
                 
                 if (i == 0) {
-                    _field.text = @"123";
+            
                     self.vinField = _field;
                 } else if (i == 3) {
-                    _field.text = @"";
+                   
                     self.colorField = _field;
                     
                 } else if (i == 4) {
-                    _field.text = @"";
+                 
                     self.vhlStatusField = _field;
                     
                 } else if (i == 5) {
-                    _field.text = @"";
+                   
                     self.isTestField = _field;
                     
                 } else if (i == 6) {
-                    _field.text = @"";
+                  
                     self.vhlBrandField = _field;
                     
                 } else if (i == 7) {
-                    _field.text = @"";
+                
                     self.vhlTStatusField = _field;
                     
                 } else if (i == 8) {
-                    _field.text = @"";
+                  
                     self.seriesNameField = _field;
                     
                 } else if (i == 9) {
-                    _field.text = @"";
+                  
                     self.typeNameField = _field;
                     
                 }
@@ -331,7 +373,6 @@
         
         [contentView makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(lastLabel.bottom).offset(0);
-            
         }];
         
         scroll;
@@ -358,27 +399,50 @@
 -(void)BtnClick:(UIButton *)sender
 {
     if (self.unbindBtn == sender) {
-        NSDictionary *paras = @{
-                                @"vin": @"LPACAPSA031431810"
-                                };
         
-        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-        [CUHTTPRequest POST:UnbundlingVhl parameters:paras success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                [hud hideAnimated:YES];
-                [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
+        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [InputalertView initWithTitle:@"是否解绑车辆?" img:@"解绑汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: InputalertView];
+        
+        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+            if (btn.tag == 100) {//左边按钮
                 
-            } else {
-                [hud hideAnimated:YES];
-                [MBProgressHUD showText:dic[@"msg"]];
+                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                NSString *vin = [defaults1 objectForKey:@"vin"];
+                NSDictionary *paras = @{
+                                        @"vin": vin
+                                        };
+                
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:removeBindRelWithUser parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [hud hideAnimated:YES];
+                        //响应事件
+                           [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
+                       
+                    } else {
+                         [hud hideAnimated:YES];
+                        [MBProgressHUD showText:dic[@"msg"]];
+                    }
+                } failure:^(NSInteger code) {
+                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
+                
+                
             }
-        } failure:^(NSInteger code) {
-            hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-            [hud hideAnimated:YES afterDelay:1];
-        }];
+            if(btn.tag ==101)
+            {
+                //右边按钮
+                NSLog(@"666%@",str);
+            
+            }
+            
+        };
         
-
     }
     
 }

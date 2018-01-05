@@ -155,22 +155,27 @@
     self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
     NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
-    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:receivernrInfo parameters:dic success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"666%@",dic);
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-            vc.codeName = dic[@"code"];
-            [self.navigationController pushViewController:vc animated:YES];
+            [hud hideAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+//            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+//            vc.codeName = dic[@"code"];
+//            [self.navigationController pushViewController:vc animated:YES];
         }else if ([dic[@"code"] isEqualToString:@"201"]) {
-            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-            vc.codeName = dic[@"code"];
-            [self.navigationController pushViewController:vc animated:YES];
+//            [hud hideAnimated:YES];
+//            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
+//            vc.codeName = dic[@"code"];
+//            [self.navigationController pushViewController:vc animated:YES];
         }else {
+            [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+          [hud hideAnimated:YES];
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code]];
     }];
     

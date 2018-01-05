@@ -141,23 +141,23 @@
                                         @"pin": _pinName
                                         };
                 [CUHTTPRequest POST:UnbundlingRNR parameters:paras success:^(id responseData) {
-                                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                         
-                                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                                
-                                          [MBProgressHUD showText:NSLocalizedString(@"实名制解绑成功", nil)];
+                      [MBProgressHUD showText:NSLocalizedString(@"实名制解绑成功", nil)];
                         
-                                    } else {
+                        } else {
                         
-                                        [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                        [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                         
-                                    }
-                                } failure:^(NSInteger code) {
-                                    [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+                            }
+                        } failure:^(NSInteger code) {
+                        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
                                 }];
 
                     }
-                    
+
                     //右边按钮
                     NSLog(@"666%@",str);
                     

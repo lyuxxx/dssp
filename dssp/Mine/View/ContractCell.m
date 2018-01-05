@@ -37,7 +37,7 @@
     [self addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(200 * HeightCoefficient);
+        make.height.equalTo(142.5 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(0 * HeightCoefficient);
     }];
@@ -71,14 +71,22 @@
     }];
     
     
+    UIImageView *rightImg = [[UIImageView alloc] init];
+    rightImg.image = [UIImage imageNamed:@"left-alignment copy"];
+    [whiteV addSubview:rightImg];
+    [rightImg makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(0);
+        make.height.equalTo(90.5 *HeightCoefficient);
+        make.width.equalTo(89 *WidthCoefficient);
+        make.right.equalTo(0);
+    }];
+    
     NSArray<NSString *> *titles = @[
                                   
                                     NSLocalizedString(@"开始时间:", nil),
                                     NSLocalizedString(@"结束时间:", nil),
-                                    NSLocalizedString(@"支付方式:", nil),
-                                    NSLocalizedString(@"支付时间:", nil),
-                                    NSLocalizedString(@"支付金额:", nil)
-
+                                    NSLocalizedString(@"支付时间:", nil)
+                                  
                                     ];
 
     
@@ -95,6 +103,8 @@
         UIView *whiteV = [[UIView alloc] init];
 //        whiteV.backgroundColor = [UIColor redColor];
         [self addSubview:whiteV];
+        
+        
        
         if (i == 0) {
             [label makeConstraints:^(MASConstraintMaker *make) {

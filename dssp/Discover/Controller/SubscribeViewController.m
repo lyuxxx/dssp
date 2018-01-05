@@ -14,7 +14,7 @@
 #import "SubscribeModel.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "NSObject+YYModel.h"
-@interface SubscribeViewController ()
+@interface SubscribeViewController ()<WMPageControllerDelegate,WMPageControllerDataSource>
 {
     
     NSArray *dataArray;
@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIView *redView;
 @property (nonatomic, strong) NSArray *placeHolders;
 @property (nonatomic, strong) NSMutableArray *subscribeArray;
+@property (nonatomic, strong) WMViewController *wmView;
 @end
 
 @implementation SubscribeViewController
@@ -41,7 +42,9 @@
 - (void)viewDidLoad {
    
     [self requestData];
-     self.automaticallyCalculatesItemWidths = YES;
+    self.automaticallyCalculatesItemWidths = YES;
+    self.delegate = self;
+    self.postNotification = YES;
     [super viewDidLoad];
    
    
@@ -55,13 +58,12 @@
     
      NSString *channelInfoList = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
     
-//      / MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:channelInfoList parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
            
             NSArray *dataArray = dic[@"data"];
-            NSMutableArray *array=[NSMutableArray array];
+//            NSMutableArray *array=[NSMutableArray array];
             _subscribeArray =[NSMutableArray array];
             for (NSDictionary *dic in dataArray) {
             SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
@@ -94,6 +96,19 @@
 }
 
 
+//- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+//    
+//    self.postNotification = YES;
+//    self.delegate = self;
+//    NSLog(@"%@",info);
+//   
+//    
+////    pageController.ddd = info[@"title"];
+////    viewController.title = info[@"title"];
+//    viewController.title = self.titleData[0];
+//   
+//}
+
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
 //    switch (index) {
 //        case 0: return [[WMViewController alloc] init];
@@ -101,10 +116,21 @@
 //        case 2: return [[WMCollectionViewController alloc] init];
 //    }
     
+//    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
+//
+//    return controller;
     
-   
-    return [[WMViewController alloc] init];
+    WMViewController *wmView =[[WMViewController alloc] init];
+    wmView.indexs = (long)index;
+//    self.postNotification = YES;
+//    self.delegate = self;
+    
+
+    return wmView;
+//    return [[WMViewController alloc] init];
 }
+
+
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
     CGFloat width = [super menuView:menu widthForItemAtIndex:index];

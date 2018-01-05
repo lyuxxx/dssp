@@ -17,7 +17,7 @@
 #import "ForgotViewController.h"
 #import "NavigationController.h"
 #import "NewPasswordViewController.h"
-
+#import "UITabBar+badge.h"
 @interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *userNameField;
@@ -504,7 +504,7 @@
                         LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                         if ([result.code isEqualToString:@"200"]) {
                             
-                            
+                             [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                             NSDictionary *dic1 =dic[@"data"];
                             NSString *userName=dic1[@"userName"];
                             NSString *vin=dic1[@"vin"];
@@ -528,6 +528,8 @@
                             }
                           
             
+                            
+//                            [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [self presentViewController:tabVC animated:NO completion:nil];

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <YYModel.h>
 @interface SubscribeModel : NSObject
 @property (nonatomic , assign) NSInteger              currentPage;
 @property (nonatomic , assign) NSInteger              pageSize;
@@ -19,4 +19,26 @@
 @property (nonatomic , assign) NSInteger              createTime;
 @property (nonatomic , assign) NSInteger              lastUpdateTime;
 @property (nonatomic , copy)   NSString              * isDel;
+@end
+
+
+@interface ChannelModel : NSObject<YYModel>
+@property (nonatomic , assign) NSInteger              currentPage;
+@property (nonatomic , assign) NSInteger              pageSize;
+@property (nonatomic , copy) NSString              * listId;
+@property (nonatomic , copy) NSString              * channelId;
+@property (nonatomic , copy) NSString              * channelName;
+@property (nonatomic , copy) NSString              * title;
+@property (nonatomic , copy) NSString              * content;
+@property (nonatomic , copy) NSString              * status;
+@property (nonatomic , copy) NSString              * piority;
+@property (nonatomic , copy) NSString              * depict;
+@property (nonatomic , copy) NSString              * picture1;
+@property (nonatomic , copy) NSString              * picture2;
+@property (nonatomic , copy) NSString              * readingVolume;
+@property (nonatomic , copy) NSString              * invalidTime;
+@property (nonatomic , assign) NSInteger              createTime;
+@property (nonatomic , copy) NSString              * lastUpdateTime;
+@property (nonatomic , copy) NSString              * isDel;
+@property (nonatomic , copy) NSString              * isTop;
 @end

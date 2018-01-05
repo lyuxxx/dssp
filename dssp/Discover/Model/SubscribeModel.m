@@ -15,3 +15,14 @@
              };
 }
 @end
+
+
+
+@implementation ChannelModel
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"listId" : @"id"
+             };
+}
+@end
+

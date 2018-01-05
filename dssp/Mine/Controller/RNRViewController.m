@@ -69,10 +69,18 @@
                
                 ];
     
-
-    
-    
     self.navigationItem.title = NSLocalizedString(@"实名制", nil);
+    UILabel *explain = [[UILabel alloc] init];
+    explain.textAlignment = NSTextAlignmentCenter;
+    explain.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
+    explain.text = NSLocalizedString(@"关于实名制要求的说明", nil);
+    [self.view addSubview:explain];
+    [explain makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(0);
+        make.width.equalTo(214.5 * WidthCoefficient);
+        make.height.equalTo(22.5 * HeightCoefficient);
+        make.top.equalTo(10 * HeightCoefficient);
+    }];
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
@@ -86,7 +94,7 @@
         make.width.equalTo(343 *WidthCoefficient);
         make.height.equalTo(405 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(20.5 * HeightCoefficient);
+        make.top.equalTo(51 * HeightCoefficient);
     }];
     
     UILabel *intro = [[UILabel alloc] init];

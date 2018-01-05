@@ -20,9 +20,11 @@
     [self setupUI];
 }
 
+
+
+
 - (void)setupUI {
-    self.navigationItem.title = @"实名制结果查询";
-    
+    self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
     NSArray *titles = @[
                         
                         NSLocalizedString(@"车辆绑定成功", nil),
@@ -31,10 +33,8 @@
                         NSLocalizedString(@"车辆激活成功", nil)
                         ];
     
-    
     UIView *lastView = nil;
     for (NSInteger i = 0 ; i < titles.count; i++) {
-        
         UIView *view1 = [[UIView alloc] init];
         view1.backgroundColor = [UIColor clearColor];
         [self.view addSubview:view1];

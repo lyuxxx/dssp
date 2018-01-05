@@ -141,14 +141,14 @@
              _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                 if (_carbind.isExist) {
-                    ///T车跳这个
+                    ///T车跳绑定详细页面
                     CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
                     vc.carbind = _carbind;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                 else
                 {
-                    ///非T跳这个
+                    ///非T跳车辆绑定填写页面
                     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
                     vc.bingVin = _vinField.text;
                     vc.doptCode = _enginenNumber.text;

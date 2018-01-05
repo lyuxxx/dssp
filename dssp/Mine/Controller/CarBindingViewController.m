@@ -52,10 +52,7 @@
 
 - (void)setupUI {
     
-    
-   
     self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
-    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);
     whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
@@ -66,7 +63,7 @@
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(461.5 * HeightCoefficient);
+        make.height.equalTo(491.5 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20.5 * HeightCoefficient);
     }];
@@ -163,7 +160,6 @@
                     make.left.equalTo(label.right).offset(20*WidthCoefficient);
                     make.top.equalTo(0);
                 }];
-                
                 
                 [whiteView makeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(34 * HeightCoefficient);
@@ -421,7 +417,7 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    if ([_carSeries.text isEqualToString:NSLocalizedString(@"请选择车系", nil)]) {
+    if ([_carModels.text isEqualToString:NSLocalizedString(@"请选择车型", nil)]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写车型", nil)];
         return;
     } else if ([_carSeries.text isEqualToString:NSLocalizedString(@"请选择车系", nil)]) {

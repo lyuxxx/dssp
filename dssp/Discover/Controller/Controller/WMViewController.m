@@ -9,9 +9,12 @@
 #import "WMViewController.h"
 #import "SubscriCell.h"
 #import <YYCategoriesSub/YYCategories.h>
-@interface WMViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "WMPageController.h"
+#import "SubscribeModel.h"
+@interface WMViewController ()<UITableViewDataSource,UITableViewDelegate,WMPageControllerDelegate,WMPageControllerDataSource>
 @property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, weak) UILabel *label;
+@property (nonatomic, strong) NSMutableArray  *channelArray;
 @end
 
 @implementation WMViewController
@@ -23,31 +26,49 @@
     [self requestData];
     [self initTableView];
    
+   
+//    self.delegate = self;
+////
+//    self.postNotification = YES;
+
 }
+
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+   
+    NSLog(@"%@",info);
+    
+     pageController.postNotification = YES;
+     pageController.delegate = self;
+    viewController.title = info[@"title"];
+    
+}
+
 
 -(void)requestData
 {
+    
+    
+    NSInteger channel = _indexs+1;
+    NSString *channelId = [[NSString alloc] initWithFormat:@"%ld",channel];
     NSDictionary *paras = @{
-                                @"channelId":@"1",
+                                @"channelId":channelId,
                                 @"currentPage":@"0",
                                 @"pageSize":@"10"
                             };
-    
     [CUHTTPRequest POST:findAppPushContentAppViewByAll parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             
-            NSArray *dataArray = dic[@"data"];
-            NSMutableArray *array=[NSMutableArray array];
-//            _subscribeArray =[NSMutableArray array];
+            NSArray *dataArray = dic[@"data"][@"result"];
+//            NSMutableArray *array=[NSMutableArray array];
+            self.channelArray =[NSMutableArray array];
             for (NSDictionary *dic in dataArray) {
-//                SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
-//                [self.titleData addObject:subscribe.name];
-                
+                ChannelModel *channel = [ChannelModel yy_modelWithDictionary:dic];
+                [self.channelArray addObject:channel];
             }
-            //            [_subscribeArray addObjectsFromArray:array];
-//            NSLog(@"777%lu",self.titleData.count);
-//            [self reloadData];
+
+            [_tableView reloadData];
             //响应事件
             
         } else {
@@ -97,6 +118,8 @@
     //    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
     //    cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
     //    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
+    
+    cell.channelModel = _channelArray[indexPath.row];
     cell.backgroundColor=[UIColor clearColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
@@ -104,7 +127,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return _channelArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

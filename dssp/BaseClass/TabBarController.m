@@ -10,7 +10,7 @@
 #import "NavigationController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import <RTRootNavigationController/RTRootNavigationController.h>
-
+#import "UITabBar+badge.h"  
 @interface TabBarController () <UINavigationControllerDelegate>
 
 @end
@@ -38,6 +38,21 @@
     // Do any additional setup after loading the view.
     
     [self setup];
+    
+//    NSNotification *ReadAllNoticeNotification =[[NSNotification alloc] init];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:ReadAllNoticeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+//        [self.tabBarController.tabBar hideBadgeOnItemIndex:3];
+//    }];
+    
+
+    
+   
+    
+    
+    
+   
+
+ 
 }
 
 - (void)setup {
@@ -70,7 +85,6 @@
                                    ];
     
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
-    
     for (NSInteger i = 0; i < cls.count; i++) {
         UIViewController *vc = [[NSClassFromString(cls[i]) alloc] init];
         RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:vc];
@@ -83,7 +97,7 @@
         
         [viewControllers addObject:naVC];
     }
-    
+   
     self.viewControllers = viewControllers;
 }
 
@@ -113,7 +127,6 @@
         frame.origin.y = [UIScreen mainScreen].bounds.size.height - 83;
         navigationController.tabBarController.tabBar.frame = frame;
     }
-    
     
 }
 

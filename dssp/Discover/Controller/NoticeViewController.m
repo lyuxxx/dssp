@@ -85,6 +85,10 @@
                 self.notice = [NoticeModel yy_modelWithDictionary:dic];
                 [self.dataSource addObject:_notice];
             }
+            
+          
+//            [self.dataSource addObjectsFromArray:resultArr];
+            
 //            [self.dataSource addObjectsFromArray:_noticeDatas];
             [_tableView reloadData];
             [self.tableView.mj_footer endRefreshing];
@@ -105,7 +109,6 @@
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
-    
     if (indexPaths.count == 1) {
         
         NSDictionary *paras = @{
@@ -119,25 +122,21 @@
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
               
                 
+                
             } else {
                 
                 [MBProgressHUD showText:dic[@"msg"]];
             }
         } failure:^(NSInteger code) {
             
-            
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-            
         }];
-        
-        
-        
+
     } else {
       
         
     }
-    
-    
+
     // 删除数据源
     [self.dataSource removeObjectsInArray:self.selectedDatas];
     [self.selectedDatas removeAllObjects];
@@ -255,6 +254,8 @@
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
     NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
     NSIndexPath *indexPathM = self.dataSource[tmp.row];
+    
+//    ResultItem *item = self.dataSource[tmp.row];
     if (![self.selectedDatas containsObject:indexPathM]) {
         [self.selectedDatas addObject:indexPathM];
     }

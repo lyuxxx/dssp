@@ -43,8 +43,11 @@
 
 -(void)requestData
 {
+    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    NSString *vin = [defaults1 objectForKey:@"vin"];
+    
     NSDictionary *paras = @{
-                            @"vin": @"V2017122700000001",
+                            @"vin": vin?vin:@"",
                             @"currentPage":@"1",
                             @"pageSize":@"20"
                             };
@@ -130,19 +133,15 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 215*HeightCoefficient;
+    return 157.5*HeightCoefficient;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ContractdetailViewController *Contractdetail = [ContractdetailViewController new];
-    Contractdetail.contractCode = contract.vin;
+    Contractdetail.contractCode = contract.contractCode;
     [self.navigationController pushViewController: Contractdetail animated:YES];
-    
-    
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

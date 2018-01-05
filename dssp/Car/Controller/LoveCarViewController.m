@@ -10,7 +10,6 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "TopImgButton.h"
 #import "NSArray+Sudoku.h"
-
 @interface LoveCarViewController ()
 
 @property (nonatomic, strong) UILabel *plateLabel;
@@ -177,7 +176,7 @@
         make.centerX.equalTo(content);
     }];
     
-    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"收藏夹", nil),NSLocalizedString(@"wifi密码", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"流量查询", nil),NSLocalizedString(@"盗车提醒", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"环保驾驶", nil)];
+    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"收藏夹", nil),NSLocalizedString(@"wifi密码", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"流量查询", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"环保驾驶", nil)];
     NSArray *imgTitles = @[@"智慧出行_icon",@"智慧停车_icon",@"智慧加油_icon",@"收藏夹_icon",@"wifi密码_icon",@"预约保养_icon",@"流量查询_icon",@"盗车提醒_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"环保驾驶_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
@@ -267,6 +266,11 @@
     }
     if (sender.tag == 106) {
         UIViewController *vc = [[NSClassFromString(@"CarflowViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (sender.tag == 107) {
+        UIViewController *vc = [[NSClassFromString(@"CarTrackViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

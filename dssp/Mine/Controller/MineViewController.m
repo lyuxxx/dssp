@@ -63,6 +63,7 @@
     _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"身份证",@"车辆信息"],@[@"汽车信息",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"signout",@"退出登录"]]];
     
+    
 //    [self RealnameUserName];
     [self initTableView];
     [self setupUI];
@@ -70,7 +71,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-     [super viewWillAppear:animated];
+    [super viewWillAppear:animated];
     [self.mgr startUpdatingLocation];
 }
 
@@ -402,7 +403,7 @@
             
             NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
             NSString *vin = [defaults1 objectForKey:@"vin"];
-            cell.lab.text = [vin isEqualToString:@"0"]?NSLocalizedString(@"绑定车辆", nil):NSLocalizedString(@"解绑车辆", nil);
+            cell.lab.text = [vin isEqualToString:@"0"]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
             
             
 //            [cell.lab updateConstraints:^(MASConstraintMaker *make) {
@@ -456,27 +457,18 @@
             NSString *vin = [defaults1 objectForKey:@"vin"];
             
             if ([vin isEqualToString:@"0"]) {
-//                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-//                vc.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:vc animated:YES];
                 
-                
-                BindCarViewController *vc =[[BindCarViewController alloc] init];
+                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
                 
             }
             else
             {
-                
-                CarBindingViewController *vc =[[CarBindingViewController alloc] init];
+                BindCarViewController *vc =[[BindCarViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-                
-                
-                
-                
-                
+               
             }
         }else if (indexPath.row == 1)
         {

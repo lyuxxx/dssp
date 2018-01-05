@@ -13,6 +13,7 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "NoticeViewController.h"
 #import "SubscribeViewController.h"
+#import "UITabBar+badge.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic,strong) UIButton *robotBtn;
@@ -30,7 +31,19 @@
     // Do any additional setup after loading the view.
     [self requestData];
     [self setupUI];
+    
+    [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:)name:@"tongzhi" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndex:) name:@"changeIndex" object:nil];
+    
+    
 }
+
+//-(void)changeIndex:(NSNotification *)notification
+//{
+//      [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+//
+//}
 
 
 -(void)requestData
@@ -67,6 +80,7 @@
 -(void)setupUI
 {
     self.navigationItem.title = NSLocalizedString(@"发现", nil);
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backgroud"] forBarMetrics:UIBarMetricsDefault];
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];

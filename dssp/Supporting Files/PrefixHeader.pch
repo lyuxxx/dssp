@@ -92,11 +92,11 @@ _Pragma("clang diagnostic pop") \
 //WIFI密码修改
 #define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
 //根据Vin查询实名认证状态
-#define queryCustByMobile [NSString stringWithFormat:@"%@                                                                                 ",baseUrls]
+#define queryCustByMobile [NSString stringWithFormat:@"%@                                                                                 ",baseUrl]
 //接收用户上传图片及实名制信息
-#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
 //POI收藏夹列表
-#define findPoiFavoritesService [NSString stringWithFormat:@"%@findPoiFavoritesService",baseUrls]
+#define findPoiFavoritesService [NSString stringWithFormat:@"%@findPoiFavoritesService",baseUrl]
 //删除POI收藏点
 #define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrl]
 //添加POI收藏点
@@ -151,6 +151,9 @@ _Pragma("clang diagnostic pop") \
 //#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
 //车辆-客户解绑
 #define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrl]
+//车辆解绑
+#define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
+
 //实名制解绑
 #define UnbundlingRNR [NSString stringWithFormat:@"%@UnbundlingRNR",baseUrl]
 //查询通知未读消息数量
@@ -159,4 +162,10 @@ _Pragma("clang diagnostic pop") \
 #define refreshToken [NSString stringWithFormat:@"%@refreshToken",baseUrl]
 //车辆绑定校验接口
 #define checkBindByVin [NSString stringWithFormat:@"%@checkBindByVin",baseUrl]
+//车辆追踪
+#define getSvnResponseDataByVin [NSString stringWithFormat:@"%@getSvnResponseDataByVin",baseUrl]
+//查询车辆位置信息接口
+#define getLastPostionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
+
+
 #endif /* PrefixHeader_pch */

@@ -41,30 +41,32 @@
 -(void)requestData
 {
     
+    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    NSString *vin = [defaults1 objectForKey:@"vin"];
+    
     NSDictionary *paras = @{
                           
                          
-                        };
+                         };
     
-     NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000101",findSimRealTimeFlowByIccid];
-    
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,vin];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
         
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-//            self.carflow = carflow;
             [_tableView reloadData];
             [self setupUI];
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-    
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        [hud hideAnimated:YES afterDelay:1];
+        
+      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
@@ -115,9 +117,6 @@
 //    _tableView.tableHeaderView=_headerView;
     
     
-    
-    
-    
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
     [_headerView addSubview:bgImgV];
@@ -145,10 +144,12 @@
     }];
     
 
+    
+     NSString *remainFlow = [[NSString stringWithFormat:@"%ld",_carflow.remainFlow] stringByAppendingString:@"M"];
     self.flowlabel = [[UILabel alloc] init];
     _flowlabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:28];
     _flowlabel.textColor=[UIColor whiteColor];
-    _flowlabel.text=[NSString stringWithFormat:@"%ld",_carflow.remainFlow]?[NSString stringWithFormat:@"%ld",_carflow.remainFlow]:@"0";
+    _flowlabel.text = remainFlow;
     _flowlabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:_flowlabel];
     [_flowlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -185,11 +186,12 @@
     }];
     
 //     [NSString stringWithFormat:@"%ld",_carflow.useFlow];
+    NSString *useFlow = [[NSString stringWithFormat:@"%ld",_carflow.useFlow] stringByAppendingString:@"M"];
     self.employflowlabel = [[UILabel alloc] init];
     _employflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     _employflowlabel.textColor=[UIColor blackColor];
    
-    _employflowlabel.text= [NSString stringWithFormat:@"%ld",_carflow.useFlow]?[NSString stringWithFormat:@"%ld",_carflow.useFlow]:@"0";
+    _employflowlabel.text= useFlow;
     _employflowlabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:_employflowlabel];
     [_employflowlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -214,10 +216,11 @@
     }];
     
     
+     NSString *totalFlow = [[NSString stringWithFormat:@"%ld",_carflow.totalFlow] stringByAppendingString:@"M"];
     self.totalflowlabel = [[UILabel alloc] init];
     _totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     _totalflowlabel.textColor=[UIColor blackColor];
-    _totalflowlabel.text=[NSString stringWithFormat:@"%ld",_carflow.totalFlow]?[NSString stringWithFormat:@"%ld",_carflow.totalFlow]:@"0";
+    _totalflowlabel.text = totalFlow;
    
     _totalflowlabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:_totalflowlabel];
@@ -243,6 +246,18 @@
     }];
     
     
+    UILabel *msgLabel1 = [[UILabel alloc] init];
+    msgLabel1.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];
+    msgLabel1.textAlignment = NSTextAlignmentCenter;
+    msgLabel1.textColor = [UIColor colorWithHexString:@"#999999"];
+    msgLabel1.text = NSLocalizedString(@"本数据均为前一天统计数",nil);
+    [self.view addSubview:msgLabel1];
+    [msgLabel1 makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(-(kBottomHeight+15));
+        make.height.equalTo(16.5 * HeightCoefficient);
+        make.right.equalTo(-16 * WidthCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
+    }];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -267,10 +282,16 @@
     NSArray *titles = @[NSLocalizedString(@"在线音乐", nil),NSLocalizedString(@"在线电台", nil),NSLocalizedString(@"OTA升级", nil),NSLocalizedString(@"WIFI", nil)];
     
     _DataArray = [NSMutableArray new];
-    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.music]?[NSString stringWithFormat:@"%ld",_carflow.music]:@"0"];
-    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.fm]?[NSString stringWithFormat:@"%ld",_carflow.fm]:@"0"];
-    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.ota]?[NSString stringWithFormat:@"%ld",_carflow.ota]:@"0"];
-    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.wifi]?[NSString stringWithFormat:@"%ld",_carflow.wifi]:@"0"];
+    
+    NSString *music = [[NSString stringWithFormat:@"%ld",_carflow.music] stringByAppendingString:@"M"];
+    NSString *fm = [[NSString stringWithFormat:@"%ld",_carflow.fm] stringByAppendingString:@"M"];
+    NSString *ota = [[NSString stringWithFormat:@"%ld",_carflow.ota] stringByAppendingString:@"M"];
+    NSString *wifi = [[NSString stringWithFormat:@"%ld",_carflow.wifi] stringByAppendingString:@"M"];
+    
+    [_DataArray addObject:music];
+    [_DataArray addObject:fm];
+    [_DataArray addObject:ota];
+    [_DataArray addObject:wifi];
 
     cell.toplab.text =titles[indexPath.row];
 //    cell.bottolab.text =@"最近使用:2017/12/31";
