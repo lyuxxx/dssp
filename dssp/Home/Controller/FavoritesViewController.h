@@ -10,4 +10,6 @@
 
 @interface FavoritesViewController : BaseViewController
 
+- (instancetype)initWithType:(PoiType)type;
+
 @end

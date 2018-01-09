@@ -22,11 +22,14 @@
 @end
 
 typedef void(^btnClickBlock)(UIButton *);
+typedef void(^locationClick)(NoResponseYYLabel *);
 
 @interface HomeTopView : UIView
 
 @property (nonatomic, copy) btnClickBlock clickBlock;
+@property (nonatomic, copy) locationClick locationClick;
 @property (nonatomic, copy) NSString *locationStr;
 - (void)didTapWithPoint:(CGPoint)point;
+- (void)updateWeatherText:(NSString *)text;
 
 @end

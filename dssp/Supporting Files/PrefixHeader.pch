@@ -18,6 +18,7 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
+#import "NSDictionary+NilSafe.h"
 
 //通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
 #ifdef DEBUG
@@ -67,8 +68,19 @@ vc.automaticallyAdjustsScrollViewInsets = NO;\
 _Pragma("clang diagnostic pop") \
 } while (0)
 
-#define baseUrl @"http:172.23.105.209:10095/"
-#define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/"
+typedef NS_ENUM(NSUInteger, PoiType) {
+    PoiTypeAll,
+    PoiTypeAmap,
+    PoiTypeOil,
+    PoiTypePark,
+};
+
+#define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
+
+//http:172.23.105.209:10095/
+#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
+#define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/mobile/"
+#define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
@@ -96,15 +108,17 @@ _Pragma("clang diagnostic pop") \
 //接收用户上传图片及实名制信息
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
 //POI收藏夹列表
-#define findPoiFavoritesService [NSString stringWithFormat:@"%@findPoiFavoritesService",baseUrls]
+#define findPoiFavoritesFromApp [NSString stringWithFormat:@"%@findPoiFavoritesFromApp",poiBaseUrl]
 //删除POI收藏点
-#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrl]
+#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",poiBaseUrl]
 //添加POI收藏点
-#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",baseUrl]
+#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",poiBaseUrl]
 //POI下发
-#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",baseUrl]
+#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",poiBaseUrl]
 //检验POI是否收藏
-#define checkPOICollected [NSString stringWithFormat:@"%@checkPOICollected",baseUrl]
+#define checkPOICollected [NSString stringWithFormat:@"%@checkPOICollected",poiBaseUrl]
+//查询车辆位置
+#define getLastPositionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
 //查询车辆信息接口
 #define queryVhl [NSString stringWithFormat:@"%@queryVhl",baseUrl]
 //服务合同信息列表查询接口

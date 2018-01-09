@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MGSwipeTableCell.h>
+#import "POI.h"
 
 @interface FavoriteCell : MGSwipeTableCell
+
+- (void)configWithModel:(ResultItem *)item;
 
 @end

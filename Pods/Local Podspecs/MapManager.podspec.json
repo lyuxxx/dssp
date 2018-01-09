@@ -1,6 +1,6 @@
 {
   "name": "MapManager",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "summary": "高德地图封装",
   "description": "高德地图搜索封装",
   "homepage": "http://172.23.105.201:4080/cusc-ios-base-component/MapManager",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git",
-    "tag": "2.0.0"
+    "tag": "2.0.4"
   },
   "platforms": {
     "ios": "8.0"

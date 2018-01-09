@@ -36,7 +36,6 @@
 - (void)setToken:(NSString *)token {
     if (_token != token) {
         _token = token;
-        NSLog(@"!!!%@",token);
         [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [CUHTTPRequest setHTTPHeader:@{

@@ -28,7 +28,7 @@ target 'dssp' do
   pod 'CUProgressHUD'
   pod 'UIImageViewSDWebImage'
   pod 'YYCategoriesSub'
-  pod 'MapManager', :git => 'http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git', :tag => '2.0.0'
+  pod 'MapManager', :git => 'http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git', :tag => '2.0.4'
   pod 'CUAlertController'
 
   target 'dsspUITests' do

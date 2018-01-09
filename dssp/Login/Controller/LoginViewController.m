@@ -146,7 +146,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-//    _userNameField.text = @"15871707603";
+    _userNameField.text = @"15527920310";
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
@@ -186,7 +186,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-//     _passWordField.text = @"123456";
+     _passWordField.text = @"123456";
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -521,9 +521,6 @@
                             [hud hideAnimated:YES afterDelay:1];
                         }
                     } failure:^(NSInteger code) {
-                        
-//                        TabBarController *tabVC = [[TabBarController alloc] init];
-//                        [self presentViewController:tabVC animated:NO completion:nil];
                         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
                         [hud hideAnimated:YES afterDelay:1];
                     }];

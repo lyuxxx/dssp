@@ -63,7 +63,7 @@
         self.name = [[UILabel alloc] init];
         _name.font = [UIFont fontWithName:FontName size:16];
         _name.textColor = [UIColor colorWithHexString:@"#040000"];
-        _name.text = @"五号院";
+        _name.text = @"";
         [_white addSubview:_name];
         [_name makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(22 * WidthCoefficient);
@@ -74,7 +74,7 @@
         self.address = [[UILabel alloc] init];
         _address.font = [UIFont fontWithName:FontName size:12];
         _address.textColor = [UIColor colorWithHexString:@"#999999"];
-        _address.text = @"江汉区江发路五号院";
+        _address.text = @"";
         [_white addSubview:_address];
         [_address makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_name.left);
@@ -93,6 +93,11 @@
         
     }
     return self;
+}
+
+- (void)configWithModel:(ResultItem *)item {
+    self.name.text = item.poiName;
+    self.address.text = item.address;
 }
 
 //- (void)layoutSubviews {

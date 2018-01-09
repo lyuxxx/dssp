@@ -69,7 +69,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         self.weatherLabel = [[UILabel alloc] init];
-        _weatherLabel.text = NSLocalizedString(@"早上好!今日天气 晴 17-23度", nil);
+        _weatherLabel.text = NSLocalizedString(@"", nil);
         _weatherLabel.font = [UIFont fontWithName:FontName size:15];
         _weatherLabel.textColor = [UIColor colorWithHexString:@"#c4b7a6"];
         [self addSubview:_weatherLabel];
@@ -190,7 +190,7 @@
             make.right.equalTo(- 15.2 * WidthCoefficient);
         }];
         
-        NSString *str = @"未定位";
+        NSString *str = @"未获取到车辆位置";
         self.locationLabel = [[NoResponseYYLabel alloc] init];
         _locationLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
         NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
@@ -300,6 +300,9 @@
     }
 }
 
+- (void)updateWeatherText:(NSString *)text {
+    self.weatherLabel.text = text;
+}
 
 - (void)btnClick:(UIButton *)sender {
     NSLog(@"click");
@@ -323,6 +326,12 @@
             CGPoint btnPoint = [view convertPoint:point fromView:self];
             if (CGRectContainsPoint(view.bounds, btnPoint)) {
                 [(UIButton *)view sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+        if ([view isKindOfClass:[NoResponseYYLabel class]]) {
+            CGPoint labelPoint = [view convertPoint:point fromView:self];
+            if (CGRectContainsPoint(view.bounds, labelPoint)) {
+                self.locationClick((NoResponseYYLabel *)view);
             }
         }
     }

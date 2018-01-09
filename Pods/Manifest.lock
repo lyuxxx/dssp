@@ -16,19 +16,19 @@ PODS:
     - AFNetworking/NSURLSession
   - AMap3DMap (5.6.0):
     - AMapFoundation (~> 1.4)
-  - AMapFoundation (1.4.2)
+  - AMapFoundation (1.4.3)
   - AMapSearch (5.5.0):
     - AMapFoundation (~> 1.4)
-  - CocoaLumberjack (3.3.0):
-    - CocoaLumberjack/Default (= 3.3.0)
-    - CocoaLumberjack/Extensions (= 3.3.0)
-  - CocoaLumberjack/Default (3.3.0)
-  - CocoaLumberjack/Extensions (3.3.0):
+  - CocoaLumberjack (3.4.0):
+    - CocoaLumberjack/Default (= 3.4.0)
+    - CocoaLumberjack/Extensions (= 3.4.0)
+  - CocoaLumberjack/Default (3.4.0)
+  - CocoaLumberjack/Extensions (3.4.0):
     - CocoaLumberjack/Default
   - CUAlertController (0.1.1)
   - CUHTTPRequest (0.1.6):
     - AFNetworking (~> 3.1.0)
-  - CUProgressHUD (0.1.6):
+  - CUProgressHUD (0.1.7):
     - MBProgressHUD (~> 1.1.0)
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
@@ -38,23 +38,23 @@ PODS:
   - GTSDK (2.1.0.0)
   - IQKeyboardManager (5.0.7)
   - KVOController (1.2.0)
-  - LKDBHelper (2.5.0):
-    - LKDBHelper/standard (= 2.5.0)
-  - LKDBHelper/standard (2.5.0):
+  - LKDBHelper (2.5.1):
+    - LKDBHelper/standard (= 2.5.1)
+  - LKDBHelper/standard (2.5.1):
     - FMDB
-  - MapManager (2.0.0):
+  - MapManager (2.0.4):
     - AMap3DMap (~> 5.6.0)
     - AMapSearch (~> 5.5.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MGSwipeTableCell (1.6.6)
   - MJRefresh (3.1.15.1)
-  - RTRootNavigationController (0.6.4):
-    - RTRootNavigationController/Core (= 0.6.4)
-  - RTRootNavigationController/Core (0.6.4)
-  - SDWebImage (4.2.2):
-    - SDWebImage/Core (= 4.2.2)
-  - SDWebImage/Core (4.2.2)
+  - RTRootNavigationController (0.6.5):
+    - RTRootNavigationController/Core (= 0.6.5)
+  - RTRootNavigationController/Core (0.6.5)
+  - SDWebImage (4.2.3):
+    - SDWebImage/Core (= 4.2.3)
+  - SDWebImage/Core (4.2.3)
   - SQLCipher (3.4.2):
     - SQLCipher/standard (= 3.4.2)
   - SQLCipher/common (3.4.2)
@@ -63,7 +63,7 @@ PODS:
   - TBActionSheet (1.5.6)
   - UIImageViewSDWebImage (0.1.4):
     - SDWebImage (~> 4.2.2)
-  - WMPageController (2.5.0)
+  - WMPageController (2.5.1)
   - YYCategoriesSub (0.1.0)
   - YYModel (1.0.4)
   - YYText (1.0.7)
@@ -78,7 +78,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - KVOController
   - LKDBHelper
-  - MapManager (from `http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git`, tag `2.0.0`)
+  - MapManager (from `http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git`, tag `2.0.4`)
   - Masonry
   - MGSwipeTableCell
   - MJRefresh
@@ -93,42 +93,42 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   MapManager:
     :git: http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git
-    :tag: 2.0.0
+    :tag: 2.0.4
 
 CHECKOUT OPTIONS:
   MapManager:
     :git: http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git
-    :tag: 2.0.0
+    :tag: 2.0.4
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AMap3DMap: 2ac4f9ad7f2f8b015013d8d282c55882bcd68dc9
-  AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
+  AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
-  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
+  CocoaLumberjack: e033a5d8513357af2dd456eb66e202c325c30627
   CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
   CUHTTPRequest: f20c18e38c56c15dec606e65e56eb41f68289126
-  CUProgressHUD: d58424e4116a86b9ffb39deaf05797772b002bae
+  CUProgressHUD: 4f595470398cecc3d19bb2f6e74be89f1a323657
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   GTSDK: e4bbd1073ec69471decff20f77a5df90a771824d
   IQKeyboardManager: 0bfa4607d39924116b5c0c8b55b5d789288b5cba
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
-  LKDBHelper: 378aa31e334bbb4e7a64928b4e7bae8059386524
-  MapManager: 5627512dfbcef220bdef2ee22aa53ff58f0fa652
+  LKDBHelper: 9a276ba51f2e16263d46a9517e16cc9b03472664
+  MapManager: 9f64943e48827b7ff8e13b777983ff6cab466aee
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
   MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
-  RTRootNavigationController: 4c969c21fc3e61ea3056e3f4346578569ed79b09
-  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+  RTRootNavigationController: f1d7dc8531dfda0827fb4dbf114ac1917f361325
+  SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
   TBActionSheet: d3c23727ee2d5c573245eef51b9980bb801e8bef
   UIImageViewSDWebImage: ec096894e98f08dd8b4bc3750a41966bee6fb521
-  WMPageController: 9dfb2e5a3dd2cc623df19e608a96ee00c03bbfa2
+  WMPageController: 43ceb03a2d90ee036bfc4d246c50d91753020bb5
   YYCategoriesSub: a767b2c97a4d4698ab561849bfaa6a0f61f5814c
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 837cc7841e63801aea43a00fd3955152f82f875a
+PODFILE CHECKSUM: f2a8992263926bc86f9ead4ab525e68220dae493
 
 COCOAPODS: 1.3.1

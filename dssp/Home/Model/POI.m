@@ -21,6 +21,13 @@
 
 
 @implementation POIListData
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"result": [ResultItem class]
+             };
+}
+
 @end
 
 

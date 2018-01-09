@@ -57,6 +57,13 @@ typedef void(^ReGeocodeSearchBlock)(NSArray<__kindof MapPoiInfo *> *pois);
  */
 typedef void(^ReGeoInfoBlock)(MapReGeoInfo *regeoInfo);
 
+/**
+ 实时天气信息回调
+
+ @param weatherInfo 实时天气信息
+ */
+typedef void(^WeatherLiveBlock)(MapWeatherLive *weatherInfo);
+
 @interface MapSearchManager : NSObject
 
 ///失败block
@@ -68,6 +75,11 @@ typedef void(^ReGeoInfoBlock)(MapReGeoInfo *regeoInfo);
  @return 返回单例
  */
 + (instancetype)sharedManager;
+
+/**
+ 销毁单例
+ */
++ (void)destroyManager;
 
 /**
  关键字检索
@@ -142,5 +154,14 @@ typedef void(^ReGeoInfoBlock)(MapReGeoInfo *regeoInfo);
  */
 - (void)reGeoInfo:(CLLocationCoordinate2D)coordinate
       returnBlock:(ReGeoInfoBlock)block;
+
+/**
+ 实时天气信息
+
+ @param city 城市名称，支持cityname及adcode
+ @param block 返回的天气信息
+ */
+- (void)weatherLive:(NSString *)city
+        returnBlock:(WeatherLiveBlock)block;
 
 @end

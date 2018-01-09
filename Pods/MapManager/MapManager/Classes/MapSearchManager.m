@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, SearchType) {
 @property (nonatomic, copy) IDSearchBlock idSearchBlock;
 @property (nonatomic, copy) ReGeocodeSearchBlock reGeocodeSearchBlock;
 @property (nonatomic, copy) ReGeoInfoBlock reGeoInfoBlock;
+@property (nonatomic, copy) WeatherLiveBlock weatherLiveBlock;
 
 @property (nonatomic, assign) BOOL needReGeoInfo;
 @property (nonatomic, assign) SearchType searchType;
@@ -33,15 +34,21 @@ typedef NS_ENUM(NSUInteger, SearchType) {
 
 @implementation MapSearchManager
 
+static MapSearchManager *manager = nil;
+static dispatch_once_t mapSearchOnceToken;
+
 #pragma mark -public fun-
 
 + (instancetype)sharedManager {
-    static MapSearchManager *manager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&mapSearchOnceToken, ^{
         manager = [[self alloc] init];
     });
     return manager;
+}
+
++ (void)destroyManager {
+    manager = nil;
+    mapSearchOnceToken = 0l;
 }
 
 - (void)keyWordsSearch:(NSString *)keyword city:(NSString *)city returnBlock:(KeyWordSearchBlock)block {
@@ -144,6 +151,18 @@ typedef NS_ENUM(NSUInteger, SearchType) {
         request.requireExtension = YES;
         
         [self.searchAPI AMapReGoecodeSearch:request];
+    }
+}
+
+- (void)weatherLive:(NSString *)city returnBlock:(WeatherLiveBlock)block {
+    if (city) {
+        self.weatherLiveBlock = block;
+        
+        AMapWeatherSearchRequest *request = [[AMapWeatherSearchRequest alloc] init];
+        request.city = city;
+        request.type = AMapWeatherTypeLive;
+        
+        [self.searchAPI AMapWeatherSearch:request];
     }
 }
 
@@ -286,6 +305,31 @@ typedef NS_ENUM(NSUInteger, SearchType) {
             
             if (self.reGeocodeSearchBlock) {
                 self.reGeocodeSearchBlock(pois);
+            }
+        }
+    }
+}
+
+- (void)onWeatherSearchDone:(AMapWeatherSearchRequest *)request response:(AMapWeatherSearchResponse *)response {
+    if (request.type == AMapWeatherTypeLive) {
+        if (response.lives.count == 0) {
+            return;
+        }
+        AMapLocalWeatherLive *liveWeather = [response.lives firstObject];
+        if (liveWeather) {
+            MapWeatherLive *live = [[MapWeatherLive alloc] init];
+            live.adcode = liveWeather.adcode;
+            live.province = liveWeather.province;
+            live.city = liveWeather.city;
+            live.weather = liveWeather.weather;
+            live.temperature = liveWeather.temperature;
+            live.windDirection = liveWeather.windDirection;
+            live.windPower = liveWeather.windPower;
+            live.humidity = liveWeather.humidity;
+            live.reportTime = liveWeather.reportTime;
+            
+            if (self.weatherLiveBlock) {
+                self.weatherLiveBlock(live);
             }
         }
     }

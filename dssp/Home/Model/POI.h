@@ -42,17 +42,17 @@
 @property (nonatomic, assign) NSInteger lastUpdateTime;
 ///描述
 @property (nonatomic, copy) NSString *descript;
+///类型
+@property (nonatomic, copy) NSString *poiType;
+///cpId
+@property (nonatomic, copy) NSString *cpId;
+///appOffset
+@property (nonatomic, assign) NSInteger appOffset;
 
 @end
 
 
-@interface POIListData : NSObject
-///当前页条数
-@property (nonatomic, assign) NSInteger pageSize;
-///当前页
-@property (nonatomic, assign) NSInteger currentPage;
-///总页数
-@property (nonatomic, assign) NSInteger totalPage;
+@interface POIListData : NSObject <YYModel>
 ///总条数
 @property (nonatomic, assign) NSInteger totalCount;
 ///返回信息

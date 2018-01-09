@@ -12,6 +12,7 @@
 
 @interface OilStation : NSObject
 
+@property (nonatomic, copy) NSString *serviceID;
 @property (nonatomic, assign) NSInteger distance;
 @property (nonatomic, assign) NSInteger stationid;
 @property (nonatomic, copy) NSString *price;
@@ -65,8 +66,8 @@
 @property (nonatomic, copy) NSString *stationtype;
 @property (nonatomic, assign) BOOL carwashing;
 @property (nonatomic, assign) NSInteger distance;
-@property (nonatomic, assign) CLLocationDegrees *coordinatex;
-@property (nonatomic, assign) CLLocationDegrees *coordinatey;
+@property (nonatomic, assign) CLLocationDegrees coordinatex;
+@property (nonatomic, assign) CLLocationDegrees coordinatey;
 @property (nonatomic, copy) NSString *telephonenum;
 @property (nonatomic, copy) NSString *noticemsg;
 @property (nonatomic, copy) NSString *opentime;

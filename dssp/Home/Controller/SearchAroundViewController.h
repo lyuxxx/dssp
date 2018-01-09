@@ -11,6 +11,6 @@
 
 @interface SearchAroundViewController : MapBaseController
 
-- (instancetype)initWithAddress:(MapPoiInfo *)address;
+- (instancetype)initWithType:(PoiType)type address:(MapPoiInfo *)address;
 
 @end

@@ -12,10 +12,12 @@
 		310A07DA1FA96BDB00DC9529 /* MapHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */; };
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
 		310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */; };
+		310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 310FC5641FFF489A00F18312 /* CarAnnotation.m */; };
 		313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
 		313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
 		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
 		313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
+		3133051A1FFB730C0067CDFC /* NSDictionary+NilSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 313305191FFB730C0067CDFC /* NSDictionary+NilSafe.m */; };
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
 		314B98621FD7F24C00ABB638 /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
@@ -125,6 +127,8 @@
 		310A07DF1FA96BF800DC9529 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		310C75071FC7B5C300B3A7D0 /* MapSearchHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapSearchHistory.h; sourceTree = "<group>"; };
 		310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchHistory.m; sourceTree = "<group>"; };
+		310FC5631FFF489900F18312 /* CarAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarAnnotation.h; sourceTree = "<group>"; };
+		310FC5641FFF489A00F18312 /* CarAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarAnnotation.m; sourceTree = "<group>"; };
 		3118E4851FDA37D300F9E11A /* dssp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dssp.entitlements; sourceTree = "<group>"; };
 		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
 		313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StatusBar.m"; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 		313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRFinishedViewController.m; sourceTree = "<group>"; };
 		313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VINBindingViewController.h; sourceTree = "<group>"; };
 		313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VINBindingViewController.m; sourceTree = "<group>"; };
+		313305181FFB730C0067CDFC /* NSDictionary+NilSafe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NilSafe.h"; sourceTree = "<group>"; };
+		313305191FFB730C0067CDFC /* NSDictionary+NilSafe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NilSafe.m"; sourceTree = "<group>"; };
 		313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAnnotationView.h; sourceTree = "<group>"; };
 		313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotationView.m; sourceTree = "<group>"; };
 		314B98601FD7F24C00ABB638 /* POI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POI.h; sourceTree = "<group>"; };
@@ -394,6 +400,8 @@
 				4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */,
 				450C7A261FDE3FA700E4652F /* ForecastModel.h */,
 				450C7A271FDE3FA700E4652F /* ForecastModel.m */,
+				310FC5631FFF489900F18312 /* CarAnnotation.h */,
+				310FC5641FFF489A00F18312 /* CarAnnotation.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -407,6 +415,8 @@
 				313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */,
 				31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */,
 				31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */,
+				313305181FFB730C0067CDFC /* NSDictionary+NilSafe.h */,
+				313305191FFB730C0067CDFC /* NSDictionary+NilSafe.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1072,8 +1082,10 @@
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,
 				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
+				3133051A1FFB730C0067CDFC /* NSDictionary+NilSafe.m in Sources */,
 				310A07DA1FA96BDB00DC9529 /* MapHomeViewController.m in Sources */,
 				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
+				310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

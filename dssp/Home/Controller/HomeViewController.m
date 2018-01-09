@@ -20,6 +20,7 @@
 #import "dssp-Swift.h"
 #import <CUAlertController.h>
 #import "InputAlertView.h"
+#import <MapSearchManager.h>
 
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
@@ -179,16 +180,6 @@
         make.height.equalTo(355 * HeightCoefficient);
     }];
     
-    weakifySelf
-    self.topView.clickBlock = ^(UIButton *btn) {
-        strongifySelf
-        if (btn.tag == 1000 + 1) {//出行
-            MapHomeViewController *mapVC = [[MapHomeViewController alloc] init];
-            mapVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:mapVC animated:YES];
-        }
-    };
-    
     self.scroll = [[UIScrollView alloc] init];
     _scroll.contentInset = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);
     _scroll.scrollIndicatorInsets = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);
@@ -318,6 +309,28 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
     [tapView addGestureRecognizer:tap];
+    
+    weakifySelf
+    self.topView.clickBlock = ^(UIButton *btn) {
+        strongifySelf
+        if (btn.tag == 1000 + 1) {//出行
+            MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
+            mapVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:mapVC animated:YES];
+        }
+    };
+    
+    self.topView.locationClick = ^(NoResponseYYLabel *label) {
+        if ([label.text isEqualToString:@"\U0000fffc未获取到车辆位置"]) {
+            strongifySelf
+            [self getCarLocation];
+        } else {
+            strongifySelf
+            MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
+            mapVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:mapVC animated:YES];
+        }
+    };
 }
 
 - (void)detailBtnClick:(UIButton *)sender {
@@ -326,6 +339,27 @@
 
 - (void)didTap:(UITapGestureRecognizer *)sender {
     [self.topView didTapWithPoint:[sender locationInView:_topView]];
+}
+
+- (void)getCarLocation {
+    [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getLastPositionService,kVin] parameters:@{} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
+            CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
+            CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
+            weakifySelf
+            [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
+                strongifySelf
+//                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
+                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
+            }];
+        } else {
+
+        }
+    } failure:^(NSInteger code) {
+        
+    }];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -384,12 +418,10 @@
 
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    NSLog(@"定位失败");
     [_mgr stopUpdatingLocation];//关闭定位
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    NSLog(@"定位成功");
     [_mgr stopUpdatingLocation];//关闭定位
     CLLocation *newLocation = locations[0];
 //    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
@@ -400,13 +432,20 @@
             // Country(国家)
             // State(城市) SubLocality(区)
             //            NSString *location= [[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
-            
-            NSArray *location=[test objectForKey:@"FormattedAddressLines"];
-            NSString *str= [location objectAtIndex:0];
-            self.topView.locationStr = str;
+
+//            NSArray *location=[test objectForKey:@"FormattedAddressLines"];
+//            NSString *str= [location objectAtIndex:0];
+//            self.topView.locationStr = str;
+            weakifySelf
+            [[MapSearchManager sharedManager] weatherLive:test[@"City"] returnBlock:^(MapWeatherLive *weatherInfo) {
+                strongifySelf
+                [self.topView updateWeatherText:[NSString stringWithFormat:@"%@  %@℃  %@风  %@级",weatherInfo.weather,weatherInfo.temperature,weatherInfo.windDirection,weatherInfo.windPower]];
+                [self getCarLocation];
+            }];
         }
     }];
 }
+
 
 #pragma mark - FSPagerViewDataSource
 

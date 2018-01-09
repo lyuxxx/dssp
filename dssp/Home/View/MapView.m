@@ -21,7 +21,7 @@ static dispatch_once_t onceToken;
         mapView.showsUserLocation = YES;
         mapView.userTrackingMode = MAUserTrackingModeFollow;
         mapView.showsIndoorMap = YES;
-        mapView.showTraffic = NO;
+        mapView.showTraffic = YES;
         mapView.showsScale = NO;
         mapView.showsCompass = NO;
         mapView.desiredAccuracy = kCLLocationAccuracyBest;

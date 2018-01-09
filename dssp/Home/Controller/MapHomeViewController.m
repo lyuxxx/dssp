@@ -58,6 +58,8 @@
 
 @implementation MapHomeViewController
 
+static dispatch_once_t mapHomeOnceToken;
+
 - (void)backToHome {
     [self hideInfoView];
     _tmpField.hidden = NO;
@@ -72,15 +74,26 @@
     [self getHistory];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.currentPoi) {
+        [self showInfoWithAnnotationInfo:self.currentPoi];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [MapSearchManager sharedManager].searchFailBlock = ^(NSError *error) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"", nil) message:[NSString stringWithFormat:@"请检查网络，%@",error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
+    weakifySelf
+    self.checkCarLocationOver = ^{
+        dispatch_once(&mapHomeOnceToken, ^{
+            strongifySelf
+            [self.mapView showAnnotations:@[self.carAnnotation,self.mapView.userLocation] edgePadding:UIEdgeInsetsMake(90 * HeightCoefficient + kStatusBarHeight, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
+        });
     };
+}
+
+- (void)dealloc {
+    mapHomeOnceToken = 0l;
 }
 
 - (void)setupUI {
@@ -113,7 +126,20 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
     }];
-    
+    weakifySelf
+    self.favoriteCallBack = ^(ResultItem *item) {///收藏夹点击回调
+        strongifySelf
+        MapPoiInfo *tmp = [[MapPoiInfo alloc] init];
+        tmp.serviceID = item.poiId;
+        tmp.uid = item.cpId;
+        tmp.tel = item.tel;
+        tmp.name = item.poiName;
+        tmp.address = item.address;
+        tmp.coordinate = CLLocationCoordinate2DMake(item.latitude.doubleValue, item.longitude.doubleValue);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self clearAndAddAnnotationWithAnnotationInfo:tmp];
+        });
+    };
 }
 
 - (void)getHistory {
@@ -259,7 +285,9 @@
 - (void)btnClick:(UIButton *)sender {
     if (sender.tag >= 1000) {//上方按钮
         _searchField.text = sender.titleLabel.text;
+        weakifySelf
         [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
+            strongifySelf
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
             _resultTable.tableFooterView = [UIView new];
@@ -269,6 +297,7 @@
     if (sender == _backBtn) {
        [self.navigationController popViewControllerAnimated:YES];
         [MapView destroy];
+        [MapSearchManager destroyManager];
     }
     
     if (sender == _topBackBtn) {
@@ -280,7 +309,9 @@
         [self getHistory];
     }
     if (sender == _searchBtn) {
+        weakifySelf
         [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
+            strongifySelf
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
             _resultTable.tableFooterView = [UIView new];
@@ -309,37 +340,67 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     if (sender == _infoFavoriteBtn) {
-        sender.selected = !sender.selected;
+//        sender.selected = !sender.selected;
+        if (sender.selected == NO) {
+            weakifySelf
+            [self addPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate tel:self.currentPoi.tel cpid:self.currentPoi.uid type:PoiTypeAmap inResult:^(BOOL result, NSString *serviceId) {
+                if (result) {
+                    sender.selected = YES;
+                    strongifySelf
+                    self.currentPoi.serviceID = serviceId;
+                }
+            }];
+        } else {
+            [self deletePoisWithPoiIds:@[self.currentPoi.serviceID] inResult:^(BOOL result) {
+                if (result) {
+                    sender.selected = NO;
+                }
+            }];
+        }
     }
     if (sender == _infoAroundBtn) {
-        SearchAroundViewController *vc = [[SearchAroundViewController alloc] initWithAddress:self.currentPoi];
+        SearchAroundViewController *vc = [[SearchAroundViewController alloc] initWithType:PoiTypeAll address:self.currentPoi];
         [self.navigationController pushViewController:vc animated:NO];
     }
     if (sender == _infoFenceBtn) {
         
     }
     if ([sender isKindOfClass:[POISendBtn class]]) {
-        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
-        NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
+        NSString *name = self.currentPoi.name;
+        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"是否确定将\"%@\"位置发送到车",name] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+        NSRange range = [[NSString stringWithFormat:@"是否确定将\"%@\"位置发送到车",name] rangeOfString:name];
         [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
         CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"mobile-phone-2"] attributedMessage:message];
         [alert addButtonWithTitle:@"取消" type:CUButtonTypeCancel clicked:^{
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            
+            [MBProgressHUD showMessage:@""];
+            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(BOOL result) {
+                if (result) {
+                    [MBProgressHUD hideHUD];
+                    [self showPoiSendAletWithSuccess:YES];
+                } else {
+                    [MBProgressHUD hideHUD];
+                    [self showPoiSendAletWithSuccess:NO];
+                }
+            }];
         }];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
 - (void)getUserLocation {
+//    weakifySelf
     [[MapSearchManager sharedManager] reGeoInfo:self.mapView.userLocation.coordinate returnBlock:^(MapReGeoInfo *regeoInfo) {
+//        strongifySelf
         self.city = regeoInfo.city;
     }];
 }
 
 - (void)clearAndAddAnnotationWithAnnotationInfo:(MapPoiInfo *)annotationInfo {
+    self.currentPoi = nil;
+    self.currentPoi = annotationInfo;
     [self clear];
     MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
     annotation.coordinate = annotationInfo.coordinate;
@@ -347,30 +408,6 @@
     annotation.subtitle = annotationInfo.address;
     [self.mapView addAnnotation:annotation];
     [self.mapView selectAnnotation:annotation animated:YES];
-}
-
-- (void)clear {
-    NSMutableArray *tmp = [NSMutableArray arrayWithArray:self.mapView.annotations];
-    for (NSInteger i = 0; i < tmp.count; i++) {
-        id<MAAnnotation> obj = tmp[i];
-        if ([obj isKindOfClass:[MAUserLocation class]]) {
-            [tmp removeObject:obj];
-            break;
-        }
-    }
-    [self.mapView removeAnnotations:tmp];
-    [self.mapView removeOverlays:self.mapView.overlays];
-}
-
-- (NSString *)distanceFromUsr:(CLLocationCoordinate2D)location {
-    MAMapPoint userPoint = MAMapPointForCoordinate(self.mapView.userLocation.coordinate);
-    MAMapPoint point = MAMapPointForCoordinate(location);
-    CLLocationDistance distance = MAMetersBetweenMapPoints(userPoint, point);
-    NSString *str = [NSString stringWithFormat:@"%.0fm",distance];
-    if (distance >= 1000) {
-        str = [NSString stringWithFormat:@"%.0fkm",distance/1000.0];
-    }
-    return str;
 }
 
 - (void)showShade {
@@ -467,184 +504,183 @@
     [self.view layoutIfNeeded];
 }
 
-- (void)checkPoiIsFavorited {
-    [CUHTTPRequest POST:checkPOICollected parameters:@{@"cpId":[NSString stringWithFormat:@"%ld",(long)self.currentPoi.uid]} success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        BOOL isFavorite = [dic[@"data"] boolValue];
-    } failure:^(NSInteger code) {
-        
-    }];
-}
-
 - (void)showInfoWithAnnotationInfo:(MapPoiInfo *)annotationInfo {
+    self.currentPoi = nil;
     self.currentPoi = annotationInfo;
-    _tmpField.hidden = YES;
-    if (self.infoView) {
-        [_infoView removeFromSuperview];
-        _infoView = nil;
-    }
-    if (self.showField) {
-        [_showField removeFromSuperview];
-        _showField = nil;
-    }
-    
-    self.showBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_showBackBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_showBackBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    
-    self.showClearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_showClearBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_showClearBtn setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
-    
-    self.showField = [[UITextField alloc] init];
-    _showField.backgroundColor = [UIColor whiteColor];
-    _showField.delegate = self;
-    _showField.text = annotationInfo.name;
-    _showField.textColor = [UIColor colorWithHexString:@"#040000"];
-    _showField.font = [UIFont fontWithName:FontName size:16];
-    _showField.layer.cornerRadius = 2;
-    _showField.layer.shadowOffset = CGSizeMake(0, 5);
-    _showField.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    _showField.layer.shadowRadius = 15;
-    _showField.layer.shadowOpacity = 0.5;
-    [self.view addSubview:_showField];
-    [_showField makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(359 * WidthCoefficient);
-        make.height.equalTo(44 * HeightCoefficient);
-        make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
-        make.centerX.equalTo(0);
-    }];
-    
-    _showField.leftView = self.showBackBtn;
-    _showField.leftViewMode = UITextFieldViewModeAlways;
-    [_showBackBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(53 * WidthCoefficient);
-        make.height.equalTo(23 * WidthCoefficient);
-    }];
-    
-    _showField.rightView = self.showClearBtn;
-    _showField.rightViewMode = UITextFieldViewModeAlways;
-    [_showClearBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(42 * WidthCoefficient);
-        make.height.equalTo(16 * WidthCoefficient);
-    }];
-    
-    ///
-    [self.view addSubview:self.infoView];
-    [_infoView makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(360 * WidthCoefficient);
-        make.height.equalTo(159 * WidthCoefficient);
-        make.centerX.equalTo(0);
-        make.bottom.equalTo(- 15 * HeightCoefficient - kBottomHeight);
-    }];
-    
-    UIView *infoTop = [[UIView alloc] init];
-    infoTop.backgroundColor = [UIColor whiteColor];
-    infoTop.layer.cornerRadius = 1;
-    infoTop.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    infoTop.layer.shadowOffset = CGSizeMake(0, 5);
-    infoTop.layer.shadowOpacity = 0.5;
-    infoTop.layer.shadowRadius = 15;
-    [_infoView addSubview:infoTop];
-    [infoTop makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(_infoView);
-        make.height.equalTo(80 * WidthCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(30 * WidthCoefficient);
-    }];
-    
-    UILabel *title = [[UILabel alloc] init];
-    title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    title.textColor = [UIColor colorWithHexString:@"#040000"];
-    title.text = annotationInfo.name;
-    [infoTop addSubview:title];
-    [title makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(10 * WidthCoefficient);
-        make.top.equalTo(15 * WidthCoefficient);
-        make.height.equalTo(22 * WidthCoefficient);
-        make.width.equalTo(infoTop).offset(-80 * WidthCoefficient);
-    }];
-    
-    UILabel *subTitle = [[UILabel alloc] init];
-    subTitle.font = [UIFont fontWithName:FontName size:13];
-    subTitle.textColor = [UIColor colorWithHexString:@"#666666"];
-    subTitle.text = [NSString stringWithFormat:@"%@ 丨 %@",[self distanceFromUsr:annotationInfo.coordinate],annotationInfo.address];
-    if (!annotationInfo.address || [annotationInfo.address isEqualToString:@""]) {
-        subTitle.text = [NSString stringWithFormat:@"%@",[self distanceFromUsr:annotationInfo.coordinate]];
-    }
-    [infoTop addSubview:subTitle];
-    [subTitle makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(title);
-        make.top.equalTo(title.bottom).offset(5 * WidthCoefficient);
-        make.height.equalTo(16 * WidthCoefficient);
-        make.width.equalTo(infoTop).offset(-20 * WidthCoefficient);
-    }];
-    
-    POISendBtn *sendPOIBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
-    [sendPOIBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [sendPOIBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
-    [_infoView addSubview:sendPOIBtn];
-    [sendPOIBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(60 * WidthCoefficient);
-        make.top.equalTo(0);
-        make.right.equalTo(-10 * WidthCoefficient);
-    }];
-    
-    UIView *infoBot = [[UIView alloc] init];
-    infoBot.backgroundColor = [UIColor whiteColor];
-    infoBot.layer.cornerRadius = 1;
-    infoBot.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    infoBot.layer.shadowOffset = CGSizeMake(0, 5);
-    infoBot.layer.shadowOpacity = 0.5;
-    infoBot.layer.shadowRadius = 15;
-    [_infoView addSubview:infoBot];
-    [infoBot makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(_infoView);
-        make.height.equalTo(44 * WidthCoefficient);
-        make.centerX.equalTo(0);
-        make.bottom.equalTo(0);
-    }];
-    
-    NSMutableArray *botBtns = [[NSMutableArray alloc] init];
-    
-    NSArray *arr = @[
-                     NSLocalizedString(@"收藏", nil),
-                     NSLocalizedString(@"搜周边", nil),
-                     NSLocalizedString(@"电子围栏", nil)
-                     ];
-    NSArray *imgTitles = @[
-                           @"收藏 4",
-                           @"周边",
-                           @"电子围栏"
-                           ];
-    
-    for (NSInteger i = 0; i < arr.count; i++) {
-        LeftImgButton *btn = [LeftImgButton buttonWithType:UIButtonTypeCustom];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:arr[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
-        [btn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
-        btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [infoBot addSubview:btn];
-        [botBtns addObject:btn];
-        if (i == 0) {
-            self.infoFavoriteBtn = btn;
-            [btn setTitle:NSLocalizedString(@"已收藏", nil) forState:UIControlStateSelected];
-            [btn setImage:[UIImage imageNamed:@"已收藏"] forState:UIControlStateSelected];
+    [self checkPoiWithCpid:self.currentPoi.uid inResult:^(BOOL isFavorite, NSString *serviceId) {
+        if (isFavorite) {
+            self.currentPoi.serviceID = serviceId;
         }
-        if (i == 1) {
-            self.infoAroundBtn = btn;
+        _tmpField.hidden = YES;
+        if (self.infoView) {
+            [_infoView removeFromSuperview];
+            _infoView = nil;
         }
-        if (i == 2) {
-            self.infoFenceBtn = btn;
+        if (self.showField) {
+            [_showField removeFromSuperview];
+            _showField = nil;
         }
-    }
-    
-    [botBtns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:36 * WidthCoefficient leadSpacing:20 * WidthCoefficient tailSpacing:20 * WidthCoefficient];
-    [botBtns makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(13 * WidthCoefficient);
-        make.bottom.equalTo(-13 * WidthCoefficient);
+        
+        self.showBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_showBackBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_showBackBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        
+        self.showClearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_showClearBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_showClearBtn setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
+        
+        self.showField = [[UITextField alloc] init];
+        _showField.backgroundColor = [UIColor whiteColor];
+        _showField.delegate = self;
+        _showField.text = annotationInfo.name;
+        _showField.textColor = [UIColor colorWithHexString:@"#040000"];
+        _showField.font = [UIFont fontWithName:FontName size:16];
+        _showField.layer.cornerRadius = 2;
+        _showField.layer.shadowOffset = CGSizeMake(0, 5);
+        _showField.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+        _showField.layer.shadowRadius = 15;
+        _showField.layer.shadowOpacity = 0.5;
+        [self.view addSubview:_showField];
+        [_showField makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(359 * WidthCoefficient);
+            make.height.equalTo(44 * HeightCoefficient);
+            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.centerX.equalTo(0);
+        }];
+        
+        _showField.leftView = self.showBackBtn;
+        _showField.leftViewMode = UITextFieldViewModeAlways;
+        [_showBackBtn makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(53 * WidthCoefficient);
+            make.height.equalTo(23 * WidthCoefficient);
+        }];
+        
+        _showField.rightView = self.showClearBtn;
+        _showField.rightViewMode = UITextFieldViewModeAlways;
+        [_showClearBtn makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(42 * WidthCoefficient);
+            make.height.equalTo(16 * WidthCoefficient);
+        }];
+        
+        ///
+        [self.view addSubview:self.infoView];
+        [_infoView makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(360 * WidthCoefficient);
+            make.height.equalTo(159 * WidthCoefficient);
+            make.centerX.equalTo(0);
+            make.bottom.equalTo(- 15 * HeightCoefficient - kBottomHeight);
+        }];
+        
+        UIView *infoTop = [[UIView alloc] init];
+        infoTop.backgroundColor = [UIColor whiteColor];
+        infoTop.layer.cornerRadius = 1;
+        infoTop.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+        infoTop.layer.shadowOffset = CGSizeMake(0, 5);
+        infoTop.layer.shadowOpacity = 0.5;
+        infoTop.layer.shadowRadius = 15;
+        [_infoView addSubview:infoTop];
+        [infoTop makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(_infoView);
+            make.height.equalTo(80 * WidthCoefficient);
+            make.centerX.equalTo(0);
+            make.top.equalTo(30 * WidthCoefficient);
+        }];
+        
+        UILabel *title = [[UILabel alloc] init];
+        title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        title.textColor = [UIColor colorWithHexString:@"#040000"];
+        title.text = annotationInfo.name;
+        [infoTop addSubview:title];
+        [title makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(10 * WidthCoefficient);
+            make.top.equalTo(15 * WidthCoefficient);
+            make.height.equalTo(22 * WidthCoefficient);
+            make.width.equalTo(infoTop).offset(-80 * WidthCoefficient);
+        }];
+        
+        UILabel *subTitle = [[UILabel alloc] init];
+        subTitle.font = [UIFont fontWithName:FontName size:13];
+        subTitle.textColor = [UIColor colorWithHexString:@"#666666"];
+        subTitle.text = [NSString stringWithFormat:@"%@ 丨 %@",[self distanceFromUsr:annotationInfo.coordinate],annotationInfo.address];
+        if (!annotationInfo.address || [annotationInfo.address isEqualToString:@""]) {
+            subTitle.text = [NSString stringWithFormat:@"%@",[self distanceFromUsr:annotationInfo.coordinate]];
+        }
+        [infoTop addSubview:subTitle];
+        [subTitle makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(title);
+            make.top.equalTo(title.bottom).offset(5 * WidthCoefficient);
+            make.height.equalTo(16 * WidthCoefficient);
+            make.width.equalTo(infoTop).offset(-20 * WidthCoefficient);
+        }];
+        
+        POISendBtn *sendPOIBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
+        [sendPOIBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [sendPOIBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
+        [_infoView addSubview:sendPOIBtn];
+        [sendPOIBtn makeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.equalTo(60 * WidthCoefficient);
+            make.top.equalTo(0);
+            make.right.equalTo(-10 * WidthCoefficient);
+        }];
+        
+        UIView *infoBot = [[UIView alloc] init];
+        infoBot.backgroundColor = [UIColor whiteColor];
+        infoBot.layer.cornerRadius = 1;
+        infoBot.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+        infoBot.layer.shadowOffset = CGSizeMake(0, 5);
+        infoBot.layer.shadowOpacity = 0.5;
+        infoBot.layer.shadowRadius = 15;
+        [_infoView addSubview:infoBot];
+        [infoBot makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(_infoView);
+            make.height.equalTo(44 * WidthCoefficient);
+            make.centerX.equalTo(0);
+            make.bottom.equalTo(0);
+        }];
+        
+        NSMutableArray *botBtns = [[NSMutableArray alloc] init];
+        
+        NSArray *arr = @[
+                         NSLocalizedString(@"收藏", nil),
+                         NSLocalizedString(@"搜周边", nil),
+                         NSLocalizedString(@"电子围栏", nil)
+                         ];
+        NSArray *imgTitles = @[
+                               @"收藏 4",
+                               @"周边",
+                               @"电子围栏"
+                               ];
+        
+        for (NSInteger i = 0; i < arr.count; i++) {
+            LeftImgButton *btn = [LeftImgButton buttonWithType:UIButtonTypeCustom];
+            [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [btn setTitle:arr[i] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
+            [btn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+            btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            [infoBot addSubview:btn];
+            [botBtns addObject:btn];
+            if (i == 0) {
+                self.infoFavoriteBtn = btn;
+                [btn setTitle:NSLocalizedString(@"已收藏", nil) forState:UIControlStateSelected];
+                [btn setImage:[UIImage imageNamed:@"已收藏"] forState:UIControlStateSelected];
+            }
+            if (i == 1) {
+                self.infoAroundBtn = btn;
+            }
+            if (i == 2) {
+                self.infoFenceBtn = btn;
+            }
+        }
+        
+        self.infoFavoriteBtn.selected = isFavorite;
+        
+        [botBtns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:36 * WidthCoefficient leadSpacing:20 * WidthCoefficient tailSpacing:20 * WidthCoefficient];
+        [botBtns makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(13 * WidthCoefficient);
+            make.bottom.equalTo(-13 * WidthCoefficient);
+        }];
     }];
 }
 
@@ -676,7 +712,9 @@
 }
 
 - (void)textFieldEditChanged:(UITextField *)textField {
+    weakifySelf
     [[MapSearchManager sharedManager] inputTipsSearch:textField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
+        strongifySelf
         [self.annotations removeAllObjects];
         for (MapPoiInfo *tip in tips) {
             if (tip.uid && tip.coordinate.longitude > 0 && tip.coordinate.latitude) {
@@ -690,7 +728,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == _searchField) {
+        weakifySelf
         [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
+            strongifySelf
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
             _resultTable.tableFooterView = [UIView new];
@@ -742,6 +782,13 @@
 
 #pragma mark - MAMapViewDelegate-
 
+- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    MAAnnotationView *view = views[0];
+    if ([view.annotation isKindOfClass:[MAUserLocation class]]) {
+        view.canShowCallout = NO;
+    }
+}
+
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     if (!self.city) {
         [self getUserLocation];
@@ -773,6 +820,17 @@
 //
 //        return annotationView;
     }
+    if ([annotation isKindOfClass:[CarAnnotation class]]) {
+        static NSString *carId = @"carId";
+        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:carId];
+        if (annotationView == nil) {
+            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:carId];
+        }
+        annotationView.image = [UIImage imageNamed:@"car_location"];
+//        annotationView.centerOffset = CGPointMake(0, -18);
+        annotationView.canShowCallout = YES;
+        return annotationView;
+    }
     if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
         static NSString *tipId = @"tipId";
         MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:tipId];
@@ -790,14 +848,19 @@
     if (pois.count == 0) {
         return;
     }
+    [MBProgressHUD showMessage:@""];
     MATouchPoi *touchPOI = pois[0];
     MapPoiInfo *info = [[MapPoiInfo alloc] init];
     info.name = touchPOI.name;
     info.coordinate = touchPOI.coordinate;
     info.uid = touchPOI.uid;
+    self.currentPoi = nil;
     self.currentPoi = info;
     if (touchPOI) {
+        weakifySelf
         [[MapSearchManager sharedManager] idSearch:touchPOI.uid returnBlock:^(MapPoiInfo *pointAnnotation) {
+            strongifySelf
+            [MBProgressHUD hideHUD];
             [self clear];
             MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
             annotation.coordinate = touchPOI.coordinate;
@@ -810,6 +873,12 @@
 }
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
+    if ([view isKindOfClass:NSClassFromString(@"MAUserLocationView")]) {
+        return;
+    }
+    if ([view.annotation isKindOfClass:[CarAnnotation class]]) {
+        return;
+    }
     [self.mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
     self.currentPoi.coordinate = view.annotation.coordinate;
     self.currentPoi.name = view.annotation.title;

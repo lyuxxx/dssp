@@ -13,8 +13,16 @@
 
 @implementation MapPoiInfo
 
+@dynamic coordinate;
+@dynamic name;
+@dynamic address;
+
 @end
 
 @implementation MapReGeoInfo
+
+@end
+
+@implementation MapWeatherLive
 
 @end

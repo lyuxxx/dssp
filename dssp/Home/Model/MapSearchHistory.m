@@ -69,6 +69,10 @@
     return YES;
 }
 
++ (BOOL)isContainSelf {
+    return YES;
+}
+
 + (BOOL)dbWillInsert:(NSObject *)entity {
     NSLog(@"will insert:%@",NSStringFromClass(self));
     return YES;

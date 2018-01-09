@@ -13,8 +13,13 @@
 #import <MGSwipeTableCell.h>
 #import "POI.h"
 #import <CUHTTPRequest.h>
+#import "MapBaseController.h"
+
+#define pageSize 20
 
 @interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate>
+
+@property (nonatomic, assign) PoiType type;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -26,19 +31,25 @@
 @property (nonatomic, strong) UIButton *deleteBtn;
 
 @property (nonatomic, strong) NSIndexPath *editingIndexPath;
-@property (nonatomic, assign) NSInteger currentPage;
-@property (nonatomic, assign) NSInteger totalPage;
+@property (nonatomic, assign) BOOL end;
 
 @end
 
 @implementation FavoritesViewController
+
+- (instancetype)initWithType:(PoiType)type {
+    self = [super init];
+    if (self) {
+        self.type = type;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = NSLocalizedString(@"POI收藏夹", nil);
-    self.totalPage = 1;
     
     [self createTable];
     [self setupUI];
@@ -163,35 +174,72 @@
     if (self.tableView.mj_footer == nil) {
         MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(pullData)];
         //    footer.refreshingTitleHidden = YES;
-        [footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        if (self.end) {
+            [footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        }
         footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
         self.tableView.mj_footer = footer;
     } else {
-        [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        if (self.end) {
+            [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        }
     }
 }
 
 - (void)pullData {
-    if (self.currentPage > self.totalPage - 1) {
-        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+    NSString *typeStr = @"";
+    if (self.type == PoiTypeAll) {
+        typeStr = @"";
     }
-    [CUHTTPRequest POST:findPoiFavoritesService parameters:@{@"vin":@"VF7CAPSA000000002",@"pageSize":@"20",@"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage]} success:^(id responseData) {
+    if (self.type == PoiTypeAmap) {
+        typeStr = @"amap";
+    }
+    if (self.type == PoiTypeOil) {
+        typeStr = @"oil";
+    }
+    if (self.type == PoiTypePark) {
+        typeStr = @"park";
+    }
+    NSString *lastId = @"";
+    if (self.dataSource.count) {
+        lastId = self.dataSource.lastObject.poiId;
+    }
+    [CUHTTPRequest POST:findPoiFavoritesFromApp parameters:@{@"appOffset": [NSNumber numberWithInteger:pageSize],@"id": lastId,@"vin": kVin, @"poiType": typeStr} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         POIList *list = [POIList yy_modelWithDictionary:dic];
-        self.totalPage = list.data.totalPage;
         NSArray<ResultItem *> *resultArr = list.data.result;
-        [self.dataSource addObjectsFromArray:resultArr];
-        self.currentPage += 1;
-        [self.tableView reloadData];
-        [self.tableView.mj_footer endRefreshing];
+        if (resultArr.count) {
+            if (resultArr.count < pageSize) {
+                self.end = YES;
+            } else {
+                self.end = NO;
+            }
+            [self.dataSource addObjectsFromArray:resultArr];
+            [self.tableView reloadData];
+            [self.tableView.mj_footer endRefreshing];
+        } else {//数据已拉取完毕
+            self.end = YES;
+            [self.tableView.mj_footer endRefreshing];
+        }
+        if (self.dataSource.count == 0) {
+            self.editBtn.enabled = NO;
+        } else {
+            self.editBtn.enabled = YES;
+        }
+        [self setupFooter];
     } failure:^(NSInteger code) {
         [self.tableView.mj_footer endRefreshing];
     }];
-    if (self.dataSource.count == 0) {
-        self.editBtn.enabled = NO;
-    } else {
-        self.editBtn.enabled = YES;
+}
+
+- (MapBaseController *)getPreviousViewController {
+    for (NSInteger i = 0; i < self.navigationController.viewControllers.count; i++) {
+        UIViewController *vc = self.navigationController.viewControllers[i];
+        if ([vc isKindOfClass:[FavoritesViewController class]]) {
+            return (MapBaseController *)self.navigationController.viewControllers[i-1];
+        }
     }
+    return nil;
 }
 
 - (void)btnClick:(UIButton *)sender {
@@ -269,43 +317,53 @@
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
     
-    if (indexPaths.count == 1) {
-        
-    } else {
-        
+    NSString *idStr = @"";
+    NSMutableArray *idArr = [NSMutableArray arrayWithCapacity:self.selectedDatas.count];
+    for (ResultItem *item in self.selectedDatas) {
+        [idArr addObject:item.poiId];
     }
+    idStr = [idArr componentsJoinedByString:@","];
     
-    // 删除数据源
-    [self.dataSource removeObjectsInArray:self.selectedDatas];
-    [self.selectedDatas removeAllObjects];
-    
-//    [UIView setAnimationsEnabled:NO];
-    // 删除选中项
-//    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-//    [self.tableView endUpdates];
-//    [UIView setAnimationsEnabled:YES];
-    
-    // 验证数据源
-    [self indexPathsForSelectedRowsCountDidChange:self.tableView.indexPathsForSelectedRows];
-    
-    // 验证
-    // 没有
-    if (self.dataSource.count == 0)
-    {
-        //没有收藏数据
-        
-        if(self.editBtn.selected)
-        {
-            // 编辑状态 -- 取消编辑状态
-            [self btnClick:self.editBtn];
+    [CUHTTPRequest POST:deletePoiFavoritesService parameters:@{@"id":idStr} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        NSString *code = dic[@"code"];
+        if ([code isEqualToString:@"200"]) {
+            // 删除数据源
+            [self.dataSource removeObjectsInArray:self.selectedDatas];
+            [self.selectedDatas removeAllObjects];
+            
+            //    [UIView setAnimationsEnabled:NO];
+            // 删除选中项
+            //    [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            //    [self.tableView endUpdates];
+            //    [UIView setAnimationsEnabled:YES];
+            
+            // 验证数据源
+            [self indexPathsForSelectedRowsCountDidChange:self.tableView.indexPathsForSelectedRows];
+            
+            // 验证
+            // 没有
+            if (self.dataSource.count == 0)
+            {
+                //没有收藏数据
+                
+                if(self.editBtn.selected)
+                {
+                    // 编辑状态 -- 取消编辑状态
+                    [self btnClick:self.editBtn];
+                }
+                
+                self.editBtn.enabled = NO;
+                
+            }
+            
+            [self setupFooter];
         }
+    } failure:^(NSInteger code) {
         
-        self.editBtn.enabled = NO;
-        
-    }
+    }];
     
-    [self setupFooter];
 }
 
 - (void)indexPathsForSelectedRowsCountDidChange:(NSArray *)selectedRows
@@ -334,6 +392,7 @@
     if (!cell) {
         cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
+    [cell configWithModel:self.dataSource[indexPath.row]];
     cell.delegate = self;
     return cell;
 }
@@ -346,6 +405,10 @@
         }
         [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
         return;
+    } else {
+        MapBaseController *vc = [self getPreviousViewController];
+        vc.favoriteCallBack(self.dataSource[indexPath.row]);
+        [self.navigationController popViewControllerAnimated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
