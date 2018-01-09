@@ -392,7 +392,10 @@
             weakifySelf
             [[MapSearchManager sharedManager] weatherLive:test[@"City"] returnBlock:^(MapWeatherLive *weatherInfo) {
                 strongifySelf
-                [self.topView updateWeatherText:[NSString stringWithFormat:@"%@  %@℃  %@风  %@级",weatherInfo.weather,weatherInfo.temperature,weatherInfo.windDirection,weatherInfo.windPower]];
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"EEEE";
+                NSString *week = [formatter stringFromDate:[NSDate date]];
+                [self.topView updateWeatherText:[NSString stringWithFormat:@"%@ %@  %@℃",week,weatherInfo.weather,weatherInfo.temperature]];
                 [self getCarLocation];
             }];
         }
