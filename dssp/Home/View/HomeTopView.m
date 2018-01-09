@@ -192,7 +192,7 @@
         
         NSString *str = @"未获取到车辆位置";
         self.locationLabel = [[NoResponseYYLabel alloc] init];
-        _locationLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+        _locationLabel.backgroundColor = [UIColor colorWithHexString:@"2f2726"];
         NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
         UIFont *locationFont = [UIFont fontWithName:FontName size:13];
         NSMutableAttributedString *attachment = nil;
