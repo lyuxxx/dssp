@@ -42,7 +42,7 @@
 {
     NSDictionary *paras = @{
                             @"id":_channels.listId,
-                            @"vin":@"VF7CAPSA000000101" 
+                            @"vin":kVin
                             };
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:findAppPushContentInfoById parameters:paras success:^(id responseData) {
@@ -75,7 +75,6 @@
     }];
     
 }
-
 
 
 - (void)didReceiveMemoryWarning {

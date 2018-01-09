@@ -79,7 +79,7 @@
     NSString *vin = [defaults1 objectForKey:@"vin"];
     
     NSDictionary *paras = @{
-                            @"vin": @"VF7CAPSA000020942",
+                            @"vin": kVin,
                             @"currentPage":@"1",
                             @"pageSize":@"5"
                             };

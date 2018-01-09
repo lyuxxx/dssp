@@ -192,13 +192,15 @@
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:setWifi parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        BOOL setFinish = [dic[@"data"] boolValue];
-        if (setFinish) {
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+         
+            hud.label.text = NSLocalizedString(@"wifi密码修改成功", nil);
+            [hud hideAnimated:YES afterDelay:1];
+        }
+        else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
-        } else {
-            hud.label.text = NSLocalizedString(@"修改失败", nil);
-            [hud hideAnimated:YES];
+        
         }
     } failure:^(NSInteger code) {
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code];

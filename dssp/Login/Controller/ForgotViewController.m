@@ -161,7 +161,7 @@
             if ([self valiMobile:_phoneField.text]){
                 NSDictionary *paras = @{
                                         @"telephone":_phoneField.text,
-                                        @"randomCodeType":@"login"
+                                        @"randomCodeType":@"resetPWD"
                                         };
                 [CUHTTPRequest POST:getRandomCode parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

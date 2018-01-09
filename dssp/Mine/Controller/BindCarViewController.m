@@ -49,12 +49,12 @@
 
 -(void)requestData
 {
-    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    NSString *vin = [defaults1 objectForKey:@"vin"];
+//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//    NSString *vin = [defaults1 objectForKey:@"vin"];
     NSDictionary *paras = @{
                            
                            };
-    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,vin];
+    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,kVin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryVhls parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -409,10 +409,10 @@
         InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
             if (btn.tag == 100) {//左边按钮
                 
-                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-                NSString *vin = [defaults1 objectForKey:@"vin"];
+//                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//                NSString *vin = [defaults1 objectForKey:@"vin"];
                 NSDictionary *paras = @{
-                                        @"vin": vin
+                                        @"vin": kVin
                                         };
                 
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];

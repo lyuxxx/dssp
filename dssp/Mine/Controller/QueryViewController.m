@@ -43,7 +43,7 @@
         [view1 addSubview:logo];
         [logo makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(18 * WidthCoefficient);
-            make.height.equalTo(18 * HeightCoefficient);
+            make.height.equalTo(18 * WidthCoefficient);
             make.centerY.equalTo(0);
             make.left.equalTo(0);
         }];
@@ -79,7 +79,7 @@
             
             [lineview makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(1 * WidthCoefficient);
-                make.height.equalTo(46 * HeightCoefficient);
+                make.height.equalTo(49 * HeightCoefficient);
                 make.left.equalTo(28 * WidthCoefficient);
                 make.top.equalTo(logo.bottom).offset(0);
             }];
@@ -96,7 +96,7 @@
             
             [lineview makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(1 * WidthCoefficient);
-                make.height.equalTo(46 * HeightCoefficient);
+                make.height.equalTo(49 * HeightCoefficient);
                 make.left.equalTo(28 * WidthCoefficient);
                 make.top.equalTo(logo.bottom).offset(0 * HeightCoefficient);
             }];

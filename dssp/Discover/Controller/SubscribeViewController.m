@@ -21,6 +21,7 @@
 }
 @property(nonatomic,strong) WMPageController *createPages;
 @property (nonatomic, strong) NSMutableArray *titleData;
+@property (nonatomic, strong) NSMutableArray *idData;
 @property (nonatomic, strong) NSArray *itemArray;
 @property (nonatomic, strong) UIView *redView;
 @property (nonatomic, strong) NSArray *placeHolders;
@@ -38,6 +39,12 @@
     return _titleData;
 }
 
+- (NSMutableArray *)idData {
+    if (!_idData) {
+        _idData = [[NSMutableArray alloc] init];
+    }
+    return _idData;
+}
 
 - (void)viewDidLoad {
    
@@ -57,7 +64,6 @@
                             
                           
                         };
-    
      NSString *channelInfoList = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
     
     [CUHTTPRequest POST:channelInfoList parameters:paras success:^(id responseData) {
@@ -70,10 +76,10 @@
             for (NSDictionary *dic in dataArray) {
             SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
            [self.titleData addObject:subscribe.name];
-            
+           [self.idData addObject:subscribe.subscribeId];
             }
-//            [_subscribeArray addObjectsFromArray:array];
-            NSLog(@"777%lu",self.titleData.count);
+//          [_subscribeArray addObjectsFromArray:array];
+            NSLog(@"777%@",self.idData);
             [self reloadData];
             //响应事件
             
@@ -81,19 +87,15 @@
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-       
     }];
 }
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    
     return self.titleData.count;
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
- 
     return self.titleData[index];
 }
 
@@ -123,13 +125,14 @@
 //    return controller;
     
     WMViewController *wmView =[[WMViewController alloc] init];
-    wmView.indexs = (long)index;
-//    self.postNotification = YES;
-//    self.delegate = self;
     
+    NSString *ids =self.idData[index];
 
+    wmView.indexs = ids;
+
+    NSLog(@"ggg%@",self.idData[index]);
     return wmView;
-//    return [[WMViewController alloc] init];
+
 }
 
 

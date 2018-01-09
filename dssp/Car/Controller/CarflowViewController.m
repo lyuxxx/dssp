@@ -41,13 +41,13 @@
 -(void)requestData
 {
     
-    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    NSString *vin = [defaults1 objectForKey:@"vin"];
-    
+//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//    NSString *vin = [defaults1 objectForKey:@"vin"];
+//    
     NSDictionary *paras = @{
                           
                          };
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,vin];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,kVin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

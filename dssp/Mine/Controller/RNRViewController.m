@@ -36,6 +36,8 @@
 
 @property (nonatomic, copy) NSString *selectedStr;
 
+@property (nonatomic,strong)UIButton *agreeBtn;
+
 @end
 
 @implementation RNRViewController
@@ -70,6 +72,7 @@
                 ];
     
     self.navigationItem.title = NSLocalizedString(@"实名制", nil);
+    
     UILabel *explain = [[UILabel alloc] init];
     explain.textAlignment = NSTextAlignmentCenter;
     explain.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
@@ -163,6 +166,33 @@
         }
     }
     
+    
+    self.agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _agreeBtn.selected = YES;
+    [_agreeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_agreeBtn setImage:[UIImage imageNamed:@"check grey"] forState:UIControlStateNormal];
+    [_agreeBtn setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
+    [self.view addSubview:_agreeBtn];
+    [_agreeBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(12 * WidthCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(18 * HeightCoefficient);
+        make.left.equalTo(87* WidthCoefficient);
+    }];
+    
+    
+    UILabel *agreeLabel = [[UILabel alloc] init];
+    agreeLabel.textAlignment = NSTextAlignmentLeft;
+    agreeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
+    agreeLabel.text = NSLocalizedString(@"同意DS connect 用户隐私政策", nil);
+    [self.view addSubview:agreeLabel];
+    [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_agreeBtn.right).offset(12 * WidthCoefficient);
+        make.width.equalTo(214.5 * WidthCoefficient);
+        make.height.equalTo(16 * HeightCoefficient);
+       make.top.equalTo(whiteV.bottom).offset(16 * HeightCoefficient);
+    }];
+    
+    
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.layer.cornerRadius = 2;
@@ -175,7 +205,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(agreeLabel.bottom).offset(24 * HeightCoefficient);
     }];
     
     self.picker = [[UIPickerView alloc] init];

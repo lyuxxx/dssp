@@ -15,6 +15,7 @@
 #import "NewPasswordViewController.h"
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
+#import "InputAlertView.h"
 @interface NewPasswordViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *newpassphoneField;
 @property (nonatomic, strong) UITextField *confirmField;
@@ -173,8 +174,8 @@
         else if ([_newpassphoneField.text isEqualToString:_confirmField.text])
         {
             NSDictionary *paras = @{
-                                    @"userName":_phone,
-                                    @"newPassword":_newpassphoneField.text
+                            @"userName":_phone,
+                            @"newPassword":[_newpassphoneField.text md5String]
                                     };
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
             [CUHTTPRequest POST:resetNewPWD parameters:paras success:^(id responseData) {
@@ -183,7 +184,33 @@
                 if ([dic[@"code"] isEqualToString:@"200"]) {
                     
                     [hud hideAnimated:YES];
-                    [MBProgressHUD showText:NSLocalizedString(@"重置密码成功", nil)];
+                    InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                    [InputalertView initWithTitle:@"重置密码成功，是否重新登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview:InputalertView];
+                    
+                    InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                          
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                          
+                        }
+                        if(btn.tag ==101)
+                        {
+                            //右边按钮
+                            NSLog(@"666%@",str);
+                            
+                            
+                            
+                            
+                            
+                        }
+                        
+                    };
+                    
+                    
+//                    [MBProgressHUD showText:NSLocalizedString(@"重置密码成功", nil)];
                 }
                 else {
                     [hud hideAnimated:YES];

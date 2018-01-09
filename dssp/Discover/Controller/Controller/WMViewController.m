@@ -50,13 +50,13 @@
 {
     
     
-    NSInteger channel = _indexs+1;
-    NSString *channelId = [[NSString alloc] initWithFormat:@"%ld",channel];
+//    NSInteger channel = _indexs;
+//    NSString *channelId = [[NSString alloc] initWithFormat:@"%ld",channel];
     NSDictionary *paras = @{
-                                @"channelId":channelId,
+                                @"channelId":_indexs,
                                 @"currentPage":@"0",
                                 @"pageSize":@"10",
-                                @"vin":@"VF7CAPSA000000101"
+                                @"vin":kVin
                             };
     [CUHTTPRequest POST:findAppPushContentAppViewByAll parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

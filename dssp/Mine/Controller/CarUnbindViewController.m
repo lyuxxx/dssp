@@ -53,12 +53,12 @@
 -(void)requestData
 {
     
-    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    NSString *vin = [defaults1 objectForKey:@"vin"];
+//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//    NSString *vin = [defaults1 objectForKey:@"vin"];
     NSDictionary *paras = @{
 //                            @"vin": @"VF7CAPSA000020944"
                             };
-    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,vin];
+    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,kVin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryVhls parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

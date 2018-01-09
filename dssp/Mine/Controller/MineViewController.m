@@ -307,14 +307,14 @@
     self.locationLabel= [[UILabel alloc] init];
     _locationLabel.font=[UIFont fontWithName:FontName size:11];
     _locationLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-    _locationLabel.text=NSLocalizedString(_locationName?_locationName:@"未定位", nil);
+    _locationLabel.text=NSLocalizedString(_locationName?_locationName:@"未获取到当前位置", nil);
     _locationLabel.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:_locationLabel];
     [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(22 * WidthCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
-        make.width.equalTo(80 * WidthCoefficient);
+        make.width.equalTo(150 * WidthCoefficient);
     }];
     
     
@@ -401,9 +401,9 @@
         if (indexPath.row==0) {
             
             
-            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-            NSString *vin = [defaults1 objectForKey:@"vin"];
-            cell.lab.text = [vin isEqualToString:@"0"]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
+//            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//            NSString *vin = [defaults1 objectForKey:@"vin"];
+            cell.lab.text = [kVin isEqualToString:@"0"]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
             
             
 //            [cell.lab updateConstraints:^(MASConstraintMaker *make) {
@@ -453,10 +453,10 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             
-            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-            NSString *vin = [defaults1 objectForKey:@"vin"];
-            
-            if ([vin isEqualToString:@"0"]) {
+//            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//            NSString *vin = [defaults1 objectForKey:@"vin"];
+//            
+            if ([kVin isEqualToString:@"0"]) {
                 
                 VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
