@@ -83,7 +83,7 @@
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
     _vinField.font = [UIFont fontWithName:FontName size:16];
-    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请填写VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入8位VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _vinField.layer.cornerRadius = 2;
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];
@@ -100,7 +100,7 @@
     _enginenNumber.leftViewMode = UITextFieldViewModeAlways;
     _enginenNumber.textColor = [UIColor colorWithHexString:@"#040000"];
     _enginenNumber.font = [UIFont fontWithName:FontName size:16];
-    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请填写发动机号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入17位发动机号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _enginenNumber.layer.cornerRadius = 2;
     _enginenNumber.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_enginenNumber];

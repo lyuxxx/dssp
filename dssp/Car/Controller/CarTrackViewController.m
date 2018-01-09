@@ -53,13 +53,13 @@
 
 -(void)requestData
 {
-    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    NSString *vin = [defaults1 objectForKey:@"vin"];
+//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//    NSString *vin = [defaults1 objectForKey:@"vin"];
     NSDictionary *paras = @{
                             
                             
                         };
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", getSvnResponseDataByVin,@"LPACAPSA031431810"];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", getSvnResponseDataByVin,kVin];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {

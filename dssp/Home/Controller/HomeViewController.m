@@ -68,10 +68,10 @@
 - (void)postCustByMobile
 {
     
-    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    NSString *vin = [defaults1 objectForKey:@"vin"];
-    
-    if ([vin isEqualToString:@"0"]) {
+//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//    NSString *vin = [defaults1 objectForKey:@"vin"];
+//    
+    if ([kVin isEqualToString:@"0"]) {
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];

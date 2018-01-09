@@ -12,6 +12,7 @@
 #import <MBProgressHUD+CU.h>
 #import "CUAlertController.h"
 #import "LoginViewController.h"
+#import "InputAlertView.h"
 @interface AccountViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UITextField * originalField;
@@ -237,20 +238,31 @@
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                     [hud hideAnimated:YES];
-                    NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"密码修改成功,是否退出重新登录?" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
                     
-                    CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
-                    [alert addButtonWithTitle:@"是" type:CUButtonTypeCancel clicked:^{
-                        
-                        LoginViewController *vc=[[LoginViewController alloc] init];
-                        vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+                    InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                    [InputalertView initWithTitle:@"密码修改成功,是否退出重新登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview:InputalertView];
+                    
+                    InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            LoginViewController *vc=[[LoginViewController alloc] init];
+                            vc.hidesBottomBarWhenPushed = YES;
+                            [self.navigationController pushViewController:vc animated:YES];
+                            
+                        }
+                        if(btn.tag ==101)
+                        {
+                            //右边按钮
+                            NSLog(@"666%@",str);
+                            
+                    
+                        }
+                    };
+                    
         
-                    }];
-                    [alert addButtonWithTitle:@"否" type:CUButtonTypeNormal clicked:^{
-                        
-                    }];
-                    [self presentViewController:alert animated:YES completion:nil];
                 } else {
                     [MBProgressHUD showText:dic[@"msg"]];
                     [hud hideAnimated:YES];

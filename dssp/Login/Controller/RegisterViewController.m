@@ -210,6 +210,7 @@
         make.height.equalTo(16 * HeightCoefficient);
     }];
     
+    
     self.agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _agreeBtn.selected = YES;
     [_agreeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];

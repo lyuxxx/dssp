@@ -27,8 +27,6 @@
 @property (nonatomic, strong) UILabel *userName;
 @property (nonatomic, strong) UILabel *mobilePhone;
 @property (nonatomic, strong) UILabel *sex;
-
-
 @end
 
 @implementation CarbinddetailViewController

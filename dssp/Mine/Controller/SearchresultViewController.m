@@ -72,7 +72,7 @@
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
     _vinField.font = [UIFont fontWithName:FontName size:16];
-    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请填写VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入17位VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _vinField.layer.cornerRadius = 2;
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];
@@ -115,21 +115,18 @@
                
                 
             } else {
-                QueryViewController *queryVC =[[QueryViewController alloc] init];
-                [self.navigationController pushViewController:queryVC animated:YES];
+               
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
-            QueryViewController *queryVC =[[QueryViewController alloc] init];
-            [self.navigationController pushViewController:queryVC animated:YES];
+          
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         
       
     } else {
-        QueryViewController *queryVC =[[QueryViewController alloc] init];
-        [self.navigationController pushViewController:queryVC animated:YES];
+       
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }

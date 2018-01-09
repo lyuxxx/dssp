@@ -78,8 +78,15 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 
+
 //http:172.23.105.209:10095/
-#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+#define baseUrl @"http:172.23.105.209:10095/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
+
+#define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
+
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
 //外网地址
