@@ -26,7 +26,7 @@
 - (void)setupUI {
     
     
-    self.navigationItem.title = @"手机号";
+    self.navigationItem.title = NSLocalizedString(@"手机号", nil);
     self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
@@ -118,7 +118,6 @@
         }];
         
        
-        
      
         if (i==0) {
 

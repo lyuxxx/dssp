@@ -14,11 +14,12 @@
 #import <CUHTTPRequest.h>
 #import "CarBindingViewController.h"
 #import "MineViewController.h"
+#import "CarbinddetailViewController.h"
 @interface VINBindingViewController ()
 
 @property (nonatomic, strong) UITextField *vinField;
 @property (nonatomic, strong) UITextField *enginenNumber;
-@property (nonatomic, strong) CarInfoModel *carInfo;
+@property (nonatomic, strong) CarbindModel *carbind;
 
 @end
 
@@ -32,10 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self setupUI];
 }
-
 
 - (void)setupUI {
     
@@ -135,36 +134,30 @@
     if (![_vinField.text isEqualToString:@""]) {
         NSDictionary *paras = @{
                                 @"vin": _vinField.text,
-                                @"doptCode":@"1222956"
-
+                                @"doptCode":_enginenNumber.text
                                 };
         [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            _carInfo = [CarInfoModel yy_modelWithDictionary:dic[@"data"]];
+             _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                if ([_carInfo.vhlTStatus isEqualToString:@"1"]) {
-                    
-                    ///T车跳这个
-                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                    vc.carInfo = self.carInfo;
-                    //                        vc.bingVin = _vinField.text;
+                if (_carbind.isExist) {
+                    ///T车跳绑定详细页面
+                    CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
+                    vc.carbind = _carbind;
                     [self.navigationController pushViewController:vc animated:YES];
-                    
                 }
-                else if ([_carInfo.vhlTStatus isEqualToString:@"0"])
+                else
                 {
-                    ///非T跳这个
+                    ///非T跳车辆绑定填写页面
                     CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                    vc.carInfo = self.carInfo;
-                    //                        vc.bingVin = _vinField.text;
+                    vc.bingVin = _vinField.text;
+                    vc.doptCode = _enginenNumber.text;
+                    vc.carbind = _carbind;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
-                
-                
+            
             } else {
-                //                    [MBProgressHUD showText:NSLocalizedString(@"查询失败", nil)];
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-                
             }
         } failure:^(NSInteger code) {
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];

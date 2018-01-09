@@ -15,3 +15,14 @@
              };
 }
 @end
+
+
+@implementation CarbindModel
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"carId" : @"id"
+             };
+}
+@end
+
+

@@ -10,8 +10,10 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
+
 @interface UpkeepViewController ()
 @property (nonatomic ,strong) UIButton *operationBtn;
+
 @end
 
 @implementation UpkeepViewController
@@ -21,19 +23,38 @@
     // Do any additional setup after loading the view.
     
 
+    [self requestData];
     [self setupUI];
+}
+
+
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                            @"vin":kVin
+                            };
+    [CUHTTPRequest POST:queryMaintenRules parameters:paras success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            
+          self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
+
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+    }];
 }
 
 
 -(void)setupUI
 {
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.title = NSLocalizedString(@"预约保养", nil);
     
-
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
@@ -62,31 +83,73 @@
     }];
     
     
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
+    [self.view addSubview:line];
+    [line makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(14.5 * HeightCoefficient);
+        make.height.equalTo(60 * HeightCoefficient);
+        make.width.equalTo(1 * HeightCoefficient);
+        
+        
+    }];
+    
+    NSString *maintenanceDay = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceDay] stringByAppendingString:@"天"];
     UILabel *toplabel = [[UILabel alloc] init];
-    toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:28];
+    toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel.textColor=[UIColor whiteColor];
-    toplabel.text=NSLocalizedString(@"7天", nil);
+    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"xxx", nil);
     toplabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel];
     [toplabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(20*HeightCoefficient);
-        make.height.equalTo(39 * HeightCoefficient);
-        make.centerX.equalTo(bgImgV);
-        make.width.equalTo(43.5 * WidthCoefficient);
+        make.height.equalTo(33.5 * HeightCoefficient);
+        make.left.equalTo(0);
+        make.width.equalTo(375 *WidthCoefficient / 2);
     }];
     
     
     UILabel *centrelabel = [[UILabel alloc] init];
-    centrelabel.font=[UIFont fontWithName:FontName size:13];
+    centrelabel.font=[UIFont fontWithName:FontName size:12];
     centrelabel.textColor=[UIColor whiteColor];
     centrelabel.text=NSLocalizedString(@"距离下一次保养时间", nil);
     centrelabel.textAlignment = NSTextAlignmentCenter;
     [bgImgV addSubview:centrelabel];
     [centrelabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(toplabel.bottom).offset(5*HeightCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.centerX.equalTo(bgImgV);
-        make.width.equalTo(127 * WidthCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(0);
+        make.width.equalTo(375 *WidthCoefficient / 2);
+    }];
+    
+    
+     NSString *maintenanceMileage = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceMileage] stringByAppendingString:@"km"];
+    UILabel *toplabel1 = [[UILabel alloc] init];
+    toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
+    toplabel1.textColor=[UIColor whiteColor];
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"xxx", nil);
+    toplabel1.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:toplabel1];
+    [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(20*HeightCoefficient);
+        make.height.equalTo(33.5 * HeightCoefficient);
+        make.left.equalTo(toplabel.right).offset(0);
+        make.width.equalTo(375 *WidthCoefficient / 2);
+    }];
+    
+    
+    UILabel *centrelabel1 = [[UILabel alloc] init];
+    centrelabel1.font=[UIFont fontWithName:FontName size:12];
+    centrelabel1.textColor=[UIColor whiteColor];
+    centrelabel1.text=NSLocalizedString(@"距离下一次保养里程", nil);
+    centrelabel1.textAlignment = NSTextAlignmentCenter;
+    [bgImgV addSubview:centrelabel1];
+    [centrelabel1 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(toplabel.bottom).offset(5*HeightCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(toplabel.right).offset(0);
+        make.width.equalTo(375 *WidthCoefficient / 2);
     }];
     
     
@@ -100,7 +163,7 @@
     Lastlabel.textAlignment = NSTextAlignmentCenter;
     [bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(centrelabel.bottom).offset(5*HeightCoefficient);
+        make.top.equalTo(centrelabel.bottom).offset(12*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(bgImgV);
         make.width.equalTo(240 * WidthCoefficient);
@@ -229,21 +292,65 @@
         make.right.equalTo(0);
     }];
     
-    self.operationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_operationBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _operationBtn.layer.cornerRadius = 2;
-    [_operationBtn setTitle:NSLocalizedString(@"手动预约", nil) forState:UIControlStateNormal];
-    [_operationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _operationBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-    [_operationBtn setBackgroundColor:[UIColor colorWithHexString:@"#A18E79"]];
-    [self.view addSubview:_operationBtn];
-    [_operationBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(271 * WidthCoefficient);
-        make.height.equalTo(44 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(bottomView.bottom).offset(201 * HeightCoefficient);
+    
+    
+    
+    UIView *bottomView1 = [UIView new];
+    bottomView1.backgroundColor = [UIColor whiteColor];
+    bottomView1.layer.cornerRadius = 4;
+    bottomView1.layer.shadowOpacity = 0.5;// 阴影透明度
+    bottomView1.layer.shadowOffset = CGSizeMake(0,7.5);
+    bottomView1.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+    bottomView1.layer.shadowRadius = 20.5;//阴影半径，默认3
+    [self.view addSubview:bottomView1];
+    [bottomView1 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bottomView.bottom).offset(20 * HeightCoefficient);
+        make.height.equalTo(100 * HeightCoefficient);
+        make.width.equalTo(343 * WidthCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
     }];
     
+    
+    self.operationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_operationBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    _operationBtn.layer.cornerRadius = 2;
+    _operationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_operationBtn setTitle:NSLocalizedString(@"手动预约", nil) forState:UIControlStateNormal];
+    [_operationBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
+    _operationBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+//    [_operationBtn setBackgroundColor:[UIColor colorWithHexString:@"#A18E79"]];
+    [bottomView1 addSubview:_operationBtn];
+    [_operationBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(140 * WidthCoefficient);
+        make.height.equalTo(22.5 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(10 * HeightCoefficient);
+    }];
+    
+    
+    UILabel *service1 = [[UILabel alloc] init];
+    service1.font=[UIFont fontWithName:FontName size:13];
+    service1.textColor=[UIColor colorWithHexString:@"#999999"];
+    service1.text=NSLocalizedString(@"点击进入手动预约界面", nil);
+    service1.textAlignment = NSTextAlignmentLeft;
+    [bottomView1 addSubview:service1];
+    [service1 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.operationBtn.bottom).offset(5 *HeightCoefficient);
+        make.height.equalTo(18.5 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.width.equalTo(140 * WidthCoefficient);
+    }];
+    
+    
+    UIImageView *rightImg1 = [[UIImageView alloc] init];
+    rightImg1.image = [UIImage imageNamed:@"手动预约bg"];
+    [bottomView1 addSubview:rightImg1];
+    [rightImg1 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(0);
+        make.height.equalTo(100*HeightCoefficient);
+        make.width.equalTo(123.5 *WidthCoefficient);
+        make.right.equalTo(0);
+    }];
     
 }
 

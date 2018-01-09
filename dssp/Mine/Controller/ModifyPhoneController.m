@@ -43,9 +43,9 @@
     }];
     
     UIImageView *logo = [[UIImageView alloc] init];
-    logo.image = [UIImage imageNamed:@"更换手机"];
+    logo.image = [UIImage imageNamed:@"更换手机_icon"];
     [logo setContentMode:UIViewContentModeScaleAspectFit];
-    logo.backgroundColor = [UIColor redColor];
+//    logo.backgroundColor = [UIColor redColor];
     logo.clipsToBounds=YES;
     logo.layer.cornerRadius=48 * WidthCoefficient/2;
     [self.view addSubview:logo];
@@ -71,7 +71,7 @@
         make.centerX.equalTo(0);
         make.width.equalTo(343 * WidthCoefficient);
         make.height.equalTo(18.5 * HeightCoefficient);
-        make.top.equalTo(logo.bottom).offset(34 * HeightCoefficient);
+        make.top.equalTo(logo.bottom).offset(10 * HeightCoefficient);
     }];
     
     

@@ -21,6 +21,7 @@
 #import <CUAlertController.h>
 #import "InputAlertView.h"
 #import <MapSearchManager.h>
+#import "UITabBar+badge.h"
 
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
@@ -47,6 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
+    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self postCustByMobile];
     [self setupUI];
    
@@ -65,14 +67,11 @@
 
 - (void)postCustByMobile
 {
-    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-    NSString *isbool = [defaults objectForKey:@"isBinded"];
-    //根据键值取
-    if (isbool) {
-        
-    }
-    else
-    {
+    
+    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    NSString *vin = [defaults1 objectForKey:@"vin"];
+    
+    if ([vin isEqualToString:@"0"]) {
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -85,7 +84,7 @@
         
         InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
             if (btn.tag == 100) {//左边按钮
-               
+                
             }
             if(btn.tag ==101)
             {
@@ -94,73 +93,16 @@
                 VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-
+                
             }
             
         };
-        
-        
-        
-//        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"检测到您未绑定车辆信息,请绑定!" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
-//
-//        CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
-//        [alert addButtonWithTitle:@"确定" type:CUButtonTypeCancel clicked:^{
-//
-//            //响应事件
-//            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
-//
-//        }];
-//        [alert addButtonWithTitle:@"取消" type:CUButtonTypeNormal clicked:^{
-//
-//
-//
-//        }];
-//        [self presentViewController:alert animated:YES completion:nil];
-        
-        
-        
-        
     }
-    
-    //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    //    NSDictionary *paras = @{
-    //                            @"userId": @"",
-    //                            @"userName": @"",
-    //
-    //                            };
-    //    [CUHTTPRequest POST:queryCustByMobile parameters:paras response:^(id responseData) {
-    //        if (responseData) {
-    //
-    //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-    ////        CarInfoModel *CarInfo = [CarInfoModel yy_modelWithDictionary:dic];
-    //        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-    ////            [hud hideAnimated:YES];
-    //
-    //
-    //        } else {
-    //            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-    //            message:@"检测到您未绑定车辆信息,请绑定！"
-    //            preferredStyle:UIAlertControllerStyleAlert];
-    //
-    //            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    //                //响应事件
-    //                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-    //                vc.hidesBottomBarWhenPushed = YES;
-    //                [self.navigationController pushViewController:vc animated:YES];
-    //
-    //            }];
-    //            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    //
-    //            }];
-    //            [alert addAction:defaultAction];
-    //            [alert addAction:cancelAction];
-    //            [self presentViewController:alert animated:YES completion:nil];
-    //        }
-    //
-    //        }
-    //    }];
+    else
+    {
+        
+
+    }
 }
 
 - (void)setupUI {

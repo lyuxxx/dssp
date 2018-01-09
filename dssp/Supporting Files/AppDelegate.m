@@ -41,6 +41,12 @@
     [self.window makeKeyAndVisible];
     
     [self config];
+    
+    
+   
+    
+   
+    
    
     
     return YES;

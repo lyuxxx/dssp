@@ -67,5 +67,7 @@
 @property (nonatomic , copy) NSString *insuranceName;
 //经销商名
 @property (nonatomic , copy) NSString *dealerName;
+//车辆T状态
+@property (nonatomic , copy) NSString *vhlTStatus;
 
 @end

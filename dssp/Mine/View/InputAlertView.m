@@ -102,7 +102,8 @@
                 make.width.equalTo(270 * WidthCoefficient);
                 make.height.equalTo(210 * HeightCoefficient);
                 make.centerX.equalTo(0);
-                make.top.equalTo((160-kNaviHeight)* HeightCoefficient+kNaviHeight);
+                make.centerY.equalTo(0);
+//                make.top.equalTo((160-kNaviHeight)* HeightCoefficient+kNaviHeight);
             }];
             
             
@@ -136,8 +137,8 @@
     [self.alertview  addSubview:locationImg];
     [locationImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(24 * HeightCoefficient);
-        make.width.equalTo(39.5 * WidthCoefficient);
-        make.height.equalTo(45 * HeightCoefficient);
+        make.width.equalTo(82.5 * WidthCoefficient);
+        make.height.equalTo(43 * HeightCoefficient);
         make.centerX.equalTo(0);
     }];
 }

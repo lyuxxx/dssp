@@ -11,116 +11,134 @@
 #import "WMCollectionViewController.h"
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
-
-@interface SubscribeViewController ()
+#import "SubscribeModel.h"
+#import <YYCategoriesSub/YYCategories.h>
+#import "NSObject+YYModel.h"
+@interface SubscribeViewController ()<WMPageControllerDelegate,WMPageControllerDataSource>
+{
+    
+    NSArray *dataArray;
+}
+@property(nonatomic,strong) WMPageController *createPages;
+@property (nonatomic, strong) NSMutableArray *titleData;
 @property (nonatomic, strong) NSArray *itemArray;
 @property (nonatomic, strong) UIView *redView;
 @property (nonatomic, strong) NSArray *placeHolders;
+@property (nonatomic, strong) NSMutableArray *subscribeArray;
+@property (nonatomic, strong) WMViewController *wmView;
 @end
 
 @implementation SubscribeViewController
 
-- (UIView *)redView {
-    if (!_redView) {
-        _redView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 44, self.view.frame.size.width, 2.0)];
-        _redView.backgroundColor = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
+#pragma mark 标题数组
+- (NSMutableArray *)titleData {
+    if (!_titleData) {
+        _titleData = [[NSMutableArray alloc] init];
     }
-    return _redView;
+    return _titleData;
 }
+
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    if (self.menuViewStyle == WMMenuViewStyleTriangle) {
-        [self.view addSubview:self.redView];
-    }
-    
-    self.automaticallyCalculatesItemWidths = YES;
-    self.placeHolders = @[
-                              NSLocalizedString(@"品牌", nil),
-                              NSLocalizedString(@"新品发布", nil),
-                              NSLocalizedString(@"服务", nil),
-                              NSLocalizedString(@"DS精神", nil),
-                              NSLocalizedString(@"金融活动", nil),
-                              NSLocalizedString(@"推广", nil)
-                              ];
-    
+   
     [self requestData];
+    self.automaticallyCalculatesItemWidths = YES;
+    self.delegate = self;
+    self.postNotification = YES;
+    [super viewDidLoad];
+   
+   
 }
-
 
 -(void)requestData
 {
-    
     NSDictionary *paras = @{
+                            
+                            
                           
-                            };
+                        };
     
-
-     NSString *NumberByVin = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
+     NSString *channelInfoList = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
     
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
+    [CUHTTPRequest POST:channelInfoList parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
-            //            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-            //            [_tableView reloadData];
+           
+            NSArray *dataArray = dic[@"data"];
+//            NSMutableArray *array=[NSMutableArray array];
+            _subscribeArray =[NSMutableArray array];
+            for (NSDictionary *dic in dataArray) {
+            SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
+           [self.titleData addObject:subscribe.name];
             
+            }
+//            [_subscribeArray addObjectsFromArray:array];
+            NSLog(@"777%lu",self.titleData.count);
+            [self reloadData];
             //响应事件
             
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        [hud hideAnimated:YES afterDelay:1];
+        
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+       
     }];
 }
 
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    switch (self.menuViewStyle) {
-//        case WMMenuViewStyleFlood: return 3;
-//        case WMMenuViewStyleSegmented: return 3;
-        default: return 6;
-    }
+    
+    return self.titleData.count;
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-   switch (index) {
-        case 0: return @"品牌";
-        case 1: return @"新品发布";
-        case 2: return @"服务";
-        case 3: return @"DS精神";
-        case 4: return @"金融活动";
-        case 5: return @"推广";
-      
-   }
-   return @"NONE";
-    
+ 
+    return self.titleData[index];
 }
 
+
+//- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+//    
+//    self.postNotification = YES;
+//    self.delegate = self;
+//    NSLog(@"%@",info);
+//   
+//    
+////    pageController.ddd = info[@"title"];
+////    viewController.title = info[@"title"];
+//    viewController.title = self.titleData[0];
+//   
+//}
+
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0: return [[WMViewController alloc] init];
-        case 1: return [[WMViewController alloc] init];
-        case 2: return [[WMCollectionViewController alloc] init];
-    }
-   return [[WMViewController alloc] init];
+//    switch (index) {
+//        case 0: return [[WMViewController alloc] init];
+//        case 1: return [[WMViewController alloc] init];
+//        case 2: return [[WMCollectionViewController alloc] init];
+//    }
+    
+//    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
+//
+//    return controller;
+    
+    WMViewController *wmView =[[WMViewController alloc] init];
+    wmView.indexs = (long)index;
+//    self.postNotification = YES;
+//    self.delegate = self;
+    
+
+    return wmView;
+//    return [[WMViewController alloc] init];
 }
+
+
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
     CGFloat width = [super menuView:menu widthForItemAtIndex:index];
     return width + 16;
 }
+
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     if (self.menuViewPosition == WMMenuViewPositionBottom) {
@@ -128,9 +146,10 @@
         return CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
     }
     CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
-//    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    //    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
     return CGRectMake(leftMargin+0, 0, self.view.frame.size.width - 2*leftMargin, 44);
 }
+
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     if (self.menuViewPosition == WMMenuViewPositionBottom) {
@@ -141,6 +160,11 @@
         originY += self.redView.frame.size.height;
     }
     return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 

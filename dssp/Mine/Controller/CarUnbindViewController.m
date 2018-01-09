@@ -11,6 +11,8 @@
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "CarInfoModel.h"
+#import "VhlModel.h"
+
 
 @interface CarUnbindViewController ()
 @property (nonatomic, strong) UIScrollView *sc;
@@ -32,6 +34,7 @@
 
 @property (nonatomic, strong) UIImageView *modifyImg;
 @property (nonatomic, strong) UIImageView *modifyImg1;
+@property (nonatomic, strong) VhlModel *vhl;
 @end
 
 @implementation CarUnbindViewController
@@ -49,23 +52,39 @@
 
 -(void)requestData
 {
-    NSDictionary *paras = @{
-                            @"vin": @"LPACAPSA031431810"
-                            };
     
+    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    NSString *vin = [defaults1 objectForKey:@"vin"];
+    NSDictionary *paras = @{
+//                            @"vin": @"VF7CAPSA000020944"
+                            };
+    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,vin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:queryVhl parameters:paras success:^(id responseData) {
+    [CUHTTPRequest POST:queryVhls parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        self.vhl =[VhlModel yy_modelWithDictionary:dic[@"data"]];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             
+            self.vinField.text = _vhl.vin;
+            self.doptCodeField.text = _vhl.doptCode;
+            self.vhlLisenceField.text =_vhl.vhlLisence;
+            self.colorField.text =_vhl.color;
+            self.vhlStatusField.text = _vhl.vhlStatus;
+            self.isTestField.text = _vhl.isTest;
+            self.vhlBrandField.text = _vhl.brandName;
+            self.vhlTStatusField.text = _vhl.vhlTStatus;
+            self.seriesNameField.text = _vhl.seriesName;
+            self.typeNameField.text = _vhl.typeName;
             
-          
+
         } else {
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
         [hud hideAnimated:YES afterDelay:1];
     }];
@@ -243,42 +262,41 @@
                 [whiteV addSubview:_field];
                 [_field makeConstraints:^(MASConstraintMaker *make) {
                     
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(180 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(0 * WidthCoefficient);
                     make.top.equalTo(0);
                   
                 }];
                 
+              
                 if (i == 0) {
-                    _field.text = @"123";
                     self.vinField = _field;
                 } else if (i == 3) {
-                    _field.text = @"";
                     self.colorField = _field;
                     
                 } else if (i == 4) {
-                    _field.text = @"";
+                   
                     self.vhlStatusField = _field;
                     
                 } else if (i == 5) {
-                    _field.text = @"";
+                    
                     self.isTestField = _field;
                     
                 } else if (i == 6) {
-                    _field.text = @"";
+                  
                     self.vhlBrandField = _field;
                     
                 } else if (i == 7) {
-                    _field.text = @"";
+                  
                     self.vhlTStatusField = _field;
                     
                 } else if (i == 8) {
-                    _field.text = @"";
+                 
                     self.seriesNameField = _field;
                     
                 } else if (i == 9) {
-                    _field.text = @"";
+                  
                     self.typeNameField = _field;
                     
                 }
@@ -392,9 +410,7 @@
                                     @"vin":_vinField.text,
                                     @"doptCode":_doptCodeField.text,
                                     @"vhlLisence":_vhlLisenceField.text
-                                    
                                     };
-            
             
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
             [CUHTTPRequest POST:updateVhl parameters:paras success:^(id responseData) {

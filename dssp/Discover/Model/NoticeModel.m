@@ -14,5 +14,13 @@
              @"noticeId" : @"id"
              };
 }
+@end
 
+
+@implementation NoticedatailModel
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"NoticedatailId" : @"id"
+             };
+}
 @end

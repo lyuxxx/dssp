@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+#import "UpkeepModel.h"
 @interface UpkeepViewController : BaseViewController
-
+@property (nonatomic ,strong) UpkeepModel *upkeep;
 @end

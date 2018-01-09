@@ -7,9 +7,7 @@
 //
 
 #import "SearchresultViewController.h"
-#import <YYCategoriesSub/YYCategories.h>
-#import <MBProgressHUD+CU.h>
-#import <CUHTTPRequest.h>
+#import "QueryViewController.h"
 @interface SearchresultViewController ()
 @property (nonatomic, strong) UITextField *vinField;
 @end
@@ -111,20 +109,27 @@
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                 
+                QueryViewController *queryVC =[[QueryViewController alloc] init];
+                [self.navigationController pushViewController:queryVC animated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
                
                 
             } else {
-                
+                QueryViewController *queryVC =[[QueryViewController alloc] init];
+                [self.navigationController pushViewController:queryVC animated:YES];
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
+            QueryViewController *queryVC =[[QueryViewController alloc] init];
+            [self.navigationController pushViewController:queryVC animated:YES];
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         
       
     } else {
+        QueryViewController *queryVC =[[QueryViewController alloc] init];
+        [self.navigationController pushViewController:queryVC animated:YES];
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }

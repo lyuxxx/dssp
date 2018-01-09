@@ -16,6 +16,7 @@
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>
 #import <YYCategoriesSub/YYCategories.h>
+#import "NSObject+YYModel.h"
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "NSDictionary+NilSafe.h"
@@ -98,15 +99,15 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //查询车辆销售信息和套餐信息接口
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 //绑定客户-车辆信息
-#define bind [NSString stringWithFormat:@"%@bindVHLInfoService",baseUrl]
+#define bindVhlWithUser [NSString stringWithFormat:@"%@bindVhlWithUser",baseUrl]
 //WIFI密码查询
 #define getWifi [NSString stringWithFormat:@"%@getWifi",baseUrl]
 //WIFI密码修改
 #define setWifi [NSString stringWithFormat:@"%@setWifi",baseUrl]
 //根据Vin查询实名认证状态
-#define queryCustByMobile [NSString stringWithFormat:@"%@                                                                                 ",baseUrls]
+#define queryCustByMobile [NSString stringWithFormat:@"%@                                                                                 ",baseUrl]
 //接收用户上传图片及实名制信息
-#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrls]
+#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
 //POI收藏夹列表
 #define findPoiFavoritesFromApp [NSString stringWithFormat:@"%@findPoiFavoritesFromApp",poiBaseUrl]
 //删除POI收藏点
@@ -150,27 +151,39 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //查询菜单接口
 #define findAppPushChannelInfoList [NSString stringWithFormat:@"%@findAppPushChannelInfoList",baseUrl]
 //查询菜单对应的列表接口
-#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@appPushContent/findAppPushContentAppViewByAll",baseUrl]
+#define findAppPushContentAppViewByAll [NSString stringWithFormat:@"%@findAppPushContentAppViewByAll",baseUrl]
 //菜单对应列表详情接口
-#define findAppPushContentInfoById [NSString stringWithFormat:@"%@appPushContent/findAppPushContentInfoById",baseUrl]
+#define findAppPushContentInfoById [NSString stringWithFormat:@"%@findAppPushContentInfoById",baseUrl]
 //查询通知消息列表接口
 #define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@findAppPushInboxTitleByVin",baseUrl]
 //消息详情查询接口
-#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@appPushInbox/findAppPushInboxInfoByVin",baseUrl]
+#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@findAppPushInboxInfoByVin",baseUrl]
 //修改消息状态 删除单条消息
-#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@appPushInbox/updateReadStatusOrIsDelByVinAndType",baseUrl]
+#define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@updateReadStatusOrIsDelByVinAndType",baseUrl]
 //实时总流量查询接口
-#define current [NSString stringWithFormat:@"%@flow/current",baseUrl]
-//分类流量使用明细查询接口
-#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
+#define findSimRealTimeFlowByIccid [NSString stringWithFormat:@"%@findSimRealTimeFlowByIccid",baseUrl]
+////分类流量使用明细查询接口
+//#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
 //车辆-客户解绑
-#define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrl]
+#define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
+////车辆解绑
+//#define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
+
 //实名制解绑
-#define UnbundlingRNR [NSString stringWithFormat:@"%@UnbundlingRNR",baseUrl]
+#define removeRnrWithVhl [NSString stringWithFormat:@"%@removeRnrWithVhl",baseUrl]
 //查询通知未读消息数量
 #define findUnreadNumberByVin [NSString stringWithFormat:@"%@findUnreadNumberByVin",baseUrl]
 //刷新token
 #define refreshToken [NSString stringWithFormat:@"%@refreshToken",baseUrl]
 //车辆绑定校验接口
 #define checkBindByVin [NSString stringWithFormat:@"%@checkBindByVin",baseUrl]
+//车辆追踪
+#define getSvnResponseDataByVin [NSString stringWithFormat:@"%@getSvnResponseDataByVin",baseUrl]
+//查询车辆位置信息接口
+#define getLastPostionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
+//保养预约规则查询
+#define queryMaintenRules [NSString stringWithFormat:@"%@queryMaintenRules",baseUrl]
+
+
+
 #endif /* PrefixHeader_pch */

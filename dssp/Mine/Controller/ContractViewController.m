@@ -14,6 +14,7 @@
 #import "ContractCell.h"
 #import "ContractModel.h"
 #import "ContractdetailViewController.h"
+#import "MJRefresh.h"
 @interface ContractViewController ()
 <UITableViewDataSource,UITableViewDelegate>
 {
@@ -22,7 +23,9 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic,strong) NSMutableArray *contractData;
+@property (nonatomic, strong)NSMutableArray *latestNewsFrame;
+@property (nonatomic, assign) int count;
 @end
 
 
@@ -39,15 +42,46 @@
      self.navigationItem.title = NSLocalizedString(@"合同服务", nil);
     [self requestData];
     [self initTableView];
+    
+    [self.tableView.mj_footer beginRefreshing];
+    // 下拉加载最新数据
+//    [self pullDownToRefreshLatestNews];
+    // 上拉加载更多数据
+    [self pullUpToLoadMoreNews];
 }
+
+
+/**
+ *  下拉加载最新数据
+ */
+//- (void)pullDownToRefreshLatestNews {
+//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+//    // 设置header
+//    [_tableView.mj_header beginRefreshing];
+//}
+
+/**
+ *  上拉加载更多数据
+ */
+- (void)pullUpToLoadMoreNews {
+    __weak __typeof(self) weakSelf = self;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf requestMoreNews];
+    }];
+}
+
+
 
 -(void)requestData
 {
+    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    NSString *vin = [defaults1 objectForKey:@"vin"];
     
     NSDictionary *paras = @{
-                            @"vin": @"V2017122700000001",
+                            @"vin": @"VF7CAPSA000020942",
                             @"currentPage":@"1",
-                            @"pageSize":@"20"
+                            @"pageSize":@"5"
                             };
 
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -56,29 +90,75 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             
-          
             NSArray *dataArray =dic[@"data"][@"result"];
+            NSMutableArray *contractData = [NSMutableArray array];
             for (NSDictionary *dic in dataArray) {
                 contract = [ContractModel yy_modelWithDictionary:dic];
+                
+                [contractData addObject:contract];
             }
-            
-        
+            self.latestNewsFrame = contractData;
             NSLog(@"333%@",contract.contractBeginTime);
 
             [_tableView reloadData];
-           
-           
-            //响应事件
+            // 结束刷新状态
+            [_tableView.mj_header endRefreshing];
            
         } else {
+             [_tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+         [_tableView.mj_header endRefreshing];
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
         [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
+
+-(void)requestMoreNews
+{
+
+    _count += 1;
+    NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
+    NSDictionary *paras = @{
+                            @"vin": @"VF7CAPSA000020942",
+                            @"currentPage":string,
+                            @"pageSize":@"5"
+                            };
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            
+            NSArray *dataArray =dic[@"data"][@"result"];
+            NSMutableArray *contractData = [NSMutableArray array];
+            for (NSDictionary *dic in dataArray) {
+                contract = [ContractModel yy_modelWithDictionary:dic];
+                
+                [contractData addObject:contract];
+            }
+             [self.latestNewsFrame addObjectsFromArray:contractData];
+            
+            NSLog(@"333%@",contract.contractBeginTime);
+            
+            [_tableView reloadData];
+            // 结束刷新状态
+            [_tableView.mj_footer endRefreshing];
+            
+        } else {
+            [_tableView.mj_footer endRefreshing];
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        [_tableView.mj_footer endRefreshing];
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+
+}
 
 -(void)initTableView
 {
@@ -126,24 +206,20 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.latestNewsFrame.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 215*HeightCoefficient;
+    return 157.5*HeightCoefficient;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ContractdetailViewController *Contractdetail = [ContractdetailViewController new];
-    Contractdetail.contractCode = contract.vin;
+    Contractdetail.contractCode = contract.contractCode;
     [self.navigationController pushViewController: Contractdetail animated:YES];
-    
-    
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

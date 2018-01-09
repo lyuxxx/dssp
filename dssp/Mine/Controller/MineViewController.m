@@ -29,6 +29,7 @@
 #import "PersonInViewController.h"
 #import "RealnameViewController.h"
 #import "InputAlertView.h"
+#import "BindCarViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -62,6 +63,7 @@
     _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"身份证",@"车辆信息"],@[@"汽车信息",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"signout",@"退出登录"]]];
     
+    
 //    [self RealnameUserName];
     [self initTableView];
     [self setupUI];
@@ -69,7 +71,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-     [super viewWillAppear:animated];
+    [super viewWillAppear:animated];
     [self.mgr startUpdatingLocation];
 }
 
@@ -202,6 +204,8 @@
 
 -(void)setupUI
 {
+    
+   
     
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
     _headerView.backgroundColor=[UIColor whiteColor];
@@ -396,6 +400,12 @@
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==0) {
             
+            
+            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+            NSString *vin = [defaults1 objectForKey:@"vin"];
+            cell.lab.text = [vin isEqualToString:@"0"]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
+            
+            
 //            [cell.lab updateConstraints:^(MASConstraintMaker *make) {
 //                make.top.equalTo(19 * HeightCoefficient);
 //                make.height.equalTo(22 * HeightCoefficient);
@@ -441,16 +451,25 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        
         if (indexPath.row == 0) {
             
+            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+            NSString *vin = [defaults1 objectForKey:@"vin"];
             
-            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-           
-            
-            
+            if ([vin isEqualToString:@"0"]) {
+                
+                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }
+            else
+            {
+                BindCarViewController *vc =[[BindCarViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+               
+            }
         }else if (indexPath.row == 1)
         {
             CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];

@@ -46,7 +46,7 @@
         lab.font=[UIFont fontWithName:FontName size:16];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(10 * HeightCoefficient);
+            make.centerY.equalTo(0);
             make.height.equalTo(22 * HeightCoefficient);
             make.width.equalTo(211 * WidthCoefficient);
             make.left.equalTo(15 * WidthCoefficient);

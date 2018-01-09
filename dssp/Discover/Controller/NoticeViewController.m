@@ -16,84 +16,50 @@
 #import <MJRefresh.h>
 #import "FavoriteCell.h"
 #import "NoticeModel.h"
+#import "RemindViewController.h"
 @interface NoticeViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectedDatas;
 @property (nonatomic, strong) UIButton *deleteBtn;
  @property (nonatomic, strong) NSMutableArray *noticeDatas;
+@property (nonatomic, strong) NoticeModel *notice;
 @end
 
 @implementation NoticeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
     self.view.backgroundColor= [UIColor redColor];
-    [self requestData];
+   
+    [self requestNoticeData];
     [self createTable];
+//    [self.tableView.mj_footer beginRefreshing];
 }
 
--(void)requestData
-{
-    NSDictionary *paras = @{
-                           
-                            };
-    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findAppPushInboxTitleByVin];
-//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        
-        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//            [hud hideAnimated:YES];
-           
-            NSArray *dataArray = dic[@"data"];
-            _noticeDatas =[NSMutableArray new];
-            for (NSDictionary *dic in dataArray) {
-                NoticeModel *notice = [NoticeModel yy_modelWithDictionary:dic];
-                [self.noticeDatas addObject:notice];
-            }
-         
-          [_tableView reloadData];
-            //响应事件
-            
-        } else {
-            [MBProgressHUD showText:dic[@"msg"]];
-        }
-    } failure:^(NSInteger code) {
-        
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-//        [hud hideAnimated:YES afterDelay:1];
-    }];
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self requestNoticeData];
+    [self createTable];
+    
 }
+
 
 - (void)createTable {
     [self.view addSubview:self.tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
-          make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0 *HeightCoefficient, 0, -kNaviHeight, 0));
+        make.edges.equalTo(self.view);
+
     }];
-    
-//    NSLog(@"%lu",self.noticeDatas.count);
-    for (NSInteger i = 0; i < 12; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [self.dataSource addObject:indexPath];
-    }
-    
-    [self setupFooter];
+
+//    [self setupFooter];
 }
 
 - (void)setupFooter {
     if (self.tableView.mj_footer == nil) {
-        weakifySelf
-        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            strongifySelf
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.tableView.mj_footer endRefreshing];
-            });
-        }];
+        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
         //    footer.refreshingTitleHidden = YES;
         [footer setTitle:[NSString stringWithFormat:@"一共%ld个通知",self.dataSource.count] forState:MJRefreshStateIdle];
         footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
@@ -103,10 +69,74 @@
     }
 }
 
+-(void)requestNoticeData
+{
+    NSDictionary *paras = @{
+                            
+                          };
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findAppPushInboxTitleByVin];
+    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSArray *dataArray = dic[@"data"];
+            _noticeDatas =[NSMutableArray new];
+            for (NSDictionary *dic in dataArray) {
+                self.notice = [NoticeModel yy_modelWithDictionary:dic];
+                [self.dataSource addObject:_notice];
+            }
+            
+          
+//            [self.dataSource addObjectsFromArray:resultArr];
+            
+//            [self.dataSource addObjectsFromArray:_noticeDatas];
+            [_tableView reloadData];
+            [self.tableView.mj_footer endRefreshing];
+            
+        } else {
+            [self.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        
+         [self.tableView.mj_footer endRefreshing];
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+       
+    }];
+}
+
 
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
+    if (indexPaths.count == 1) {
+        
+        NSDictionary *paras = @{
+                                @"readStatus":@"0",
+                                @"isDel":@"1",
+                                @"id":_notice.noticeId
+                                };
+        [CUHTTPRequest POST:updateReadStatusOrIsDelByVinAndType parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+              
+                
+                
+            } else {
+                
+                [MBProgressHUD showText:dic[@"msg"]];
+            }
+        } failure:^(NSInteger code) {
+            
+            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        }];
+
+    } else {
+      
+        
+    }
+
     // 删除数据源
     [self.dataSource removeObjectsInArray:self.selectedDatas];
     [self.selectedDatas removeAllObjects];
@@ -130,18 +160,10 @@
 
     }
     
-    [self setupFooter];
+//    [self setupFooter];
 }
 
-- (void)indexPathsForSelectedRowsCountDidChange:(NSArray *)selectedRows
-{
-//    NSInteger currentCount = [selectedRows count];
-//    NSInteger allCount = self.dataSource.count;
-////    self.allBtn.selected = (currentCount == allCount);
-//    NSString *title = (currentCount > 0) ? [NSString stringWithFormat:@"删除(%zd)",currentCount] : @"删除";
-//    [self.deleteBtn setTitle:title forState:UIControlStateNormal];
-//    self.deleteBtn.enabled = currentCount > 0;
-}
+
 
 #pragma mark - UITableViewDelegate
 
@@ -162,12 +184,12 @@
     
  
     
-    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor]insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
-    cell.rightSwipeSettings.transition = MGSwipeTransition3D;
+//    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor]insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+//    cell.rightSwipeSettings.transition = MGSwipeTransition3D;
     
     
-//    NoticeModel *notice=self.dataSource[indexPath.row];
-//    cell.noticeModel = notice;
+    NoticeModel *notice=self.dataSource[indexPath.row];
+    cell.noticeModel = notice;
     cell.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
 //     cell.backgroundColor=[UIColor redColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
@@ -175,16 +197,16 @@
     return cell;
 }
 
+//点击跳转
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.isEditing) {
-        NSIndexPath *indexPathM = self.dataSource[indexPath.row];
-        if (![self.selectedDatas containsObject:indexPathM]) {
-            [self.selectedDatas addObject:indexPathM];
-        }
-        [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
-        return;
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    NoticeModel *notice = self.dataSource[indexPath.row];
+    RemindViewController *remindView =[[RemindViewController alloc] init];
+    remindView.vin= notice.vin;
+    remindView.businType= notice.businType;
+    remindView.noticeId = notice.noticeId;
+    remindView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:remindView animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,8 +216,7 @@
         if ([self.selectedDatas containsObject:indexPathM]) {
             [self.selectedDatas removeObject:indexPathM];
         }
-        
-        [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
+//        [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
     }
 }
 
@@ -231,16 +252,10 @@
 #pragma mark - MGSwipeTableCellDelegate
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
-    
-//    [self.noticeDatas removeObjectAtIndex:indexPath.row];//移除数据源的数据
-//    
-//    [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath.row] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
-//    
-  
-    
-    
     NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
     NSIndexPath *indexPathM = self.dataSource[tmp.row];
+    
+//    ResultItem *item = self.dataSource[tmp.row];
     if (![self.selectedDatas containsObject:indexPathM]) {
         [self.selectedDatas addObject:indexPathM];
     }
@@ -249,17 +264,17 @@
 }
 
 
-//- (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
-//
-//    if (direction == MGSwipeDirectionRightToLeft) {
-//        swipeSettings.transition = MGSwipeTransitionClipCenter;
-//        //            expansionSettings.buttonIndex = 0;
-//        //            expansionSettings.fillOnTrigger = YES;
-//        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
-//    } else {
-//        return nil;
-//    }
-//}
+- (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
+
+    if (direction == MGSwipeDirectionRightToLeft) {
+        swipeSettings.transition = MGSwipeTransitionClipCenter;
+        //            expansionSettings.buttonIndex = 0;
+        //            expansionSettings.fillOnTrigger = YES;
+        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+    } else {
+        return nil;
+    }
+}
 
 #pragma mark -getter
 
@@ -277,7 +292,7 @@
         }
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        //        _tableView.tableFooterView = [UIView new];
+                _tableView.tableFooterView = [UIView new];
         //        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
@@ -305,34 +320,12 @@
     return _selectedDatas;
 }
 
-//- (UIButton *)deleteBtn {
-//    if (_deleteBtn == nil) {
-//        _deleteBtn = [[UIButton alloc] init];
-//        [_deleteBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#ac0042"]] forState:UIControlStateNormal];
-//        [_deleteBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
-//        [_deleteBtn setTitle:NSLocalizedString(@"删除", nil) forState:UIControlStateNormal];
-//        [_deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _deleteBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-//        [_deleteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        _deleteBtn.enabled = NO;
-//        
-//    }
-//    return _deleteBtn;
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

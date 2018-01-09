@@ -73,3 +73,23 @@
 @property (nonatomic, copy) NSString *vhlTStatus;
 
 @end
+
+
+@interface CarbindModel : NSObject <YYModel>
+@property (nonatomic , copy) NSString *vin;
+@property (nonatomic , copy) NSString *vhlBrandId;
+@property (nonatomic , copy) NSString *vhlBrandName;
+@property (nonatomic , copy) NSString *vhlSeriesId;
+@property (nonatomic , copy) NSString *vhlSeriesName;
+@property (nonatomic , copy) NSString *vhlTypeId;
+@property (nonatomic , copy) NSString *vhlTypeName;
+@property (nonatomic , copy) NSString *vhlColorName;
+@property (nonatomic , copy) NSString *vhlColorId;
+@property (nonatomic , copy) NSString *vhlTStatus;
+@property (nonatomic , copy) NSString *doptCode;
+@property (nonatomic , copy) NSString *userName;
+@property (nonatomic , copy) NSString *mobilePhone;
+@property (nonatomic , copy) NSString *sex;
+@property (nonatomic , assign) BOOL isExist;
+@property (nonatomic , copy) NSString *vhlLicence;
+@end
