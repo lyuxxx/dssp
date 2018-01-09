@@ -79,13 +79,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 
 //http:172.23.105.209:10095/
-#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
-#define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/mobile/"
-#define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
+#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
-//#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
-//#define appLogin @"http://172.23.102.73:18281/login/telephone"
 //外网地址
 //用户名密码登录
 #define userNameLogins [NSString stringWithFormat:@"%@login/userName",baseUrl]
@@ -109,15 +105,15 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //接收用户上传图片及实名制信息
 #define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
 //POI收藏夹列表
-#define findPoiFavoritesFromApp [NSString stringWithFormat:@"%@findPoiFavoritesFromApp",poiBaseUrl]
+#define findPoiFavoritesFromApp [NSString stringWithFormat:@"%@findPoiFavoritesFromApp",baseUrl]
 //删除POI收藏点
-#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",poiBaseUrl]
+#define deletePoiFavoritesService [NSString stringWithFormat:@"%@deletePoiFavoritesService",baseUrl]
 //添加POI收藏点
-#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",poiBaseUrl]
+#define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",baseUrl]
 //POI下发
-#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",poiBaseUrl]
+#define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",baseUrl]
 //检验POI是否收藏
-#define checkPOICollected [NSString stringWithFormat:@"%@checkPOICollected",poiBaseUrl]
+#define checkPOICollected [NSString stringWithFormat:@"%@checkPOICollected",baseUrl]
 //查询车辆位置
 #define getLastPositionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
 //查询车辆信息接口

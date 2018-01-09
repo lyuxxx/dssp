@@ -71,9 +71,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.currentPoi) {
-        [self showInfoWithAnnotationInfo:self.currentPoi];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,6 +84,17 @@
         }]];
         [self presentViewController:alert animated:true completion:nil];
     };
+}
+
+- (void)favoritesClick:(UIButton *)sender {
+    weakifySelf
+    FavoritesViewController *vc = [[FavoritesViewController alloc] initWithType:self.type checkPoi:self.currentPoi.serviceID block:^(BOOL isFavorite) {
+        strongifySelf
+        if (self.infoFavoriteBtn) {
+            self.infoFavoriteBtn.selected = isFavorite;
+        }
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupUI {

@@ -55,9 +55,6 @@ static dispatch_once_t oilOnceToken;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.currentStation) {
-        [self showInfoWithStation:self.currentStation];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -73,6 +70,20 @@ static dispatch_once_t oilOnceToken;
 
 - (void)dealloc {
     oilOnceToken = 0l;
+}
+
+- (void)favoritesClick:(UIButton *)sender {
+    weakifySelf
+    FavoritesViewController *vc = [[FavoritesViewController alloc] initWithType:self.type checkPoi:self.currentStation.serviceID block:^(BOOL isFavorite) {
+        strongifySelf
+        if (self.infoFavoriteBtn) {
+            self.infoFavoriteBtn.selected = isFavorite;
+        }
+        if (self.detailFavoriteBtn) {
+            self.detailFavoriteBtn.selected = isFavorite;
+        }
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupBackBtn {
@@ -180,9 +191,6 @@ static dispatch_once_t oilOnceToken;
         [arr addObject:annotation];
     }
     [arr addObject:self.mapView.userLocation];
-    if (self.carAnnotation) {
-        [arr addObject:self.carAnnotation];
-    }
     [self.mapView addAnnotations:arr];
     [self.mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
 }

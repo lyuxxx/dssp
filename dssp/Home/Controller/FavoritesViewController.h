@@ -10,6 +10,6 @@
 
 @interface FavoritesViewController : BaseViewController
 
-- (instancetype)initWithType:(PoiType)type;
+- (instancetype)initWithType:(PoiType)type checkPoi:(NSString *)serviceId block:(void (^)(BOOL))block;
 
 @end

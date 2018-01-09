@@ -76,9 +76,6 @@ static dispatch_once_t mapHomeOnceToken;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.currentPoi) {
-        [self showInfoWithAnnotationInfo:self.currentPoi];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,13 +84,26 @@ static dispatch_once_t mapHomeOnceToken;
     self.checkCarLocationOver = ^{
         dispatch_once(&mapHomeOnceToken, ^{
             strongifySelf
-            [self.mapView showAnnotations:@[self.carAnnotation,self.mapView.userLocation] edgePadding:UIEdgeInsetsMake(90 * HeightCoefficient + kStatusBarHeight, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
+            if (self.carAnnotation) {
+                [self.mapView showAnnotations:@[self.carAnnotation,self.mapView.userLocation] edgePadding:UIEdgeInsetsMake(90 * HeightCoefficient + kStatusBarHeight, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
+            }
         });
     };
 }
 
 - (void)dealloc {
     mapHomeOnceToken = 0l;
+}
+
+- (void)favoritesClick:(UIButton *)sender {
+    weakifySelf
+    FavoritesViewController *vc = [[FavoritesViewController alloc] initWithType:self.type checkPoi:self.currentPoi.serviceID block:^(BOOL isFavorite) {
+        strongifySelf
+        if (self.infoFavoriteBtn) {
+            self.infoFavoriteBtn.selected = isFavorite;
+        }
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupUI {

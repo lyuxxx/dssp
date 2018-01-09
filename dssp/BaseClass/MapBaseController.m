@@ -7,7 +7,6 @@
 //
 
 #import "MapBaseController.h"
-#import "FavoritesViewController.h"
 #import <CUAlertController.h>
 
 @interface MapBaseController ()
@@ -227,16 +226,18 @@ static dispatch_once_t mapBaseOnceToken;
 
 - (void)click:(UIButton *)sender {
     if (sender == _favoriteBtn) {//收藏夹按钮
-        FavoritesViewController *vc = [[FavoritesViewController alloc] initWithType:self.type];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self favoritesClick:sender];
     }
     if (sender == _locationBtn) {//定位按钮
-        [self.mapView setZoomLevel:15 animated:YES];
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
     }
     if (sender == _carLocationBtn) {//车定位按钮
         [self checkCarLocation];
     }
+}
+
+- (void)favoritesClick:(UIButton *)sender {
+    
 }
 
 - (void)checkCarLocation {
@@ -258,10 +259,8 @@ static dispatch_once_t mapBaseOnceToken;
                 _carAnnotation.coordinate = location;
                 _carAnnotation.title = NSLocalizedString(@"车辆位置", nil);
                 _carAnnotation.subtitle = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
-                [self.mapView setZoomLevel:15 animated:YES];
                 [self.mapView addAnnotation:_carAnnotation];
                 [self.mapView setCenterCoordinate:location];
-                [self.mapView selectAnnotation:_carAnnotation animated:YES];
                 [hud hideAnimated:YES];
             }];
         } else {
@@ -321,6 +320,9 @@ static dispatch_once_t mapBaseOnceToken;
 }
 
 - (void)dealloc {
+    if ([self isKindOfClass:NSClassFromString(@"SearchAroundViewController")]) {
+        return;
+    }
     mapBaseOnceToken = 0l;
 }
 

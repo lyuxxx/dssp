@@ -11,6 +11,7 @@
 #import <MapSearchManager.h>
 #import "CarAnnotation.h"
 #import "POI.h"
+#import "FavoritesViewController.h"
 
 typedef void(^FavoriteCallBack)(ResultItem *);
 typedef void(^CheckCarLocationOver)(void);
@@ -32,5 +33,6 @@ typedef void(^CheckCarLocationOver)(void);
 - (void)showPoiSendAletWithSuccess:(BOOL)success;
 - (void)clear;
 - (NSString *)distanceFromUsr:(CLLocationCoordinate2D)location;
+- (void)favoritesClick:(UIButton *)sender;
 
 @end

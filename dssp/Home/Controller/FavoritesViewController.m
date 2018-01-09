@@ -17,6 +17,8 @@
 
 #define pageSize 20
 
+typedef void(^CheckPoiIsFavorite)(BOOL);
+
 @interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate>
 
 @property (nonatomic, assign) PoiType type;
@@ -33,14 +35,19 @@
 @property (nonatomic, strong) NSIndexPath *editingIndexPath;
 @property (nonatomic, assign) BOOL end;
 
+@property (nonatomic, copy) NSString *serviceId;
+@property (nonatomic, copy) CheckPoiIsFavorite checkPoiIsFavorite;
+
 @end
 
 @implementation FavoritesViewController
 
-- (instancetype)initWithType:(PoiType)type {
+- (instancetype)initWithType:(PoiType)type checkPoi:(NSString *)serviceId block:(void (^)(BOOL))block {
     self = [super init];
     if (self) {
         self.type = type;
+        self.serviceId = serviceId;
+        self.checkPoiIsFavorite = block;
     }
     return self;
 }
@@ -50,7 +57,6 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = NSLocalizedString(@"POI收藏夹", nil);
-    
     [self createTable];
     [self setupUI];
     [self.tableView.mj_footer beginRefreshing];
@@ -328,6 +334,11 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         NSString *code = dic[@"code"];
         if ([code isEqualToString:@"200"]) {
+            if ([idStr containsString:self.serviceId]) {
+                if (self.checkPoiIsFavorite) {
+                    self.checkPoiIsFavorite(NO);
+                }
+            }
             // 删除数据源
             [self.dataSource removeObjectsInArray:self.selectedDatas];
             [self.selectedDatas removeAllObjects];
