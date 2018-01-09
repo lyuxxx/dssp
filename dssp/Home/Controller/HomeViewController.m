@@ -290,6 +290,7 @@
             CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
             CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
             CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
+            [self saveCarLocationWithCoordinate:location];
             weakifySelf
             [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
                 strongifySelf
@@ -302,6 +303,16 @@
     } failure:^(NSInteger code) {
         
     }];
+}
+
+///存储车辆位置，地图使用
+- (void)saveCarLocationWithCoordinate:(CLLocationCoordinate2D)location {
+    NSDictionary *dic = @{
+                          @"longitude":[NSNumber numberWithDouble:location.longitude],
+                          @"latitude":[NSNumber numberWithDouble:location.latitude]
+                          };
+    [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"carLocation"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - CLLocationManagerDelegate

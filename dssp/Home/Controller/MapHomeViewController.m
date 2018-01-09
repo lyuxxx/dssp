@@ -80,15 +80,6 @@ static dispatch_once_t mapHomeOnceToken;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    weakifySelf
-    self.checkCarLocationOver = ^{
-        dispatch_once(&mapHomeOnceToken, ^{
-            strongifySelf
-            if (self.carAnnotation) {
-                [self.mapView showAnnotations:@[self.carAnnotation,self.mapView.userLocation] edgePadding:UIEdgeInsetsMake(90 * HeightCoefficient + kStatusBarHeight, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
-            }
-        });
-    };
 }
 
 - (void)dealloc {
@@ -148,6 +139,15 @@ static dispatch_once_t mapHomeOnceToken;
         tmp.coordinate = CLLocationCoordinate2DMake(item.latitude.doubleValue, item.longitude.doubleValue);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self clearAndAddAnnotationWithAnnotationInfo:tmp];
+        });
+    };
+    
+    self.checkCarLocationOver = ^{
+        dispatch_once(&mapHomeOnceToken, ^{
+            strongifySelf
+            if (self.carAnnotation) {
+                [self.mapView showAnnotations:@[self.carAnnotation,self.mapView.userLocation] edgePadding:UIEdgeInsetsMake(90 * HeightCoefficient + kStatusBarHeight, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
+            }
         });
     };
 }

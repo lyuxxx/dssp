@@ -59,13 +59,6 @@ static dispatch_once_t oilOnceToken;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    weakifySelf
-    self.checkCarLocationOver = ^{
-        dispatch_once(&oilOnceToken, ^{
-            strongifySelf
-            [self pullData];
-        });
-    };
 }
 
 - (void)dealloc {
@@ -150,6 +143,13 @@ static dispatch_once_t oilOnceToken;
             [self.mapView addAnnotation:self.outerAnnotation];
             [self.mapView setCenterCoordinate:self.outerAnnotation.coordinate animated:YES];
             [self.mapView selectAnnotation:self.outerAnnotation animated:YES];
+        });
+    };
+    
+    self.checkCarLocationOver = ^{
+        dispatch_once(&oilOnceToken, ^{
+            strongifySelf
+            [self pullData];
         });
     };
 }

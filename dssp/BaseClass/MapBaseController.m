@@ -283,6 +283,11 @@ static dispatch_once_t mapBaseOnceToken;
     }];
 }
 
+- (CLLocationCoordinate2D)getCarLocation {
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"carLocation"];
+    return CLLocationCoordinate2DMake([dic[@"latitude"] doubleValue], [dic[@"longitude"] doubleValue]);
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.mapView = [MapView sharedMapView];
@@ -309,7 +314,17 @@ static dispatch_once_t mapBaseOnceToken;
         return;
     }
     dispatch_once(&mapBaseOnceToken, ^{
-        [self checkCarLocation];
+        if (self.carAnnotation) {
+            [self.mapView removeAnnotation:self.carAnnotation];
+            self.carAnnotation = nil;
+        }
+        CLLocationCoordinate2D location = [self getCarLocation];
+        self.carAnnotation = [[CarAnnotation alloc] init];
+        _carAnnotation.coordinate = location;
+        [self.mapView addAnnotation:_carAnnotation];
+        if (self.checkCarLocationOver) {
+            self.checkCarLocationOver();
+        }
     });
 }
 
