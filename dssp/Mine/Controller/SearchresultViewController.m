@@ -115,17 +115,21 @@
                
                 
             } else {
-                
+                QueryViewController *queryVC =[[QueryViewController alloc] init];
+                [self.navigationController pushViewController:queryVC animated:YES];
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
+            QueryViewController *queryVC =[[QueryViewController alloc] init];
+            [self.navigationController pushViewController:queryVC animated:YES];
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         
       
     } else {
-       
+        QueryViewController *queryVC =[[QueryViewController alloc] init];
+        [self.navigationController pushViewController:queryVC animated:YES];
         [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
 }

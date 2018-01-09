@@ -46,24 +46,23 @@
     
     NSDictionary *paras = @{
                           
-                         
                          };
-    
     NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,vin];
-//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//            [hud hideAnimated:YES];
-        
+            [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
+//              self.carflow =_carflow;
             [_tableView reloadData];
             [self setupUI];
         } else {
+            [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        
+      [hud hideAnimated:YES];
       [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
@@ -101,12 +100,12 @@
     
 }
 
-//-(void)setCarflow:(CarflowModel *)carflow
-//{
-//     _totalflowlabel.text=[NSString stringWithFormat:@"%ld",carflow.totalFlow];
-//     _flowlabel.text=[NSString stringWithFormat:@"%ld",carflow.remainFlow];
-//     _employflowlabel.text= [NSString stringWithFormat:@"%ld",carflow.useFlow]?[NSString stringWithFormat:@"%ld",carflow.useFlow]:@"0";
-//}
+-(void)setCarflow:(CarflowModel *)carflow
+{
+     _totalflowlabel.text=[NSString stringWithFormat:@"%ld",carflow.totalFlow];
+     _flowlabel.text=[NSString stringWithFormat:@"%ld",carflow.remainFlow];
+     _employflowlabel.text= [NSString stringWithFormat:@"%ld",carflow.useFlow]?[NSString stringWithFormat:@"%ld",carflow.useFlow]:@"0";
+}
 
 -(void)setupUI
 {

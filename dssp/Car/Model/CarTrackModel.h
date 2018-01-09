@@ -18,4 +18,5 @@
 @property (nonatomic , copy) NSString              * curDeadReckoningPosition;
 @property (nonatomic , assign) NSInteger              createTime;
 @property (nonatomic , assign) NSInteger              lastUpdateTime;
+
 @end

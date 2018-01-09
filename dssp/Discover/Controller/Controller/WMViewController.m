@@ -11,6 +11,7 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "WMPageController.h"
 #import "SubscribeModel.h"
+#import "SubscribedatailController.h"
 @interface WMViewController ()<UITableViewDataSource,UITableViewDelegate,WMPageControllerDelegate,WMPageControllerDataSource>
 @property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, weak) UILabel *label;
@@ -54,7 +55,8 @@
     NSDictionary *paras = @{
                                 @"channelId":channelId,
                                 @"currentPage":@"0",
-                                @"pageSize":@"10"
+                                @"pageSize":@"10",
+                                @"vin":@"123456"
                             };
     [CUHTTPRequest POST:findAppPushContentAppViewByAll parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -135,6 +137,13 @@
     return 220*HeightCoefficient;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SubscribedatailController *vc = [[SubscribedatailController alloc] init];
+    ChannelModel *channel  = _channelArray[indexPath.row];
+    vc.channels = channel;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void)dealloc {
     NSLog(@"%@ destroyed",[self class]);

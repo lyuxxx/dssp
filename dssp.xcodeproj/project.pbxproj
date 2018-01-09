@@ -65,6 +65,9 @@
 		4505B9A71FECE45E00A1E47E /* RealnameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A61FECE45E00A1E47E /* RealnameViewController.m */; };
 		4505B9AA1FECF3CE00A1E47E /* SearchresultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */; };
 		4505B9AD1FECF6CE00A1E47E /* RnunbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */; };
+		450644DD20030A4A0099D7AC /* UpkeepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DC20030A4A0099D7AC /* UpkeepModel.m */; };
+		450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DF20032C8F0099D7AC /* QGLocationTransform.m */; };
+		450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644E220039A2A0099D7AC /* SubscribedatailController.m */; };
 		450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
 		450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
@@ -236,6 +239,12 @@
 		4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchresultViewController.m; sourceTree = "<group>"; };
 		4505B9AB1FECF6CE00A1E47E /* RnunbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RnunbindViewController.h; sourceTree = "<group>"; };
 		4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnunbindViewController.m; sourceTree = "<group>"; };
+		450644DB20030A4A0099D7AC /* UpkeepModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpkeepModel.h; sourceTree = "<group>"; };
+		450644DC20030A4A0099D7AC /* UpkeepModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpkeepModel.m; sourceTree = "<group>"; };
+		450644DE20032C8F0099D7AC /* QGLocationTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QGLocationTransform.h; sourceTree = "<group>"; };
+		450644DF20032C8F0099D7AC /* QGLocationTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QGLocationTransform.m; sourceTree = "<group>"; };
+		450644E120039A2A0099D7AC /* SubscribedatailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscribedatailController.h; sourceTree = "<group>"; };
+		450644E220039A2A0099D7AC /* SubscribedatailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribedatailController.m; sourceTree = "<group>"; };
 		450AF16D1FE9F9B900E48445 /* SubscriCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriCell.h; sourceTree = "<group>"; };
 		450AF16E1FE9F9B900E48445 /* SubscriCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriCell.m; sourceTree = "<group>"; };
 		450AF1721FEB502900E48445 /* PersonInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInViewController.h; sourceTree = "<group>"; };
@@ -702,6 +711,8 @@
 				4505B99E1FECA97100A1E47E /* UpkeepViewController.m */,
 				4570EFE01FFC7D6C00FA6355 /* CarTrackViewController.h */,
 				4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */,
+				450644DE20032C8F0099D7AC /* QGLocationTransform.h */,
+				450644DF20032C8F0099D7AC /* QGLocationTransform.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -713,6 +724,8 @@
 				455F36971FF6140F00D09A63 /* CarflowModel.m */,
 				4570EFEE1FFF292B00FA6355 /* CarTrackModel.h */,
 				4570EFEF1FFF292B00FA6355 /* CarTrackModel.m */,
+				450644DB20030A4A0099D7AC /* UpkeepModel.h */,
+				450644DC20030A4A0099D7AC /* UpkeepModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -735,6 +748,8 @@
 				451744EC1FEB99A4008CC890 /* WMSecondViewController.m */,
 				451744EF1FEB99A4008CC890 /* WMViewController.h */,
 				451744F01FEB99A4008CC890 /* WMViewController.m */,
+				450644E120039A2A0099D7AC /* SubscribedatailController.h */,
+				450644E220039A2A0099D7AC /* SubscribedatailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1045,6 +1060,7 @@
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
 				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
+				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
@@ -1056,6 +1072,7 @@
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */,
+				450644DD20030A4A0099D7AC /* UpkeepModel.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
@@ -1126,6 +1143,7 @@
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
+				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
 				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,

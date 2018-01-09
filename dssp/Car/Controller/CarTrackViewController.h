@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
-
+#import "CarTrackModel.h"
 @interface CarTrackViewController : BaseViewController
+
 
 @end

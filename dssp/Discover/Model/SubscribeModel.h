@@ -42,3 +42,22 @@
 @property (nonatomic , copy) NSString              * isDel;
 @property (nonatomic , copy) NSString              * isTop;
 @end
+
+
+@interface SubscribedatailModel : NSObject<YYModel>
+@property (nonatomic , assign) NSInteger              currentPage;
+@property (nonatomic , assign) NSInteger              pageSize;
+@property (nonatomic , copy) NSString              * subscribedataiId;
+@property (nonatomic , copy) NSString              * channelId;
+@property (nonatomic , copy) NSString              * channelName;
+@property (nonatomic , copy) NSString              * title;
+@property (nonatomic , copy) NSString              * content;
+@property (nonatomic , copy) NSString              * piority;
+@property (nonatomic , copy) NSString              * depict;
+@property (nonatomic , copy) NSString              * readingVolume;
+@property (nonatomic , assign) NSInteger              invalidTime;
+@property (nonatomic , assign) NSInteger              createTime;
+@property (nonatomic , assign) NSInteger              lastUpdateTime;
+@property (nonatomic , copy) NSString              * isDel;
+@property (nonatomic , copy) NSString              * isTop;
+@end

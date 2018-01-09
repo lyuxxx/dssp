@@ -26,3 +26,12 @@
 }
 @end
 
+@implementation SubscribedatailModel
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"subscribedataiId" : @"id"
+             };
+}
+
+@end
+

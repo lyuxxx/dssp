@@ -16,6 +16,7 @@
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>
 #import <YYCategoriesSub/YYCategories.h>
+#import "NSObject+YYModel.h"
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 
@@ -68,7 +69,8 @@ _Pragma("clang diagnostic pop") \
 } while (0)
 
 #define baseUrl @"http:172.23.105.209:10095/"
-#define baseUrls @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/mobile/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
 //#define appLogin [NSString stringWithFormat:@"%@userInfo/appLogin",baseUrl]
@@ -150,12 +152,12 @@ _Pragma("clang diagnostic pop") \
 ////分类流量使用明细查询接口
 //#define report [NSString stringWithFormat:@"%@flow/classify/report",baseUrl]
 //车辆-客户解绑
-#define UnbundlingVhl [NSString stringWithFormat:@"%@UnbundlingVhl",baseUrl]
-//车辆解绑
 #define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
+////车辆解绑
+//#define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
 
 //实名制解绑
-#define UnbundlingRNR [NSString stringWithFormat:@"%@UnbundlingRNR",baseUrl]
+#define removeRnrWithVhl [NSString stringWithFormat:@"%@removeRnrWithVhl",baseUrl]
 //查询通知未读消息数量
 #define findUnreadNumberByVin [NSString stringWithFormat:@"%@findUnreadNumberByVin",baseUrl]
 //刷新token
@@ -166,6 +168,9 @@ _Pragma("clang diagnostic pop") \
 #define getSvnResponseDataByVin [NSString stringWithFormat:@"%@getSvnResponseDataByVin",baseUrl]
 //查询车辆位置信息接口
 #define getLastPostionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
+//保养预约规则查询
+#define queryMaintenRules [NSString stringWithFormat:@"%@queryMaintenRules",baseUrl]
+
 
 
 #endif /* PrefixHeader_pch */

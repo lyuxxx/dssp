@@ -140,7 +140,7 @@
                                         @"vin": _vinField.text,
                                         @"pin": _pinName
                                         };
-                [CUHTTPRequest POST:UnbundlingRNR parameters:paras success:^(id responseData) {
+                [CUHTTPRequest POST:removeRnrWithVhl parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                         
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {

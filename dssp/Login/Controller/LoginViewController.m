@@ -18,6 +18,7 @@
 #import "NavigationController.h"
 #import "NewPasswordViewController.h"
 #import "UITabBar+badge.h"
+#import <MapSearchManager.h>
 @interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *userNameField;
@@ -48,6 +49,10 @@
     // Do any additional setup after loading the view.
     [self setupUI];
     [self network];
+    
+//    "previousPosition": "{\"latitude\":23.137126,\"longitude\":60.301096}",
+
+    
     
 }
 
@@ -462,9 +467,23 @@
                             
                             NSDictionary *dic1 =dic[@"data"];
                             NSString *str=dic1[@"userName"];
+                            NSString *vin=dic1[@"vin"];
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             [defaults setObject:str forKey:@"userName"];
                             [defaults synchronize];
+                            
+                            if ((NSNull *)vin == [NSNull null]) {
+                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                                [defaults1 setObject:@"0" forKey:@"vin"];
+                                [defaults1 synchronize];
+                            }
+                            else
+                            {
+                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                                [defaults1 setObject:vin forKey:@"vin"];
+                                [defaults1 synchronize];
+                                
+                            }
                             
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
@@ -504,7 +523,7 @@
                         LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                         if ([result.code isEqualToString:@"200"]) {
                             
-                             [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+                            [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                             NSDictionary *dic1 =dic[@"data"];
                             NSString *userName=dic1[@"userName"];
                             NSString *vin=dic1[@"vin"];
@@ -513,7 +532,6 @@
                             [defaults setObject:userName forKey:@"userName"];
                             [defaults synchronize];
                         
-                            
                             if ((NSNull *)vin == [NSNull null]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                                 [defaults1 setObject:@"0" forKey:@"vin"];

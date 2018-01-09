@@ -9,6 +9,9 @@
 #import "CarTrackViewController.h"
 #import "CarTrackModel.h"
 #import "NSObject+YYModel.h"
+#import "QGLocationTransform.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapSearchManager.h>
 @interface CarTrackViewController ()
 {
     UIButton *trackBtn;
@@ -22,58 +25,169 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *msgLabel;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) UIImageView *rightImg;
+
+@property (nonatomic,strong) UILabel *positionLabel;
+
+@property (nonatomic, copy)  NSString *latitudeString;
+@property (nonatomic, copy)  NSString *longitudeString;
+@property (nonatomic,strong) CarTrackModel *carTrack;
 @end
 
 @implementation CarTrackViewController
+
+- (NSMutableArray *)dataSource {
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc] init];
+    }
+    return _dataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-   
     [self requestData];
     [self setupUI];
 }
 
 -(void)requestData
 {
-    
     NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
     NSString *vin = [defaults1 objectForKey:@"vin"];
-    
     NSDictionary *paras = @{
                             
                             
                         };
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", getSvnResponseDataByVin,@"LPACAPSA031431810"];
     
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", getSvnResponseDataByVin,vin];
-    
-    //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            //            [hud hideAnimated:YES];
-            
-            CarTrackModel *carTrack =[CarTrackModel yy_modelWithDictionary:dic[@"data"]];
-            [self.dataArray addObject:carTrack];
-          
+            [hud hideAnimated:YES];
+          _carTrack =[CarTrackModel yy_modelWithDictionary:dic[@"data"]];
+           self.carTrack=_carTrack;
+//           [self.dataArray addObject:_carTrack];
+           
         } else {
-            [MBProgressHUD showText:dic[@"msg"]];
+        [hud hideAnimated:YES];
+        self.carTrack=_carTrack;
+        [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        
+         [hud hideAnimated:YES];
+        self.carTrack=_carTrack;
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-        //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        //        [hud hideAnimated:YES afterDelay:1];
+        
     }];
 }
 
 
+-(void)setCarTrack:(CarTrackModel *)carTrack
+{
+    if (carTrack.previousPosition || carTrack.createTime) {
+      
+        NSString *JSONString =_carTrack.previousPosition;
+        NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+        // 将流转换为字典
+        NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+        
+        self.latitudeString = dataDict[@"latitude"];
+        double latitudeNumber = [self.latitudeString doubleValue];
+        
+        self.longitudeString = dataDict[@"longitude"];
+        double longitudeNumber = [self.longitudeString doubleValue];
+        
+        
+        QGLocationTransform *beforeLocation = [[QGLocationTransform alloc] initWithLatitude:latitudeNumber andLongitude:longitudeNumber];
+        //gps化为高德
+        QGLocationTransform *afterLocation = [beforeLocation transformFromGPSToGD];
+        NSLog(@"转化后:%f, %f", afterLocation.latitude, afterLocation.longitude);
+        
+        //坐标转地址
+//        weakifySelf
+        [[MapSearchManager sharedManager] reGeoInfo:CLLocationCoordinate2DMake(latitudeNumber, longitudeNumber) returnBlock:^(MapReGeoInfo *regeoInfo) {
+//            strongifySelf
+            NSString *city1 = [NSString stringWithFormat:@"位置:%@",regeoInfo.formattedAddress];
+            NSLog(@"321%@",regeoInfo);
+            _positionLabel.text =city1 ;
+        
+        }];
+        NSString *time = [self setWithTimeString:_carTrack.createTime];
+        NSString *maintenanceDay = [[NSString stringWithFormat:@"您的车辆在%@",time] stringByAppendingString:@"发生异常移动"];
+        _rightImg.image = [UIImage imageNamed:@"盗车提醒bg"];
+        _msgLabel.text = NSLocalizedString(maintenanceDay,nil);
+        _msgLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+        
+        
+    }else
+    {
+        
+        _rightImg.image = [UIImage imageNamed:@"盗车提醒安全bg"];
+        _msgLabel.text = NSLocalizedString(@"安全保护中，请保持",nil);
+        _msgLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _positionLabel.text = NSLocalizedString(@"位置:xxxxxx",nil);
+       
+    }
+    
+    
+}
+
+-(NSString *)latitudeStr:(NSString *)Latitude LongitudeStr:(NSString *)Longitude
+{
+    static NSString * addstroing;
+    NSString * A = Latitude;
+    NSString * B = Longitude;
+    double a = [A doubleValue];
+    double b = [B doubleValue];
+    
+    CLLocation * location = [[CLLocation alloc] initWithLatitude:23.137126 longitude:60.301096];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *placemark in placemarks) {
+            //CLPlacemark 地标
+            //            NSLog(@"位置:%@", placemark.name);
+            //            NSLog(@"街道:%@", placemark.thoroughfare);
+            //            NSLog(@"子街道:%@", placemark.subThoroughfare);
+            //            NSLog(@"市:%@", placemark.locality);
+            //            NSLog(@"区\\县:%@", placemark.subLocality);
+            //            NSLog(@"行政区:%@", placemark.administrativeArea);
+            //            NSLog(@"国家:%@", placemark.country);
+            
+            addstroing = [NSString stringWithFormat:@"%@",placemark.locality];
+            
+            NSLog(@"%",addstroing);
+//            addressLabel.text = placemark.name;
+            
+        }
+    }];
+
+    
+    return addstroing;
+}
+
+
 - (void)setupUI {
+
+//    NSString *latitudeNumber =@"30.606726";
+//    NSString *longitudeNumber =@"114.424348";
+//
+//    
+//    //坐标转地址
+//    [[MapSearchManager sharedManager] reGeoInfo:CLLocationCoordinate2DMake([latitudeNumber doubleValue], [longitudeNumber doubleValue]) returnBlock:^(MapReGeoInfo *regeoInfo) {
+//        
+//        NSString *city1 = [NSString stringWithFormat:@"位置%@",regeoInfo.city];
+//        
+//        NSLog(@"321%@",city1);
+//        
+//    }];
+   
     
     self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
-    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.backgroundColor = [UIColor whiteColor];
@@ -89,26 +203,18 @@
     }];
     
     
-    UIImageView *rightImg = [[UIImageView alloc] init];
+    self.rightImg = [[UIImageView alloc] init];
 //    rightImg.image = [UIImage imageNamed:@"盗车提醒bg"];
 //    [_eyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
 //    [_eyeBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
-    [whiteV addSubview:rightImg];
-    [rightImg makeConstraints:^(MASConstraintMaker *make) {
+    [whiteV addSubview:_rightImg];
+    [_rightImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
         make.height.equalTo(130*HeightCoefficient);
         make.width.equalTo(123.5 *WidthCoefficient);
         make.right.equalTo(0);
     }];
-    
-//    UIImageView *imgV = [[UIImageView alloc] init];
-//    imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
-//    [self.view addSubview:imgV];
-//    [imgV makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.equalTo(CGSizeMake(48 * WidthCoefficient, 48 * WidthCoefficient));
-//        make.top.equalTo(20 * HeightCoefficient);
-//        make.centerX.equalTo(0);
-//    }];
+
     
     self.titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
@@ -126,17 +232,6 @@
     self.msgLabel = [[UILabel alloc] init];
     _msgLabel.textAlignment = NSTextAlignmentLeft;
     _msgLabel.numberOfLines = 0;
-    if (_dataArray.count == 0) {
-    rightImg.image = [UIImage imageNamed:@"盗车提醒安全bg"];
-    _msgLabel.text = NSLocalizedString(@"安全保护中，请保持",nil);
-    _msgLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    }else
-    {
-    rightImg.image = [UIImage imageNamed:@"盗车提醒bg"];
-    _msgLabel.text = NSLocalizedString(@"您的车辆在15：55分发生异常移动",nil);
-        _msgLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
-    }
-   
     _msgLabel.font = [UIFont fontWithName:FontName size:13];
 //    _msgLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
     [whiteV addSubview:_msgLabel];
@@ -148,12 +243,12 @@
     }];
     
     
-    UILabel *positionLabel = [[UILabel alloc] init];
-    positionLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:13];
-    positionLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    positionLabel.text = NSLocalizedString(@"位置:江汉路",nil);
-    [whiteV addSubview:positionLabel];
-    [positionLabel makeConstraints:^(MASConstraintMaker *make) {
+    self.positionLabel = [[UILabel alloc] init];
+    _positionLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:13];
+    _positionLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    _positionLabel.text = NSLocalizedString(@"位置:江汉路",nil);
+    [whiteV addSubview:_positionLabel];
+    [_positionLabel makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(-14.5 * WidthCoefficient);
         make.height.equalTo(18.5 * HeightCoefficient);
         make.width.equalTo(200 * WidthCoefficient);
@@ -255,6 +350,7 @@
         
     }];
     
+  
     
     UILabel *title4 = [[UILabel alloc] init];
     title4.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
@@ -316,6 +412,13 @@
     
 }
 
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+//    CLLocation *location = [locations lastObject];
+//    CLLocationDegrees latitude = location.coordinate.latitude;
+//    CLLocationDegrees longitude = location.coordinate.longitude;
+//    //some code
+//}
+
 -(void)BtnClick:(UIButton *)btn
 {
     if (callpoliceBtn ==btn) {
@@ -326,6 +429,27 @@
     }
     
     
+}
+
+-(NSString *)setWithTimeString:(NSInteger)time
+{
+    if (time) {
+        
+        NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
+        NSTimeInterval times=[dueDateStr doubleValue];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:times/1000];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSString *dateString = [formatter stringFromDate: date];
+        
+        return dateString;
+        
+    }else
+    {
+        return nil;
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

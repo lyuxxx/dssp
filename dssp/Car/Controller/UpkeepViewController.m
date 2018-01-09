@@ -10,8 +10,10 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
+
 @interface UpkeepViewController ()
 @property (nonatomic ,strong) UIButton *operationBtn;
+
 @end
 
 @implementation UpkeepViewController
@@ -21,19 +23,38 @@
     // Do any additional setup after loading the view.
     
 
+    [self requestData];
     [self setupUI];
+}
+
+
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                            @"vin":Kvin
+                            };
+    [CUHTTPRequest POST:queryMaintenRules parameters:paras success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            
+          self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
+
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+    }];
 }
 
 
 -(void)setupUI
 {
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.title = NSLocalizedString(@"预约保养", nil);
     
-
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
@@ -74,11 +95,11 @@
         
     }];
     
-    
+    NSString *maintenanceDay = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceDay] stringByAppendingString:@"天"];
     UILabel *toplabel = [[UILabel alloc] init];
     toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel.textColor=[UIColor whiteColor];
-    toplabel.text=NSLocalizedString(@"7天", nil);
+    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"xxx", nil);
     toplabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel];
     [toplabel makeConstraints:^(MASConstraintMaker *make) {
@@ -103,10 +124,11 @@
     }];
     
     
+     NSString *maintenanceMileage = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceMileage] stringByAppendingString:@"km"];
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(@"500km", nil);
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"xxx", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
@@ -329,11 +351,6 @@
         make.width.equalTo(123.5 *WidthCoefficient);
         make.right.equalTo(0);
     }];
-    
-    
-    
-    
-    
     
 }
 

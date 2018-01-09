@@ -26,11 +26,10 @@
 - (void)setupUI {
     self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
     NSArray *titles = @[
-                        
-                        NSLocalizedString(@"车辆绑定成功", nil),
-                        NSLocalizedString(@"实时认证成功", nil),
-                        NSLocalizedString(@"人工审核通过", nil),
-                        NSLocalizedString(@"车辆激活成功", nil)
+                        NSLocalizedString(@"实名制认证", nil),
+                        NSLocalizedString(@"车辆激活", nil),
+                        NSLocalizedString(@"T服务套餐开通", nil),
+                        NSLocalizedString(@"完成", nil)
                         ];
     
     UIView *lastView = nil;
@@ -107,7 +106,23 @@
         
         if (i==0) {
             
-           lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+           
+            UILabel *lab = [[UILabel alloc] init];
+            lab.textAlignment = NSTextAlignmentLeft;
+            lab.textColor = [UIColor colorWithHexString:@"#666666"];
+            lab.font = [UIFont fontWithName:FontName size:16];
+            lab.text = NSLocalizedString(@"人工审核", nil);
+            [view1 addSubview:lab];
+            [lab makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(80 * WidthCoefficient);
+                make.height.equalTo(22.5 * HeightCoefficient);
+                make.centerY.equalTo(0);
+                make.left.equalTo(lab1.right).offset(0*WidthCoefficient);
+                
+            }];
+            
+            
            
         }
         if (i==1) {
@@ -124,8 +139,9 @@
 
             lineview.hidden = YES;
         }
- 
-    }
+       }
+    
+    
     
             UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
