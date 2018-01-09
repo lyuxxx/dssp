@@ -151,7 +151,9 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
+
     _userNameField.text = @"15527920310";
+
     
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;

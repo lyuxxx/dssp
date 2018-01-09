@@ -56,7 +56,7 @@
                                 @"channelId":channelId,
                                 @"currentPage":@"0",
                                 @"pageSize":@"10",
-                                @"vin":@"123456"
+                                @"vin":@"VF7CAPSA000000101"
                             };
     [CUHTTPRequest POST:findAppPushContentAppViewByAll parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
