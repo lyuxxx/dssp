@@ -32,6 +32,7 @@
 {
     NSDictionary *paras = @{
                             @"vin":kVin
+
                             };
     [CUHTTPRequest POST:queryMaintenRules parameters:paras success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

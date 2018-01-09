@@ -9,7 +9,8 @@
 #import "SubscribedatailController.h"
 #import "SubscribeModel.h"
 @interface SubscribedatailController ()
-
+@property (nonatomic,strong) SubscribedatailModel *subscribedatail;
+@property (nonatomic,strong) UITextView *contentlabel;
 @end
 
 @implementation SubscribedatailController
@@ -25,8 +26,17 @@
 
 -(void)setupUI
 {
-     self.navigationItem.title = NSLocalizedString(_channels.title, nil);
+    self.navigationItem.title = NSLocalizedString(_channels.title, nil);
+    self.contentlabel =[[UITextView alloc] init];
+    [self.view addSubview:_contentlabel];
+    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(-10 * WidthCoefficient);
+        make.bottom.equalTo(-40 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(40 * HeightCoefficient);;
+    }];
 }
+
 
 -(void)requestData
 {
@@ -40,11 +50,20 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             
-          SubscribedatailModel *subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
+          _subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
             
            // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             //            [_tableView reloadData];
+            NSString *htmlString = _subscribedatail.content;
             
+             NSLog(@"55%@",htmlString);
+            
+            
+            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+            
+            _contentlabel.attributedText = attributedString;
+            
+            NSLog(@"666%@",attributedString);
             //响应事件
             
         } else {
