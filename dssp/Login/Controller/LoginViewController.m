@@ -151,13 +151,7 @@
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-<<<<<<< HEAD
-    
-=======
 
-//    _userNameField.text = @"15871707603";
-
->>>>>>> 密码加密
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
     _phoneField.textColor = [UIColor whiteColor];
@@ -196,12 +190,6 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-<<<<<<< HEAD
-//     _passWordField.text = @"12345678";
-=======
-//     _passWordField.text = @"123456";
-    
->>>>>>> 密码加密
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
