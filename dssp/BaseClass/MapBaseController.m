@@ -285,6 +285,9 @@ static dispatch_once_t mapBaseOnceToken;
 
 - (CLLocationCoordinate2D)getCarLocation {
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"carLocation"];
+    if (!dic) {
+        return CLLocationCoordinate2DMake(0, 0);
+    }
     return CLLocationCoordinate2DMake([dic[@"latitude"] doubleValue], [dic[@"longitude"] doubleValue]);
 }
 
@@ -319,9 +322,11 @@ static dispatch_once_t mapBaseOnceToken;
             self.carAnnotation = nil;
         }
         CLLocationCoordinate2D location = [self getCarLocation];
-        self.carAnnotation = [[CarAnnotation alloc] init];
-        _carAnnotation.coordinate = location;
-        [self.mapView addAnnotation:_carAnnotation];
+        if (location.latitude != 0 && location.longitude != 0) {//存储过车辆位置
+            self.carAnnotation = [[CarAnnotation alloc] init];
+            _carAnnotation.coordinate = location;
+            [self.mapView addAnnotation:_carAnnotation];
+        }
         if (self.checkCarLocationOver) {
             self.checkCarLocationOver();
         }
