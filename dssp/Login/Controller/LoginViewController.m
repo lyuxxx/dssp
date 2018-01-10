@@ -326,7 +326,7 @@
 - (void)btnClick:(UIButton *)sender {
     if (sender == self.skipBtn) {
         TabBarController *tabVC = [[TabBarController alloc] init];
-        [self presentViewController:tabVC animated:NO completion:nil];
+        [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
     }
     if (sender == self.smallEyeBtn) {
         sender.selected = !sender.selected;
@@ -485,7 +485,7 @@
                             
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
-                            [self presentViewController:tabVC animated:NO completion:nil];
+                            [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                         }
                         else {
                             [hud hideAnimated:YES];
@@ -548,9 +548,8 @@
 //                            [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
-                            [self presentViewController:tabVC animated:NO completion:nil];
+                            [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                             
-
                         } else {
 
                             hud.label.text = [dic objectForKey:@"msg"];

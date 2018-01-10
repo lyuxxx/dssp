@@ -17,6 +17,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 #import <UserNotifications/UserNotifications.h>
 #endif
+#import "TabBarController.h"
 #import "NavigationController.h"
 #import "RTRootNavigationController.h"
 #import <CUHTTPRequest.h>
@@ -72,7 +73,7 @@
     
     //上面的代码告诉应用程序要在系统上保持一周的日志文件。
     //如果不设置rollingFrequency和maximumNumberOfLogFiles，
-    //则默认每天1个Log文件、存5天、单个文件最大1M、总计最大20M，否则自动清理最前面的记录。
+    //则默认每天1个Log文件、存5天、单个文件最大1M、总计最大20M，否则自动清理最前面的记录
     
     [[WBAFNetworkingLogger sharedLogger] startLogging];
     [[WBAFNetworkingLogger sharedLogger] setLevel:WBLoggerLevelDebug];
@@ -80,8 +81,23 @@
     [self setupGeTui];
 }
 
+#pragma mark - 个推推送相关 -
+
+- (void)showLogout {
+    if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
+        //todo 被登出弹窗
+    }
+}
+
+- (void)gotoMessageVC {
+    if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
+        TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
+        tabVC.selectedIndex = 1;
+    }
+}
+
 - (void)setupGeTui {
-    [GeTuiSdk startSdkWithAppId:@"lpFxdUx2Oi5P6KXqmqzOC7" appKey:@"3jbhgfE1jD7xPBw8n1uE3A" appSecret:@"AOv1mRuxb8AxR8oPZEVTZ3" delegate:self];
+    [GeTuiSdk startSdkWithAppId:@"qNaVHr6IvHAWOlhxsr52p4" appKey:@"mgJCFoCvAD6EkXzU3WS1SA" appSecret:@"7LaratXCRAAeRUgMAT7BK7" delegate:self];
     [self registerRemoteNotification];
 }
 
@@ -123,13 +139,16 @@
     NSLog(@"推送注册失败:%@",error.localizedDescription);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"fetchRemote:%@",userInfo);
     [GeTuiSdk handleRemoteNotification:userInfo];
+    [self gotoMessageVC];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
-    NSLog(@"%@\n%@",userInfo,notification.request.content);
+    NSLog(@"前台收到推送:%@\n%@",userInfo,notification.request.content);
     if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时远程推送接收
         
@@ -140,7 +159,9 @@
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    [self gotoMessageVC];
     NSDictionary *userInfo = response.notification.request.content.userInfo;
+    NSLog(@"后台收到推送:%@\n%@",userInfo,response.notification.request.content);
     if ([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时远程推送接收
         [GeTuiSdk handleRemoteNotification:response.notification.request.content.userInfo];
@@ -160,6 +181,7 @@
     NSLog(@"[GTSdk error]:%@",error.localizedDescription);
 }
 
+///个推透传消息
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
     //收到个推消息
     NSString *payloadMsg = nil;
@@ -169,6 +191,7 @@
     
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+    [self showLogout];
 }
 
 - (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {

@@ -322,7 +322,7 @@
     }
     if (sender == self.skipBtn) {
         TabBarController *tabVC = [[TabBarController alloc] init];
-        [self presentViewController:tabVC animated:NO completion:nil];
+        [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
     }
     if (sender == self.authBtn) {//验证码按钮
         
