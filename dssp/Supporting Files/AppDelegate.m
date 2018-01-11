@@ -140,7 +140,8 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"fetchRemote:%@",userInfo);
+    NSString *tag = userInfo[@"TransmissionContent"];
+    NSLog(@"fetchRemote:%@ tag:%@",userInfo,tag);
     [GeTuiSdk handleRemoteNotification:userInfo];
     [self gotoMessageVC];
     completionHandler(UIBackgroundFetchResultNewData);
@@ -148,7 +149,8 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
-    NSLog(@"前台收到推送:%@\n%@",userInfo,notification.request.content);
+    NSString *tag = userInfo[@"TransmissionContent"];
+    NSLog(@"前台收到推送:%@\n%@ tag:%@",userInfo,notification.request.content,tag);
     if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时远程推送接收
         
@@ -161,7 +163,8 @@
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     [self gotoMessageVC];
     NSDictionary *userInfo = response.notification.request.content.userInfo;
-    NSLog(@"后台收到推送:%@\n%@",userInfo,response.notification.request.content);
+    NSString *tag = userInfo[@"TransmissionContent"];
+    NSLog(@"后台收到推送:%@\n%@ tag:%@",userInfo,response.notification.request.content,tag);
     if ([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时远程推送接收
         [GeTuiSdk handleRemoteNotification:response.notification.request.content.userInfo];
@@ -175,6 +178,8 @@
 
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     NSLog(@"[GTSdk cid]%@",clientId);
+    [[NSUserDefaults standardUserDefaults] setObject:clientId forKey:@"cid"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)GeTuiSdkDidOccurError:(NSError *)error {
@@ -187,11 +192,15 @@
     NSString *payloadMsg = nil;
     if (payloadData) {
         payloadMsg = [[NSString alloc] initWithBytes:payloadData.bytes length:payloadData.length encoding:NSUTF8StringEncoding];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[payloadMsg dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
+        NSString *tag = dic[@"tag"];
+        if ([tag isEqualToString:@"login_exception"]) {
+            [self showLogout];
+        }
     }
     
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
-    [self showLogout];
 }
 
 - (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {

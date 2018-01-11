@@ -355,7 +355,7 @@
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            [MBProgressHUD showMessage:@""];
+            [MBProgressHUD showMessage:NSLocalizedString(@"发送中...", nil)];
             [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(BOOL result) {
                 if (result) {
                     [MBProgressHUD hideHUD];

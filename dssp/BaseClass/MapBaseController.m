@@ -8,6 +8,7 @@
 
 #import "MapBaseController.h"
 #import <CUAlertController.h>
+#import <FLAnimatedImage.h>
 
 @interface MapBaseController ()
 @property (nonatomic, strong) UIButton *favoriteBtn;
@@ -143,13 +144,31 @@ static dispatch_once_t mapBaseOnceToken;
     [CUHTTPRequest POST:pushPoiService parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            result(YES);
+            //todo 30s后请求回调接口
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [CUHTTPRequest POST:@"" parameters:@{} success:^(id responseData) {
+//                    NSDictionary *callbackDic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+//                    if (1) {
+//                        result(YES);
+//                    } else {
+//                        result(NO);
+//                    }
+//                } failure:^(NSInteger code) {
+//                    result(NO);
+//                }];
+//            });
         } else {
             result(NO);
         }
     } failure:^(NSInteger code) {
         result(NO);
     }];
+}
+
+- (void)show {
+    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"waiting" ofType:@"gif"]]];
+    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+    imageView.animatedImage = image;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

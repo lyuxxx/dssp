@@ -22,6 +22,7 @@ target 'dssp' do
   pod 'MJRefresh'
   pod 'MGSwipeTableCell'
   pod 'WMPageController'
+  pod 'SDWebImage/GIF'
   
   # internal pod
   pod 'CUHTTPRequest'
