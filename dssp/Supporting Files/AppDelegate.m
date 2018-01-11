@@ -11,6 +11,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "WBAFNetworkingLogger.h"
+#import "InputAlertView.h"
 
 #import <GTSDK/GeTuiSdk.h>
 // iOS10 及以上需导入 UserNotifications.framework
@@ -86,6 +87,41 @@
 - (void)showLogout {
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         //todo 被登出弹窗
+        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [InputalertView initWithTitle:@"您的账号已经在另外一台设备上登录，您已经被迫下线" img:@"账号警告" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"重新登录", nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: InputalertView];
+        
+        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+            if (btn.tag == 100) {//左边按钮
+                
+                NSDictionary *paras = @{
+                                        
+                                        };
+                
+//                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+//                        [hud hideAnimated:YES];
+                        //响应事件
+                        LoginViewController *vc=[[LoginViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        
+                        [[UIApplication sharedApplication].delegate.window setRootViewController:vc];
+                    } else {
+                        [MBProgressHUD showText:dic[@"msg"]];
+                    }
+                } failure:^(NSInteger code) {
+                    
+                     [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+                
+                }];
+            }
+            
+        };
+        
     }
 }
 
