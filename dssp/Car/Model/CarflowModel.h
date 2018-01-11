@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface CarflowModel : NSObject
-@property (nonatomic , assign) NSInteger              useFlow;
-@property (nonatomic , assign) NSInteger              wifi;
-@property (nonatomic , assign) NSInteger              totalFlow;
-@property (nonatomic , assign) NSInteger              music;
-@property (nonatomic , copy)   NSString              * thresholdVal;
-@property (nonatomic , assign) NSInteger              remainFlow;
-@property (nonatomic , assign) NSInteger              fm;
-@property (nonatomic , assign) NSInteger              ota;
+@property (nonatomic , copy) NSString *useFlow;
+@property (nonatomic , copy) NSString *wifi;
+@property (nonatomic , copy) NSString *totalFlow;
+@property (nonatomic , copy) NSString *music;
+@property (nonatomic , copy)   NSString *thresholdVal;
+@property (nonatomic , copy) NSString *remainFlow;
+@property (nonatomic , copy) NSString *fm;
+@property (nonatomic , copy) NSString *ota;
 @end

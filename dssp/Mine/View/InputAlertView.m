@@ -33,25 +33,25 @@
         [self exChangeOut:self.alertview dur:0.6];
 
         
-        UIView *whiteView = [[UIView alloc] init];
-        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
-        [self.alertview addSubview:whiteView];
-        [whiteView makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(1*HeightCoefficient);
-            make.left.right.equalTo(0);
-            make.bottom.equalTo(-48*HeightCoefficient);
-        }];
-        
-        
-        UIView *whiteView1 = [[UIView alloc] init];
-        whiteView1.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
-        [self.alertview addSubview:whiteView1];
-        [whiteView1 makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(48*HeightCoefficient);
-            make.width.equalTo(1*WidthCoefficient);
-            make.centerX.equalTo(0);
-            make.top.equalTo(whiteView.bottom).offset(0);
-        }];
+//        UIView *whiteView = [[UIView alloc] init];
+//        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+//        [self.alertview addSubview:whiteView];
+//        [whiteView makeConstraints:^(MASConstraintMaker *make) {
+//            make.height.equalTo(1*HeightCoefficient);
+//            make.left.right.equalTo(0);
+//            make.bottom.equalTo(-48*HeightCoefficient);
+//        }];
+//
+//
+//        UIView *whiteView1 = [[UIView alloc] init];
+//        whiteView1.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+//        [self.alertview addSubview:whiteView1];
+//        [whiteView1 makeConstraints:^(MASConstraintMaker *make) {
+//            make.height.equalTo(48*HeightCoefficient);
+//            make.width.equalTo(1*WidthCoefficient);
+//            make.centerX.equalTo(0);
+//            make.top.equalTo(whiteView.bottom).offset(0);
+//        }];
     }
     return self;
 }
@@ -169,9 +169,47 @@
    
     
 }
+
+
 - (void)createBtnTitle:(NSArray *)titleArr
 {
     CGFloat m = self.alertview.frame.size.width;
+    
+    if (_numBtn == 1) {
+      
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:titleArr[0] forState:UIControlStateNormal];
+        btn.tag = 100;
+//        btn.layer.cornerRadius = 4;
+//        btn.clipsToBounds = YES;
+        [btn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    
+        [btn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
+       
+        [self.alertview addSubview:btn];
+        
+        
+        [btn makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(48*HeightCoefficient);
+            make.width.equalTo(m);
+            make.left.equalTo(0);
+            make.right.equalTo(0);
+            make.bottom.equalTo(0*HeightCoefficient);
+        }];
+       
+        UIView *whiteView = [[UIView alloc] init];
+        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+        [self.alertview addSubview:whiteView];
+        [whiteView makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(1*HeightCoefficient);
+            make.left.right.equalTo(0);
+            make.bottom.equalTo(-48*HeightCoefficient);
+        }];
+        
+    }
+    else
+   {
     for (int i=0; i<_numBtn; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:titleArr[i] forState:UIControlStateNormal];
@@ -189,12 +227,36 @@
         }
         [self.alertview addSubview:btn];
         
+        
         [btn makeConstraints:^(MASConstraintMaker *make) {
                             make.height.equalTo(48*HeightCoefficient);
                             make.width.equalTo(m *WidthCoefficient /2);
                             make.left.equalTo(i* (m *WidthCoefficient /2));
                             make.bottom.equalTo(0*HeightCoefficient);
                     }];
+          }
+        
+        UIView *whiteView = [[UIView alloc] init];
+        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+        [self.alertview addSubview:whiteView];
+        [whiteView makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(1*HeightCoefficient);
+            make.left.right.equalTo(0);
+            make.bottom.equalTo(-48*HeightCoefficient);
+        }];
+        
+        
+        UIView *whiteView1 = [[UIView alloc] init];
+        whiteView1.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+        [self.alertview addSubview:whiteView1];
+        [whiteView1 makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(48*HeightCoefficient);
+            make.width.equalTo(1*WidthCoefficient);
+            make.centerX.equalTo(0);
+            make.top.equalTo(whiteView.bottom).offset(0);
+        }];
+        
+        
     }
 }
 

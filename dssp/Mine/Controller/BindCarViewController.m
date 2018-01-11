@@ -49,8 +49,7 @@
 
 -(void)requestData
 {
-//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//    NSString *vin = [defaults1 objectForKey:@"vin"];
+
     NSDictionary *paras = @{
                            
                            };
@@ -85,12 +84,7 @@
         [hud hideAnimated:YES afterDelay:1];
     }];
     
-    
-    
-    
 }
-
-
 
 - (void)setupUI {
     
@@ -147,8 +141,8 @@
                                     NSLocalizedString(@"发动机号", nil),
                                     NSLocalizedString(@"车牌号", nil),
                                     NSLocalizedString(@"颜色", nil),
-                                    NSLocalizedString(@"车辆状态", nil),
-                                    NSLocalizedString(@"车辆类型", nil),
+//                                    NSLocalizedString(@"车辆状态", nil),
+//                                    NSLocalizedString(@"车辆类型", nil),
                                     NSLocalizedString(@"品牌", nil),
                                     NSLocalizedString(@"车辆T状态", nil),
                                     NSLocalizedString(@"车系名", nil),
@@ -431,8 +425,6 @@
                     hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
                     [hud hideAnimated:YES afterDelay:1];
                 }];
-                
-                
             }
             if(btn.tag ==101)
             {
@@ -442,9 +434,7 @@
             }
             
         };
-        
     }
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

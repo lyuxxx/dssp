@@ -79,8 +79,12 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 
 
-//http:172.23.105.209:10095/
-#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+
+//#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+#define baseUrl @"http:172.23.105.209:10095/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
+#define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
+
 
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
@@ -181,6 +185,10 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define getLastPostionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
 //保养预约规则查询
 #define queryMaintenRules [NSString stringWithFormat:@"%@queryMaintenRules",baseUrl]
+//查询非T车车型
+#define typefind [NSString stringWithFormat:@"%@nt/type/find",baseUrl]
+///查询车的颜色
+#define colorfind [NSString stringWithFormat:@"%@color/find",baseUrl]
 
 
 

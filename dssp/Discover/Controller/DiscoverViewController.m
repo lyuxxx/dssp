@@ -14,7 +14,7 @@
 #import "NoticeViewController.h"
 #import "SubscribeViewController.h"
 #import "UITabBar+badge.h"
-@interface DiscoverViewController ()<UIScrollViewDelegate>
+@interface DiscoverViewController ()<UIScrollViewDelegate,UITabBarControllerDelegate>
 
 @property(nonatomic,strong) UIButton *robotBtn;
 @property(nonatomic,strong) UIButton *noticeBtn;
@@ -32,11 +32,19 @@
     [self requestData];
     [self setupUI];
     
-    [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
+//    [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
+    
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:)name:@"tongzhi" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndex:) name:@"changeIndex" object:nil];
     
     
+}
+
+-(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    if (_refresh) {
+        [self refresh];
+    }
 }
 
 //-(void)changeIndex:(NSNotification *)notification
@@ -48,12 +56,9 @@
 
 -(void)requestData
 {
-    
     NSDictionary *paras = @{
                        
                             };
-    
-    
    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findUnreadNumberByVin];
     
 
@@ -308,7 +313,7 @@
     {
         [self loadSubscribeVC];
         [_line1 updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(375/2);
+            make.left.equalTo(375 *WidthCoefficient/2);
         }];
         [self.view layoutIfNeeded];
     }
@@ -349,7 +354,6 @@
         
     }];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

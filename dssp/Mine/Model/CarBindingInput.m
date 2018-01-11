@@ -11,3 +11,13 @@
 @implementation CarBindingInput
 
 @end
+
+@implementation CarBindingcolor
+
+@end
+
+
+@implementation CarBindingtepy
+
+@end
+

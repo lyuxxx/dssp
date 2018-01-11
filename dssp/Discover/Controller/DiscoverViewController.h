@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DiscoverViewController : BaseViewController
-
+@property BOOL refresh;
 @end

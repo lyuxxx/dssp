@@ -147,8 +147,8 @@
                                     NSLocalizedString(@"发动机号", nil),
                                     NSLocalizedString(@"车牌号", nil),
                                     NSLocalizedString(@"颜色", nil),
-                                    NSLocalizedString(@"车辆状态", nil),
-                                    NSLocalizedString(@"车辆类型", nil),
+//                                    NSLocalizedString(@"车辆状态", nil),
+//                                    NSLocalizedString(@"车辆类型", nil),
                                     NSLocalizedString(@"品牌", nil),
                                     NSLocalizedString(@"车辆T状态", nil),
                                     NSLocalizedString(@"车系名", nil),
@@ -420,15 +420,13 @@
                     //响应事件
                    [MBProgressHUD showText:NSLocalizedString(@"车辆修改成功", nil)];
                 } else {
+                    [hud hideAnimated:YES];
                     [MBProgressHUD showText:dic[@"msg"]];
                 }
             } failure:^(NSInteger code) {
                 hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
                 [hud hideAnimated:YES afterDelay:1];
             }];
-            
-
-            
         }
         else
         {
@@ -436,7 +434,6 @@
             _vhlLisenceField.userInteractionEnabled=YES;
             _modifyImg.hidden = NO;
             _modifyImg1.hidden = NO;
-          
         }
     }
     if (self.unbindBtn == sender) {

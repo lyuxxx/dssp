@@ -36,7 +36,7 @@
     self.navigationItem.title = self.intro;
     self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     [self requestNoticeData];
-    [self requestNoticeData1];
+  
     [self setupUI];
 }
 
@@ -80,7 +80,7 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                NoticedatailModel *notice = [NoticedatailModel yy_modelWithDictionary:dic[@"data"]];
                self.notice = notice;
-        
+              [self requestNoticeData1];
         } else {
          
             [MBProgressHUD showText:dic[@"msg"]];

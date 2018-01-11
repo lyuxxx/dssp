@@ -197,7 +197,7 @@
     agreement.yy_font = [UIFont fontWithName:FontName size:12];
     agreement.yy_color = [UIColor colorWithHexString:@"#999999"];
     NSRange range = [@"注册及表示同意<用户协议>" rangeOfString:@"<用户协议>"];
-    [agreement yy_setTextHighlightRange:range color:[UIColor redColor] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+    [agreement yy_setTextHighlightRange:range color:[UIColor colorWithHexString:@"#AC0042 "] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         
     }];
     YYLabel *agreeLabel = [[YYLabel alloc] init];
@@ -215,7 +215,7 @@
     _agreeBtn.selected = YES;
     [_agreeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_agreeBtn setImage:[UIImage imageNamed:@"check grey"] forState:UIControlStateNormal];
-    [_agreeBtn setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
+    [_agreeBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
     [self.view addSubview:_agreeBtn];
     [_agreeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(12 * WidthCoefficient);
