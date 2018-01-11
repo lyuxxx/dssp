@@ -35,6 +35,23 @@
     [self requestNoticeData];
     [self createTable];
 //    [self.tableView.mj_footer beginRefreshing];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DiscoverVCneedRefresh:) name:@"DiscoverVCneedRefresh" object:nil];
+
+}
+
+- (void)DiscoverVCneedRefresh:(NSNotification *)notification{
+    
+    NSLog(@"%@",notification.userInfo);
+    if (notification) {
+//        [self ]
+    }
+    NSLog(@"---接收到通知---");
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -74,7 +91,7 @@
     NSDictionary *paras = @{
                             
                           };
-    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findAppPushInboxTitleByVin];
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000020155",findAppPushInboxTitleByVin];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
@@ -85,8 +102,6 @@
                 self.notice = [NoticeModel yy_modelWithDictionary:dic];
                 [self.dataSource addObject:_notice];
             }
-            
-          
 //            [self.dataSource addObjectsFromArray:resultArr];
             
 //            [self.dataSource addObjectsFromArray:_noticeDatas];
@@ -121,7 +136,6 @@
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
               
-                
                 
             } else {
                 

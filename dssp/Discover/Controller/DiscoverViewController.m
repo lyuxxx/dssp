@@ -61,17 +61,14 @@
                             };
    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findUnreadNumberByVin];
     
-
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-            //            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-            //            [_tableView reloadData];
-            
+            // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
+            // [_tableView reloadData];
             //响应事件
-            
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
         }

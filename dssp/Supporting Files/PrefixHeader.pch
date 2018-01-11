@@ -159,7 +159,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //查询通知消息列表接口
 #define findAppPushInboxTitleByVin [NSString stringWithFormat:@"%@findAppPushInboxTitleByVin",baseUrl]
 //消息详情查询接口
-#define findAppPushInboxInfoByVin [NSString stringWithFormat:@"%@findAppPushInboxInfoByVin",baseUrl]
+#define findAppPushInboxInfoById [NSString stringWithFormat:@"%@findAppPushInboxInfoById",baseUrl]
 //修改消息状态 删除单条消息
 #define updateReadStatusOrIsDelByVinAndType [NSString stringWithFormat:@"%@updateReadStatusOrIsDelByVinAndType",baseUrl]
 //实时总流量查询接口

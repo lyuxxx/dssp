@@ -382,7 +382,7 @@
     callpoliceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [callpoliceBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     callpoliceBtn.layer.cornerRadius = 2;
-    [callpoliceBtn setTitle:NSLocalizedString(@"拨号报警", nil) forState:UIControlStateNormal];
+    [callpoliceBtn setTitle:NSLocalizedString(@"盗车追踪", nil) forState:UIControlStateNormal];
     [callpoliceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     callpoliceBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [callpoliceBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
@@ -423,7 +423,7 @@
 {
     if (callpoliceBtn ==btn) {
         
-        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"110"];
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"82208136"];
         UIWebView *callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];

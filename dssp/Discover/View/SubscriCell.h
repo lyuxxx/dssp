@@ -14,4 +14,5 @@
 @property (nonatomic,strong) UILabel *bottomLabel;
 @property (nonatomic,strong) UIImageView *bgImgV;
 @property (nonatomic,strong) UILabel *remindLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
 @end

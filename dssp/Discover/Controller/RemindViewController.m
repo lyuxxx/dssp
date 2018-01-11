@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *msgLabel;
+@property (nonatomic, strong) UIImageView *imgV;
 
 @end
 
@@ -57,7 +58,6 @@
 //            self.notice = notice;
             
         } else {
-            
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
@@ -71,10 +71,13 @@
 -(void)requestNoticeData
 {
     NSDictionary *paras = @{
-                            @"vin":_vin,
-                            @"businType":_businType
+//                            @"vin":_vin,
+//                            @"businType":_businType
                             };
-    [CUHTTPRequest POST:findAppPushInboxInfoByVin parameters:paras success:^(id responseData) {
+    
+    NSString *findAppPushByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxInfoById,_noticeId];
+    
+    [CUHTTPRequest POST:findAppPushByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
@@ -97,6 +100,20 @@
 {
     _titleLabel.text = notice.title;
     _msgLabel.text = notice.noticeData;
+    
+    if ([notice.businType isEqualToString:@"maintain"]) {
+         _imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
+    }
+    if ([notice.businType isEqualToString:@"CaTtheft"]) {
+         _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
+    }
+    if ([notice.businType isEqualToString:@"flow"]) {
+         _imgV.image = [UIImage imageNamed:@"详细_流量查询_icon"];
+    }
+    if ([notice.businType isEqualToString:@"svn"]) {
+         _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
+    }
+    
 }
 
 - (void)setupUI {
@@ -114,10 +131,10 @@
         make.centerX.equalTo(0);
     }];
     
-    UIImageView *imgV = [[UIImageView alloc] init];
-    imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
-    [self.view addSubview:imgV];
-    [imgV makeConstraints:^(MASConstraintMaker *make) {
+    self.imgV = [[UIImageView alloc] init];
+   
+    [self.view addSubview:_imgV];
+    [_imgV makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(CGSizeMake(48 * WidthCoefficient, 48 * WidthCoefficient));
         make.top.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(0);

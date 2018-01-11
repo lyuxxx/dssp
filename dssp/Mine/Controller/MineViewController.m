@@ -279,16 +279,18 @@
     }];
 
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userName = [defaults objectForKey:@"userName"];
     UILabel *namelabel = [[UILabel alloc] init];
     namelabel.font=[UIFont fontWithName:FontName size:16];
     namelabel.textColor=[UIColor colorWithHexString:@"#333333"];
-    namelabel.text=NSLocalizedString(@"xxxxxx", nil);
+    namelabel.text=NSLocalizedString(userName, nil);
     namelabel.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:namelabel];
     [namelabel makeConstraints:^(MASConstraintMaker *make) {
     make.top.equalTo(26*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
-          make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
+        make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
         make.width.equalTo(98 * WidthCoefficient);
     }];
 
