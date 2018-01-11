@@ -28,12 +28,13 @@
 {
     self.navigationItem.title = NSLocalizedString(_channels.title, nil);
     self.contentlabel =[[UITextView alloc] init];
+    _contentlabel.editable = NO;
     [self.view addSubview:_contentlabel];
     [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(-10 * WidthCoefficient);
-        make.bottom.equalTo(-40 * HeightCoefficient);
+        make.bottom.equalTo(0 * HeightCoefficient);
         make.left.equalTo(10 * WidthCoefficient);
-        make.top.equalTo(40 * HeightCoefficient);;
+        make.top.equalTo(0 * HeightCoefficient);;
     }];
 }
 

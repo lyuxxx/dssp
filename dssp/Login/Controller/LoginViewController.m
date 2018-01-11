@@ -455,10 +455,12 @@
                 }
                 else
                 {
+                    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                    NSString *cid = [defaults1 objectForKey:@"cid"];
                     NSDictionary *paras = @{
                                 @"telephone":_phoneField.text,
                                 @"randomCode":_phoneCodeField.text,
-                                @"phoneToken":@"1"
+                                @"phoneToken":cid
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {
@@ -510,12 +512,15 @@
             }
             else
             {
+                
+               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+               NSString *cid = [defaults1 objectForKey:@"cid"];
                 if([self valiMobile:_userNameField.text])
                 {
                        NSDictionary *paras = @{
                        @"userName": _userNameField.text,
                        @"userPassword": [_passWordField.text md5String],
-                       @"phoneToken":@"1"
+                       @"phoneToken":cid
                  };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {

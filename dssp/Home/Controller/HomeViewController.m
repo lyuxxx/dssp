@@ -22,7 +22,7 @@
 #import "InputAlertView.h"
 #import <MapSearchManager.h>
 #import "CarflowViewController.h"
-
+#import "UITabBar+badge.h"
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
@@ -48,7 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
-   
+     [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self postCustByMobile];
     [self setupUI];
    

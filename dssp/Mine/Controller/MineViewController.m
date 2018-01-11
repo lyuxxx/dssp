@@ -323,7 +323,7 @@
 //    _bindingBtn.layer.cornerRadius = 24 * HeightCoefficient/2;
     [_bindingBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_bindingBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-    [_bindingBtn setTitle:NSLocalizedString(@"未绑定", nil) forState:UIControlStateNormal];
+    [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
     [_bindingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _bindingBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
     [whiteView addSubview:_bindingBtn];
@@ -536,8 +536,7 @@
                    
                     NSDictionary *paras = @{
                                             
-                                        };
-                    
+                                          };
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -546,7 +545,8 @@
                                     //响应事件
                                     LoginViewController *vc=[[LoginViewController alloc] init];
                                     vc.hidesBottomBarWhenPushed = YES;
-                                    [self.navigationController pushViewController:vc animated:YES];
+                                    [[UIApplication sharedApplication].delegate.window setRootViewController:vc];
+//                                    [self.navigationController pushViewController:vc animated:YES];
                                     } else {
                                     [MBProgressHUD showText:dic[@"msg"]];
                                     }
