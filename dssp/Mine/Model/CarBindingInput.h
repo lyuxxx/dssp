@@ -36,3 +36,28 @@
 @property (nonatomic, copy) NSString *doptCode;
 
 @end
+
+
+
+
+@interface CarBindingtepy : NSObject<YYModel>
+@property (nonatomic , copy) NSString              * vhlNtTypeId;
+@property (nonatomic , copy) NSString              * typeName;
+@property (nonatomic , copy) NSString              * createTime;
+@property (nonatomic , copy) NSString              * recordStatus;
+@property (nonatomic , copy) NSString              * updateTime;
+@end
+
+@interface CarBindingcolor : NSObject<YYModel>
+@property (nonatomic , assign) NSInteger              currentPage;
+@property (nonatomic , assign) NSInteger              pageSize;
+@property (nonatomic , copy) NSString              * id;
+@property (nonatomic , copy) NSString              * colorName;
+@property (nonatomic , copy) NSString              * recordStatus;
+@property (nonatomic , copy) NSString              * createTime;
+@property (nonatomic , copy) NSString              * updateTime;
+@end
+
+
+
+

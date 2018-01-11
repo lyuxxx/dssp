@@ -45,7 +45,7 @@
     
     [self.tableView.mj_footer beginRefreshing];
     // 下拉加载最新数据
-//    [self pullDownToRefreshLatestNews];
+    [self pullDownToRefreshLatestNews];
     // 上拉加载更多数据
     [self pullUpToLoadMoreNews];
 }
@@ -54,11 +54,11 @@
 /**
  *  下拉加载最新数据
  */
-//- (void)pullDownToRefreshLatestNews {
-//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
-//    // 设置header
-//    [_tableView.mj_header beginRefreshing];
-//}
+- (void)pullDownToRefreshLatestNews {
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+    // 设置header
+    [_tableView.mj_header beginRefreshing];
+}
 
 /**
  *  上拉加载更多数据
@@ -66,6 +66,8 @@
 - (void)pullUpToLoadMoreNews {
     __weak __typeof(self) weakSelf = self;
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+  
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf requestMoreNews];
     }];
@@ -75,43 +77,47 @@
 
 -(void)requestData
 {
-    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    NSString *vin = [defaults1 objectForKey:@"vin"];
-    
+    self.tableView.mj_header.hidden =YES;
     NSDictionary *paras = @{
                             @"vin": kVin,
                             @"currentPage":@"1",
                             @"pageSize":@"5"
                             };
 
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
-            
+//            [hud hideAnimated:YES];
             NSArray *dataArray =dic[@"data"][@"result"];
             NSMutableArray *contractData = [NSMutableArray array];
             for (NSDictionary *dic in dataArray) {
                 contract = [ContractModel yy_modelWithDictionary:dic];
-                
                 [contractData addObject:contract];
             }
             self.latestNewsFrame = contractData;
             NSLog(@"333%@",contract.contractBeginTime);
+            if (self.latestNewsFrame.count == 0) {
+                self.tableView.mj_footer.hidden =YES;
+            }
 
             [_tableView reloadData];
             // 结束刷新状态
             [_tableView.mj_header endRefreshing];
            
         } else {
+             self.tableView.mj_footer.hidden =YES;
              [_tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+         self.tableView.mj_footer.hidden =YES;
          [_tableView.mj_header endRefreshing];
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        [hud hideAnimated:YES afterDelay:1];
+         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        
+//        
+//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
@@ -122,16 +128,16 @@
     _count += 1;
     NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
     NSDictionary *paras = @{
-                            @"vin": @"VF7CAPSA000020942",
+                            @"vin": kVin,
                             @"currentPage":string,
                             @"pageSize":@"5"
                             };
     
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
             
             NSArray *dataArray =dic[@"data"][@"result"];
             NSMutableArray *contractData = [NSMutableArray array];
@@ -154,8 +160,10 @@
         }
     } failure:^(NSInteger code) {
         [_tableView.mj_footer endRefreshing];
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        [hud hideAnimated:YES afterDelay:1];
+        
+         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//        [hud hideAnimated:YES afterDelay:1];
     }];
 
 }

@@ -100,7 +100,16 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    if (![_vinField.text isEqualToString:@""]) {
+    
+    
+    if (_vinField.text.length !=17) {
+        
+        [MBProgressHUD showText:NSLocalizedString(@"请输入17位VIN号", nil)];
+        
+    }
+    else if (_vinField.text.length == 17)
+    {
+    
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
                                 };
@@ -112,23 +121,21 @@
                 QueryViewController *queryVC =[[QueryViewController alloc] init];
                 [self.navigationController pushViewController:queryVC animated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-               
+                
                 
             } else {
-               
+                
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
-          
+            
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         
-      
-    } else {
-       
-        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
+        
     }
+
 }
 
 - (void)didReceiveMemoryWarning {

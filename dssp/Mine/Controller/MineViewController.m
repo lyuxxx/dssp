@@ -399,20 +399,7 @@
 //        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==0) {
-            
-            
-//            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//            NSString *vin = [defaults1 objectForKey:@"vin"];
-            cell.lab.text = [kVin isEqualToString:@"0"]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
-            
-            
-//            [cell.lab updateConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(19 * HeightCoefficient);
-//                make.height.equalTo(22 * HeightCoefficient);
-//                make.width.equalTo(211 * WidthCoefficient);
-//                make.left.equalTo(59 * WidthCoefficient);
-//
-//            }];
+            cell.lab.text = [kVin isEqualToString:@""]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
             
         }
         if (indexPath.row==1) {
@@ -452,16 +439,11 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
-//            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//            NSString *vin = [defaults1 objectForKey:@"vin"];
-//            
-            if ([kVin isEqualToString:@"0"]) {
+            if ([kVin isEqualToString:@""]) {
                 
                 VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-                
             }
             else
             {
@@ -470,7 +452,8 @@
                 [self.navigationController pushViewController:vc animated:YES];
                
             }
-        }else if (indexPath.row == 1)
+        }
+        else if (indexPath.row == 1)
         {
             CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
@@ -520,10 +503,9 @@
             RealnameViewController *vc=[[RealnameViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-            
-
         
-        }else if (indexPath.row == 3)
+        }
+        else if (indexPath.row == 3)
         {
             ContractViewController *vc=[[ContractViewController                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
@@ -537,7 +519,9 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
         
-    }else if (indexPath.section == 1){
+    }
+    else if (indexPath.section == 1)
+    {
         
         if (indexPath.row==0) {
             

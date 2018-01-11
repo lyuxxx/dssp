@@ -57,12 +57,8 @@
             NSString *htmlString = _subscribedatail.content;
             
              NSLog(@"55%@",htmlString);
-            
-            
             NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-            
             _contentlabel.attributedText = attributedString;
-            
             NSLog(@"666%@",attributedString);
             //响应事件
             

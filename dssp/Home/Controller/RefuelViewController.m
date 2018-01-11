@@ -589,7 +589,6 @@ static dispatch_once_t oilOnceToken;
 }
 
 #pragma mark - MAMapViewDelegate -
-
 - (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     MAAnnotationView *view = views[0];
     if ([view.annotation isKindOfClass:[MAUserLocation class]]) {

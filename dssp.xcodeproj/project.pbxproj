@@ -79,6 +79,9 @@
 		451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F71FEB9A6B008CC890 /* WMImageViewCell.m */; };
 		451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F91FEB9A6B008CC890 /* WMLoopView.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
+		4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
+		454858102005EA6500170D85 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
+		454858122005EE6D00170D85 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
 		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
 		455974501FE77B1F00D7910A /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
@@ -269,6 +272,10 @@
 		451744F91FEB9A6B008CC890 /* WMLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLoopView.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
+		4548580C2005B53200170D85 /* PrivacypolicyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivacypolicyController.h; sourceTree = "<group>"; };
+		4548580D2005B53200170D85 /* PrivacypolicyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacypolicyController.m; sourceTree = "<group>"; };
+		4548580F2005EA6500170D85 /* application.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
+		454858112005EE6C00170D85 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		455036071FE246FC0088DAE0 /* ContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractCell.h; sourceTree = "<group>"; };
 		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
 		4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindViewController.h; sourceTree = "<group>"; };
@@ -348,6 +355,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				454858122005EE6D00170D85 /* WebKit.framework in Frameworks */,
 				8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,6 +374,7 @@
 		036B73DB65D5CBC6DAD8E4EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				454858112005EE6C00170D85 /* WebKit.framework */,
 				E308A48E870A88C38635BC22 /* libPods-dssp.a */,
 				A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */,
 			);
@@ -648,6 +657,7 @@
 		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4548580F2005EA6500170D85 /* application.html */,
 				316CA45E1F9F3475009F541E /* AppDelegate.h */,
 				316CA45F1F9F3475009F541E /* AppDelegate.m */,
 				316CA46D1F9F3475009F541E /* main.m */,
@@ -680,6 +690,8 @@
 				459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */,
 				459679851FDF700A008A0C67 /* RealVinViewcontroller.h */,
 				459679861FDF700A008A0C67 /* RealVinViewcontroller.m */,
+				4548580C2005B53200170D85 /* PrivacypolicyController.h */,
+				4548580D2005B53200170D85 /* PrivacypolicyController.m */,
 				459679971FE13328008A0C67 /* ContractViewController.h */,
 				459679981FE13328008A0C67 /* ContractViewController.m */,
 				4596799A1FE1417C008A0C67 /* ContractdetailViewController.h */,
@@ -930,6 +942,7 @@
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
+				454858102005EA6500170D85 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1066,6 +1079,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
+				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
 				4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */,
 				455036091FE246FC0088DAE0 /* ContractCell.m in Sources */,

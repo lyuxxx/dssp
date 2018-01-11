@@ -47,28 +47,29 @@
     NSDictionary *paras = @{
                           
                          };
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,kVin];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,@"VF7CAPSA000020155"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-//              self.carflow =_carflow;
+          
             [_tableView reloadData];
             [self setupUI];
         } else {
+            
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
       [hud hideAnimated:YES];
+//    self.carflow =_carflow;
       [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
 }
-
 
 -(void)initTableView
 {
@@ -102,9 +103,9 @@
 
 -(void)setCarflow:(CarflowModel *)carflow
 {
-     _totalflowlabel.text=[NSString stringWithFormat:@"%ld",carflow.totalFlow];
-     _flowlabel.text=[NSString stringWithFormat:@"%ld",carflow.remainFlow];
-     _employflowlabel.text= [NSString stringWithFormat:@"%ld",carflow.useFlow]?[NSString stringWithFormat:@"%ld",carflow.useFlow]:@"0";
+     _totalflowlabel.text=[NSString stringWithFormat:@"%@",carflow.totalFlow];
+     _flowlabel.text=[NSString stringWithFormat:@"%@",carflow.remainFlow];
+     _employflowlabel.text= [NSString stringWithFormat:@"%@",carflow.useFlow]?[NSString stringWithFormat:@"%@",carflow.useFlow]:@"0";
 }
 
 -(void)setupUI
@@ -144,18 +145,18 @@
     
 
     
-     NSString *remainFlow = [[NSString stringWithFormat:@"%ld",_carflow.remainFlow] stringByAppendingString:@"M"];
+     NSString *remainFlow = [[NSString stringWithFormat:@"%@",_carflow.remainFlow] stringByAppendingString:@"M"];
     self.flowlabel = [[UILabel alloc] init];
     _flowlabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:28];
     _flowlabel.textColor=[UIColor whiteColor];
-    _flowlabel.text = remainFlow;
+    _flowlabel.text = _carflow.remainFlow?remainFlow:@"0M";
     _flowlabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:_flowlabel];
     [_flowlabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(20*HeightCoefficient);
         make.height.equalTo(40 * HeightCoefficient);
         make.centerX.equalTo(_headerView);
-        make.width.equalTo(76 * WidthCoefficient);
+        make.width.equalTo(120 * WidthCoefficient);
     }];
     
     
@@ -185,12 +186,12 @@
     }];
     
 //     [NSString stringWithFormat:@"%ld",_carflow.useFlow];
-    NSString *useFlow = [[NSString stringWithFormat:@"%ld",_carflow.useFlow] stringByAppendingString:@"M"];
+    NSString *useFlow = [[NSString stringWithFormat:@"%@",_carflow.useFlow] stringByAppendingString:@"M"];
     self.employflowlabel = [[UILabel alloc] init];
     _employflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     _employflowlabel.textColor=[UIColor blackColor];
    
-    _employflowlabel.text= useFlow;
+    _employflowlabel.text= _carflow.useFlow?useFlow:@"0M";
     _employflowlabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:_employflowlabel];
     [_employflowlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -215,11 +216,11 @@
     }];
     
     
-     NSString *totalFlow = [[NSString stringWithFormat:@"%ld",_carflow.totalFlow] stringByAppendingString:@"M"];
+     NSString *totalFlow = [[NSString stringWithFormat:@"%@",_carflow.totalFlow] stringByAppendingString:@"M"];
     self.totalflowlabel = [[UILabel alloc] init];
     _totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
     _totalflowlabel.textColor=[UIColor blackColor];
-    _totalflowlabel.text = totalFlow;
+    _totalflowlabel.text = _carflow.totalFlow?totalFlow:@"0M";
    
     _totalflowlabel.textAlignment = NSTextAlignmentCenter;
     [whiteView addSubview:_totalflowlabel];
@@ -282,15 +283,15 @@
     
     _DataArray = [NSMutableArray new];
     
-    NSString *music = [[NSString stringWithFormat:@"%ld",_carflow.music] stringByAppendingString:@"M"];
-    NSString *fm = [[NSString stringWithFormat:@"%ld",_carflow.fm] stringByAppendingString:@"M"];
-    NSString *ota = [[NSString stringWithFormat:@"%ld",_carflow.ota] stringByAppendingString:@"M"];
-    NSString *wifi = [[NSString stringWithFormat:@"%ld",_carflow.wifi] stringByAppendingString:@"M"];
+    NSString *music = [[NSString stringWithFormat:@"%@",_carflow.music] stringByAppendingString:@"M"];
+    NSString *fm = [[NSString stringWithFormat:@"%@",_carflow.fm] stringByAppendingString:@"M"];
+    NSString *ota = [[NSString stringWithFormat:@"%@",_carflow.ota] stringByAppendingString:@"M"];
+    NSString *wifi = [[NSString stringWithFormat:@"%@",_carflow.wifi] stringByAppendingString:@"M"];
     
-    [_DataArray addObject:music];
-    [_DataArray addObject:fm];
-    [_DataArray addObject:ota];
-    [_DataArray addObject:wifi];
+    [_DataArray addObject:_carflow.music?music:@"0M"];
+    [_DataArray addObject:_carflow.fm?fm:@"0M"];
+    [_DataArray addObject:_carflow.ota?ota:@"0M"];
+    [_DataArray addObject:_carflow.wifi?wifi:@"0M"];
 
     cell.toplab.text =titles[indexPath.row];
 //    cell.bottolab.text =@"最近使用:2017/12/31";

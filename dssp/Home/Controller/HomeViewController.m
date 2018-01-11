@@ -21,7 +21,7 @@
 #import <CUAlertController.h>
 #import "InputAlertView.h"
 #import <MapSearchManager.h>
-#import "UITabBar+badge.h"
+#import "CarflowViewController.h"
 
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
@@ -48,7 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
-    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+   
     [self postCustByMobile];
     [self setupUI];
    
@@ -71,7 +71,7 @@
 //    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //    NSString *vin = [defaults1 objectForKey:@"vin"];
 //    
-    if ([kVin isEqualToString:@"0"]) {
+    if ([kVin isEqualToString:@""]) {
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -259,6 +259,11 @@
             MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
             mapVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:mapVC animated:YES];
+        }
+        if (btn.tag == 1000 ) {//实现流量
+            CarflowViewController *carflow = [[CarflowViewController alloc] init];
+            carflow.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:carflow animated:YES];
         }
     };
     

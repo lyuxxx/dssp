@@ -10,8 +10,9 @@
 #import "NavigationController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import <RTRootNavigationController/RTRootNavigationController.h>
-#import "UITabBar+badge.h"  
-@interface TabBarController () <UINavigationControllerDelegate>
+#import "UITabBar+badge.h"
+#import "DiscoverViewController.h"
+@interface TabBarController () <UINavigationControllerDelegate,UITabBarControllerDelegate>
 
 @end
 
@@ -96,6 +97,10 @@
         [naVC.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
         [viewControllers addObject:naVC];
+        if (i == 1) {
+            DiscoverViewController *discoverVC = (DiscoverViewController *)vc;
+            self.delegate = discoverVC;
+        }
     }
    
     self.viewControllers = viewControllers;

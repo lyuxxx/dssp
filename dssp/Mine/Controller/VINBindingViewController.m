@@ -83,7 +83,7 @@
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
     _vinField.font = [UIFont fontWithName:FontName size:16];
-    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入8位VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _vinField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入17位VIN号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _vinField.layer.cornerRadius = 2;
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];
@@ -100,7 +100,7 @@
     _enginenNumber.leftViewMode = UITextFieldViewModeAlways;
     _enginenNumber.textColor = [UIColor colorWithHexString:@"#040000"];
     _enginenNumber.font = [UIFont fontWithName:FontName size:16];
-    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入17位发动机号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入7位发动机号" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _enginenNumber.layer.cornerRadius = 2;
     _enginenNumber.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_enginenNumber];
@@ -131,45 +131,59 @@
 
 - (void)nextBtnClick:(UIButton *)sender {
     
-    if (![_vinField.text isEqualToString:@""]) {
-        NSDictionary *paras = @{
-                                @"vin": _vinField.text,
-                                @"doptCode":_enginenNumber.text
-                                };
-        [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-             _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                if (_carbind.isExist) {
-                    ///T车跳绑定详细页面
-                    CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
-                    vc.carbind = _carbind;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                else
-                {
-                    ///非T跳车辆绑定填写页面
-                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                    vc.bingVin = _vinField.text;
-                    vc.doptCode = _enginenNumber.text;
-                    vc.carbind = _carbind;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-            
-            } else {
-                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
-            }
-        } failure:^(NSInteger code) {
-            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-        }];
+    
+    if (_vinField.text.length !=17) {
+       
+         [MBProgressHUD showText:NSLocalizedString(@"请输入17位VIN号", nil)];
         
-//        CarInfoViewController *vc = [[CarInfoViewController alloc] init];
-//        vc.vin = _vinField.text;
-//        [self.navigationController pushViewController:vc animated:YES];
-    } else {
-      
-        [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
     }
+    else if (_enginenNumber.text.length !=7) {
+        
+         [MBProgressHUD showText:NSLocalizedString(@"请输入7位发动机号", nil)];
+    }
+    else if (_vinField.text.length == 17 &&_enginenNumber.text.length ==7)
+    {
+                NSDictionary *paras = @{
+                                        @"vin": _vinField.text,
+                                        @"doptCode":_enginenNumber.text
+                                        };
+                [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                     _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        if (_carbind.isExist) {
+                            ///T车跳绑定详细页面
+                            CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
+                            vc.carbind = _carbind;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }
+                        else
+                        {
+                            ///非T跳车辆绑定填写页面
+                            CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                            vc.bingVin = _vinField.text;
+                            vc.doptCode = _enginenNumber.text;
+                            vc.carbind = _carbind;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }
+        
+                    } else {
+                        [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                    }
+                } failure:^(NSInteger code) {
+                    [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+                }];
+        
+       
+            }
+//        else {
+////
+////                [MBProgressHUD showText:NSLocalizedString(@"请输入VIN号", nil)];
+////            }
+//    
+//    }
+
+
 }
 
 @end

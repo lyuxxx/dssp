@@ -16,14 +16,15 @@
 #import "MineViewController.h"
 #import <MBProgressHUD+CU.h>
 #import "RealVinViewcontroller.h"
-
-@interface CarBindingViewController ()
+#import <IQUIView+IQKeyboardToolbar.h>
+#import "CarBindingInput.h"
+@interface CarBindingViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) CarBindingInput *bindingInput;
 
 @property (nonatomic, strong) UITextField *customerNameField;
 @property (nonatomic, strong) UILabel *carSeries;
-@property (nonatomic, strong) UILabel *carModels;
+@property (nonatomic, strong) UITextField *carModels;
 @property (nonatomic, strong) UITextField *vhlLicenceField;
 @property (nonatomic, strong) UIScrollView *sc;
 @property (nonatomic, strong) UITextField *field;
@@ -36,6 +37,17 @@
 @property (nonatomic, strong) UITextField *sex;
 @property (nonatomic, copy) NSString *vhlTStatustr;
 @property (nonatomic, copy) NSString *isExiststr;
+
+@property (nonatomic, strong) UIPickerView *picker;
+@property (nonatomic, strong) NSMutableArray *genders;
+@property (nonatomic, strong) NSMutableArray *certtypes;
+@property (nonatomic, strong) NSArray<NSString *> *sextypes;
+
+@property (nonatomic, strong) NSArray *mfid;
+@property (nonatomic, strong) NSMutableArray *mfids;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+
+@property (nonatomic, strong) UITextField *selectedField;
 @end
 
 @implementation CarBindingViewController
@@ -44,15 +56,93 @@
     return YES;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self requestData];
     [self setupUI];
+}
+
+-(void)requestData
+{
+
+    NSDictionary *paras = @{
+                            
+                            
+                         };
+//    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,kVin];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:colorfind parameters:paras success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            NSArray *dataArray =dic[@"data"];
+//            NSMutableArray *contractData = [NSMutableArray array];
+            for (NSDictionary *dic in dataArray) {
+            CarBindingcolor *carBindingcolor=[CarBindingcolor yy_modelWithDictionary:dic];
+            [self.certtypes addObject:carBindingcolor.colorName];
+            }
+        } else {
+            [hud hideAnimated:YES];
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        //        [hud hideAnimated:YES afterDelay:1];
+    }];
+    
+    
+    [self requestData1];
+}
+
+-(void)requestData1
+{
+    
+        NSDictionary *paras = @{
+    
+    
+                                };
+        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+        [CUHTTPRequest POST:typefind parameters:paras success:^(id responseData) {
+            NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                [hud hideAnimated:YES];
+                NSArray *dataArray =dic[@"data"];
+//                NSMutableArray *contractData = [NSMutableArray array];
+                for (NSDictionary *dic in dataArray) {
+                    CarBindingtepy *carBindingtepy=[CarBindingtepy yy_modelWithDictionary:dic];
+                    [self.genders addObject:carBindingtepy.typeName];
+                }
+    
+    
+            } else {
+                [hud hideAnimated:YES];
+                [MBProgressHUD showText:dic[@"msg"]];
+            }
+        } failure:^(NSInteger code) {
+            [hud hideAnimated:YES];
+            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        }];
 }
 
 - (void)setupUI {
     
     self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
+    
+    _mfid = @[
+              NSLocalizedString(@"M", nil),
+              NSLocalizedString(@"F", nil),
+              
+              ];
+    
+  
+    
+    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);
     whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
@@ -63,7 +153,7 @@
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(491.5 * HeightCoefficient);
+        make.height.equalTo(430.5 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20.5 * HeightCoefficient);
     }];
@@ -86,7 +176,7 @@
                                     NSLocalizedString(@"VIN", nil),
                                     NSLocalizedString(@"发动机号", nil),
                                     NSLocalizedString(@"车型", nil),
-                                    NSLocalizedString(@"车系", nil),
+//                                    NSLocalizedString(@"车系", nil),
                                     NSLocalizedString(@"颜色", nil),
                                     NSLocalizedString(@"用户名", nil),
                                     NSLocalizedString(@"联系方式", nil),
@@ -97,12 +187,12 @@
                                           
                                           NSLocalizedString(@"请填写VIN号", nil),
                                           NSLocalizedString(@"请填写发动机号", nil),
-                                          NSLocalizedString(@"", nil),
-                                          NSLocalizedString(@"", nil),
+//                                          NSLocalizedString(@"", nil),
+                                          NSLocalizedString(@"请选择车型", nil),
                                           NSLocalizedString(@"请填写车辆颜色", nil),
                                           NSLocalizedString(@"请填写用户名", nil),
                                           NSLocalizedString(@"请填写手机号", nil),
-                                          NSLocalizedString(@"请填写性别", nil)
+                                          NSLocalizedString(@"请选择性别", nil)
                             
                                           ];
     
@@ -131,6 +221,7 @@
         for (NSInteger i = 0 ; i < titles.count; i++) {
             UILabel *label = [[UILabel alloc] init];
             label.text = titles[i];
+            label.textAlignment = NSTextAlignmentLeft;
             label.textColor = [UIColor colorWithHexString:@"#040000"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
@@ -198,8 +289,8 @@
             lastView =whiteView;
             
             
-            if (i != 2 && i !=3) {
-                
+//            if (i != 2 && i !=3) {
+            
                 self.field = [[UITextField alloc] init];
                 _field.font = [UIFont fontWithName:FontName size:15];
                 _field.textColor = [UIColor colorWithHexString:@"333333"];
@@ -209,7 +300,7 @@
                 
                 [whiteV addSubview:_field];
                 [_field makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(120 * WidthCoefficient);
+                    make.width.equalTo(160 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(0 * WidthCoefficient);
                     make.top.equalTo(0);
@@ -222,67 +313,75 @@
                 } else if (i == 1) {
                     _field.text = _doptCode;
                     self.doptField = _field;
+                }
+                else if (i == 2) {
+//                    _field.text = _doptCode;
+                    self.carModels = _field;
+                    
+                    self.carModels.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                    
+                } else if (i == 3) {
+//                    _field.text = @"";
+                    self.vhlColorName = _field;
+                    self.vhlColorName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                     
                 } else if (i == 4) {
                     _field.text = @"";
-                    self.vhlColorName = _field;
+                    self.userName = _field;
                     
                 } else if (i == 5) {
                     _field.text = @"";
-                    self.userName = _field;
-                    
-                } else if (i == 6) {
-                    _field.text = @"";
                     self.mobilePhone = _field;
                     
-                } else if (i == 7) {
-                    _field.text = @"";
+                } else if (i == 6) {
+                   
                     self.sex = _field;
+                    self.sex.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                     
                 }
             }
-            else if (i==2)
-            {
-                self.carModels = [[UILabel alloc] init];
-                _carModels.userInteractionEnabled = YES;
-                _carModels.text = NSLocalizedString(@"请选择车型", nil);
-                _carModels.font = [UIFont fontWithName:FontName size:15];
-                _carModels.textColor = [UIColor colorWithHexString:@"#040000"];
-                [whiteV addSubview:_carModels];
-                [_carModels makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(0 * WidthCoefficient);
-                    make.centerY.equalTo(label);
-                    make.height.equalTo(label);
-                    make.width.equalTo(150 * WidthCoefficient);
-                }];
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(modelsLabelTap:)];
-                [_carModels addGestureRecognizer:tap];
-        
-            
-              
-                
-            }
-            else if (i==3)
-            {
-                
-                self.carSeries = [[UILabel alloc] init];
-                _carSeries.userInteractionEnabled = YES;
-                _carSeries.text = NSLocalizedString(@"请选择车系", nil);
-                _carSeries.font = [UIFont fontWithName:FontName size:15];
-                _carSeries.textColor = [UIColor colorWithHexString:@"#040000"];
-                [whiteV addSubview:_carSeries];
-                [_carSeries makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(0 * WidthCoefficient);
-                    make.centerY.equalTo(label);
-                    make.height.equalTo(label);
-                    make.width.equalTo(150 * WidthCoefficient);
-                }];
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seriesLabelTap:)];
-                [_carSeries addGestureRecognizer:tap];
-               
-            
-            }
-        }
+//            else if (i==2)
+//            {
+//                self.carModels = [[UILabel alloc] init];
+//                _carModels.userInteractionEnabled = YES;
+//                _carModels.text = NSLocalizedString(@"请选择车型", nil);
+//                _carModels.font = [UIFont fontWithName:FontName size:15];
+//                _carModels.textColor = [UIColor colorWithHexString:@"#040000"];
+//                [whiteV addSubview:_carModels];
+//                [_carModels makeConstraints:^(MASConstraintMaker *make) {
+//                    make.left.equalTo(0 * WidthCoefficient);
+//                    make.centerY.equalTo(label);
+//                    make.height.equalTo(label);
+//                    make.width.equalTo(150 * WidthCoefficient);
+//                }];
+//                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(modelsLabelTap:)];
+//                [_carModels addGestureRecognizer:tap];
+//
+//
+//
+//
+//            }
+//            else if (i==3)
+//            {
+//
+//                self.carSeries = [[UILabel alloc] init];
+//                _carSeries.userInteractionEnabled = YES;
+//                _carSeries.text = NSLocalizedString(@"请选择车系", nil);
+//                _carSeries.font = [UIFont fontWithName:FontName size:15];
+//                _carSeries.textColor = [UIColor colorWithHexString:@"#040000"];
+//                [whiteV addSubview:_carSeries];
+//                [_carSeries makeConstraints:^(MASConstraintMaker *make) {
+//                    make.left.equalTo(0 * WidthCoefficient);
+//                    make.centerY.equalTo(label);
+//                    make.height.equalTo(label);
+//                    make.width.equalTo(150 * WidthCoefficient);
+//                }];
+//                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seriesLabelTap:)];
+//                [_carSeries addGestureRecognizer:tap];
+//
+//
+//            }
+//        }
         
         [contentView makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(lastLabel.bottom).offset(0);
@@ -405,7 +504,131 @@
         make.centerX.equalTo(0);
         make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
     }];
+    
+    
+    self.picker = [[UIPickerView alloc] init];
+    _picker.dataSource = self;
+    _picker.delegate = self;
+    _carModels.inputView = _picker;
+    _vhlColorName.inputView = _picker;
+    _sex.inputView = _picker;
+    
+    _carModels.delegate = self;
+    _vhlColorName.delegate = self;
+     _sex.delegate = self;
+    
+    [_carModels.keyboardToolbar.doneBarButton setTarget:self action:@selector(genderDoneAction:)];
+    [_vhlColorName.keyboardToolbar.doneBarButton setTarget:self action:@selector(certtypeDoneAction:)];
+    [_sex.keyboardToolbar.doneBarButton setTarget:self action:@selector(sextypeDoneAction:)];
 }
+
+- (void)genderDoneAction:(UIBarButtonItem *)barButton {
+    _carModels.text = self.genders[[self.picker selectedRowInComponent:0]];
+}
+
+- (void)certtypeDoneAction:(UIBarButtonItem *)barButton {
+    _vhlColorName.text = self.certtypes[[self.picker selectedRowInComponent:0]];
+}
+
+-(void)sextypeDoneAction:(UIBarButtonItem *)barButton {
+    _sex.text = self.mfids[[self.picker selectedRowInComponent:0]];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    _selectedField = textField;
+    if (textField == _carModels) {
+        self.dataSource = self.genders;
+        [self.picker reloadAllComponents];
+    } else if (textField == _vhlColorName) {
+        self.dataSource = self.certtypes;
+        [self.picker reloadAllComponents];
+    }
+    else if (textField == _sex) {
+        self.dataSource = self.mfids;
+        [self.picker reloadAllComponents];
+    }
+    return YES;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.dataSource.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.dataSource[row];
+}
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [[NSAttributedString alloc] initWithString:self.dataSource[row] attributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+}
+
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[NSMutableArray alloc] init];
+    }
+    return _dataSource;
+}
+
+- (NSMutableArray *)genders {
+    if (!_genders) {
+        
+          _genders = [[NSMutableArray alloc] init];
+
+    }
+    return _genders;
+}
+
+
+- (NSMutableArray *)mfids {
+    if (!_mfids) {
+//        _mfids = @[
+//                   NSLocalizedString(@"男", nil),
+//                   NSLocalizedString(@"女", nil),
+//
+//                   ];
+        
+         _mfids= [NSMutableArray arrayWithObjects:@"男", @"女", nil];
+    }
+    return _mfids;
+}
+
+
+
+
+- (NSMutableArray *)certtypes {
+    if (!_certtypes) {
+        _certtypes = [[NSMutableArray alloc] init];
+  
+        
+//        _certtypes = @[
+//                       NSLocalizedString(@"身份证", nil),
+//                       NSLocalizedString(@"其他", nil),
+//                       NSLocalizedString(@"护照", nil),
+//                       NSLocalizedString(@"军官证", nil),
+//                       NSLocalizedString(@"警官证", nil),
+//                       NSLocalizedString(@"台湾居民来往大陆通行证", nil),
+//                       NSLocalizedString(@"统一社会信用代码", nil)
+//
+//                       ];
+        
+        
+    }
+    return _certtypes;
+}
+
+
+-(NSArray<NSString *> *)sextypes {
+    if (!_sextypes) {
+        _sextypes = [[NSArray alloc] init];
+    }
+    return _sextypes;
+}
+
+
 
 -(void)textFieldDidChange:(UITextField *)textField
 {
@@ -417,14 +640,16 @@
 }
 
 - (void)confirmBtnClick:(UIButton *)sender {
-    if ([_carModels.text isEqualToString:NSLocalizedString(@"请选择车型", nil)]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请填写车型", nil)];
+    if (!_carModels.text || [_carModels.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择车型", nil)];
         return;
-    } else if ([_carSeries.text isEqualToString:NSLocalizedString(@"请选择车系", nil)]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请填写车系", nil)];
-        return;
-    } else if (!_vhlColorName.text || [_vhlColorName.text isEqualToString:@""]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请填写车辆颜色", nil)];
+    }
+//    else if ([_carSeries.text isEqualToString:NSLocalizedString(@"请选择车系", nil)]) {
+//        [MBProgressHUD showText:NSLocalizedString(@"请填写车系", nil)];
+//        return;
+//    }
+    else if (!_vhlColorName.text || [_vhlColorName.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择车辆颜色", nil)];
         return;
     } else if (!_userName.text || [_userName.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写用户名", nil)];
@@ -439,7 +664,7 @@
 //    self.bindingInput.customerName = _carInfo.customerName?_carInfo.customerName:@"";
 //    self.bindingInput.credentials = _carInfo.customerCredentials?_carInfo.customerCredentials:@"";
 //    self.bindingInput.credentialsNum = _carInfo.customerCredentialsNum;
-//    self.bindingInput.sex = _carInfo.customerSex?_carInfo.customerSex:@"";
+    self.bindingInput.sex = [_mfid objectAtIndex:[self.mfids indexOfObject:self.sex.text]];
 //    self.bindingInput.mobilePhone = _carInfo.customerMobilePhone?_carInfo.customerMobilePhone:@"";
 //    self.bindingInput.phone = _carInfo.customerHomePhone?_carInfo.customerHomePhone:@"15871707603";
 //    self.bindingInput.email = _carInfo.customerEmail?_carInfo.customerEmail:@"";
@@ -447,6 +672,10 @@
 //    self.bindingInput.vhlLicence = _vhlLicenceField.text;
 //    self.bindingInput.remark = _carInfo.remark?_carInfo.remark:@"备注";
 //    self.bindingInput.doptCode = _doptField.text;
+    
+//      rnrInfo.gender = [_mfid objectAtIndex:[self.genders indexOfObject:self.genderField.text]];
+    
+    
     
     if (_carbind.isExist) {
           _vhlTStatustr =@"1";
@@ -471,7 +700,7 @@
                             @"vhlColorId":@"",
                             @"isExist": _isExiststr,
                             @"userName": _userName.text,
-                            @"sex": _sex.text,
+                            @"sex": self.bindingInput.sex,
                             @"mobilePhone": _mobilePhone.text,
                             @"vhlTStatus":_vhlTStatustr
                            
@@ -532,7 +761,6 @@
             //                    }
             //                }];
         }
-        
         else {
             [MBProgressHUD showText:dic[@"msg"]];
         }

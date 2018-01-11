@@ -423,6 +423,10 @@
 {
     if (callpoliceBtn ==btn) {
         
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"110"];
+        UIWebView *callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [self.view addSubview:callWebview];
     }
     if (trackBtn ==btn) {
         

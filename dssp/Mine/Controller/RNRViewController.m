@@ -12,6 +12,7 @@
 #import "RNRInput.h"
 #import <MBProgressHUD+CU.h>
 #import <IQUIView+IQKeyboardToolbar.h>
+#import "PrivacypolicyController.h"
 
 @interface RNRViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
@@ -36,7 +37,8 @@
 
 @property (nonatomic, copy) NSString *selectedStr;
 
-@property (nonatomic,strong)UIButton *agreeBtn;
+@property (nonatomic,strong) UIButton *agreeBtn;
+@property (nonatomic,strong) UIButton *serviceBtn;
 
 @end
 
@@ -113,7 +115,7 @@
     }];
     
     NSArray<NSString *> *titles = @[NSLocalizedString(@"姓名", nil),NSLocalizedString(@"性别", nil),NSLocalizedString(@"证件类型", nil),NSLocalizedString(@"证件号码", nil),NSLocalizedString(@"电话号码", nil),NSLocalizedString(@"证件地址", nil)];
-    NSArray *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"未选择", nil),NSLocalizedString(@"请选择证件类型", nil),NSLocalizedString(@"请填写证件号码", nil),NSLocalizedString(@"请填写电话号码", nil),NSLocalizedString(@"请填写证件地址", nil)];
+    NSArray *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"请选择性别", nil),NSLocalizedString(@"请选择证件类型", nil),NSLocalizedString(@"请填写证件号码", nil),NSLocalizedString(@"请填写电话号码", nil),NSLocalizedString(@"请填写证件地址", nil)];
     for (NSInteger i = 0; i < titles.count; i++) {
         UILabel *label = [[UILabel alloc] init];
         label.text = titles[i];
@@ -157,6 +159,8 @@
             self.genderField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
         } else if (i == 2) {
             self.ownercerttypeField = field;
+            self.ownercerttypeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+            
         } else if (i == 3) {
             self.ownercertidField = field;
         } else if (i == 4) {
@@ -168,10 +172,10 @@
     
     
     self.agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _agreeBtn.selected = YES;
-    [_agreeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    _agreeBtn.selected = YES;
+    [_agreeBtn addTarget:self action:@selector(serviceBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_agreeBtn setImage:[UIImage imageNamed:@"check grey"] forState:UIControlStateNormal];
-    [_agreeBtn setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
+    [_agreeBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
     [self.view addSubview:_agreeBtn];
     [_agreeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(12 * WidthCoefficient);
@@ -182,14 +186,37 @@
     
     UILabel *agreeLabel = [[UILabel alloc] init];
     agreeLabel.textAlignment = NSTextAlignmentLeft;
-    agreeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
-    agreeLabel.text = NSLocalizedString(@"同意DS connect 用户隐私政策", nil);
+    agreeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    agreeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:12];
+    agreeLabel.text = NSLocalizedString(@"同意", nil);
     [self.view addSubview:agreeLabel];
     [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_agreeBtn.right).offset(12 * WidthCoefficient);
-        make.width.equalTo(214.5 * WidthCoefficient);
+        make.width.equalTo(30 * WidthCoefficient);
         make.height.equalTo(16 * HeightCoefficient);
        make.top.equalTo(whiteV.bottom).offset(16 * HeightCoefficient);
+    }];
+    
+    
+    
+//    NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
+//    NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
+//    [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
+//    
+    
+    self.serviceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _serviceBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_serviceBtn addTarget:self action:@selector(serviceBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_serviceBtn setTitle:NSLocalizedString(@"<DS connect 用户隐私政策>", nil) forState:UIControlStateNormal];
+    [_serviceBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
+    _serviceBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
+//    [serviceBtn setBackgroundColor:[UIColor colorWithHexString:@"#999999"]];
+    [self.view addSubview:_serviceBtn];
+    [_serviceBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(agreeLabel.right).offset(0 * WidthCoefficient);
+        make.width.equalTo(180 * WidthCoefficient);
+        make.height.equalTo(16 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(16 * HeightCoefficient);
     }];
     
     
@@ -205,7 +232,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(agreeLabel.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(_serviceBtn.bottom).offset(24 * HeightCoefficient);
     }];
     
     self.picker = [[UIPickerView alloc] init];
@@ -223,8 +250,6 @@
 
 - (void)genderDoneAction:(UIBarButtonItem *)barButton {
     _genderField.text = self.genders[[self.picker selectedRowInComponent:0]];
-    
-    
 }
 
 - (void)certtypeDoneAction:(UIBarButtonItem *)barButton {
@@ -243,6 +268,7 @@
     return YES;
 }
 
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
@@ -259,7 +285,21 @@
     return [[NSAttributedString alloc] initWithString:self.dataSource[row] attributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 
+- (void)serviceBtnClick:(UIButton *)sender {
+
+    if (self.agreeBtn == sender) {
+          sender.selected = !sender.selected;
+    }
+    if (self.serviceBtn == sender) {
+        
+        PrivacypolicyController *privacypolicyVC = [[PrivacypolicyController alloc] init];
+        [self.navigationController pushViewController:privacypolicyVC animated:YES];
+    }
+
+}
+
 - (void)nextBtnClick:(UIButton *)sender {
+    
     if (!self.usernameField.text || [self.usernameField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写姓名", nil)];
         return;
@@ -277,6 +317,11 @@
         return;
     } else if (!self.ownercertaddrField.text || [self.ownercertaddrField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写证件地址", nil)];
+        return;
+    }
+    else if (_agreeBtn.selected == NO)
+    {
+        [MBProgressHUD showText:NSLocalizedString(@"请同意隐私条款", nil)];
         return;
     }
     RNRInput *rnrInfo = [[RNRInput alloc] init];

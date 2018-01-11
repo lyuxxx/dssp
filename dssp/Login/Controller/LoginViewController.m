@@ -152,6 +152,7 @@
         make.width.equalTo(150 * WidthCoefficient);
     }];
 
+
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
     _phoneField.textColor = [UIColor whiteColor];
@@ -190,6 +191,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
+
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -532,7 +534,7 @@
                         
                             if ((NSNull *)vin == [NSNull null]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-                                [defaults1 setObject:@"0" forKey:@"vin"];
+                                [defaults1 setObject:@"" forKey:@"vin"];
                                 [defaults1 synchronize];
                             }
                             else
