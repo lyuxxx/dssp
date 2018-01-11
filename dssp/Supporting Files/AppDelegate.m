@@ -44,13 +44,6 @@
     
     [self config];
     
-    
-   
-    
-   
-    
-   
-    
     return YES;
 }
 
@@ -83,6 +76,47 @@
 }
 
 #pragma mark - 个推推送相关 -
+
+- (void)registerLocalNotificationWithInfo:(NSDictionary *)info {
+    if (@available(iOS 10.0, *)) {
+        // 使用 UNUserNotificationCenter 来管理通知
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        //需创建一个包含待通知内容的 UNMutableNotificationContent 对象，注意不是 UNNotificationContent ,此对象为不可变对象。
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        content.title = info[@"title"];
+        content.body = info[@"content"];
+        content.sound = [UNNotificationSound defaultSound];
+        
+        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:0.1 repeats:NO];
+        
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"com.capsa.dssp.local" content:content trigger:trigger];
+        
+        [center addNotificationRequest:request withCompletionHandler:nil];
+    } else {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        // 设置触发通知的时间
+        NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+        
+        notification.fireDate = fireDate;
+        // 时区
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        // 设置重复的间隔
+        notification.repeatInterval = 0;
+        // 通知标题
+        if (@available(iOS 8.2, *)) {
+            notification.alertTitle = info[@"title"];
+        } else {
+            // Fallback on earlier versions
+        }
+        // 通知内容
+        notification.alertBody = info[@"content"];
+        // 通知被触发时播放的声音
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        
+        // 执行通知注册
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+}
 
 - (void)showLogout {
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
@@ -129,6 +163,7 @@
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
         tabVC.selectedIndex = 1;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Disco erVCneedRefresh" object:nil];
     }
 }
 
@@ -176,16 +211,17 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSString *tag = userInfo[@"TransmissionContent"];
+    NSString *tag = userInfo[@"tag"];
     NSLog(@"fetchRemote:%@ tag:%@",userInfo,tag);
     [GeTuiSdk handleRemoteNotification:userInfo];
     [self gotoMessageVC];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
+//iOS10之后回调
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
-    NSString *tag = userInfo[@"TransmissionContent"];
+    NSString *tag = userInfo[@"tag"];
     NSLog(@"前台收到推送:%@\n%@ tag:%@",userInfo,notification.request.content,tag);
     if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于前台时远程推送接收
@@ -199,13 +235,15 @@
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     [self gotoMessageVC];
     NSDictionary *userInfo = response.notification.request.content.userInfo;
-    NSString *tag = userInfo[@"TransmissionContent"];
+    NSString *tag = userInfo[@"tag"];
     NSLog(@"后台收到推送:%@\n%@ tag:%@",userInfo,response.notification.request.content,tag);
     if ([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时远程推送接收
         [GeTuiSdk handleRemoteNotification:response.notification.request.content.userInfo];
-    } else {
+        [self gotoMessageVC];
+    } else if ([response.notification.request.trigger isKindOfClass:[UNTimeIntervalNotificationTrigger class]]) {
         //应用处于后台时本地推送接收
+        [self gotoMessageVC];
     }
     completionHandler();
 }
@@ -232,6 +270,8 @@
         NSString *tag = dic[@"tag"];
         if ([tag isEqualToString:@"login_exception"]) {
             [self showLogout];
+        } else {
+            [self registerLocalNotificationWithInfo:dic];
         }
     }
     
