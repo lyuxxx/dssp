@@ -24,29 +24,25 @@
 @property (nonatomic, strong) UIButton *deleteBtn;
  @property (nonatomic, strong) NSMutableArray *noticeDatas;
 @property (nonatomic, strong) NoticeModel *notice;
+@property (nonatomic, assign) BOOL end;
 @end
 
 @implementation NoticeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
+    
     self.view.backgroundColor= [UIColor redColor];
-   
     [self requestNoticeData];
     [self createTable];
-//    [self.tableView.mj_footer beginRefreshing];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DiscoverVCneedRefresh:) name:@"DiscoverVCneedRefresh" object:nil];
-
+    [self.tableView.mj_footer beginRefreshing];
 }
 
-- (void)DiscoverVCneedRefresh:(NSNotification *)notification{
-    
-    NSLog(@"%@",notification.userInfo);
-    if (notification) {
-//        [self ]
-    }
-    NSLog(@"---接收到通知---");
+- (void)executeNotification {
+    [self.tableView.mj_footer beginRefreshing];
+    NSLog(@"－－－－－接收到通知------");
 }
 
 -(void)dealloc
@@ -55,12 +51,28 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    [self requestNoticeData];
-    [self createTable];
-    
+//-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//
+//    [self requestNoticeData];
+//    [self createTable];
+//
+//}
+
+- (void)setupFooter {
+    if (self.tableView.mj_footer == nil) {
+        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
+        //    footer.refreshingTitleHidden = YES;
+        if (self.end) {
+            [footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        }
+        footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
+        self.tableView.mj_footer = footer;
+    } else {
+        if (self.end) {
+            [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
+        }
+    }
 }
 
 
@@ -70,21 +82,10 @@
         make.edges.equalTo(self.view);
 
     }];
-
-//    [self setupFooter];
+    [self setupFooter];
 }
 
-- (void)setupFooter {
-    if (self.tableView.mj_footer == nil) {
-        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
-        //    footer.refreshingTitleHidden = YES;
-        [footer setTitle:[NSString stringWithFormat:@"一共%ld个通知",self.dataSource.count] forState:MJRefreshStateIdle];
-        footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
-        self.tableView.mj_footer = footer;
-    } else {
-        [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个通知",self.dataSource.count] forState:MJRefreshStateIdle];
-    }
-}
+
 
 -(void)requestNoticeData
 {

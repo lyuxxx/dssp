@@ -133,8 +133,7 @@
                 
                 NSDictionary *paras = @{
                                         
-                                        };
-                
+                                    };
 //                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -164,7 +163,13 @@
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
         tabVC.selectedIndex = 1;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"Disco erVCneedRefresh" object:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DiscoverVCneedRefresh" object:nil userInfo:nil];
+        });
+        
+        
+
     }
 }
 

@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification:) name:@"DiscoverVCneedRefresh" object:nil];
     // Do any additional setup after loading the view.
     [self requestData];
     [self setupUI];
@@ -36,9 +38,16 @@
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:)name:@"tongzhi" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndex:) name:@"changeIndex" object:nil];
-    
+   
     
 }
+
+//- (void)executeNotification:(NSNotification *)text {
+//    
+//    NSLog(@"－－－－－接收到通知------");
+//    
+//}
+
 
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
