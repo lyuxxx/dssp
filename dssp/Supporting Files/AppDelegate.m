@@ -72,6 +72,28 @@
 
 #pragma mark - 个推推送相关 -
 
+#pragma mark -BadgeNumber相关-
+
+- (void)setBadgeNumber:(NSInteger)number {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
+    [GeTuiSdk setBadge:number];
+}
+
+- (void)decreaseBadgeNumber {
+    NSInteger oriNum = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    if (oriNum < 1) {
+        return;
+    }
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:--oriNum];
+    [GeTuiSdk setBadge:--oriNum];
+}
+
+- (void)increaseBadgeNumber {
+    NSInteger oriNum = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:++oriNum];
+    [GeTuiSdk setBadge:++oriNum];
+}
+
 - (void)registerLocalNotificationWithInfo:(NSDictionary *)info {
     if (@available(iOS 10.0, *)) {
         // 使用 UNUserNotificationCenter 来管理通知

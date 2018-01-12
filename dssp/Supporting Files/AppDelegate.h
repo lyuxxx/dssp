@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+//ApplicationBadgeNumber相关
+- (void)setBadgeNumber:(NSInteger)number;
+- (void)decreaseBadgeNumber;
+- (void)increaseBadgeNumber;
 
 @end
 
