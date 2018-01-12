@@ -97,7 +97,7 @@ static dispatch_once_t mapBaseOnceToken;
             }
         } else {
             NSString *msg = dic[@"msg"];
-            if (dic[@"data"][@"id"]) {
+            if (dic[@"data"][@"id"] && ![dic[@"data"][@"id"] isEqualToString:@""]) {
                 msg = NSLocalizedString(@"该点已收藏!", nil);
                 hud.label.text = msg;
                 [hud hideAnimated:YES afterDelay:1];
