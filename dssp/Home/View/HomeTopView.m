@@ -82,10 +82,10 @@
         
         self.previewImgV = [[NoResponseImgView alloc] init];
         _previewImgV.layer.cornerRadius = 4;
-        _previewImgV.layer.shadowOffset = CGSizeMake(0, 0);
+        _previewImgV.layer.shadowOffset = CGSizeMake(0, 7.5);
         _previewImgV.layer.shadowColor = [UIColor colorWithHexString:@"#333333"].CGColor;
-        _previewImgV.layer.shadowOpacity = 0.2;
-        _previewImgV.layer.shadowRadius = 14.5;
+        _previewImgV.layer.shadowOpacity = 0.3;
+        _previewImgV.layer.shadowRadius = 15;
         _previewImgV.backgroundColor = [UIColor colorWithHexString:@"#3a302f"];
         _previewImgV.userInteractionEnabled = YES;
         [self addSubview:_previewImgV];
