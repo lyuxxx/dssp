@@ -152,6 +152,10 @@
         make.width.equalTo(150 * WidthCoefficient);
     }];
 
+//    _userNameField.text = @"15871707603";
+//     _userNameField.text = @"15907157363";
+
+
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
     _phoneField.textColor = [UIColor whiteColor];
@@ -190,6 +194,9 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
+
+//    _passWordField.text = @"123456";
+
     
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -350,7 +357,6 @@
                     // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-                        
                         _phoneCodeField.text = dic[@"data"];
                         
                     } else {
@@ -404,8 +410,6 @@
     }
     if (sender == self.forgotPassword) {
         ForgotViewController *VC = [[ForgotViewController alloc] init];
-        
-       
 //         NavigationController *naVC = [[NavigationController alloc] initWithRootViewController:VC];
 //        [self presentViewController:naVC animated:NO completion:nil];
        [self.navigationController pushViewController:VC animated:YES];

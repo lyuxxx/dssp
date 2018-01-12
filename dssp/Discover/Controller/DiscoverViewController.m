@@ -20,6 +20,7 @@
 @property(nonatomic,strong) UIButton *noticeBtn;
 @property(nonatomic,strong) UIView *line1;
 @property(nonatomic, strong) UIScrollView * scrollView;
+@property(nonatomic, copy) NSString *str;
 @property(nonatomic, strong) NoticeViewController * noticeVC; //通知
 @property(nonatomic, strong) SubscribeViewController * subscribeVC; //订阅
 @end
@@ -62,13 +63,12 @@
 //
 //}
 
-
 -(void)requestData
 {
     NSDictionary *paras = @{
                        
                             };
-   NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000000002",findUnreadNumberByVin];
+   NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findUnreadNumberByVin,kVin];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
@@ -77,6 +77,8 @@
             [hud hideAnimated:YES];
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             // [_tableView reloadData];
+            self.str =dic[@"data"];
+            NSLog(@"666%@",self.str);
             //响应事件
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
@@ -126,6 +128,9 @@
                               NSLocalizedString(@"订阅", nil),
                            
                               ];
+    
+    
+ 
     NSArray *imgArray = @[
                               NSLocalizedString(@"通知_icon", nil),
                               NSLocalizedString(@"订阅_icon", nil),
@@ -162,6 +167,9 @@
         label.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
         label.font = [UIFont fontWithName:FontName size:16];
         [_noticeBtn addSubview:label];
+        
+        
+        
         
         
         UILabel *bottomLabel = [[UILabel alloc] init];

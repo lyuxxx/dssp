@@ -12,6 +12,7 @@
 #import "WMPageController.h"
 #import "SubscribeModel.h"
 #import "SubscribedatailController.h"
+#import <MJRefresh.h>
 @interface WMViewController ()<UITableViewDataSource,UITableViewDelegate,WMPageControllerDelegate,WMPageControllerDataSource>
 @property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, weak) UILabel *label;
@@ -24,26 +25,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
-    [self requestData];
+    
   
+    [self initTableView];
+
+    [self pullDownToRefreshLatestNews];
    
-   
-//    self.delegate = self;
-////
-//    self.postNotification = YES;
+    [self.tableView.mj_header beginRefreshing];
+
 
 }
 
-//
-//- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
-//
-//    NSLog(@"%@",info);
-//
-//     pageController.postNotification = YES;
-//     pageController.delegate = self;
-//    viewController.title = info[@"title"];
-//
-//}
+- (void)pullDownToRefreshLatestNews {
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+    // 设置header
+    //    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
+    [_tableView.mj_header beginRefreshing];
+}
+
+
+
 
 
 -(void)requestData
@@ -69,19 +70,18 @@
                 ChannelModel *channel = [ChannelModel yy_modelWithDictionary:dic];
                 [self.channelArray addObject:channel];
             }
-
-           
-            
-            [self initTableView];
+            [self.tableView.mj_header endRefreshing];
             [_tableView reloadData];
             //响应事件
             
         } else {
-            [self initTableView];
+//            [self initTableView];
+             [self.tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        [self initTableView];
+//        [self initTableView];
+         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];
@@ -98,9 +98,9 @@
     //    _tableView.tableFooterView = [UIView new];
     //    _tableView.tableHeaderView = [UIView new];
     //取消cell的线
-    if (self.channelArray.count ==0 ) {
+//    if (self.channelArray.count ==0 ) {
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
+//    }
 //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //    adjustsScrollViewInsets_NO(tableView,self);
     _tableView.delegate=self;
@@ -119,6 +119,7 @@
     }];
 }
 
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellID = @"MineCellName";
@@ -126,7 +127,6 @@
     if (cell == nil) {
         cell = [[SubscriCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    
     //    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
     //    cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
     //    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];

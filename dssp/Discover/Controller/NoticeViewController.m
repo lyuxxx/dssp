@@ -25,6 +25,7 @@
  @property (nonatomic, strong) NSMutableArray *noticeDatas;
 @property (nonatomic, strong) NoticeModel *notice;
 @property (nonatomic, assign) BOOL end;
+@property (nonatomic, assign) BOOL ends;
 @end
 
 @implementation NoticeViewController
@@ -35,13 +36,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
     
     self.view.backgroundColor= [UIColor redColor];
-    [self requestNoticeData];
+//    [self requestNoticeData];
     [self createTable];
-    [self.tableView.mj_footer beginRefreshing];
+    [self pullDownToRefreshLatestNews];
+ 
+    [self.tableView.mj_header beginRefreshing];
+  
 }
 
 - (void)executeNotification {
-    [self.tableView.mj_footer beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];
     NSLog(@"－－－－－接收到通知------");
 }
 
@@ -50,31 +54,23 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
-//-(void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//
-//    [self requestNoticeData];
-//    [self createTable];
-//
-//}
-
-- (void)setupFooter {
-    if (self.tableView.mj_footer == nil) {
-        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
-        //    footer.refreshingTitleHidden = YES;
-        if (self.end) {
-            [footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
-        }
-        footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
-        self.tableView.mj_footer = footer;
-    } else {
-        if (self.end) {
-            [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:[NSString stringWithFormat:@"一共%ld个收藏",self.dataSource.count] forState:MJRefreshStateIdle];
-        }
-    }
+- (void)pullDownToRefreshLatestNews {
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
+    // 设置header
+//    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
+    [_tableView.mj_header beginRefreshing];
+    
+    
+//    header.lastUpdatedTimeLabel.hidden = YES;
+//    // 隐藏状态
+//    header.stateLabel.hidden = YES;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestNoticeData];
+    [self createTable];
+}
 
 - (void)createTable {
     [self.view addSubview:self.tableView];
@@ -82,17 +78,14 @@
         make.edges.equalTo(self.view);
 
     }];
-    [self setupFooter];
 }
-
-
 
 -(void)requestNoticeData
 {
     NSDictionary *paras = @{
                             
                           };
-    NSString *NumberByVin = [NSString stringWithFormat:@"%@/VF7CAPSA000020155",findAppPushInboxTitleByVin];
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,kVin];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
@@ -101,32 +94,30 @@
             _noticeDatas =[NSMutableArray new];
             for (NSDictionary *dic in dataArray) {
                 self.notice = [NoticeModel yy_modelWithDictionary:dic];
-                [self.dataSource addObject:_notice];
+                [self.noticeDatas addObject:_notice];
             }
+            self.dataSource = _noticeDatas;
 //            [self.dataSource addObjectsFromArray:resultArr];
-            
 //            [self.dataSource addObjectsFromArray:_noticeDatas];
             [_tableView reloadData];
-            [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_header endRefreshing];
             
         } else {
-            [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
         
-         [self.tableView.mj_footer endRefreshing];
+         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
        
     }];
 }
 
-
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
     if (indexPaths.count == 1) {
-        
         NSDictionary *paras = @{
                                 @"readStatus":@"0",
                                 @"isDel":@"1",
@@ -263,9 +254,7 @@
     }
 }
 
-
 #pragma mark - MGSwipeTableCellDelegate
-
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
     NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
     NSIndexPath *indexPathM = self.dataSource[tmp.row];

@@ -32,7 +32,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self requestData];
     [self initTableView];
-    [self setupUI];
+   
    
  
 }
@@ -47,14 +47,14 @@
     NSDictionary *paras = @{
                           
                          };
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,@"VF7CAPSA000020155"];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", findSimRealTimeFlowByIccid,kVin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-          
+        
             [_tableView reloadData];
             [self setupUI];
         } else {
@@ -99,14 +99,16 @@
     _headerView.backgroundColor=[UIColor whiteColor];
     _tableView.tableHeaderView=_headerView;
     
+    
+     [self setupUI];
 }
 
--(void)setCarflow:(CarflowModel *)carflow
-{
-     _totalflowlabel.text=[NSString stringWithFormat:@"%@",carflow.totalFlow];
-     _flowlabel.text=[NSString stringWithFormat:@"%@",carflow.remainFlow];
-     _employflowlabel.text= [NSString stringWithFormat:@"%@",carflow.useFlow]?[NSString stringWithFormat:@"%@",carflow.useFlow]:@"0";
-}
+//-(void)setCarflow:(CarflowModel *)carflow
+//{
+//     _totalflowlabel.text=[NSString stringWithFormat:@"%@",carflow.totalFlow];
+//     _flowlabel.text=[NSString stringWithFormat:@"%@",carflow.remainFlow];
+//     _employflowlabel.text= [NSString stringWithFormat:@"%@",carflow.useFlow]?[NSString stringWithFormat:@"%@",carflow.useFlow]:@"0";
+//}
 
 -(void)setupUI
 {
@@ -126,14 +128,26 @@
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
-    
+//
 
-    
-    NSString *remainFlow = [[NSString stringWithFormat:@"%@",_carflow.remainFlow] stringByAppendingString:@"M"];
+   
+//    NSString *remainFlow = [[NSString stringWithFormat:@"%@",_carflow.remainFlow] stringByAppendingString:@"M"];
+    double aNumber = [_carflow.remainFlow doubleValue];
+    NSString *remainFlow = [[NSString stringWithFormat:@"%.2f",aNumber] stringByAppendingString:@"M"];
     self.flowlabel = [[UILabel alloc] init];
     _flowlabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:28];
     _flowlabel.textColor=[UIColor whiteColor];
-    _flowlabel.text = _carflow.remainFlow?remainFlow:@"0M";
+    NSInteger k = [_carflow.remainFlow integerValue];
+    if (k < 0) {
+        _flowlabel.text = @"0M";
+    }
+    else
+    {
+        _flowlabel.text = [remainFlow isEqualToString:@"0.00M"]?@"0M":remainFlow;
+    
+    }
+   
+//    _flowlabel.text = _carflow.remainFlow?remainFlow:@"0M";
     _flowlabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:_flowlabel];
     [_flowlabel makeConstraints:^(MASConstraintMaker *make) {

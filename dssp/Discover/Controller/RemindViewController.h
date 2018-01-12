@@ -8,11 +8,15 @@
 
 #import "BaseViewController.h"
 #import "NoticeModel.h"
+
+typedef void(^RemindBackBlcok) (NSString *text);
 @interface RemindViewController : BaseViewController
 @property(nonatomic,copy) NSString *vin;
 @property(nonatomic,copy) NSString *businType;
 @property(nonatomic,copy) NSString *noticeId;
 @property (nonatomic,strong) NoticedatailModel *notice;
 - (instancetype)initWithImage:(UIImage *)image title:(NSString *)title message:(NSString *)message;
-
+@property (nonatomic,copy)RemindBackBlcok remindBackBlcok;
 @end
+
+

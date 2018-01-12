@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
-@interface PrivacypolicyController : BaseViewController
 
+typedef void(^CallBackBlcok) (NSString *text);
+@interface PrivacypolicyController : BaseViewController
+@property (nonatomic,copy)CallBackBlcok callBackBlock;
 @end

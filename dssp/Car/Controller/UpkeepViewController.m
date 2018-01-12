@@ -68,21 +68,21 @@
     }];
     
     
-    UIView *whiteView = [UIView new];
-    whiteView.backgroundColor = [UIColor whiteColor];
-    whiteView.layer.cornerRadius = 4;
-    whiteView.layer.shadowOpacity = 0.5;// 阴影透明度
-    whiteView.layer.shadowOffset = CGSizeMake(0,7.5);
-    whiteView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteView.layer.shadowRadius = 20.5;//阴影半径，默认3
-    [self.view addSubview:whiteView];
-    [whiteView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(116 * HeightCoefficient);
-        make.height.equalTo(70 * HeightCoefficient);
-        make.width.equalTo(343 * WidthCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
-    }];
-    
+//    UIView *whiteView = [UIView new];
+//    whiteView.backgroundColor = [UIColor whiteColor];
+//    whiteView.layer.cornerRadius = 4;
+//    whiteView.layer.shadowOpacity = 0.5;// 阴影透明度
+//    whiteView.layer.shadowOffset = CGSizeMake(0,7.5);
+//    whiteView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteView.layer.shadowRadius = 20.5;//阴影半径，默认3
+//    [self.view addSubview:whiteView];
+//    [whiteView makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(116 * HeightCoefficient);
+//        make.height.equalTo(70 * HeightCoefficient);
+//        make.width.equalTo(343 * WidthCoefficient);
+//        make.left.equalTo(16 * WidthCoefficient);
+//    }];
+//
     
     UIView *line = [[UIView alloc] init];
     line.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
@@ -171,74 +171,74 @@
     }];
     
     
-    UIView *lineView = [UIView new];
-    lineView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
-    
-    [whiteView addSubview:lineView];
-    [lineView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(15 * HeightCoefficient);
-        make.height.equalTo(40 * HeightCoefficient);
-        make.width.equalTo(1 * WidthCoefficient);
-        make.left.equalTo(171 * WidthCoefficient);
-    }];
-    
-    
-    UILabel *employflowlabel = [[UILabel alloc] init];
-    employflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
-    employflowlabel.textColor=[UIColor blackColor];
-    employflowlabel.text=NSLocalizedString(@"100km", nil);
-    employflowlabel.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:employflowlabel];
-    [employflowlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(13*HeightCoefficient);
-        make.height.equalTo(25 * HeightCoefficient);
-        make.left.equalTo(0);
-        make.right.equalTo(lineView.left).offset(0);
-    }];
-    
-    
-    UILabel *employflow = [[UILabel alloc] init];
-    employflow.font=[UIFont fontWithName:FontName size:11];
-    employflow.textColor=[UIColor colorWithHexString:@"#A18E79"];
-    employflow.text=NSLocalizedString(@"行驶里程", nil);
-    employflow.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:employflow];
-    [employflow makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(employflowlabel.bottom).offset(5 * HeightCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
-        make.left.equalTo(0);
-        make.right.equalTo(lineView.left).offset(0);
-    }];
-    
-    
-    UILabel *totalflowlabel = [[UILabel alloc] init];
-    totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
-    totalflowlabel.textColor=[UIColor blackColor];
-    totalflowlabel.text=NSLocalizedString(@"100km", nil);
-    totalflowlabel.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:totalflowlabel];
-    [totalflowlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(13*HeightCoefficient);
-        make.height.equalTo(25 * HeightCoefficient);
-        make.left.equalTo(lineView.left).offset(0);
-        make.right.equalTo(0);
-    }];
-    
-    
-    UILabel *totalflow = [[UILabel alloc] init];
-    totalflow.font=[UIFont fontWithName:FontName size:11];
-    totalflow.textColor=[UIColor colorWithHexString:@"#A18E79"];
-    totalflow.text=NSLocalizedString(@"总里程", nil);
-    totalflow.textAlignment = NSTextAlignmentCenter;
-    [whiteView addSubview:totalflow];
-    [totalflow makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(totalflowlabel.bottom).offset(5 * HeightCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
-        make.right.equalTo(0);
-        make.left.equalTo(lineView.left).offset(0);
-    }];
-    
-    
+//    UIView *lineView = [UIView new];
+//    lineView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+//
+//    [whiteView addSubview:lineView];
+//    [lineView makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(15 * HeightCoefficient);
+//        make.height.equalTo(40 * HeightCoefficient);
+//        make.width.equalTo(1 * WidthCoefficient);
+//        make.left.equalTo(171 * WidthCoefficient);
+//    }];
+//
+//
+//    UILabel *employflowlabel = [[UILabel alloc] init];
+//    employflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
+//    employflowlabel.textColor=[UIColor blackColor];
+//    employflowlabel.text=NSLocalizedString(@"100km", nil);
+//    employflowlabel.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:employflowlabel];
+//    [employflowlabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(13*HeightCoefficient);
+//        make.height.equalTo(25 * HeightCoefficient);
+//        make.left.equalTo(0);
+//        make.right.equalTo(lineView.left).offset(0);
+//    }];
+//
+//
+//    UILabel *employflow = [[UILabel alloc] init];
+//    employflow.font=[UIFont fontWithName:FontName size:11];
+//    employflow.textColor=[UIColor colorWithHexString:@"#A18E79"];
+//    employflow.text=NSLocalizedString(@"行驶里程", nil);
+//    employflow.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:employflow];
+//    [employflow makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(employflowlabel.bottom).offset(5 * HeightCoefficient);
+//        make.height.equalTo(15 * HeightCoefficient);
+//        make.left.equalTo(0);
+//        make.right.equalTo(lineView.left).offset(0);
+//    }];
+//
+//
+//    UILabel *totalflowlabel = [[UILabel alloc] init];
+//    totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
+//    totalflowlabel.textColor=[UIColor blackColor];
+//    totalflowlabel.text=NSLocalizedString(@"100km", nil);
+//    totalflowlabel.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:totalflowlabel];
+//    [totalflowlabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(13*HeightCoefficient);
+//        make.height.equalTo(25 * HeightCoefficient);
+//        make.left.equalTo(lineView.left).offset(0);
+//        make.right.equalTo(0);
+//    }];
+//
+//
+//    UILabel *totalflow = [[UILabel alloc] init];
+//    totalflow.font=[UIFont fontWithName:FontName size:11];
+//    totalflow.textColor=[UIColor colorWithHexString:@"#A18E79"];
+//    totalflow.text=NSLocalizedString(@"总里程", nil);
+//    totalflow.textAlignment = NSTextAlignmentCenter;
+//    [whiteView addSubview:totalflow];
+//    [totalflow makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(totalflowlabel.bottom).offset(5 * HeightCoefficient);
+//        make.height.equalTo(15 * HeightCoefficient);
+//        make.right.equalTo(0);
+//        make.left.equalTo(lineView.left).offset(0);
+//    }];
+//
+//
     UIView *bottomView = [UIView new];
     bottomView.backgroundColor = [UIColor whiteColor];
     bottomView.layer.cornerRadius = 4;
@@ -248,13 +248,13 @@
     bottomView.layer.shadowRadius = 20.5;//阴影半径，默认3
     [self.view addSubview:bottomView];
     [bottomView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(whiteView.bottom).offset(20 * HeightCoefficient);
+        make.top.equalTo(116 * HeightCoefficient);
         make.height.equalTo(100 * HeightCoefficient);
         make.width.equalTo(343 * WidthCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
     }];
-    
-    
+
+
     UILabel *phone = [[UILabel alloc] init];
     phone.font=[UIFont fontWithName:FontName size:16];
     phone.textColor=[UIColor colorWithHexString:@"#AC0042"];

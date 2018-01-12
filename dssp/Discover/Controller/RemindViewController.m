@@ -8,6 +8,7 @@
 
 #import "RemindViewController.h"
 #import <YYCategories.h>
+#import "NoticeViewController.h"
 @interface RemindViewController ()
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, copy) NSString *intro;
@@ -56,6 +57,12 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
 //            NoticedatailModel *notice = [NoticedatailModel yy_modelWithDictionary:dic[@"data"]];
 //            self.notice = notice;
+//            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//            [defaults1 setObject:@"1" forKey:@"notice"];
+//            [defaults1 synchronize];
+            
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"NoticeVCneedRefresh" object:nil userInfo:nil];
+            
             
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
@@ -89,12 +96,18 @@
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        
-      
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];
 }
+
+//- (UIBarButtonItem *)rt_customBackBarItemWithTarget:(id)target action:(SEL)action {
+//    
+//    NoticeViewController *noticeView =[[NoticeViewController alloc] init];
+////    return [[UIBarButtonItem alloc] initWithTitle:@"back" target:nil action:nil];
+////    return [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:@"1" action:@"1"];
+////    return 1;
+//}
 
 -(void)setNotice:(NoticedatailModel *)notice
 {
@@ -151,7 +164,7 @@
     }];
     
     self.msgLabel = [[UILabel alloc] init];
-    _msgLabel.textAlignment = NSTextAlignmentCenter;
+    _msgLabel.textAlignment = NSTextAlignmentLeft;
     _msgLabel.numberOfLines = 0;
     _msgLabel.font = [UIFont fontWithName:FontName size:13];
     _msgLabel.textColor = [UIColor colorWithHexString:@"#666666"];

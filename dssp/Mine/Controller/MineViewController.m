@@ -64,7 +64,7 @@
   @[@[@"signout",@"退出登录"]]];
     
     
-//    [self RealnameUserName];
+//  [self RealnameUserName];
     [self initTableView];
     [self setupUI];
 }
@@ -74,7 +74,6 @@
     [super viewWillAppear:animated];
     [self.mgr startUpdatingLocation];
 }
-
 
 - (CLLocationManager *)mgr
 {
@@ -204,9 +203,6 @@
 
 -(void)setupUI
 {
-    
-   
-    
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
     _headerView.backgroundColor=[UIColor whiteColor];
     _tableView.tableHeaderView=_headerView;
@@ -318,7 +314,6 @@
         make.height.equalTo(15 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
     }];
-    
     
     self.bindingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _bindingBtn.frame=CGRectMake(283 * WidthCoefficient, 20*HeightCoefficient, 60 * WidthCoefficient, 24 *HeightCoefficient);
@@ -524,7 +519,6 @@
     }
     else if (indexPath.section == 1)
     {
-        
         if (indexPath.row==0) {
             
             InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
@@ -545,10 +539,12 @@
                                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"] || [dic[@"code"] isEqualToString:@"ERROR1003"]) {
                                     [hud hideAnimated:YES];
                                     //响应事件
+
                                     LoginViewController *vc=[[LoginViewController alloc] init];
                                     RTRootNavigationController *navc = [[RTRootNavigationController alloc] initWithRootViewController:vc];
                                     navc.hidesBottomBarWhenPushed = YES;
                                     [[UIApplication sharedApplication].delegate.window setRootViewController:navc];
+
                                     } else {
                                     [MBProgressHUD showText:dic[@"msg"]];
                                     }
@@ -563,11 +559,6 @@
                 {
                     //右边按钮
                     NSLog(@"666%@",str);
-                    
-                   
-                
-                    
-                    
                 }
                 
             };

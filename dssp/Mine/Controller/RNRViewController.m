@@ -40,6 +40,8 @@
 @property (nonatomic,strong) UIButton *agreeBtn;
 @property (nonatomic,strong) UIButton *serviceBtn;
 
+@property (nonatomic, copy) NSString *agree;
+
 @end
 
 @implementation RNRViewController
@@ -55,7 +57,7 @@
 }
 
 - (void)setupUI {
-    
+
     _typeid = @[
                 NSLocalizedString(@"IDCARD", nil),
                 NSLocalizedString(@"OTHERLICENCE", nil),
@@ -288,12 +290,40 @@
 - (void)serviceBtnClick:(UIButton *)sender {
 
     if (self.agreeBtn == sender) {
-          sender.selected = !sender.selected;
+
+        if (self.agreeBtn.selected == YES) {
+            self.agreeBtn.selected = NO;
+        }
+        else
+        {
+        PrivacypolicyController *privacypolicyVC = [[PrivacypolicyController alloc] init];
+        privacypolicyVC.callBackBlock = ^(NSString *text){   // 1
+          
+                  _agree =text;
+                  self.agreeBtn.selected = YES;
+    
+        };
+        [self.navigationController pushViewController:privacypolicyVC animated:YES];
+//            [MBProgressHUD showText:NSLocalizedString(@"请先同意用户隐私条款", nil)];
+        }
     }
     if (self.serviceBtn == sender) {
         
-        PrivacypolicyController *privacypolicyVC = [[PrivacypolicyController alloc] init];
-        [self.navigationController pushViewController:privacypolicyVC animated:YES];
+        if (self.agreeBtn.selected == YES) {
+            self.agreeBtn.selected = NO;
+        }
+        else
+        {
+            PrivacypolicyController *privacypolicyVC = [[PrivacypolicyController alloc] init];
+            privacypolicyVC.callBackBlock = ^(NSString *text){   // 1
+                
+                _agree =text;
+                self.agreeBtn.selected = YES;
+                
+            };
+            [self.navigationController pushViewController:privacypolicyVC animated:YES];
+            //            [MBProgressHUD showText:NSLocalizedString(@"请先同意用户隐私条款", nil)];
+        }
     }
 
 }
@@ -321,7 +351,7 @@
     }
     else if (_agreeBtn.selected == NO)
     {
-        [MBProgressHUD showText:NSLocalizedString(@"请同意隐私条款", nil)];
+        [MBProgressHUD showText:NSLocalizedString(@"请同意用户隐私条款", nil)];
         return;
     }
     RNRInput *rnrInfo = [[RNRInput alloc] init];
@@ -330,8 +360,6 @@
     rnrInfo.gender = [_mfid objectAtIndex:[self.genders indexOfObject:self.genderField.text]];
     
 //    rnrInfo.gender = [NSString stringWithFormat:@"%ld",[self.genders indexOfObject:self.genderField.text]];
-    
-
 //    rnrInfo.ownercerttype = [NSString stringWithFormat:@"%ld",[self.certtypes indexOfObject:self.ownercerttypeField.text] + 1];
     
     rnrInfo.ownercerttype = [_typeid objectAtIndex:[self.certtypes indexOfObject:self.ownercerttypeField.text]];
@@ -369,6 +397,10 @@
     }
     return _certtypes;
 }
+
+
+
+
 
 //- (NSArray<NSString *> *)typeid {
 //    if (!_typeid) {

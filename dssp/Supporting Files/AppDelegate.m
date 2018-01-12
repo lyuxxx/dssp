@@ -34,17 +34,11 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
     LoginViewController *loginVC = [[LoginViewController alloc] init];
-    
     RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
     self.window.rootViewController = naVC;
-    
     [self.window makeKeyAndVisible];
-    
     [self config];
-    
-
     return YES;
 }
 
@@ -140,11 +134,13 @@
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"] || [dic[@"code"] isEqualToString:@"ERROR1003"]) {
 //                        [hud hideAnimated:YES];
                         //响应事件
+
                         LoginViewController *vc=[[LoginViewController alloc] init];
                         RTRootNavigationController *navc = [[RTRootNavigationController alloc] initWithRootViewController:vc];
                         navc.hidesBottomBarWhenPushed = YES;
                         
                         [[UIApplication sharedApplication].delegate.window setRootViewController:navc];
+
                     } else {
                         [MBProgressHUD showText:dic[@"msg"]];
                     }

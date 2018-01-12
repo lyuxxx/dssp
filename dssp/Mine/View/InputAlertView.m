@@ -216,6 +216,8 @@
         btn.tag = 100+i;
         btn.layer.cornerRadius = 4;
         btn.clipsToBounds = YES;
+//        btn.backgroundColor =[UIColor redColor];
+        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [btn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
         [btn.titleLabel setFont:[UIFont systemFontOfSize:16]];
         if (btn.tag ==101) {
@@ -230,8 +232,8 @@
         
         [btn makeConstraints:^(MASConstraintMaker *make) {
                             make.height.equalTo(48*HeightCoefficient);
-                            make.width.equalTo(m *WidthCoefficient /2);
-                            make.left.equalTo(i* (m *WidthCoefficient /2));
+                            make.width.equalTo(270 * WidthCoefficient / 2);
+                            make.left.equalTo(i* (270 * WidthCoefficient /2));
                             make.bottom.equalTo(0*HeightCoefficient);
                     }];
           }

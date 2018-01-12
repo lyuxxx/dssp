@@ -8,6 +8,7 @@
 
 #import "SearchresultViewController.h"
 #import "QueryViewController.h"
+#import "QueryModel.h"
 @interface SearchresultViewController ()
 @property (nonatomic, strong) UITextField *vinField;
 @end
@@ -113,12 +114,15 @@
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
                                 };
-        [CUHTTPRequest POST:checkCerStatusByVin parameters:paras success:^(id responseData) {
+        [CUHTTPRequest POST:queryBindAndRNRStatus parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                 
+                QueryModel *queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
+                
                 QueryViewController *queryVC =[[QueryViewController alloc] init];
+                queryVC.queryModel = queryModel;
                 [self.navigationController pushViewController:queryVC animated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
                 

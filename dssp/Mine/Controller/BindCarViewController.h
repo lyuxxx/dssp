@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+typedef void(^BindCarBackBlcok) (NSString *text);//1
 @interface BindCarViewController : BaseViewController
-
+@property (nonatomic,copy)BindCarBackBlcok BackBlock;//2
 @end

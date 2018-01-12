@@ -10,4 +10,5 @@
 
 @interface RNRViewController : BaseViewController
 @property (nonatomic, copy) NSString *bingVin;
+@property (nonatomic, copy) NSString *names;
 @end

@@ -8,6 +8,7 @@
 
 #import "PrivacypolicyController.h"
 #import <WebKit/WebKit.h>
+#import "RNRViewController.h"
 @interface PrivacypolicyController ()<UIWebViewDelegate>
 @property (nonatomic,strong) UITextView *contentlabel;
 @property (nonatomic,strong) UIWebView  *webView;
@@ -25,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.title = @"条款";
     
     [self setupUI];
@@ -97,7 +100,7 @@
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.layer.cornerRadius = 2;
-    [nextBtn setTitle:NSLocalizedString(@"返回", nil) forState:UIControlStateNormal];
+    [nextBtn setTitle:NSLocalizedString(@"同意", nil) forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
@@ -113,8 +116,15 @@
 
 -(void)nextBtnClick:(UIButton *)btn
 {
-    [self.navigationController popViewControllerAnimated:YES];
     
+    self.callBackBlock(@"同意");
+////    RNRViewController
+//    RNRViewController *RNRViewVC = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
+//    //传递参数过去
+//    RNRViewVC.names = @"1";
+//    //使用popToViewController返回并传值到上一页面
+//    [self.navigationController popToViewController:RNRViewVC animated:true];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

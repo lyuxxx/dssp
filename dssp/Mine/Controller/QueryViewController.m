@@ -39,7 +39,7 @@
         [self.view addSubview:view1];
         
         UIImageView *logo = [[UIImageView alloc] init];
-        logo.image = [UIImage imageNamed:@"selected"];
+//        logo.image = [UIImage imageNamed:@"selected"];
         [view1 addSubview:logo];
         [logo makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(18 * WidthCoefficient);
@@ -51,7 +51,7 @@
     
         UILabel *lab1 = [[UILabel alloc] init];
         lab1.textAlignment = NSTextAlignmentLeft;
-        lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+//        lab1.textColor = [UIColor colorWithHexString:@"#666666"];
         lab1.font = [UIFont fontWithName:FontName size:16];
         lab1.text = titles[i];
         [view1 addSubview:lab1];
@@ -106,12 +106,12 @@
         
         if (i==0) {
             
-            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-           
+//            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
             UILabel *lab = [[UILabel alloc] init];
             lab.textAlignment = NSTextAlignmentLeft;
             lab.textColor = [UIColor colorWithHexString:@"#666666"];
             lab.font = [UIFont fontWithName:FontName size:16];
+            lab.hidden = YES;
             lab.text = NSLocalizedString(@"人工审核", nil);
             [view1 addSubview:lab];
             [lab makeConstraints:^(MASConstraintMaker *make) {
@@ -123,25 +123,68 @@
             }];
             
             
-           
+            if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.certificationStatus isEqualToString:@"6"]) {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                logo.image = [UIImage imageNamed:@"selected"];
+                 lab.hidden = NO;
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"0"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                logo.image = [UIImage imageNamed:@"selected"];
+            }
+            
+    
         }
         if (i==1) {
-            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
             
+            if ([_queryModel.vhlFlowStatus isEqualToString:@"7"]) {
+                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                 logo.image = [UIImage imageNamed:@"selected"];
+                
+
+            }
+            else
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            
+          
         }
         if (i==2) {
             
-            logo.image = [UIImage imageNamed:@"check grey"];
+            if ([_queryModel.serviceStatus isEqualToString:@"0"]) {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            else if ([_queryModel.serviceStatus isEqualToString:@"1"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                logo.image = [UIImage imageNamed:@"selected"];
+            }
+            
         
         }
         if (i==3) {
-            logo.image = [UIImage imageNamed:@"check grey"];
-
+            
+            if ([_queryModel.serviceStatus isEqualToString:@"0"]) {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            else if ([_queryModel.serviceStatus isEqualToString:@"1"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                 logo.image = [UIImage imageNamed:@"selected"];
+            }
             lineview.hidden = YES;
         }
        }
-    
-    
     
             UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];

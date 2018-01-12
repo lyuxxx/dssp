@@ -38,6 +38,17 @@
     }];
     
     
+    UIView *whiteView = [[UIView alloc] init];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+    [self.contentView addSubview:whiteView];
+    [whiteView makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(1 * HeightCoefficient);
+        make.left.equalTo(15 * WidthCoefficient);
+        make.right.equalTo(0);
+        make.bottom.equalTo(1 - 1 * HeightCoefficient);
+    }];
+    
+    
     self.bgImgV = [[UIImageView alloc] init];
 //    _bgImgV.image = [UIImage imageNamed:@"cell_bg"];
     _bgImgV.layer.cornerRadius = 2;
@@ -115,29 +126,43 @@
     _contentLabel.text = NSLocalizedString(channelModel.content, nil);
 //    _bottomLabel.text = NSLocalizedString(channelModel.channelName, nil);
     _timeLabel.text = [self setWithTimeString:channelModel.createTime];
-    [self.bgImgV sd_setImageWithURL:[NSURL URLWithString:channelModel.picture1] placeholderImage:[UIImage imageNamed:@"新闻图"]];
+    [self.bgImgV sd_setImageWithURL:[NSURL URLWithString:channelModel.picture2] placeholderImage:[UIImage imageNamed:@""]];
 
 }
 
 -(NSString *)setWithTimeString:(NSInteger)time
 {
     if (time) {
-        
+      
         NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
-        NSTimeInterval times=[dueDateStr doubleValue];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:times/1000];
+        NSString *publishString = dueDateStr;
+        double publishLong = [publishString doubleValue];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-        NSString *dateString = [formatter stringFromDate: date];
         
-        return dateString;
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        
+        [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        
+        NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:publishLong/1000];
+        NSDate *date = [NSDate date];
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        NSInteger interval = [zone secondsFromGMTForDate:date];
+        publishDate = [publishDate  dateByAddingTimeInterval: interval];
+        publishString = [formatter stringFromDate:publishDate];
+        return publishString;
+        
         
     }else
     {
         return nil;
         
     }
+    
 }
 
 

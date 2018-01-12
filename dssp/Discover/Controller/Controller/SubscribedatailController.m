@@ -29,41 +29,32 @@
 {
     
     
-        _webView = [[UIWebView alloc] init]; // 初始化浏览器控件UIWebView
-        _webView.delegate=self;
-        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
-//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"application" ofType:@"html"];
-//        NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-//        NSString *htmlString= _subscribedatail.content;
-//        NSURL *url = [[NSURL alloc] initWithString:filePath];
-//        [self.webView loadHTMLString:htmlString baseURL:url];
-    
-    
-//    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%f, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"", _webView.frame.size.width];
-//    [_webView stringByEvaluatingJavaScriptFromString:meta];
-    
-       _webView.scalesPageToFit = YES;
-
-        [self.view addSubview:self.webView];
-//         [self.webView loadHTMLString:htmlString baseURL:url];
-        [_webView makeConstraints:^(MASConstraintMaker *make) {
-//                    make.right.equalTo(0 * WidthCoefficient);
-                    make.bottom.equalTo(0 * HeightCoefficient);
-//                    make.left.equalTo(0 * WidthCoefficient);
-                    make.width.equalTo(375 * WidthCoefficient);
-                    make.top.equalTo(0 * HeightCoefficient);;
-                }];
+//        _webView = [[UIWebView alloc] init]; // 初始化浏览器控件UIWebView
+//        _webView.delegate=self;
+//        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
+//
+//       _webView.scalesPageToFit = YES;
+//
+//        [self.view addSubview:self.webView];
+////         [self.webView loadHTMLString:htmlString baseURL:url];
+//        [_webView makeConstraints:^(MASConstraintMaker *make) {
+////                    make.right.equalTo(0 * WidthCoefficient);
+//                    make.bottom.equalTo(0 * HeightCoefficient);
+////                    make.left.equalTo(0 * WidthCoefficient);
+//                    make.width.equalTo(375 * WidthCoefficient);
+//                    make.top.equalTo(0 * HeightCoefficient);;
+//                }];
     
     self.navigationItem.title = NSLocalizedString(_channels.title, nil);
-//    self.contentlabel =[[UITextView alloc] init];
-//    _contentlabel.editable = NO;
-//    [self.view addSubview:_contentlabel];
-//    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(-10 * WidthCoefficient);
-//        make.bottom.equalTo(0 * HeightCoefficient);
-//        make.left.equalTo(10 * WidthCoefficient);
-//        make.top.equalTo(0 * HeightCoefficient);;
-//    }];
+    self.contentlabel =[[UITextView alloc] init];
+    _contentlabel.editable = NO;
+    [self.view addSubview:_contentlabel];
+    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(0 * WidthCoefficient);
+        make.bottom.equalTo(0 * HeightCoefficient);
+        make.left.equalTo(0 * WidthCoefficient);
+        make.top.equalTo(0 * HeightCoefficient);;
+    }];
 }
 
 
@@ -108,7 +99,9 @@
           _subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
             
             NSString *htmlString= _subscribedatail.content;
-            [self.webView loadHTMLString:htmlString baseURL:nil];
+//            [self.webView loadHTMLString:htmlString baseURL:nil];
+            
+            NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
             
             
            // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
@@ -116,9 +109,9 @@
 //            NSString *htmlString = _subscribedatail.content;
 //
 //             NSLog(@"55%@",htmlString);
-//            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-//            _contentlabel.attributedText = attributedString;
-//            NSLog(@"666%@",attributedString);
+            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+            _contentlabel.attributedText = attributedString;
+            NSLog(@"666%@",attributedString);
             //响应事件
             
         } else {

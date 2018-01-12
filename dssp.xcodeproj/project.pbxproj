@@ -118,6 +118,7 @@
 		45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
 		45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C71FD8D61B002C0A78 /* ContractModel.m */; };
 		45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */; };
+		45ABF33620076CE0003FC560 /* QueryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABF33520076CE0003FC560 /* QueryModel.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
 /* End PBXBuildFile section */
@@ -349,6 +350,8 @@
 		45A145C71FD8D61B002C0A78 /* ContractModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractModel.m; sourceTree = "<group>"; };
 		45A145C91FD8DC69002C0A78 /* ContractDetailed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractDetailed.h; sourceTree = "<group>"; };
 		45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractDetailed.m; sourceTree = "<group>"; };
+		45ABF33420076CE0003FC560 /* QueryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryModel.h; sourceTree = "<group>"; };
+		45ABF33520076CE0003FC560 /* QueryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryModel.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -550,6 +553,8 @@
 				45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */,
 				4570EFE31FFCDC0E00FA6355 /* CarUnbindModel.h */,
 				4570EFE41FFCDC0E00FA6355 /* CarUnbindModel.m */,
+				45ABF33420076CE0003FC560 /* QueryModel.h */,
+				45ABF33520076CE0003FC560 /* QueryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -905,7 +910,7 @@
 				TargetAttributes = {
 					316CA45A1F9F3475009F541E = {
 						CreatedOnToolsVersion = 9.0.1;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1109,6 +1114,7 @@
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */,
 				450644DD20030A4A0099D7AC /* UpkeepModel.m in Sources */,
+				45ABF33620076CE0003FC560 /* QueryModel.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
@@ -1350,7 +1356,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1367,8 +1373,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0898a075-a19d-4169-a803-0a9a07b508c2";
-				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1381,8 +1387,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1399,8 +1405,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9611d266-bd2e-4347-99b1-751e5e9ba683";
-				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

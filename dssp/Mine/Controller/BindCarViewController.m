@@ -408,15 +408,15 @@
                 NSDictionary *paras = @{
                                         @"vin": kVin
                                         };
-                
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:removeBindRelWithUser parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [hud hideAnimated:YES];
                         //响应事件
-                           [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
-                       
+                        [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
+                        
+                        
                     } else {
                          [hud hideAnimated:YES];
                         [MBProgressHUD showText:dic[@"msg"]];

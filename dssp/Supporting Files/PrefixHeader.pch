@@ -189,7 +189,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define typefind [NSString stringWithFormat:@"%@nt/type/find",baseUrl]
 ///查询车的颜色
 #define colorfind [NSString stringWithFormat:@"%@color/find",baseUrl]
-
+///实名制认证结果查询vin
+#define queryBindAndRNRStatus [NSString stringWithFormat:@"%@queryBindAndRNRStatus",baseUrl]
 
 
 #endif /* PrefixHeader_pch */
