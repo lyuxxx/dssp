@@ -9,6 +9,7 @@
 #import "HomeTopView.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "TopImgButton.h"
+#import "NSArray+Sudoku.h"
 
 @implementation NoResponseView
 
@@ -258,11 +259,7 @@
             [btns addObject:btn];
         }
         
-        [btns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:12 * WidthCoefficient leadSpacing:16 * WidthCoefficient tailSpacing:16 * WidthCoefficient];
-        [btns makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(16 * WidthCoefficient);
-            make.bottom.equalTo(-16 * WidthCoefficient);
-        }];
+        [btns mas_distributeSudokuViewsWithFixedItemWidth:52.5 * WidthCoefficient fixedItemHeight:62 * WidthCoefficient warpCount:5 topSpacing:16 * WidthCoefficient bottomSpacing:14 * WidthCoefficient leadSpacing:16 * WidthCoefficient tailSpacing:16 * WidthCoefficient];
         
         self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_settingBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];

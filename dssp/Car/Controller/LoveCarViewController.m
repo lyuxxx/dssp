@@ -196,7 +196,6 @@
         [btns addObject:btn];
     }
     
-//    [btns mas_distributeSudokuViewsWithFixedLineSpacing:23.5 * HeightCoefficient fixedInteritemSpacing:35.5 * WidthCoefficient warpCount:4 topSpacing:14.5 * HeightCoefficient bottomSpacing:26.5 * HeightCoefficient leadSpacing:29 * WidthCoefficient tailSpacing:29 * WidthCoefficient];
     [btns mas_distributeSudokuViewsWithFixedItemWidth:52.5 * WidthCoefficient fixedItemHeight:62 * WidthCoefficient warpCount:4 topSpacing:14.5 * WidthCoefficient bottomSpacing:26.5 * WidthCoefficient leadSpacing:29 * WidthCoefficient tailSpacing:29 * WidthCoefficient];
     
     UIView *space = [[UIView alloc] init];
