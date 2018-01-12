@@ -137,13 +137,14 @@
 //                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"] || [dic[@"code"] isEqualToString:@"ERROR1003"]) {
 //                        [hud hideAnimated:YES];
                         //响应事件
                         LoginViewController *vc=[[LoginViewController alloc] init];
-                        vc.hidesBottomBarWhenPushed = YES;
+                        RTRootNavigationController *navc = [[RTRootNavigationController alloc] initWithRootViewController:vc];
+                        navc.hidesBottomBarWhenPushed = YES;
                         
-                        [[UIApplication sharedApplication].delegate.window setRootViewController:vc];
+                        [[UIApplication sharedApplication].delegate.window setRootViewController:navc];
                     } else {
                         [MBProgressHUD showText:dic[@"msg"]];
                     }

@@ -78,8 +78,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 
-
-
 #define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //#define baseUrl @"http:172.23.105.209:10095/"
 //#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
@@ -118,6 +116,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define addPoiFavoritesService [NSString stringWithFormat:@"%@addPoiFavoritesService",baseUrl]
 //POI下发
 #define pushPoiService [NSString stringWithFormat:@"%@pushPoiService",baseUrl]
+//获取POI下发结果
+#define getPoiAsynResultService [NSString stringWithFormat:@"%@getPoiAsynResultService",baseUrl]
 //检验POI是否收藏
 #define checkPOICollected [NSString stringWithFormat:@"%@checkPOICollected",baseUrl]
 //查询车辆位置

@@ -26,7 +26,7 @@ static dispatch_once_t onceToken;
         mapView.showsCompass = NO;
         mapView.desiredAccuracy = kCLLocationAccuracyBest;
         mapView.zoomLevel = 17.0;
-        mapView.touchPOIEnabled = YES;
+        mapView.touchPOIEnabled = NO;
         
         MAUserLocationRepresentation *representation = [[MAUserLocationRepresentation alloc] init];
         representation.showsAccuracyRing = NO;

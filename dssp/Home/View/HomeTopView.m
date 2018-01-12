@@ -229,11 +229,11 @@
         }];
         
         NSArray *btnImgTitles = @[
-                                  @"流量",
-                                  @"出行",
+                                  @"流量查询_icon",
+                                  @"智慧出行_icon",
                                   @"商城",
-                                  @"违章",
-                                  @"保养"
+                                  @"违章查询_icon",
+                                  @"预约保养_icon"
                                   ];
         NSArray *btnTitles = @[
                                @"实时流量",

@@ -10,11 +10,13 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
+#import <IQUIView+IQKeyboardToolbar.h>
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UIButton *secureBtn;
+@property (nonatomic, copy) NSString *originPassword;
 @end
 
 @implementation WifiViewController
@@ -39,25 +41,15 @@
         make.height.equalTo(126 * HeightCoefficient + kNaviHeight);
     }];
     
-    UIImageView *imgV = [[UIImageView alloc] init];
-    imgV.image = [UIImage imageNamed:@"wifi"];
-    [self.view addSubview:imgV];
-    [imgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(23 * WidthCoefficient);
-        make.height.equalTo(19.5 * HeightCoefficient);
-        make.left.equalTo(138 * WidthCoefficient);
-        make.top.equalTo(90 * HeightCoefficient);
-    }];
-    
     self.wifiLabel = [[UILabel alloc] init];
     _wifiLabel.textColor = [UIColor whiteColor];
     _wifiLabel.font = [UIFont fontWithName:FontName size:16];
     _wifiLabel.text = @"";
     [self.view addSubview:_wifiLabel];
     [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(imgV);
-        make.height.equalTo(19 * HeightCoefficient);
-        make.left.equalTo(imgV.right).offset(15.5 * WidthCoefficient);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(20 * HeightCoefficient + kNaviHeight);
+        make.height.equalTo(22 * HeightCoefficient);
     }];
     
     UIView *whiteV = [[UIView alloc] init];
@@ -72,7 +64,7 @@
         make.width.equalTo(343 * WidthCoefficient);
         make.height.equalTo(190 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(135 * HeightCoefficient);
+        make.top.equalTo(71 * HeightCoefficient + kNaviHeight);
     }];
     
     UILabel *password = [[UILabel alloc] init];
@@ -107,7 +99,7 @@
     [whiteV addSubview:_secureBtn];
     [_secureBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(20 * WidthCoefficient);
-        make.height.equalTo(10 * HeightCoefficient);
+        make.height.equalTo(13 * WidthCoefficient);
         make.centerY.equalTo(_passwordField);
         make.right.equalTo(-15 * WidthCoefficient);
     }];
@@ -154,6 +146,21 @@
 - (void)secureBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     _passwordField.secureTextEntry = !sender.selected;
+    [self setupPlaceHoler];
+}
+
+- (void)setupPlaceHoler {
+    if (_passwordField.secureTextEntry) {
+        NSMutableString *str = [NSMutableString string];
+        for (NSInteger i = 0; i < self.originPassword.length; i++) {
+            [str appendString:@"•"];
+        }
+        _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:18]}];
+        _passwordField.toolbarPlaceholder = str;
+    } else {
+        _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+        _passwordField.toolbarPlaceholder = self.originPassword;
+    }
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
@@ -173,9 +180,11 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
             NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
-            _wifiLabel.text = wifiSsid;
-            _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:wifiPassword?wifiPassword:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
-            
+            if (wifiSsid) {
+                self.originPassword = wifiPassword;
+                _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
+                _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
+            }
         } else {
             //                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];
             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
@@ -193,7 +202,8 @@
     [CUHTTPRequest POST:setWifi parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-         
+            self.originPassword = password;
+            [self setupPlaceHoler];
             hud.label.text = NSLocalizedString(@"wifi密码修改成功", nil);
             [hud hideAnimated:YES afterDelay:1];
         }

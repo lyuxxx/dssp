@@ -54,6 +54,8 @@
 
 @property (nonatomic, strong) MapPoiInfo *currentPoi;
 
+@property (nonatomic, assign) BOOL isHome;///处理首页不让点击poi
+
 @end
 
 @implementation MapHomeViewController
@@ -70,6 +72,7 @@ static dispatch_once_t mapHomeOnceToken;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _isHome = YES;
     [self setupUI];
     [self getHistory];
 }
@@ -311,6 +314,7 @@ static dispatch_once_t mapHomeOnceToken;
     }
     
     if (sender == _topBackBtn) {
+        _isHome = YES;
         [self hideSearchView];
     }
     if (sender == _clearBtn) {
@@ -385,15 +389,14 @@ static dispatch_once_t mapHomeOnceToken;
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            [MBProgressHUD showMessage:NSLocalizedString(@"发送中...", nil)];
-            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(BOOL result) {
-                if (result) {
-                    [MBProgressHUD hideHUD];
-                    [self showPoiSendAletWithSuccess:YES];
-                } else {
-                    [MBProgressHUD hideHUD];
-                    [self showPoiSendAletWithSuccess:NO];
-                }
+            [SendPoiProgressView showWithCancelBlock:^{
+                [self cancelSendPoi];
+            }];
+            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(SendPoiResult result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SendPoiProgressView dismiss];
+                    [self showPoiSendAletWithResult:result];
+                });
             }];
         }];
         [self presentViewController:alert animated:YES completion:nil];
@@ -437,6 +440,7 @@ static dispatch_once_t mapHomeOnceToken;
 }
 
 - (void)showSearchViewFromLeft:(BOOL)fromLeft animated:(BOOL)animated {
+    self.mapView.touchPOIEnabled = YES;
     [self showShade];
     [self clear];
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:NO];
@@ -512,6 +516,11 @@ static dispatch_once_t mapHomeOnceToken;
         make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
     }];
     [self.view layoutIfNeeded];
+    if (_isHome) {
+        self.mapView.touchPOIEnabled = NO;
+    } else {
+        self.mapView.touchPOIEnabled = YES;
+    }
 }
 
 - (void)showInfoWithAnnotationInfo:(MapPoiInfo *)annotationInfo {
@@ -569,7 +578,7 @@ static dispatch_once_t mapHomeOnceToken;
         _showField.rightViewMode = UITextFieldViewModeAlways;
         [_showClearBtn makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(42 * WidthCoefficient);
-            make.height.equalTo(16 * WidthCoefficient);
+            make.height.equalTo(42 * WidthCoefficient);
         }];
         
         ///
@@ -761,6 +770,7 @@ static dispatch_once_t mapHomeOnceToken;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MapPoiInfo * annotation = self.annotations[indexPath.row];
+    _isHome = NO;
     [self hideSearchView];
     [self clearAndAddAnnotationWithAnnotationInfo:annotation];
     MapSearchHistory *history = [[MapSearchHistory alloc] initWithPoiInfo:annotation timeStamp:[[NSDate date] timeIntervalSince1970]];

@@ -8,15 +8,21 @@
 
 #import "MapBaseController.h"
 #import <CUAlertController.h>
-#import <FLAnimatedImage.h>
+
+typedef void(^SendPoiResultBlock)(SendPoiResult);
 
 @interface MapBaseController ()
 @property (nonatomic, strong) UIButton *favoriteBtn;
 @property (nonatomic, strong) UIButton *carLocationBtn;
 @property (nonatomic, strong) UIButton *locationBtn;
+@property (nonatomic, copy) SendPoiResultBlock sendPoiResultBlock;
 @end
 
 @implementation MapBaseController
+
+{
+    dispatch_source_t getPoiResultTimer;
+}
 
 static dispatch_once_t mapBaseOnceToken;
 
@@ -132,7 +138,8 @@ static dispatch_once_t mapBaseOnceToken;
     }];
 }
 
-- (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location inResult:(void (^)(BOOL))result {
+- (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location inResult:(void (^)(SendPoiResult))result {
+    self.sendPoiResultBlock = result;
     NSDictionary *paras = @{
                             @"routeType": @"0",
                             @"vin": kVin,
@@ -144,31 +151,59 @@ static dispatch_once_t mapBaseOnceToken;
     [CUHTTPRequest POST:pushPoiService parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            //todo 30s后请求回调接口
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [CUHTTPRequest POST:@"" parameters:@{} success:^(id responseData) {
-//                    NSDictionary *callbackDic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//                    if (1) {
-//                        result(YES);
-//                    } else {
-//                        result(NO);
-//                    }
-//                } failure:^(NSInteger code) {
-//                    result(NO);
-//                }];
-//            });
+            NSString *requestId = dic[@"data"][@"requestId"];
+            [self startPoiResultTimerWithRequestId:requestId];
         } else {
-            result(NO);
+            self.sendPoiResultBlock(SendPoiResultFail);
         }
     } failure:^(NSInteger code) {
-        result(NO);
+        self.sendPoiResultBlock(SendPoiResultFail);
     }];
 }
 
-- (void)show {
-    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"waiting" ofType:@"gif"]]];
-    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
-    imageView.animatedImage = image;
+- (void)startPoiResultTimerWithRequestId:(NSString *)requestId {
+    weakifySelf
+    __block NSInteger time = 120;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    getPoiResultTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(getPoiResultTimer,dispatch_walltime(NULL, 0), 5.0*NSEC_PER_SEC, 0);
+    dispatch_source_set_event_handler(getPoiResultTimer, ^{
+        strongifySelf
+        if (time == 0) {//超时
+            self.sendPoiResultBlock(SendPoiResultTimeOut);
+            dispatch_source_cancel(getPoiResultTimer);
+        } else {
+            [self getPoiSendResultWithRequestId:requestId];
+        }
+        time -= 5;
+    });
+    dispatch_resume(getPoiResultTimer);
+}
+
+- (void)getPoiSendResultWithRequestId:(NSString *)requestId {
+    NSLog(@"requestId:%@ vin:%@",requestId,kVin);
+    [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getPoiAsynResultService,requestId] parameters:@{} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"] && [dic[@"data"] integerValue] == 1) {//成功
+            self.sendPoiResultBlock(SendPoiResultSuccess);
+            dispatch_source_cancel(getPoiResultTimer);
+        } else if ([dic[@"code"] isEqualToString:@"200"] && [dic[@"data"] integerValue] == 0) {//继续轮询
+            
+        } else {//失败
+            self.sendPoiResultBlock(SendPoiResultFail);
+            dispatch_source_cancel(getPoiResultTimer);
+        }
+    } failure:^(NSInteger code) {
+        self.sendPoiResultBlock(SendPoiResultFail);
+        dispatch_source_cancel(getPoiResultTimer);
+    }];
+}
+
+- (void)cancelSendPoi {
+    if (self.sendPoiResultBlock) {
+        self.sendPoiResultBlock(SendPoiResultCancel);
+        dispatch_source_cancel(getPoiResultTimer);
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -211,8 +246,21 @@ static dispatch_once_t mapBaseOnceToken;
     
 }
 
-- (void)showPoiSendAletWithSuccess:(BOOL)success {
-    CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"car"] message:[NSString stringWithFormat:@"位置发送%@！",success? @"成功":@"失败"]];
+- (void)showPoiSendAletWithResult:(SendPoiResult)result {
+    if (result == SendPoiResultCancel) {
+        return;
+    }
+    NSString *str = @"";
+    if (result == SendPoiResultSuccess) {
+        str = @"成功";
+    }
+    if (result == SendPoiResultFail) {
+        str = @"失败";
+    }
+    if (result == SendPoiResultTimeOut) {
+        str = @"超时";
+    }
+    CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"car"] message:[NSString stringWithFormat:@"位置发送%@！",str]];
     [alert addButtonWithTitle:NSLocalizedString(@"关闭", nil) type:CUButtonTypeNormal clicked:^{
         
     }];

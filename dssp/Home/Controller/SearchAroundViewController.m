@@ -355,15 +355,14 @@
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            [MBProgressHUD showMessage:NSLocalizedString(@"发送中...", nil)];
-            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(BOOL result) {
-                if (result) {
-                    [MBProgressHUD hideHUD];
-                    [self showPoiSendAletWithSuccess:YES];
-                } else {
-                    [MBProgressHUD hideHUD];
-                    [self showPoiSendAletWithSuccess:NO];
-                }
+            [SendPoiProgressView showWithCancelBlock:^{
+                
+            }];
+            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(SendPoiResult result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SendPoiProgressView dismiss];
+                    [self showPoiSendAletWithResult:result];
+                });
             }];
         }];
         [self presentViewController:alert animated:YES completion:nil];
@@ -534,7 +533,7 @@
         _showField.rightViewMode = UITextFieldViewModeAlways;
         [_showClearBtn makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(42 * WidthCoefficient);
-            make.height.equalTo(16 * WidthCoefficient);
+            make.height.equalTo(42 * WidthCoefficient);
         }];
         
         ///

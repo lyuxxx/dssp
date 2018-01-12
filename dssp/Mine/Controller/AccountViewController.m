@@ -249,8 +249,9 @@
                         if (btn.tag == 100) {//左边按钮
                             
                             LoginViewController *vc=[[LoginViewController alloc] init];
-                            vc.hidesBottomBarWhenPushed = YES;
-                            [self.navigationController pushViewController:vc animated:YES];
+                            RTRootNavigationController *navc = [[RTRootNavigationController alloc] initWithRootViewController:vc];
+                            navc.hidesBottomBarWhenPushed = YES;
+                            [[UIApplication sharedApplication].delegate.window setRootViewController:navc];
                             
                         }
                         if(btn.tag ==101)

@@ -534,15 +534,14 @@ static dispatch_once_t oilOnceToken;
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            [MBProgressHUD showMessage:NSLocalizedString(@"发送中...", nil)];
-            [self sendPoiWithName:self.currentStation.name address:self.currentStation.address location:CLLocationCoordinate2DMake(self.currentStation.coordinatey, self.currentStation.coordinatex) inResult:^(BOOL result) {
-                if (result) {
-                    [MBProgressHUD hideHUD];
-                    [self showPoiSendAletWithSuccess:YES];
-                } else {
-                    [MBProgressHUD hideHUD];
-                    [self showPoiSendAletWithSuccess:NO];
-                }
+            [SendPoiProgressView showWithCancelBlock:^{
+                
+            }];
+            [self sendPoiWithName:self.currentStation.name address:self.currentStation.address location:CLLocationCoordinate2DMake(self.currentStation.coordinatey, self.currentStation.coordinatex) inResult:^(SendPoiResult result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SendPoiProgressView dismiss];
+                    [self showPoiSendAletWithResult:result];
+                });
             }];
         }];
         [self presentViewController:alert animated:YES completion:nil];

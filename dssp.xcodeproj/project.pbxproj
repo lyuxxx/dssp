@@ -55,6 +55,8 @@
 		31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
 		31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
 		31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
+		31CB2B99200763350085FBA1 /* SendPoiProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CB2B98200763350085FBA1 /* SendPoiProgressView.m */; };
+		31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31CB2B9A200766DF0085FBA1 /* waiting.gif */; };
 		31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		31D1FDCE1FF494440021D47C /* OilStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D1FDCD1FF494440021D47C /* OilStation.m */; };
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
@@ -224,6 +226,9 @@
 		31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
 		31CA75F81FE75DEE007BDC97 /* RemindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindViewController.h; sourceTree = "<group>"; };
 		31CA75F91FE75DEE007BDC97 /* RemindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindViewController.m; sourceTree = "<group>"; };
+		31CB2B97200763350085FBA1 /* SendPoiProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendPoiProgressView.h; sourceTree = "<group>"; };
+		31CB2B98200763350085FBA1 /* SendPoiProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendPoiProgressView.m; sourceTree = "<group>"; };
+		31CB2B9A200766DF0085FBA1 /* waiting.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = waiting.gif; sourceTree = "<group>"; };
 		31CFB26B1FC2733C00130C52 /* CarBindingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingInput.h; sourceTree = "<group>"; };
 		31CFB26C1FC2733C00130C52 /* CarBindingInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingInput.m; sourceTree = "<group>"; };
 		31D1FDCC1FF494440021D47C /* OilStation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OilStation.h; sourceTree = "<group>"; };
@@ -505,6 +510,8 @@
 				31A3B9151FDE184700B8FBD3 /* POISendBtn.m */,
 				31AD66251FDFD5BB0049D48D /* FavoriteCell.h */,
 				31AD66261FDFD5BB0049D48D /* FavoriteCell.m */,
+				31CB2B97200763350085FBA1 /* SendPoiProgressView.h */,
+				31CB2B98200763350085FBA1 /* SendPoiProgressView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -657,6 +664,7 @@
 		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				31CB2B9A200766DF0085FBA1 /* waiting.gif */,
 				4548580F2005EA6500170D85 /* application.html */,
 				316CA45E1F9F3475009F541E /* AppDelegate.h */,
 				316CA45F1F9F3475009F541E /* AppDelegate.m */,
@@ -939,6 +947,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
@@ -1152,6 +1161,7 @@
 				455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */,
 				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
+				31CB2B99200763350085FBA1 /* SendPoiProgressView.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */,
 				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
