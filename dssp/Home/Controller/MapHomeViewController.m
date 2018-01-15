@@ -392,7 +392,7 @@ static dispatch_once_t mapHomeOnceToken;
             [SendPoiProgressView showWithCancelBlock:^{
                 [self cancelSendPoi];
             }];
-            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate inResult:^(SendPoiResult result) {
+            [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate tel:self.currentPoi.tel inResult:^(SendPoiResult result) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [SendPoiProgressView dismiss];
                     [self showPoiSendAletWithResult:result];

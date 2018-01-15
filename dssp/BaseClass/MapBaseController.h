@@ -37,7 +37,7 @@ typedef void(^CheckCarLocationOver)(void);
 - (void)checkPoiWithCpid:(NSString *)cpid inResult:(void (^)(BOOL,NSString *))result;
 - (void)addPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location tel:(NSString *)tel cpid:(NSString *)cpid type:(PoiType)type inResult:(void (^)(BOOL,NSString *))result;
 - (void)deletePoisWithPoiIds:(NSArray<NSString *> *)ids inResult:(void (^)(BOOL))result;
-- (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location inResult:(void (^)(SendPoiResult))result;
+- (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location tel:(NSString *)tel inResult:(void (^)(SendPoiResult))result;
 - (void)cancelSendPoi;
 - (void)showPoiSendAletWithResult:(SendPoiResult)result;
 - (void)clear;

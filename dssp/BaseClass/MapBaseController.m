@@ -138,16 +138,19 @@ static dispatch_once_t mapBaseOnceToken;
     }];
 }
 
-- (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location inResult:(void (^)(SendPoiResult))result {
+- (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location tel:(NSString *)tel inResult:(void (^)(SendPoiResult))result {
     self.sendPoiResultBlock = result;
+    NSString *telephone = tel? tel: @"";
     NSDictionary *paras = @{
                             @"routeType": @"0",
                             @"vin": kVin,
                             @"destinationPoiName": name,
                             @"address": address,
                             @"destinationLongitude": [NSString stringWithFormat:@"%f",location.longitude],
-                            @"destinationLatitude": [NSString stringWithFormat:@"%f",location.latitude]
+                            @"destinationLatitude": [NSString stringWithFormat:@"%f",location.latitude],
+                            @"tel":telephone
                             };
+    NSLog(@"sendPoiInput:%@",paras);
     [CUHTTPRequest POST:pushPoiService parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {

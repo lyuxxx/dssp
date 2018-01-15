@@ -23,6 +23,8 @@
 @property (nonatomic, assign) CLLocationDegrees coordinatey;
 @property (nonatomic, assign) NSInteger cheap;
 @property (nonatomic, copy) NSString *stationtype;
+//新增字段,返回的json没有该字段,下发poi需要tel
+@property (nonatomic, copy) NSString *telephonenum;
 
 @end
 

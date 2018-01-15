@@ -326,6 +326,7 @@ static dispatch_once_t oilOnceToken;
             [MBProgressHUD hideHUD];
             StationDetailResponse *response = [StationDetailResponse yy_modelWithDictionary:dic];
             StationInfo *info = response.data.stationinfo;
+            [self updateDataSourceWithDetailStationInfo:info];
             [self hideInfo];
             [self showDetailWithInfo:info];
         } else {
@@ -334,6 +335,19 @@ static dispatch_once_t oilOnceToken;
     } failure:^(NSInteger code) {
         [MBProgressHUD hideHUD];
     }];
+}
+
+///获取到油站详情后更新数据源的油站信息,更新telephonenum字段,用于下发poi
+- (void)updateDataSourceWithDetailStationInfo:(StationInfo *)info {
+    for (OilStation *station in self.stations) {
+        if (station.stationid == info.stationid) {
+            station.telephonenum = info.telephonenum;
+            if (self.currentStation.stationid == station.stationid) {
+                self.currentStation.telephonenum = info.telephonenum;
+            }
+            break;
+        }
+    }
 }
 
 - (void)showDetailWithInfo:(StationInfo *)info {
@@ -535,9 +549,9 @@ static dispatch_once_t oilOnceToken;
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
             [SendPoiProgressView showWithCancelBlock:^{
-                
+                [self cancelSendPoi];
             }];
-            [self sendPoiWithName:self.currentStation.name address:self.currentStation.address location:CLLocationCoordinate2DMake(self.currentStation.coordinatey, self.currentStation.coordinatex) inResult:^(SendPoiResult result) {
+            [self sendPoiWithName:self.currentStation.name address:self.currentStation.address location:CLLocationCoordinate2DMake(self.currentStation.coordinatey, self.currentStation.coordinatex) tel:self.currentStation.telephonenum inResult:^(SendPoiResult result) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [SendPoiProgressView dismiss];
                     [self showPoiSendAletWithResult:result];
