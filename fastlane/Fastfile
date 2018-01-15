@@ -73,7 +73,7 @@ platform :ios do
             }
     })
 
-    pgyer(api_key: "48d1d59d9823dca4b598f72f061f33b1", user_key: "8aa45942b973f228b28fcd0465c2abff")
+    pgyer(api_key: "a4652be9ee876e77e6fe971451f6ee78", user_key: "2532883c9c55b42f4a1f0a5abff9dad3")
     # sh "fir publish './build/fir/#{scheme}_#{full_version}.ipa' -T #{fir_token}"
     # You can also use other beta testing services here (run `fastlane actions`)
     
