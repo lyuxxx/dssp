@@ -142,7 +142,7 @@
     }
  
     _remindLabel.text = NSLocalizedString(noticeModel.title, nil);
-    _timeLabel.text = [self setWithTimeString:noticeModel.createTime];
+    _timeLabel.text = [self setWithTimeString:noticeModel.lastUpdateTime];
     
     
     _contentLabel.text =NSLocalizedString(noticeModel.noticeData, nil);

@@ -48,7 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   
-     [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+//    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self postCustByMobile];
     [self setupUI];
    

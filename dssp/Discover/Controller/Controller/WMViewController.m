@@ -14,9 +14,10 @@
 #import "SubscribedatailController.h"
 #import <MJRefresh.h>
 @interface WMViewController ()<UITableViewDataSource,UITableViewDelegate,WMPageControllerDelegate,WMPageControllerDataSource>
-@property (nonatomic, weak) UIImageView *imageView;
-@property (nonatomic, weak) UILabel *label;
+//@property (nonatomic, weak) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSMutableArray  *channelArray;
+@property (nonatomic, strong) UIImageView *bgImgV;
 @end
 
 @implementation WMViewController
@@ -28,9 +29,7 @@
     
   
     [self initTableView];
-
     [self pullDownToRefreshLatestNews];
-   
     [self.tableView.mj_header beginRefreshing];
 
 
@@ -42,10 +41,6 @@
     //    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
     [_tableView.mj_header beginRefreshing];
 }
-
-
-
-
 
 -(void)requestData
 {
@@ -72,19 +67,55 @@
             }
             [self.tableView.mj_header endRefreshing];
             [_tableView reloadData];
+            
+            if (self.channelArray.count == 0) {
+                [self blankUI];
+            }
             //响应事件
             
         } else {
 //            [self initTableView];
-             [self.tableView.mj_header endRefreshing];
+            [self blankUI];
+            [self.tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-//        [self initTableView];
-         [self.tableView.mj_header endRefreshing];
+        [self blankUI];
+        [self.tableView.mj_header endRefreshing];
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];
+}
+
+-(void)blankUI{
+    
+    self.bgImgV = [[UIImageView alloc] init];
+    _bgImgV.image = [UIImage imageNamed:@"空页面"];
+    [self.bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:_bgImgV];
+    [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(120 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(77.5 * HeightCoefficient);
+        make.width.equalTo(86.5 * WidthCoefficient);
+        
+    }];
+    
+    self.label = [[UILabel alloc] init];
+    _label.text =@"空空如也";
+    _label.textAlignment = NSTextAlignmentCenter;
+    _label.textColor = [UIColor colorWithHexString:@"#999999"];
+    _label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    
+    [self.view addSubview:_label];
+    [_label makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_bgImgV.bottom).offset(15*WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(100 *WidthCoefficient);
+    }];
+    
+    
 }
 
 
@@ -98,9 +129,8 @@
     //    _tableView.tableFooterView = [UIView new];
     //    _tableView.tableHeaderView = [UIView new];
     //取消cell的线
-//    if (self.channelArray.count ==0 ) {
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    }
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
 //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //    adjustsScrollViewInsets_NO(tableView,self);
     _tableView.delegate=self;
@@ -114,7 +144,7 @@
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
 //         make.edges.equalTo(self.view);
        
-        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(10 *HeightCoefficient, 0, 0, 0));
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(10 *HeightCoefficient, 0, kNaviHeight, 0));
        
     }];
 }

@@ -35,11 +35,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
     
-    self.view.backgroundColor= [UIColor redColor];
-//    [self requestNoticeData];
     [self createTable];
     [self pullDownToRefreshLatestNews];
- 
     [self.tableView.mj_header beginRefreshing];
   
 }
@@ -59,25 +56,14 @@
     // 设置header
 //    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
     [_tableView.mj_header beginRefreshing];
-    
-    
-//    header.lastUpdatedTimeLabel.hidden = YES;
-//    // 隐藏状态
-//    header.stateLabel.hidden = YES;
-}
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self requestNoticeData];
-    [self createTable];
 }
 
 - (void)createTable {
     [self.view addSubview:self.tableView];
-    [_tableView makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-
-    }];
+//    [_tableView makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
 }
 
 -(void)requestNoticeData
@@ -85,7 +71,7 @@
     NSDictionary *paras = @{
                             
                           };
-    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,kVin];
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,@"VF7CAPSA000020155"];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
@@ -118,16 +104,32 @@
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
     if (indexPaths.count == 1) {
+//        NoticeModel *notice = self.dataSource[indexPath.row];
+        NSString *idStr = @"";
+        NSMutableArray *idArr = [NSMutableArray arrayWithCapacity:self.selectedDatas.count];
+        for (NoticeModel *item in self.selectedDatas) {
+            [idArr addObject:item.noticeId];
+        }
+    
+        idStr = [idArr componentsJoinedByString:@","];
+        
         NSDictionary *paras = @{
                                 @"readStatus":@"0",
                                 @"isDel":@"1",
-                                @"id":_notice.noticeId
+                                @"id":idStr
                                 };
         [CUHTTPRequest POST:updateReadStatusOrIsDelByVinAndType parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-              
+                // 删除数据源
+                [self.dataSource removeObjectsInArray:self.selectedDatas];
+                [self.selectedDatas removeAllObjects];
+                
+                //    [UIView setAnimationsEnabled:NO];
+                // 删除选中项
+                //        [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
                 
             } else {
                 
@@ -143,14 +145,14 @@
         
     }
 
-    // 删除数据源
-    [self.dataSource removeObjectsInArray:self.selectedDatas];
-    [self.selectedDatas removeAllObjects];
-    
-    //    [UIView setAnimationsEnabled:NO];
-    // 删除选中项
-//        [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+//    // 删除数据源
+//    [self.dataSource removeObjectsInArray:self.selectedDatas];
+//    [self.selectedDatas removeAllObjects];
+//    
+//    //    [UIView setAnimationsEnabled:NO];
+//    // 删除选中项
+////        [self.tableView beginUpdates];
+//    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     //    [self.tableView endUpdates];
     //    [UIView setAnimationsEnabled:YES];
     
@@ -239,7 +241,6 @@
    
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //只要实现这个方法，就实现了默认滑动删除！！！！！
     if (editingStyle == UITableViewCellEditingStyleDelete)
@@ -285,6 +286,8 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
+         CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight-kNaviHeight;
+         [_tableView setFrame:CGRectMake(0, 0, kScreenWidth, height)];
         if (@available(iOS 11.0, *)) {
             if (Is_Iphone_X) {
                 _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -296,7 +299,7 @@
         }
         _tableView.delegate = self;
         _tableView.dataSource = self;
-                _tableView.tableFooterView = [UIView new];
+        _tableView.tableFooterView = [UIView new];
         //        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;

@@ -20,9 +20,12 @@
 @property(nonatomic,strong) UIButton *noticeBtn;
 @property(nonatomic,strong) UIView *line1;
 @property(nonatomic, strong) UIScrollView * scrollView;
-@property(nonatomic, copy) NSString *str;
+@property(nonatomic, copy) NSString *unreadstr;
 @property(nonatomic, strong) NoticeViewController * noticeVC; //通知
 @property(nonatomic, strong) SubscribeViewController * subscribeVC; //订阅
+@property (nonatomic ,strong) UIViewController *currentVC;
+@property (nonatomic ,strong) UILabel *bottomLabel;
+@property (nonatomic ,strong) UILabel *bottomLabels;
 @end
 
 @implementation DiscoverViewController
@@ -34,21 +37,15 @@
     // Do any additional setup after loading the view.
     [self requestData];
     [self setupUI];
-    
-//    [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:)name:@"tongzhi" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndex:) name:@"changeIndex" object:nil];
-   
-    
 }
 
-//- (void)executeNotification:(NSNotification *)text {
-//    
-//    NSLog(@"－－－－－接收到通知------");
-//    
-//}
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.currentVC == self.noticeVC) {
+        [self requestData];
+        [self setupUI];
+    }
+}
 
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
@@ -57,18 +54,13 @@
     }
 }
 
-//-(void)changeIndex:(NSNotification *)notification
-//{
-//      [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-//
-//}
 
 -(void)requestData
 {
     NSDictionary *paras = @{
                        
                             };
-   NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findUnreadNumberByVin,kVin];
+   NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findUnreadNumberByVin,@"VF7CAPSA000000101"];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
@@ -77,8 +69,18 @@
             [hud hideAnimated:YES];
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             // [_tableView reloadData];
-            self.str =dic[@"data"];
-            NSLog(@"666%@",self.str);
+            self.unreadstr = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
+            if ([self.unreadstr isEqualToString:@"0"]) {
+                  [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
+            }
+            else
+            {
+                 [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+                
+            }
+            NSString *unreads = [[NSString stringWithFormat:@"%@",self.unreadstr] stringByAppendingString:@"条新消息通知"];
+             _bottomLabel.text = unreads;
+            NSLog(@"666%@",self.unreadstr);
             //响应事件
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
@@ -88,7 +90,6 @@
         [hud hideAnimated:YES afterDelay:1];
     }];
 }
-
 
 -(void)setupUI
 {
@@ -112,7 +113,7 @@
     }];
     
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+    line.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
@@ -129,6 +130,12 @@
                            
                               ];
     
+//    NSArray *unread = @[
+//                              NSLocalizedString(self.unreadstr, nil),
+//                              NSLocalizedString(@"订阅", nil),
+//
+//                              ];
+
     
  
     NSArray *imgArray = @[
@@ -140,7 +147,7 @@
     UIButton *lastBtn = nil;
     UIImageView *lastimg = nil;
     UILabel *lastLabel = nil;
-    UILabel *lastLabels = nil;
+//    UILabel *lastLabels = nil;
 
     for(int i = 0;i < placeHolders.count;i++)
     {
@@ -169,16 +176,33 @@
         [_noticeBtn addSubview:label];
         
         
+        if (i==0) {
+            self.bottomLabel = [[UILabel alloc] init];
+            _bottomLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+            _bottomLabel.font = [UIFont fontWithName:FontName size:11];
+            [_noticeBtn addSubview:_bottomLabel];
+            [_bottomLabel makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(77.5 * WidthCoefficient);
+                make.height.equalTo(15 * WidthCoefficient);
+                make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
+                make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
+            }];
+        }
+        if (i==1) {
+            self.bottomLabels = [[UILabel alloc] init];
+            _bottomLabels.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+             _bottomLabels.text = @"暂无订阅消息";
+            _bottomLabels.font = [UIFont fontWithName:FontName size:11];
+            [_noticeBtn addSubview:_bottomLabels];
+            [_bottomLabels makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(77.5 * WidthCoefficient);
+                make.height.equalTo(15 * WidthCoefficient);
+                make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
+                make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
+            }];
+        }
         
-        
-        
-        UILabel *bottomLabel = [[UILabel alloc] init];
-        bottomLabel.text = placeHolders[i];
-        bottomLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        bottomLabel.font = [UIFont fontWithName:FontName size:13];
-        [_noticeBtn addSubview:bottomLabel];
       
-        
         if (i == 0) {
             [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(0);
@@ -201,13 +225,12 @@
                 make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
             }];
             
-            [bottomLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(77.5 * WidthCoefficient);
-                make.height.equalTo(13 * WidthCoefficient);
-            make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
-          make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
-            }];
-           
+//            [bottomLabel makeConstraints:^(MASConstraintMaker *make) {
+//                make.width.equalTo(77.5 * WidthCoefficient);
+//                make.height.equalTo(13 * WidthCoefficient);
+//            make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
+//          make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
+//            }];
             
         } else {
             
@@ -233,17 +256,18 @@
                 make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
             }];
             
-            [bottomLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(77.5 * WidthCoefficient);
-                make.height.equalTo(13 * WidthCoefficient);
-                make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
-               make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
-            }];
+            
+//            [bottomLabel makeConstraints:^(MASConstraintMaker *make) {
+//                make.width.equalTo(77.5 * WidthCoefficient);
+//                make.height.equalTo(13 * WidthCoefficient);
+//                make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
+//               make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
+//            }];
         }
         lastBtn = _noticeBtn;
         lastimg =imgV;
         lastLabel = label;
-        lastLabels = bottomLabel;
+//        lastLabels = bottomLabel;
       }
 
     self.line1 = [[UIView alloc] init];
@@ -257,37 +281,20 @@
     }];
     
     
+    CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight;
+    self.noticeVC = [[NoticeViewController alloc] init];
+    [self.noticeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight, kScreenWidth, height)];
+    [self addChildViewController:self.noticeVC];
     
-      [self loadNoticeVC];
-//    [self.view addSubview:self.scrollView];
     
-//     CGFloat height =  kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
-//    self.noticeVC.view.frame = CGRectMake(0, 74 * HeightCoefficient+kStatusBarHeight, kScreenWidth, height);
-//    [self addChildViewController:self.noticeVC];
-//    [self.view addSubview:self.noticeVC.view];
-//
-//    self.subscribeVC.view.frame = CGRectMake(kScreenWidth, 74 * HeightCoefficient+kStatusBarHeight, kScreenWidth, height);
-//    [self addChildViewController:self.subscribeVC];
-//    [self.view addSubview:self.subscribeVC.view];
-
+    _subscribeVC = [[SubscribeViewController alloc] init];
+    [self.subscribeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight, kScreenWidth, height)];
+    
+    // 默认,第一个视图
+    [self.view addSubview:self.noticeVC.view];
+    self.currentVC = self.noticeVC;
 }
 
-
-////通知
-//- (NoticeViewController *)noticeVC{
-//    if (_noticeVC == nil) {
-//        _noticeVC = [[NoticeViewController alloc] init];
-//    }
-//    return _noticeVC;
-//}
-//
-////订阅
-//- (SubscribeViewController *)subscribeVC{
-//    if (_subscribeVC == nil) {
-//        _subscribeVC = [[SubscribeViewController alloc] init];
-//    }
-//    return _subscribeVC;
-//}
 
 //scrollView
 - (UIScrollView *)scrollView{
@@ -295,74 +302,112 @@
         _scrollView = [[UIScrollView alloc] init];
         
         _scrollView = [[UIScrollView alloc] init];
-//        _scrollView.backgroundColor=[UIColor redColor];
+        //        _scrollView.backgroundColor=[UIColor redColor];
         _scrollView.showsVerticalScrollIndicator = NO;
         if (@available(iOS 11.0, *)) {
             _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
             // Fallback on earlier versions
         }
-         CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
+        CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
         _scrollView.frame = CGRectMake(0, 74 * HeightCoefficient+kStatusBarHeight, kScreenWidth,height);
-//        _scrollView.backgroundColor=[UIColor yellowColor];
+        //        _scrollView.backgroundColor=[UIColor yellowColor];
         _scrollView.contentSize = CGSizeMake(kScreenWidth *2, height);
-      
+        
         _scrollView.delegate = self;
-//        _scrollView.showsHorizontalScrollIndicator = false;
+        //        _scrollView.showsHorizontalScrollIndicator = false;
         _scrollView.pagingEnabled = true;
     }
     return _scrollView;
 }
 
+
 -(void)BtnClick:(UIButton *)sender
 {
-   if(sender.tag==100)
-   {
-      [self loadNoticeVC];
-      [_line1 updateConstraints:^(MASConstraintMaker *make) {
-           make.left.equalTo(0);
-       }];
-   }
-    else
-    {
-        [self loadSubscribeVC];
-        [_line1 updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(375 *WidthCoefficient/2);
-        }];
-        [self.view layoutIfNeeded];
+    if ((self.currentVC == self.noticeVC && sender.tag == 100)||(self.currentVC == self.subscribeVC && sender.tag == 101)) {
+        return;
+    }else{
+        if(sender.tag==100)
+        {
+            [self replaceController:self.currentVC newController:self.noticeVC];
+            [_line1 updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(0);
+            }];
+        }
+        else
+        {
+            [self replaceController:self.currentVC newController:self.subscribeVC];
+            [_line1 updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(375 *WidthCoefficient/2);
+            }];
+            [self.view layoutIfNeeded];
+        }
+        
     }
-}
-
--(void)loadNoticeVC
-{
-    _noticeVC = [[NoticeViewController alloc] init];
-    [self.view addSubview:self.noticeVC.view];
-    [self addChildViewController:self.noticeVC];
-    [_subscribeVC.view removeFromSuperview];
-    [self.noticeVC.view makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_noticeBtn.bottom).offset(0);
-            make.width.equalTo(kScreenWidth);
-            make.bottom.equalTo(-kTabbarHeight);
-           }];
-}
-
-
--(void)loadSubscribeVC
-{
-    _subscribeVC = [[SubscribeViewController alloc] init];
-    [self.view addSubview:self.subscribeVC.view];
-    [self addChildViewController:self.subscribeVC];
-    [_noticeVC.view removeFromSuperview];
-    [self.subscribeVC.view makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_noticeBtn.bottom).offset(0);
-        make.width.equalTo(kScreenWidth);
-        make.bottom.equalTo(-kTabbarHeight);
-    }];
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+// 切换各个标签内容
+- (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
+{
+    /**
+     *  着重介绍一下它
+     *  transitionFromViewController:toViewController:duration:options:animations:completion:
+     *  fromViewController      当前显示在父视图控制器中的子视图控制器
+     *  toViewController        将要显示的子视图控制器
+     *  duration                动画时间(这个属性,old friend 了 O(∩_∩)O)
+     *  options                 动画效果(渐变,从下往上等等,具体查看API)
+     *  animations              转换过程中得动画
+     *  completion              转换完成
+     */
+    [self addChildViewController:newController];
+    [self transitionFromViewController:oldController toViewController:newController duration:0.5 options:UIViewAnimationOptionLayoutSubviews animations:nil completion:^(BOOL finished) {
+        
+        if (finished) {
+            [newController didMoveToParentViewController:self];
+            [oldController willMoveToParentViewController:nil];
+            [oldController removeFromParentViewController];
+            self.currentVC = newController;
+            
+        }else{
+            
+            self.currentVC = oldController;
+            
+        }
+    }];
+}
 
+
+
+//-(void)loadNoticeVC
+//{
+//    _noticeVC = [[NoticeViewController alloc] init];
+//    [self.view addSubview:self.noticeVC.view];
+//    [self addChildViewController:self.noticeVC];
+//    [_subscribeVC.view removeFromSuperview];
+//    [self.noticeVC.view makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(_noticeBtn.bottom).offset(0);
+//            make.width.equalTo(kScreenWidth);
+//            make.bottom.equalTo(-kTabbarHeight);
+//           }];
+//}
+//
+//-(void)loadSubscribeVC
+//{
+//    _subscribeVC = [[SubscribeViewController alloc] init];
+//    [self.view addSubview:self.subscribeVC.view];
+//    [self addChildViewController:self.subscribeVC];
+//    [_noticeVC.view removeFromSuperview];
+//    [self.subscribeVC.view makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_noticeBtn.bottom).offset(0);
+//        make.width.equalTo(kScreenWidth);
+//        make.bottom.equalTo(-kTabbarHeight);
+//    }];
+//
+//}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
     [_line1 updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(scrollView.contentOffset.x/2);
         

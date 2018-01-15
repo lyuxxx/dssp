@@ -124,8 +124,8 @@
             
             
             if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.certificationStatus isEqualToString:@"6"]) {
-                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                logo.image = [UIImage imageNamed:@"selected"];
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                logo.image = [UIImage imageNamed:@"check"];
                  lab.hidden = NO;
             }
             else if ([_queryModel.certificationStatus isEqualToString:@"0"])
@@ -135,8 +135,8 @@
             }
             else if ([_queryModel.certificationStatus isEqualToString:@"1"])
             {
-                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                logo.image = [UIImage imageNamed:@"selected"];
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                logo.image = [UIImage imageNamed:@"check"];
             }
             
     
@@ -144,8 +144,8 @@
         if (i==1) {
             
             if ([_queryModel.vhlFlowStatus isEqualToString:@"7"]) {
-                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                 logo.image = [UIImage imageNamed:@"selected"];
+                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                 logo.image = [UIImage imageNamed:@"check"];
                 
 
             }
@@ -165,8 +165,8 @@
             }
             else if ([_queryModel.serviceStatus isEqualToString:@"1"])
             {
-                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                logo.image = [UIImage imageNamed:@"selected"];
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                logo.image = [UIImage imageNamed:@"check"];
             }
             
         
@@ -179,8 +179,8 @@
             }
             else if ([_queryModel.serviceStatus isEqualToString:@"1"])
             {
-                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                 logo.image = [UIImage imageNamed:@"selected"];
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                 logo.image = [UIImage imageNamed:@"check"];
             }
             lineview.hidden = YES;
         }

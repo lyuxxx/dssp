@@ -19,16 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
     [self requestData];
     [self setupUI];
 }
 
 -(void)setupUI
 {
-    
-    
 //        _webView = [[UIWebView alloc] init]; // 初始化浏览器控件UIWebView
 //        _webView.delegate=self;
 //        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
@@ -53,36 +49,10 @@
         make.right.equalTo(0 * WidthCoefficient);
         make.bottom.equalTo(0 * HeightCoefficient);
         make.left.equalTo(0 * WidthCoefficient);
-        make.top.equalTo(0 * HeightCoefficient);;
+        make.top.equalTo(0 * HeightCoefficient);
     }];
 }
 
-
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    
-    NSString *script = [NSString stringWithFormat:
-                        @"var script = document.createElement('script');"
-                        "script.type = 'text/javascript';"
-                        "script.text = \"function ResizeImages() { "
-                        "var img;"
-                        "var maxwidth=%f;"
-                        "for(i=0;i <document.images.length;i++){"
-                        "img = document.images[i];"
-                        "if(img.width > maxwidth){"
-                        "img.width = maxwidth;"
-                        "}"
-                        "}"
-                        "}\";"
-                        "document.getElementsByTagName('head')[0].appendChild(script);", _webView.frame.size.width-40];
-    
-//    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%f, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"", _webView.frame.size.width];
-    
-    NSLog(@"666%f",_webView.frame.size.width);
-    [webView stringByEvaluatingJavaScriptFromString: script];
-//    [_webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
-//    [_webView stringByEvaluatingJavaScriptFromString:script];
-}
 
 -(void)requestData
 {
@@ -99,16 +69,9 @@
           _subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
             
             NSString *htmlString= _subscribedatail.content;
-//            [self.webView loadHTMLString:htmlString baseURL:nil];
-            
+
             NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
             
-            
-           // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-            //            [_tableView reloadData];
-//            NSString *htmlString = _subscribedatail.content;
-//
-//             NSLog(@"55%@",htmlString);
             NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
             _contentlabel.attributedText = attributedString;
             NSLog(@"666%@",attributedString);
@@ -123,6 +86,9 @@
     }];
     
 }
+
+
+
 
 
 - (void)didReceiveMemoryWarning {

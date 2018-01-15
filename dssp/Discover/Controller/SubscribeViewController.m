@@ -125,12 +125,8 @@
 //    return controller;
     
     WMViewController *wmView =[[WMViewController alloc] init];
-    
     NSString *ids =self.idData[index];
-
     wmView.indexs = ids;
-
-    NSLog(@"ggg%@",self.idData[index]);
     return wmView;
 
 }

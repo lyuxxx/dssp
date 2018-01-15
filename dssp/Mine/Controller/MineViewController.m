@@ -73,6 +73,11 @@
 {
     [super viewWillAppear:animated];
     [self.mgr startUpdatingLocation];
+    if ([kVin isEqualToString:@""]) {
+        [self initTableView];
+        [self setupUI];
+    }
+    
 }
 
 - (CLLocationManager *)mgr
@@ -287,7 +292,7 @@
     make.top.equalTo(26*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
-        make.width.equalTo(98 * WidthCoefficient);
+        make.width.equalTo(150 * WidthCoefficient);
     }];
 
     

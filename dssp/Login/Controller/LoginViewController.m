@@ -194,10 +194,8 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-
 //    _passWordField.text = @"123456";
 
-    
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
 //    _phoneCodeField.secureTextEntry = true;
@@ -346,7 +344,6 @@
         }
         else
         {
-            
             if ([self valiMobile:_phoneField.text]){
                 NSDictionary *paras = @{
                 @"telephone":_phoneField.text,

@@ -416,6 +416,13 @@
                         //响应事件
                         [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
                         
+//                        NSUserDefaults*userDefaults = [NSUserDefaults  standardUserDefaults];
+//                        [userDefaults removeObjectForKey:@"vin"];
+//                        [userDefaults synchronize];
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:@"" forKey:@"vin"];
+                        [defaults1 synchronize];
+                        
                         
                     } else {
                          [hud hideAnimated:YES];

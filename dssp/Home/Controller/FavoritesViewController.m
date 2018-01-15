@@ -238,6 +238,7 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
     }];
 }
 
+
 - (MapBaseController *)getPreviousViewController {
     for (NSInteger i = 0; i < self.navigationController.viewControllers.count; i++) {
         UIViewController *vc = self.navigationController.viewControllers[i];
@@ -247,6 +248,7 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
     }
     return nil;
 }
+
 
 - (void)btnClick:(UIButton *)sender {
     if (sender == _editBtn) {
