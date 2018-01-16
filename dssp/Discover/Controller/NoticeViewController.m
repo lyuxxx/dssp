@@ -71,7 +71,7 @@
     NSDictionary *paras = @{
                             
                           };
-    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,@"VF7CAPSA000020155"];
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,kVin];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         

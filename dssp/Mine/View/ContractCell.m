@@ -43,30 +43,31 @@
     }];
     
     
-    UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    testdriveBtn.layer.cornerRadius = 20 * HeightCoefficient/2;
-    [testdriveBtn setTitle:NSLocalizedString(@"试驾", nil) forState:UIControlStateNormal];
-    [testdriveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    testdriveBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
-    [testdriveBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-    [whiteV addSubview:testdriveBtn];
-    [testdriveBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(50 * WidthCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.top.equalTo(10 * HeightCoefficient);
-        make.right.equalTo(whiteV.right).offset(-10 * HeightCoefficient);
-    }];
+//    UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    testdriveBtn.layer.cornerRadius = 20 * HeightCoefficient/2;
+//    [testdriveBtn setTitle:NSLocalizedString(@"试驾", nil) forState:UIControlStateNormal];
+//    [testdriveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    testdriveBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
+//    [testdriveBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
+//    [whiteV addSubview:testdriveBtn];
+//    [testdriveBtn makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(50 * WidthCoefficient);
+//        make.height.equalTo(20 * HeightCoefficient);
+//        make.top.equalTo(10 * HeightCoefficient);
+//        make.right.equalTo(whiteV.right).offset(-10 * HeightCoefficient);
+//    }];
     
-    UILabel *serialNumber = [[UILabel alloc] init];
-    serialNumber.textAlignment = NSTextAlignmentLeft;
-    serialNumber.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    serialNumber.text = NSLocalizedString(@"合同编号001", nil);
-    [whiteV addSubview:serialNumber];
-    [serialNumber makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(141.5 * WidthCoefficient);
+    self.serialNumber = [[UILabel alloc] init];
+    _serialNumber.textAlignment = NSTextAlignmentLeft;
+    _serialNumber.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+   
+    [whiteV addSubview:_serialNumber];
+    [_serialNumber makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
+        make.right.equalTo(-10 * HeightCoefficient);
         make.top.equalTo(10 * HeightCoefficient);
     }];
     
@@ -111,14 +112,14 @@
                 make.width.equalTo(71.5 * WidthCoefficient);
                 make.height.equalTo(20 * HeightCoefficient);
                 make.left.equalTo(10*WidthCoefficient);
-                make.top.equalTo(serialNumber.bottom).offset(10*HeightCoefficient);
+                make.top.equalTo(_serialNumber.bottom).offset(10*HeightCoefficient);
                 
             }];
 
             [whiteV makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(150 * WidthCoefficient);
                 make.height.equalTo(20 * HeightCoefficient);
-            make.left.equalTo(label.right).offset(0*WidthCoefficient);make.top.equalTo(serialNumber.bottom).offset(10*HeightCoefficient);
+            make.left.equalTo(label.right).offset(0*WidthCoefficient);make.top.equalTo(_serialNumber.bottom).offset(10*HeightCoefficient);
             }];
             
         } else {
@@ -239,7 +240,7 @@
 
 -(void)setContractModel:(ContractModel *)contractModel
 {
-    
+     _serialNumber.text = NSLocalizedString(contractModel.contractCode, nil);
     _startLabel.text = NSLocalizedString(contractModel.contractBeginTime, nil);
     _endLabel.text = NSLocalizedString(contractModel.contractEndTime, nil);
     _modeLabel.text = NSLocalizedString(contractModel.payDate, nil);

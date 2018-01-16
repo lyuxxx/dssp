@@ -77,10 +77,13 @@
 
 -(void)requestData
 {
+    
+    _count = 1;
+    NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
     self.tableView.mj_header.hidden =YES;
     NSDictionary *paras = @{
                             @"vin": kVin,
-                            @"currentPage":@"1",
+                            @"currentPage":string,
                             @"pageSize":@"5"
                             };
 
@@ -96,7 +99,6 @@
                 [contractData addObject:contract];
             }
             self.latestNewsFrame = contractData;
-            NSLog(@"333%@",contract.contractBeginTime);
             if (self.latestNewsFrame.count == 0) {
                 self.tableView.mj_footer.hidden =YES;
             }
@@ -114,17 +116,13 @@
          self.tableView.mj_footer.hidden =YES;
          [_tableView.mj_header endRefreshing];
          [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-        
-//        
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
-
 -(void)requestMoreNews
 {
-
     _count += 1;
     NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
     NSDictionary *paras = @{
@@ -201,11 +199,7 @@
         cell = [[ContractCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-//    ContractModel *contract =[ContractModel new];
-     cell.contractModel = contract;
-//    cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
-//    cell.moneyLabel.text = contract.userId;
-//    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
+    cell.contractModel = contract;
     cell.backgroundColor=[UIColor clearColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;

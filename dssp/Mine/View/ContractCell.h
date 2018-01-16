@@ -15,4 +15,5 @@
 @property (nonatomic,strong) UILabel *endLabel;
 @property (nonatomic,strong) UILabel *modeLabel;
 @property (nonatomic,strong) UILabel *startLabel;
+@property (nonatomic,strong) UILabel *serialNumber;
 @end

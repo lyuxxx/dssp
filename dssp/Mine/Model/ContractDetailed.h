@@ -69,7 +69,7 @@
 @end
 
 
-@interface serviceItemProfiles : NSObject
+@interface ServiceItemProfilesVO : NSObject <YYModel>
 //当前页
 @property (nonatomic , copy) NSString *currentPage;
 //当前页条数
@@ -84,14 +84,21 @@
 @property (nonatomic , copy) NSString *vhlSeriesId;
 //设备类型
 @property (nonatomic , copy) NSString *deviceType;
-//服务项编码
+//CVMP套餐编码
 @property (nonatomic , copy) NSString *businessServiceCode;
-//服务项别名
+//CVMP套餐别名
 @property (nonatomic , copy) NSString *businessServiceLabel;
 //创建时间
 @property (nonatomic , assign) NSInteger createTime;
 //最后更新时间
 @property (nonatomic , assign) NSInteger lastUpdateTime;
+//服务项编码
+@property (nonatomic , copy) NSString *servElemLabel;
+//服务项版本
+@property (nonatomic , copy) NSString *servElemVersion;
+//是否可用
+@property (nonatomic , copy) NSString *isVaild;
+
 @end
 
 
@@ -111,17 +118,20 @@
 //套餐类型
 @property (nonatomic , copy) NSString *packType;
 
-@property (nonatomic, strong) vhlTypeModel *vhlTypedata;
-@property (nonatomic, strong) vhlSeriesModel *vhlSeriesdata;
-@property (nonatomic, strong) vhlBrandModel *vhlBranddata;
-@property (nonatomic, strong) serviceItemProfiles *serviceItemdata;
+@property (nonatomic, strong) NSArray<ServiceItemProfilesVO *> *serviceItemProfiles;
+
+//
+//@property (nonatomic, strong) vhlTypeModel *vhlTypedata;
+//@property (nonatomic, strong) vhlSeriesModel *vhlSeriesdata;
+//@property (nonatomic, strong) vhlBrandModel *vhlBranddata;
+//@property (nonatomic, strong) serviceItemProfiles *serviceItemdata;
 
 //创建时间
-@property (nonatomic , assign) NSInteger createTime;
+@property (nonatomic , copy) NSString *createTime;
 //创建人
 @property (nonatomic , copy) NSString *createBy;
 //最后更新时间
-@property (nonatomic , assign) NSInteger lastUpdateTime;
+@property (nonatomic , copy) NSString *lastUpdateTime;
 //最后更新人
 @property (nonatomic , copy) NSString *lastUpdateBy;
 @end

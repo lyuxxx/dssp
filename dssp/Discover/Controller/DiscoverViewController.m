@@ -60,7 +60,7 @@
     NSDictionary *paras = @{
                        
                             };
-   NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findUnreadNumberByVin,@"VF7CAPSA000000101"];
+   NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findUnreadNumberByVin,kVin];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {

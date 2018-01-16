@@ -14,8 +14,15 @@
 #import "TopImgButton.h"
 #import "NSArray+Sudoku.h"
 #import "ContractdetailCell.h"
+#import "ContractDetailed.h"
 @interface ContractdetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) UILabel *vipLabel;
+@property (nonatomic,strong) UILabel *typeLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic,strong) UILabel *describeLabel;
+@property (nonatomic,strong) ContractData *contractData;
+@property (nonatomic,strong) NSArray *dataArray;
 @end
 
 @implementation ContractdetailViewController
@@ -26,9 +33,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self requestData];
-    [self setupUI];
+//    [self setupUI];
 }
 
 -(void)requestData
@@ -44,27 +50,27 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-//            contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-//            [_tableView reloadData];
-            
+           _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
+           _dataArray =_contractData.serviceItemProfiles;
+            [_tableView reloadData];
+            [self setupUI];
             //响应事件
-            
         } else {
+            [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
         [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
 
-
 -(void)setupUI
 {
 
     self.navigationItem.title = NSLocalizedString(@"合同详细", nil);
-    
     UIScrollView *scroll = [[UIScrollView alloc] init];
     scroll.showsVerticalScrollIndicator = NO;
     if (@available(iOS 11.0, *)) {
@@ -105,13 +111,13 @@
     }];
     
     
-    UILabel *vipLabel = [[UILabel alloc] init];
-    vipLabel.textAlignment = NSTextAlignmentLeft;
-    vipLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    vipLabel.text = NSLocalizedString(@"尊享VIP套餐", nil);
-    vipLabel.textColor=[UIColor colorWithHexString:@"#A18E79"];
-    [whiteV addSubview:vipLabel];
-    [vipLabel makeConstraints:^(MASConstraintMaker *make) {
+    self.vipLabel = [[UILabel alloc] init];
+    _vipLabel.textAlignment = NSTextAlignmentLeft;
+    _vipLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    _vipLabel.text = NSLocalizedString(_contractData.name, nil);
+    _vipLabel.textColor=[UIColor colorWithHexString:@"#A18E79"];
+    [whiteV addSubview:_vipLabel];
+    [_vipLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
@@ -119,62 +125,73 @@
     }];
     
     
-    UILabel *typeLabel = [[UILabel alloc] init];
-    typeLabel.textAlignment = NSTextAlignmentLeft;
-    typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    typeLabel.text = NSLocalizedString(@"类型:", nil);
-    typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:typeLabel];
-    [typeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(41.5 * WidthCoefficient);
+    self.typeLabel = [[UILabel alloc] init];
+    _typeLabel.textAlignment = NSTextAlignmentLeft;
+    _typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    NSString *packType = [NSString stringWithFormat:@"类型：%@",_contractData.packType];
+//                         stringByAppendingString:@"条新消息通知"]
+    _typeLabel.text = NSLocalizedString(packType, nil);
+    _typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:_typeLabel];
+    [_typeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(vipLabel.bottom).offset(10 * HeightCoefficient);
+        make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
     }];
     
-    UILabel *timeLabel = [[UILabel alloc] init];
-    timeLabel.textAlignment = NSTextAlignmentLeft;
-    timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    timeLabel.text = NSLocalizedString(@"有效时间:", nil);
-    timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:timeLabel];
-    [timeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(70 * WidthCoefficient);
+    self.timeLabel = [[UILabel alloc] init];
+    _timeLabel.textAlignment = NSTextAlignmentLeft;
+    _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    NSString *a = _contractData.createTime;
+    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
+    NSString *a1 = _contractData.lastUpdateTime;
+    NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
+    NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",b] stringByAppendingString:b1];
+//    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
+    _timeLabel.text = NSLocalizedString(time, nil);
+    _timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:_timeLabel];
+    [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(170 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(typeLabel.bottom).offset(10 * HeightCoefficient);
+        make.right.equalTo(-10 * HeightCoefficient);
+        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
     }];
     
-    UILabel *describeLabel = [[UILabel alloc] init];
-    describeLabel.textAlignment = NSTextAlignmentLeft;
-    describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    describeLabel.text = NSLocalizedString(@"描述:", nil);
-    describeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:describeLabel];
-    [describeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(41.5 * WidthCoefficient);
+    self.describeLabel = [[UILabel alloc] init];
+    _describeLabel.textAlignment = NSTextAlignmentLeft;
+    _describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    NSString *descript = [NSString stringWithFormat:@"描述：%@",_contractData.descript];
+    _describeLabel.text = NSLocalizedString(descript, nil);
+    _describeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:_describeLabel];
+    [_describeLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(41.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(timeLabel.bottom).offset(10 * HeightCoefficient);
+        make.right.equalTo(-10 * HeightCoefficient);
+        make.top.equalTo(_timeLabel.bottom).offset(10 * HeightCoefficient);
     }];
     
     
     
-    UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    testdriveBtn.layer.cornerRadius = 10;
-    [testdriveBtn setTitle:NSLocalizedString(@"试驾", nil) forState:UIControlStateNormal];
-    [testdriveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    testdriveBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
-    [testdriveBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-    [whiteV addSubview:testdriveBtn];
-    [testdriveBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(50 * WidthCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.top.equalTo(10 * HeightCoefficient);
-        make.right.equalTo(whiteV.right).offset(-10 * HeightCoefficient);
-    }];
-    
+//    UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    testdriveBtn.layer.cornerRadius = 10;
+//    [testdriveBtn setTitle:NSLocalizedString(@"试驾", nil) forState:UIControlStateNormal];
+//    [testdriveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    testdriveBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
+//    [testdriveBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
+//    [whiteV addSubview:testdriveBtn];
+//    [testdriveBtn makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(50 * WidthCoefficient);
+//        make.height.equalTo(20 * HeightCoefficient);
+//        make.top.equalTo(10 * HeightCoefficient);
+//        make.right.equalTo(whiteV.right).offset(-10 * HeightCoefficient);
+//    }];
+//
     
 
 //
@@ -253,12 +270,14 @@
         make.top.equalTo(5.75 * HeightCoefficient);
     }];
 
+    
+//      [self setupUI];
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return _dataArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -275,17 +294,7 @@
         cell = [[ContractdetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-//    NSArray *titles = @[NSLocalizedString(@"在线音乐", nil),NSLocalizedString(@"在线电台", nil),NSLocalizedString(@"OTA升级", nil),NSLocalizedString(@"WIFI", nil)];
-//
-//    _DataArray = [NSMutableArray new];
-//    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.music]?[NSString stringWithFormat:@"%ld",_carflow.music]:@"0"];
-//    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.fm]?[NSString stringWithFormat:@"%ld",_carflow.fm]:@"0"];
-//    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.ota]?[NSString stringWithFormat:@"%ld",_carflow.ota]:@"0"];
-//    [_DataArray addObject:[NSString stringWithFormat:@"%ld",_carflow.wifi]?[NSString stringWithFormat:@"%ld",_carflow.wifi]:@"0"];
-//
-//    cell.toplab.text =titles[indexPath.row];
-    //    cell.bottolab.text =@"最近使用:2017/12/31";
-//    cell.rightlab.text =_DataArray[indexPath.row];
+    cell.toplab.text = _dataArray[indexPath.row][@"deviceType"];
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
