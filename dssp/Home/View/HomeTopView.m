@@ -59,6 +59,7 @@
 @property (nonatomic, strong) UILabel *oilLeftLabel;
 @property (nonatomic, strong) UILabel *healthLabel;
 @property (nonatomic, strong) NoResponseYYLabel *locationLabel;
+@property (nonatomic, strong) NoResponseView *locationBg;
 @property (nonatomic, strong) NoResponseView *btnContainer;
 @property (nonatomic, strong) UIButton *settingBtn;
 
@@ -193,7 +194,10 @@
         
         NSString *str = @"未获取到车辆位置";
         self.locationLabel = [[NoResponseYYLabel alloc] init];
-        _locationLabel.backgroundColor = [UIColor colorWithHexString:@"2f2726"];
+        _locationLabel.numberOfLines = 0;
+        _locationLabel.preferredMaxLayoutWidth = kScreenWidth - 40 * WidthCoefficient - 15 * WidthCoefficient;
+        _locationLabel.textAlignment = NSTextAlignmentCenter;
+        _locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
         NSMutableAttributedString *locationStr = [NSMutableAttributedString new];
         UIFont *locationFont = [UIFont fontWithName:FontName size:13];
         NSMutableAttributedString *attachment = nil;
@@ -209,9 +213,20 @@
         [self addSubview:_locationLabel];
         [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
+            make.height.equalTo(42 * HeightCoefficient);
+            make.width.equalTo(layout.textBoundingRect.size.width);
+            make.top.equalTo(_previewImgV.bottom).offset(15 * HeightCoefficient);
+        }];
+
+        self.locationBg = [[NoResponseView alloc] init];
+        _locationBg.backgroundColor = [UIColor colorWithHexString:@"2f2726"];
+        _locationBg.layer.cornerRadius = 10.5;
+        [self addSubview:_locationBg];
+        [self insertSubview:_locationLabel aboveSubview:_locationBg];
+        [_locationBg makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(_locationLabel);
             make.height.equalTo(21 * HeightCoefficient);
-            make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
-            make.top.equalTo(_previewImgV.bottom).offset(16 * HeightCoefficient);
+            make.width.equalTo(_locationLabel).offset(15 * WidthCoefficient);
         }];
         
         self.btnContainer = [[NoResponseView alloc] init];
@@ -223,7 +238,7 @@
         _btnContainer.layer.shadowRadius = 7;
         [self addSubview:_btnContainer];
         [_btnContainer makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_locationLabel.bottom).offset(17 * HeightCoefficient);
+            make.top.equalTo(_previewImgV.bottom).offset(73 * HeightCoefficient);
             make.centerX.equalTo(0);
             make.width.equalTo(360 * WidthCoefficient);
             make.height.equalTo(92 * WidthCoefficient);
@@ -290,8 +305,22 @@
         CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
         YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
         [self addSubview:_locationLabel];
+        NSInteger oriWidth = layout.textBoundingRect.size.width;
+        NSInteger width = oriWidth;
+        if (oriWidth > _locationLabel.preferredMaxLayoutWidth) {//两行
+            width = _locationLabel.preferredMaxLayoutWidth;
+            _locationBg.layer.cornerRadius = 21;
+            [_locationBg updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(42 * HeightCoefficient);
+            }];
+        } else {//一行
+            _locationBg.layer.cornerRadius = 10.5;
+            [_locationBg updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(21 * HeightCoefficient);
+            }];
+        }
         [_locationLabel updateConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(layout.textBoundingRect.size.width + 15 * WidthCoefficient);
+            make.width.equalTo(width);
         }];
         [self layoutIfNeeded];
     }
@@ -345,7 +374,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _locationLabel.layer.cornerRadius = 10.5;
 }
 
 - (NSMutableArray<UIView *> *)allSubViews {

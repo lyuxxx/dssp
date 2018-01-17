@@ -119,7 +119,7 @@
     [_topView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
         make.left.right.equalTo(0);
-        make.height.equalTo(355 * HeightCoefficient);
+        make.height.equalTo(375 * HeightCoefficient);
     }];
     
     self.scroll = [[UIScrollView alloc] init];
@@ -228,9 +228,9 @@
     
     [self.KVOController observe:self.scroll keyPath:@"contentOffset" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
-        //        CGFloat newOffset = offset.y + 355 * HeightCoefficient;
-        CGFloat newOffset = offset.y + 92 * WidthCoefficient + 53 * HeightCoefficient + 210 * HeightCoefficient;
-        if (offset.y >= -(92 * WidthCoefficient + 53 * HeightCoefficient)) {
+        //        CGFloat newOffset = offset.y + 375 * HeightCoefficient;
+        CGFloat newOffset = offset.y + 92 * WidthCoefficient + 73 * HeightCoefficient + 210 * HeightCoefficient;
+        if (offset.y >= -(92 * WidthCoefficient + 73 * HeightCoefficient)) {
             [_topView updateConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(-210 * HeightCoefficient);
             }];
