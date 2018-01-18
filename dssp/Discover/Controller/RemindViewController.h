@@ -14,6 +14,8 @@ typedef void(^RemindBackBlcok) (NSString *text);
 @property(nonatomic,copy) NSString *vin;
 @property(nonatomic,copy) NSString *businType;
 @property(nonatomic,copy) NSString *noticeId;
+@property(nonatomic,copy) NSString *title;
+@property (nonatomic,strong) NoticeModel *noticeModel;
 @property (nonatomic,strong) NoticedatailModel *notice;
 - (instancetype)initWithImage:(UIImage *)image title:(NSString *)title message:(NSString *)message;
 @property (nonatomic,copy)RemindBackBlcok remindBackBlcok;

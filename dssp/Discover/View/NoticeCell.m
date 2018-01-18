@@ -85,14 +85,11 @@
     _unreadImgV.layer.masksToBounds =YES;
     [_white addSubview:_unreadImgV];
     [_unreadImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(17 * HeightCoefficient);
+        make.top.equalTo(18 * HeightCoefficient);
         make.height.equalTo(7 * WidthCoefficient);
         make.width.equalTo(7 * WidthCoefficient);
         make.left.equalTo(10 * WidthCoefficient);
-      
-        
     }];
-    
     
     
     self.remindLabel = [[UILabel alloc] init];
@@ -149,56 +146,12 @@
 
 }
 
-//- (NSString *)getTimeToShowWithTimestamp:(NSString *)timestamp
-//
-//{
-//    if (timestamp)
-//    {
-//    NSString *publishString = timestamp;
-//    double publishLong = [publishString doubleValue];
-//
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//
-//    [formatter setDateStyle:NSDateFormatterMediumStyle];
-//
-//    [formatter setTimeStyle:NSDateFormatterShortStyle];
-//
-//    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-//
-//    [formatter setDateFormat:@"yyyy.MM.dd HH:mm:ss"];
-//
-//
-//    NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:publishLong/1000];
-//    NSDate *date = [NSDate date];
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    NSInteger interval = [zone secondsFromGMTForDate:date];
-//    publishDate = [publishDate  dateByAddingTimeInterval: interval];
-//    publishString = [formatter stringFromDate:publishDate];
-//    return publishString;
-//    }
-//    else
-//    {
-//
-//        return nil;
-//    }
-//
-//}
 
 
 -(NSString *)setWithTimeString:(NSInteger)time
 {
     if (time) {
-//        NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
-//        NSTimeInterval times=[dueDateStr doubleValue];
-//        NSDate *date = [NSDate dateWithTimeIntervalSince1970:times/1000];
-//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//        [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-////        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-//        NSString *dateString = [formatter stringFromDate: date];
-        
-        
-        
+
         NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
         NSString *publishString = dueDateStr;
         double publishLong = [publishString doubleValue];
@@ -233,7 +186,6 @@
 
 - (void)resetColor {
 //    self.white.backgroundColor = [UIColor whiteColor];
-    
     
 }
 

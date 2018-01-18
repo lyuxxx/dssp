@@ -26,26 +26,49 @@
 @property (nonatomic ,strong) UIViewController *currentVC;
 @property (nonatomic ,strong) UILabel *bottomLabel;
 @property (nonatomic ,strong) UILabel *bottomLabels;
+@property (nonatomic, assign) BOOL isViewVisable;
 @end
 
 @implementation DiscoverViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification:) name:@"DiscoverVCneedRefresh" object:nil];
-    // Do any additional setup after loading the view.
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DidReceivePayloadMsg" object:nil];
+
     [self requestData];
     [self setupUI];
+      
 }
+
+-(void)executeNotification
+{
+    if(self.isViewVisable){
+        [self requestData];
+        [self setupUI];
+        //说明是当前页面，做些请求数据，更新页面的操作
+          [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
+    }
+    else{
+        //不是的话可能不需要做任何事情
+    }
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.isViewVisable = YES;
+    [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
     if (self.currentVC == self.noticeVC) {
         [self requestData];
-        [self setupUI];
     }
 }
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.isViewVisable = NO;
+}
+
 
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
@@ -54,7 +77,6 @@
     }
 }
 
-
 -(void)requestData
 {
     NSDictionary *paras = @{
@@ -62,23 +84,22 @@
                             };
    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findUnreadNumberByVin,kVin];
     
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             // [_tableView reloadData];
             self.unreadstr = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
-            if ([self.unreadstr isEqualToString:@"0"]) {
-                  [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-            }
-            else
-            {
-                 [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-                
-            }
-            NSString *unreads = [[NSString stringWithFormat:@"%@",self.unreadstr] stringByAppendingString:@"条新消息通知"];
+//            if ([self.unreadstr isEqualToString:@"0"]) {
+//              [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
+//            }
+//            else
+//            {
+//              [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+//            }
+            NSString *unreads = [[NSString stringWithFormat:@"%@",self.unreadstr] stringByAppendingString:@"条未读消息"];
              _bottomLabel.text = unreads;
             NSLog(@"666%@",self.unreadstr);
             //响应事件
@@ -86,8 +107,9 @@
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        [hud hideAnimated:YES afterDelay:1];
+         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 

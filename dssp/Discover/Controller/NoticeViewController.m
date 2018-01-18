@@ -17,6 +17,7 @@
 #import "FavoriteCell.h"
 #import "NoticeModel.h"
 #import "RemindViewController.h"
+#import "UITabBar+badge.h"
 @interface NoticeViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -34,12 +35,24 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
+//      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePayloadMsg) name:@"DidReceivePayloadMsg" object:nil];
+    
     
     [self createTable];
     [self pullDownToRefreshLatestNews];
     [self.tableView.mj_header beginRefreshing];
   
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestNoticeData];
+}
+
+//-(void)didReceivePayloadMsg
+//{
+//     [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+//}
 
 - (void)executeNotification {
     [self.tableView.mj_header beginRefreshing];
@@ -210,9 +223,11 @@
     
     NoticeModel *notice = self.dataSource[indexPath.row];
     RemindViewController *remindView =[[RemindViewController alloc] init];
-    remindView.vin= notice.vin;
-    remindView.businType= notice.businType;
-    remindView.noticeId = notice.noticeId;
+//    remindView.vin= notice.vin;
+//    remindView.title=notice.title;
+//    remindView.businType= notice.businType;
+//    remindView.noticeId = notice.noticeId;
+    remindView.noticeModel = notice;
     remindView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:remindView animated:YES];
 }

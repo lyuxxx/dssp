@@ -182,12 +182,8 @@
         TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
         tabVC.selectedIndex = 1;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-           
             [[NSNotificationCenter defaultCenter] postNotificationName:@"DiscoverVCneedRefresh" object:nil userInfo:nil];
         });
-        
-        
-
     }
 }
 
@@ -296,8 +292,11 @@
             [self showLogout];
         } else {
             [self registerLocalNotificationWithInfo:dic];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePayloadMsg" object:nil userInfo:nil];
         }
     }
+    
+    
     
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);

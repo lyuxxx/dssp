@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *message;
 
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *msgLabel;
+@property (nonatomic, strong) UITextView *msgLabel;
 @property (nonatomic, strong) UIImageView *imgV;
 
 @end
@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = self.intro;
+    self.navigationItem.title = _noticeModel.title;
     self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     [self requestNoticeData];
   
@@ -49,7 +49,7 @@
     NSDictionary *paras = @{
                             @"readStatus":@"1",
                             @"isDel":@"0",
-                            @"id":_noticeId
+                            @"id":_noticeModel.noticeId
                             };
     [CUHTTPRequest POST:updateReadStatusOrIsDelByVinAndType parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -82,7 +82,7 @@
 //                            @"businType":_businType
                             };
     
-    NSString *findAppPushByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxInfoById,_noticeId];
+    NSString *findAppPushByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxInfoById,_noticeModel.noticeId];
     
     [CUHTTPRequest POST:findAppPushByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -101,20 +101,13 @@
     }];
 }
 
-//- (UIBarButtonItem *)rt_customBackBarItemWithTarget:(id)target action:(SEL)action {
-//    
-//    NoticeViewController *noticeView =[[NoticeViewController alloc] init];
-////    return [[UIBarButtonItem alloc] initWithTitle:@"back" target:nil action:nil];
-////    return [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:@"1" action:@"1"];
-////    return 1;
-//}
 
 -(void)setNotice:(NoticedatailModel *)notice
 {
-    _titleLabel.text = notice.title;
+//    _titleLabel.text = notice.title;
     _msgLabel.text = notice.noticeData;
     
-    if ([notice.businType isEqualToString:@"maintain"]) {
+    if ([notice.businType isEqualToString:@"maintenance_notice"]) {
          _imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
     }
     if ([notice.businType isEqualToString:@"CaTtheft"]) {
@@ -126,6 +119,10 @@
     if ([notice.businType isEqualToString:@"svn"]) {
          _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
     }
+    if ([notice.businType isEqualToString:@"violation"]) {
+        _imgV.image = [UIImage imageNamed:@"违章提醒_icon"];
+    }
+    
     
 }
 
@@ -153,28 +150,39 @@
         make.centerX.equalTo(0);
     }];
     
-    self.titleLabel = [[UILabel alloc] init];
-    _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _titleLabel.textColor = [UIColor colorWithHexString:@"#040000"];
-    [whiteV addSubview:_titleLabel];
-    [_titleLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(34 * HeightCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.centerX.equalTo(0);
-    }];
+//    self.titleLabel = [[UILabel alloc] init];
+//    _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+//    _titleLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+//    [whiteV addSubview:_titleLabel];
+//    [_titleLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(34 * HeightCoefficient);
+//        make.height.equalTo(22.5 * HeightCoefficient);
+//        make.centerX.equalTo(0);
+//    }];
     
-    self.msgLabel = [[UILabel alloc] init];
+//    self.contentlabel =[[UITextView alloc] init];
+//    _contentlabel.editable = NO;
+//    [self.view addSubview:_contentlabel];
+//    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(0 * WidthCoefficient);
+//        make.bottom.equalTo(0 * HeightCoefficient);
+//        make.left.equalTo(0 * WidthCoefficient);
+//        make.top.equalTo(0 * HeightCoefficient);
+//    }];
+//
+    
+    self.msgLabel = [[UITextView alloc] init];
     _msgLabel.textAlignment = NSTextAlignmentLeft;
-    _msgLabel.numberOfLines = 0;
+//    _msgLabel.numberOfLines = 0;
+    _msgLabel.editable = NO;
     _msgLabel.font = [UIFont fontWithName:FontName size:13];
     _msgLabel.textColor = [UIColor colorWithHexString:@"#666666"];
-  
     [whiteV addSubview:_msgLabel];
     [_msgLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(66.5 * HeightCoefficient);
-        make.width.equalTo(343 * WidthCoefficient);
-        make.centerX.equalTo(0);
-        make.bottom.equalTo(whiteV);
+        make.top.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
+        make.right.equalTo(-16 * WidthCoefficient);
+        make.bottom.equalTo (-10 *HeightCoefficient);
     }];
 }
 

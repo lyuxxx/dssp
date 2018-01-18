@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TabBarController : UITabBarController
-
+@property (strong, nonatomic) UIWindow *window;
 @end

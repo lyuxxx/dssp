@@ -37,23 +37,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DidReceivePayloadMsg" object:nil];
     [self setup];
-    
-//    NSNotification *ReadAllNoticeNotification =[[NSNotification alloc] init];
-//    [[NSNotificationCenter defaultCenter] addObserverForName:ReadAllNoticeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-//        [self.tabBarController.tabBar hideBadgeOnItemIndex:3];
-//    }];
-    
+}
 
-    
-   
-    
-    
-    
-   
-
- 
+-(void)executeNotification
+{
+    NSLog(@"666%@",[self.tabBar.items objectAtIndex:1])
+    [self.tabBar showBadgeOnItemIndex:1];
 }
 
 - (void)setup {
@@ -97,9 +88,13 @@
         [naVC.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
         [viewControllers addObject:naVC];
+        
+        
         if (i == 1) {
             DiscoverViewController *discoverVC = (DiscoverViewController *)vc;
             self.delegate = discoverVC;
+         
+      
         }
     }
    
