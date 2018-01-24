@@ -35,7 +35,6 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
-//      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePayloadMsg) name:@"DidReceivePayloadMsg" object:nil];
     
     
     [self createTable];
@@ -46,7 +45,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestNoticeData];
+//    [self requestNoticeData];
 }
 
 //-(void)didReceivePayloadMsg
@@ -59,17 +58,25 @@
     NSLog(@"－－－－－接收到通知------");
 }
 
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)pullDownToRefreshLatestNews {
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
-    // 设置header
-//    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
-    [_tableView.mj_header beginRefreshing];
-
+//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
+//    // 设置header
+////    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
+//    [_tableView.mj_header beginRefreshing];
+    
+      MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
+      self.tableView.mj_header = header;
+      // 隐藏时间
+//      header.lastUpdatedTimeLabel.hidden = YES;
+//      // 隐藏状态
+//      header.stateLabel.hidden = YES;
+  
 }
 
 - (void)createTable {
@@ -116,8 +123,7 @@
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
-    if (indexPaths.count == 1) {
-//        NoticeModel *notice = self.dataSource[indexPath.row];
+
         NSString *idStr = @"";
         NSMutableArray *idArr = [NSMutableArray arrayWithCapacity:self.selectedDatas.count];
         for (NoticeModel *item in self.selectedDatas) {
@@ -144,6 +150,14 @@
                 //        [self.tableView beginUpdates];
                 [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
                 
+                
+                    if (self.dataSource.count == 0)
+                    {
+                        //没有收藏数据
+                
+                
+                    }
+                
             } else {
                 
                 [MBProgressHUD showText:dic[@"msg"]];
@@ -152,42 +166,9 @@
             
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
-
-    } else {
-      
-        
-    }
-
-//    // 删除数据源
-//    [self.dataSource removeObjectsInArray:self.selectedDatas];
-//    [self.selectedDatas removeAllObjects];
-//    
-//    //    [UIView setAnimationsEnabled:NO];
-//    // 删除选中项
-////        [self.tableView beginUpdates];
-//    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-    //    [self.tableView endUpdates];
-    //    [UIView setAnimationsEnabled:YES];
-    
-    // 验证数据源
-//    [self indexPathsForSelectedRowsCountDidChange:self.tableView.indexPathsForSelectedRows];
-    
-    // 验证
-    // 没有
-    if (self.dataSource.count == 0)
-    {
-        //没有收藏数据
-
-
-    }
-    
-//    [self setupFooter];
 }
 
-
-
 #pragma mark - UITableViewDelegate
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }

@@ -164,14 +164,15 @@
             self.ownercerttypeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
             
         } else if (i == 3) {
+            field.keyboardType = UIKeyboardTypePhonePad;
             self.ownercertidField = field;
         } else if (i == 4) {
+            field.keyboardType = UIKeyboardTypePhonePad;
             self.servnumberField = field;
         } else if (i == 5) {
             self.ownercertaddrField = field;
         }
     }
-    
     
     self.agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    _agreeBtn.selected = YES;

@@ -10,6 +10,7 @@
 
 @interface WMViewController : UIViewController
 @property (nonatomic, strong) NSDictionary *model;
-@property (nonatomic, assign) NSString *indexs;
+@property (nonatomic, copy) NSString *indexs;
+@property (nonatomic, assign) BOOL doNotRefresh;
 @property (nonatomic,strong) UITableView *tableView;
 @end

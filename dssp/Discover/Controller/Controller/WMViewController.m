@@ -18,34 +18,46 @@
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSMutableArray  *channelArray;
 @property (nonatomic, strong) UIImageView *bgImgV;
+@property (nonatomic, assign) BOOL didAppear;
 @end
 
 @implementation WMViewController
 
+//static dispatch_once_t WMonceToken;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor= [UIColor colorWithHexString:@"#F9F8F8"];
-    
-  
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#F9F8F8"];
     [self initTableView];
-    [self pullDownToRefreshLatestNews];
-    [self.tableView.mj_header beginRefreshing];
-
-
+    [self requestData];
 }
+
+//-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    if (self.didAppear) {
+//        self.didAppear = NO;
+////        [self pullDownToRefreshLatestNews];
+//          [self requestData];
+//    }
+//    else
+//    {
+//        [self requestData];
+//    }
+//}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+
 
 - (void)pullDownToRefreshLatestNews {
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
-    // 设置header
-    //    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
-    [_tableView.mj_header beginRefreshing];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SubscribeVCneedRefresh" object:nil userInfo:nil];
 }
+
 
 -(void)requestData
 {
-    
-    
 //    NSInteger channel = _indexs;
 //    NSString *channelId = [[NSString alloc] initWithFormat:@"%ld",channel];
     NSDictionary *paras = @{
@@ -67,14 +79,12 @@
             }
             [self.tableView.mj_header endRefreshing];
             [_tableView reloadData];
-            
             if (self.channelArray.count == 0) {
                 [self blankUI];
             }
             //响应事件
-            
+         
         } else {
-//            [self initTableView];
             [self blankUI];
             [self.tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
@@ -147,6 +157,16 @@
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(10 *HeightCoefficient, 0, kNaviHeight, 0));
        
     }];
+    
+//    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullDownToRefreshLatestNews)];
+//
+//    self.tableView.mj_header = header;
+//         //     隐藏时间
+//    header.lastUpdatedTimeLabel.hidden = YES;
+//        // 隐藏状态
+//    header.stateLabel.hidden = YES;
+    
+     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullDownToRefreshLatestNews)];
 }
 
 
@@ -187,10 +207,8 @@
 
 - (void)dealloc {
     NSLog(@"%@ destroyed",[self class]);
+  
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

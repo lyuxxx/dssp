@@ -58,7 +58,7 @@
     NSDictionary *paras = @{
 //                            @"vin": @"VF7CAPSA000020944"
                             };
-    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,kVin];
+    NSString *queryVhls = [NSString stringWithFormat:@"%@/%@",queryVhl,[kVin isEqualToString:@""]?kVins:kVin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryVhls parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -70,15 +70,14 @@
             self.vinField.text = _vhl.vin;
             self.doptCodeField.text = _vhl.doptCode;
             self.vhlLisenceField.text =_vhl.vhlLisence;
-            self.colorField.text =_vhl.color;
-            self.vhlStatusField.text = _vhl.vhlStatus;
-            self.isTestField.text = _vhl.isTest;
-            self.vhlBrandField.text = _vhl.brandName;
-            self.vhlTStatusField.text = _vhl.vhlTStatus;
-            self.seriesNameField.text = _vhl.seriesName;
-            self.typeNameField.text = _vhl.typeName;
-            
-
+            self.colorField.text =_vhl.vhlColorName;
+            self.vhlStatusField.text = _vhl.vhlBrandName;
+            self.isTestField.text = [_vhl.vhlTStatus isEqualToString:@"1"]?@"T车辆":@"非T车辆";
+//            self.vhlBrandField.text = _vhl.brandName;
+//            self.vhlTStatusField.text = _vhl.vhlTStatus;
+            self.seriesNameField.text = _vhl.vhlSeriesName;
+            self.typeNameField.text = _vhl.vhlTypeName;
+            NSLog(@"%@555",_vhl.vhlTStatus);
         } else {
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
@@ -151,8 +150,8 @@
 //                                    NSLocalizedString(@"车辆类型", nil),
                                     NSLocalizedString(@"品牌", nil),
                                     NSLocalizedString(@"车辆T状态", nil),
-                                    NSLocalizedString(@"车系名", nil),
-                                    NSLocalizedString(@"车型名", nil)
+                                    NSLocalizedString(@"车系", nil),
+                                    NSLocalizedString(@"车型 ", nil)
                                     ];
     
     self.sc = ({
@@ -279,23 +278,26 @@
                    
                     self.vhlStatusField = _field;
                     
-                } else if (i == 5) {
-                    
+                }
+//                else if (i == 5) {
+//
+//                    self.isTestField = _field;
+//
+//                }
+//                else if (i == 6) {
+//
+//                    self.vhlBrandField = _field;
+//
+//                }
+                 else if (i == 5) {
+                  
                     self.isTestField = _field;
                     
                 } else if (i == 6) {
-                  
-                    self.vhlBrandField = _field;
-                    
-                } else if (i == 7) {
-                  
-                    self.vhlTStatusField = _field;
-                    
-                } else if (i == 8) {
                  
                     self.seriesNameField = _field;
                     
-                } else if (i == 9) {
+                } else if (i == 7) {
                   
                     self.typeNameField = _field;
                     
@@ -418,6 +420,9 @@
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                     [hud hideAnimated:YES];
                     //响应事件
+                    
+                    
+                    
                    [MBProgressHUD showText:NSLocalizedString(@"车辆修改成功", nil)];
                 } else {
                     [hud hideAnimated:YES];

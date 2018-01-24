@@ -18,6 +18,7 @@
 #import "RealVinViewcontroller.h"
 #import <IQUIView+IQKeyboardToolbar.h>
 #import "CarBindingInput.h"
+#import "InputAlertView.h"
 @interface CarBindingViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) CarBindingInput *bindingInput;
@@ -717,33 +718,56 @@
             
             if (isPush) {
                 
-                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                               message:@"车辆绑定成功,是否跳转实名制页面"
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                NSString *vin = _bingVin;
+                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                [defaults1 setObject:vin forKey:@"vin"];
+                [defaults1 synchronize];
                 
-                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    //响应事件
-                    //跳实名制vin
-                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-                    vc.vin=_carInfo.vin;
-                    vc.isSuccess = @"1";
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
+                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: InputalertView];
+                
+                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    if (btn.tag == 100) {//左边按钮
+                        
+                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                        vc.vin=_carbind.vin;
+                        vc.isSuccess = @"1";
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
                     
-                }];
-                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] -3)] animated:YES];
-                    
-                }];
-                [alert addAction:defaultAction];
-                [alert addAction:cancelAction];
-                [self presentViewController:alert animated:YES completion:nil];
+                };
+                
+                
+//                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+//                                                                               message:@"车辆绑定成功,跳转实名制页面"
+//                                                                        preferredStyle:UIAlertControllerStyleAlert];
+//
+//                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//                    //响应事件
+//                    //跳实名制vin
+//                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+//                    vc.vin=_carInfo.vin;
+//                    vc.isSuccess = @"1";
+//                    vc.hidesBottomBarWhenPushed = YES;
+//                    [self.navigationController pushViewController:vc animated:YES];
+//
+//                }];
+//                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] -3)] animated:YES];
+//
+//                }];
+//                [alert addAction:defaultAction];
+////                [alert addAction:cancelAction];
+//                [self presentViewController:alert animated:YES completion:nil];
                 
             }else
             {
                 NSLog(@"是从MineViewController过来的页面");
                 [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
-                
             }
             
             //                NSArray *viewControllers = self.navigationController.viewControllers;
@@ -767,7 +791,6 @@
     } failure:^(NSInteger code) {
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
-
 }
 
 - (void)seriesLabelTap:(UITapGestureRecognizer *)sender {
@@ -778,6 +801,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
 - (void)modelsLabelTap:(UITapGestureRecognizer *)sender {
     CarSeriesViewController *vc = [[CarSeriesViewController alloc] init];
     vc.carSeriesSelct = ^(NSString *carSeries) {
@@ -785,6 +809,7 @@
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 - (CarBindingInput *)bindingInput {
     if (!_bindingInput) {

@@ -77,10 +77,11 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 };
 
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
+#define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
 
 //#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
-//#define baseUrl @"http:172.23.105.209:10095/"
-#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
+#define baseUrl @"http:172.23.102.50:10095/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 #define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
 
 
@@ -107,7 +108,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //根据Vin查询实名认证状态
 #define queryCustByMobile [NSString stringWithFormat:@"%@                                                                                 ",baseUrl]
 //接收用户上传图片及实名制信息
-#define receivernrInfo [NSString stringWithFormat:@"%@receivernrInfo",baseUrl]
+#define rnrVhlWithAtb [NSString stringWithFormat:@"%@rnrVhlWithAtb",baseUrl]
 //POI收藏夹列表
 #define findPoiFavoritesFromApp [NSString stringWithFormat:@"%@findPoiFavoritesFromApp",baseUrl]
 //删除POI收藏点
@@ -191,6 +192,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define colorfind [NSString stringWithFormat:@"%@color/find",baseUrl]
 ///实名制认证结果查询vin
 #define queryBindAndRNRStatus [NSString stringWithFormat:@"%@queryBindAndRNRStatus",baseUrl]
+///违章查询
+#define violationsForApp [NSString stringWithFormat:@"%@violationsForApp",baseUrl]
 
 
 #endif /* PrefixHeader_pch */

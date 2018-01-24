@@ -401,6 +401,7 @@
 //        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==0) {
+            
             cell.lab.text = [kVin isEqualToString:@""]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
             
         }

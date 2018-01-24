@@ -84,6 +84,9 @@
 		4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
 		454858102005EA6500170D85 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		454858122005EE6D00170D85 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
+		454C744220181C0C00108F1E /* LllegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744120181C0C00108F1E /* LllegalViewController.m */; };
+		454C744520181E1800108F1E /* LllegaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744420181E1800108F1E /* LllegaCell.m */; };
+		454C7448201823F600108F1E /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
 		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
 		455974501FE77B1F00D7910A /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
@@ -282,6 +285,12 @@
 		4548580D2005B53200170D85 /* PrivacypolicyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacypolicyController.m; sourceTree = "<group>"; };
 		4548580F2005EA6500170D85 /* application.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
 		454858112005EE6C00170D85 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		454C744020181C0C00108F1E /* LllegalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegalViewController.h; sourceTree = "<group>"; };
+		454C744120181C0C00108F1E /* LllegalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegalViewController.m; sourceTree = "<group>"; };
+		454C744320181E1800108F1E /* LllegaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegaCell.h; sourceTree = "<group>"; };
+		454C744420181E1800108F1E /* LllegaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegaCell.m; sourceTree = "<group>"; };
+		454C7446201823F600108F1E /* LllegadetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegadetailController.h; sourceTree = "<group>"; };
+		454C7447201823F600108F1E /* LllegadetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegadetailController.m; sourceTree = "<group>"; };
 		455036071FE246FC0088DAE0 /* ContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractCell.h; sourceTree = "<group>"; };
 		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
 		4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindViewController.h; sourceTree = "<group>"; };
@@ -748,6 +757,10 @@
 				4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */,
 				450644DE20032C8F0099D7AC /* QGLocationTransform.h */,
 				450644DF20032C8F0099D7AC /* QGLocationTransform.m */,
+				454C744020181C0C00108F1E /* LllegalViewController.h */,
+				454C744120181C0C00108F1E /* LllegalViewController.m */,
+				454C7446201823F600108F1E /* LllegadetailController.h */,
+				454C7447201823F600108F1E /* LllegadetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -768,6 +781,8 @@
 		4505B9A11FECAAD600A1E47E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				454C744320181E1800108F1E /* LllegaCell.h */,
+				454C744420181E1800108F1E /* LllegaCell.m */,
 				4505B9A21FECAB0200A1E47E /* CarflowCell.h */,
 				4505B9A31FECAB0200A1E47E /* CarflowCell.m */,
 			);
@@ -1111,6 +1126,7 @@
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,
+				454C744520181E1800108F1E /* LllegaCell.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */,
 				450644DD20030A4A0099D7AC /* UpkeepModel.m in Sources */,
@@ -1120,6 +1136,7 @@
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
+				454C744220181C0C00108F1E /* LllegalViewController.m in Sources */,
 				31A469F61FF1EC5E00C8236E /* SearchAroundViewController.m in Sources */,
 				4505B9AD1FECF6CE00A1E47E /* RnunbindViewController.m in Sources */,
 				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
@@ -1149,6 +1166,7 @@
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */,
 				31A469F31FF1E78B00C8236E /* MapView.m in Sources */,
+				454C7448201823F600108F1E /* LllegadetailController.m in Sources */,
 				455974501FE77B1F00D7910A /* AccountViewController.m in Sources */,
 				455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */,
 				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,

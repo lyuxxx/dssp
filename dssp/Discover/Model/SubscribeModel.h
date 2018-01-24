@@ -37,8 +37,8 @@
 @property (nonatomic , copy) NSString              * picture2;
 @property (nonatomic , copy) NSString              * readingVolume;
 @property (nonatomic , copy) NSString              * invalidTime;
-@property (nonatomic , assign) NSInteger              createTime;
-@property (nonatomic , copy) NSString              * lastUpdateTime;
+@property (nonatomic , assign) NSInteger  createTime;
+@property (nonatomic , assign) NSInteger  lastUpdateTime;
 @property (nonatomic , copy) NSString              * isDel;
 @property (nonatomic , copy) NSString              * isTop;
 @end

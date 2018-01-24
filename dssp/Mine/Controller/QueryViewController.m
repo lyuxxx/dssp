@@ -8,8 +8,9 @@
 
 #import "QueryViewController.h"
 #import "MineViewController.h"
+#import "QueryModel.h"
 @interface QueryViewController ()
-
+@property (nonatomic,strong)QueryModel *queryModel;
 @end
 
 @implementation QueryViewController
@@ -17,11 +18,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setupUI];
+    
+    [self requestData];
+//    [self setupUI];
 }
 
-
-
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                            @"vin": kVin
+                            };
+    [CUHTTPRequest POST:queryBindAndRNRStatus parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            
+           _queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
+//            QueryViewController *queryVC =[[QueryViewController alloc] init];
+//            queryVC.queryModel = queryModel;
+//            [self.navigationController pushViewController:queryVC animated:YES];
+//            NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
+            NSLog(@"666%@",_queryModel.vhlStatus);
+             [self setupUI];
+        } else {
+            [self setupUI];
+            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+            
+        }
+    } failure:^(NSInteger code) {
+        [self setupUI];
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+    }];
+}
 
 - (void)setupUI {
     self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
@@ -103,16 +131,15 @@
         }
         lastView = view1;
         
-        
         if (i==0) {
-            
+    
 //            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
             UILabel *lab = [[UILabel alloc] init];
             lab.textAlignment = NSTextAlignmentLeft;
             lab.textColor = [UIColor colorWithHexString:@"#666666"];
             lab.font = [UIFont fontWithName:FontName size:16];
             lab.hidden = YES;
-            lab.text = NSLocalizedString(@"人工审核", nil);
+            lab.text = NSLocalizedString(@"人工审核中", nil);
             [view1 addSubview:lab];
             [lab makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(80 * WidthCoefficient);
@@ -122,14 +149,61 @@
                 
             }];
             
-            
-            if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.certificationStatus isEqualToString:@"6"]) {
+            if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.vhlFlowStatus isEqualToString:@"6"]) {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                logo.image = [UIImage imageNamed:@"delete text"];
+                 lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab.hidden = NO;
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.vhlFlowStatus isEqualToString:@"7"])
+            {
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                 logo.image = [UIImage imageNamed:@"check"];
-                 lab.hidden = NO;
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                logo.image = [UIImage imageNamed:@"check"];
             }
             else if ([_queryModel.certificationStatus isEqualToString:@"0"])
             {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            else
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            
+        }
+        if (i==1) {
+            
+            if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.vhlFlowStatus isEqualToString:@"7"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                logo.image = [UIImage imageNamed:@"check"];
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
+                logo.image = [UIImage imageNamed:@"check"];
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"0"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            else
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            
+        }
+        if (i==2) {
+            
+            if ([_queryModel.certificationStatus isEqualToString:@"0"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#666666"];
                 logo.image = [UIImage imageNamed:@"check grey"];
             }
@@ -138,49 +212,29 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                 logo.image = [UIImage imageNamed:@"check"];
             }
-            
-    
-        }
-        if (i==1) {
-            
-            if ([_queryModel.vhlFlowStatus isEqualToString:@"7"]) {
-                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
-                 logo.image = [UIImage imageNamed:@"check"];
-                
-
-            }
             else
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#666666"];
                 logo.image = [UIImage imageNamed:@"check grey"];
             }
             
-          
-        }
-        if (i==2) {
-            
-            if ([_queryModel.serviceStatus isEqualToString:@"0"]) {
-                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
-                logo.image = [UIImage imageNamed:@"check grey"];
-            }
-            else if ([_queryModel.serviceStatus isEqualToString:@"1"])
-            {
-                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
-                logo.image = [UIImage imageNamed:@"check"];
-            }
-            
         
         }
         if (i==3) {
             
-            if ([_queryModel.serviceStatus isEqualToString:@"0"]) {
+            if ([_queryModel.certificationStatus isEqualToString:@"0"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#666666"];
                 logo.image = [UIImage imageNamed:@"check grey"];
             }
-            else if ([_queryModel.serviceStatus isEqualToString:@"1"])
+            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                  logo.image = [UIImage imageNamed:@"check"];
+            }
+            else
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
             }
             lineview.hidden = YES;
         }
@@ -205,14 +259,8 @@
 
 -(void)nextBtnClick
 {
-    
     UIViewController *viewCtl = self.navigationController.viewControllers[0];
-    
     [self.navigationController popToViewController:viewCtl animated:YES];
-    
-//    MineViewController 
-    
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

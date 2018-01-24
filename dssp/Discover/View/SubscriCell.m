@@ -130,113 +130,47 @@
 //    _bottomLabel.text = NSLocalizedString(channelModel.channelName, nil);
     _timeLabel.text = [self setWithTimeString:channelModel.createTime];
     [self.bgImgV sd_setImageWithURL:[NSURL URLWithString:channelModel.picture2] placeholderImage:[UIImage imageNamed:@""]];
-    
-    
-    
-//    [self imageFromURLString:channelModel.picture2];
-//
-//    [self thumbnailWithImageWithoutScale:[self imageFromURLString:channelModel.picture2] size:[self getImageSizeWithURL:channelModel.picture2]];
-//
-//    [self image: [self imageFromURLString:channelModel.picture2] fortargetSize: [self getImageSizeWithURL:channelModel.picture2]];
-//
-//    [self getImageSizeWithURL:channelModel.picture2];
-//
-//    NSLog(@"%f ---%f",[self getImageSizeWithURL:channelModel.picture2].width,[self getImageSizeWithURL:channelModel.picture2].height)
-//    _bgImgV.image =  [self thumbnailWithImageWithoutScale:[self imageFromURLString:channelModel.picture2] size:[self getImageSizeWithURL:channelModel.picture2]];
-    
+
 
 }
 
-
-- (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
+-(NSString *)setWithTimeString:(NSInteger)time
 {
-    UIImage *newimage;
-    
-    if (nil == image) {
+    if (time) {
         
-        newimage = nil;
+        NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
+        NSString *publishString = dueDateStr;
+        double publishLong = [publishString doubleValue];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         
-    }
-    
-    else{
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
         
-        CGSize oldsize = image.size;
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
         
-        CGRect rect;
-
-        if (asize.width/asize.height > oldsize.width/oldsize.height) {
-            
-            
-            
-            rect.size.width = asize.height*oldsize.width/oldsize.height;
-            
-            
-            
-            rect.size.height = asize.height;
-            
-            
-            
-            rect.origin.x = (asize.width - rect.size.width)/2;
-            
-            
-            
-            rect.origin.y = 0;
-            
-            
-            
-        }
+        [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         
-        else{
-            
-            
-            
-            rect.size.width = asize.width;
-            
-            
-            
-            rect.size.height = asize.width*oldsize.height/oldsize.width;
-            
-            
-            
-            rect.origin.x = 0;
-            
-            
-            
-            rect.origin.y = (asize.height - rect.size.height)/2;
-            
-            
-            
-        }
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         
         
-        
-        UIGraphicsBeginImageContext(asize);
-        
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        
-        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-        
-        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
+        NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:publishLong/1000];
+        NSDate *date = [NSDate date];
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        NSInteger interval = [zone secondsFromGMTForDate:date];
+        publishDate = [publishDate  dateByAddingTimeInterval: interval];
+        publishString = [formatter stringFromDate:publishDate];
+        return publishString;
         
         
-        
-        [image drawInRect:rect];
-        
-        　　newimage = UIGraphicsGetImageFromCurrentImageContext();
-        
-        　　UIGraphicsEndImageContext();
+    }else
+    {
+        return nil;
         
     }
-    
-    return newimage;
     
 }
-
 
 
 - (CGSize)getImageSizeWithURL:(id)imageURL
-
 {
     
     NSURL* URL = nil;
@@ -502,39 +436,6 @@
                                    dataWithContentsOfURL:[NSURL URLWithString:urlstring]]];
 }
 
--(NSString *)setWithTimeString:(NSInteger)time
-{
-    if (time) {
-      
-        NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
-        NSString *publishString = dueDateStr;
-        double publishLong = [publishString doubleValue];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-        
-        [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        
-        
-        NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:publishLong/1000];
-        NSDate *date = [NSDate date];
-        NSTimeZone *zone = [NSTimeZone systemTimeZone];
-        NSInteger interval = [zone secondsFromGMTForDate:date];
-        publishDate = [publishDate  dateByAddingTimeInterval: interval];
-        publishString = [formatter stringFromDate:publishDate];
-        return publishString;
-        
-        
-    }else
-    {
-        return nil;
-        
-    }
-}
 
 -(UIImage*)image:(UIImage*)image fortargetSize: (CGSize)targetSize{
     

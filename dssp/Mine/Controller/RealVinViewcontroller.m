@@ -80,7 +80,8 @@
     }];
     
     self.vinField = [[UITextField alloc] init];
-    _vinField.text=_vin?_vin:NSLocalizedString(@"", nil);
+//    _vinField.text = [kVin isEqualToString:@""]?kVins:kVin;
+    _vinField.text = kVin;
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -147,7 +148,7 @@
                 else if ([str isEqualToString:@"1"])
                 {
                     ///已实名
-                    [MBProgressHUD showText:NSLocalizedString(@"该vin已实名", nil)];
+                    [MBProgressHUD showText:NSLocalizedString(@"已实名认证", nil)];
                 }
                 
             } else {

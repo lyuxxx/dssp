@@ -163,7 +163,7 @@
         
         [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         
         
         NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:publishLong/1000];

@@ -12,11 +12,12 @@
 //车牌号
 @property (nonatomic , copy) NSString *vhlLisence;
 //颜色
+@property (nonatomic , copy) NSString *vhlColorName;
 @property (nonatomic , copy) NSString *color;
 //备注
 @property (nonatomic , copy) NSString *remark;
 //品牌代码
-@property (nonatomic , copy) NSString *vhlBrandId;
+@property (nonatomic , copy) NSString *vhlBrandName;
 //车系代码
 @property (nonatomic , copy) NSString *vhlSeriesId;
 //车型代码
@@ -61,13 +62,16 @@
 @property (nonatomic , copy) NSString *brandName;
 //车系名
 @property (nonatomic , copy) NSString *seriesName;
+@property (nonatomic , copy) NSString *vhlSeriesName;
 //车型名
-@property (nonatomic , copy) NSString *typeName;
+@property (nonatomic , copy) NSString *vhlTypeName;
 //保险公司名
 @property (nonatomic , copy) NSString *insuranceName;
 //经销商名
 @property (nonatomic , copy) NSString *dealerName;
 //车辆T状态
 @property (nonatomic , copy) NSString *vhlTStatus;
+
+@property (nonatomic , copy) NSString *typeName;
 
 @end

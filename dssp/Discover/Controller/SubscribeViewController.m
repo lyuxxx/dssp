@@ -27,11 +27,20 @@
 @property (nonatomic, strong) NSArray *placeHolders;
 @property (nonatomic, strong) NSMutableArray *subscribeArray;
 @property (nonatomic, strong) WMViewController *wmView;
+@property (nonatomic, strong) NSMutableArray<WMViewController *> *viewcontrollers;
 @end
 
 @implementation SubscribeViewController
 
 #pragma mark 标题数组
+
+- (NSMutableArray<WMViewController *> *)viewcontrollers {
+    if (!_viewcontrollers) {
+        _viewcontrollers = [NSMutableArray array];
+    }
+    return _viewcontrollers;
+}
+
 - (NSMutableArray *)titleData {
     if (!_titleData) {
         _titleData = [[NSMutableArray alloc] init];
@@ -48,22 +57,41 @@
 
 - (void)viewDidLoad {
    
-    [self requestData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"SubscribeVCneedRefresh" object:nil];
     self.automaticallyCalculatesItemWidths = YES;
-    self.delegate = self;
-    self.postNotification = YES;
-    [super viewDidLoad];
-   
+
+
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self reloadData];
+//    });
+     [self doAskTitleArray];
+     [super viewDidLoad];
    
 }
 
--(void)requestData
+-(void)executeNotification
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self doAskTitleArray];
+    });
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+   
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)doAskTitleArray
 {
     NSDictionary *paras = @{
                             
-                            
-                          
-                        };
+                    
+                          };
      NSString *channelInfoList = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
     
     [CUHTTPRequest POST:channelInfoList parameters:paras success:^(id responseData) {
@@ -71,18 +99,17 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
            
             NSArray *dataArray = dic[@"data"];
-//            NSMutableArray *array=[NSMutableArray array];
             _subscribeArray =[NSMutableArray array];
             for (NSDictionary *dic in dataArray) {
             SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
-           [self.titleData addObject:subscribe.name];
+           [self.subscribeArray addObject:subscribe.name];
            [self.idData addObject:subscribe.subscribeId];
             }
-//          [_subscribeArray addObjectsFromArray:array];
+            self.titleData =_subscribeArray;
             NSLog(@"777%@",self.idData);
-            [self reloadData];
             //响应事件
             
+            [self reloadData];
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
         }
@@ -91,27 +118,35 @@
     }];
 }
 
+
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     return self.titleData.count;
 }
 
+
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+    
+    
+//    JCYJKTitleModel  * model = [self.titleArray  objectAtIndex:index];
+//
+//    NSString * titleString = model.titleString;
+    
     return self.titleData[index];
 }
 
 
-//- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
-//    
-//    self.postNotification = YES;
-//    self.delegate = self;
-//    NSLog(@"%@",info);
-//   
-//    
-////    pageController.ddd = info[@"title"];
-////    viewController.title = info[@"title"];
-//    viewController.title = self.titleData[0];
-//   
-//}
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+    
+    self.postNotification = YES;
+    self.delegate = self;
+    NSLog(@"%@",info);
+   
+    
+//    pageController.ddd = info[@"title"];
+//    viewController.title = info[@"title"];
+    viewController.title = self.titleData[0];
+   
+}
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
 //    switch (index) {
@@ -120,24 +155,26 @@
 //        case 2: return [[WMCollectionViewController alloc] init];
 //    }
     
-//    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
-//
-//    return controller;
+//     NSArray *controllerArray = [NSArray arrayWithObjects:[ViewController class], [ViewController2 class], nil nil];
     
-    WMViewController *wmView =[[WMViewController alloc] init];
+//    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
+////
+//    return controller;
+
+    
+    WMViewController *wmView = [WMViewController new];
     NSString *ids =self.idData[index];
     wmView.indexs = ids;
+    
     return wmView;
 
 }
-
 
 
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
     CGFloat width = [super menuView:menu widthForItemAtIndex:index];
     return width + 16;
 }
-
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     if (self.menuViewPosition == WMMenuViewPositionBottom) {

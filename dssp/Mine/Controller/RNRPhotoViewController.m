@@ -15,7 +15,8 @@
 #import <YYModel/YYModel.h>
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
-
+#import "InputAlertView.h"
+#import "QueryViewController.h"
 @interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *selectedImgV;
@@ -176,24 +177,34 @@
     self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    
+
     NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POST:receivernrInfo parameters:dic success:^(id responseData) {
+    [CUHTTPRequest POST:rnrVhlWithAtb parameters:dic success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"666%@",dic);
         if ([dic[@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-//            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-//            vc.codeName = dic[@"code"];
-//            [self.navigationController pushViewController:vc animated:YES];
-        }else if ([dic[@"code"] isEqualToString:@"201"]) {
-//            [hud hideAnimated:YES];
-//            RNRFinishedViewController *vc = [[RNRFinishedViewController alloc] init];
-//            vc.codeName = dic[@"code"];
-//            [self.navigationController pushViewController:vc animated:YES];
-        }else {
+            
+//            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//            [InputalertView initWithTitle:@"实名制认证信息提交成功" img:@"账号警告" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"返回首页", nil] ];
+//            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//            [keywindow addSubview: InputalertView];
+//
+//            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                if (btn.tag == 100) {//左边按钮
+//
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+//
+//             }
+//
+//        };
+            
+            QueryViewController *vc = [[QueryViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+      else
+        {
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }

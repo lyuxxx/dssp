@@ -68,7 +68,8 @@
     }];
     
     self.vinField = [[UITextField alloc] init];
-//    _vinField.text=_vin?_vin:NSLocalizedString(@"", nil);
+//    _vinField.text = kVin?kVin:NSLocalizedString(@"", nil);
+   _vinField.text = kVin;
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -119,10 +120,9 @@
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                 
-                QueryModel *queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
-                
+//                QueryModel *queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
                 QueryViewController *queryVC =[[QueryViewController alloc] init];
-                queryVC.queryModel = queryModel;
+//                queryVC.queryModel = queryModel;
                 [self.navigationController pushViewController:queryVC animated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
                 

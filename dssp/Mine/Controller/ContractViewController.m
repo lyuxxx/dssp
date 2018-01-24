@@ -82,7 +82,7 @@
     NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
     self.tableView.mj_header.hidden =YES;
     NSDictionary *paras = @{
-                            @"vin": kVin,
+                            @"vin": [kVin isEqualToString:@""]?kVins:kVin,
                             @"currentPage":string,
                             @"pageSize":@"5"
                             };

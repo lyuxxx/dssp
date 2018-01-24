@@ -69,6 +69,11 @@
     self.isViewVisable = NO;
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
@@ -307,14 +312,16 @@
     self.noticeVC = [[NoticeViewController alloc] init];
     [self.noticeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight, kScreenWidth, height)];
     [self addChildViewController:self.noticeVC];
-    
-    
+
+
     _subscribeVC = [[SubscribeViewController alloc] init];
     [self.subscribeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight, kScreenWidth, height)];
-    
+
     // 默认,第一个视图
     [self.view addSubview:self.noticeVC.view];
     self.currentVC = self.noticeVC;
+    
+
 }
 
 
@@ -358,6 +365,7 @@
         }
         else
         {
+
             [self replaceController:self.currentVC newController:self.subscribeVC];
             [_line1 updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(375 *WidthCoefficient/2);

@@ -69,7 +69,9 @@
     }];
     
     self.vinField = [[UITextField alloc] init];
-    //    _vinField.text=_vin?_vin:NSLocalizedString(@"", nil);
+
+//    _vinField.text=kVin?kVin:NSLocalizedString(@"", nil);
+    _vinField.text = kVin;
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -102,7 +104,6 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    
     
     if (_vinField.text.length !=17) {
         

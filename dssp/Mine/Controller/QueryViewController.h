@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-#import "QueryModel.h"
+//#import "QueryModel.h"
 @interface QueryViewController : BaseViewController
-@property (nonatomic,strong)QueryModel *queryModel;
+//@property (nonatomic,strong)QueryModel *queryModel;
 @end
