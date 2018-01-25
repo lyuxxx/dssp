@@ -33,6 +33,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //清空cid
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
