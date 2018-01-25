@@ -409,139 +409,74 @@
 -(void)BtnClick:(UIButton *)sender
 {
     if (self.unbindBtn == sender) {
-        
-        
-        NSDictionary *paras = @{
-                                @"vin": kVin
-                                };
-        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-        [CUHTTPRequest POST:removeBindRelWithUser parameters:paras success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                [hud hideAnimated:YES];
-                //响应事件
-                
-                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [InputalertView initWithTitle:@"车辆解绑成功,返回个人中心" img:@"解绑汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
-                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                [keywindow addSubview: InputalertView];
-                
-                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
+    
+
+        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [InputalertView initWithTitle:@"是否解绑车辆?" img:@"解绑汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: InputalertView];
+
+        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+            if (btn.tag == 100) {//左边按钮
+
+//                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//                NSString *vin = [defaults1 objectForKey:@"vin"];
+                NSDictionary *paras = @{
+                                        @"vin": kVin
+                                        };
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:removeBindRelWithUser parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [hud hideAnimated:YES];
+                        //响应事件
+
+                        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                        [InputalertView initWithTitle:@"车辆解绑成功,返回个人中心" img:@"解绑汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: InputalertView];
+
+                        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+
+                            UIViewController *viewCtl = self.navigationController.viewControllers[0];
+                            [self.navigationController popToViewController:viewCtl animated:YES];
+                            }
+
+                        };
+
+
+//                        [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
+
+//                         //车辆解绑成功，保存的vin置为空字符串
+//                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                        [defaults setObject:@"" forKey:@"vins"];
+//                        [defaults synchronize];
+//
                         //车辆解绑成功，登录保存的vin置为空字符串
                         NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                         [defaults1 setObject:@"" forKey:@"vin"];
                         [defaults1 synchronize];
-                        
-                        
-                        UIViewController *viewCtl = self.navigationController.viewControllers[0];
-                        [self.navigationController popToViewController:viewCtl animated:YES];
-                        //                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-                        //                                vc.vin=_carbind.vin;
-                        //                                vc.isSuccess = @"1";
-                        //                                vc.hidesBottomBarWhenPushed = YES;
-                        //                                [self.navigationController pushViewController:vc animated:YES];
-                        //
+
+
+                    } else {
+                         [hud hideAnimated:YES];
+                        [MBProgressHUD showText:dic[@"msg"]];
                     }
-                    
-                };
-                
-                
-//                [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
-                
-               
-             
-                
-                
-            } else {
-                [hud hideAnimated:YES];
-                [MBProgressHUD showText:dic[@"msg"]];
+                } failure:^(NSInteger code) {
+                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
             }
-        } failure:^(NSInteger code) {
-            hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-            [hud hideAnimated:YES afterDelay:1];
-        }];
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//
-//        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-//        [InputalertView initWithTitle:@"是否解绑车辆?" img:@"解绑汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
-//        //            InputalertView.delegate = self;
-//        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-//        [keywindow addSubview: InputalertView];
-//
-//        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-//            if (btn.tag == 100) {//左边按钮
-//
-////                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-////                NSString *vin = [defaults1 objectForKey:@"vin"];
-//                NSDictionary *paras = @{
-//                                        @"vin": kVin
-//                                        };
-//                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-//                [CUHTTPRequest POST:removeBindRelWithUser parameters:paras success:^(id responseData) {
-//                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//                        [hud hideAnimated:YES];
-//                        //响应事件
-//
-//                        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-//                        [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
-//                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-//                        [keywindow addSubview: InputalertView];
-//
-//                        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-//                            if (btn.tag == 100) {//左边按钮
-//
-////                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-////                                vc.vin=_carbind.vin;
-////                                vc.isSuccess = @"1";
-////                                vc.hidesBottomBarWhenPushed = YES;
-////                                [self.navigationController pushViewController:vc animated:YES];
-////
-//                            }
-//
-//                        };
-//
-//
-//                        [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
-//
-////                         //车辆解绑成功，保存的vin置为空字符串
-////                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-////                        [defaults setObject:@"" forKey:@"vins"];
-////                        [defaults synchronize];
-////
-//                        //车辆解绑成功，登录保存的vin置为空字符串
-//                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//                        [defaults1 setObject:@"" forKey:@"vin"];
-//                        [defaults1 synchronize];
-//
-//
-//                    } else {
-//                         [hud hideAnimated:YES];
-//                        [MBProgressHUD showText:dic[@"msg"]];
-//                    }
-//                } failure:^(NSInteger code) {
-//                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-//                    [hud hideAnimated:YES afterDelay:1];
-//                }];
-//            }
-//            if(btn.tag ==101)
-//            {
-//                //右边按钮
-//                NSLog(@"666%@",str);
-//
-//            }
-//
-//        };
+            if(btn.tag ==101)
+            {
+                //右边按钮
+                NSLog(@"666%@",str);
+
+            }
+
+        };
     }
 }
 - (void)didReceiveMemoryWarning {
