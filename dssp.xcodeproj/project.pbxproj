@@ -13,6 +13,10 @@
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
 		310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */; };
 		310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 310FC5641FFF489A00F18312 /* CarAnnotation.m */; };
+		31158926201B0DC100A4AEFB /* MapUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158925201B0DC100A4AEFB /* MapUpdateViewController.m */; };
+		31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */; };
+		3115892C201B211000A4AEFB /* ActivationCodeListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892B201B211000A4AEFB /* ActivationCodeListController.m */; };
+		3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
 		313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
 		313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
 		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
@@ -151,6 +155,14 @@
 		310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchHistory.m; sourceTree = "<group>"; };
 		310FC5631FFF489900F18312 /* CarAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarAnnotation.h; sourceTree = "<group>"; };
 		310FC5641FFF489A00F18312 /* CarAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarAnnotation.m; sourceTree = "<group>"; };
+		31158924201B0DC100A4AEFB /* MapUpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapUpdateViewController.h; sourceTree = "<group>"; };
+		31158925201B0DC100A4AEFB /* MapUpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapUpdateViewController.m; sourceTree = "<group>"; };
+		31158927201B198C00A4AEFB /* GetActivationCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetActivationCodeViewController.h; sourceTree = "<group>"; };
+		31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetActivationCodeViewController.m; sourceTree = "<group>"; };
+		3115892A201B211000A4AEFB /* ActivationCodeListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivationCodeListController.h; sourceTree = "<group>"; };
+		3115892B201B211000A4AEFB /* ActivationCodeListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivationCodeListController.m; sourceTree = "<group>"; };
+		3115892D201B21F900A4AEFB /* ActivationCodeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivationCodeListCell.h; sourceTree = "<group>"; };
+		3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivationCodeListCell.m; sourceTree = "<group>"; };
 		3118E4851FDA37D300F9E11A /* dssp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dssp.entitlements; sourceTree = "<group>"; };
 		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
 		313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StatusBar.m"; sourceTree = "<group>"; };
@@ -761,6 +773,12 @@
 				454C744120181C0C00108F1E /* LllegalViewController.m */,
 				454C7446201823F600108F1E /* LllegadetailController.h */,
 				454C7447201823F600108F1E /* LllegadetailController.m */,
+				31158924201B0DC100A4AEFB /* MapUpdateViewController.h */,
+				31158925201B0DC100A4AEFB /* MapUpdateViewController.m */,
+				31158927201B198C00A4AEFB /* GetActivationCodeViewController.h */,
+				31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */,
+				3115892A201B211000A4AEFB /* ActivationCodeListController.h */,
+				3115892B201B211000A4AEFB /* ActivationCodeListController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -785,6 +803,8 @@
 				454C744420181E1800108F1E /* LllegaCell.m */,
 				4505B9A21FECAB0200A1E47E /* CarflowCell.h */,
 				4505B9A31FECAB0200A1E47E /* CarflowCell.m */,
+				3115892D201B21F900A4AEFB /* ActivationCodeListCell.h */,
+				3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1118,6 +1138,7 @@
 				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
+				31158926201B0DC100A4AEFB /* MapUpdateViewController.m in Sources */,
 				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				4570EFE51FFCDC0E00FA6355 /* CarUnbindModel.m in Sources */,
@@ -1146,9 +1167,11 @@
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
 				450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */,
 				456454A11FF09E2700B30401 /* InputAlertView.m in Sources */,
+				3115892C201B211000A4AEFB /* ActivationCodeListController.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
+				3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */,
 				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
 				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
@@ -1156,6 +1179,7 @@
 				4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */,
 				4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
+				31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */,
 				31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */,
 				4505B9A71FECE45E00A1E47E /* RealnameViewController.m in Sources */,
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
