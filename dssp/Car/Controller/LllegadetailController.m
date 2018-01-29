@@ -39,13 +39,6 @@
     
     self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
     
-    //    self.rightBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(BtnClick:)];
-    //    [_rightBarItem setTintColor:[UIColor whiteColor]];
-    //    self.navigationItem.rightBarButtonItem = _rightBarItem;
-    
-  
-    
-    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowOffset = CGSizeMake(0, 4);
@@ -113,6 +106,7 @@
         for (NSInteger i = 0 ; i < titles.count; i++) {
             UILabel *label = [[UILabel alloc] init];
             label.text = titles[i];
+//              label.backgroundColor = [UIColor redColor];
             label.textColor = [UIColor colorWithHexString:@"#040000"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
@@ -129,13 +123,24 @@
             
             CGFloat contentW = 223 * WidthCoefficient;
             //label的字体 HelveticaNeue  Courier
-            UIFont *fnt = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
+            UIFont *fnt = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
             //                    _placeLabel.font = fnt;
             // iOS7中用以下方法替代过时的iOS6中的sizeWithFont:constrainedToSize:lineBreakMode:方法
-            CGRect tmpRect = [@"123234242424242" boundingRectWithSize:CGSizeMake(contentW, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:fnt,NSFontAttributeName, nil] context:nil];
+            CGRect tmpRect = [_lllegaModel.address boundingRectWithSize:CGSizeMake(contentW, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:fnt,NSFontAttributeName, nil] context:nil];
             // 高度H
             CGFloat contentH = tmpRect.size.height;
             NSLog(@"调整后的显示宽度:%f,显示高度:%f",contentW,contentH);
+            
+            
+            CGFloat contentW1 = 223 * WidthCoefficient;
+            //label的字体 HelveticaNeue  Courier
+            UIFont *fnt1 = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
+            //                    _placeLabel.font = fnt;
+            // iOS7中用以下方法替代过时的iOS6中的sizeWithFont:constrainedToSize:lineBreakMode:方法
+            CGRect tmpRect1 = [_lllegaModel.violationType boundingRectWithSize:CGSizeMake(contentW1, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:fnt1,NSFontAttributeName, nil] context:nil];
+            // 高度H
+            CGFloat contentH1 = tmpRect1.size.height;
+            NSLog(@"调整后的显示宽度:%f,显示高度:%f",contentW1,contentH1);
             
             if (i == 0) {
                 
@@ -144,8 +149,9 @@
                  
                     [label makeConstraints:^(MASConstraintMaker *make) {
                         make.width.equalTo(85 * WidthCoefficient);
-                        make.height.equalTo(40 * HeightCoefficient);
+                        make.height.equalTo((contentH+7) * HeightCoefficient);
                         make.left.equalTo(15*WidthCoefficient);
+
                         make.top.equalTo(0);
                         
                     }];
@@ -153,14 +159,14 @@
                     
                     [whiteV makeConstraints:^(MASConstraintMaker *make) {
                         make.right.equalTo(-10);
-                        make.height.equalTo(40 * HeightCoefficient);
-                        make.left.equalTo(label.right).offset(20*WidthCoefficient);
+                        make.height.equalTo((contentH+7) * HeightCoefficient);
+                        make.left.equalTo(label.right).offset(5*WidthCoefficient);
                         make.top.equalTo(0);
                     }];
                     
                     
                     [whiteView makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(54 * HeightCoefficient);
+                        make.top.equalTo((contentH+22) * HeightCoefficient);
                         make.height.equalTo(1);
                         make.left.equalTo(15 * WidthCoefficient);
                         make.right.equalTo(-15 * WidthCoefficient);
@@ -173,7 +179,7 @@
                     
                     [label makeConstraints:^(MASConstraintMaker *make) {
                         make.width.equalTo(85 * WidthCoefficient);
-                        make.height.equalTo(20 * HeightCoefficient);
+                        make.height.equalTo(21 * HeightCoefficient);
                         make.left.equalTo(15*WidthCoefficient);
                         make.top.equalTo(0);
                         
@@ -182,8 +188,8 @@
                     
                     [whiteV makeConstraints:^(MASConstraintMaker *make) {
                         make.right.equalTo(-10);
-                        make.height.equalTo(20 * HeightCoefficient);
-                        make.left.equalTo(label.right).offset(20*WidthCoefficient);
+                        make.height.equalTo(21 * HeightCoefficient);
+                        make.left.equalTo(label.right).offset(5*WidthCoefficient);
                         make.top.equalTo(0);
                     }];
                     
@@ -195,78 +201,96 @@
                         make.right.equalTo(-15 * WidthCoefficient);
                         
                     }];
-                    
-                    
-            
                 }
-                
-               
                 
             } else{
                 
-                
-                if (contentH>30) {
-                    
-                    [label makeConstraints:^(MASConstraintMaker *make) {
-                        make.width.equalTo(85 * WidthCoefficient);
-                        make.height.equalTo(20 * HeightCoefficient);
-                        make.left.equalTo(15*WidthCoefficient);
-                        make.top.equalTo(lastLabel.bottom).offset(29 * HeightCoefficient);
-                    }];
-                    
-                    
-                    [whiteV makeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(-10);
-                        make.height.equalTo(21 * HeightCoefficient);
-                        make.left.equalTo(label.right).offset(20*WidthCoefficient);
-                        make.top.equalTo(lastLabel.bottom).offset(28*HeightCoefficient);
-                    }];
-                    
-                    [whiteView makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(lastView.bottom).offset(48 * HeightCoefficient);
-                        make.height.equalTo(1);
-                        make.left.equalTo(15 * WidthCoefficient);
-                        make.right.equalTo(-15 * WidthCoefficient);
+                if(i==6)
+                {
+                    if (contentH1>30) {
                         
-                    }];
-                    
-                  }
+                        [label makeConstraints:^(MASConstraintMaker *make) {
+                            make.width.equalTo(85 * WidthCoefficient);
+                            make.height.equalTo((contentH1+21) * HeightCoefficient);
+                            make.left.equalTo(15*WidthCoefficient);
+                            make.top.equalTo(lastLabel.bottom).offset(28 * HeightCoefficient);
+                        }];
+                        
+                        
+                        [whiteV makeConstraints:^(MASConstraintMaker *make) {
+                            make.right.equalTo(-10);
+                            make.height.equalTo((contentH1+21) * HeightCoefficient);
+                            make.left.equalTo(label.right).offset(5*WidthCoefficient);
+                            make.top.equalTo(lastLabel.bottom).offset(28*HeightCoefficient);
+                        }];
+                        
+                        [whiteView makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.equalTo(lastView.bottom).offset((contentH1+50) * HeightCoefficient);
+                            make.height.equalTo(1);
+                            make.left.equalTo(15 * WidthCoefficient);
+                            make.right.equalTo(-15 * WidthCoefficient);
+                            
+                        }];
+                        
+                    }
+                    else
+                    {
+                        
+                        [label makeConstraints:^(MASConstraintMaker *make) {
+                            make.width.equalTo(85 * WidthCoefficient);
+                            make.height.equalTo(20 * HeightCoefficient);
+                            make.left.equalTo(15*WidthCoefficient);
+                            make.top.equalTo(lastLabel.bottom).offset(28 * HeightCoefficient);
+                        }];
+                        
+                        [whiteV makeConstraints:^(MASConstraintMaker *make) {
+                            make.right.equalTo(-10);
+                            make.height.equalTo(21 * HeightCoefficient);
+                            make.left.equalTo(label.right).offset(5*WidthCoefficient);
+                            make.top.equalTo(lastLabel.bottom).offset(28*HeightCoefficient);
+                        }];
+                        
+                        [whiteView makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.equalTo(lastView.bottom).offset(48 * HeightCoefficient);
+                            make.height.equalTo(1);
+                            make.left.equalTo(15 * WidthCoefficient);
+                            make.right.equalTo(-15 * WidthCoefficient);
+                            
+                        }];
+   
+                    }
+   
+                }
                 else
                 {
-                    
-                    [label makeConstraints:^(MASConstraintMaker *make) {
-                        make.width.equalTo(85 * WidthCoefficient);
-                        make.height.equalTo(20 * HeightCoefficient);
-                        make.left.equalTo(15*WidthCoefficient);
-                        make.top.equalTo(lastLabel.bottom).offset(29 * HeightCoefficient);
-                    }];
-                    
-                    
-                    [whiteV makeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(-10);
-                        make.height.equalTo(21 * HeightCoefficient);
-                        make.left.equalTo(label.right).offset(20*WidthCoefficient);
-                        make.top.equalTo(lastLabel.bottom).offset(28*HeightCoefficient);
-                    }];
-                    
-                    [whiteView makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(lastView.bottom).offset(48 * HeightCoefficient);
-                        make.height.equalTo(1);
-                        make.left.equalTo(15 * WidthCoefficient);
-                        make.right.equalTo(-15 * WidthCoefficient);
+
+                        [label makeConstraints:^(MASConstraintMaker *make) {
+                            make.width.equalTo(85 * WidthCoefficient);
+                            make.height.equalTo(20 * HeightCoefficient);
+                            make.left.equalTo(15*WidthCoefficient);
+                            make.top.equalTo(lastLabel.bottom).offset(29 * HeightCoefficient);
+                        }];
                         
-                    }];
-                    
-                    
+                        [whiteV makeConstraints:^(MASConstraintMaker *make) {
+                            make.right.equalTo(-10);
+                            make.height.equalTo(21 * HeightCoefficient);
+                            make.left.equalTo(label.right).offset(5*WidthCoefficient);
+                            make.top.equalTo(lastLabel.bottom).offset(28*HeightCoefficient);
+                        }];
+                        
+                        [whiteView makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.equalTo(lastView.bottom).offset(48 * HeightCoefficient);
+                            make.height.equalTo(1);
+                            make.left.equalTo(15 * WidthCoefficient);
+                            make.right.equalTo(-15 * WidthCoefficient);
+                            
+                        }];
                     
                 }
-                
-           
-                
+ 
             }
             lastLabel = label;
             lastView =whiteView;
-            
             
                 self.rightLabel = [[UILabel alloc] init];
                 [_rightLabel setNumberOfLines:0];
@@ -274,32 +298,23 @@
                 _rightLabel.textAlignment = NSTextAlignmentLeft;
                 _rightLabel.textColor = [UIColor colorWithHexString:@"#333333"];
                 _rightLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
-                _rightLabel.text = NSLocalizedString(@"未处理", nil);
+//                _rightLabel.text = NSLocalizedString(@"未处理", nil);
                 [whiteV addSubview:_rightLabel];
                 [_rightLabel makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180 * WidthCoefficient);
+                    make.width.equalTo(223 * WidthCoefficient);
                     make.height.equalTo(21 * HeightCoefficient);
                     make.left.equalTo(0 * WidthCoefficient);
                     make.top.equalTo(0);
                 }];
-                
-//            @property (nonatomic,strong) UILabel *placeLabel;
-//            @property (nonatomic,strong) UILabel *vinLabel;
-//            @property (nonatomic,strong) UILabel *officeLabel;
-//            @property (nonatomic,strong) UILabel *fineLabel;
-//            @property (nonatomic,strong) UILabel *HandleLabel;
-//            @property (nonatomic,strong) UILabel *timeLabel;
-//            @property (nonatomic,strong) UILabel *behaviorLabel;
-//            @property (nonatomic,strong) UILabel *penaltyLabel;
+            
                 if (i == 0) {
                     _placeLabel =_rightLabel;
-                    _rightLabel.text = @"12323424242424242342442424242424222323424244242234242433333333";
+                    _rightLabel.text = _lllegaModel.address;
                    
-
                      if (contentH>30) {
                          [_rightLabel updateConstraints:^(MASConstraintMaker *make) {
                              make.top.equalTo(0);
-                             make.height.equalTo(42 * HeightCoefficient);
+                             make.height.equalTo((contentH +7) * HeightCoefficient);
                              
                          }];
                          
@@ -307,56 +322,78 @@
                      {
                          [_rightLabel updateConstraints:^(MASConstraintMaker *make) {
                              make.top.equalTo(0);
-                             make.height.equalTo(21 * HeightCoefficient);
+                             make.height.equalTo(21* HeightCoefficient);
                              
                          }];
                          
                      }
-                   
-                  
-                  
-
                 }
                 else if (i == 1) {
 
+                    _vinLabel =_rightLabel;
+                    _rightLabel.text = _lllegaModel.vin;
                     
                 }
                 else if (i == 2) {
                     
-                   
+                    _officeLabel =_rightLabel;
+                    _rightLabel.text = _lllegaModel.agency;
                     
                 }
                 else if (i == 3) {
                     
-                  
+                    _fineLabel =_rightLabel;
+                    _rightLabel.text = _lllegaModel.fine;
                     
                 }
                 else if (i == 4) {
                     
+                _HandleLabel =_rightLabel;
+                    _rightLabel.text = [_lllegaModel.handled isEqualToString:@"0"]?@"未处理":@"已处理";
                   _rightLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
                     
                 }
                 else if (i == 5) {
                     
-                  
+                    _timeLabel =_rightLabel;
+                    _rightLabel.text = _lllegaModel.time;
                     
                 }
                 else if (i == 6) {
                     
+                    if (contentH1>30) {
+                        [_rightLabel updateConstraints:^(MASConstraintMaker *make) {
+                            make.top.equalTo(0);
+                            make.height.equalTo((contentH1+21) * HeightCoefficient);
+                            
+                        }];
+
+                    }else
+                    {
+                        [_rightLabel updateConstraints:^(MASConstraintMaker *make) {
+                            make.top.equalTo(0);
+                            make.height.equalTo(21 * HeightCoefficient);
+                            
+                        }];
+
+                    }
+                    
+                    _behaviorLabel =_rightLabel;
+                    _rightLabel.text = _lllegaModel.violationType;
                     _rightLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
                     
                 }
                 else if (i == 7) {
                     
-                    
+                    _penaltyLabel =_rightLabel;
+                    _rightLabel.text = _lllegaModel.point;
                     
                 }
             }
            
-      
-        
+
         [contentView makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(lastLabel.bottom).offset(0);
+            make.bottom.equalTo(lastLabel.bottom).offset(20);
             
         }];
         

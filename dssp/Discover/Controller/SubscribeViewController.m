@@ -78,13 +78,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
+//     [self doAskTitleArray];
 }
 
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+//-(void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 -(void)doAskTitleArray
 {
@@ -100,12 +100,15 @@
            
             NSArray *dataArray = dic[@"data"];
             _subscribeArray =[NSMutableArray array];
+            NSMutableArray *idDatas =[NSMutableArray array];
             for (NSDictionary *dic in dataArray) {
             SubscribeModel *subscribe = [SubscribeModel yy_modelWithDictionary:dic];
            [self.subscribeArray addObject:subscribe.name];
-           [self.idData addObject:subscribe.subscribeId];
+           [idDatas addObject:subscribe.subscribeId];
             }
             self.titleData =_subscribeArray;
+            self.idData = idDatas;
+          
             NSLog(@"777%@",self.idData);
             //响应事件
             
@@ -162,7 +165,7 @@
 //    return controller;
 
     
-    WMViewController *wmView = [WMViewController new];
+    WMViewController *wmView = [[WMViewController alloc] init];
     NSString *ids =self.idData[index];
     wmView.indexs = ids;
     

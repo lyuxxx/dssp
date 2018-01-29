@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LllegaModel.h"
 @interface LllegaCell : UITableViewCell
-@property (nonnull,strong)UIView *white;
-@property (nonnull,strong)UILabel *topLabel;
-@property (nonnull,strong)UILabel *centerLabel;
-@property (nonnull,strong)UILabel *bottomLabel;
-@property (nonnull,strong)UILabel *rightLabel;
+@property (nonatomic,strong)UIView *white;
+@property (nonatomic,strong)UILabel *topLabel;
+@property (nonatomic,strong)UILabel *centerLabel;
+@property (nonatomic,strong)UILabel *bottomLabel;
+@property (nonatomic,strong)UILabel *rightLabel;
+@property (nonatomic,strong)LllegaModel *lllegaModel;
 @end

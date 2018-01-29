@@ -38,20 +38,16 @@
     
     
     [self createTable];
-    [self pullDownToRefreshLatestNews];
+   
     [self.tableView.mj_header beginRefreshing];
   
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self requestNoticeData];
+    [self requestNoticeData];
 }
 
-//-(void)didReceivePayloadMsg
-//{
-//     [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-//}
 
 - (void)executeNotification {
     [self.tableView.mj_header beginRefreshing];
@@ -70,6 +66,7 @@
 ////    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
 //    [_tableView.mj_header beginRefreshing];
     
+     
       MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
       self.tableView.mj_header = header;
       // 隐藏时间
@@ -84,6 +81,8 @@
 //    [_tableView makeConstraints:^(MASConstraintMaker *make) {
 //        make.edges.equalTo(self.view);
 //    }];
+    
+     [self pullDownToRefreshLatestNews];
 }
 
 -(void)requestNoticeData

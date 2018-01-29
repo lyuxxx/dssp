@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
-
+#import "LllegaModel.h"
 @interface LllegadetailController : BaseViewController
-
+@property (nonatomic,strong) LllegaModel *lllegaModel;
 @end
+

@@ -9,6 +9,7 @@
 #import "LllegalViewController.h"
 #import "LllegaCell.h"
 #import "LllegadetailController.h"
+#import "LllegaModel.h"
 @interface LllegalViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -24,8 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self requestData];
+    
+     self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
     [self initTableView];
+    [self requestData];
+  
    
 }
 
@@ -35,16 +39,32 @@
     NSDictionary *paras = @{
                             
                             };
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", violationsForApp,@"LPACAPSA000019891"];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", violationsForApp,kVin];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-//            _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
             
+            NSArray *array = dic[@"data"][@"viloationInfo"];
+            
+            if (array != nil && ![array isKindOfClass:[NSNull class]] && array.count != 0){
+                
+                NSDictionary *dic1 = array[0];
+                LllegaModel *lllegaModel = [LllegaModel yy_modelWithDictionary:dic1];
+                self.DataArray=[NSMutableArray new];
+                [self.DataArray addObject:lllegaModel];
+                //执行array不为空时的操作
+                
+            }
+           
+ 
+//            self.DataArray = dic[@"data"][@"viloationInfo"];
+
             [_tableView reloadData];
-            [self setupUI];
+            
+            
+//            [self setupUI];
         } else {
             
             [hud hideAnimated:YES];
@@ -61,7 +81,7 @@
 
 -(void)initTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.estimatedRowHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.estimatedSectionHeaderHeight = 0;
@@ -72,7 +92,7 @@
     _tableView.delegate=self;
     _tableView.dataSource=self;
     //不回弹
-    _tableView.bounces=NO;
+//    _tableView.bounces=NO;
     //滚动条隐藏
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.backgroundColor=[UIColor whiteColor];
@@ -83,12 +103,12 @@
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,126*HeightCoefficient)];
-    _headerView.backgroundColor=[UIColor whiteColor];
-    _tableView.tableHeaderView=_headerView;
+//    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,126*HeightCoefficient)];
+//    _headerView.backgroundColor=[UIColor whiteColor];
+//    _tableView.tableHeaderView=_headerView;
     
     
-    [self setupUI];
+//    [self setupUI];
 }
 
 -(void)setupUI
@@ -207,7 +227,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.DataArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -223,25 +243,10 @@
     if (cell == nil) {
         cell = [[LllegaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-//
-//    NSArray *titles = @[NSLocalizedString(@"在线音乐", nil),NSLocalizedString(@"在线电台", nil),NSLocalizedString(@"OTA升级", nil),NSLocalizedString(@"WIFI", nil)];
-//
-//    _DataArray = [NSMutableArray new];
-//
-//    NSString *music = [[NSString stringWithFormat:@"%@",_carflow.music] stringByAppendingString:@"M"];
-//    NSString *fm = [[NSString stringWithFormat:@"%@",_carflow.fm] stringByAppendingString:@"M"];
-//    NSString *ota = [[NSString stringWithFormat:@"%@",_carflow.ota] stringByAppendingString:@"M"];
-//    NSString *wifi = [[NSString stringWithFormat:@"%@",_carflow.wifi] stringByAppendingString:@"M"];
-//
-//    [_DataArray addObject:_carflow.music?music:@"0M"];
-//    [_DataArray addObject:_carflow.fm?fm:@"0M"];
-//    [_DataArray addObject:_carflow.ota?ota:@"0M"];
-//    [_DataArray addObject:_carflow.wifi?wifi:@"0M"];
-//
-//    cell.toplab.text =titles[indexPath.row];
-//    //    cell.bottolab.text =@"最近使用:2017/12/31";
-//    cell.rightlab.text =_DataArray[indexPath.row];
-//
+
+
+    LllegaModel *lllegaModel=self.DataArray[indexPath.row];
+    cell.lllegaModel = lllegaModel;
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
     
@@ -250,8 +255,10 @@
 //点击跳转
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    NoticeModel *notice = self.dataSource[indexPath.row];
+    LllegaModel *lllegaModel=self.DataArray[indexPath.row];
     LllegadetailController *lllegadetail =[[LllegadetailController alloc] init];
+    
+    lllegadetail.lllegaModel = lllegaModel;
 //    //    remindView.vin= notice.vin;
 //    //    remindView.title=notice.title;
 //    //    remindView.businType= notice.businType;

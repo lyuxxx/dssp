@@ -85,6 +85,7 @@
 		451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F71FEB9A6B008CC890 /* WMImageViewCell.m */; };
 		451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F91FEB9A6B008CC890 /* WMLoopView.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
+		453218DC201EC3650064369F /* LllegaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453218DB201EC3650064369F /* LllegaModel.m */; };
 		4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
 		454858102005EA6500170D85 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		454858122005EE6D00170D85 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
@@ -293,6 +294,8 @@
 		451744F91FEB9A6B008CC890 /* WMLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLoopView.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
+		453218DA201EC3650064369F /* LllegaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegaModel.h; sourceTree = "<group>"; };
+		453218DB201EC3650064369F /* LllegaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegaModel.m; sourceTree = "<group>"; };
 		4548580C2005B53200170D85 /* PrivacypolicyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivacypolicyController.h; sourceTree = "<group>"; };
 		4548580D2005B53200170D85 /* PrivacypolicyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacypolicyController.m; sourceTree = "<group>"; };
 		4548580F2005EA6500170D85 /* application.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
@@ -792,6 +795,8 @@
 				4570EFEF1FFF292B00FA6355 /* CarTrackModel.m */,
 				450644DB20030A4A0099D7AC /* UpkeepModel.h */,
 				450644DC20030A4A0099D7AC /* UpkeepModel.m */,
+				453218DA201EC3650064369F /* LllegaModel.h */,
+				453218DB201EC3650064369F /* LllegaModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1219,6 +1224,7 @@
 				4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,
 				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,
+				453218DC201EC3650064369F /* LllegaModel.m in Sources */,
 				451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */,
 				451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */,
 				4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */,

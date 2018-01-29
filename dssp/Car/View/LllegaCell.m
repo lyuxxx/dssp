@@ -60,17 +60,15 @@
     _topLabel.textAlignment = NSTextAlignmentLeft;
     _topLabel.textColor = [UIColor colorWithHexString:@"##333333"];
     _topLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _topLabel.text = NSLocalizedString(@"创红的", nil);
+//    _topLabel.text = NSLocalizedString(@"创红的", nil);
     [_white addSubview:_topLabel];
     [_topLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(141.5 * WidthCoefficient);
+//        make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
         make.left.equalTo(10 * WidthCoefficient);
+        make.right.equalTo(-10 * WidthCoefficient);
         make.top.equalTo(10 * HeightCoefficient);
     }];
-    
-    
-
     
     
     self.centerLabel = [[UILabel alloc] init];
@@ -85,7 +83,6 @@
         make.right.equalTo(-10 * WidthCoefficient);
         make.top.equalTo(_topLabel.bottom).offset(5*HeightCoefficient);
     }];
-    
     
     self.bottomLabel = [[UILabel alloc] init];
     [_bottomLabel setNumberOfLines:0];
@@ -102,21 +99,33 @@
         make.top.equalTo(_centerLabel.bottom).offset(5*HeightCoefficient);
     }];
     
-    self.rightLabel = [[UILabel alloc] init];
-    [_rightLabel setNumberOfLines:0];
-    _rightLabel.textAlignment = NSTextAlignmentLeft;
-    _rightLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
-    _rightLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
-    _rightLabel.text = NSLocalizedString(@"未处理", nil);
-    [_white addSubview:_rightLabel];
-    [_rightLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(42 * WidthCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.right.equalTo(-10 * WidthCoefficient);
-        make.top.equalTo(10 * HeightCoefficient);
-    }];
+//    self.rightLabel = [[UILabel alloc] init];
+//    [_rightLabel setNumberOfLines:0];
+//    _rightLabel.textAlignment = NSTextAlignmentLeft;
+//    _rightLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+//    _rightLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+//    _rightLabel.text = NSLocalizedString(@"未处理", nil);
+//    [_white addSubview:_rightLabel];
+//    [_rightLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(42 * WidthCoefficient);
+//        make.height.equalTo(22 * HeightCoefficient);
+//        make.right.equalTo(-10 * WidthCoefficient);
+//        make.top.equalTo(10 * HeightCoefficient);
+//    }];
+    
+
+}
+
+-(void)setLllegaModel:(LllegaModel *)lllegaModel
+{
+      NSString *address = [@"位置：" stringByAppendingString:[NSString stringWithFormat:@"%@",lllegaModel.address]];
+    
+     NSString *time = [@"时间：" stringByAppendingString:[NSString stringWithFormat:@"%@",lllegaModel.time]];
     
     
+     _topLabel.text = NSLocalizedString(lllegaModel.violationType, nil);
+    _centerLabel.text = NSLocalizedString(address, nil);
+     _bottomLabel.text = NSLocalizedString(time, nil);
     
 }
 
