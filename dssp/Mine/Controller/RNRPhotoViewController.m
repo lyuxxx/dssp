@@ -17,12 +17,14 @@
 #import <MBProgressHUD+CU.h>
 #import "InputAlertView.h"
 #import "QueryViewController.h"
+#import "ABImagePicker.h"
 @interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *selectedImgV;
 @property (nonatomic, strong) UIImageView *pic1ImgV;
 @property (nonatomic, strong) UIImageView *pic2ImgV;
 @property (nonatomic, strong) UIImageView *facepicImgV;
+@property (nonatomic, strong) UIImagePickerController *imagePickerVC;
 
 @end
 
@@ -217,12 +219,26 @@
 
 - (void)didTap:(UITapGestureRecognizer *)sender
 {
-    _selectedImgV = (UIImageView *)sender.view;
-    TBActionSheet *sheet = [[TBActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"拍照", nil),NSLocalizedString(@"从图库选择", nil), nil];
-    sheet.ambientColor = [UIColor whiteColor];
-    sheet.cancelButtonColor = [UIColor colorWithHexString:GeneralColorString];
-    sheet.tintColor = [UIColor colorWithHexString:GeneralColorString];
-    [sheet show];
+    
+//    ABImagePicker * picker = [ABImagePicker shared];
+//    [picker startWithVC:self];
+//    [picker setPickerCompletion:^(ABImagePicker * picker, NSError *error, UIImage *image) {
+//        if (!error) {
+//
+//        }else{
+//
+//        }
+//    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _selectedImgV = (UIImageView *)sender.view;
+        TBActionSheet *sheet = [[TBActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"拍照", nil),NSLocalizedString(@"从图库选择", nil), nil];
+        sheet.ambientColor = [UIColor whiteColor];
+        sheet.cancelButtonColor = [UIColor colorWithHexString:GeneralColorString];
+        sheet.tintColor = [UIColor colorWithHexString:GeneralColorString];
+        [sheet show];
+    });
+    
 }
 
 - (void)actionSheet:(TBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -230,38 +246,96 @@
     if (buttonIndex == 2) {
         return;
     }
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
-        imagePickerVC.delegate = self;
-        imagePickerVC.allowsEditing = YES;
+//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+//        if (!self.imagePickerVC) {
+//           self.imagePickerVC = [[UIImagePickerController alloc] init];
+//        }
+
+//        _imagePickerVC.modalPresentationStyle = UIModalPresentationCurrentContext;
+//        _imagePickerVC.delegate = self;
+//        _imagePickerVC.allowsEditing = YES;
+
         if (buttonIndex == 0) {
-            imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imagePickerVC.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-            imagePickerVC.showsCameraControls = YES;
+             self.imagePickerVC = [[UIImagePickerController alloc] init];
+            _imagePickerVC.modalPresentationStyle = UIModalPresentationCurrentContext;
+            _imagePickerVC.delegate = self;
+            _imagePickerVC.allowsEditing = YES;
+
+            _imagePickerVC.modalPresentationStyle = UIModalPresentationFullScreen;
+            _imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+            _imagePickerVC.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+            _imagePickerVC.showsCameraControls = YES;
+             [self presentViewController:_imagePickerVC animated:YES completion:nil];
+            
         } else if (buttonIndex == 1) {
-            imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            imagePickerVC.mediaTypes = @[(NSString *)kUTTypeImage];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+                {
+                    UIImagePickerController *imagePicker = [UIImagePickerController new];
+                    //imagePicker.allowsImageEditing = YES;
+//                    imagePicker.allowsEditing = YES;
+                    imagePicker.delegate = self;
+                    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                    //                NSPhotoLibraryAddUsageDescription
+                    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+                    [self presentViewController:imagePicker animated:YES completion:nil];
+                }
+            });
+            
+//            _imagePickerVC.modalPresentationStyle = UIModalPresentationPopover ;
+//           _imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//            _imagePickerVC.mediaTypes = @[(NSString *)kUTTypeImage];
         }
-        [self presentViewController:imagePickerVC animated:YES completion:nil];
-    }
+//    [self presentViewController:_imagePickerVC animated:YES completion:nil];
+    
+//    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
+//    _imagePickerVC = nil;
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = info[UIImagePickerControllerEditedImage];
-    if (image) {
-        _selectedImgV.image = image;
-       [_selectedImgV removeAllSubviews];
-    } else {
-        _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
-        [_selectedImgV removeAllSubviews];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    __weak typeof(self) weakSelf = self;
+    [picker dismissViewControllerAnimated:YES completion:^()
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             _imagePickerVC = nil;
+             UIImage* image = info[UIImagePickerControllerEditedImage];
+             if (image) {
+                 _selectedImgV.image = image;
+                 [_selectedImgV removeAllSubviews];
+             } else {
+                 _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
+                 [_selectedImgV removeAllSubviews];
+             }
+         });
+     }];
+
+
+
+
+//    UIImage *image = info[UIImagePickerControllerEditedImage];
+//    if (image) {
+//        _selectedImgV.image = image;
+//       [_selectedImgV removeAllSubviews];
+//    } else {
+//        _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
+//        [_selectedImgV removeAllSubviews];
+//    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    });
+    
+
 }
+
+
 
 @end

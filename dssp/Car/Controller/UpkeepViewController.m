@@ -250,7 +250,7 @@
     bottomView.layer.shadowRadius = 20.5;//阴影半径，默认3
     [self.view addSubview:bottomView];
     [bottomView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(116 * HeightCoefficient);
+        make.top.equalTo(156 * HeightCoefficient);
         make.height.equalTo(100 * HeightCoefficient);
         make.width.equalTo(343 * WidthCoefficient);
         make.left.equalTo(16 * WidthCoefficient);

@@ -10,7 +10,7 @@
 //发动机号
 @property (nonatomic , copy) NSString *doptCode;
 //车牌号
-@property (nonatomic , copy) NSString *vhlLisence;
+@property (nonatomic , copy) NSString *vhlLicence;
 //颜色
 @property (nonatomic , copy) NSString *vhlColorName;
 @property (nonatomic , copy) NSString *color;

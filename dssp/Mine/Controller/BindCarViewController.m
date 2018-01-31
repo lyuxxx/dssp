@@ -75,7 +75,7 @@
             
             self.vinField.text = _vhl.vin;
             self.doptCodeField.text = _vhl.doptCode;
-            self.vhlLisenceField.text =_vhl.vhlLisence;
+            self.vhlLisenceField.text =_vhl.vhlLicence;
             self.colorField.text =_vhl.vhlColorName;
             self.vhlStatusField.text = _vhl.vhlBrandName;
 //            self.isTestField.text = _vhl.isTest;

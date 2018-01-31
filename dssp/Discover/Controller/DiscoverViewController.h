@@ -10,4 +10,5 @@
 
 @interface DiscoverViewController : BaseViewController
 @property BOOL refresh;
+@property (nonatomic,copy) NSString *unreadstr;
 @end

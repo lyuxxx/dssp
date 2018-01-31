@@ -20,7 +20,7 @@
 @property(nonatomic,strong) UIButton *noticeBtn;
 @property(nonatomic,strong) UIView *line1;
 @property(nonatomic, strong) UIScrollView * scrollView;
-@property(nonatomic, copy) NSString *unreadstr;
+@property(nonatomic, copy) NSString *unreadstrs;
 @property(nonatomic, strong) NoticeViewController * noticeVC; //通知
 @property(nonatomic, strong) SubscribeViewController * subscribeVC; //订阅
 @property (nonatomic ,strong) UIViewController *currentVC;
@@ -96,27 +96,70 @@
 //            [hud hideAnimated:YES];
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             // [_tableView reloadData];
-            self.unreadstr = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
-//            if ([self.unreadstr isEqualToString:@"0"]) {
-//              [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-//            }
-//            else
-//            {
-//              [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-//            }
-            NSString *unreads = [[NSString stringWithFormat:@"%@",self.unreadstr] stringByAppendingString:@"条未读消息"];
-             _bottomLabel.text = unreads;
-            NSLog(@"666%@",self.unreadstr);
+           self.unreadstrs = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
+            self.unreadstr = _unreadstrs;
+
             //响应事件
         } else {
+            self.unreadstr = _unreadstrs;
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+          self.unreadstr = _unreadstrs;
          [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
 }
+
+
+-(void)setUnreadstr:(NSString *)unreadstr
+{
+    
+    if([self isNull:unreadstr])
+    {
+        NSString *unreads = [[NSString stringWithFormat:@"%@",unreadstr] stringByAppendingString:@"条未读消息"];
+        _bottomLabel.text = unreads;
+        
+    }
+    else
+    {
+        NSString *unreads = [[NSString stringWithFormat:@"%@",@""] stringByAppendingString:@"无未读消息"];
+        _bottomLabel.text = unreads;
+        
+    }
+ 
+}
+
+-(BOOL)isNull:(id)object
+
+{
+    // 判断是否为空串
+    
+    if ([object isEqual:[NSNull null]]) {
+        
+        return NO;
+        
+    }
+    
+    else if ([object isKindOfClass:[NSNull class]])
+        
+    {
+        
+        return NO;
+        
+    }
+    
+    else if (object==nil){
+        
+        return NO;
+        
+    }
+    
+    return YES;
+    
+}
+
 
 -(void)setupUI
 {
@@ -209,7 +252,7 @@
             _bottomLabel.font = [UIFont fontWithName:FontName size:11];
             [_noticeBtn addSubview:_bottomLabel];
             [_bottomLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(77.5 * WidthCoefficient);
+                make.width.equalTo(100 * WidthCoefficient);
                 make.height.equalTo(15 * WidthCoefficient);
                 make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
                 make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
@@ -222,7 +265,7 @@
             _bottomLabels.font = [UIFont fontWithName:FontName size:11];
             [_noticeBtn addSubview:_bottomLabels];
             [_bottomLabels makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(77.5 * WidthCoefficient);
+                make.width.equalTo(100 * WidthCoefficient);
                 make.height.equalTo(15 * WidthCoefficient);
                 make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
                 make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);

@@ -52,8 +52,6 @@
     
 //    "previousPosition": "{\"latitude\":23.137126,\"longitude\":60.301096}",
 
-    
-    
 }
 
 -(void)network{
@@ -520,6 +518,7 @@
                        @"userName": _userNameField.text,
                        @"userPassword": [_passWordField.text md5String],
                        @"phoneToken":cid
+//                       @"phoneToken":@"617bfe77ed32e58134937d019153b677"
                  };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {

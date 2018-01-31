@@ -12,6 +12,7 @@
 #import <CUHTTPRequest.h>
 #import "CarInfoModel.h"
 #import "VhlModel.h"
+#import "InputAlertView.h"
 
 
 @interface CarUnbindViewController ()
@@ -69,7 +70,7 @@
             
             self.vinField.text = _vhl.vin;
             self.doptCodeField.text = _vhl.doptCode;
-            self.vhlLisenceField.text =_vhl.vhlLisence;
+            self.vhlLisenceField.text =_vhl.vhlLicence;
             self.colorField.text =_vhl.vhlColorName;
             self.vhlStatusField.text = _vhl.vhlBrandName;
             self.isTestField.text = [_vhl.vhlTStatus isEqualToString:@"1"]?@"T车辆":@"非T车辆";
@@ -403,35 +404,67 @@
     if (self.rightBarItem == sender) {
          sender.selected = !sender.selected;
         if (!sender.selected) {
-            _doptCodeField.userInteractionEnabled=NO;
-            _vhlLisenceField.userInteractionEnabled=NO;
-            _modifyImg.hidden = YES;
-            _modifyImg1.hidden = YES;
             
-            NSDictionary *paras = @{
-                                    @"vin":_vinField.text,
-                                    @"doptCode":_doptCodeField.text,
-                                    @"vhlLisence":_vhlLisenceField.text
-                                    };
+           
+            if (_doptCodeField.text.length !=7) {
+                
+                [MBProgressHUD showText:NSLocalizedString(@"请输入7位发动机号", nil)];
+                
+            }
+            else if (_vhlLisenceField.text.length !=7) {
+                
+                [MBProgressHUD showText:NSLocalizedString(@"请输入7位车牌号", nil)];
+            }
+            else if (_doptCodeField.text.length == 7 &&_vhlLisenceField.text.length ==7)
+            {
+                
+                _doptCodeField.userInteractionEnabled=NO;
+                _vhlLisenceField.userInteractionEnabled=NO;
+                _modifyImg.hidden = YES;
+                _modifyImg1.hidden = YES;
+                
+                NSDictionary *paras = @{
+                                        @"vin":_vinField.text,
+                                        @"doptCode":_doptCodeField.text,
+                                        @"vhlLisence":_vhlLisenceField.text
+                                        };
+                
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                [CUHTTPRequest POST:updateVhl parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        [hud hideAnimated:YES];
+                        
+                        
+                        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                        [InputalertView initWithTitle:@"车辆信息修改成功,返回个人中心" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: InputalertView];
+                        
+                        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                                
+                                UIViewController *viewCtl = self.navigationController.viewControllers[0];
+                                [self.navigationController popToViewController:viewCtl animated:YES];
+
+                            }
+                            
+                        };
+                        
+                        //响应事
+//                        [MBProgressHUD showText:NSLocalizedString(@"车辆修改成功", nil)];
+                    } else {
+                        [hud hideAnimated:YES];
+                        [MBProgressHUD showText:dic[@"msg"]];
+                    }
+                } failure:^(NSInteger code) {
+                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
             
-            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-            [CUHTTPRequest POST:updateVhl parameters:paras success:^(id responseData) {
-                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                    [hud hideAnimated:YES];
-                    //响应事件
-                    
-                    
-                    
-                   [MBProgressHUD showText:NSLocalizedString(@"车辆修改成功", nil)];
-                } else {
-                    [hud hideAnimated:YES];
-                    [MBProgressHUD showText:dic[@"msg"]];
-                }
-            } failure:^(NSInteger code) {
-                hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-                [hud hideAnimated:YES afterDelay:1];
-            }];
+            }
+            
+           
         }
         else
         {

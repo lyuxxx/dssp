@@ -80,7 +80,7 @@
     UILabel *explain = [[UILabel alloc] init];
     explain.textAlignment = NSTextAlignmentCenter;
     explain.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
-    explain.text = NSLocalizedString(@"关于实名制要求的说明", nil);
+//    explain.text = NSLocalizedString(@"关于实名制要求的说明", nil);
     [self.view addSubview:explain];
     [explain makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);

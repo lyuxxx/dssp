@@ -19,7 +19,11 @@
 @property (nonatomic, strong) UITextField * newsPasswordField;
 @property (nonatomic, strong) UITextField * confirmField;
 @property (nonatomic, strong) UIButton *eyeBtn;
+@property (nonatomic, strong) UIButton *eyeBtn1;
 @property (nonatomic, strong) UIButton *modifyBtn;
+
+@property (nonatomic, strong) UIButton *eyeView;
+@property (nonatomic, strong) UIButton *eyeView1;
 @end
 
 @implementation AccountViewController
@@ -57,10 +61,13 @@
         make.top.equalTo(63 * HeightCoefficient + kStatusBarHeight);
     }];
     
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userName = [defaults objectForKey:@"userName"];
     self.nameLabel = [[UILabel alloc] init];
     _nameLabel.textColor = [UIColor colorWithHexString:@"#C4B7A6"];
     _nameLabel.font = [UIFont fontWithName:FontName size:16];
-    _nameLabel.text = @"XXXXXX";
+    _nameLabel.text = userName;
     [self.view addSubview:_nameLabel];
     [_nameLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(imgV);
@@ -137,6 +144,7 @@
         
         UITextField *field = [[UITextField alloc] init];
         field.delegate = self;
+        field.secureTextEntry = true;
         field.textColor = [UIColor colorWithHexString:@"#040000"];
         field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
         field.font = [UIFont fontWithName:FontName size:15];
@@ -169,11 +177,51 @@
                 make.right.equalTo(-10 * WidthCoefficient);
             }];
             
+            self.eyeView = [UIButton buttonWithType:UIButtonTypeCustom];
+//            _eyeView.backgroundColor = [UIColor redColor];
+            [_eyeView addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+
+            [whiteV addSubview:_eyeView];
+            [_eyeView makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(26 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.centerY.equalTo(_newsPasswordField);
+                make.right.equalTo(-10 * WidthCoefficient);
+            }];
+            
             
         }
         else if (i == 2)
         {
             self.confirmField = field;
+//            self.confirmField.secureTextEntry = true;
+//            self.confirmField.enabled = NO;
+            self.eyeBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            [_eyeBtn1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_eyeBtn1 setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
+            [_eyeBtn1 setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
+            [whiteV addSubview:_eyeBtn1];
+            [_eyeBtn1 makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(16 * WidthCoefficient);
+                make.height.equalTo(10 * HeightCoefficient);
+                make.centerY.equalTo(_confirmField);
+                make.right.equalTo(-10 * WidthCoefficient);
+            }];
+            
+            self.eyeView1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            _eyeView1.backgroundColor = [UIColor clearColor];
+            [_eyeView1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+
+            [whiteV addSubview:_eyeView1];
+            [_eyeView1 makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(26 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.centerY.equalTo(_confirmField);
+                make.right.equalTo(-10 * WidthCoefficient);
+            }];
+            
+            
+        
         }
         
     }
@@ -199,9 +247,13 @@
 
 
 - (void)btnClick:(UIButton *)sender {
-    if (sender == self.eyeBtn) {
-        sender.selected = !sender.selected;
-        self.newsPasswordField.secureTextEntry = !sender.selected;
+    if (sender == self.eyeView) {
+        _eyeBtn.selected = !_eyeBtn.selected;
+        self.newsPasswordField.secureTextEntry = !_eyeBtn.selected;
+    }
+    if (sender == self.eyeView1) {
+        _eyeBtn1.selected = !_eyeBtn1.selected;
+        self.confirmField.secureTextEntry = !_eyeBtn1.selected;
     }
     if (sender == self.modifyBtn) {
         
