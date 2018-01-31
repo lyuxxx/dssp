@@ -17,6 +17,7 @@
 		31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */; };
 		3115892C201B211000A4AEFB /* ActivationCodeListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892B201B211000A4AEFB /* ActivationCodeListController.m */; };
 		3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
+		3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */; };
 		313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
 		313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
 		313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
@@ -165,6 +166,8 @@
 		3115892D201B21F900A4AEFB /* ActivationCodeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivationCodeListCell.h; sourceTree = "<group>"; };
 		3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivationCodeListCell.m; sourceTree = "<group>"; };
 		3118E4851FDA37D300F9E11A /* dssp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dssp.entitlements; sourceTree = "<group>"; };
+		3125E9DD201F0F6D009F6650 /* MapUpdateHelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapUpdateHelpViewController.h; sourceTree = "<group>"; };
+		3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapUpdateHelpViewController.m; sourceTree = "<group>"; };
 		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
 		313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StatusBar.m"; sourceTree = "<group>"; };
 		313070CA1FBA89C500A0DE71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -782,6 +785,8 @@
 				31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */,
 				3115892A201B211000A4AEFB /* ActivationCodeListController.h */,
 				3115892B201B211000A4AEFB /* ActivationCodeListController.m */,
+				3125E9DD201F0F6D009F6650 /* MapUpdateHelpViewController.h */,
+				3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1233,6 +1238,7 @@
 				315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
+				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,

@@ -121,7 +121,7 @@
     }];
     
     UILabel *label2 = [[UILabel alloc] init];
-    label1.font = [UIFont fontWithName:FontName size:11];
+    label2.font = [UIFont fontWithName:FontName size:11];
     label2.textAlignment = NSTextAlignmentRight;
     label2.text = NSLocalizedString(@"车况健康", nil);
     label2.textColor = [UIColor colorWithHexString:GeneralColorString];
@@ -134,7 +134,7 @@
     }];
     
     self.mileageLabel = [[UILabel alloc] init];
-    _mileageLabel.font = [UIFont fontWithName:FontName size:16];
+    _mileageLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _mileageLabel.textAlignment = NSTextAlignmentRight;
     _mileageLabel.textColor = [UIColor whiteColor];
     _mileageLabel.text = @"12903 km";
@@ -146,7 +146,7 @@
     }];
     
     self.oilLeftLabel = [[UILabel alloc] init];
-    _oilLeftLabel.font = [UIFont fontWithName:FontName size:16];
+    _oilLeftLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _oilLeftLabel.textAlignment = NSTextAlignmentRight;
     _oilLeftLabel.textColor = [UIColor whiteColor];
     _oilLeftLabel.text = @"28 L";
@@ -158,7 +158,7 @@
     }];
     
     self.healthLabel = [[UILabel alloc] init];
-    _healthLabel.font = [UIFont fontWithName:FontName size:16];
+    _healthLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _healthLabel.textAlignment = NSTextAlignmentRight;
     _healthLabel.textColor = [UIColor whiteColor];
     _healthLabel.text = @"健康";
