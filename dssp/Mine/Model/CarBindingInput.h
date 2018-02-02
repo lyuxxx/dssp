@@ -34,6 +34,8 @@
 @property (nonatomic, copy) NSString *remark;
 ///发动机号
 @property (nonatomic, copy) NSString *doptCode;
+///颜色
+@property (nonatomic, copy) NSString *colorId;
 
 @end
 
@@ -51,7 +53,7 @@
 @interface CarBindingcolor : NSObject<YYModel>
 @property (nonatomic , assign) NSInteger              currentPage;
 @property (nonatomic , assign) NSInteger              pageSize;
-@property (nonatomic , copy) NSString              * id;
+@property (nonatomic , copy) NSString              * carBindingcolord;
 @property (nonatomic , copy) NSString              * colorName;
 @property (nonatomic , copy) NSString              * recordStatus;
 @property (nonatomic , copy) NSString              * createTime;

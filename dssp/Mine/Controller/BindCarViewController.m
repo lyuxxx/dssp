@@ -32,6 +32,7 @@
 @property (nonatomic, strong) UIImageView *modifyImg1;
 
 @property (nonatomic, strong) VhlModel *vhl;
+@property (nonatomic, strong) NSArray<NSString *> *titles;
 @end
 
 @implementation BindCarViewController
@@ -44,7 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self requestData];
-    [self setupUI];
+   
 }
 
 -(void)requestData
@@ -57,46 +58,62 @@
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryVhls parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        self.vhl =[VhlModel yy_modelWithDictionary:dic[@"data"]];
+       
+        
+        
+        
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             
-//            self.vinField.text = _vhl.vin;
-//            self.doptCodeField.text = _vhl.doptCode;
-//            self.vhlLisenceField.text =_vhl.vhlLisence;
-//            self.colorField.text =_vhl.color;
-//            self.vhlStatusField.text = _vhl.vhlStatus;
-//            self.isTestField.text = _vhl.isTest;
-//            self.vhlBrandField.text = _vhl.brandName;
-//            self.vhlTStatusField.text = _vhl.vhlTStatus;
-//            self.seriesNameField.text = _vhl.seriesName;
-//            self.typeNameField.text = _vhl.typeName;
+             self.vhl =[VhlModel yy_modelWithDictionary:dic[@"data"]];
+           
+             [self setupUI];
             
-            
-            self.vinField.text = _vhl.vin;
-            self.doptCodeField.text = _vhl.doptCode;
-            self.vhlLisenceField.text =_vhl.vhlLicence;
-            self.colorField.text =_vhl.vhlColorName;
-            self.vhlStatusField.text = _vhl.vhlBrandName;
-//            self.isTestField.text = _vhl.isTest;
-            self.isTestField.text = [_vhl.vhlTStatus isEqualToString:@"1"]?@"T车辆":@"非T车辆";
-//            self.vhlBrandField.text = _vhl.brandName;
-//            self.vhlTStatusField.text = _vhl.vhlTStatus;
-            self.seriesNameField.text = _vhl.vhlSeriesName;
-            self.typeNameField.text = _vhl.vhlTypeName;
-            
-            
+            if ([_vhl.vhlTStatus isEqualToString:@"1"]) {
+                self.vinField.text = _vhl.vin;
+                self.doptCodeField.text = _vhl.doptCode;
+                self.vhlLisenceField.text =_vhl.vhlLicence;
+                self.colorField.text =_vhl.vhlColorName;
+                self.vhlStatusField.text = _vhl.vhlBrandName;
+                self.isTestField.text = @"T车辆";
+                //            self.vhlBrandField.text = _vhl.brandName;
+                //            self.vhlTStatusField.text = _vhl.vhlTStatus;
+                self.seriesNameField.text = _vhl.vhlSeriesName;
+                self.typeNameField.text = _vhl.vhlTypeName;
+            }
+            else
+            {
+                
+                self.vinField.text = _vhl.vin;
+                self.doptCodeField.text = _vhl.doptCode;
+                self.vhlLisenceField.text =_vhl.vhlLicence;
+                self.colorField.text =_vhl.vhlColorName;
+                self.vhlStatusField.text = @"非T车辆";
+                self.isTestField.text = _vhl.vhlTypeName;
+                //            self.vhlBrandField.text = _vhl.brandName;
+                //            self.vhlTStatusField.text = _vhl.vhlTStatus;
+                //                self.seriesNameField.text = _vhl.vhlSeriesName;
+                //                self.typeNameField.text = _vhl.vhlTypeName;
+                
+                
+            }
+
+
         } else {
+            [self setupUI];
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-         [hud hideAnimated:YES];
+        [self setupUI];
+        [hud hideAnimated:YES];
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
         [hud hideAnimated:YES afterDelay:1];
     }];
     
 }
+
+
 
 - (void)setupUI {
     
@@ -147,20 +164,43 @@
         make.top.equalTo(20 * HeightCoefficient);
     }];
     
-    NSArray<NSString *> *titles = @[
-                                    
-                                    NSLocalizedString(@"车架号", nil),
-                                    NSLocalizedString(@"发动机号", nil),
-                                    NSLocalizedString(@"车牌号", nil),
-                                    NSLocalizedString(@"颜色", nil),
-//                                    NSLocalizedString(@"车辆状态", nil),
-//                                    NSLocalizedString(@"车辆类型", nil),
-                                    NSLocalizedString(@"品牌", nil),
-                                    NSLocalizedString(@"车辆T状态", nil),
-                                    NSLocalizedString(@"车系", nil),
-                                    NSLocalizedString(@"车型", nil)
-                                    ];
     
+    if([_vhl.vhlTStatus isEqualToString:@"1"])
+    {
+        _titles = @[
+                    NSLocalizedString(@"车架号", nil),
+                    NSLocalizedString(@"发动机号", nil),
+                    NSLocalizedString(@"车牌号", nil),
+                    NSLocalizedString(@"颜色", nil),
+                    
+                    NSLocalizedString(@"品牌", nil),
+                    NSLocalizedString(@"车辆T状态", nil),
+                    NSLocalizedString(@"车系", nil),
+                    NSLocalizedString(@"车型 ", nil)
+                    ];
+ 
+    }
+    else
+    {
+        _titles = @[
+                    NSLocalizedString(@"车架号", nil),
+                    NSLocalizedString(@"发动机号", nil),
+                    NSLocalizedString(@"车牌号", nil),
+                    NSLocalizedString(@"颜色", nil),
+                    
+                    //                                        NSLocalizedString(@"品牌", nil),
+                    NSLocalizedString(@"车辆T状态", nil),
+                    //                                        NSLocalizedString(@"车系", nil),
+                    NSLocalizedString(@"车型 ", nil)
+                    ];
+        
+        
+        
+    }
+    
+    
+    
+   
     self.sc = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
         scroll.showsVerticalScrollIndicator = NO;
@@ -184,9 +224,9 @@
         UILabel *lastLabel = nil;
         UIView *lastView = nil;
         
-        for (NSInteger i = 0 ; i < titles.count; i++) {
+        for (NSInteger i = 0 ; i < _titles.count; i++) {
             UILabel *label = [[UILabel alloc] init];
-            label.text = titles[i];
+            label.text =_titles[i];
             label.textColor = [UIColor colorWithHexString:@"#040000"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
@@ -261,7 +301,7 @@
                 self.field = [[UITextField alloc] init];
                 _field.font = [UIFont fontWithName:FontName size:15];
                 _field.textColor = [UIColor colorWithHexString:@"333333"];
-                _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _field.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 
@@ -311,6 +351,10 @@
                     self.typeNameField = _field;
                     
                 }
+                
+              
+                
+                
             }
             else if (i==1)
             {
@@ -319,7 +363,7 @@
                 _doptCodeField.font = [UIFont fontWithName:FontName size:15];
                 //                 _doptCodeField.text = @"999";
                 _doptCodeField.textColor = [UIColor colorWithHexString:@"333333"];
-                _doptCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                _doptCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _doptCodeField.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 
@@ -352,7 +396,7 @@
                 _vhlLisenceField.font = [UIFont fontWithName:FontName size:15];
                 //                _vhlLisenceField.text = @"999";
                 _vhlLisenceField.textColor = [UIColor colorWithHexString:@"333333"];
-                _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _vhlLisenceField.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 

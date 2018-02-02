@@ -65,18 +65,18 @@
     
     
 //  [self RealnameUserName];
-    [self initTableView];
-    [self setupUI];
+//    [self initTableView];
+//    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.mgr startUpdatingLocation];
-    if ([kVin isEqualToString:@""]) {
+//    if ([kVin isEqualToString:@""]) {
         [self initTableView];
         [self setupUI];
-    }
+//    }
     
 }
 

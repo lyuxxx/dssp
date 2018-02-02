@@ -176,12 +176,14 @@
         [MBProgressHUD showText:NSLocalizedString(@"手持身份证照片未上传", nil)];
         return;
     }
-    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.5) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.4) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.4) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.4) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
     NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    
+    NSLog(@"55%@",dic[@"vin"]);
     [CUHTTPRequest POST:rnrVhlWithAtb parameters:dic success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"666%@",dic);
@@ -201,8 +203,8 @@
 //             }
 //
 //        };
-            
             QueryViewController *vc = [[QueryViewController alloc] init];
+            vc.vin = dic[@"vin"];
             [self.navigationController pushViewController:vc animated:YES];
         }
       else

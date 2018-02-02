@@ -114,7 +114,7 @@
     } failure:^(NSInteger code) {
         
          [self.tableView.mj_header endRefreshing];
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
        
     }];
 }

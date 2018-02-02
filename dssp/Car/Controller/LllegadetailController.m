@@ -121,17 +121,18 @@
             [contentView addSubview:whiteView];
             
             
-            CGFloat contentW = 223 * WidthCoefficient;
-            //label的字体 HelveticaNeue  Courier
-            UIFont *fnt = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
-            //                    _placeLabel.font = fnt;
-            // iOS7中用以下方法替代过时的iOS6中的sizeWithFont:constrainedToSize:lineBreakMode:方法
-            CGRect tmpRect = [_lllegaModel.address boundingRectWithSize:CGSizeMake(contentW, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:fnt,NSFontAttributeName, nil] context:nil];
-            // 高度H
+            CGRect tmpRect= [_lllegaModel.address boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20.0]} context:nil];
+            
+//            CGFloat contentW = 223 * WidthCoefficient;
+//            //label的字体 HelveticaNeue  Courier
+//            UIFont *fnt = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
+//            //                    _placeLabel.font = fnt;
+//            // iOS7中用以下方法替代过时的iOS6中的sizeWithFont:constrainedToSize:lineBreakMode:方法
+//            CGRect tmpRect = [_lllegaModel.address boundingRectWithSize:CGSizeMake(contentW, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:fnt,NSFontAttributeName, nil] context:nil];
+//            // 高度H
             CGFloat contentH = tmpRect.size.height;
-            NSLog(@"调整后的显示宽度:%f,显示高度:%f",contentW,contentH);
-            
-            
+//            NSLog(@"调整后的显示宽度:%f,显示高度:%f",contentW,contentH);
+         
             CGFloat contentW1 = 223 * WidthCoefficient;
             //label的字体 HelveticaNeue  Courier
             UIFont *fnt1 = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];

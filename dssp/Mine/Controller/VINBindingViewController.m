@@ -97,6 +97,7 @@
     
     self.enginenNumber = [[UITextField alloc] init];
     _enginenNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
+     _enginenNumber.keyboardType = UIKeyboardTypePhonePad;
     _enginenNumber.leftViewMode = UITextFieldViewModeAlways;
     _enginenNumber.textColor = [UIColor colorWithHexString:@"#040000"];
     _enginenNumber.font = [UIFont fontWithName:FontName size:16];
@@ -143,19 +144,54 @@
     }
     else if (_vinField.text.length == 17 &&_enginenNumber.text.length ==7)
     {
+        
+        
+        
+        
                 NSDictionary *paras = @{
                                         @"vin": _vinField.text,
                                         @"doptCode":_enginenNumber.text
                                         };
                 [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                     _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
+                    _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
+//                    _carbind.doptCode =!_enginenNumber.text;
+//                    if (![_carbind.doptCode isEqualToString:_enginenNumber.text]) {
+//                        [MBProgressHUD showText:@"发动机号有误"];
+//                        return ;
+//                    }
+                    
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         if (_carbind.isExist) {
-                            ///T车跳绑定详细页面
-                            CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
-                            vc.carbind = _carbind;
-                            [self.navigationController pushViewController:vc animated:YES];
+                            
+                            if([_carbind.vhlTStatus isEqualToString:@"1"])
+                            {
+                                if (![_carbind.doptCode isEqualToString:_enginenNumber.text]) {
+                                        [MBProgressHUD showText:@"发动车号有误"];
+                                    
+                                }else{
+                                    ///T车跳绑定详细页面
+                                    CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
+                                    vc.carbind = _carbind;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                    
+                                }
+                                
+                                
+                               
+                                
+                            }
+                            else
+                            {
+                                ///非T跳车辆绑定填写页面
+                                CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                                vc.bingVin = _vinField.text;
+                                vc.doptCode = _enginenNumber.text;
+                                vc.carbind = _carbind;
+                                [self.navigationController pushViewController:vc animated:YES];
+                                
+                            }
+   
                         }
                         else
                         {

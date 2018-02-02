@@ -13,7 +13,11 @@
 @end
 
 @implementation CarBindingcolor
-
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"carBindingcolord" : @"id"
+             };
+}
 @end
 
 

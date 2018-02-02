@@ -106,7 +106,7 @@
         }
     } failure:^(NSInteger code) {
           self.unreadstr = _unreadstrs;
-         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
@@ -118,8 +118,17 @@
     
     if([self isNull:unreadstr])
     {
-        NSString *unreads = [[NSString stringWithFormat:@"%@",unreadstr] stringByAppendingString:@"条未读消息"];
-        _bottomLabel.text = unreads;
+        if([unreadstr isEqualToString:@"0"])
+        {
+            NSString *unreads = [[NSString stringWithFormat:@"%@",@""] stringByAppendingString:@"无未读消息"];
+            _bottomLabel.text = unreads;
+            
+        }else
+        {
+            NSString *unreads = [[NSString stringWithFormat:@"%@",unreadstr] stringByAppendingString:@"条未读消息"];
+            _bottomLabel.text = unreads;
+            
+        }
         
     }
     else
@@ -261,7 +270,7 @@
         if (i==1) {
             self.bottomLabels = [[UILabel alloc] init];
             _bottomLabels.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-             _bottomLabels.text = @"暂无订阅消息";
+             _bottomLabels.text = @"无订阅消息";
             _bottomLabels.font = [UIFont fontWithName:FontName size:11];
             [_noticeBtn addSubview:_bottomLabels];
             [_bottomLabels makeConstraints:^(MASConstraintMaker *make) {

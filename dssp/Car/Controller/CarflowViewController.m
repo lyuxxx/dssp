@@ -31,7 +31,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self initTableView];
-      [self setupUI];
+    [self setupUI];
     [self requestData];
 //    [self initTableView];
 

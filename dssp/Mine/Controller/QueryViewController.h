@@ -10,4 +10,5 @@
 //#import "QueryModel.h"
 @interface QueryViewController : BaseViewController
 //@property (nonatomic,strong)QueryModel *queryModel;
+@property (nonatomic,strong)NSString *vin;
 @end

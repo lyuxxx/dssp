@@ -122,7 +122,7 @@
                 
 //                QueryModel *queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
                 QueryViewController *queryVC =[[QueryViewController alloc] init];
-//                queryVC.queryModel = queryModel;
+                queryVC.vin = _vinField.text;
                 [self.navigationController pushViewController:queryVC animated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
                 

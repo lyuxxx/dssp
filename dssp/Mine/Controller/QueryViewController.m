@@ -26,7 +26,7 @@
 -(void)requestData
 {
     NSDictionary *paras = @{
-                            @"vin": kVin
+                            @"vin": [kVin isEqualToString:@""]?_vin:kVin
                             };
     [CUHTTPRequest POST:queryBindAndRNRStatus parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

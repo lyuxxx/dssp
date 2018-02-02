@@ -50,6 +50,7 @@
 - (void)config {
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].keyboardDistanceFromTextField = 70 * HeightCoefficient;
+//    [IQKeyboardManager sharedManager].canAdjustAdditionalSafeAreaInsets = NO;
     [AMapServices sharedServices].apiKey = @"e3aed20c93efeea15495d8bf27a87fac";
     [AMapServices sharedServices].enableHTTPS = YES;
     
@@ -181,7 +182,7 @@
     }
 }
 
-- (void)gotoMessageVC {
+- (void) gotoMessageVC {
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
         tabVC.selectedIndex = 1;
@@ -287,6 +288,7 @@
 ///个推透传消息
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
     //收到个推消息
+
     NSString *payloadMsg = nil;
     if (payloadData) {
         payloadMsg = [[NSString alloc] initWithBytes:payloadData.bytes length:payloadData.length encoding:NSUTF8StringEncoding];
@@ -295,13 +297,19 @@
         if ([tag isEqualToString:@"login_exception"]) {
             [self showLogout];
         } else {
-            [self registerLocalNotificationWithInfo:dic];
+            
+            if (offLine) {
+            
+            }
+            else
+            {
+                [self registerLocalNotificationWithInfo:dic];
+                
+            }
+//            [self registerLocalNotificationWithInfo:dic];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePayloadMsg" object:nil userInfo:nil];
         }
     }
-    
-    
-    
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
 }

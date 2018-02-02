@@ -115,7 +115,7 @@
     }];
     
     UILabel *tipLabel = [[UILabel alloc] init];
-    tipLabel.text = @"*请输入除去0、1以外的数字,除去I、O的大写字母任意组合的八位字符";
+    tipLabel.text = @"*请输入除去I、O的大写字母任意组合的八位字符";
     tipLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
     [whiteV addSubview:tipLabel];
     [tipLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -220,7 +220,7 @@
 
 - (BOOL)checkWifi:(NSString *)wifi
 {
-    NSString *pattern = @"[2-9A-HJ-NP-Z]{8}";
+    NSString *pattern = @"[0-9A-HJ-NP-Z]{8}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     return [pred evaluateWithObject:wifi];
 }

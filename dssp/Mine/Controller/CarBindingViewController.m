@@ -47,7 +47,9 @@
 @property (nonatomic, strong) NSArray *mfid;
 @property (nonatomic, strong) NSMutableArray *mfids;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-
+@property (nonatomic, strong) NSMutableArray *colorId;
+@property (nonatomic, strong) NSMutableArray *carmodelId;
+//@property (nonatomic, strong) NSMutableArray *carmodelId;
 @property (nonatomic, strong) UITextField *selectedField;
 @end
 
@@ -70,6 +72,7 @@
 -(void)requestData
 {
 
+    //颜色
     NSDictionary *paras = @{
                             
                             
@@ -85,6 +88,8 @@
             for (NSDictionary *dic in dataArray) {
             CarBindingcolor *carBindingcolor=[CarBindingcolor yy_modelWithDictionary:dic];
             [self.certtypes addObject:carBindingcolor.colorName];
+            [self.colorId addObject:carBindingcolor.carBindingcolord];
+                
             }
         } else {
             [hud hideAnimated:YES];
@@ -103,7 +108,8 @@
 
 -(void)requestData1
 {
-    
+
+        //车型
         NSDictionary *paras = @{
     
     
@@ -118,6 +124,8 @@
                 for (NSDictionary *dic in dataArray) {
                     CarBindingtepy *carBindingtepy=[CarBindingtepy yy_modelWithDictionary:dic];
                     [self.genders addObject:carBindingtepy.typeName];
+                    [self.carmodelId addObject:carBindingtepy.vhlNtTypeId];
+                  
                 }
     
     
@@ -332,6 +340,7 @@
                     
                 } else if (i == 5) {
                     _field.text = @"";
+                    _field.keyboardType = UIKeyboardTypeNumberPad;
                     self.mobilePhone = _field;
                     
                 } else if (i == 6) {
@@ -574,6 +583,22 @@
     return _dataSource;
 }
 
+- (NSMutableArray *)colorId {
+    if (!_colorId) {
+        _colorId = [[NSMutableArray alloc] init];
+    }
+    return _colorId;
+}
+
+//保存车型id
+- (NSMutableArray *)carmodelId {
+    if (!_carmodelId) {
+        _carmodelId = [[NSMutableArray alloc] init];
+    }
+    return _carmodelId;
+}
+
+
 - (NSMutableArray *)genders {
     if (!_genders) {
         
@@ -660,12 +685,29 @@
         [MBProgressHUD showText:NSLocalizedString(@"请填写联系方式", nil)];
         return;
     }
+    else if (![self valiMobile:_mobilePhone.text])
+    {
+        
+     [MBProgressHUD showText:NSLocalizedString(@"请填写正确的手机号码", nil)];
+        return;
+        
+    }
+    else if (!self.sex.text || [self.sex.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择性别", nil)];
+        return;
+    }
     
 //    self.bindingInput.vin = _vinField.text;
 //    self.bindingInput.customerName = _carInfo.customerName?_carInfo.customerName:@"";
 //    self.bindingInput.credentials = _carInfo.customerCredentials?_carInfo.customerCredentials:@"";
 //    self.bindingInput.credentialsNum = _carInfo.customerCredentialsNum;
     self.bindingInput.sex = [_mfid objectAtIndex:[self.mfids indexOfObject:self.sex.text]];
+    
+    self.bindingInput.vhlType = [_carmodelId objectAtIndex:[self.genders indexOfObject:self.carModels.text]];
+    
+    self.bindingInput.colorId = [_colorId objectAtIndex:[self.certtypes indexOfObject:_vhlColorName.text]];
+    
+
 //    self.bindingInput.mobilePhone = _carInfo.customerMobilePhone?_carInfo.customerMobilePhone:@"";
 //    self.bindingInput.phone = _carInfo.customerHomePhone?_carInfo.customerHomePhone:@"15871707603";
 //    self.bindingInput.email = _carInfo.customerEmail?_carInfo.customerEmail:@"";
@@ -675,11 +717,10 @@
 //    self.bindingInput.doptCode = _doptField.text;
     
 //      rnrInfo.gender = [_mfid objectAtIndex:[self.genders indexOfObject:self.genderField.text]];
-    
-    
+
     
     if (_carbind.isExist) {
-          _vhlTStatustr =@"1";
+        _vhlTStatustr =@"1";
         _isExiststr = @"true";
     }
     else
@@ -691,14 +732,15 @@
     NSDictionary *paras = @{
                             @"vin": _bingVin,
                             @"doptCode": _doptCode,
-                            @"vhlLicence": @"",
-                            @"vhlBrandId": @"",
-                            @"vhlBrandName": @"",
+//                            @"vhlLicence": @"",
+//                            @"vhlBrandId": @"",
+//                            @"vhlBrandName": @"",
                             @"vhlSeriesName": _carSeries.text,
-                            @"vhlTypeId": @"",
-                            @"vhlTypeName": _carModels.text,
+                            @"vhlTypeId": self.bindingInput.vhlType,
+                            @"vhlTypeName": self.carModels.text,
+
                             @"vhlColorName": _vhlColorName.text,
-                            @"vhlColorId":@"",
+                            @"vhlColorId":self.bindingInput.colorId ,
                             @"isExist": _isExiststr,
                             @"userName": _userName.text,
                             @"sex": self.bindingInput.sex,
@@ -716,26 +758,27 @@
             NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
             NSString *isPush = [defaults objectForKey:@"isPush"];
             
+            NSString *vin = _bingVin;
+            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+            [defaults1 setObject:vin forKey:@"vin"];
+            [defaults1 synchronize];
+            
             if (isPush) {
                 
-                NSString *vin = _bingVin;
-                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-                [defaults1 setObject:vin forKey:@"vin"];
-                [defaults1 synchronize];
-                
                 InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                [InputalertView initWithTitle:@"车辆绑定成功,返回个人中心" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: InputalertView];
                 
                 InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
                     if (btn.tag == 100) {//左边按钮
                         
-                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-                        vc.vin=_carbind.vin;
-                        vc.isSuccess = @"1";
-                        vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+//                        vc.vin=_carbind.vin;
+//                        vc.isSuccess = @"1";
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
                         
                     }
                     
@@ -817,5 +860,43 @@
     }
     return _bindingInput;
 }
+
+
+//判断手机号码格式是否正确
+- (BOOL)valiMobile:(NSString *)mobile
+{
+    //    mobile = [mobile stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (mobile.length != 11)
+    {
+        return NO;
+    }else{
+        /**
+         * 移动号段正则表达式
+         */
+        NSString *CM_NUM = @"^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$";
+        /**
+         * 联通号段正则表达式
+         */
+        NSString *CU_NUM = @"^((13[0-2])|(145)|(15[5-6])|(176)|(18[5,6]))\\d{8}|(1709)\\d{7}$";
+        /**
+         * 电信号段正则表达式
+         */
+        NSString *CT_NUM = @"^((133)|(153)|(177)|(18[0,1,9]))\\d{8}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
+        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
+        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
+        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
+        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
+        
+        if (isMatch1 || isMatch2 || isMatch3) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+}
+
+
 
 @end
