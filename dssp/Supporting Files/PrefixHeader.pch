@@ -197,6 +197,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define queryBindAndRNRStatus [NSString stringWithFormat:@"%@queryBindAndRNRStatus",baseUrl]
 ///违章查询
 #define violationsForApp [NSString stringWithFormat:@"%@violationsForApp",baseUrl]
-
+///服务知识库查询
+#define sendToServiceKnowledgeProfileValue [NSString stringWithFormat:@"%@sendToServiceKnowledgeProfileValue",baseUrl]
 
 #endif /* PrefixHeader_pch */

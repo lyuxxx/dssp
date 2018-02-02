@@ -369,7 +369,7 @@
     msgLabel4.font = [UIFont fontWithName:@"PingFangSC-Medium" size:13];
     msgLabel4.textColor = [UIColor colorWithHexString:@"#999999"];
     msgLabel4.numberOfLines = 0;
-    msgLabel4.text = NSLocalizedString(@"车辆追踪到位置后，如果成功找回车辆",nil);
+    msgLabel4.text = NSLocalizedString(@"车辆追踪到位置后，成功找回车辆",nil);
     [self.view addSubview:msgLabel4];
     [msgLabel4 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(title4.bottom).offset(5 * HeightCoefficient);

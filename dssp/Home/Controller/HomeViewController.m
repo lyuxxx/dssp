@@ -108,6 +108,7 @@
 - (void)setupUI {
     
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -278,6 +279,12 @@
             [self.navigationController pushViewController:mapVC animated:YES];
         }
     };
+}
+
+- (void)btnClick:(UIButton *)sender {
+//    UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)detailBtnClick:(UIButton *)sender {

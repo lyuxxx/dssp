@@ -173,16 +173,23 @@
 -(void)setupUI
 {
     self.navigationItem.title = NSLocalizedString(@"发现", nil);
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backgroud"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"tophead"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_robotBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);
     }];
     
+    UIImageView *topBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, -kStatusBarHeight, kScreenWidth, kNaviHeight)];
+    topBg.image = [UIImage imageNamed:@"tophead"];
+    [self.navigationController.navigationBar addSubview:topBg];
+    [self.navigationController.navigationBar insertSubview:topBg atIndex:0];
+    
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"个人中心"];
+    bgImgV.image = [UIImage imageNamed:@"belowhead"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -405,6 +412,11 @@
 
 -(void)BtnClick:(UIButton *)sender
 {
+    if (sender == _robotBtn) {
+//        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+    }
     if ((self.currentVC == self.noticeVC && sender.tag == 100)||(self.currentVC == self.subscribeVC && sender.tag == 101)) {
         return;
     }else{

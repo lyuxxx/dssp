@@ -28,7 +28,7 @@
 
 - (void)config {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
     if ([self needGradientImg]) {
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = CGRectMake(0, 0, kScreenWidth, 96 * HeightCoefficient);

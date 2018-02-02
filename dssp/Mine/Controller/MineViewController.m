@@ -58,7 +58,8 @@
 
     self.navigationItem.title = NSLocalizedString(@"", nil);
     
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
     _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"身份证",@"车辆信息"],@[@"汽车信息",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"signout",@"退出登录"]]];
@@ -242,19 +243,11 @@
     
     self.setBtn= [UIButton buttonWithType:UIButtonTypeCustom];
     [_setBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_setBtn setContentMode:UIViewContentModeScaleAspectFit];
-    _setBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
-    _setBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_setBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
-    [_setBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
-    [_headerView addSubview:_setBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_setBtn];
     [_setBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(10.5 * HeightCoefficient+kStatusBarHeight);
-        make.right.equalTo(-16 * WidthCoefficient);
-        make.width.equalTo(24 * WidthCoefficient);
-        make.height.equalTo(24 * WidthCoefficient);
+        make.width.height.equalTo(24 * WidthCoefficient);
     }];
-    
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -612,8 +605,9 @@
 - (void)BtnClick:(UIButton *)sender {
     
     if (sender == self.setBtn) {
-        
-        
+//        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender ==self.photoBtn) {
         

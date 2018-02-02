@@ -37,6 +37,15 @@
 
 - (void)setupUI {
     
+    UIButton *robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    robotBtn.tag = 1111;
+    [robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:robotBtn];
+    [robotBtn makeConstraints:^(MASConstraintMaker *make) {
+       make.width.height.equalTo(24 * WidthCoefficient);
+    }];
+    
     self.navigationItem.title = NSLocalizedString(@"爱车", nil);
     UIScrollView *scroll = [[UIScrollView alloc] init];
     scroll.showsVerticalScrollIndicator = NO;
@@ -246,6 +255,11 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
+    if (sender.tag == 1111) {
+//        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+    }
     if (sender.tag == 100) {
         MapHomeViewController *vc = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
         vc.hidesBottomBarWhenPushed = YES;
