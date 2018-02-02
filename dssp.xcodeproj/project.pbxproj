@@ -105,7 +105,6 @@
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
 		455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
 		455974681FE8EAB400D7910A /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
-		455BFF61202069C800A80F0F /* ABImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BFF5F202069C700A80F0F /* ABImagePicker.m */; };
 		455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
 		455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
 		455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
@@ -340,8 +339,6 @@
 		455974551FE7AA7A00D7910A /* SubscribeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
 		455974661FE8EAB300D7910A /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
 		455974671FE8EAB300D7910A /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
-		455BFF5F202069C700A80F0F /* ABImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ABImagePicker.m; path = "../../../../../../Downloads/CBImagePicker-master/src/ABImagePicker.m"; sourceTree = "<group>"; };
-		455BFF60202069C700A80F0F /* ABImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ABImagePicker.h; path = "../../../../../../Downloads/CBImagePicker-master/src/ABImagePicker.h"; sourceTree = "<group>"; };
 		455F36861FF3A4A500D09A63 /* NoticeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeModel.h; sourceTree = "<group>"; };
 		455F36871FF3A4A500D09A63 /* NoticeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeModel.m; sourceTree = "<group>"; };
 		455F36901FF4CCF400D09A63 /* QueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
@@ -783,8 +780,6 @@
 		31EEDDDF1FBBC9FE0012BA92 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				455BFF60202069C700A80F0F /* ABImagePicker.h */,
-				455BFF5F202069C700A80F0F /* ABImagePicker.m */,
 				310A07DE1FA96BF800DC9529 /* MineViewController.h */,
 				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
 				313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */,
@@ -1329,7 +1324,6 @@
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,
 				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
 				3133051A1FFB730C0067CDFC /* NSDictionary+NilSafe.m in Sources */,
-				455BFF61202069C800A80F0F /* ABImagePicker.m in Sources */,
 				310A07DA1FA96BDB00DC9529 /* MapHomeViewController.m in Sources */,
 				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
 				310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */,

@@ -17,7 +17,7 @@
 #import <MBProgressHUD+CU.h>
 #import "InputAlertView.h"
 #import "QueryViewController.h"
-#import "ABImagePicker.h"
+//#import "ABImagePicker.h"
 @interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *selectedImgV;

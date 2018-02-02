@@ -124,8 +124,8 @@
     }];
     
     self.scroll = [[UIScrollView alloc] init];
-    _scroll.contentInset = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);
-    _scroll.scrollIndicatorInsets = UIEdgeInsetsMake(355 * HeightCoefficient, 0, 0, 0);
+    _scroll.contentInset = UIEdgeInsetsMake(375 * HeightCoefficient, 0, 0, 0);
+    _scroll.scrollIndicatorInsets = UIEdgeInsetsMake(375 * HeightCoefficient, 0, 0, 0);
     _scroll.showsVerticalScrollIndicator = NO;
     if (@available(iOS 11.0, *)) {
         _scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
