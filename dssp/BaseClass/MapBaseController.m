@@ -396,9 +396,11 @@ static dispatch_once_t mapBaseOnceToken;
             self.carAnnotation = [[CarAnnotation alloc] init];
             _carAnnotation.coordinate = location;
             [self.mapView addAnnotation:_carAnnotation];
-        }
-        if (self.checkCarLocationOver) {
-            self.checkCarLocationOver();
+            if (self.checkCarLocationOver) {
+                self.checkCarLocationOver();
+            }
+        } else {
+            [self checkCarLocation];
         }
     });
 }
