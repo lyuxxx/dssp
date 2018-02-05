@@ -182,7 +182,7 @@
     }
 }
 
-- (void) gotoMessageVC {
+- (void)gotoMessageVC {
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
         tabVC.selectedIndex = 1;
@@ -297,21 +297,15 @@
         if ([tag isEqualToString:@"login_exception"]) {
             [self showLogout];
         } else {
-            
-            if (offLine) {
-            
-            }
-            else
-            {
+            if (!offLine) {//online
+                [self increaseBadgeNumber];//在线消息加一
                 [self registerLocalNotificationWithInfo:dic];
-                
             }
-//            [self registerLocalNotificationWithInfo:dic];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePayloadMsg" object:nil userInfo:nil];
         }
     }
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
-    NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+    NSLog(@"\n>>>[GTSdk ReceivePayload]:%@\n\n", msg);
 }
 
 - (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {

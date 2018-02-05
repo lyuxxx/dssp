@@ -14,6 +14,7 @@
 #import "NoticeViewController.h"
 #import "SubscribeViewController.h"
 #import "UITabBar+badge.h"
+#import "AppDelegate.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate,UITabBarControllerDelegate>
 
 @property(nonatomic,strong) UIButton *robotBtn;
@@ -96,9 +97,9 @@
 //            [hud hideAnimated:YES];
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             // [_tableView reloadData];
-           self.unreadstrs = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
-        self.unreadstr = _unreadstrs;
-
+            self.unreadstrs = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
+            self.unreadstr = _unreadstrs;
+            [(AppDelegate *)[UIApplication sharedApplication].delegate setBadgeNumber:_unreadstrs.integerValue];
             //响应事件
         } else {
             self.unreadstr = _unreadstrs;
@@ -173,7 +174,7 @@
 -(void)setupUI
 {
     self.navigationItem.title = NSLocalizedString(@"发现", nil);
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"tophead"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_robotBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -183,16 +184,19 @@
         make.width.height.equalTo(24 * WidthCoefficient);
     }];
     
-    UIImageView *topBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, -kStatusBarHeight, kScreenWidth, kNaviHeight)];
+    UIImageView *topBg = [[UIImageView alloc] init];
     topBg.image = [UIImage imageNamed:@"tophead"];
-    [self.navigationController.navigationBar addSubview:topBg];
-    [self.navigationController.navigationBar insertSubview:topBg atIndex:0];
+    [self.view addSubview:topBg];
+    [topBg makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.height.equalTo(kNaviHeight);
+    }];
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"belowhead"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(0);
+        make.top.equalTo(topBg.bottom);
         make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
