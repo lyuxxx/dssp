@@ -97,7 +97,7 @@
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
             // [_tableView reloadData];
            self.unreadstrs = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
-            self.unreadstr = _unreadstrs;
+        self.unreadstr = _unreadstrs;
 
             //响应事件
         } else {

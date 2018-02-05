@@ -10,9 +10,10 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
-
+#import "UpkeepdetailController.h"
 @interface UpkeepViewController ()
 @property (nonatomic ,strong) UIButton *operationBtn;
+@property (nonatomic ,strong) UIButton *upkeepBtn;
 
 @end
 
@@ -24,7 +25,7 @@
     
 
     [self requestData];
-    [self setupUI];
+  
 }
 
 
@@ -41,12 +42,15 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             
           self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
-
+         [self setupUI];
+            NSLog(@"%@", self.upkeep.maintenanceMileage);
+//            self.upkeep.maintenanceMileage
         } else {
+            [self setupUI];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        
+        [self setupUI];
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
 }
@@ -131,7 +135,7 @@
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"xxx", nil);
+    toplabel1.text=NSLocalizedString(maintenanceMileage?maintenanceMileage:@"xxx", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
@@ -318,7 +322,7 @@
     [_operationBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
 //    _operationBtn.layer.cornerRadius = 2;
     _operationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_operationBtn setTitle:NSLocalizedString(@"手动预约", nil) forState:UIControlStateNormal];
+    [_operationBtn setTitle:NSLocalizedString(@"保养登记", nil) forState:UIControlStateNormal];
     [_operationBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
     _operationBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
 //    [_operationBtn setBackgroundColor:[UIColor colorWithHexString:@"#A18E79"]];
@@ -334,7 +338,7 @@
     UILabel *service1 = [[UILabel alloc] init];
     service1.font=[UIFont fontWithName:FontName size:13];
     service1.textColor=[UIColor colorWithHexString:@"#999999"];
-    service1.text=NSLocalizedString(@"点击进入手动预约界面", nil);
+    service1.text=NSLocalizedString(@"点击进入保养登记界面", nil);
     service1.textAlignment = NSTextAlignmentLeft;
     [bottomView1 addSubview:service1];
     [service1 makeConstraints:^(MASConstraintMaker *make) {
@@ -355,11 +359,42 @@
         make.right.equalTo(0);
     }];
     
+   
+    UIImageView *bottomImg = [[UIImageView alloc] init];
+    bottomImg.image = [UIImage imageNamed:@"问号_icon"];
+    [self.view addSubview:bottomImg];
+    [bottomImg makeConstraints:^(MASConstraintMaker *make) {
+       make.bottom.equalTo(-(kBottomHeight+10));
+        make.height.equalTo(16 * WidthCoefficient);
+        make.width.equalTo(16 * WidthCoefficient);
+        make.left.equalTo(121 * WidthCoefficient);
+    }];
+    
+   
+    self.upkeepBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_upkeepBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    _upkeepBtn.layer.cornerRadius = 2;
+    [_upkeepBtn setTitle:NSLocalizedString(@"查看DS预约保养规则", nil) forState:UIControlStateNormal];
+    [_upkeepBtn setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+    _upkeepBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
+//    [_upkeepBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
+    [self.view addSubview:_upkeepBtn];
+    [_upkeepBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(113 * WidthCoefficient);
+        make.height.equalTo(16 * HeightCoefficient);
+        make.left.equalTo(bottomImg.right).offset(5 * WidthCoefficient);
+        make.bottom.equalTo(-(kBottomHeight+10));
+    }];
 }
 
 -(void)BtnClick:(UIButton *)btn
 {
     
+    if (btn == self.upkeepBtn) {
+        UpkeepdetailController *upkeepdetail =[[UpkeepdetailController alloc] init];
+        [self.navigationController pushViewController:upkeepdetail animated:YES];
+        
+    }
     
     
 }

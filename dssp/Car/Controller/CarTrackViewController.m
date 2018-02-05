@@ -172,19 +172,6 @@
 
 - (void)setupUI {
 
-//    NSString *latitudeNumber =@"30.606726";
-//    NSString *longitudeNumber =@"114.424348";
-//
-//    
-//    //坐标转地址
-//    [[MapSearchManager sharedManager] reGeoInfo:CLLocationCoordinate2DMake([latitudeNumber doubleValue], [longitudeNumber doubleValue]) returnBlock:^(MapReGeoInfo *regeoInfo) {
-//        
-//        NSString *city1 = [NSString stringWithFormat:@"位置%@",regeoInfo.city];
-//        
-//        NSLog(@"321%@",city1);
-//        
-//    }];
-   
     
     self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
@@ -244,13 +231,14 @@
     
     
     self.positionLabel = [[UILabel alloc] init];
+    _positionLabel.numberOfLines = 0;
     _positionLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:13];
     _positionLabel.textColor = [UIColor colorWithHexString:@"#333333"];
 //    _positionLabel.text = NSLocalizedString(@"位置:江汉路",nil);
     [whiteV addSubview:_positionLabel];
     [_positionLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(-14.5 * WidthCoefficient);
-        make.height.equalTo(18.5 * HeightCoefficient);
+        make.bottom.equalTo(-8 * WidthCoefficient);
+        make.height.equalTo(40 * HeightCoefficient);
         make.width.equalTo(200 * WidthCoefficient);
         make.left.equalTo(10 * WidthCoefficient);
     }];
@@ -423,7 +411,7 @@
 {
     if (callpoliceBtn ==btn) {
         
-        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"82208136"];
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-82208136"];
         UIWebView *callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];
@@ -431,8 +419,7 @@
     if (trackBtn ==btn) {
         
     }
-    
-    
+
 }
 
 -(NSString *)setWithTimeString:(NSInteger)time
@@ -440,20 +427,34 @@
     if (time) {
         
         NSString *dueDateStr = [NSString stringWithFormat: @"%ld", time];
-        NSTimeInterval times=[dueDateStr doubleValue];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:times/1000];
+        NSString *publishString = dueDateStr;
+        double publishLong = [publishString doubleValue];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-        NSString *dateString = [formatter stringFromDate: date];
         
-        return dateString;
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        
+        [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        
+        
+        NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:publishLong/1000];
+        NSDate *date = [NSDate date];
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        NSInteger interval = [zone secondsFromGMTForDate:date];
+        publishDate = [publishDate  dateByAddingTimeInterval: interval];
+        publishString = [formatter stringFromDate:publishDate];
+        return publishString;
+        
         
     }else
     {
         return nil;
         
     }
+    
 }
 
 - (void)didReceiveMemoryWarning {

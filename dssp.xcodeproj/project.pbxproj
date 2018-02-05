@@ -110,6 +110,7 @@
 		455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
 		455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36971FF6140F00D09A63 /* CarflowModel.m */; };
 		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
+		456ABDA42027FF6F00F4A7E6 /* UpkeepdetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */; };
 		4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */; };
 		4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */; };
 		4570EFDF1FFC788D00FA6355 /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
@@ -349,6 +350,8 @@
 		455F36971FF6140F00D09A63 /* CarflowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowModel.m; sourceTree = "<group>"; };
 		4564549F1FF09E2700B30401 /* InputAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAlertView.h; sourceTree = "<group>"; };
 		456454A01FF09E2700B30401 /* InputAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputAlertView.m; sourceTree = "<group>"; };
+		456ABDA22027FF6F00F4A7E6 /* UpkeepdetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpkeepdetailController.h; sourceTree = "<group>"; };
+		456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpkeepdetailController.m; sourceTree = "<group>"; };
 		4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarbinddetailViewController.h; sourceTree = "<group>"; };
 		4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarbinddetailViewController.m; sourceTree = "<group>"; };
 		4570EFDA1FFB939F00FA6355 /* BindCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindCarViewController.h; sourceTree = "<group>"; };
@@ -841,6 +844,8 @@
 				4505B99B1FECA94A00A1E47E /* CarflowViewController.m */,
 				4505B99D1FECA97100A1E47E /* UpkeepViewController.h */,
 				4505B99E1FECA97100A1E47E /* UpkeepViewController.m */,
+				456ABDA22027FF6F00F4A7E6 /* UpkeepdetailController.h */,
+				456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */,
 				4570EFE01FFC7D6C00FA6355 /* CarTrackViewController.h */,
 				4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */,
 				450644DE20032C8F0099D7AC /* QGLocationTransform.h */,
@@ -1321,6 +1326,7 @@
 				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
+				456ABDA42027FF6F00F4A7E6 /* UpkeepdetailController.m in Sources */,
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,
 				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
 				3133051A1FFB730C0067CDFC /* NSDictionary+NilSafe.m in Sources */,
