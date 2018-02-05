@@ -186,6 +186,8 @@
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         TabBarController *tabVC = (TabBarController *)self.window.rootViewController;
         tabVC.selectedIndex = 1;
+        RTRootNavigationController *navc = tabVC.viewControllers[1];
+        [navc popToRootViewControllerAnimated:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"DiscoverVCneedRefresh" object:nil userInfo:nil];
         });

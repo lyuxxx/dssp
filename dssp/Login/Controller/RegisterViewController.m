@@ -344,7 +344,7 @@
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-                        _authField.text = dic[@"data"];
+//                        _authField.text = dic[@"data"];
                     } else {
                         MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                         hud.label.text = [dic objectForKey:@"msg"];

@@ -196,7 +196,7 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-//    _passWordField.text = @"666";
+//    _passWordField.text = @"123456";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -356,7 +356,7 @@
                     // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-                        _phoneCodeField.text = dic[@"data"];
+//                        _phoneCodeField.text = dic[@"data"];
                         
                     } else {
                         MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -461,7 +461,6 @@
                                 @"telephone":_phoneField.text,
                                 @"randomCode":_phoneCodeField.text,
                                 @"phoneToken":cid
-                            
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {

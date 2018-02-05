@@ -204,7 +204,7 @@
     bgImgV.image = [UIImage imageNamed:@"belowhead"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topBg.bottom);
+        make.top.equalTo(topBg.bottom).offset(0);
         make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
@@ -215,11 +215,9 @@
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight+kNaviHeight);
         make.height.equalTo(36 * HeightCoefficient);
          make.width.equalTo(1 * HeightCoefficient);
-      
-        
     }];
     
     NSArray *placeHolders = @[
@@ -304,7 +302,7 @@
         if (i == 0) {
             [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(0);
-                make.top.equalTo(0);
+                make.top.equalTo(kNaviHeight);
             make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
                 make.width.equalTo(374.5*WidthCoefficient/2);
             }];
@@ -334,7 +332,7 @@
             
             [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(lastBtn.right).offset(1*WidthCoefficient);
-            make.top.equalTo(0);
+            make.top.equalTo(kNaviHeight);
             make.height.equalTo(74 * HeightCoefficient+kStatusBarHeight);
             make.width.equalTo(374.5 * WidthCoefficient/2);
             }];
@@ -381,12 +379,13 @@
     
     CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight;
     self.noticeVC = [[NoticeViewController alloc] init];
-    [self.noticeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight, kScreenWidth, height)];
+    [self.noticeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight
+                                            +kNaviHeight, kScreenWidth, height)];
     [self addChildViewController:self.noticeVC];
 
 
     _subscribeVC = [[SubscribeViewController alloc] init];
-    [self.subscribeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight, kScreenWidth, height)];
+    [self.subscribeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight+kNaviHeight, kScreenWidth, height)];
 
     // 默认,第一个视图
     [self.view addSubview:self.noticeVC.view];
