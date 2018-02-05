@@ -359,8 +359,26 @@
                 
             }else
             {
-                NSLog(@"是从MineViewController过来的页面");
-                [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
+                
+                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: InputalertView];
+                
+                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    if (btn.tag == 100) {//左边按钮
+                        
+                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                        vc.vin=_carbind.vin;
+                        vc.isSuccess = @"1";
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+//                NSLog(@"是从MineViewController过来的页面");
+//                [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
                 
             }
             

@@ -784,28 +784,7 @@
                     
                 };
                 
-                
-//                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-//                                                                               message:@"车辆绑定成功,跳转实名制页面"
-//                                                                        preferredStyle:UIAlertControllerStyleAlert];
-//
-//                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//                    //响应事件
-//                    //跳实名制vin
-//                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-//                    vc.vin=_carInfo.vin;
-//                    vc.isSuccess = @"1";
-//                    vc.hidesBottomBarWhenPushed = YES;
-//                    [self.navigationController pushViewController:vc animated:YES];
-//
-//                }];
-//                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:([self.navigationController.viewControllers count] -3)] animated:YES];
-//
-//                }];
-//                [alert addAction:defaultAction];
-////                [alert addAction:cancelAction];
-//                [self presentViewController:alert animated:YES completion:nil];
+
                 
             }else
             {

@@ -122,15 +122,21 @@
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths
 {
-
         NSString *idStr = @"";
+        NSString *readStatus = @"";
         NSMutableArray *idArr = [NSMutableArray arrayWithCapacity:self.selectedDatas.count];
+       NSMutableArray *idArr1 = [NSMutableArray arrayWithCapacity:self.selectedDatas.count];
         for (NoticeModel *item in self.selectedDatas) {
             [idArr addObject:item.noticeId];
+            [idArr1 addObject:item.readStatus];
         }
-    
         idStr = [idArr componentsJoinedByString:@","];
-        
+        readStatus = [idArr1 componentsJoinedByString:@","];
+       if ([readStatus isEqualToString:@"0"]) {
+          
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceiveloadMsg" object:nil userInfo:nil];
+       }
+    
         NSDictionary *paras = @{
                                 @"readStatus":@"0",
                                 @"isDel":@"1",
@@ -149,12 +155,10 @@
                 //        [self.tableView beginUpdates];
                 [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
                 
-                
                     if (self.dataSource.count == 0)
                     {
                         //没有收藏数据
-                
-                
+ 
                     }
                 
             } else {

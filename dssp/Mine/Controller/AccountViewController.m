@@ -57,7 +57,7 @@
     [imgV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(31 * WidthCoefficient);
         make.height.equalTo(31 * WidthCoefficient);
-        make.left.equalTo(142 * WidthCoefficient);
+        make.left.equalTo(122 * WidthCoefficient);
         make.top.equalTo(63 * HeightCoefficient + kStatusBarHeight);
     }];
     

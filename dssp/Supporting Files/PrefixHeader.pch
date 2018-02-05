@@ -80,11 +80,11 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
 
 //外网50
-#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //内网50
 //#define baseUrl @"http:172.23.102.50:10095/"
 //外网73
-//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
+#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 #define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
 
 

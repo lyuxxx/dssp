@@ -54,14 +54,14 @@
           
             self.carflow =_carflow;
         } else {
-            
+            self.carflow =_carflow;
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
       [hud hideAnimated:YES];
       self.carflow =_carflow;
-      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
@@ -109,7 +109,11 @@
         double aNumber = [_carflow.remainFlow doubleValue];
         NSString *remainFlow = [[NSString stringWithFormat:@"%.2f",aNumber] stringByAppendingString:@"M"];
         _flowlabel.text = remainFlow;
-        
+    }
+    else if(_carflow.remainFlow == nil)
+    {
+         _flowlabel.text = @"0M";
+
     }
     else
     {
@@ -119,7 +123,7 @@
     }
     
      NSString *totalFlow = [[NSString stringWithFormat:@"%@",_carflow.totalFlow] stringByAppendingString:@"M"];
-    _totalflowlabel.text = totalFlow;
+    _totalflowlabel.text =  _carflow.totalFlow == nil?@"0M":totalFlow;
 }
 
 -(void)setupUI

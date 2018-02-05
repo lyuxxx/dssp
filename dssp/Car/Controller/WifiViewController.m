@@ -115,7 +115,7 @@
     }];
     
     UILabel *tipLabel = [[UILabel alloc] init];
-    tipLabel.text = @"*请输入除去I、O的大写字母任意组合的八位字符";
+    tipLabel.text = @"*请输入除去I、O的字母任意组合的八位字符";
     tipLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
     [whiteV addSubview:tipLabel];
     [tipLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -168,7 +168,9 @@
         [MBProgressHUD showText:NSLocalizedString(@"字符不合法!", nil)];
         return;
     }
-    [self modifyWifiWithPassword:_passwordField.text];
+    //大写
+    NSString *upper = [_passwordField.text uppercaseString];
+    [self modifyWifiWithPassword:upper];
 }
 
 - (void)getWifiInfo {
@@ -220,7 +222,7 @@
 
 - (BOOL)checkWifi:(NSString *)wifi
 {
-    NSString *pattern = @"[0-9A-HJ-NP-Z]{8}";
+    NSString *pattern = @"[0-9A-HJ-NP-Za-hJ-np-z]{8}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     return [pred evaluateWithObject:wifi];
 }

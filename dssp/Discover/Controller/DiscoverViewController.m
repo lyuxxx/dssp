@@ -36,6 +36,8 @@
     [super viewDidLoad];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DidReceivePayloadMsg" object:nil];
 
+    //删除消息通知刷新消息条数
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DidReceiveloadMsg) name:@"DidReceiveloadMsg" object:nil];
     [self requestData];
     [self setupUI];
       
@@ -54,6 +56,11 @@
     }
 }
 
+
+-(void)DidReceiveloadMsg
+{
+    [self requestData];
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -96,10 +103,11 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
 //            [hud hideAnimated:YES];
             // contract = [ContractModel yy_modelWithDictionary:dic[@"data"]];
-            // [_tableView reloadData];
+
             self.unreadstrs = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
             self.unreadstr = _unreadstrs;
             [(AppDelegate *)[UIApplication sharedApplication].delegate setBadgeNumber:_unreadstrs.integerValue];
+
             //响应事件
         } else {
             self.unreadstr = _unreadstrs;
@@ -416,11 +424,8 @@
 
 -(void)BtnClick:(UIButton *)sender
 {
-    if (sender == _robotBtn) {
-//        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
-    }
+    
+
     if ((self.currentVC == self.noticeVC && sender.tag == 100)||(self.currentVC == self.subscribeVC && sender.tag == 101)) {
         return;
     }else{
@@ -431,7 +436,7 @@
                 make.left.equalTo(0);
             }];
         }
-        else
+        else if(sender.tag==101)
         {
 
             [self replaceController:self.currentVC newController:self.subscribeVC];
@@ -439,6 +444,11 @@
                 make.left.equalTo(375 *WidthCoefficient/2);
             }];
             [self.view layoutIfNeeded];
+        }
+        else if (self.robotBtn == sender)
+        {
+            
+            
         }
         
     }

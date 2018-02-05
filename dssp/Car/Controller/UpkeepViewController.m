@@ -31,11 +31,9 @@
 
 -(void)requestData
 {
-   
-    
+
     NSDictionary *paras = @{
                             @"vin":kVin
-
                             };
     [CUHTTPRequest POST:queryMaintenRules parameters:paras success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -51,7 +49,7 @@
         }
     } failure:^(NSInteger code) {
         [self setupUI];
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
 }
 
@@ -135,7 +133,7 @@
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(maintenanceMileage?maintenanceMileage:@"xxx", nil);
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"xxx", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {

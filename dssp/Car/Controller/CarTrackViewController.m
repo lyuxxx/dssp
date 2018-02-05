@@ -79,7 +79,7 @@
     } failure:^(NSInteger code) {
          [hud hideAnimated:YES];
         self.carTrack=_carTrack;
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];
 }
