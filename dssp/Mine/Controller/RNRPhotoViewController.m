@@ -176,36 +176,40 @@
         [MBProgressHUD showText:NSLocalizedString(@"手持身份证照片未上传", nil)];
         return;
     }
-    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.4) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.4) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.4) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
-    NSDictionary *dic = [self.rnrInfo yy_modelToJSONObject];
+
+    NSDictionary *dic1 = [self.rnrInfo yy_modelToJSONObject];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
-    NSLog(@"55%@",dic[@"vin"]);
-    [CUHTTPRequest POST:rnrVhlWithAtb parameters:dic success:^(id responseData) {
+   NSLog(@"656%@",dic1[@"vin"]);
+    [CUHTTPRequest POST:rnrVhlWithAtb parameters:dic1 success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"666%@",dic);
         if ([dic[@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             
-//            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-//            [InputalertView initWithTitle:@"实名制认证信息提交成功" img:@"账号警告" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"返回首页", nil] ];
-//            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-//            [keywindow addSubview: InputalertView];
-//
-//            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-//                if (btn.tag == 100) {//左边按钮
-//
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-//
-//             }
-//
-//        };
-            QueryViewController *vc = [[QueryViewController alloc] init];
-            vc.vin = dic[@"vin"];
-            [self.navigationController pushViewController:vc animated:YES];
+            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [InputalertView initWithTitle:@"实名制认证信息提交成功" img:@"账号警告" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"返回首页", nil] ];
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: InputalertView];
+
+            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                if (btn.tag == 100) {//左边按钮
+
+            [self.navigationController popToRootViewControllerAnimated:YES];
+
+             }
+
+        };
+            
+//            QueryViewController *vc = [[QueryViewController alloc] init];
+//            vc.vin = dic1[@"vin"];
+//            NSLog(@"666%@",dic1[@"vin"]);
+//            [self.navigationController pushViewController:vc animated:YES];
         }
       else
         {
@@ -221,17 +225,6 @@
 
 - (void)didTap:(UITapGestureRecognizer *)sender
 {
-    
-//    ABImagePicker * picker = [ABImagePicker shared];
-//    [picker startWithVC:self];
-//    [picker setPickerCompletion:^(ABImagePicker * picker, NSError *error, UIImage *image) {
-//        if (!error) {
-//
-//        }else{
-//
-//        }
-//    }];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         _selectedImgV = (UIImageView *)sender.view;
         TBActionSheet *sheet = [[TBActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"拍照", nil),NSLocalizedString(@"从图库选择", nil), nil];
@@ -275,7 +268,7 @@
                 {
                     UIImagePickerController *imagePicker = [UIImagePickerController new];
                     //imagePicker.allowsImageEditing = YES;
-//                    imagePicker.allowsEditing = YES;
+                    imagePicker.allowsEditing = YES;
                     imagePicker.delegate = self;
                     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                     //                NSPhotoLibraryAddUsageDescription
