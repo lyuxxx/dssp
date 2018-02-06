@@ -17,8 +17,8 @@
 #import <MBProgressHUD+CU.h>
 #import "InputAlertView.h"
 #import "QueryViewController.h"
-//#import "ABImagePicker.h"
-@interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import <TZImagePickerController.h>
+@interface RNRPhotoViewController () <TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TZImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *selectedImgV;
 @property (nonatomic, strong) UIImageView *pic1ImgV;
@@ -263,27 +263,21 @@
              [self presentViewController:_imagePickerVC animated:YES completion:nil];
             
         } else if (buttonIndex == 1) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-                {
-                    UIImagePickerController *imagePicker = [UIImagePickerController new];
-                    //imagePicker.allowsImageEditing = YES;
-                    imagePicker.allowsEditing = YES;
-                    imagePicker.delegate = self;
-                    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    //                NSPhotoLibraryAddUsageDescription
-                    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-                    [self presentViewController:imagePicker animated:YES completion:nil];
-                }
-            });
-            
-//            _imagePickerVC.modalPresentationStyle = UIModalPresentationPopover ;
-//           _imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//            _imagePickerVC.mediaTypes = @[(NSString *)kUTTypeImage];
+            TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self];
+            imagePickerVC.allowPickingOriginalPhoto = NO;
+            imagePickerVC.allowPickingVideo = NO;
+            imagePickerVC.allowPickingGif = NO;
+            imagePickerVC.allowTakePicture = NO;
+            imagePickerVC.allowCrop = YES;
+            imagePickerVC.cropRect = CGRectMake(0, (kScreenHeight - kScreenWidth) / 2.0f, kScreenWidth, kScreenWidth);
+            imagePickerVC.oKButtonTitleColorNormal = [UIColor whiteColor];
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
         }
-//    [self presentViewController:_imagePickerVC animated:YES completion:nil];
-    
-//    }
+}
+
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos {
+    _selectedImgV.image = photos[0];
+    [_selectedImgV removeAllSubviews];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

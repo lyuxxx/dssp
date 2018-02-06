@@ -1098,9 +1098,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-dssp/Pods-dssp-resources.sh",
 				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
-				$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (

@@ -23,6 +23,7 @@ target 'dssp' do
   pod 'MGSwipeTableCell'
   pod 'WMPageController'
   pod 'SDWebImage/GIF'
+  pod 'TZImagePickerController'
   
   # internal pod
   pod 'CUHTTPRequest'
