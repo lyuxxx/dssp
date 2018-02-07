@@ -86,7 +86,7 @@
     
     self.confirmField = [[UITextField alloc] init];
     _confirmField.keyboardType = UIKeyboardTypeNumberPad;
-    //    _phoneCodeField.secureTextEntry = true;
+//    _confirmField.secureTextEntry = false;
     //    _phoneCodeField.hidden = YES;
     _confirmField.delegate = self;
     _confirmField.textColor = [UIColor whiteColor];
@@ -153,16 +153,15 @@
 
 - (void)BtnClick:(UIButton *)sender {
     if (sender == self.smallEyeBtn) {
-        
         sender.selected = !sender.selected;
-        self.newpassphoneField.secureTextEntry = !sender.selected;
+        self.newpassphoneField.secureTextEntry = sender.selected;
        
     }
     if (sender == self.smallEyeBtn1) {
         sender.selected = !sender.selected;
-        self.confirmField.secureTextEntry = !sender.selected;
+        self.confirmField.secureTextEntry = sender.selected;
     }
-    if (self.nextBtn) {
+    if (sender == self.nextBtn) {
      
         if (_newpassphoneField.text.length==0) {
             [MBProgressHUD showText:NSLocalizedString(@"新密码不能为空", nil)];
@@ -200,11 +199,7 @@
                         {
                             //右边按钮
                             NSLog(@"666%@",str);
-                            
-                            
-                            
-                            
-                            
+ 
                         }
                         
                     };
@@ -222,11 +217,13 @@
                 [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
             }];
         }
-        }
+        
         else
         {
-             [MBProgressHUD showText:NSLocalizedString(@"两次密码不一致，请重新输入", nil)];
+            [MBProgressHUD showText:NSLocalizedString(@"两次密码不一致，请重新输入", nil)];
         }
+        }
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{

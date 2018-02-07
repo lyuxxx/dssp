@@ -165,7 +165,7 @@
 
 - (void)modifyBtnClick:(UIButton *)sender {
     if (![self checkWifi:_passwordField.text]) {
-        [MBProgressHUD showText:NSLocalizedString(@"字符不合法!", nil)];
+        [MBProgressHUD showText:NSLocalizedString(@"请输入正确的八位字符串!", nil)];
         return;
     }
     //大写
@@ -206,13 +206,12 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             self.originPassword = password;
             [self setupPlaceHoler];
-            hud.label.text = NSLocalizedString(@"wifi密码修改成功", nil);
+            hud.label.text = NSLocalizedString(@"wifi密码提交服务器成功", nil);
             [hud hideAnimated:YES afterDelay:1];
         }
         else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
-        
         }
     } failure:^(NSInteger code) {
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code];
@@ -222,7 +221,7 @@
 
 - (BOOL)checkWifi:(NSString *)wifi
 {
-    NSString *pattern = @"[0-9A-HJ-NP-Za-hJ-np-z]{8}";
+    NSString *pattern = @"[0-9A-HhJ-NP-Za-hj-np-z]{8}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     return [pred evaluateWithObject:wifi];
 }

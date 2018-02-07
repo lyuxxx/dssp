@@ -169,7 +169,7 @@
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
                         
-                        _phoneCodeField.text = dic[@"data"];
+//                        _phoneCodeField.text = dic[@"data"];
                         _codes = dic[@"code"];
                         
                     } else {

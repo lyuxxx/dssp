@@ -184,7 +184,6 @@
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
-    
     self.passWordField = [[UITextField alloc] init];
     _passWordField.secureTextEntry = true;
     _passWordField.delegate = self;
@@ -197,6 +196,7 @@
         make.right.left.height.equalTo(_userNameField);
     }];
 //    _passWordField.text = @"666";
+//      _passWordField.text = @"123";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
