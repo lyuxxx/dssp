@@ -83,10 +83,10 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //内网50
 //#define baseUrl @"http:172.23.102.50:10095/"
-//外网73
-#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
-#define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
-
+//预生产外网73
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
+//正式生产73
+#define baseUrl @"https://dssp.dstsp.com/dssp/v1/core/"
 
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
