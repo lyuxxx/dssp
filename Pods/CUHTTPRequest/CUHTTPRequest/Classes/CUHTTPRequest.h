@@ -12,6 +12,13 @@
 @interface CUHTTPRequest : NSObject
 
 /**
+ 设置https认证证书
+
+ @param path 证书路径
+ */
++ (void)customSecurityPolicyWithCerPath:(NSString *)path;
+
+/**
  设置请求头
 
  @param header 请求头字典

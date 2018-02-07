@@ -19,14 +19,14 @@ PODS:
   - AMapFoundation (1.4.3)
   - AMapSearch (5.5.0):
     - AMapFoundation (~> 1.4)
-  - CocoaLumberjack (3.4.0):
-    - CocoaLumberjack/Default (= 3.4.0)
-    - CocoaLumberjack/Extensions (= 3.4.0)
-  - CocoaLumberjack/Default (3.4.0)
-  - CocoaLumberjack/Extensions (3.4.0):
+  - CocoaLumberjack (3.4.1):
+    - CocoaLumberjack/Default (= 3.4.1)
+    - CocoaLumberjack/Extensions (= 3.4.1)
+  - CocoaLumberjack/Default (3.4.1)
+  - CocoaLumberjack/Extensions (3.4.1):
     - CocoaLumberjack/Default
   - CUAlertController (0.1.1)
-  - CUHTTPRequest (0.1.6):
+  - CUHTTPRequest (0.1.8):
     - AFNetworking (~> 3.1.0)
   - CUProgressHUD (0.1.7):
     - MBProgressHUD (~> 1.1.0)
@@ -36,7 +36,7 @@ PODS:
   - FMDB/SQLCipher (2.7.2):
     - SQLCipher
   - FMDB/standard (2.7.2)
-  - GTSDK (2.1.0.0)
+  - GTSDK (2.2.0.0)
   - IQKeyboardManager (5.0.7)
   - KVOController (1.2.0)
   - LKDBHelper (2.5.1):
@@ -49,10 +49,10 @@ PODS:
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MGSwipeTableCell (1.6.6)
-  - MJRefresh (3.1.15.1)
-  - RTRootNavigationController (0.6.5):
-    - RTRootNavigationController/Core (= 0.6.5)
-  - RTRootNavigationController/Core (0.6.5)
+  - MJRefresh (3.1.15.3)
+  - RTRootNavigationController (0.6.6):
+    - RTRootNavigationController/Core (= 0.6.6)
+  - RTRootNavigationController/Core (0.6.6)
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
   - SDWebImage/Core (4.2.3)
@@ -65,10 +65,10 @@ PODS:
   - SQLCipher/standard (3.4.2):
     - SQLCipher/common
   - TBActionSheet (1.5.6)
-  - TZImagePickerController (2.0.0.4)
+  - TZImagePickerController (2.0.0.5)
   - UIImageViewSDWebImage (0.1.4):
     - SDWebImage (~> 4.2.2)
-  - WMPageController (2.5.1)
+  - WMPageController (2.5.2)
   - YYCategoriesSub (0.1.0)
   - YYModel (1.0.4)
   - YYText (1.0.7)
@@ -112,13 +112,13 @@ SPEC CHECKSUMS:
   AMap3DMap: 2ac4f9ad7f2f8b015013d8d282c55882bcd68dc9
   AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
-  CocoaLumberjack: e033a5d8513357af2dd456eb66e202c325c30627
+  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
-  CUHTTPRequest: f20c18e38c56c15dec606e65e56eb41f68289126
+  CUHTTPRequest: 5b0287512b2d9e637948b4cb34db9352cfe9e8c1
   CUProgressHUD: 4f595470398cecc3d19bb2f6e74be89f1a323657
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
-  GTSDK: e4bbd1073ec69471decff20f77a5df90a771824d
+  GTSDK: 9be6d3c6e7608cb78bb35deba7dbabcde651b0c3
   IQKeyboardManager: 0bfa4607d39924116b5c0c8b55b5d789288b5cba
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   LKDBHelper: 9a276ba51f2e16263d46a9517e16cc9b03472664
@@ -126,14 +126,14 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
-  MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
-  RTRootNavigationController: f1d7dc8531dfda0827fb4dbf114ac1917f361325
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  RTRootNavigationController: 1429554f853e8319a383849befed73d5dc58a108
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
   TBActionSheet: d3c23727ee2d5c573245eef51b9980bb801e8bef
-  TZImagePickerController: 0b45983cd9b31c6bd9eb95b11a932aa381f9cccf
+  TZImagePickerController: d5d2fa1a8e4d93ab0ada161db5beba60b2294d99
   UIImageViewSDWebImage: ec096894e98f08dd8b4bc3750a41966bee6fb521
-  WMPageController: 43ceb03a2d90ee036bfc4d246c50d91753020bb5
+  WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
   YYCategoriesSub: a767b2c97a4d4698ab561849bfaa6a0f61f5814c
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849

@@ -46,6 +46,8 @@
 		316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
 		316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
 		318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
+		318B6864202B04FD00962F2A /* server.cer in Resources */ = {isa = PBXBuildFile; fileRef = 318B6863202B04FD00962F2A /* server.cer */; };
+		318B6866202B0A9200962F2A /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 318B6865202B0A9200962F2A /* client.p12 */; };
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
 		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
 		31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
@@ -232,6 +234,8 @@
 		316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		318148061FD6964300F00A4D /* WBAFNetworkingLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBAFNetworkingLogger.h; sourceTree = "<group>"; };
 		318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBAFNetworkingLogger.m; sourceTree = "<group>"; };
+		318B6863202B04FD00962F2A /* server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = server.cer; sourceTree = "<group>"; };
+		318B6865202B0A9200962F2A /* client.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client.p12; sourceTree = "<group>"; };
 		3196AB901FDF717F009B9189 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		3196AB911FDF717F009B9189 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		31A3B9141FDE184700B8FBD3 /* POISendBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POISendBtn.h; sourceTree = "<group>"; };
@@ -769,6 +773,8 @@
 		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				318B6863202B04FD00962F2A /* server.cer */,
+				318B6865202B0A9200962F2A /* client.p12 */,
 				31CB2B9A200766DF0085FBA1 /* waiting.gif */,
 				4548580F2005EA6500170D85 /* application.html */,
 				316CA45E1F9F3475009F541E /* AppDelegate.h */,
@@ -1072,6 +1078,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				318B6864202B04FD00962F2A /* server.cer in Resources */,
+				318B6866202B0A9200962F2A /* client.p12 in Resources */,
 				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
@@ -1098,7 +1106,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-dssp/Pods-dssp-resources.sh",
 				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle,
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
