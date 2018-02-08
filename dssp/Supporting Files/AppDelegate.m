@@ -32,7 +32,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server" ofType:@"cer"]];
+//    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server" ofType:@"cer"]];
     //清空cid
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
