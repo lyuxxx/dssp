@@ -82,9 +82,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //外网50
 //#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //内网50
-//#define baseUrl @"http:172.23.102.50:10095/"
+#define baseUrl @"http://172.23.102.50:10095/"
 //外网73
-#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 #define poiBaseUrl @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/"
 
 
@@ -199,5 +199,24 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define violationsForApp [NSString stringWithFormat:@"%@violationsForApp",baseUrl]
 ///服务知识库查询
 #define sendToServiceKnowledgeProfileValue [NSString stringWithFormat:@"%@sendToServiceKnowledgeProfileValue",baseUrl]
+
+///商城分类
+#define getStoreCategories [NSString stringWithFormat:@"%@contentcategory/list",baseUrl]
+///分类下商品
+#define getCategoryCommodities [NSString stringWithFormat:@"%@content/list",baseUrl]
+///商品详情
+#define getCommodityDetail [NSString stringWithFormat:@"%@item",baseUrl]
+///商品评论
+#define findItemcommentList [NSString stringWithFormat:@"%@itemcomment/findItemcommentList",baseUrl]
+///订单列表
+#define getOrderList [NSString stringWithFormat:@"%@orders/list",baseUrl]
+///提交订单
+#define createOrderURL [NSString stringWithFormat:@"%@orders/create",baseUrl]
+///取消订单
+#define cancelOrderURL [NSString stringWithFormat:@"%@orders/cancel",baseUrl]
+///添加评论
+#define addItemcommentURL [NSString stringWithFormat:@"%@itemcomment/addItemcomment",baseUrl]
+///添加发票
+#define addOrderInvoiceURL [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
 
 #endif /* PrefixHeader_pch */
