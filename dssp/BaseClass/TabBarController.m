@@ -52,7 +52,7 @@
                      @"HomeViewController",
                      @"DiscoverViewController",
                      @"LoveCarViewController",
-                     @"MineViewController",
+                     @"MineViewController"
                      ];
     
     NSArray *titles = @[

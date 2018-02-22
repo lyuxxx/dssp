@@ -23,6 +23,7 @@
 #import <MapSearchManager.h>
 #import "CarflowViewController.h"
 #import "UITabBar+badge.h"
+#import "StoreTabViewController.h"
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
@@ -265,6 +266,11 @@
             CarflowViewController *carflow = [[CarflowViewController alloc] init];
             carflow.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:carflow animated:YES];
+        }
+        if (btn.tag == 1000 + 2) {
+            StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
+            storeTab.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:storeTab animated:YES];
         }
     };
     
