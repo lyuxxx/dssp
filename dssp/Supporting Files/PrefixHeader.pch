@@ -83,6 +83,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //内网50
 //#define baseUrl @"http:172.23.102.50:10095/"
+//#define baseUrl @"http:172.23.105.40:10095/"
+
 //预生产外网73
 //#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 //正式生产73
@@ -174,7 +176,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
 ////车辆解绑
 //#define removeBindRelWithUser [NSString stringWithFormat:@"%@removeBindRelWithUser",baseUrl]
-
 //实名制解绑
 #define removeRnrWithVhl [NSString stringWithFormat:@"%@removeRnrWithVhl",baseUrl]
 //查询通知未读消息数量
@@ -200,6 +201,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 ///服务知识库查询
 #define sendToServiceKnowledgeProfileValue [NSString stringWithFormat:@"%@sendToServiceKnowledgeProfileValue",baseUrl]
 
+
 ///商城分类
 #define getStoreCategories [NSString stringWithFormat:@"%@contentcategory/list",baseUrl]
 ///分类下商品
@@ -219,5 +221,11 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 ///添加发票
 #define addOrderInvoiceURL [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
 
+
+
+//修改昵称
+#define updateNickNameByUserName [NSString stringWithFormat:@"%@updateNickNameByUserName",baseUrl]
+//更换头像
+#define updateHeadPortrait [NSString stringWithFormat:@"%@updateHeadPortrait",baseUrl]
 
 #endif /* PrefixHeader_pch */

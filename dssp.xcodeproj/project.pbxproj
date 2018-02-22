@@ -130,6 +130,7 @@
 		454C7448201823F600108F1E /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
 		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
+		4555CFC420313EC70029598E /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
 		455974501FE77B1F00D7910A /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
 		455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
@@ -419,6 +420,8 @@
 		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
 		4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindViewController.h; sourceTree = "<group>"; };
 		4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarUnbindViewController.m; sourceTree = "<group>"; };
+		4555CFC220313EC70029598E /* NicknameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NicknameViewController.h; sourceTree = "<group>"; };
+		4555CFC320313EC70029598E /* NicknameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NicknameViewController.m; sourceTree = "<group>"; };
 		4559744E1FE77B1F00D7910A /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		4559744F1FE77B1F00D7910A /* AccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
 		455974511FE7AA5A00D7910A /* NoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeViewController.h; sourceTree = "<group>"; };
@@ -1060,6 +1063,8 @@
 				4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */,
 				4599C9BD1FF21BBD00B23713 /* ModifyPhonesController.h */,
 				4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */,
+				4555CFC220313EC70029598E /* NicknameViewController.h */,
+				4555CFC320313EC70029598E /* NicknameViewController.m */,
 				455F36901FF4CCF400D09A63 /* QueryViewController.h */,
 				455F36911FF4CCF400D09A63 /* QueryViewController.m */,
 			);
@@ -1263,7 +1268,7 @@
 				TargetAttributes = {
 					316CA45A1F9F3475009F541E = {
 						CreatedOnToolsVersion = 9.0.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1587,6 +1592,7 @@
 				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
+				4555CFC420313EC70029598E /* NicknameViewController.m in Sources */,
 				456ABDA42027FF6F00F4A7E6 /* UpkeepdetailController.m in Sources */,
 				45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */,
 				318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */,
@@ -1756,7 +1762,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1773,8 +1779,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d7b0cb40-1122-45f1-aab7-878676cdbec2";
+				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1787,8 +1793,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1805,8 +1811,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.capsa.dssp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "6abb9ce5-7d90-43c5-bb44-b3f69d80517b";
+				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

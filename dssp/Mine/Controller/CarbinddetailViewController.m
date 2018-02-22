@@ -85,9 +85,9 @@
                                     NSLocalizedString(@"车型", nil),
                                     NSLocalizedString(@"车系", nil),
                                     NSLocalizedString(@"颜色", nil),
-                                    NSLocalizedString(@"用户名", nil),
-                                    NSLocalizedString(@"联系方式", nil),
-                                    NSLocalizedString(@"性别", nil)
+//                                    NSLocalizedString(@"用户名", nil),
+//                                    NSLocalizedString(@"联系方式", nil),
+//                                    NSLocalizedString(@"性别", nil)
                                     ];
     
     NSArray<NSString *> *placeHolders = @[
@@ -97,9 +97,9 @@
                                           NSLocalizedString(@"车型", nil),
                                           NSLocalizedString(@"车系", nil),
                                           NSLocalizedString(@"颜色", nil),
-                                          NSLocalizedString(@"用户名", nil),
-                                          NSLocalizedString(@"联系方式", nil),
-                                          NSLocalizedString(@"性别", nil)
+//                                          NSLocalizedString(@"用户名", nil),
+//                                          NSLocalizedString(@"联系方式", nil),
+//                                          NSLocalizedString(@"性别", nil)
                                           ];
     
     self.sc = ({

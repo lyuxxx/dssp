@@ -251,7 +251,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"selfPhoto.jpg"];
+    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
     NSLog(@"imageFile->>%@",imageFilePath);
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     

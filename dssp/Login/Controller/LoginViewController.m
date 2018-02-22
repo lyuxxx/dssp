@@ -49,11 +49,6 @@
     // Do any additional setup after loading the view.
     [self setupUI];
     [self network];
-    
-  
-    
-//    "previousPosition": "{\"latitude\":23.137126,\"longitude\":60.301096}",
-
 }
 
 -(void)network{
@@ -196,7 +191,7 @@
         make.right.left.height.equalTo(_userNameField);
     }];
 //    _passWordField.text = @"666";
-//      _passWordField.text = @"123";
+//      _passWordField.text = @"123456";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -538,6 +533,7 @@
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             [defaults setObject:userName forKey:@"userName"];
                             [defaults synchronize];
+                            
                         
                             if ((NSNull *)vin == [NSNull null]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
