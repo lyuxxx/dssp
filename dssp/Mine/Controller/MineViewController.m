@@ -605,9 +605,9 @@
 - (void)BtnClick:(UIButton *)sender {
     
     if (sender == self.setBtn) {
-//        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
+        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender ==self.photoBtn) {
         

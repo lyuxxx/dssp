@@ -33,6 +33,10 @@
     return self;
 }
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -6,11 +6,11 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
 @class Order;
 
-@interface EvaluateViewController : BaseViewController
+@interface EvaluateViewController : StoreBaseViewController
 
 - (instancetype)initWithOrder:(Order *)order;
 

@@ -18,6 +18,10 @@
 
 @implementation CommodityCommentsViewController
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (instancetype)initWithCommodityId:(NSInteger)commodityId {
     self = [super init];
     if (self) {

@@ -446,7 +446,9 @@
         }
         else if (self.robotBtn == sender)
         {
-            
+            UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
         }
         

@@ -22,6 +22,10 @@
 
 @implementation OrderViewController
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (instancetype)initWithType:(NSNumber *)type {
     self = [super init];
     if (self) {
@@ -39,6 +43,7 @@
 
 - (void)createTableView {
     self.tableView = [[UITableView alloc] init];
+    _tableView.backgroundColor = [UIColor clearColor];
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;

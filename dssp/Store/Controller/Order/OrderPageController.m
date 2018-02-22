@@ -19,18 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyCalculatesItemWidths = YES;
-    [self createGradientBg];
-}
-
-- (void)createGradientBg {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight - 1);
-    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
-    gradient.locations = @[@0,@0.8,@1];
-    gradient.startPoint = CGPointMake(0.5, 0);
-    gradient.endPoint = CGPointMake(0.5, 1);
-    [self.view.layer addSublayer:gradient];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
 }
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {

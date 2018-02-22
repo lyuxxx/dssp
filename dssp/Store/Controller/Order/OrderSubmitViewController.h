@@ -6,11 +6,11 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
 @class StoreCommodity;
 
-@interface OrderSubmitViewController : BaseViewController
+@interface OrderSubmitViewController : StoreBaseViewController
 
 - (instancetype)initWithCommodity:(StoreCommodity *)commodity;
 

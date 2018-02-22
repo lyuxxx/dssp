@@ -288,9 +288,9 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
-//    UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
+    UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)detailBtnClick:(UIButton *)sender {

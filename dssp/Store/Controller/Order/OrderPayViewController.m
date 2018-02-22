@@ -7,6 +7,7 @@
 //
 
 #import "OrderPayViewController.h"
+#import <CUPayTool.h>
 typedef NS_ENUM(NSUInteger, PayType) {
     PayTypeWeChatPay,
     PayTypeAlipay,
@@ -26,6 +27,13 @@ typedef NS_ENUM(NSUInteger, PayType) {
         self.price = price;
     }
     return self;
+}
+
+- (BOOL)needGradientBg {
+    if (Is_Iphone_X) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)viewDidLoad {

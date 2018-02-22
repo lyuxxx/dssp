@@ -256,9 +256,9 @@
 
 - (void)btnClick:(UIButton *)sender {
     if (sender.tag == 1111) {
-//        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
+        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 100) {
         MapHomeViewController *vc = [[MapHomeViewController alloc] initWithType:PoiTypeAll];

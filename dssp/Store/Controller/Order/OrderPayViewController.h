@@ -6,9 +6,9 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
-@interface OrderPayViewController : BaseViewController
+@interface OrderPayViewController : StoreBaseViewController
 
 - (instancetype)initWithPrice:(float)price;
 

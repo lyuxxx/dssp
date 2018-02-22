@@ -41,7 +41,12 @@
     return self;
 }
 
-
+- (BOOL)needGradientBg {
+    if (Is_Iphone_X) {
+        return NO;
+    }
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

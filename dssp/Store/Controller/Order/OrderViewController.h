@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StoreBaseViewController.h"
 
-@interface OrderViewController : UIViewController
+@interface OrderViewController : StoreBaseViewController
 
 - (instancetype)initWithType:(NSNumber *)type;
 

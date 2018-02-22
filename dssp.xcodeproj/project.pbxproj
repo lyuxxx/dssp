@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
 		310A07DA1FA96BDB00DC9529 /* MapHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */; };
@@ -180,6 +181,8 @@
 /* Begin PBXFileReference section */
 		10BBD8E837E05F1B4B40ABF6 /* Pods-dsspUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1E574CBB6F9BF8B9B4FB775F /* Pods-dsspUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3109164F203EA53300C50D0E /* StoreBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreBaseViewController.h; sourceTree = "<group>"; };
+		31091650203EA53300C50D0E /* StoreBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreBaseViewController.m; sourceTree = "<group>"; };
 		310A07CE1FA95B6D00DC9529 /* LoginResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResult.h; sourceTree = "<group>"; };
 		310A07CF1FA95B6D00DC9529 /* LoginResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginResult.m; sourceTree = "<group>"; };
 		310A07D21FA96AD500DC9529 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -720,6 +723,8 @@
 			children = (
 				31699EB51FA87CC100C8FDF8 /* BaseViewController.h */,
 				31699EB61FA87CC100C8FDF8 /* BaseViewController.m */,
+				3109164F203EA53300C50D0E /* StoreBaseViewController.h */,
+				31091650203EA53300C50D0E /* StoreBaseViewController.m */,
 				31A469EE1FF1E75100C8236E /* MapBaseController.h */,
 				31A469EF1FF1E75100C8236E /* MapBaseController.m */,
 				31699EB81FA87CE300C8FDF8 /* NavigationController.h */,
@@ -1326,7 +1331,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-dssp/Pods-dssp-resources.sh",
 				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
-				$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle,
+				"${PODS_ROOT}/Alipay-SDK/SDK/AlipaySDK.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
@@ -1460,6 +1466,7 @@
 				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				4570EFE51FFCDC0E00FA6355 /* CarUnbindModel.m in Sources */,
+				31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */,
 				4505B9AA1FECF3CE00A1E47E /* SearchresultViewController.m in Sources */,
 				4570EFDF1FFC788D00FA6355 /* ContractdetailCell.m in Sources */,
 				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,

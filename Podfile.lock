@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - Alipay-SDK (15.5.0)
   - AMap3DMap (5.6.0):
     - AMapFoundation (~> 1.4)
   - AMapFoundation (1.4.3)
@@ -28,6 +29,9 @@ PODS:
   - CUAlertController (0.1.1)
   - CUHTTPRequest (0.1.8):
     - AFNetworking (~> 3.1.0)
+  - CUPayTool (0.1.0):
+    - Alipay-SDK
+    - XXWeChatSDK
   - CUProgressHUD (0.1.7):
     - MBProgressHUD (~> 1.1.0)
   - FLAnimatedImage (1.0.12)
@@ -69,6 +73,7 @@ PODS:
   - UIImageViewSDWebImage (0.1.4):
     - SDWebImage (~> 4.2.2)
   - WMPageController (2.5.2)
+  - XXWeChatSDK (1.8.2)
   - YYCategoriesSub (0.1.0)
   - YYModel (1.0.4)
   - YYText (1.0.7)
@@ -77,6 +82,7 @@ DEPENDENCIES:
   - CocoaLumberjack
   - CUAlertController
   - CUHTTPRequest
+  - CUPayTool
   - CUProgressHUD
   - FMDB/SQLCipher
   - GTSDK
@@ -109,12 +115,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Alipay-SDK: 704c302c8619e235f9acfb6f731bb7f36265bca5
   AMap3DMap: 2ac4f9ad7f2f8b015013d8d282c55882bcd68dc9
   AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
   CUHTTPRequest: 5b0287512b2d9e637948b4cb34db9352cfe9e8c1
+  CUPayTool: 9d280be743b9667e21fe29132c8be8860d9ea6cc
   CUProgressHUD: 4f595470398cecc3d19bb2f6e74be89f1a323657
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
@@ -134,10 +142,11 @@ SPEC CHECKSUMS:
   TZImagePickerController: d5d2fa1a8e4d93ab0ada161db5beba60b2294d99
   UIImageViewSDWebImage: ec096894e98f08dd8b4bc3750a41966bee6fb521
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
+  XXWeChatSDK: cbe4716bf3b87db7881ae82fbc5e88fa8a226e38
   YYCategoriesSub: a767b2c97a4d4698ab561849bfaa6a0f61f5814c
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: d4e73542247135e6d776177fc76add3758dc6f85
+PODFILE CHECKSUM: 0843dfe2a63d8a8162469bc600532142235a8cbe
 
 COCOAPODS: 1.3.1

@@ -32,6 +32,7 @@ target 'dssp' do
   pod 'YYCategoriesSub'
   pod 'MapManager', :git => 'http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git', :tag => '2.0.4'
   pod 'CUAlertController'
+  pod 'CUPayTool'
 
   target 'dsspUITests' do
     inherit! :search_paths
