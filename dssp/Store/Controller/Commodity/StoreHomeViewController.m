@@ -33,6 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.view.clipsToBounds = YES;
+    
     [self createCollectionView];
     [self getStoreCategoriesList];
 }

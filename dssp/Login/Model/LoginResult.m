@@ -30,6 +30,7 @@
     if (_userId != userId) {
         _userId = userId;
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 

@@ -63,3 +63,26 @@
 @property (nonatomic, copy) NSString *msg;
 @property (nonatomic, strong) OrderResponseData *data;
 @end
+
+@interface PayMessage : NSObject
+@property (nonatomic, copy) NSString *orderNo;
+@property (nonatomic, copy) NSString *productId;
+@property (nonatomic, strong) NSNumber *totalFee;
+@property (nonatomic, copy) NSString *subject;
+@property (nonatomic, copy) NSString *body;
+@property (nonatomic, copy) NSString *tradeType;
+@property (nonatomic, copy) NSString *payType;
+@property (nonatomic, copy) NSString *channel;
+@property (nonatomic, copy) NSString *timeOut;
+@property (nonatomic, copy) NSString *vin;
+@end
+
+@interface PayRequest : NSObject
+@property (nonatomic, copy) NSString *appId;
+@property (nonatomic, copy) NSString *userId;
+@property (nonatomic, copy) NSString *protocolId;
+@property (nonatomic, copy) NSString *thirdInfoId;
+@property (nonatomic, copy) NSString *t;
+@property (nonatomic, copy) NSString *h;
+@property (nonatomic, copy) NSString *message;
+@end

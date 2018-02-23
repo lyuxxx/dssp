@@ -23,7 +23,7 @@
 @implementation OrderViewController
 
 - (BOOL)needGradientBg {
-    return YES;
+    return NO;
 }
 
 - (instancetype)initWithType:(NSNumber *)type {
@@ -37,8 +37,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor clearColor];
     [self createTableView];
-    [self pullOrderListData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)createTableView {
@@ -54,24 +59,24 @@
     }];
     [_tableView registerClass:[OrderCell class] forCellReuseIdentifier:NSStringFromClass([OrderCell class])];
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullOrderListData)];
 }
 
 - (void)pullOrderListData {
     [CUHTTPRequest POST:getOrderList parameters:@{@"status":self.type} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        OrderResponse *response = [OrderResponse yy_modelWithJSON:dic];
-        self.orders = [NSMutableArray arrayWithArray:response.data.result];
-        [self.tableView reloadData];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            OrderResponse *response = [OrderResponse yy_modelWithJSON:dic];
+            [self.orders removeAllObjects];
+            self.orders = [NSMutableArray arrayWithArray:response.data.result];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView reloadData];
+        } else {
+           [self.tableView.mj_header endRefreshing];
+        }
     } failure:^(NSInteger code) {
-        
-    }];
-}
-
-- (void)refresh {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView.mj_header endRefreshing];
-    });
+    }];
 }
 
 - (void)cancelOrderWithOrderNo:(NSString *)orderNo {
@@ -96,7 +101,7 @@
         if (action == OrderActionCancel) {
             [self cancelOrderWithOrderNo:order.orderNo];
         } else if (action == OrderActionPay) {
-            OrderPayViewController *vc = [[OrderPayViewController alloc] initWithPrice:order.payment.floatValue];
+            OrderPayViewController *vc = [[OrderPayViewController alloc] initWithOrder:order];
             [self.navigationController pushViewController:vc animated:YES];
         } else if (action == OrderActionEvaluate) {
             EvaluateViewController *vc = [[EvaluateViewController alloc] init];

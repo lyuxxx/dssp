@@ -47,3 +47,11 @@
 @implementation OrderResponse
 
 @end
+
+@implementation PayMessage
+
+@end
+
+@implementation PayRequest
+
+@end

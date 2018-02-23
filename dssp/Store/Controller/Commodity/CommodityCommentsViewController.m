@@ -47,13 +47,15 @@
 }
 
 - (void)getCommentsList {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:findItemcommentList parameters:@{@"itemId":[NSString stringWithFormat:@"%ld",self.commodityId]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         CommodityCommentResponse *response = [CommodityCommentResponse yy_modelWithJSON:dic];
         self.comments = [NSMutableArray arrayWithArray:response.data.result];
         [self.tableView reloadData];
+        [hud hideAnimated:YES];
     } failure:^(NSInteger code) {
-        
+        [hud hideAnimated:YES];
     }];
 }
 

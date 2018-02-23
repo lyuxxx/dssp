@@ -110,15 +110,21 @@
     NSDictionary *paras = @{
                             @"items": items
                             };
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:createOrderURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"msg"] isEqualToString:@"success"]) {
+            [hud hideAnimated:YES];
             Order *order = [Order yy_modelWithJSON:dic[@"data"]];
-            OrderPayViewController *vc = [[OrderPayViewController alloc] initWithPrice:order.payment.floatValue];
+            OrderPayViewController *vc = [[OrderPayViewController alloc] initWithOrder:order];
             [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
-        
+        hud.label.text = [NSString stringWithFormat:@"%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 

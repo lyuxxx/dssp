@@ -79,6 +79,9 @@
 }
 
 - (void)pullData {
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    
     // 创建信号量
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     //创建全局并行
@@ -128,9 +131,10 @@
     });
     
     dispatch_group_notify(group, queue, ^{
-
+        
         //两次请求完成
         dispatch_async(dispatch_get_main_queue(), ^{
+            [hud hideAnimated:YES];
             [self.tableView reloadData];
         });
     });
@@ -138,7 +142,7 @@
 }
 
 - (void)buyBtnClick:(UIButton *)sender {
-    OrderSubmitViewController *vc = [[OrderSubmitViewController alloc] init];
+    OrderSubmitViewController *vc = [[OrderSubmitViewController alloc] initWithCommodity:self.commodity];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

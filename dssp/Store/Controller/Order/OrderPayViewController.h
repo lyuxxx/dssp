@@ -8,8 +8,10 @@
 
 #import "StoreBaseViewController.h"
 
+@class Order;
+
 @interface OrderPayViewController : StoreBaseViewController
 
-- (instancetype)initWithPrice:(float)price;
+- (instancetype)initWithOrder:(Order *)order;
 
 @end

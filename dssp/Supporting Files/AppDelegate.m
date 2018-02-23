@@ -23,6 +23,7 @@
 #import "RTRootNavigationController.h"
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
+#import <CUPayTool.h>
 @interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
 
 @end
@@ -36,6 +37,8 @@
     //清空cid
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+//    [CUPayTool wechatRegisterAppWithAppId:@""];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     LoginViewController *loginVC = [[LoginViewController alloc] init];
@@ -98,6 +101,34 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:++oriNum];
     [GeTuiSdk setBadge:++oriNum];
 }
+
+#pragma mark - 支付相关 -
+//iOS9之前
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if([url.host isEqualToString:@"wx"])//微信
+    {
+        return [CUPayTool wechatHandleOpenURL:url];
+    }
+    else if([url.host isEqualToString:@"safepay"])//支付宝
+    {
+        return [CUPayTool alipayHandleOpenURL:url];
+    }
+    return YES;
+}
+
+//iOS9之后
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if([url.host isEqualToString:@"wx"])//微信
+    {
+        return [CUPayTool wechatHandleOpenURL:url];
+    }
+    else if([url.host isEqualToString:@"safepay"])//支付宝
+    {
+        return [CUPayTool alipayHandleOpenURL:url];
+    }
+    return YES;
+}
+
 
 - (void)registerLocalNotificationWithInfo:(NSDictionary *)info {
     if (@available(iOS 10.0, *)) {

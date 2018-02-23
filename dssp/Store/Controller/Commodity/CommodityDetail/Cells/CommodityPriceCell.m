@@ -26,7 +26,8 @@ NSString * const CommodityPriceCellIdentifier = @"CommodityPriceCellIdentifier";
 }
 
 - (void)setupUI {
-    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.bg = [[UIView alloc] init];

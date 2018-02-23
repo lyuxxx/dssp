@@ -105,6 +105,7 @@
 }
 
 - (void)submitClick:(UIButton *)sender {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSDictionary *paras = @{
                             @"itemId": [NSNumber numberWithInteger:self.order.items[0].itemId],
                             @"itemScore": [NSNumber numberWithFloat:_starView.scorePercent * 5],
@@ -112,9 +113,19 @@
                             };
     [CUHTTPRequest POST:addItemcommentURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"%@",dic);
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            hud.label.text = NSLocalizedString(@"评论成功", nil);
+            [hud hideAnimated:YES afterDelay:1];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
+        }
     } failure:^(NSInteger code) {
-        
+        hud.label.text = [NSString stringWithFormat:@"请求失败%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 

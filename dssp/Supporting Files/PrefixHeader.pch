@@ -220,6 +220,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define addItemcommentURL [NSString stringWithFormat:@"%@itemcomment/addItemcomment",baseUrl]
 ///添加发票
 #define addOrderInvoiceURL [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
+///获取支付签名参数
+#define appCreatePay @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/appCreatePay"
 
 
 
