@@ -40,13 +40,28 @@
     
     self.contentView.backgroundColor = [UIColor clearColor];
     
+    UIView *bg = [[UIView alloc] init];
+    bg.clipsToBounds = YES;
+    bg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+    bg.layer.cornerRadius = 4;
+    bg.layer.shadowColor = [UIColor colorWithHexString:@"000000"].CGColor;
+    bg.layer.shadowOffset = CGSizeMake(0, 6);
+    bg.layer.shadowRadius = 7;
+    bg.layer.shadowOpacity = 0.5;
+    [self.contentView addSubview:bg];
+    [bg makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 5 * WidthCoefficient, 5 * WidthCoefficient, 5 * WidthCoefficient));
+        make.width.equalTo(114.5 * WidthCoefficient);
+        make.height.equalTo(195 * WidthCoefficient);
+    }];
+    
     self.imgV = [[UIImageView alloc] init];
     _imgV.backgroundColor = [UIColor grayColor];
-    [self.contentView addSubview:_imgV];
+    [bg addSubview:_imgV];
     [_imgV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(114.5 * WidthCoefficient);
         make.height.equalTo(115 * WidthCoefficient);
-        make.left.top.right.equalTo(self.contentView);
+        make.left.top.right.equalTo(bg);
     }];
     
     self.titleLabel = [[UILabel alloc] init];
@@ -56,19 +71,19 @@
     _titleLabel.numberOfLines = 0;
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.preferredMaxLayoutWidth = 104.5 * WidthCoefficient;
-    [self.contentView addSubview:_titleLabel];
+    [bg addSubview:_titleLabel];
     [_titleLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(104.5 * WidthCoefficient);
         make.height.equalTo(40 * WidthCoefficient);
         make.top.equalTo(_imgV.bottom).offset(5 * WidthCoefficient);
-        make.centerX.equalTo(self.contentView);
+        make.centerX.equalTo(bg);
     }];
     
     self.priceLabel = [[UILabel alloc] init];
     _priceLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:13];
     _priceLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
     _priceLabel.text = @"￥200";
-    [self.contentView addSubview:_priceLabel];
+    [bg addSubview:_priceLabel];
     [_priceLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(20 * WidthCoefficient);
         make.left.equalTo(5 * WidthCoefficient);
@@ -84,7 +99,7 @@
     _buyBtn.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
     _buyBtn.layer.cornerRadius = 9 * WidthCoefficient;
     _buyBtn.layer.masksToBounds = YES;
-    [self.contentView addSubview:_buyBtn];
+    [bg addSubview:_buyBtn];
     [_buyBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(45 * WidthCoefficient);
         make.height.equalTo(18 * WidthCoefficient);

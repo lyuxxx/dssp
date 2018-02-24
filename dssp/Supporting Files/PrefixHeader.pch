@@ -205,9 +205,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define dynamicUpdateServiceKnowledgeProfileById [NSString stringWithFormat:@"%@dynamicUpdateServiceKnowledgeProfileById",baseUrl]
 
 ///商城分类
-#define getStoreCategories [NSString stringWithFormat:@"%@contentcategory/list",baseUrl]
+#define getStoreCategories [NSString stringWithFormat:@"%@itemcat/checkOnlyItemcatValue",baseUrl]
 ///分类下商品
-#define getCategoryCommodities [NSString stringWithFormat:@"%@content/list",baseUrl]
+#define getCategoryCommodities [NSString stringWithFormat:@"%@item/list",baseUrl]
 ///商品详情
 #define getCommodityDetail [NSString stringWithFormat:@"%@item",baseUrl]
 ///商品评论
@@ -234,5 +234,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //实时车况报告(周)
 #define queryTheVehicleHealthReportForLatestSevenDays [NSString stringWithFormat:@"%@queryTheVehicleHealthReportForLatestSevenDays",baseUrl]
 
+
+///获取地图升级个数
+#define mapUpdateCountURL [NSString stringWithFormat:@"%@getCount",baseUrl]
 
 #endif /* PrefixHeader_pch */

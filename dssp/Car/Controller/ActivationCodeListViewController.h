@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ActivationCodeListController : BaseViewController
+@interface ActivationCodeListViewController : BaseViewController
 
 @end

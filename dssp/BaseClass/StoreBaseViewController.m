@@ -25,6 +25,7 @@
     [self config];
     [self setNavBar];
     [self createGradientBg];
+    [self setNavBar];
 }
 
 - (void)config {
@@ -54,10 +55,10 @@
     gradient.startPoint = CGPointMake(0, 0.5);
     gradient.endPoint = CGPointMake(1, 0.5);
     UIImage *gradientImg = [gradient snapshotImage];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:GeneralColorString]];
-    [[UINavigationBar appearance] setBackgroundImage:gradientImg forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[gradientImg imageByResizeToSize:CGSizeMake(kScreenWidth, 0.5)]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:GeneralColorString]];
+    [self.navigationController.navigationBar setBackgroundImage:gradientImg forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[gradientImg imageByResizeToSize:CGSizeMake(kScreenWidth, 0.5)]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
 }
 
 @end

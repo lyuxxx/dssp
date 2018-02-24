@@ -7,6 +7,7 @@
 //
 
 #import "GetActivationCodeViewController.h"
+#import "MapUpdateViewController.h"
 
 @interface GetActivationCodeViewController ()
 
@@ -31,6 +32,7 @@
     }];
     
     UIView *topV = [[UIView alloc] init];
+    topV.backgroundColor = [UIColor whiteColor];
     topV.layer.cornerRadius = 4;
     topV.layer.masksToBounds = YES;
     topV.layer.shadowOffset = CGSizeMake(0, 4);
@@ -147,7 +149,17 @@
 }
 
 - (void)getActivationCode:(UIButton *)sender {
-    
+    if (1) {
+        for (NSInteger i =0; i < self.navigationController.viewControllers.count; i++) {
+            UIViewController *vc = self.navigationController.viewControllers[i];
+            if ([vc isKindOfClass:NSClassFromString(@"MapUpdateViewController")]) {
+                MapUpdateViewController *mVC = (MapUpdateViewController *)vc;
+                [mVC showCodeView];
+                break;
+            }
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

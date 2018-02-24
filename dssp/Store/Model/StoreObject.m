@@ -24,21 +24,39 @@
 
 @implementation StoreCommodity
 
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"picImages": [NSString class]
+             };
+}
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     float price = [dic[@"price"] floatValue];
     _price = [NSString stringWithFormat:@"%.2f",price];
+    
+    NSString *image = dic[@"image"];
+    if ([image containsString:@","]) {
+        _image = [image componentsSeparatedByString:@","][0];
+    } else {
+        _image = image;
+    }
+    
     return YES;
 }
 
 @end
 
-@implementation StoreCommodityResponse
+@implementation StoreCommodityData
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
     return @{
-             @"data": [StoreCommodity class]
+             @"result": [StoreCommodity class]
              };
 }
+
+@end
+
+@implementation StoreCommodityResponse
 
 @end
 

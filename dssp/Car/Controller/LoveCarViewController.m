@@ -12,6 +12,7 @@
 #import "NSArray+Sudoku.h"
 #import "MapHomeViewController.h"
 #import "RefuelViewController.h"
+#import "MapUpdateViewController.h"
 
 @interface LoveCarViewController ()
 
@@ -264,6 +265,9 @@
         MapHomeViewController *vc = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+//        UIViewController *vc = [[NSClassFromString(@"TrackDetailViewController") alloc] init];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 102) {
         RefuelViewController *vc = [[RefuelViewController alloc] initWithType:PoiTypeOil];

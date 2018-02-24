@@ -12,16 +12,20 @@
 #import "CommodityDetailViewController.h"
 #import "StoreObject.h"
 #import "OrderSubmitViewController.h"
+#import <MJRefresh.h>
 
 @interface StoreHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSArray<StoreCategory *> *categories;
-@property (nonatomic, strong) NSArray<StoreCommodity *> *commodities;
+@property (nonatomic, strong) NSMutableArray<StoreCommodity *> *commodities;
 @property (nonatomic, strong) StoreCategory *selectedCategory;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIScrollView *leftScroll;
+
 @property (nonatomic, strong) UIButton *lastBtn;
+
+@property (nonatomic, assign) NSInteger currentPage;
 @end
 
 @implementation StoreHomeViewController
@@ -36,12 +40,38 @@
     
     self.view.clipsToBounds = YES;
     
+    self.currentPage = 1;
+    [self.commodities removeAllObjects];
+    
+    [self setupLeftBg];
+    
     [self createCollectionView];
     [self getStoreCategoriesList];
 }
 
+- (void)setupLeftBg {
+    UIView *leftBg = [[UIView alloc] init];
+    leftBg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+    [self.view addSubview:leftBg];
+    [leftBg makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(100 * WidthCoefficient);
+        make.height.equalTo(kScreenHeight - kNaviHeight - kTabbarHeight - 1);
+        make.left.top.equalTo(self.view);
+    }];
+    
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#2f2726"];
+    [self.view addSubview:line];
+    [line makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(1);
+        make.height.equalTo(kScreenHeight - kNaviHeight - kTabbarHeight - 1);
+        make.top.equalTo(self.view);
+        make.left.equalTo(leftBg.right);
+    }];
+}
+
 - (void)getStoreCategoriesList {
-    [CUHTTPRequest POST:getStoreCategories parameters:@{} success:^(id responseData) {
+    [CUHTTPRequest POST:getStoreCategories parameters:@{@"parentId":[NSNumber numberWithInteger:-1]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         StoreCategoryResponse *response = [StoreCategoryResponse yy_modelWithJSON:dic];
         self.categories = response.data;
@@ -49,23 +79,31 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createLeftScroll];
         });
-        [self getCommoditiesWithCategoryId:self.categories[0].contentCategoryId];
+        [self getCommoditiesWithCategoryId];
     } failure:^(NSInteger code) {
         
     }];
 }
 
-- (void)getCommoditiesWithCategoryId:(NSInteger)categoryId {
-    NSDictionary *paras = @{@"contentCategoryId":[NSNumber numberWithInteger:categoryId]};
+- (void)getCommoditiesWithCategoryId {
+    NSDictionary *paras = @{@"cid":[NSNumber numberWithInteger:self.selectedCategory.itemcatId],@"currentPage":[NSNumber numberWithInteger:self.currentPage]};
     [CUHTTPRequest POST:getCategoryCommodities parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        StoreCommodityResponse *resposne = [StoreCommodityResponse yy_modelWithJSON:dic];
-        self.commodities = resposne.data;
+        StoreCommodityResponse *response = [StoreCommodityResponse yy_modelWithJSON:dic];
+        [self.commodities addObjectsFromArray:response.data.result];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView reloadData];
+            if (response.data.result.count > 0) {
+                self.currentPage++;
+                [self.collectionView.mj_footer endRefreshing];
+            } else {
+                [self.collectionView.mj_footer endRefreshing];
+            }
         });
     } failure:^(NSInteger code) {
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView.mj_footer endRefreshing];
+        });
     }];
 }
 
@@ -76,10 +114,14 @@
     }
     self.leftScroll = [[UIScrollView alloc] init];
     [self.view addSubview:_leftScroll];
+    NSInteger height = 50 * WidthCoefficient * self.categories.count;
+    if (height > kScreenHeight - kNaviHeight - kTabbarHeight - 1) {
+        height = kScreenHeight - kNaviHeight - kTabbarHeight - 1;
+    }
     [_leftScroll makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view);
         make.width.equalTo(100 * WidthCoefficient);
-        make.height.equalTo(50 * WidthCoefficient * self.categories.count);
+        make.height.equalTo(height);
     }];
     
     UIView *content = [[UIView alloc] init];
@@ -123,13 +165,19 @@
 
 - (void)createCollectionView {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumInteritemSpacing = 10 * WidthCoefficient;
-    flowLayout.minimumLineSpacing = 10 * WidthCoefficient;
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 20 * WidthCoefficient, 0, 16 * WidthCoefficient);
-    flowLayout.itemSize = CGSizeMake(114.5 * WidthCoefficient, 195 * WidthCoefficient);
-    flowLayout.headerReferenceSize = CGSizeMake(275 * WidthCoefficient, 50 * WidthCoefficient);
+    flowLayout.minimumInteritemSpacing = 0 * WidthCoefficient;
+    flowLayout.minimumLineSpacing = 0 * WidthCoefficient;
+    flowLayout.sectionInset = UIEdgeInsetsMake(15 * WidthCoefficient, 15 * WidthCoefficient, 0, 11 * WidthCoefficient);
+    flowLayout.itemSize = CGSizeMake(124.5 * WidthCoefficient, 205 * WidthCoefficient);
+//    flowLayout.headerReferenceSize = CGSizeMake(275 * WidthCoefficient, 45 * WidthCoefficient);
+    flowLayout.headerReferenceSize = CGSizeMake(0, 0);
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    if (@available(iOS 11.0, *)) {
+        _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+    }
     _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _collectionView.delegate = self;
@@ -142,17 +190,25 @@
     
     [_collectionView registerClass:[CommodityCell class] forCellWithReuseIdentifier:NSStringFromClass([CommodityCell class])];
     [_collectionView registerClass:[CommodityHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([CommodityHeaderView class])];
+    
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getCommoditiesWithCategoryId)];
+    //    footer.refreshingTitleHidden = YES;
+    self.collectionView.mj_footer = footer;
 }
 
 - (void)btnClick:(UIButton *)sender {
-    if (sender != _lastBtn) {
+//    if (sender != _lastBtn) {
+        //清空
+        self.currentPage = 1;
+        [self.commodities removeAllObjects];
+        [self.collectionView reloadData];
+        
         _lastBtn.selected = NO;
         sender.selected = YES;
         _lastBtn = sender;
-        NSInteger categoryId = self.categories[sender.tag - 100].contentCategoryId;
         self.selectedCategory = self.categories[sender.tag - 100];
-        [self getCommoditiesWithCategoryId:categoryId];
-    }
+        [self.collectionView.mj_footer beginRefreshing];
+//    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -172,16 +228,23 @@
     return cell;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    CommodityHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([CommodityHeaderView class]) forIndexPath:indexPath];
-    headerView.title = self.selectedCategory.name;
-    return headerView;
-}
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+//    CommodityHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([CommodityHeaderView class]) forIndexPath:indexPath];
+//    headerView.title = self.selectedCategory.name;
+//    return headerView;
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     CommodityDetailViewController *vc = [[CommodityDetailViewController alloc] initWithCommodity:self.commodities[indexPath.row]];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (NSMutableArray<StoreCommodity *> *)commodities {
+    if (!_commodities) {
+        _commodities = [NSMutableArray array];
+    }
+    return _commodities;
 }
 
 @end

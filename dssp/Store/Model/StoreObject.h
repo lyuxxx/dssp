@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface StoreCategory : NSObject
-@property (nonatomic, assign) NSInteger contentCategoryId;
+@property (nonatomic, assign) NSInteger itemcatId;
+@property (nonatomic, assign) NSInteger parentId;
 @property (nonatomic, copy) NSString *name;
 @end
 
@@ -20,14 +21,11 @@
 @end
 
 @interface StoreCommodity : NSObject
-@property (nonatomic, assign) NSInteger contentId;
-@property (nonatomic, assign) NSInteger shopId;
-@property (nonatomic, assign) NSInteger categoryId;
-@property (nonatomic, copy) NSString *image;
-@property (nonatomic, copy) NSString *categoryName;
 @property (nonatomic, assign) NSInteger itemId;
 @property (nonatomic, copy) NSString *itemNo;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) NSInteger shopId;
+@property (nonatomic, copy) NSString *sellPoint;
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, assign) float discountPrice;
 @property (nonatomic, assign) float choosePriceType;
@@ -35,16 +33,32 @@
 @property (nonatomic, assign) NSInteger limitNum;
 @property (nonatomic, assign) NSInteger cid;
 @property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSInteger shippingYn;
 @property (nonatomic, strong) NSDate *onlineTime;
 @property (nonatomic, strong) NSDate *offlineTime;
+@property (nonatomic, assign) NSInteger packageflow;
+@property (nonatomic, assign) NSInteger flowUseEnd;
+@property (nonatomic, copy) NSString *flowUnit;
+@property (nonatomic, assign) NSInteger recordStatus;
 @property (nonatomic, strong) NSDate *createTime;
 @property (nonatomic, strong) NSDate *updateTime;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, strong) NSArray<NSString *> *picImages;
+@end
+
+@interface StoreCommodityData : NSObject <YYModel>
+@property (nonatomic, assign) NSInteger pageSize;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) NSInteger currentPageSql;
+@property (nonatomic, assign) NSInteger totalPage;
+@property (nonatomic, assign) NSInteger totalCount;
+@property (nonatomic, strong) NSArray<StoreCommodity *> *result;
 @end
 
 @interface StoreCommodityResponse : NSObject <YYModel>
 @property (nonatomic, copy) NSString *code;
 @property (nonatomic, copy) NSString *msg;
-@property (nonatomic, strong) NSArray<StoreCommodity *> *data;
+@property (nonatomic, strong) StoreCommodityData *data;
 @end
 
 @interface ItemServicePackage : NSObject

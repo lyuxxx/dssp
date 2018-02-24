@@ -12,5 +12,6 @@
 @interface StoreBaseViewController : UIViewController
 
 - (BOOL)needGradientBg;
+//- (void)setNavBar;
 
 @end

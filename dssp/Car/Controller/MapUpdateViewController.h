@@ -10,4 +10,6 @@
 
 @interface MapUpdateViewController : BaseViewController
 
+- (void)showCodeView;
+
 @end

@@ -6,15 +6,15 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "ActivationCodeListController.h"
+#import "ActivationCodeListViewController.h"
 #import "ActivationCodeListCell.h"
 
-@interface ActivationCodeListController () <UITableViewDelegate, UITableViewDataSource>
+@interface ActivationCodeListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSArray *dataSource;
 @end
 
-@implementation ActivationCodeListController
+@implementation ActivationCodeListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +47,10 @@
         cell = [[ActivationCodeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 95 * HeightCoefficient;
 }
 
 @end

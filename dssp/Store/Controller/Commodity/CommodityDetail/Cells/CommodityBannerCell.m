@@ -68,7 +68,7 @@ NSString * const CommodityBannerCellIdentifier = @"CommodityBannerCellIdentifier
     [self.content removeAllSubviews];
     
     UIImageView *lastView;
-    for (NSInteger i = 0 ; i < 3; i++) {
+    for (NSInteger i = 0 ; i < images.count; i++) {
         UIImageView *imgV = [[UIImageView alloc] init];
         imgV.contentMode = UIViewContentModeScaleAspectFill;
         [imgV downloadImage:images[i] placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
