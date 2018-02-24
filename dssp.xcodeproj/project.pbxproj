@@ -115,6 +115,11 @@
 		450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
 		450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
+		45153F862041121E00C41E10 /* TrafficReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F852041121E00C41E10 /* TrafficReportViewController.m */; };
+		45153F892041130800C41E10 /* TrafficReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F882041130800C41E10 /* TrafficReportModel.m */; };
+		45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
+		45153F8F2041391700C41E10 /* TrafficReportdatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportdatailController.m */; };
+		45153F922041461400C41E10 /* TrafficReportdatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F912041461400C41E10 /* TrafficReportdatailCell.m */; };
 		451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */; };
 		451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EC1FEB99A4008CC890 /* WMSecondViewController.m */; };
 		451744F41FEB99A4008CC890 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
@@ -392,6 +397,16 @@
 		450AF1731FEB502900E48445 /* PersonInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInViewController.m; sourceTree = "<group>"; };
 		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
+		45153F842041121E00C41E10 /* TrafficReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportViewController.h; sourceTree = "<group>"; };
+		45153F852041121E00C41E10 /* TrafficReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportViewController.m; sourceTree = "<group>"; };
+		45153F872041130800C41E10 /* TrafficReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportModel.h; sourceTree = "<group>"; };
+		45153F882041130800C41E10 /* TrafficReportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportModel.m; sourceTree = "<group>"; };
+		45153F8A204113C800C41E10 /* TrafficReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportCell.h; sourceTree = "<group>"; };
+		45153F8B204113C800C41E10 /* TrafficReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportCell.m; sourceTree = "<group>"; };
+		45153F8D2041391700C41E10 /* TrafficReportdatailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportdatailController.h; sourceTree = "<group>"; };
+		45153F8E2041391700C41E10 /* TrafficReportdatailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportdatailController.m; sourceTree = "<group>"; };
+		45153F902041461400C41E10 /* TrafficReportdatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportdatailCell.h; sourceTree = "<group>"; };
+		45153F912041461400C41E10 /* TrafficReportdatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportdatailCell.m; sourceTree = "<group>"; };
 		451744E91FEB99A4008CC890 /* WMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCollectionViewController.h; sourceTree = "<group>"; };
 		451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMCollectionViewController.m; sourceTree = "<group>"; };
 		451744EB1FEB99A4008CC890 /* WMSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSecondViewController.h; sourceTree = "<group>"; };
@@ -1100,6 +1115,10 @@
 				3115892B201B211000A4AEFB /* ActivationCodeListController.m */,
 				3125E9DD201F0F6D009F6650 /* MapUpdateHelpViewController.h */,
 				3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */,
+				45153F842041121E00C41E10 /* TrafficReportViewController.h */,
+				45153F852041121E00C41E10 /* TrafficReportViewController.m */,
+				45153F8D2041391700C41E10 /* TrafficReportdatailController.h */,
+				45153F8E2041391700C41E10 /* TrafficReportdatailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1115,6 +1134,8 @@
 				450644DC20030A4A0099D7AC /* UpkeepModel.m */,
 				453218DA201EC3650064369F /* LllegaModel.h */,
 				453218DB201EC3650064369F /* LllegaModel.m */,
+				45153F872041130800C41E10 /* TrafficReportModel.h */,
+				45153F882041130800C41E10 /* TrafficReportModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1128,6 +1149,10 @@
 				4505B9A31FECAB0200A1E47E /* CarflowCell.m */,
 				3115892D201B21F900A4AEFB /* ActivationCodeListCell.h */,
 				3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */,
+				45153F8A204113C800C41E10 /* TrafficReportCell.h */,
+				45153F8B204113C800C41E10 /* TrafficReportCell.m */,
+				45153F902041461400C41E10 /* TrafficReportdatailCell.h */,
+				45153F912041461400C41E10 /* TrafficReportdatailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1337,7 +1362,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-dssp/Pods-dssp-resources.sh",
 				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
 				"${PODS_ROOT}/Alipay-SDK/SDK/AlipaySDK.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/CUProgressHUD/CUProgressHUD.bundle,
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
@@ -1453,6 +1478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
+				45153F8F2041391700C41E10 /* TrafficReportdatailController.m in Sources */,
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
 				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
@@ -1465,6 +1491,7 @@
 				312FE1CF202A9BE100B7AE48 /* CommodityHeaderView.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
 				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
+				45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */,
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				31158926201B0DC100A4AEFB /* MapUpdateViewController.m in Sources */,
@@ -1481,6 +1508,7 @@
 				454C744520181E1800108F1E /* LllegaCell.m in Sources */,
 				314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */,
 				31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */,
+				45153F892041130800C41E10 /* TrafficReportModel.m in Sources */,
 				450644DD20030A4A0099D7AC /* UpkeepModel.m in Sources */,
 				45ABF33620076CE0003FC560 /* QueryModel.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
@@ -1499,6 +1527,7 @@
 				4599C9BC1FF1F00900B23713 /* ModifyPhoneController.m in Sources */,
 				4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */,
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
+				45153F922041461400C41E10 /* TrafficReportdatailCell.m in Sources */,
 				450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */,
 				31AC452E2022EDB10044A62C /* NSString+Size.m in Sources */,
 				318B685B202AE4B300962F2A /* OrderCell.m in Sources */,
@@ -1542,6 +1571,7 @@
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				31D1FDCE1FF494440021D47C /* OilStation.m in Sources */,
 				451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */,
+				45153F862041121E00C41E10 /* TrafficReportViewController.m in Sources */,
 				31AC45382022F5E90044A62C /* EllipsePageControl.m in Sources */,
 				312FE1B82029883200B7AE48 /* StoreTabViewController.m in Sources */,
 				31B38BBE202D8A8F0086EDC8 /* InvoicePageController.m in Sources */,

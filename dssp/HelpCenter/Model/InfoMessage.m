@@ -21,4 +21,31 @@
     return self;
 }
 
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"infoMessageId": @"id",
+             
+             };
+}
+
+
 @end
+
+@implementation serviceKnowledgeProfileList
+
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"infoMessagedatailId": @"id",
+             
+             };
+}
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"serviceKnowledgeProfileList": [serviceKnowledgeProfileList class],
+             
+             };
+}
+@end
+
+

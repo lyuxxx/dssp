@@ -201,6 +201,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 ///服务知识库查询
 #define sendToServiceKnowledgeProfileValue [NSString stringWithFormat:@"%@sendToServiceKnowledgeProfileValue",baseUrl]
 
+//服务知识库查询_记录帮助或为帮助数量
+#define dynamicUpdateServiceKnowledgeProfileById [NSString stringWithFormat:@"%@dynamicUpdateServiceKnowledgeProfileById",baseUrl]
 
 ///商城分类
 #define getStoreCategories [NSString stringWithFormat:@"%@contentcategory/list",baseUrl]
@@ -229,5 +231,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define updateNickNameByUserName [NSString stringWithFormat:@"%@updateNickNameByUserName",baseUrl]
 //更换头像
 #define updateHeadPortrait [NSString stringWithFormat:@"%@updateHeadPortrait",baseUrl]
+//实时车况报告(周)
+#define queryTheVehicleHealthReportForLatestSevenDays [NSString stringWithFormat:@"%@queryTheVehicleHealthReportForLatestSevenDays",baseUrl]
+
 
 #endif /* PrefixHeader_pch */

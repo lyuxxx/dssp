@@ -66,8 +66,7 @@
 - (void)pullUpToLoadMoreNews {
     __weak __typeof(self) weakSelf = self;
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    
-  
+
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf requestMoreNews];
     }];
@@ -77,7 +76,6 @@
 
 -(void)requestData
 {
-    
     _count = 1;
     NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
     self.tableView.mj_header.hidden =YES;

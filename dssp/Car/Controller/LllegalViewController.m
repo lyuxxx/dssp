@@ -50,11 +50,14 @@
             
             if (array != nil && ![array isKindOfClass:[NSNull class]] && array.count != 0){
                 
-                NSDictionary *dic1 = array[0];
-                LllegaModel *lllegaModel = [LllegaModel yy_modelWithDictionary:dic1];
-                self.DataArray=[NSMutableArray new];
-                [self.DataArray addObject:lllegaModel];
-                //执行array不为空时的操作
+                self.DataArray = [NSMutableArray new];
+                for(int i= 0; i<array.count;i++) {
+                    NSDictionary *dic1 = array[i];
+                    LllegaModel *lllegaModel = [LllegaModel yy_modelWithDictionary:dic1];
+                    
+                    [self.DataArray addObject:lllegaModel];
+                }
+                
                 
             }
            
