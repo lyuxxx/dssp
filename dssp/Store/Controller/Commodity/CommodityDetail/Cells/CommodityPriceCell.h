@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class CommodityDetailCellsConfigurator;
+
 extern NSString * const CommodityPriceCellIdentifier;
 
 @interface CommodityPriceCell : UITableViewCell
 
-- (void)configWithPrice:(NSString *)price;
+- (void)configWithConfig:(CommodityDetailCellsConfigurator *)config;
 
 + (CGFloat)cellHeight;
 

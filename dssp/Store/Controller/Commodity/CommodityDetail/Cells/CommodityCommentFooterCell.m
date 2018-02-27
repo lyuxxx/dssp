@@ -30,6 +30,11 @@ NSString * const CommodityCommentFooterCellIdentifier = @"CommodityCommentFooter
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.bg = [[UIView alloc] init];
+    _bg.layer.cornerRadius = 4;
+    _bg.layer.shadowColor = [UIColor colorWithHexString:@"000000"].CGColor;
+    _bg.layer.shadowOffset = CGSizeMake(0, 6);
+    _bg.layer.shadowRadius = 7;
+    _bg.layer.shadowOpacity = 0.5;
     _bg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
     [self.contentView addSubview:_bg];
     [_bg makeConstraints:^(MASConstraintMaker *make) {

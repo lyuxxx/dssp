@@ -172,13 +172,21 @@
 
 - (void)configWithOrder:(Order *)order {
     self.order = order;
-    [self.avatar downloadImage:order.items[0].picPath placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.avatar downloadImage:order.items[0].picPath placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
-        
+        _avatar.image = [UIImage imageNamed:@"加载失败小"];
     } received:^(CGFloat progress) {
         
     }];
+    
+    if (order.status == 2) {
+        self.stateImgV.image = [UIImage imageNamed:@"OrderComplete"];
+    } else if (order.status == 3) {
+        self.stateImgV.image = [UIImage imageNamed:@"OrderCancel"];
+    } else {
+        self.stateImgV.image = nil;
+    }
     
     self.descriptionLabel.text = order.items[0].title;
     

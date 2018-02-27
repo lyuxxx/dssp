@@ -75,7 +75,9 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         StoreCategoryResponse *response = [StoreCategoryResponse yy_modelWithJSON:dic];
         self.categories = response.data;
-        self.selectedCategory = self.categories[0];
+        if (self.categories.count) {
+            self.selectedCategory = self.categories[0];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createLeftScroll];
         });
@@ -193,6 +195,7 @@
     
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getCommoditiesWithCategoryId)];
     //    footer.refreshingTitleHidden = YES;
+    footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
     self.collectionView.mj_footer = footer;
 }
 

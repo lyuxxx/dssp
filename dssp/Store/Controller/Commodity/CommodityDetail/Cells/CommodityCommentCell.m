@@ -107,10 +107,10 @@ NSString * const CommodityCommentCellIdentifier = @"CommodityCommentCellIdentifi
     self.comment.text = comment.content;
     self.user.text = comment.nickName;
     self.time.text = [self stringFromDate:comment.createTime];
-    [self.avatar downloadImage:comment.headPortrait placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.avatar downloadImage:comment.headPortrait placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
-        
+        _avatar.image = [UIImage imageNamed:@"加载失败小"];
     } received:^(CGFloat progress) {
         
     }];

@@ -13,11 +13,16 @@
 #import "InvoicePageController.h"
 #import <MJRefresh.h>
 #import "OrderObject.h"
+#import "OrderDetailViewController.h"
+#import "InputAlertView.h"
 
 @interface OrderViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSNumber *type;// 0、未付款，1、已付款，2、交易成功，3、交易取消,不传查所有
 @property (nonatomic, strong) NSMutableArray<Order *> *orders;
+
+@property (nonatomic, assign) NSInteger currentPage;
+
 @end
 
 @implementation OrderViewController
@@ -37,6 +42,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.currentPage = 1;
+    [self.orders removeAllObjects];
     self.view.backgroundColor = [UIColor clearColor];
     [self createTableView];
 }
@@ -60,17 +67,27 @@
     [_tableView registerClass:[OrderCell class] forCellReuseIdentifier:NSStringFromClass([OrderCell class])];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullOrderListData)];
+    
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(appendListData)];
+    footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
+    self.tableView.mj_footer = footer;
 }
 
 - (void)pullOrderListData {
-    [CUHTTPRequest POST:getOrderList parameters:@{@"status":self.type} success:^(id responseData) {
+    
+    self.currentPage = 1;
+    
+    [CUHTTPRequest POST:getOrderList parameters:@{@"status":self.type,@"currentPage":[NSNumber numberWithInteger:self.currentPage]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            OrderResponse *response = [OrderResponse yy_modelWithJSON:dic];
             [self.orders removeAllObjects];
+            OrderResponse *response = [OrderResponse yy_modelWithJSON:dic];
             self.orders = [NSMutableArray arrayWithArray:response.data.result];
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
+            if (response.data.result) {
+                self.currentPage++;
+            }
         } else {
            [self.tableView.mj_header endRefreshing];
         }
@@ -79,11 +96,42 @@
     }];
 }
 
-- (void)cancelOrderWithOrderNo:(NSString *)orderNo {
-    [CUHTTPRequest POST:cancelOrderURL parameters:@{@"orderNo":orderNo} success:^(id responseData) {
-        
+- (void)appendListData {
+    [CUHTTPRequest POST:getOrderList parameters:@{@"status":self.type,@"currentPage":[NSNumber numberWithInteger:self.currentPage]} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            OrderResponse *response = [OrderResponse yy_modelWithJSON:dic];
+            if (response.data.result.count) {
+                self.currentPage++;
+            }
+            [self.orders addObjectsFromArray:response.data.result];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
+        } else {
+            [self.tableView.mj_footer endRefreshing];
+        }
     } failure:^(NSInteger code) {
-        
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
+- (void)cancelOrderWithOrderNo:(NSString *)orderNo {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:cancelOrderURL parameters:@{@"orderNo":orderNo} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            hud.label.text = NSLocalizedString(@"取消成功", nil);
+            [hud hideAnimated:YES afterDelay:0.5];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header beginRefreshing];
+            });
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
@@ -99,7 +147,23 @@
     Order *order = self.orders[indexPath.row];
     OrderCell *cell = [OrderCell cellWithTableView:tableView action:^(OrderAction action) {//订单操作
         if (action == OrderActionCancel) {
-            [self cancelOrderWithOrderNo:order.orderNo];
+            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [InputalertView initWithTitle:@"是否确定取消订单" img:@"cancelOrder" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否",nil] ];
+            //            InputalertView.delegate = self;
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: InputalertView];
+            
+            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                if (btn.tag == 100) {//左边按钮
+                    [self cancelOrderWithOrderNo:order.orderNo];
+                }
+                if(btn.tag ==101)
+                {
+                    //右边按钮
+                    
+                }
+                
+            };
         } else if (action == OrderActionPay) {
             OrderPayViewController *vc = [[OrderPayViewController alloc] initWithOrder:order];
             [self.navigationController pushViewController:vc animated:YES];
@@ -113,6 +177,12 @@
     }];
     [cell configWithOrder:order];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Order *order = self.orders[indexPath.row];
+    OrderDetailViewController *vc = [[OrderDetailViewController alloc] initWithOrder:order];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (NSMutableArray<Order *> *)orders {

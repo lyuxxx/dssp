@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, CommodityDetailCellType) {
     CommodityDetailCellTypeBanner,
     CommodityDetailCellTypeName,
     CommodityDetailCellTypePrice,
+    CommodityDetailCellTypeDescriptionTitle,
+    CommodityDetailCellTypeDescription,
     CommodityDetailCellTypeCommentHeader,
     CommodityDetailCellTypeComment,
     CommodityDetailCellTypeCommentFooter
@@ -24,12 +26,16 @@ typedef NS_ENUM(NSUInteger, CommodityDetailCellType) {
 
 @property (nonatomic, strong) NSArray<NSString *> *bannerPics;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *price;
+@property (nonatomic, copy) NSString *salePriceStr;
+@property (nonatomic, copy) NSMutableAttributedString *originalPriceStr;
+@property (nonatomic, copy) NSString *promotionStr;
+@property (nonatomic, copy) NSString *desc;
 @property (nonatomic, strong) NSArray<CommodityComment *> *comments;
 
 @property (nonatomic, assign) BOOL isBannerVisible;
 @property (nonatomic, assign) BOOL isNameCellVisible;
 @property (nonatomic, assign) BOOL isPriceCellVisible;
+@property (nonatomic, assign) BOOL isDescriptionCellVisible;
 @property (nonatomic, assign) BOOL isCommentCellVisible;
 
 - (instancetype)initWithCommodityDetail:(StoreCommodityDetail *)detail;

@@ -12,6 +12,7 @@
 
 @interface CommodityCell ()
 @property (nonatomic, strong) UIImageView *imgV;
+@property (nonatomic, strong) UIImageView *promotion;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UIButton *buyBtn;
@@ -64,6 +65,14 @@
         make.left.top.right.equalTo(bg);
     }];
     
+    self.promotion = [[UIImageView alloc] init];
+    _promotion.image = [UIImage imageNamed:@"promotion"];
+    [_imgV addSubview:_promotion];
+    [_promotion makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(29 * WidthCoefficient);
+        make.right.top.equalTo(_imgV);
+    }];
+    
     self.titleLabel = [[UILabel alloc] init];
     _titleLabel.text = @"基础流量包基础流量包";
     _titleLabel.textColor = [UIColor whiteColor];
@@ -82,7 +91,7 @@
     self.priceLabel = [[UILabel alloc] init];
     _priceLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:13];
     _priceLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-    _priceLabel.text = @"￥200";
+    _priceLabel.text = @"¥200";
     [bg addSubview:_priceLabel];
     [_priceLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(20 * WidthCoefficient);
@@ -110,15 +119,20 @@
 }
 
 - (void)configWithCommodity:(StoreCommodity *)commodity {
-    [self.imgV downloadImage:commodity.image placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
+    if (commodity.choosePriceType == 1) {
+        _promotion.hidden = YES;
+    } else {
+        _promotion.hidden = NO;
+    }
+    [self.imgV downloadImage:commodity.picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
-        
+        _imgV.image = [UIImage imageNamed:@"加载失败小"];
     } received:^(CGFloat progress) {
         
     }];
     self.titleLabel.text = commodity.title;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",commodity.price];
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",commodity.salePrice];
 }
 
 - (void)btnClick:(UIButton *)sender {

@@ -98,17 +98,18 @@
 }
 
 - (void)configWithCommodity:(StoreCommodity *)commodity {
-    [self.imgV downloadImage:commodity.image placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.imgV downloadImage:commodity.image placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
-        
+        _imgV.image = [UIImage imageNamed:@"加载失败小"];
     } received:^(CGFloat progress) {
         
     }];
     
     self.name.text = commodity.title;
     self.price.text = [NSString stringWithFormat:@"￥%@",commodity.price];
-    self.count.text = [NSString stringWithFormat:@"×%ld",commodity.num];
+//    self.count.text = [NSString stringWithFormat:@"×%ld",commodity.num];
+    self.count.text = @"×1";
 }
 
 @end

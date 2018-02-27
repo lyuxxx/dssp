@@ -10,6 +10,7 @@
 #import "OrderObject.h"
 #import <CUPayTool.h>
 #import <AFNetworking.h>
+#import "PayCompleteViewController.h"
 typedef NS_ENUM(NSUInteger, PayType) {
     PayTypeWeChatPay,
     PayTypeAlipay,
@@ -263,28 +264,40 @@ typedef NS_ENUM(NSUInteger, PayType) {
                 //处理支付结果
                 
                 if (respCode == 0) {
-                    hud.label.text = respMsg;
-                    [hud hideAnimated:YES afterDelay:1];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
+                    });
                 } else if (respCode == -1) {
-                    hud.label.text = respMsg;
-                    [hud hideAnimated:YES afterDelay:1];
+                    
                 } else if (respCode == -2) {
-                    hud.label.text = respMsg;
-                    [hud hideAnimated:YES afterDelay:1];
+                    
                 } else if (respCode == -99) {
+                    
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
                     hud.label.text = respMsg;
                     [hud hideAnimated:YES afterDelay:1];
-                }
+                });
 
             }];
         } else if ([returnCode isEqualToString:@"FAIL"]) {
-            hud.label.text = dic[@"message"][@"returnMsg"];
-            [hud hideAnimated:YES afterDelay:1];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                hud.label.text = dic[@"message"][@"returnMsg"];
+                [hud hideAnimated:YES afterDelay:1];
+            });
+            
         } else {
             NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
             NSInteger statusCode = [res statusCode];
-            hud.label.text = [NSString stringWithFormat:@"%ld",statusCode];
-            [hud hideAnimated:YES afterDelay:1];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                hud.label.text = [NSString stringWithFormat:@"%ld",statusCode];
+                [hud hideAnimated:YES afterDelay:1];
+            });
+            
         }
     }] resume];
     

@@ -29,6 +29,7 @@
 @property (nonatomic, copy) NSString *payment;
 @property (nonatomic, assign) NSInteger paymentType;
 @property (nonatomic, copy) NSString *postFee;
+///0、未付款，1、已付款，2、交易成功，3、交易取消
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, strong) NSDate *createTime;
 @property (nonatomic, strong) NSDate *updateTime;
@@ -45,6 +46,12 @@
 @property (nonatomic, copy) NSString *buyerRate;
 @property (nonatomic, strong) NSDate *finishTime;
 @property (nonatomic, strong) NSArray<OrderItem *> *items;
+@end
+
+@interface OrderDetailResponse : NSObject <YYModel>
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *msg;
+@property (nonatomic, strong) Order *data;
 @end
 
 @interface OrderResponseData : NSObject <YYModel>

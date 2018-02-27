@@ -16,7 +16,25 @@
     if (self) {
         _bannerPics = detail.picImages;
         _name = detail.title;
-        _price = [NSString stringWithFormat:@"￥%@",detail.price];
+        _salePriceStr = [NSString stringWithFormat:@"¥%@",detail.salePrice];
+        _desc = detail.itemDesc;
+        
+        if (detail.choosePriceType != 1) {
+            NSString *str = [NSString stringWithFormat:@"原价 ¥%@",detail.price];
+            NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
+            NSRange range = [str rangeOfString:[NSString stringWithFormat:@"¥%@",detail.price]];
+            [attStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+            [attStr addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleNone] range:range];
+            _originalPriceStr = attStr;
+        }
+        
+        if (detail.choosePriceType == 1) {//原价
+            
+        } else if (detail.choosePriceType == 2) {//现价
+            _promotionStr = [NSString stringWithFormat:@"满减%@元",detail.subtractCash];
+        } else if (detail.choosePriceType == 3) {//折扣价
+            _promotionStr = [NSString stringWithFormat:@"活动%@折",detail.discountRate];
+        }
     }
     return self;
 }
@@ -31,6 +49,12 @@
             break;
         case CommodityDetailCellTypePrice:
             return self.isPriceCellVisible;
+            break;
+        case CommodityDetailCellTypeDescriptionTitle:
+            return self.isDescriptionCellVisible;
+            break;
+        case CommodityDetailCellTypeDescription:
+            return self.isDescriptionCellVisible;
             break;
         case CommodityDetailCellTypeCommentHeader:
             return self.isCommentCellVisible;
@@ -70,7 +94,11 @@
 }
 
 - (BOOL)isPriceCellVisible {
-    return self.price.length > 0;
+    return self.salePriceStr.length > 0;
+}
+
+- (BOOL)isDescriptionCellVisible {
+    return self.desc.length > 0;
 }
 
 - (BOOL)isCommentCellVisible {

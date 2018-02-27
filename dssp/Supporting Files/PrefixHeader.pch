@@ -214,6 +214,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define findItemcommentList [NSString stringWithFormat:@"%@itemcomment/findItemcommentList",baseUrl]
 ///订单列表
 #define getOrderList [NSString stringWithFormat:@"%@orders/list",baseUrl]
+///订单详情
+#define getOrderDetail [NSString stringWithFormat:@"%@orders/detail",baseUrl]
 ///提交订单
 #define createOrderURL [NSString stringWithFormat:@"%@orders/create",baseUrl]
 ///取消订单

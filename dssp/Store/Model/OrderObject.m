@@ -34,6 +34,10 @@
 
 @end
 
+@implementation OrderDetailResponse
+
+@end
+
 @implementation OrderResponseData
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {

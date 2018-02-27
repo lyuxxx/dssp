@@ -12,6 +12,8 @@
 #import "CommodityBannerCell.h"
 #import "CommodityNameCell.h"
 #import "CommodityPriceCell.h"
+#import "CommodityDescriptionTitleCell.h"
+#import "CommodityDescriptionCell.h"
 #import "CommodityCommentHeaderCell.h"
 #import "CommodityCommentCell.h"
 #import "CommodityCommentFooterCell.h"
@@ -28,6 +30,8 @@
 
 @property (nonatomic, strong) StoreCommodity *commodity;
 @property (nonatomic, strong) StoreCommodityDetail *commodityDetail;
+
+@property (nonatomic, strong) CommodityDescriptionCell *descCell;
 
 @end
 
@@ -159,6 +163,14 @@
     return [self.cellConfigurator numberOfRowsInSection:section];
 }
 
+/**
+ * 返回每一行的估计高度
+ * 只要返回了估计高度，那么就会先调用tableView:cellForRowAtIndexPath:方法创建cell，再调   用tableView:heightForRowAtIndexPath:方法获取cell的真实高度
+ */
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 300 * WidthCoefficient;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case CommodityDetailCellTypeBanner:
@@ -178,7 +190,24 @@
         case CommodityDetailCellTypePrice:
         {
             CommodityPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:CommodityPriceCellIdentifier];
-            [cell configWithPrice:self.cellConfigurator.price];
+            [cell configWithConfig:self.cellConfigurator];
+            return cell;
+        }
+            break;
+        case CommodityDetailCellTypeDescriptionTitle:
+        {
+            CommodityDescriptionTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:CommodityDescriptionTitleCellIdentifier];
+            
+            return cell;
+        }
+            break;
+        case CommodityDetailCellTypeDescription:
+        {
+            CommodityDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:CommodityDescriptionCellIdentifier];
+            cell.myIndexPath = indexPath;
+            cell.tableView = self.tableView;
+            [cell configWithCommodityDescription:self.cellConfigurator.desc];
+            self.descCell = cell;
             return cell;
         }
             break;
@@ -223,6 +252,16 @@
         case CommodityDetailCellTypePrice:
         {
             return [CommodityPriceCell cellHeight];
+        }
+            break;
+        case CommodityDetailCellTypeDescriptionTitle:
+        {
+            return [CommodityDescriptionTitleCell cellHeight];
+        }
+            break;
+        case CommodityDetailCellTypeDescription:
+        {
+            return [self.descCell cellHeightWithCommodityDescription:self.cellConfigurator.desc];
         }
             break;
         case CommodityDetailCellTypeCommentHeader:
@@ -273,6 +312,8 @@
         [_tableView registerClass:[CommodityBannerCell class] forCellReuseIdentifier:CommodityBannerCellIdentifier];
         [_tableView registerClass:[CommodityNameCell class] forCellReuseIdentifier:CommodityNameCellIdentifier];
         [_tableView registerClass:[CommodityPriceCell class] forCellReuseIdentifier:CommodityPriceCellIdentifier];
+        [_tableView registerClass:[CommodityDescriptionTitleCell class] forCellReuseIdentifier:CommodityDescriptionTitleCellIdentifier];
+        [_tableView registerClass:[CommodityDescriptionCell class] forCellReuseIdentifier:CommodityDescriptionCellIdentifier];
         [_tableView registerClass:[CommodityCommentHeaderCell class] forCellReuseIdentifier:CommodityCommentHeaderCellIdentifier];
         [_tableView registerClass:[CommodityCommentCell class] forCellReuseIdentifier:CommodityCommentCellIdentifier];
         [_tableView registerClass:[CommodityCommentFooterCell class] forCellReuseIdentifier:CommodityCommentFooterCellIdentifier];

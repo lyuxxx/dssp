@@ -27,8 +27,11 @@
 @property (nonatomic, assign) NSInteger shopId;
 @property (nonatomic, copy) NSString *sellPoint;
 @property (nonatomic, copy) NSString *price;
-@property (nonatomic, assign) float discountPrice;
-@property (nonatomic, assign) float choosePriceType;
+@property (nonatomic, copy) NSString *salePrice;
+@property (nonatomic, copy) NSString *currentPrice;
+@property (nonatomic, copy) NSString *discountPrice;
+@property (nonatomic, copy) NSString *subtractCash;
+@property (nonatomic, assign) NSInteger choosePriceType;
 @property (nonatomic, assign) NSInteger num;
 @property (nonatomic, assign) NSInteger limitNum;
 @property (nonatomic, assign) NSInteger cid;
@@ -97,13 +100,19 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) NSInteger shopId;
 @property (nonatomic, copy) NSString *sellPoint;
+///选择的售出价格：1-原价 2-现价 3-折扣价,默认为1
+@property (nonatomic, assign) NSInteger choosePriceType;
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, copy) NSString *discountPrice;
+@property (nonatomic, copy) NSString *discountRate;
 @property (nonatomic, copy) NSString *currentPrice;
+@property (nonatomic, copy) NSString *subtractCash;
+@property (nonatomic, copy) NSString *salePrice;
 @property (nonatomic, assign) NSInteger num;
 @property (nonatomic, assign) NSInteger limitNum;
 @property (nonatomic, copy) NSString *image;
 @property (nonatomic, assign) NSInteger cid;
+@property (nonatomic, copy) NSString *cname;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, strong) NSDate *onlineTime;
 @property (nonatomic, strong) NSDate *offlineTime;
@@ -111,6 +120,7 @@
 @property (nonatomic, strong) NSDate *updateTime;
 @property (nonatomic, copy) NSString *itemDesc;
 @property (nonatomic, assign) NSInteger recordStatus;
+@property (nonatomic, assign) NSInteger packageflow;
 @end
 
 @interface StoreCommodityDetailResponse : NSObject

@@ -73,11 +73,17 @@
              };
 }
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    float price = [dic[@"price"] floatValue];
-    _price = [NSString stringWithFormat:@"%.2f",price];
-    return YES;
-}
+//- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+//    float price = [dic[@"price"] floatValue];
+//    _price = [NSString stringWithFormat:@"%.2f",price];
+//    float discountPrice = [dic[@"discountPrice"] floatValue];
+//    _discountPrice = [NSString stringWithFormat:@"%.2f",discountPrice];
+//    float currentPrice = [dic[@"currentPrice"] floatValue];
+//    _currentPrice = [NSString stringWithFormat:@"%.2f",currentPrice];
+//    float salePrice = [dic[@"salePrice"] floatValue];
+//    _salePrice = [NSString stringWithFormat:@"%.2f",salePrice];
+//    return YES;
+//}
 
 @end
 

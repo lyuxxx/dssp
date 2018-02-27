@@ -57,6 +57,8 @@
 		318B685B202AE4B300962F2A /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
 		318B685E202AEBF500962F2A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
+		319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58B720441EFB006837DC /* OrderDetailViewController.m */; };
+		319A58BB20443604006837DC /* PayCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BA20443604006837DC /* PayCompleteViewController.m */; };
 		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
 		31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
 		31A469F31FF1E78B00C8236E /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F11FF1E78B00C8236E /* MapView.m */; };
@@ -103,6 +105,10 @@
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		31F0B7FF1FF3A9BF00A25F4B /* RefuelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */; };
 		31F235D1204170B5002807D2 /* ActivationCodeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235CF204170B4002807D2 /* ActivationCodeListViewController.m */; };
+		31F235D4204171E5002807D2 /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D3204171E4002807D2 /* TrackDetailViewController.m */; };
+		31F235D72041722C002807D2 /* MapUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D62041722C002807D2 /* MapUtility.m */; };
+		31F235DA204177C4002807D2 /* CommodityDescriptionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */; };
+		31F235DD204177ED002807D2 /* CommodityDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */; };
 		4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99B1FECA94A00A1E47E /* CarflowViewController.m */; };
 		4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99E1FECA97100A1E47E /* UpkeepViewController.m */; };
 		4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A31FECAB0200A1E47E /* CarflowCell.m */; };
@@ -289,6 +295,10 @@
 		318B685D202AEBF500962F2A /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		3196AB901FDF717F009B9189 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		3196AB911FDF717F009B9189 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		319A58B620441EFB006837DC /* OrderDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		319A58B720441EFB006837DC /* OrderDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		319A58B920443604006837DC /* PayCompleteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayCompleteViewController.h; sourceTree = "<group>"; };
+		319A58BA20443604006837DC /* PayCompleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayCompleteViewController.m; sourceTree = "<group>"; };
 		31A3B9141FDE184700B8FBD3 /* POISendBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POISendBtn.h; sourceTree = "<group>"; };
 		31A3B9151FDE184700B8FBD3 /* POISendBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POISendBtn.m; sourceTree = "<group>"; };
 		31A469EE1FF1E75100C8236E /* MapBaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapBaseController.h; sourceTree = "<group>"; };
@@ -373,6 +383,14 @@
 		31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefuelViewController.m; sourceTree = "<group>"; };
 		31F235CF204170B4002807D2 /* ActivationCodeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivationCodeListViewController.m; sourceTree = "<group>"; };
 		31F235D0204170B4002807D2 /* ActivationCodeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivationCodeListViewController.h; sourceTree = "<group>"; };
+		31F235D2204171E4002807D2 /* TrackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackDetailViewController.h; sourceTree = "<group>"; };
+		31F235D3204171E4002807D2 /* TrackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackDetailViewController.m; sourceTree = "<group>"; };
+		31F235D52041722B002807D2 /* MapUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapUtility.h; sourceTree = "<group>"; };
+		31F235D62041722C002807D2 /* MapUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapUtility.m; sourceTree = "<group>"; };
+		31F235D8204177C4002807D2 /* CommodityDescriptionTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommodityDescriptionTitleCell.h; sourceTree = "<group>"; };
+		31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommodityDescriptionTitleCell.m; sourceTree = "<group>"; };
+		31F235DB204177ED002807D2 /* CommodityDescriptionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommodityDescriptionCell.h; sourceTree = "<group>"; };
+		31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommodityDescriptionCell.m; sourceTree = "<group>"; };
 		4505B99A1FECA94A00A1E47E /* CarflowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarflowViewController.h; sourceTree = "<group>"; };
 		4505B99B1FECA94A00A1E47E /* CarflowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowViewController.m; sourceTree = "<group>"; };
 		4505B99D1FECA97100A1E47E /* UpkeepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpkeepViewController.h; sourceTree = "<group>"; };
@@ -650,6 +668,8 @@
 				31AC452D2022EDB10044A62C /* NSString+Size.m */,
 				3172B57F202BF1BD006D3749 /* UITextView+Placeholder.h */,
 				3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */,
+				31F235D52041722B002807D2 /* MapUtility.h */,
+				31F235D62041722C002807D2 /* MapUtility.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -913,12 +933,16 @@
 				312FE1BD2029885200B7AE48 /* OrderPageController.m */,
 				318B685C202AEBF500962F2A /* OrderViewController.h */,
 				318B685D202AEBF500962F2A /* OrderViewController.m */,
+				319A58B620441EFB006837DC /* OrderDetailViewController.h */,
+				319A58B720441EFB006837DC /* OrderDetailViewController.m */,
 				3172B57C202BF0C5006D3749 /* EvaluateViewController.h */,
 				3172B57D202BF0C5006D3749 /* EvaluateViewController.m */,
 				31B38BC5202D8E9A0086EDC8 /* OrderSubmitViewController.h */,
 				31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */,
 				31B38BB9202D70EE0086EDC8 /* OrderPayViewController.h */,
 				31B38BBA202D70EE0086EDC8 /* OrderPayViewController.m */,
+				319A58B920443604006837DC /* PayCompleteViewController.h */,
+				319A58BA20443604006837DC /* PayCompleteViewController.m */,
 				31B38BBC202D8A8F0086EDC8 /* InvoicePageController.h */,
 				31B38BBD202D8A8F0086EDC8 /* InvoicePageController.m */,
 				31B38BBF202D8B800086EDC8 /* InvoiceIndividualViewController.h */,
@@ -948,6 +972,10 @@
 				31B38B9F202C382A0086EDC8 /* CommodityNameCell.m */,
 				31B38BA1202C38410086EDC8 /* CommodityPriceCell.h */,
 				31B38BA2202C38410086EDC8 /* CommodityPriceCell.m */,
+				31F235D8204177C4002807D2 /* CommodityDescriptionTitleCell.h */,
+				31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */,
+				31F235DB204177ED002807D2 /* CommodityDescriptionCell.h */,
+				31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */,
 				31B38BA4202C386A0086EDC8 /* CommodityCommentHeaderCell.h */,
 				31B38BA5202C386A0086EDC8 /* CommodityCommentHeaderCell.m */,
 				31B38BA7202C389C0086EDC8 /* CommodityCommentCell.h */,
@@ -1119,6 +1147,8 @@
 				45153F852041121E00C41E10 /* TrafficReportViewController.m */,
 				45153F8D2041391700C41E10 /* TrafficReportdatailController.h */,
 				45153F8E2041391700C41E10 /* TrafficReportdatailController.m */,
+				31F235D2204171E4002807D2 /* TrackDetailViewController.h */,
+				31F235D3204171E4002807D2 /* TrackDetailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1491,6 +1521,7 @@
 				312FE1CF202A9BE100B7AE48 /* CommodityHeaderView.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
 				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
+				31F235DD204177ED002807D2 /* CommodityDescriptionCell.m in Sources */,
 				45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */,
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
@@ -1532,6 +1563,7 @@
 				31AC452E2022EDB10044A62C /* NSString+Size.m in Sources */,
 				318B685B202AE4B300962F2A /* OrderCell.m in Sources */,
 				456454A11FF09E2700B30401 /* InputAlertView.m in Sources */,
+				31F235D4204171E5002807D2 /* TrackDetailViewController.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
@@ -1561,6 +1593,7 @@
 				31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */,
 				4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */,
 				3172B581202BF1BE006D3749 /* UITextView+Placeholder.m in Sources */,
+				31F235D72041722C002807D2 /* MapUtility.m in Sources */,
 				31A469F31FF1E78B00C8236E /* MapView.m in Sources */,
 				454C7448201823F600108F1E /* LllegadetailController.m in Sources */,
 				31B38BB3202D36990086EDC8 /* CommodityCommentsViewController.m in Sources */,
@@ -1602,6 +1635,7 @@
 				4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,
 				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,
+				319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */,
 				453218DC201EC3650064369F /* LllegaModel.m in Sources */,
 				451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */,
 				451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */,
@@ -1617,6 +1651,7 @@
 				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,
 				31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */,
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
+				319A58BB20443604006837DC /* PayCompleteViewController.m in Sources */,
 				31B38BA9202C389C0086EDC8 /* CommodityCommentCell.m in Sources */,
 				31B38BA0202C382A0086EDC8 /* CommodityNameCell.m in Sources */,
 				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
@@ -1633,6 +1668,7 @@
 				31B38B92202C278E0086EDC8 /* CommodityDetailViewController.m in Sources */,
 				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
 				310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */,
+				31F235DA204177C4002807D2 /* CommodityDescriptionTitleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

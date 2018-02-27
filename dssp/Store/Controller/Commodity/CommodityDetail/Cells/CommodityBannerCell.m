@@ -70,11 +70,10 @@ NSString * const CommodityBannerCellIdentifier = @"CommodityBannerCellIdentifier
     UIImageView *lastView;
     for (NSInteger i = 0 ; i < images.count; i++) {
         UIImageView *imgV = [[UIImageView alloc] init];
-        imgV.contentMode = UIViewContentModeScaleAspectFill;
-        [imgV downloadImage:images[i] placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
+        [imgV downloadImage:images[i] placeholder:[UIImage imageNamed:@"加载中"] success:^(CUImageCacheType cacheType, UIImage *image) {
             
         } failure:^(NSError *error) {
-            
+            imgV.image = [UIImage imageNamed:@"加载失败"];
         } received:^(CGFloat progress) {
             
         }];

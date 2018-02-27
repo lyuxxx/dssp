@@ -55,7 +55,7 @@
     
     self.starView = [[YYStarView alloc] initWithFrame:CGRectMake(92 * WidthCoefficient, 20 * WidthCoefficient, 160 * WidthCoefficient, 24.75 * WidthCoefficient) numberOfStars:5];
     _starView.scorePercent = 0;
-    _starView.allowIncompleteStar = NO;
+    _starView.allowIncompleteStar = NO;;
     _starView.hasAnimation = NO;
     [top addSubview:_starView];
     
@@ -66,10 +66,10 @@
     
     self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10 * WidthCoefficient, 86 * WidthCoefficient, 40 * WidthCoefficient, 40 * WidthCoefficient)];
     [top addSubview:_imgV];
-    [_imgV downloadImage:self.order.items[0].picPath placeholder:[UIImage imageNamed:@""] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [_imgV downloadImage:self.order.items[0].picPath placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
-        
+        _imgV.image = [UIImage imageNamed:@"加载失败小"];
     } received:^(CGFloat progress) {
         
     }];

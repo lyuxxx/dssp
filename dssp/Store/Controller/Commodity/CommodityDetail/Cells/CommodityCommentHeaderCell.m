@@ -33,7 +33,7 @@ NSString * const CommodityCommentHeaderCellIdentifier = @"CommodityCommentHeader
     _bg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
     [self.contentView addSubview:_bg];
     [_bg makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(UIEdgeInsetsMake(10 * WidthCoefficient, 16 * WidthCoefficient, 0, 16 * WidthCoefficient));
+        make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 16 * WidthCoefficient, 0, 16 * WidthCoefficient));
         make.width.equalTo(343 * WidthCoefficient);
         make.height.equalTo(41 * WidthCoefficient);
     }];
@@ -72,7 +72,7 @@ NSString * const CommodityCommentHeaderCellIdentifier = @"CommodityCommentHeader
 }
 
 + (CGFloat)cellHeight {
-    return 51 * WidthCoefficient;
+    return 46 * WidthCoefficient;
 }
 
 - (void)layoutSubviews {
