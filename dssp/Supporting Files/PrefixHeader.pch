@@ -240,15 +240,21 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define updateHeadPortrait [NSString stringWithFormat:@"%@updateHeadPortrait",baseUrl]
 //实时车况报告(周)
 #define queryTheVehicleHealthReportForLatestSevenDays [NSString stringWithFormat:@"%@queryTheVehicleHealthReportForLatestSevenDays",baseUrl]
-//查询用户信息
-#define queryUser [NSString stringWithFormat:@"%@queryUser",baseUrl]
-
+///轨迹列表
+#define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataList",baseUrl]
+///轨迹详情
+#define getTrackDetailURL [NSString stringWithFormat:@"%@queryDetailOfTrip",baseUrl]
 
 
 ///获取地图升级个数
-#define mapUpdateCountURL [NSString stringWithFormat:@"%@getCount",baseUrl]
+#define getMapUpdateCountURL [NSString stringWithFormat:@"%@getCount",baseUrl]
+///获取地图升级激活码
+#define getMapUpdateActivationCodeURL [NSString stringWithFormat:@"%@getActivationCode",baseUrl]
+///地图升级激活码列表
+#define getMapUpdateActivationCodeListURL [NSString stringWithFormat:@"%@getActivationCodeInfoByVin",baseUrl]
+///查询用户信息
+#define queryUser [NSString stringWithFormat:@"%@queryUser",baseUrl]
 ///添加发票
 #define orderinvoice [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
-
 
 #endif /* PrefixHeader_pch */

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class ActivationCode;
+
 @interface ActivationCodeListCell : UITableViewCell
+
+- (void)configWithActivationCode:(ActivationCode *)code;
 
 @end

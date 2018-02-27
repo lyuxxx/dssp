@@ -10,7 +10,7 @@
 
 
 
-@interface RecordItem :NSObject <YYModel>
+@interface RecordItems :NSObject <YYModel>
 @property (nonatomic , copy) NSString              * alertCode;
 @property (nonatomic , copy) NSString              * alertName;
 @property (nonatomic , copy) NSString              * alertPriority;
@@ -24,7 +24,7 @@
 @interface HealthAlertsItem :NSObject <YYModel>
 @property (nonatomic , copy) NSString        * vehicleSystem;
 @property (nonatomic , copy) NSString        *vehicleSystemName;
-@property (nonatomic , strong) NSArray <RecordItem *> *record;
+@property (nonatomic , strong) NSArray <RecordItems *> *record;
 
 @end
 

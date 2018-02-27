@@ -59,6 +59,9 @@
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
 		319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58B720441EFB006837DC /* OrderDetailViewController.m */; };
 		319A58BB20443604006837DC /* PayCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BA20443604006837DC /* PayCompleteViewController.m */; };
+		319A58BE20450A19006837DC /* MapUpdateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BD20450A19006837DC /* MapUpdateObject.m */; };
+		319A58C420452E22006837DC /* TrackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C320452E22006837DC /* TrackObject.m */; };
+		319A58C720454EEA006837DC /* TrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C620454EEA006837DC /* TrackListViewController.m */; };
 		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
 		31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
 		31A469F31FF1E78B00C8236E /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F11FF1E78B00C8236E /* MapView.m */; };
@@ -301,6 +304,12 @@
 		319A58B720441EFB006837DC /* OrderDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
 		319A58B920443604006837DC /* PayCompleteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayCompleteViewController.h; sourceTree = "<group>"; };
 		319A58BA20443604006837DC /* PayCompleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayCompleteViewController.m; sourceTree = "<group>"; };
+		319A58BC20450A19006837DC /* MapUpdateObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapUpdateObject.h; sourceTree = "<group>"; };
+		319A58BD20450A19006837DC /* MapUpdateObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapUpdateObject.m; sourceTree = "<group>"; };
+		319A58C220452E22006837DC /* TrackObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackObject.h; sourceTree = "<group>"; };
+		319A58C320452E22006837DC /* TrackObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackObject.m; sourceTree = "<group>"; };
+		319A58C520454EEA006837DC /* TrackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackListViewController.h; sourceTree = "<group>"; };
+		319A58C620454EEA006837DC /* TrackListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackListViewController.m; sourceTree = "<group>"; };
 		31A3B9141FDE184700B8FBD3 /* POISendBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POISendBtn.h; sourceTree = "<group>"; };
 		31A3B9151FDE184700B8FBD3 /* POISendBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POISendBtn.m; sourceTree = "<group>"; };
 		31A469EE1FF1E75100C8236E /* MapBaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapBaseController.h; sourceTree = "<group>"; };
@@ -1157,6 +1166,8 @@
 				45153F852041121E00C41E10 /* TrafficReportViewController.m */,
 				45153F8D2041391700C41E10 /* TrafficReportdatailController.h */,
 				45153F8E2041391700C41E10 /* TrafficReportdatailController.m */,
+				319A58C520454EEA006837DC /* TrackListViewController.h */,
+				319A58C620454EEA006837DC /* TrackListViewController.m */,
 				31F235D2204171E4002807D2 /* TrackDetailViewController.h */,
 				31F235D3204171E4002807D2 /* TrackDetailViewController.m */,
 			);
@@ -1176,6 +1187,10 @@
 				453218DB201EC3650064369F /* LllegaModel.m */,
 				45153F872041130800C41E10 /* TrafficReportModel.h */,
 				45153F882041130800C41E10 /* TrafficReportModel.m */,
+				319A58BC20450A19006837DC /* MapUpdateObject.h */,
+				319A58BD20450A19006837DC /* MapUpdateObject.m */,
+				319A58C220452E22006837DC /* TrackObject.h */,
+				319A58C320452E22006837DC /* TrackObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1520,6 +1535,7 @@
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
 				45153F8F2041391700C41E10 /* TrafficReportdatailController.m in Sources */,
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
+				319A58C420452E22006837DC /* TrackObject.m in Sources */,
 				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
 				312FE1BB2029884700B7AE48 /* StoreHomeViewController.m in Sources */,
@@ -1596,6 +1612,7 @@
 				31AC452B2022E9250044A62C /* InfoMessage.m in Sources */,
 				31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */,
 				314B98621FD7F24C00ABB638 /* POI.m in Sources */,
+				319A58C720454EEA006837DC /* TrackListViewController.m in Sources */,
 				4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */,
@@ -1634,6 +1651,7 @@
 				31D5C8DC202FE9DE00A44C5C /* StoreObject.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				31CB2B99200763350085FBA1 /* SendPoiProgressView.m in Sources */,
+				319A58BE20450A19006837DC /* MapUpdateObject.m in Sources */,
 				31D5C8DF202FE9EF00A44C5C /* OrderObject.m in Sources */,
 				312FE1BE2029885200B7AE48 /* OrderPageController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,

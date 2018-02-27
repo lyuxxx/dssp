@@ -8,7 +8,7 @@
 
 #import "TrafficReportModel.h"
 
-@implementation RecordItem
+@implementation RecordItems
 
 @end
 

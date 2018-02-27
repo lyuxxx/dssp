@@ -14,5 +14,5 @@
 @property (nonatomic, strong) UILabel *rightlab;
 @property (nonatomic, strong) UIView *whiteView;
 @property (nonatomic, strong) UIImageView *img;
-@property (nonatomic, strong) RecordItem *recordItem;
+@property (nonatomic, strong) RecordItems *recordItem;
 @end

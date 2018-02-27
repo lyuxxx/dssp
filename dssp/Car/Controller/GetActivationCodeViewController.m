@@ -8,8 +8,16 @@
 
 #import "GetActivationCodeViewController.h"
 #import "MapUpdateViewController.h"
+#import "MapUpdateObject.h"
 
 @interface GetActivationCodeViewController ()
+@property (nonatomic, strong) UILabel *userNameLabel;
+@property (nonatomic, strong) UILabel *phoneLabel;
+@property (nonatomic, strong) UILabel *vinLabel;
+@property (nonatomic, strong) UITextField *systemIdField;
+@property (nonatomic, strong) UITextField *accCodeField;
+@property (nonatomic, strong) UITextField *dataVersionField;
+@property (nonatomic, strong) UIButton *submitBtn;
 
 @end
 
@@ -20,6 +28,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = NSLocalizedString(@"获取激活码", nil);
     [self setupUI];
+    [self pullUserInfo];
 }
 
 - (void)setupUI {
@@ -70,6 +79,13 @@
             make.height.equalTo(20 * HeightCoefficient);
             make.top.equalTo(label.top);
         }];
+        if (i == 0) {
+            self.userNameLabel = label1;
+        } else if (i == 1) {
+            self.phoneLabel = label1;
+        } else if (i == 2) {
+            self.vinLabel = label1;
+        }
     }
     
     UIView *botV = [[UIView alloc] init];
@@ -100,6 +116,7 @@
     }];
     
     NSArray *botTitles = @[@"硬件码",@"检验码",@"数据版本"];
+    NSArray *placeHolders = @[@"请输入系统id",@"请输入ACC码",@"请输入数据版本"];
     for (NSInteger i = 0; i < 3; i++) {
         UILabel *label = [[UILabel alloc] init];
         label.text = botTitles[i];
@@ -114,6 +131,7 @@
         }];
         
         UITextField *field = [[UITextField alloc] init];
+        field.placeholder = placeHolders[i];
         [botV addSubview:field];
         [field makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(label.right).offset(15.5 * WidthCoefficient);
@@ -130,9 +148,19 @@
             make.centerX.equalTo(botV);
             make.top.equalTo(label.bottom).offset(14 * HeightCoefficient);
         }];
+        
+        if (i == 0) {
+            self.systemIdField = field;
+        } else if (i == 1) {
+            self.accCodeField = field;
+        } else if (i == 2) {
+            self.dataVersionField = field;
+        }
     }
     
     UIButton *getBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.submitBtn = getBtn;
+    getBtn.enabled = NO;
     [getBtn setTitle:NSLocalizedString(@"获取激活码", nil) forState:UIControlStateNormal];
     [getBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     getBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
@@ -148,18 +176,71 @@
     }];
 }
 
-- (void)getActivationCode:(UIButton *)sender {
-    if (1) {
-        for (NSInteger i =0; i < self.navigationController.viewControllers.count; i++) {
-            UIViewController *vc = self.navigationController.viewControllers[i];
-            if ([vc isKindOfClass:NSClassFromString(@"MapUpdateViewController")]) {
-                MapUpdateViewController *mVC = (MapUpdateViewController *)vc;
-                [mVC showCodeView];
-                break;
-            }
+- (void)pullUserInfo {
+    [CUHTTPRequest POST:queryUser parameters:@{} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            _submitBtn.enabled = YES;
+            NSString *userName = dic[@"data"][@"nickName"];
+            NSString *phone = dic[@"data"][@"userMobileNo"];
+            NSString *vin = dic[@"data"][@"vin"];
+            self.userNameLabel.text = userName;
+            self.phoneLabel.text = phone;
+            self.vinLabel.text = vin;
         }
-        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSInteger code) {
+        
+    }];
+}
+
+- (void)getActivationCode:(UIButton *)sender {
+    if (!_systemIdField.text) {
+        [MBProgressHUD showText:@"请输入系统id"];
+        return;
     }
+    if (!_accCodeField.text) {
+        [MBProgressHUD showText:@"请输入ACC码"];
+        return;
+    }
+    if (!_dataVersionField.text) {
+        [MBProgressHUD showText:@"请输入数据版本"];
+        return;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    NSDictionary *paras = @{
+                            @"vin":_vinLabel.text,
+                            @"systemId":_systemIdField.text,
+                            @"accCode":_accCodeField.text,
+                            @"dataVersion":_dataVersionField.text,
+                            @"custName":_userNameLabel.text,
+                            @"custMobile":_phoneLabel.text
+                            };
+    [CUHTTPRequest POST:getMapUpdateActivationCodeURL parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            ActivationCode *code = dic[@"data"];
+            [self callMapUpdateHomeWithCode:code];
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+}
+
+- (void)callMapUpdateHomeWithCode:(ActivationCode *)code {
+    for (NSInteger i =0; i < self.navigationController.viewControllers.count; i++) {
+        UIViewController *vc = self.navigationController.viewControllers[i];
+        if ([vc isKindOfClass:NSClassFromString(@"MapUpdateViewController")]) {
+            MapUpdateViewController *mVC = (MapUpdateViewController *)vc;
+            [mVC showCodeViewWithCode:code];
+            break;
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

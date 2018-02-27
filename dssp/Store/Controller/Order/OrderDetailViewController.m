@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"订单详细", nil);
+    self.navigationItem.title = NSLocalizedString(@"订单详情", nil);
     [self setupUI];
 }
 

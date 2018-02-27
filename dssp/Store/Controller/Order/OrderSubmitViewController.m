@@ -88,7 +88,7 @@
     self.priceLabel = [[UILabel alloc] init];
     _priceLabel.textAlignment = NSTextAlignmentRight;
     _priceLabel.textColor = [UIColor whiteColor];
-    _priceLabel.text = [NSString stringWithFormat:@"实付款:￥%@",self.commodity.price];
+    _priceLabel.text = [NSString stringWithFormat:@"实付款:￥%@",self.commodity.salePrice];
     [botV addSubview:_priceLabel];
     [_priceLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);

@@ -10,16 +10,27 @@
 #import "GetActivationCodeViewController.h"
 #import "MapUpdateHelpViewController.h"
 #import "ActivationCodeListViewController.h"
+#import "MapUpdateObject.h"
 
 @interface MapUpdateViewController ()
 
 @property (nonatomic, strong) UILabel *limitLabel;
 @property (nonatomic, strong) UILabel *countLabel;
 
+@property (nonatomic, assign) NSInteger limit;
+@property (nonatomic, assign) NSInteger count;
+
+@property (nonatomic, strong) UILabel *tipLabel;
+
 @property (nonatomic, strong) UIView *codeV;
 @property (nonatomic, strong) UILabel *codeLabel;
 @property (nonatomic, strong) UILabel *stateLabel;
 @property (nonatomic, strong) UILabel *expireLabel;
+@property (nonatomic, strong) UIView *redV;
+
+@property (nonatomic, assign) BOOL canGetActivationCode;
+@property (nonatomic, assign) BOOL canShowActivationList;
+
 @end
 
 @implementation MapUpdateViewController
@@ -41,6 +52,11 @@
     }];
     
     [self setupUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self pullData];
 }
 
 - (void)setupUI {
@@ -87,7 +103,7 @@
     
     UILabel *timeLabel = [[UILabel alloc] init];
     self.limitLabel = timeLabel;
-    timeLabel.text = @"1次";
+    timeLabel.text = @"-次";
     timeLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
     [leftV addSubview:timeLabel];
@@ -119,7 +135,7 @@
     
     UILabel *numLabel = [[UILabel alloc] init];
     self.countLabel = numLabel;
-    numLabel.text = @"1个";
+    numLabel.text = @"-个";
     numLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     numLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
     [rtV addSubview:numLabel];
@@ -142,6 +158,7 @@
     }];
     
     UIView *redV = [[UIView alloc] init];
+    self.redV = redV;
     redV.layer.cornerRadius = 2.5;
     redV.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
     [rtV addSubview:redV];
@@ -188,7 +205,7 @@
     }];
     
     UILabel *label1 = [[UILabel alloc] init];
-    label1.text = NSLocalizedString(@"您还可以获取激活一次", nil);
+    self.tipLabel = label1;
     label1.font = [UIFont fontWithName:FontName size:13];
     label1.textColor = [UIColor colorWithHexString:@"#999999"];
     [botV addSubview:label1];
@@ -255,20 +272,58 @@
     [self.codeV addGestureRecognizer:ListTap];
     
     self.codeV.hidden = YES;
-    
-    [self pullData];
+
 }
 
 - (void)pullData {
-    [CUHTTPRequest POST:mapUpdateCountURL parameters:@{@"vin":@"vosf"} success:^(id responseData) {
+    [CUHTTPRequest POST:getMapUpdateCountURL parameters:@{@"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            self.limit = ((NSString *)dic[@"data"][@"mapCount"]).integerValue;
+            self.count = ((NSString *)dic[@"data"][@"activationCodeCount"]).integerValue;
+            self.tipLabel.text = [NSString stringWithFormat:@"您还可以获取激活%ld次",_limit - _count];
+            self.limitLabel.text = [NSString stringWithFormat:@"%ld次",_limit];
+            self.countLabel.text = [NSString stringWithFormat:@"%ld个",_count];
+            if (_count == 0) {
+                self.redV.hidden = YES;
+            } else {
+                self.redV.hidden = NO;
+            }
+            if (_count > 0) {
+                self.canShowActivationList = YES;
+            } else {
+                self.canShowActivationList = NO;
+            }
+            if (_limit > _count) {
+                self.canGetActivationCode = YES;
+            } else {
+                self.canGetActivationCode = NO;
+            }
+        } else {
+            
+        }
     } failure:^(NSInteger code) {
         
     }];
 }
 
-- (void)showCodeView {
+- (void)showCodeViewWithCode:(ActivationCode *)code {
     self.codeV.hidden = NO;
+    self.codeLabel.text = code.checkCode;
+    if ([code.recordStatus isEqualToString:@"2"]) {
+        _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+        _stateLabel.text = NSLocalizedString(@"待激活", nil);
+    } else if ([code.recordStatus isEqualToString:@"1"]) {
+        _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _stateLabel.text = NSLocalizedString(@"已使用", nil);
+    } else if ([code.recordStatus isEqualToString:@"0"]) {
+        _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _stateLabel.text = NSLocalizedString(@"已过期", nil);
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy/MM/dd";
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    self.expireLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.updateTime]];
 }
 
 - (void)helpBtnClick:(UIButton *)sender {
@@ -277,13 +332,17 @@
 }
 
 - (void)activate:(UITapGestureRecognizer *)sender {
-    GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    if (self.canGetActivationCode) {
+        GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+//    }
 }
 
 - (void)codeList:(UITapGestureRecognizer *)sender {
-    ActivationCodeListViewController *vc = [[ActivationCodeListViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.canShowActivationList) {
+        ActivationCodeListViewController *vc = [[ActivationCodeListViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

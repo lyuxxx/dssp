@@ -8,10 +8,11 @@
 
 #import "ActivationCodeListViewController.h"
 #import "ActivationCodeListCell.h"
+#import "MapUpdateObject.h"
 
 @interface ActivationCodeListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *table;
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray<ActivationCode *> *codes;
 @end
 
 @implementation ActivationCodeListViewController
@@ -23,21 +24,48 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self pullData];
+}
+
 - (void)setupUI {
     self.table = [[UITableView alloc] init];
     adjustsScrollViewInsets_NO(_table, self);
     _table.delegate = self;
     _table.dataSource = self;
+    _table.tableFooterView = [UIView new];
     [self.view addSubview:self.table];
     [self.table makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
 }
 
+- (void)pullData {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:getMapUpdateActivationCodeListURL parameters:@{@"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            ActivationCodeListResponse *response = [ActivationCodeListResponse yy_modelWithJSON:dic];
+            self.codes = response.data;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.table reloadData];
+            });
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+}
+
 #pragma mark - UITableViewDelegate -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return self.codes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -45,6 +73,7 @@
     ActivationCodeListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[ActivationCodeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        [cell configWithActivationCode:self.codes[indexPath.row]];
     }
     return cell;
 }

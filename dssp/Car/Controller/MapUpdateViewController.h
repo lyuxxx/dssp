@@ -8,8 +8,10 @@
 
 #import "BaseViewController.h"
 
+@class ActivationCode;
+
 @interface MapUpdateViewController : BaseViewController
 
-- (void)showCodeView;
+- (void)showCodeViewWithCode:(ActivationCode *)code;
 
 @end

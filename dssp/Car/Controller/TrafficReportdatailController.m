@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UIImageView *rightimageView;
 @property (nonatomic, assign) BOOL isDo;
 @property (nonatomic,strong) TrafficReporData  *trafficReporData;
-@property (nonatomic, strong) NSMutableArray<RecordItem *> *dataSource;
+@property (nonatomic, strong) NSMutableArray<RecordItems *> *dataSource;
 //@property (nonatomic, strong) RecordItem *recordItem;
 @property (nonatomic,strong) NSMutableDictionary *result;
 @end
@@ -33,7 +33,7 @@
 @implementation TrafficReportdatailController
 static NSString *const cellID = @"cell";
 
-- (NSMutableArray<RecordItem *> *)dataSource {
+- (NSMutableArray<RecordItems *> *)dataSource {
     if (!_dataSource) {
         _dataSource = [[NSMutableArray alloc] init];
     }
@@ -163,7 +163,7 @@ static NSString *const cellID = @"cell";
 {
     NSArray *data1=self.cellArray1[indexPath.section];
     for (NSDictionary *dic in data1) {
-        RecordItem *recordItem = [RecordItem yy_modelWithDictionary:dic];
+        RecordItems *recordItem = [RecordItems yy_modelWithDictionary:dic];
          [self setcellHight:recordItem.jdaName];
         recordItem.cellHeights = [self setcellHight:recordItem.jdaName];
        
@@ -190,7 +190,7 @@ static NSString *const cellID = @"cell";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RecordItem *recordItem = self.dataSource[indexPath.row];
+    RecordItems *recordItem = self.dataSource[indexPath.row];
     TrafficReportdatailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     if (cell == nil) {
         cell = [[TrafficReportdatailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];

@@ -101,7 +101,7 @@
     
 }
 
--(void)setRecordItem:(RecordItem *)recordItem
+-(void)setRecordItem:(RecordItems *)recordItem
 {
     self.leftlab.text = recordItem.jdaName;
 
