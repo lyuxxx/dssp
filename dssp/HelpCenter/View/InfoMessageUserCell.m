@@ -8,12 +8,15 @@
 
 #import "InfoMessageUserCell.h"
 #import "NSString+Size.h"
-
+#import "UserModel.h"
+#import "UIImageView+WebCache.h"
 @interface InfoMessageUserCell ()
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIImageView *bubble;
+
+@property (nonatomic, strong) UserModel *userModel;
 @end
 
 @implementation InfoMessageUserCell
@@ -27,14 +30,48 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupUI];
+        [self pullData];
     }
     return self;
 }
 
+-(void)pullData
+{
+    
+    NSDictionary *paras = @{
+                          
+                            };
+    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic1 = dic[@"data"];
+            self.userModel = [UserModel yy_modelWithDictionary:dic1];
+            
+//        self.avatar.image = [UIImage imageNamed:userModel.headPortrait];
+//          [self.avatar sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
+            
+            
+        } else {
+            
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+        
+        
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+    
+    
+    
+}
+
 - (void)setupUI {
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
-    
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _timeLabel.font = [UIFont fontWithName:FontName size:11];
@@ -46,8 +83,16 @@
         make.top.equalTo(10 * WidthCoefficient);
     }];
     
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
+    NSLog(@"imageFile->>%@",imageFilePath);
+    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.avatar = [[UIImageView alloc] init];
-    self.avatar.image = [UIImage imageNamed:@"用户头像"];
+    self.avatar.image = selfPhoto?selfPhoto:[UIImage imageNamed:@"用户头像"];
+//      self.avatar.image = [UIImage imageNamed:_userModel.headPortrait];
+//    [self.avatar sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
     [self.contentView addSubview:self.avatar];
     [self.avatar makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_timeLabel).offset(20 * WidthCoefficient);
@@ -56,9 +101,9 @@
     }];
     
     self.label = [[UILabel alloc] init];
-    self.label.font = [UIFont fontWithName:FontName size:15];
+    self.label.font = [UIFont fontWithName:FontName size:14];
     self.label.textColor = [UIColor whiteColor];
-    self.label.textAlignment = NSTextAlignmentRight;
+    self.label.textAlignment = NSTextAlignmentLeft;
     self.label.numberOfLines = 0;
     self.label.lineBreakMode = NSLineBreakByWordWrapping;
     self.label.preferredMaxLayoutWidth = 220 * WidthCoefficient;

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TrafficReportModel.h"
 @interface TrafficReportdatailCell : UITableViewCell
 @property (nonatomic, strong) UILabel *leftlab;
 @property (nonatomic, strong) UILabel *bottolab;
 @property (nonatomic, strong) UILabel *rightlab;
 @property (nonatomic, strong) UIView *whiteView;
 @property (nonatomic, strong) UIImageView *img;
+@property (nonatomic, strong) RecordItem *recordItem;
 @end

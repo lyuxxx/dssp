@@ -65,9 +65,7 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-            
-          _subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
-            
+           _subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
             NSString *htmlString= _subscribedatail.content;
 
             NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];

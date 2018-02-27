@@ -8,6 +8,18 @@
 
 #import "TrafficReportModel.h"
 
+@implementation RecordItem
+
+@end
+
+@implementation HealthAlertsItem
+
+@end
+
+@implementation TrafficReporData
+
+@end
+
 @implementation TrafficReportModel
 
 @end

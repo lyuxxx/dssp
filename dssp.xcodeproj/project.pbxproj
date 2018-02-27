@@ -133,6 +133,7 @@
 		451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F91FEB9A6B008CC890 /* WMLoopView.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		453218DC201EC3650064369F /* LllegaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453218DB201EC3650064369F /* LllegaModel.m */; };
+		453718A42044052D009D0E99 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453718A32044052D009D0E99 /* UserModel.m */; };
 		4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
 		454858102005EA6500170D85 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		454858122005EE6D00170D85 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
@@ -151,6 +152,7 @@
 		455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
 		455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36971FF6140F00D09A63 /* CarflowModel.m */; };
 		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
+		45685FD12043B42600017989 /* InfoMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45685FD02043B42600017989 /* InfoMessageLeftCell.m */; };
 		456ABDA42027FF6F00F4A7E6 /* UpkeepdetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */; };
 		4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */; };
 		4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */; };
@@ -439,6 +441,8 @@
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
 		453218DA201EC3650064369F /* LllegaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegaModel.h; sourceTree = "<group>"; };
 		453218DB201EC3650064369F /* LllegaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegaModel.m; sourceTree = "<group>"; };
+		453718A22044052D009D0E99 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		453718A32044052D009D0E99 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		4548580C2005B53200170D85 /* PrivacypolicyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivacypolicyController.h; sourceTree = "<group>"; };
 		4548580D2005B53200170D85 /* PrivacypolicyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacypolicyController.m; sourceTree = "<group>"; };
 		4548580F2005EA6500170D85 /* application.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
@@ -473,6 +477,8 @@
 		455F36971FF6140F00D09A63 /* CarflowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowModel.m; sourceTree = "<group>"; };
 		4564549F1FF09E2700B30401 /* InputAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAlertView.h; sourceTree = "<group>"; };
 		456454A01FF09E2700B30401 /* InputAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputAlertView.m; sourceTree = "<group>"; };
+		45685FCF2043B42600017989 /* InfoMessageLeftCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoMessageLeftCell.h; sourceTree = "<group>"; };
+		45685FD02043B42600017989 /* InfoMessageLeftCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoMessageLeftCell.m; sourceTree = "<group>"; };
 		456ABDA22027FF6F00F4A7E6 /* UpkeepdetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpkeepdetailController.h; sourceTree = "<group>"; };
 		456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpkeepdetailController.m; sourceTree = "<group>"; };
 		4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarbinddetailViewController.h; sourceTree = "<group>"; };
@@ -752,6 +758,8 @@
 				4570EFE41FFCDC0E00FA6355 /* CarUnbindModel.m */,
 				45ABF33420076CE0003FC560 /* QueryModel.h */,
 				45ABF33520076CE0003FC560 /* QueryModel.m */,
+				453718A22044052D009D0E99 /* UserModel.h */,
+				453718A32044052D009D0E99 /* UserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -887,6 +895,8 @@
 				31AC45302022F0080044A62C /* InfoMessageHelpCenterCell.m */,
 				31AC45322022F0210044A62C /* InfoMessageUserCell.h */,
 				31AC45332022F0210044A62C /* InfoMessageUserCell.m */,
+				45685FCF2043B42600017989 /* InfoMessageLeftCell.h */,
+				45685FD02043B42600017989 /* InfoMessageLeftCell.m */,
 				31AC45352022F5E80044A62C /* EllipsePageControl */,
 			);
 			path = View;
@@ -1600,6 +1610,7 @@
 				455974501FE77B1F00D7910A /* AccountViewController.m in Sources */,
 				455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */,
 				3172B57B202BEFF9006D3749 /* YYStarView.m in Sources */,
+				453718A42044052D009D0E99 /* UserModel.m in Sources */,
 				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				31D1FDCE1FF494440021D47C /* OilStation.m in Sources */,
@@ -1649,6 +1660,7 @@
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,
+				45685FD12043B42600017989 /* InfoMessageLeftCell.m in Sources */,
 				31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */,
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
 				319A58BB20443604006837DC /* PayCompleteViewController.m in Sources */,

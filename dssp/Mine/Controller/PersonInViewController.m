@@ -14,10 +14,12 @@
 #import <TZImagePickerController.h>
 #import "NicknameViewController.h"
 #import "AFNetworking.h"
+#import "UserModel.h"
 @interface PersonInViewController ()<UITableViewDelegate,UITableViewDataSource, TBActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TZImagePickerControllerDelegate>
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSArray *titles;
 @property (nonatomic, strong) UIImageView *selectedImgV;
+@property(nonatomic,strong) UserModel *userModel;
 @end
 
 @implementation PersonInViewController
@@ -42,6 +44,32 @@
     [super viewWillAppear:animated];
 
     [self initTableView];
+    [self requestData];
+}
+
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                            
+                            
+                            };
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            NSDictionary *dic1 = dic[@"data"];
+            self.userModel = [UserModel yy_modelWithDictionary:dic1];
+            [self.tableView reloadData];
+            
+        } else {
+            [hud hideAnimated:YES];
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+    }];
 }
 
 
@@ -116,17 +144,18 @@
            
         }
        if (indexPath.row==1) {
-           cell.realName.text = @"xxx";
+           cell.realName.text = _userModel.userName?_userModel.userName:@"xxxxxx";
         }
         if (indexPath.row==2) {
-            NSString *originTel = @"15871707603";
+            NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+            NSString *originTel = _userModel.userName?_userModel.userName:username;
             NSString *tel = [originTel stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
             cell.realName.text = tel;
         }
         if (indexPath.row==3) {
             cell.whiteView.hidden=YES;
             NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
-            cell.realName.text = name;
+            cell.realName.text = _userModel.nickname?_userModel.nickname:name;
             cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
         }
 
@@ -150,8 +179,8 @@
         
     }
     if (indexPath.row == 2) {
-        ModifyPhoneController *modifyPhone = [ModifyPhoneController new];
-        [self.navigationController pushViewController:modifyPhone animated:YES];
+//        ModifyPhoneController *modifyPhone = [ModifyPhoneController new];
+//        [self.navigationController pushViewController:modifyPhone animated:YES];
     }
     if (indexPath.row == 3) {
         NicknameViewController *nicknameVC = [[NicknameViewController alloc] init];

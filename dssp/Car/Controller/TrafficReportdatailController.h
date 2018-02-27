@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+#import "TrafficReportModel.h"
 @interface TrafficReportdatailController : BaseViewController
-
+@property (nonatomic, strong) NSArray *dataArray1;
 @end

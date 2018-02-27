@@ -67,40 +67,67 @@
         ImgV;
     });
     
-    
-    self.leftlab=({
-        UILabel *lab=[[UILabel alloc] init];
+//    self.leftlab=({
+        self.leftlab=[[UILabel alloc] init];
         //        lab.text = @"123456";
-        lab.textColor=[UIColor colorWithHexString:@"#A18E79"];
-        lab.textAlignment = NSTextAlignmentLeft;
-        lab.font=[UIFont fontWithName:FontName size:16];
+        _leftlab.textColor=[UIColor colorWithHexString:@"#FFFFFF"];
+//        _leftlab.backgroundColor=[UIColor redColor];
+        _leftlab.textAlignment = NSTextAlignmentLeft;
+        [_leftlab setNumberOfLines:0];
+        _leftlab.font=[UIFont fontWithName:FontName size:14];
+        [_whiteView addSubview:_leftlab];
+        [_leftlab makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(0);
+            make.height.equalTo(40 * HeightCoefficient);
+            make.width.equalTo(227 * WidthCoefficient);
+            make.left.equalTo(10 * WidthCoefficient);
+        }];
+
+    
+     self.rightlab=({
+        UILabel *lab=[[UILabel alloc] init];
+        lab.textColor=[UIColor whiteColor];
+        lab.textAlignment = NSTextAlignmentRight;
+        lab.font=[UIFont fontWithName:FontName size:14];
         [_whiteView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(0);
             make.height.equalTo(20 * HeightCoefficient);
-            make.width.equalTo(211 * WidthCoefficient);
-            make.left.equalTo(_img.right).offset(10*WidthCoefficient);
-        }];
-        lab;
-    });
-    
-    
-    self.rightlab=({
-        UILabel *lab=[[UILabel alloc] init];
-        lab.textColor=[UIColor whiteColor];
-        lab.textAlignment = NSTextAlignmentRight;
-        lab.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
-        [_whiteView addSubview:lab];
-        [lab makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(0);
-            make.height.equalTo(25 * HeightCoefficient);
             make.width.equalTo(100 * WidthCoefficient);
-            make.right.equalTo(-16 * WidthCoefficient);
+            make.right.equalTo(-10 * WidthCoefficient);
         }];
         lab;
     });
     
 }
+
+-(void)setRecordItem:(RecordItem *)recordItem
+{
+    self.leftlab.text = recordItem.jdaName;
+
+    if (recordItem.jdaName) {
+        [self.leftlab updateConstraints:^(MASConstraintMaker *make) {
+            
+            make.height.equalTo([self setcellHight:(NSString *)recordItem.jdaName]);
+            
+        }];
+    }
+    NSString *alertCount = [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"];
+    self.rightlab.text = alertCount?alertCount:@"0次";
+}
+
+
+-(CGFloat)setcellHight:(NSString *)cellModel
+{
+    CGRect tmpRect= [cellModel boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0]} context:nil];
+    
+    CGFloat contentH = tmpRect.size.height + 11*HeightCoefficient;
+    NSLog(@"显示高度:%f",contentH);
+    
+    
+    return contentH;
+}
+
 
 
 - (void)awakeFromNib {

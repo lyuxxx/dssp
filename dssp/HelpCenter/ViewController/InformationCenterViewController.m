@@ -11,7 +11,7 @@
 #import "InformationCenterViewController.h"
 #import "InfoMessageHelpCenterCell.h"
 #import "InfoMessageUserCell.h"
-
+#import "InfoMessageLeftCell.h"
 @interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<InfoMessage *> *dataSource;
@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSMutableDictionary *result2;
 @property (nonatomic, copy) NSString *serviceParentIds;
 @property (nonatomic, copy) NSString *serviceParentIds1;
+@property (nonatomic, strong) NSMutableDictionary *result3;
 @end
 
 @implementation InformationCenterViewController
@@ -29,25 +30,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"咨询中心", nil);
-    
+    self.navigationItem.title = NSLocalizedString(@"智能管家", nil);
     [self createTableView];
     [self pullData];
+   
 }
 
 - (void)createTableView {
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView = [[UITableView alloc] init];
+//     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
+//    self.tableView.backgroundColor = [UIColor redColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-     adjustsScrollViewInsets_NO(_tableView,self);
+//     adjustsScrollViewInsets_NO(_tableView,self);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
+    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
+     [self.tableView registerClass:[InfoMessageLeftCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageLeftCell class])];
     [self.view addSubview:self.tableView];
     [self.tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
-    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
+    
+//    UIView *view = [[UIView alloc] init];
+//    self.tableView.tableFooterView = view;
+    
+    
+//    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
+//    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
 }
 
 - (void)pullData {
@@ -73,7 +85,6 @@
             message.time = datenow;
             message.type = InfoMessageTypeOther;
             [self.dataSource removeAllObjects];
-            
             [self sendMessage:message];
             
             
@@ -108,26 +119,23 @@
     [self.dataSource addObject:message];
     [self.tableView reloadData];
     
-//
-    
-    if (self.dataSource.count > 4) {
-//          self.tableView.frame = CGRectMake(0, 100+64, 375, 667 - 64  - 30);
-//        [self.tableView setContentOffset:CGPointMake(0, self.tableView.bounds.size.height) animated:YES];
-//
-        
-//          [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-//          [self.tableView reloadData];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.dataSource.count != 0)
+        {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
 
+    });
+ 
 }
 
 /**
  * 返回每一行的估计高度
  * 只要返回了估计高度，那么就会先调用tableView:cellForRowAtIndexPath:方法创建cell，再调   用tableView:heightForRowAtIndexPath:方法获取cell的真实高度
  */
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 380 * WidthCoefficient;//不要设置的太小
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 380 * WidthCoefficient;//不要设置的太小
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
@@ -145,9 +153,7 @@
             NSLog(@"click:%@",sender.titleLabel.text);
             NSLog(@"click:%@",self.dataArray);
             NSLog(@"%@888",message.serviceParentId);
-            
             if ([sender.titleLabel.text isEqualToString:@"是"]) {
-                
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
                                         @"noHelp": @"1",
@@ -159,6 +165,10 @@
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:@"提交反馈成功"];
+                        InfoMessage *message1 = [[InfoMessage alloc] init];
+                        message1.type = InfoMessageTypeTwo;
+                        message1.serviceDetails = @"是否继续使用dssp知识库服务";
+                        [self sendMessage:message1];
                         
                     } else {
                         
@@ -168,8 +178,6 @@
                 } failure:^(NSInteger code) {
                     
                 }];
-                
-                
             }
             else if ([sender.titleLabel.text isEqualToString:@"否"])
             {
@@ -185,6 +193,11 @@
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:@"提交反馈成功"];
                         
+                        InfoMessage *message1 = [[InfoMessage alloc] init];
+                        message1.type = InfoMessageTypeTwo;
+                        message1.serviceDetails = @"是否继续使用dssp知识库服务";
+                        [self sendMessage:message1];
+                        
                     } else {
                         
                         [MBProgressHUD showText:dic[@"msg"]];
@@ -193,17 +206,31 @@
                 } failure:^(NSInteger code) {
                     
                 }];
-                
-                
             }
             else
             {
-              
                 
+                
+                
+                NSArray *values = @[@"10010",@"10012",@"10001",@"10002",@"10003",@"10004",@"10005",@"10006",@"10007",@"10013",@"10009",@"10008",@"10014",@"10015",@"10011",@"10016"];
+                
+                NSArray *keys = @[@"MapHomeViewController",@"RefuelViewController",@"WifiViewController",@"UpkeepViewController",@"CarflowViewController",@"CarTrackViewController",@"TrafficReportViewController",@"驾驶行为",@"LllegalViewController",@"RealVinViewcontroller",@"紧急救援",@"道路救援",@"商品列表",@"OrderPageController",@"智慧停车",@"地图升级"];
+                
+                self.result3 = [NSMutableDictionary new];
+
+                //    根据title取图片
+                for (int i = 0; i < values.count; i++) {
+                    [self.result3 setObject:keys[i] forKey:values[i]];
+//                    [_imgArray addObject:[_result objectForKey:_titleArray[i]]];
+                }
+                
+
+            
                 InfoMessage *messageMe = [[InfoMessage alloc] init];
                 messageMe.text = sender.titleLabel.text;
                 messageMe.type = InfoMessageTypeMe;
                 [self sendMessage:messageMe];
+                
                 
                 NSDictionary *paras = @{
                                         @"serviceParentId":str1,
@@ -212,18 +239,22 @@
                 [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     
-                    
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         NSDictionary *dic1 = dic[@"data"];
                         _dataArray =[[NSMutableArray alloc] init];
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-                        
                         message.type = InfoMessageTypeOther;
                         [self sendMessage:message];
                         
-                    
+                        NSLog(@"4433%@",message.appServiceNum);
+                        if (![self isBlankString:message.appServiceNum]) {
+
+                            UIViewController *vc = [[NSClassFromString([_result3 objectForKey:message.appServiceNum]) alloc] init];
+                            vc.hidesBottomBarWhenPushed = YES;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }
+
                     } else {
-                        
                         [MBProgressHUD showText:dic[@"msg"]];
                     }
                     
@@ -234,20 +265,60 @@
                 
             }
             
-            
-            
-            
-            //            if (message.serviceParentId == nil) {
-            
-            //            }
-            
-            
         }];
         cell.message = message;
         return cell;
     }
     if (message.type == InfoMessageTypeMe) {
         InfoMessageUserCell *cell = [InfoMessageUserCell cellWithTableView:tableView];
+        cell.message = message;
+        return cell;
+    }
+    if (message.type == InfoMessageTypeTwo) {
+       
+         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1) {
+
+              if ([sender.titleLabel.text isEqualToString:@"确定"]) {
+                  NSDictionary *paras = @{
+                                          @"serviceParentId":@"0",
+                                          @"sourceData":@"0"
+                                          
+                                          };
+                  [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+                      NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                      
+                      
+                      if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                          NSDictionary *dic1 = dic[@"data"];
+                          InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                          
+                          NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                          // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+                          [formatter setDateFormat:@"MM-dd HH:mm:ss"];
+                          //现在时间,你可以输出来看下是什么格式
+                          NSDate *datenow = [NSDate date];
+                          message.time = datenow;
+                          message.type = InfoMessageTypeOther;
+                          [self sendMessage:message];
+                          
+                          
+                      } else {
+                          
+                          [MBProgressHUD showText:dic[@"msg"]];
+                      }
+                      
+                      
+                  } failure:^(NSInteger code) {
+                      
+                      
+                  }];
+              }
+              else
+              {
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+              }
+ 
+         }];
         cell.message = message;
         return cell;
     }
@@ -259,6 +330,22 @@
     
 }
 
+- (BOOL)isBlankString:(NSString *)string {
+    
+         if (string == nil || string == NULL) {
+                 return YES;
+            }
+        if ([string isKindOfClass:[NSNull class]]) {
+        
+                return YES;
+            }
+        if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+       
+                return YES;
+             }
+    
+        return NO;
+     }
 
 
 - (NSMutableArray<InfoMessage *> *)dataSource {

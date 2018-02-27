@@ -9,6 +9,7 @@
 #import "TrafficReportViewController.h"
 #import "TrafficReportModel.h"
 #import "TrafficReportCell.h"
+#import "TrafficReportdatailController.h"
 @interface TrafficReportViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -17,7 +18,10 @@
 @property (nonatomic, strong) UILabel *totalflowlabel;
 @property (nonatomic, strong) NSMutableArray *DataArray;
 @property (nonatomic, strong) UIButton *seeBtn;
-//@property (nonatomic,strong) CarflowModel *carflow;
+@property (nonatomic, strong) UILabel *titlelabel;
+@property (nonatomic, strong) UIImageView *bgImgV;
+@property (nonatomic, strong) UIImageView *bgImgV1;
+@property (nonatomic,strong) TrafficReporData  *trafficReporData;
 @end
 
 @implementation TrafficReportViewController
@@ -25,39 +29,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationItem.title = NSLocalizedString(@"车况报告", nil);
     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+    
+    
+   
     [self initTableView];
     [self setupUI];
     [self requestData];
-    //    [self initTableView];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//
+//
+//
+//                    });
     
 }
 
 -(void)requestData
 {
-  
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,kVin];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-//            _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-//            [_tableView reloadData];
+            _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
             
-//            self.carflow =_carflow;
+           
+            [_tableView reloadData];
+            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.trafficReporData =_trafficReporData;
+       
+//            });
+          
         } else {
-//            self.carflow =_carflow;
+           
+            [_tableView reloadData];
+           self.trafficReporData =_trafficReporData;
             [hud hideAnimated:YES];
-//            [MBProgressHUD showText:dic[@"msg"]];
+            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
-//        self.carflow =_carflow;
-        //      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-        //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        //        [hud hideAnimated:YES afterDelay:1];
+      
+        [_tableView reloadData];
+        self.trafficReporData =_trafficReporData;
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
@@ -88,51 +109,49 @@
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,260*HeightCoefficient)];
     _headerView.backgroundColor=[UIColor whiteColor];
     _tableView.tableHeaderView=_headerView;
-    
 }
 
-//-(void)setCarflow:(CarflowModel *)carflow
-//{
-//    NSInteger k = [_carflow.remainFlow integerValue];
-//    if (k < 0) {
-//        _flowlabel.text = @"0M";
-//    }
-//    else if([_carflow.remainFlow rangeOfString:@"."].length>0)
-//    {
-//        
-//        double aNumber = [_carflow.remainFlow doubleValue];
-//        NSString *remainFlow = [[NSString stringWithFormat:@"%.2f",aNumber] stringByAppendingString:@"M"];
-//        _flowlabel.text = remainFlow;
-//    }
-//    else if(_carflow.remainFlow == nil)
-//    {
-//        _flowlabel.text = @"0M";
-//        
-//    }
-//    else
-//    {
-//        NSString *remainFlow = [[NSString stringWithFormat:@"%@",_carflow.remainFlow] stringByAppendingString:@"M"];
-//        _flowlabel.text = remainFlow;
-//        
-//    }
-//    
-//    NSString *totalFlow = [[NSString stringWithFormat:@"%@",_carflow.totalFlow] stringByAppendingString:@"M"];
-//    _totalflowlabel.text =  _carflow.totalFlow == nil?@"0M":totalFlow;
-//}
+-(void)setTrafficReporData:(TrafficReporData *)trafficReporData
+{
+    if (trafficReporData.healthAlerts.count > 6 || trafficReporData.healthAlerts.count == 6) {
+      
+         _seeBtn.hidden = NO;
+        _bgImgV.image = [UIImage imageNamed:@"危险背景"];
+        _bgImgV1.image = [UIImage imageNamed:@"危险"];
+        _titlelabel.textColor=[UIColor colorWithHexString:@"#CE004F"];
+        _titlelabel.text=NSLocalizedString(@"危险", nil);
+        
+    }
+    else if (trafficReporData.healthAlerts.count < 6 && trafficReporData.healthAlerts.count > 0) {
+         _seeBtn.hidden = NO;
+        _bgImgV.image = [UIImage imageNamed:@"亚健康背景"];
+        _bgImgV1.image = [UIImage imageNamed:@"亚健康"];
+        _titlelabel.textColor=[UIColor colorWithHexString:@"#FFC3A5"];
+        _titlelabel.text=NSLocalizedString(@"亚健康", nil);
+    }
+    else
+    {
+         _seeBtn.hidden = YES;
+        _bgImgV.image = [UIImage imageNamed:@"健康背景"];
+        _bgImgV1.image = [UIImage imageNamed:@"健康"];
+        _titlelabel.textColor=[UIColor colorWithHexString:@"#A5FFD2"];
+        _titlelabel.text=NSLocalizedString(@"健康", nil);
+        
+    }
+  
+}
 
 -(void)setupUI
 {
+    
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.title = NSLocalizedString(@"车况报告", nil);
-    //    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,197*HeightCoefficient)];
-    //    _headerView.backgroundColor=[UIColor whiteColor];
-    //    _tableView.tableHeaderView=_headerView;
-    
-    
-    UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"健康背景"];
-    [_headerView addSubview:bgImgV];
-    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+  
+    self.bgImgV = [[UIImageView alloc] init];
+    _bgImgV.image = [UIImage imageNamed:@"健康背景"];
+    [_headerView addSubview:_bgImgV];
+    [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
         make.height.equalTo(260*HeightCoefficient);
         make.width.equalTo(kScreenWidth);
@@ -140,24 +159,24 @@
     }];
     
     
-    UIImageView *bgImgV1 = [[UIImageView alloc] init];
-    bgImgV1.image = [UIImage imageNamed:@"健康"];
-    [_headerView addSubview:bgImgV1];
-    [bgImgV1 makeConstraints:^(MASConstraintMaker *make) {
+   self.bgImgV1 = [[UIImageView alloc] init];
+    _bgImgV1.image = [UIImage imageNamed:@"健康"];
+    [_headerView addSubview:_bgImgV1];
+    [_bgImgV1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(24 *HeightCoefficient);
-        make.height.equalTo(220*HeightCoefficient);
+        make.height.equalTo(218*HeightCoefficient);
         make.width.equalTo(199*WidthCoefficient);
         make.centerX.equalTo(0);
     }];
     
     
-    UILabel *surpluslabel = [[UILabel alloc] init];
-    surpluslabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
-    surpluslabel.textColor=[UIColor colorWithHexString:@"#A5FFD2"];
-    surpluslabel.text=NSLocalizedString(@"健康", nil);
-    surpluslabel.textAlignment = NSTextAlignmentCenter;
-    [_headerView addSubview:surpluslabel];
-    [surpluslabel makeConstraints:^(MASConstraintMaker *make) {
+    self.titlelabel = [[UILabel alloc] init];
+    _titlelabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:18];
+//    _titlelabel.textColor=[UIColor colorWithHexString:@"#A5FFD2"];
+//    _titlelabel.text=NSLocalizedString(@"健康", nil);
+    _titlelabel.textAlignment = NSTextAlignmentCenter;
+    [_headerView addSubview:_titlelabel];
+    [_titlelabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(100*HeightCoefficient);
         make.height.equalTo(18 * HeightCoefficient);
         make.centerX.equalTo(0);
@@ -171,6 +190,7 @@
     _seeBtn.layer.borderWidth = 0.75;
     _seeBtn.layer.cornerRadius = 2;
     [_seeBtn setTitle:NSLocalizedString(@"点击查看", nil) forState:UIControlStateNormal];
+    _seeBtn.hidden = YES;
     [_seeBtn setTitleColor:[UIColor colorWithHexString:@"#FFFFFF"] forState:UIControlStateNormal];
     _seeBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
     //    [_upkeepBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
@@ -179,21 +199,20 @@
         make.width.equalTo(76 * WidthCoefficient);
         make.height.equalTo(24 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(surpluslabel.bottom).offset(20 *HeightCoefficient);
+        make.top.equalTo(_titlelabel.bottom).offset(20 *HeightCoefficient);
     }];
     
     
-  
     UILabel *Lastlabel = [[UILabel alloc] init];
     Lastlabel.font=[UIFont fontWithName:FontName size:12];
     Lastlabel.textColor = [UIColor colorWithHexString:@"#999999"];
     Lastlabel.text=NSLocalizedString(@"本数据为近一周统计数据", nil);
     Lastlabel.textAlignment = NSTextAlignmentCenter;
-    [bgImgV addSubview:Lastlabel];
+    [_bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(-12*HeightCoefficient);
+        make.bottom.equalTo(-10 *HeightCoefficient);
         make.height.equalTo(16.5 * HeightCoefficient);
-        make.centerX.equalTo(bgImgV);
+        make.centerX.equalTo(_bgImgV);
         make.width.equalTo(240 * WidthCoefficient);
     }];
     
@@ -223,19 +242,19 @@
     
     _DataArray = [NSMutableArray new];
     
-//    NSString *music = [[NSString stringWithFormat:@"%@",_carflow.music] stringByAppendingString:@"M"];
-//    NSString *fm = [[NSString stringWithFormat:@"%@",_carflow.fm] stringByAppendingString:@"M"];
-//    NSString *ota = [[NSString stringWithFormat:@"%@",_carflow.ota] stringByAppendingString:@"M"];
-//    NSString *wifi = [[NSString stringWithFormat:@"%@",_carflow.wifi] stringByAppendingString:@"M"];
+    NSString *totalMileage = [[NSString stringWithFormat:@"%@",_trafficReporData.totalMileage] stringByAppendingString:@"km"];
+    NSString *mileageBeforeMaintenance = [[NSString stringWithFormat:@"%@",_trafficReporData.mileageBeforeMaintenance] stringByAppendingString:@"km"];
+    NSString *levelOil = [[NSString stringWithFormat:@"%@",_trafficReporData.levelOil] stringByAppendingString:@"L"];
+    NSString *levelFuel = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"L"];
 //
-//    [_DataArray addObject:_carflow.music?music:@"0M"];
-//    [_DataArray addObject:_carflow.fm?fm:@"0M"];
-//    [_DataArray addObject:_carflow.ota?ota:@"0M"];
-//    [_DataArray addObject:_carflow.wifi?wifi:@"0M"];
+    [_DataArray addObject:_trafficReporData.totalMileage?totalMileage:@"0km"];
+    [_DataArray addObject:_trafficReporData.mileageBeforeMaintenance?mileageBeforeMaintenance:@"0km"];
+    [_DataArray addObject:_trafficReporData.levelOil?levelOil:@"0L"];
+    [_DataArray addObject:_trafficReporData.levelFuel?levelFuel:@"0L"];
 //
     cell.img.image =[UIImage imageNamed:imgs[indexPath.row]];
     cell.leftlab.text =titles[indexPath.row];
-    cell.rightlab.text =titles[indexPath.row];
+    cell.rightlab.text =_DataArray[indexPath.row];
 //    //    cell.bottolab.text =@"最近使用:2017/12/31";
 //    cell.rightlab.text =_DataArray[indexPath.row];
     
@@ -247,10 +266,14 @@
 
 -(void)BtnClick
 {
-    UIViewController *vc = [[NSClassFromString(@"TrafficReportdatailController") alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+//    UIViewController *vc = [[NSClassFromString(@"TrafficReportdatailController") alloc] init];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
     
+    TrafficReportdatailController *vc = [[TrafficReportdatailController alloc] init];
+    vc.dataArray1 = _trafficReporData.healthAlerts;
+    [self.navigationController pushViewController:vc animated:YES];
+  
 }
 
 

@@ -10,23 +10,26 @@
 
 
 
-@interface RecordItem :NSObject
+@interface RecordItem :NSObject <YYModel>
 @property (nonatomic , copy) NSString              * alertCode;
 @property (nonatomic , copy) NSString              * alertName;
 @property (nonatomic , copy) NSString              * alertPriority;
 @property (nonatomic , copy) NSString              * alertCount;
+@property (nonatomic , copy) NSString              * jdaName;
+@property (nonatomic, assign) CGFloat cellHeights;
 
 @end
 
 
-@interface HealthAlertsItem :NSObject
-@property (nonatomic , copy) NSString              * vehicleSystem;
-@property (nonatomic , strong) NSArray <RecordItem *>              * record;
+@interface HealthAlertsItem :NSObject <YYModel>
+@property (nonatomic , copy) NSString        * vehicleSystem;
+@property (nonatomic , copy) NSString        *vehicleSystemName;
+@property (nonatomic , strong) NSArray <RecordItem *> *record;
 
 @end
 
 
-@interface Data :NSObject
+@interface TrafficReporData :NSObject <YYModel>
 @property (nonatomic , copy) NSString              * vin;
 @property (nonatomic , copy) NSString              * totalMileage;
 @property (nonatomic , copy) NSString              * levelOil;
@@ -40,6 +43,6 @@
 @interface TrafficReportModel : NSObject
 @property (nonatomic , copy) NSString              * code;
 @property (nonatomic , copy) NSString              * msg;
-@property (nonatomic , strong) Data              * data;
+@property (nonatomic , strong) TrafficReporData              * data;
 @end
 

@@ -49,7 +49,7 @@
     _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"昵称", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneField];
     [_phoneField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(60* HeightCoefficient );
+        make.top.equalTo(20* HeightCoefficient );
         make.left.equalTo(0 * WidthCoefficient);
         make.height.equalTo(40 * HeightCoefficient);
         make.right.equalTo(0 * WidthCoefficient);
@@ -70,8 +70,11 @@
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 [defaults setObject:_phoneField.text forKey:@"nickName"];
                 [defaults synchronize];
-                
                 [MBProgressHUD showText:@"保存成功"];
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+                UIViewController *viewCtl = self.navigationController.viewControllers[1];
+                [self.navigationController popToViewController:viewCtl animated:YES];
+               
              
             } else {
                 

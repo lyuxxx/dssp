@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+#import "TrafficReportModel.h"
 @interface TrafficReportViewController : BaseViewController
 
 @end
