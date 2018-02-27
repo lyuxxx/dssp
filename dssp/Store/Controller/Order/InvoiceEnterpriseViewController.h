@@ -9,5 +9,5 @@
 #import "StoreBaseViewController.h"
 
 @interface InvoiceEnterpriseViewController : StoreBaseViewController
-
+@property (nonatomic, copy) NSString *indexs;
 @end

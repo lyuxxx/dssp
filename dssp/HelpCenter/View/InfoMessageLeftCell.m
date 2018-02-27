@@ -24,12 +24,12 @@
 @property (nonatomic, strong) UIImageView *bubble;
 @property (nonatomic, strong) NSMutableDictionary *result;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
-
+@property (nonatomic, copy) NSString *ID;
 @end
 
 @implementation InfoMessageLeftCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *))block {
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *))block {
     InfoMessageLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageLeftCell"];
     cell.serviceClickBlock = block;
     return cell;
@@ -67,6 +67,8 @@
     }
     else if (message.type == InfoMessageTypeTwo){
         
+        self.ID = @"";
+        
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
         [dataArray1 addObject:@"确定"];
         [dataArray1 addObject:@"关闭"];
@@ -81,6 +83,7 @@
         
     
         _contentLabel.text = message.serviceDetails;
+        
         
         CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
         
@@ -328,7 +331,7 @@
     if (self.serviceClickBlock) {
         NSString *Idstr = [_result objectForKey:sender.titleLabel.text];
         NSLog(@"2233%@",Idstr);
-        self.serviceClickBlock(sender,Idstr);
+        self.serviceClickBlock(sender,Idstr,self.ID);
     }
 }
 

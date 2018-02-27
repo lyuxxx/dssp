@@ -349,6 +349,9 @@
     
     UIImageView *rightImg1 = [[UIImageView alloc] init];
     rightImg1.image = [UIImage imageNamed:@"手动预约bg"];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+    [rightImg1 addGestureRecognizer:tapGesture];
+    rightImg1.userInteractionEnabled = YES;
     [bottomView1 addSubview:rightImg1];
     [rightImg1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -387,7 +390,6 @@
 
 -(void)BtnClick:(UIButton *)btn
 {
-    
     if (btn == self.upkeepBtn) {
         UpkeepdetailController *upkeepdetail =[[UpkeepdetailController alloc] init];
         [self.navigationController pushViewController:upkeepdetail animated:YES];
@@ -397,6 +399,15 @@
     
 }
 
+-(void)clickImage
+{
+    
+    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-400800888"];
+    UIWebView *callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

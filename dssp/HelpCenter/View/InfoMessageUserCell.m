@@ -9,7 +9,7 @@
 #import "InfoMessageUserCell.h"
 #import "NSString+Size.h"
 #import "UserModel.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+SDWebImage.h>
 @interface InfoMessageUserCell ()
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIImageView *avatar;
@@ -49,9 +49,16 @@
             NSDictionary *dic1 = dic[@"data"];
             self.userModel = [UserModel yy_modelWithDictionary:dic1];
             
-//        self.avatar.image = [UIImage imageNamed:userModel.headPortrait];
-//          [self.avatar sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
-            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.avatar downloadImage:_userModel.headPortrait placeholder:nil success:^(CUImageCacheType cacheType, UIImage *image) {
+//
+//
+//                } failure:^(NSError *error) {
+//
+//                } received:^(CGFloat progress) {
+//
+//                }];
+//            });
             
         } else {
             

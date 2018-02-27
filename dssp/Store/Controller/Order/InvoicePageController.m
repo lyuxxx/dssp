@@ -42,7 +42,15 @@
 }
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    return [[InvoiceEnterpriseViewController alloc] init];
+    
+    NSArray *titles = @[@"个人",@"企业"];
+    InvoiceEnterpriseViewController *vc = [[InvoiceEnterpriseViewController alloc] init];
+    NSString *ids =titles[index];
+    vc.indexs = ids;
+    
+    return vc;
+    
+//    return [[InvoiceEnterpriseViewController alloc] init];
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
@@ -66,3 +74,4 @@
 }
 
 @end
+

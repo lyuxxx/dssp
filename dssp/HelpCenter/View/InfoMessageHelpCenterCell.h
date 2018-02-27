@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "InfoMessage.h"
-typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId);
+typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *ID);
 @interface InfoMessageHelpCenterCell : UITableViewCell
 
 @property (nonatomic, strong) InfoMessage *message;
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void(^)(UIButton *,NSString *))block;
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void(^)(UIButton *,NSString *,NSString *))block;
 @end

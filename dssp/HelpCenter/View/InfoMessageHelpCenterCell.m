@@ -25,18 +25,31 @@
 @property (nonatomic, strong) NSMutableDictionary *result;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 
+@property (nonatomic, copy) NSString *ID;
+
 @end
 
 @implementation InfoMessageHelpCenterCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *))block {
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *))block {
     InfoMessageHelpCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageHelpCenterCell"];
     cell.serviceClickBlock = block;
     return cell;
 }
 
 - (void)setMessage:(InfoMessage *)message {
+    
     _message = message;
+    
+    [self.scrollContentView removeAllSubviews];
+    [self.scroll setContentOffset:CGPointMake(0, 0) animated:NO];
+    
+    if (self.pageControl) {
+        [self.pageControl removeFromSuperview];
+        self.pageControl = nil;
+    }
+    self.pageControl = [[EllipsePageControl alloc] init];
+    [self.contentView addSubview:_pageControl];
     
     self.result = [NSMutableDictionary new];
     //    [result setObject:message.infoMessagedatailId forKey:message.serviceName];
@@ -56,8 +69,9 @@
         [self.result setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
 //         [self.result1 setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
     }
+    NSString *Idstr = [_result objectForKey:message.serviceName];
     
-    NSLog(@"%@",message);
+    NSLog(@"555%@",Idstr);
     
     if (message.type == InfoMessageTypeMe) {
         return;
@@ -69,6 +83,9 @@
         [dataArray1 addObject:@"否"];
         
       if (array.count == 0) {
+          
+            self.ID = message.serviceParentId;
+         NSLog(@"54455%@", self.ID);
             _timeLabel.text = [self stringFromDate:message.time];
             [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
                 if (message.showTime) {
@@ -77,11 +94,10 @@
                     make.height.equalTo(0 * WidthCoefficient);
                 }
             }];
-            
+          
+          
             NSString *string = [NSString stringWithFormat:@"%@,该服务对您是否有帮助?", message.serviceDetails];
-            
             _contentLabel.text = string;
-            
             CGSize size = [string stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
             
             //            _contentLabel.backgroundColor =[UIColor redColor];
@@ -217,10 +233,7 @@
             
             self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
         }
-        
-        
-        
-        
+
         else
         {
             
@@ -370,162 +383,10 @@
             self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
         }
         
-        
-        
+   
     }
     
-//    else if (message.type == InfoMessageTypeTwo){
-//
-//        NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
-//        [dataArray1 addObject:@"确定"];
-//        [dataArray1 addObject:@"关闭"];
-//        _timeLabel.text = [self stringFromDate:message.time];
-//        [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
-//            if (message.showTime) {
-//                make.height.equalTo(20 * WidthCoefficient);
-//            } else {
-//                make.height.equalTo(0 * WidthCoefficient);
-//            }
-//        }];
-//
-//        NSString *string = [NSString stringWithFormat:@"%@该服务对您是否有帮助?", message.serviceDetails];
-//
-//        _contentLabel1.text = message.serviceDetails;
-//
-//        CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-//
-//        //            _contentLabel.backgroundColor =[UIColor redColor];
-//        [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
-//            make.height.equalTo(size.height);
-//        }];
-//
-//        [self layoutIfNeeded];
-//
-//        NSLog(@"%@665556",_contentLabel.text);
-//        if (dataArray1.count > 2) {//显示线
-//            [_line updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.equalTo(1 * WidthCoefficient);
-//            }];
-//        } else {//不显示线
-//            [_line updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.equalTo(0);
-//            }];
-//        }
-//
-//        NSInteger row = 0;
-//        row = ceil(dataArray1.count / 2.0f);
-//        if (row > 4) {
-//            row = 4;
-//        }
-//        CGFloat scrollHeight = 31.5 * WidthCoefficient * row + 10 * WidthCoefficient * (row + 1);
-//        [_scroll updateConstraints:^(MASConstraintMaker *make) {
-//            make.height.equalTo(scrollHeight);
-//        }];
-//
-//        NSInteger page = ceil(dataArray1.count / 8.0f);
-//
-//        [self.scrollContentView removeAllSubviews];
-//        UIView *lastView;
-//        for (NSInteger i = 0; i < page; i++) {
-//
-//            NSArray *pageArr = [NSArray array];
-//            if (i == page -1) {
-//                pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, dataArray1.count % 8)];
-//            } else {
-//                pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, 8)];
-//            }
-//
-//            UIView *v = [[UIView alloc] init];
-//            [self.scrollContentView addSubview:v];
-//            [v makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.width.equalTo(_scroll);
-//                if (i == 0) {
-//                    make.left.equalTo(_scrollContentView);
-//                } else {
-//                    make.left.equalTo(lastView.right);
-//                }
-//                if (i == page - 1) {//最后一页
-//                    NSInteger pageRows = ceil(pageArr.count / 2.0f);
-//                    CGFloat pageHeight = pageRows * 31.5 * WidthCoefficient + (pageRows + 1) * 10 * WidthCoefficient;
-//                    make.height.equalTo(pageHeight);
-//                } else {
-//                    make.height.equalTo(_scroll);
-//                }
-//            }];
-//            lastView = v;
-//
-//
-//
-//            ///添加button
-//            NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
-//            for (NSInteger j = 0; j < pageArr.count; j++) {
-//                UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//                [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                [btn setTitle:pageArr[j] forState:UIControlStateNormal];
-//
-//                btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
-//
-//                if (j==0) {
-//
-//                    btn.backgroundColor  = [UIColor colorWithRed:86.0/255 green:141.0/255 blue:223.0/255 alpha:1];
-//
-//                    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//                    //                        [btn setImage:[UIImage imageNamed:@"用户背景"] forState:UIControlStateNormal];
-//                }
-//                else
-//                {
-//                    btn.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-//                    [btn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
-//                }
-//
-//                btn.layer.cornerRadius = 4;
-//                [v addSubview:btn];
-//                [btns addObject:btn];
-//            }
-//
-//            [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
-//        }
-//        [lastView makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.equalTo(_scrollContentView.right);
-//        }];
-//
-//        if (page > 1) {
-//
-//            [_bubble updateConstraints:^(MASConstraintMaker *make) {
-//                make.bottom.equalTo(_scroll).offset(15 * WidthCoefficient);
-//            }];
-//
-//        } else {
-//
-//            [_bubble updateConstraints:^(MASConstraintMaker *make) {
-//                make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
-//            }];
-//
-//        }
-//
-//        [self layoutIfNeeded];
-//
-//        if (page > 1) {
-//
-//            _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 5 * WidthCoefficient);
-//        } else {
-//
-//            _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
-//        }
-//        _pageControl.currentColor = [UIColor colorWithHexString:GeneralColorString];
-//        _pageControl.otherColor = [UIColor colorWithHexString:@"#e6e6e6"];
-//        _pageControl.numberOfPages = page;
-//        _pageControl.controlSize = 6;
-//        _pageControl.controlSpacing = 6;
-//
-//        self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
-//
-//    }
-//
-    
-    
-    
-    
+  
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -614,9 +475,6 @@
         make.height.equalTo(self.scroll);
     }];
     
-    self.pageControl = [[EllipsePageControl alloc] init];
-    [self.contentView addSubview:_pageControl];
-    
     self.bubble = [[UIImageView alloc] init];
     _bubble.image = [UIImage imageNamed:@"管家背景"];
     [self.contentView addSubview:_bubble];
@@ -638,7 +496,7 @@
     if (self.serviceClickBlock) {
         NSString *Idstr = [_result objectForKey:sender.titleLabel.text];
         NSLog(@"2233%@",Idstr);
-        self.serviceClickBlock(sender,Idstr);
+        self.serviceClickBlock(sender,Idstr,self.ID);
     }
 }
 

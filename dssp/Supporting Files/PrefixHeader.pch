@@ -247,5 +247,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 ///获取地图升级个数
 #define mapUpdateCountURL [NSString stringWithFormat:@"%@getCount",baseUrl]
+///添加发票
+#define orderinvoice [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
+
 
 #endif /* PrefixHeader_pch */

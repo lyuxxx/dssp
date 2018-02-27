@@ -31,7 +31,7 @@
     self.titles = @[
                               NSLocalizedString(@"头像", nil),
                               NSLocalizedString(@"用户名", nil),
-                              NSLocalizedString(@"手机号", nil),
+//                              NSLocalizedString(@"手机号", nil),
                               NSLocalizedString(@"昵称", nil)
           
                               
@@ -146,13 +146,13 @@
        if (indexPath.row==1) {
            cell.realName.text = _userModel.userName?_userModel.userName:@"xxxxxx";
         }
+//        if (indexPath.row==2) {
+//            NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+//            NSString *originTel = _userModel.userName?_userModel.userName:username;
+//            NSString *tel = [originTel stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+//            cell.realName.text = tel;
+//        }
         if (indexPath.row==2) {
-            NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-            NSString *originTel = _userModel.userName?_userModel.userName:username;
-            NSString *tel = [originTel stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-            cell.realName.text = tel;
-        }
-        if (indexPath.row==3) {
             cell.whiteView.hidden=YES;
             NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
             cell.realName.text = _userModel.nickname?_userModel.nickname:name;
@@ -178,11 +178,11 @@
     if (indexPath.row == 1) {
         
     }
-    if (indexPath.row == 2) {
+//    if (indexPath.row == 2) {
 //        ModifyPhoneController *modifyPhone = [ModifyPhoneController new];
 //        [self.navigationController pushViewController:modifyPhone animated:YES];
-    }
-    if (indexPath.row == 3) {
+//    }
+    if (indexPath.row == 2) {
         NicknameViewController *nicknameVC = [[NicknameViewController alloc] init];
         [self.navigationController pushViewController:nicknameVC animated:YES];
     }

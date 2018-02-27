@@ -12,6 +12,7 @@
 #import "InfoMessageHelpCenterCell.h"
 #import "InfoMessageUserCell.h"
 #import "InfoMessageLeftCell.h"
+#import "InputAlertView.h"
 @interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<InfoMessage *> *dataSource;
@@ -149,7 +150,7 @@
     InfoMessage *message = self.dataSource[indexPath.row];
     
     if (message.type == InfoMessageTypeOther) {
-        InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1) {
+        InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2) {
             NSLog(@"click:%@",sender.titleLabel.text);
             NSLog(@"click:%@",self.dataArray);
             NSLog(@"%@888",message.serviceParentId);
@@ -157,7 +158,7 @@
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
                                         @"noHelp": @"1",
-                                        @"id":str1
+                                        @"id":str2
                                         };
                 [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -193,10 +194,36 @@
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [MBProgressHUD showText:@"提交反馈成功"];
                         
-                        InfoMessage *message1 = [[InfoMessage alloc] init];
-                        message1.type = InfoMessageTypeTwo;
-                        message1.serviceDetails = @"是否继续使用dssp知识库服务";
-                        [self sendMessage:message1];
+                        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                        [InputalertView initWithTitle:@"是否拨打人工服务?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                        //            InputalertView.delegate = self;
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: InputalertView];
+                        
+                        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                               
+                                NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-400800888"];
+                                UIWebView *callWebview = [[UIWebView alloc] init];
+                                [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+                                [self.view addSubview:callWebview];
+                               
+                            }
+                            if(btn.tag ==101)
+                            {
+                                
+                                //右边按钮
+                                NSLog(@"666%@",str);
+                            }
+                            
+                        };
+                        
+                        
+                        
+//                        InfoMessage *message1 = [[InfoMessage alloc] init];
+//                        message1.type = InfoMessageTypeTwo;
+//                        message1.serviceDetails = @"是否继续使用dssp知识库服务";
+//                        [self sendMessage:message1];
                         
                     } else {
                         
@@ -210,22 +237,18 @@
             else
             {
                 
-                
-                
                 NSArray *values = @[@"10010",@"10012",@"10001",@"10002",@"10003",@"10004",@"10005",@"10006",@"10007",@"10013",@"10009",@"10008",@"10014",@"10015",@"10011",@"10016"];
                 
                 NSArray *keys = @[@"MapHomeViewController",@"RefuelViewController",@"WifiViewController",@"UpkeepViewController",@"CarflowViewController",@"CarTrackViewController",@"TrafficReportViewController",@"驾驶行为",@"LllegalViewController",@"RealVinViewcontroller",@"紧急救援",@"道路救援",@"商品列表",@"OrderPageController",@"智慧停车",@"地图升级"];
                 
                 self.result3 = [NSMutableDictionary new];
 
-                //    根据title取图片
+            
                 for (int i = 0; i < values.count; i++) {
                     [self.result3 setObject:keys[i] forKey:values[i]];
 //                    [_imgArray addObject:[_result objectForKey:_titleArray[i]]];
                 }
                 
-
-            
                 InfoMessage *messageMe = [[InfoMessage alloc] init];
                 messageMe.text = sender.titleLabel.text;
                 messageMe.type = InfoMessageTypeMe;
@@ -248,7 +271,6 @@
                         
                         NSLog(@"4433%@",message.appServiceNum);
                         if (![self isBlankString:message.appServiceNum]) {
-
                             UIViewController *vc = [[NSClassFromString([_result3 objectForKey:message.appServiceNum]) alloc] init];
                             vc.hidesBottomBarWhenPushed = YES;
                             [self.navigationController pushViewController:vc animated:YES];
@@ -276,7 +298,7 @@
     }
     if (message.type == InfoMessageTypeTwo) {
        
-         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1) {
+         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2) {
 
               if ([sender.titleLabel.text isEqualToString:@"确定"]) {
                   NSDictionary *paras = @{
