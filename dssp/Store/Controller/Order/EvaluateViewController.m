@@ -109,7 +109,8 @@
     NSDictionary *paras = @{
                             @"itemId": [NSNumber numberWithInteger:self.order.items[0].itemId],
                             @"itemScore": [NSNumber numberWithFloat:_starView.scorePercent * 5],
-                            @"content": _textView.text
+                            @"content": _textView.text,
+                            @"orderId": @"todo"
                             };
     [CUHTTPRequest POST:addItemcommentURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

@@ -24,6 +24,7 @@ target 'dssp' do
   pod 'WMPageController'
   pod 'SDWebImage/GIF'
   pod 'TZImagePickerController'
+  pod 'FSCalendar'
   
   # internal pod
   pod 'CUHTTPRequest'

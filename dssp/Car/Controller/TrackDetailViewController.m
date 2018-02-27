@@ -9,6 +9,7 @@
 #import "TrackDetailViewController.h"
 #import <MAMapKit/MAMapKit.h>
 #import "MapUtility.h"
+#import "TrackObject.h"
 
 @interface TrackDetailViewController () <MAMapViewDelegate>
 
@@ -18,6 +19,24 @@
 @property (nonatomic, strong) MAPointAnnotation *endAnnotation;
 
 @property (nonatomic, strong) UIView *top;
+
+@property (nonatomic, copy) NSString *tripId;
+
+@property (nonatomic, strong) DrvingReport *report;
+@property (nonatomic, strong) NSArray<CoordinatesItem *> *coordinates;
+
+@property (nonatomic, strong) UILabel *harshBrakeLabel;
+@property (nonatomic, strong) UILabel *harshAccLabel;
+@property (nonatomic, strong) UILabel *harshTurnLabel;
+@property (nonatomic, strong) UILabel *autoBrakeLabel;
+@property (nonatomic, strong) UILabel *startAddressLabel;
+@property (nonatomic, strong) UILabel *endAddressLabel;
+@property (nonatomic, strong) UILabel *startTimeLabel;
+@property (nonatomic, strong) UILabel *endTimeLabel;
+@property (nonatomic, strong) UILabel *mileageLabel;
+@property (nonatomic, strong) UILabel *durationLabel;
+@property (nonatomic, strong) UILabel *averageSpeedLabel;
+@property (nonatomic, strong) UILabel *fuelConsumedLabel;
 
 @end
 
@@ -50,11 +69,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self showTrack];
+    [self pullData];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -71,6 +86,59 @@
 
 - (void)backBtnClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)pullData {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    NSDictionary *paras = @{
+                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
+                            @"tripId":_tripId,
+                            @"pageNo":@"1",
+                            @"pageSize":@"10000"
+                            };
+    [CUHTTPRequest POST:getTrackDetailURL parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            TrackDetailResponse *response = [TrackDetailResponse yy_modelWithJSON:dic];
+            self.coordinates = [self transformRecordsToCoordinates:response.data.detail.record];
+            self.report = response.data.drvingReport;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showTrackWithCoordinates:self.coordinates];
+            });
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
+        }
+    } failure:^(NSInteger code) {
+        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
+    }];
+}
+
+- (void)showStatisWithReport:(DrvingReport *)report {
+    self.harshBrakeLabel.text = report.properties.harshDecelerationTimes;
+    self.harshAccLabel.text = report.properties.harshAccelerationTimes;
+    self.harshTurnLabel.text = report.properties.harshTurnTimes;
+    self.autoBrakeLabel.text = report.properties.autoBrakeTimes;
+    self.startAddressLabel.text = report.geometry.afterCoordinates[0].address;
+    self.endAddressLabel.text = report.geometry.afterCoordinates[1].address;
+    self.startTimeLabel.text = report.properties.startTime;
+    self.endTimeLabel.text = report.properties.endTime;
+    self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.properties.mileage];
+    self.durationLabel.text = report.properties.duration;
+    self.averageSpeedLabel.text = [NSString stringWithFormat:@"%@km/s",report.properties.averageSpeed];
+    self.fuelConsumedLabel.text = [NSString stringWithFormat:@"%@L",report.properties.fuelConsumed];
+}
+
+- (NSArray<CoordinatesItem *> *)transformRecordsToCoordinates:(NSArray<RecordItem *> *)records {
+    NSMutableArray<CoordinatesItem *> *coordinates = [NSMutableArray arrayWithCapacity:records.count];
+    for (NSInteger i = 0; i < records.count; i++) {
+        RecordItem *record = records[i];
+        CoordinatesItem *coordinate = record.geometry.coordinates[0];
+        [coordinates addObject:coordinate];
+    }
+    return coordinates;
 }
 
 - (void)createGradientBg {
@@ -132,7 +200,7 @@
         label1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
         label1.textColor = [UIColor colorWithHexString:@"#ffffff"];
         label1.textAlignment = NSTextAlignmentCenter;
-        label1.text = @"6";
+        label1.text = @"-";
         [topV addSubview:label1];
         [label1 makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(27.5 * WidthCoefficient);
@@ -140,6 +208,15 @@
             make.top.equalTo(label0.bottom).offset(5 * HeightCoefficient);
             make.centerX.equalTo(label0);
         }];
+        if (i == 0) {
+            self.harshBrakeLabel = label1;
+        } else if (i == 1) {
+            self.harshAccLabel = label1;
+        } else if (i == 2) {
+            self.harshTurnLabel = label1;
+        } else if (i == 3) {
+            self.autoBrakeLabel = label1;
+        }
     }
     
     UIView *line = [[UIView alloc] init];
@@ -215,6 +292,14 @@
             make.right.equalTo(-16 * WidthCoefficient);
             make.top.equalTo(label1);
         }];
+        
+        if (i == 0) {
+            self.startAddressLabel = label1;
+            self.startTimeLabel = label2;
+        } else if (i == 1) {
+            self.endAddressLabel = label1;
+            self.endTimeLabel = label2;
+        }
     }
     
     UIScrollView *scroll = [[UIScrollView alloc] init];
@@ -270,7 +355,7 @@
         UILabel *label0 = [[UILabel alloc] init];
         label0.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
         label0.textColor = [UIColor whiteColor];
-        label0.text = @"202km";
+        label0.text = @"-";
         [v addSubview:label0];
         [label0 makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(90 * WidthCoefficient);
@@ -299,61 +384,86 @@
             make.height.equalTo(20 * HeightCoefficient);
             make.top.equalTo(botLine.bottom).offset(10 * HeightCoefficient);
         }];
+        
+        if (i == 0) {
+            self.mileageLabel = label0;
+        } else if (i == 1) {
+            self.durationLabel = label0;
+        } else if (i == 2) {
+            self.averageSpeedLabel = label0;
+        } else if (i == 3) {
+            self.fuelConsumedLabel = label0;
+        }
     }
     [lastV makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(content).offset(-16 * WidthCoefficient);
     }];
 }
 
-- (void)showTrack {
+- (void)showTrackWithCoordinates:(NSArray<CoordinatesItem *> *)coordinates {
     //构造折线数据对象
-    CLLocationCoordinate2D commonPolylineCoords[10];
-    commonPolylineCoords[0].latitude = 30.621480;
-    commonPolylineCoords[0].longitude = 114.234748;
     
-    commonPolylineCoords[1].latitude = 30.621362;
-    commonPolylineCoords[1].longitude = 114.234810;
+    CLLocationCoordinate2D commonPolylineCoords[coordinates.count];
     
-    commonPolylineCoords[2].latitude = 30.621362;
-    commonPolylineCoords[2].longitude = 114.234810;
-    
-    commonPolylineCoords[3].latitude = 30.621324;
-    commonPolylineCoords[3].longitude = 114.234703;
-    
-    commonPolylineCoords[4].latitude = 30.621271;
-    commonPolylineCoords[4].longitude = 114.234725;
-    
-    commonPolylineCoords[5].latitude = 30.621576;
-    commonPolylineCoords[5].longitude = 114.235626;
-    
-    commonPolylineCoords[6].latitude = 30.621645;
-    commonPolylineCoords[6].longitude = 114.235840;
-    
-    commonPolylineCoords[7].latitude = 30.622088;
-    commonPolylineCoords[7].longitude = 114.237129;
-    
-    commonPolylineCoords[8].latitude = 30.622250;
-    commonPolylineCoords[8].longitude = 114.237602;
-    
-    commonPolylineCoords[9].latitude = 30.622305;
-    commonPolylineCoords[9].longitude = 114.237595;
-    
-    self.startAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[0].latitude, commonPolylineCoords[0].longitude);
-    self.endAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[9].latitude, commonPolylineCoords[9].longitude);
-    
-    NSMutableArray<MAPointAnnotation *> *arr = [NSMutableArray array];
-    for (NSInteger i = 0; i < 10; i++) {
-        MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
-        annotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
-        [arr addObject:annotation];
+    for (NSInteger i = 0; i < coordinates.count; i++) {
+        CoordinatesItem *item = coordinates[i];
+        commonPolylineCoords[i].latitude = item.lat;
+        commonPolylineCoords[i].longitude = item.lon;
+        
+        if (i == 0) {
+            self.startAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
+            
+        }
+        if (i == coordinates.count - 1) {
+            self.endAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
+        }
     }
+    
+//    commonPolylineCoords[0].latitude = 30.621480;
+//    commonPolylineCoords[0].longitude = 114.234748;
+//
+//    commonPolylineCoords[1].latitude = 30.621362;
+//    commonPolylineCoords[1].longitude = 114.234810;
+//
+//    commonPolylineCoords[2].latitude = 30.621362;
+//    commonPolylineCoords[2].longitude = 114.234810;
+//
+//    commonPolylineCoords[3].latitude = 30.621324;
+//    commonPolylineCoords[3].longitude = 114.234703;
+//
+//    commonPolylineCoords[4].latitude = 30.621271;
+//    commonPolylineCoords[4].longitude = 114.234725;
+//
+//    commonPolylineCoords[5].latitude = 30.621576;
+//    commonPolylineCoords[5].longitude = 114.235626;
+//
+//    commonPolylineCoords[6].latitude = 30.621645;
+//    commonPolylineCoords[6].longitude = 114.235840;
+//
+//    commonPolylineCoords[7].latitude = 30.622088;
+//    commonPolylineCoords[7].longitude = 114.237129;
+//
+//    commonPolylineCoords[8].latitude = 30.622250;
+//    commonPolylineCoords[8].longitude = 114.237602;
+//
+//    commonPolylineCoords[9].latitude = 30.622305;
+//    commonPolylineCoords[9].longitude = 114.237595;
+    
+    
+    
+//    NSMutableArray<MAPointAnnotation *> *arr = [NSMutableArray array];
+//    for (NSInteger i = 0; i < 10; i++) {
+//        MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+//        annotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
+//        [arr addObject:annotation];
+//    }
     //构造折线对象
-    MAPolyline *commonPolyline = [MAPolyline polylineWithCoordinates:commonPolylineCoords count:10];
+    MAPolyline *commonPolyline = [MAPolyline polylineWithCoordinates:commonPolylineCoords count:coordinates.count];
     
     //在地图上添加折线对象
     [_mapView addOverlay:commonPolyline];
     
-    [_mapView addAnnotations:@[_startAnnotation,_endAnnotation]];
+//    [_mapView addAnnotations:@[_startAnnotation,_endAnnotation]];
     
     [self.mapView setVisibleMapRect:[MapUtility mapRectForOverlays:@[commonPolyline]] edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
 //    [_mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];

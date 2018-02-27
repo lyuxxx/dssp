@@ -7,6 +7,7 @@
 //
 
 #import "ActivationCodeListCell.h"
+#import "MapUpdateObject.h"
 
 @interface ActivationCodeListCell ()
 @property (nonatomic, strong) UILabel *codeLabel;
@@ -15,17 +16,6 @@
 @end
 
 @implementation ActivationCodeListCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -81,6 +71,24 @@
         make.top.equalTo(_codeLabel.bottom).offset(5 * HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
+}
+
+- (void)configWithActivationCode:(ActivationCode *)code {
+    self.codeLabel.text = code.checkCode;
+    if ([code.recordStatus isEqualToString:@"2"]) {
+        _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+        _stateLabel.text = NSLocalizedString(@"待激活", nil);
+    } else if ([code.recordStatus isEqualToString:@"1"]) {
+        _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _stateLabel.text = NSLocalizedString(@"已使用", nil);
+    } else if ([code.recordStatus isEqualToString:@"0"]) {
+        _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _stateLabel.text = NSLocalizedString(@"已过期", nil);
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy/MM/dd";
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    self.timeLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.updateTime]];
 }
 
 @end

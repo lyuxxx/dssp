@@ -20,7 +20,7 @@
         _desc = detail.itemDesc;
         
         if (detail.choosePriceType != 1) {
-            NSString *str = [NSString stringWithFormat:@"原价 ¥%@",detail.price];
+            NSString *str = [NSString stringWithFormat:@"¥%@",detail.price];
             NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
             NSRange range = [str rangeOfString:[NSString stringWithFormat:@"¥%@",detail.price]];
             [attStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
@@ -33,7 +33,7 @@
         } else if (detail.choosePriceType == 2) {//现价
             _promotionStr = [NSString stringWithFormat:@"满减%@元",detail.subtractCash];
         } else if (detail.choosePriceType == 3) {//折扣价
-            _promotionStr = [NSString stringWithFormat:@"活动%@折",detail.discountRate];
+            _promotionStr = [NSString stringWithFormat:@"活动%.1f折",detail.discountRate.floatValue * 10];
         }
     }
     return self;
