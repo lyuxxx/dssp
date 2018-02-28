@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
+		310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
 		31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
@@ -206,6 +207,8 @@
 		310368EB2045682300A9083E /* RangePickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RangePickerCell.m; sourceTree = "<group>"; };
 		310368ED2046882200A9083E /* StorePageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorePageController.h; sourceTree = "<group>"; };
 		310368EE2046882200A9083E /* StorePageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StorePageController.m; sourceTree = "<group>"; };
+		310368F020469ECC00A9083E /* DrivingWeekReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrivingWeekReportViewController.h; sourceTree = "<group>"; };
+		310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrivingWeekReportViewController.m; sourceTree = "<group>"; };
 		3109164F203EA53300C50D0E /* StoreBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreBaseViewController.h; sourceTree = "<group>"; };
 		31091650203EA53300C50D0E /* StoreBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreBaseViewController.m; sourceTree = "<group>"; };
 		310A07CE1FA95B6D00DC9529 /* LoginResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResult.h; sourceTree = "<group>"; };
@@ -1184,6 +1187,8 @@
 				319A58C620454EEA006837DC /* TrackListViewController.m */,
 				31F235D2204171E4002807D2 /* TrackDetailViewController.h */,
 				31F235D3204171E4002807D2 /* TrackDetailViewController.m */,
+				310368F020469ECC00A9083E /* DrivingWeekReportViewController.h */,
+				310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1673,6 +1678,7 @@
 				455974681FE8EAB400D7910A /* NoticeCell.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
+				310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
 				455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */,
 				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,

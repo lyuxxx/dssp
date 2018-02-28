@@ -190,7 +190,7 @@
         make.centerX.equalTo(content);
     }];
     
-    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"收藏夹", nil),NSLocalizedString(@"WIFI密码", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"流量查询", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"行车轨迹", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"地图升级", nil)];
+    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"驾驶报告", nil),NSLocalizedString(@"WIFI密码", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"流量查询", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"行车轨迹", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"地图升级", nil)];
     NSArray *imgTitles = @[@"智慧出行_icon",@"智慧停车_icon",@"智慧加油_icon",@"收藏夹_icon",@"wifi密码_icon",@"预约保养_icon",@"流量查询_icon",@"盗车提醒_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"地图升级_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
@@ -282,6 +282,11 @@
     }
     if (sender.tag == 102) {
         RefuelViewController *vc = [[RefuelViewController alloc] initWithType:PoiTypeOil];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (sender.tag == 103) {
+        UIViewController *vc = [[NSClassFromString(@"DrivingWeekReportViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
