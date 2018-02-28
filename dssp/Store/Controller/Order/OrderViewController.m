@@ -168,7 +168,7 @@
             OrderPayViewController *vc = [[OrderPayViewController alloc] initWithOrder:order];
             [self.navigationController pushViewController:vc animated:YES];
         } else if (action == OrderActionEvaluate) {
-            EvaluateViewController *vc = [[EvaluateViewController alloc] init];
+            EvaluateViewController *vc = [[EvaluateViewController alloc] initWithOrder:order];
             [self.navigationController pushViewController:vc animated:YES];
         } else if (action == OrderActionInvoice) {
             InvoicePageController *vc = [[InvoicePageController alloc] init];

@@ -95,7 +95,7 @@
 
 + (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
     return @{
-             @"userId": @"id"
+             @"commentId": @"id"
              };
 }
 

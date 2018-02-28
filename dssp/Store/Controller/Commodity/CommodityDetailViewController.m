@@ -21,7 +21,7 @@
 #import "OrderSubmitViewController.h"
 #import "StoreObject.h"
 
-@interface CommodityDetailViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface CommodityDetailViewController () <UITableViewDelegate, UITableViewDataSource, WKNavigationDelegate>
 
 @property (nonatomic, strong) NSArray<CommodityComment *> *comments;//两个评论
 
@@ -32,6 +32,10 @@
 @property (nonatomic, strong) StoreCommodityDetail *commodityDetail;
 
 @property (nonatomic, strong) CommodityDescriptionCell *descCell;
+
+@property (nonatomic, assign) CGFloat webViewHeight;
+
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -61,7 +65,7 @@
 
 - (void)setupUI {
     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
-    self.navigationItem.title = NSLocalizedString(@"商品详细", nil);
+    self.navigationItem.title = NSLocalizedString(@"商品详情", nil);
     [self.view addSubview:self.tableView];
     
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,7 +88,7 @@
 
 - (void)pullData {
     
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    self.hud = [MBProgressHUD showMessage:@""];
     
     // 创建信号量
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
@@ -116,14 +120,16 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [CUHTTPRequest POST:findItemcommentList parameters:@{@"itemId":[NSString stringWithFormat:@"%ld",self.commodity.itemId]} success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            CommodityCommentResponse *response = [CommodityCommentResponse yy_modelWithJSON:dic];
-            NSArray *tmpComments = response.data.result;
-            if (tmpComments.count > 2) {
-                self.comments = [response.data.result subarrayWithRange:NSMakeRange(0, 2)];
-            } else {
-                self.comments = tmpComments;
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                CommodityCommentResponse *response = [CommodityCommentResponse yy_modelWithJSON:dic];
+                NSArray *tmpComments = response.data.result;
+                if (tmpComments.count > 2) {
+                    self.comments = [response.data.result subarrayWithRange:NSMakeRange(0, 2)];
+                } else {
+                    self.comments = tmpComments;
+                }
+                self.cellConfigurator.comments = self.comments;
             }
-            self.cellConfigurator.comments = self.comments;
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
             
@@ -138,7 +144,12 @@
         
         //两次请求完成
         dispatch_async(dispatch_get_main_queue(), ^{
-            [hud hideAnimated:YES];
+            if (self.cellConfigurator.desc && self.cellConfigurator.desc.length) {//有商品描述
+                
+            } else {
+                [_hud hideAnimated:YES];
+            }
+            
             [self.tableView reloadData];
         });
     });
@@ -155,8 +166,36 @@
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - kBottomHeight - 49 * WidthCoefficient);
 }
 
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSString *js = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= 'white';document.getElementsByTagName('body')[0].style.background='#120f0e';document.getElementsByTagName('body')[0].color='#ffffff';";
+    //    NSString *js = @"document.body.style.backgroundColor='#120f0e'; document.body.style.color='#ffffff';document.body.style.webkitTextFillColor='#ffffff'";
+    [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_hud hideAnimated:YES];
+        });
+        
+        if (error) {
+            
+        }
+    }];
+    if (self.webViewHeight) {
+        return;
+    }
+    self.webViewHeight = webView.scrollView.contentSize.height;
+    [self.tableView reloadRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:webView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CommodityDescriptionCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:CommodityDetailCellTypeDescription]];
+    if (cell) {
+        [cell.webView setNeedsLayout];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return self.cellConfigurator.elementsCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -167,9 +206,9 @@
  * 返回每一行的估计高度
  * 只要返回了估计高度，那么就会先调用tableView:cellForRowAtIndexPath:方法创建cell，再调   用tableView:heightForRowAtIndexPath:方法获取cell的真实高度
  */
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 300 * WidthCoefficient;
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 300 * WidthCoefficient;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
@@ -204,10 +243,16 @@
         case CommodityDetailCellTypeDescription:
         {
             CommodityDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:CommodityDescriptionCellIdentifier];
-            cell.myIndexPath = indexPath;
-            cell.tableView = self.tableView;
-            [cell configWithCommodityDescription:self.cellConfigurator.desc];
-            self.descCell = cell;
+//            cell.myIndexPath = indexPath;
+//            cell.tableView = self.tableView;
+//            [cell configWithCommodityDescription:self.cellConfigurator.desc];
+//            self.descCell = cell;
+            cell.webView.tag = indexPath.section;
+            cell.webView.navigationDelegate = self;
+            [cell.webView loadHTMLString:self.cellConfigurator.desc baseURL:nil];
+            [cell.webView updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(self.webViewHeight);
+            }];
             return cell;
         }
             break;
@@ -261,7 +306,8 @@
             break;
         case CommodityDetailCellTypeDescription:
         {
-            return [self.descCell cellHeightWithCommodityDescription:self.cellConfigurator.desc];
+//            return [self.descCell cellHeightWithCommodityDescription:self.cellConfigurator.desc];
+            return self.webViewHeight + 25 * WidthCoefficient;
         }
             break;
         case CommodityDetailCellTypeCommentHeader:

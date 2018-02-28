@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, CommodityDetailCellType) {
 
 @interface CommodityDetailCellsConfigurator : NSObject
 
+@property (nonatomic, assign) NSInteger elementsCount;
+
 @property (nonatomic, strong) NSArray<NSString *> *bannerPics;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *salePriceStr;

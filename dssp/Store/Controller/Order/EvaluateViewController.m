@@ -54,7 +54,7 @@
     [self.view addSubview:top];
     
     self.starView = [[YYStarView alloc] initWithFrame:CGRectMake(92 * WidthCoefficient, 20 * WidthCoefficient, 160 * WidthCoefficient, 24.75 * WidthCoefficient) numberOfStars:5];
-    _starView.scorePercent = 0;
+    _starView.scorePercent = 1;
     _starView.allowIncompleteStar = NO;;
     _starView.hasAnimation = NO;
     [top addSubview:_starView];
@@ -110,7 +110,7 @@
                             @"itemId": [NSNumber numberWithInteger:self.order.items[0].itemId],
                             @"itemScore": [NSNumber numberWithFloat:_starView.scorePercent * 5],
                             @"content": _textView.text,
-                            @"orderId": @"todo"
+                            @"orderId": [NSNumber numberWithInteger:self.order.orderId]
                             };
     [CUHTTPRequest POST:addItemcommentURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

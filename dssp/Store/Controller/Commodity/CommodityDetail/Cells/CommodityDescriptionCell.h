@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 extern NSString * const CommodityDescriptionCellIdentifier;
 
 @interface CommodityDescriptionCell : UITableViewCell
 
-@property (nonatomic, weak) UITableView *tableView;
-@property (nonatomic, strong) NSIndexPath *myIndexPath;
+@property (nonatomic, strong) WKWebView *webView;
 
-- (void)configWithCommodityDescription:(NSString *)desc;
-
-- (CGFloat)cellHeightWithCommodityDescription:(NSString *)desc;
+//- (void)configWithCommodityDescription:(NSString *)desc;
+//
+//- (CGFloat)cellHeightWithCommodityDescription:(NSString *)desc;
 
 @end

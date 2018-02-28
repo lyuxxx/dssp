@@ -31,10 +31,10 @@
 
 - (void)setupUI {
     self.table = [[UITableView alloc] init];
-    adjustsScrollViewInsets_NO(_table, self);
     _table.delegate = self;
     _table.dataSource = self;
     _table.tableFooterView = [UIView new];
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.table];
     [self.table makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

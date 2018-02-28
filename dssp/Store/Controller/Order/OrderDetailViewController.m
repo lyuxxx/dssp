@@ -280,7 +280,7 @@
             };
         }
         if (_order.status == 2) {//待评价
-            EvaluateViewController *vc = [[EvaluateViewController alloc] init];
+            EvaluateViewController *vc = [[EvaluateViewController alloc] initWithOrder:self.orderDetail];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

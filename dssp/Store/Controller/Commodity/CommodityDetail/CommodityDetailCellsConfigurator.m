@@ -14,6 +14,9 @@
 - (instancetype)initWithCommodityDetail:(StoreCommodityDetail *)detail {
     self = [super init];
     if (self) {
+        
+        _elementsCount = 8;
+        
         _bannerPics = detail.picImages;
         _name = detail.title;
         _salePriceStr = [NSString stringWithFormat:@"¥%@",detail.salePrice];

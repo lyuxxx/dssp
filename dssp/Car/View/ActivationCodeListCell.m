@@ -26,6 +26,8 @@
 }
 
 - (void)setupUI {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
@@ -88,7 +90,16 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy/MM/dd";
     formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    self.timeLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.updateTime]];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setYear:1];
+    [components setMonth:0];
+    [components setDay:0];
+    // laterDate则为一年后的时间
+    NSDate *laterDate = [calendar dateByAddingComponents:components toDate:code.getDate options:NSCalendarMatchStrictly];
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:laterDate]];
 }
 
 @end

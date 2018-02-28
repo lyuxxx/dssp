@@ -181,12 +181,18 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             _submitBtn.enabled = YES;
-            NSString *userName = dic[@"data"][@"nickName"];
+            NSString *userName = dic[@"data"][@"userName"];
             NSString *phone = dic[@"data"][@"userMobileNo"];
-            NSString *vin = dic[@"data"][@"vin"];
-            self.userNameLabel.text = userName;
-            self.phoneLabel.text = phone;
-            self.vinLabel.text = vin;
+            NSString *vin = [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"];
+            if (userName) {
+                self.userNameLabel.text = userName;
+            }
+            if (phone) {
+                self.phoneLabel.text = phone;
+            }
+            if (vin) {
+                self.vinLabel.text = vin;
+            }
         }
     } failure:^(NSInteger code) {
         
@@ -218,9 +224,15 @@
     [CUHTTPRequest POST:getMapUpdateActivationCodeURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
-            ActivationCode *code = dic[@"data"];
-            [self callMapUpdateHomeWithCode:code];
+            if (1) {
+                NSString *code = dic[@"data"];
+                hud.label.text = @"请求成功";
+                [hud hideAnimated:YES afterDelay:1];
+            } else {
+                [hud hideAnimated:YES];
+                ActivationCode *code = dic[@"data"];
+                [self callMapUpdateHomeWithCode:code];
+            }
         } else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];

@@ -8,12 +8,11 @@
 
 #import "CommodityDescriptionCell.h"
 #import "NSString+Size.h"
-#import <WebKit/WebKit.h>
+
 
 NSString * const CommodityDescriptionCellIdentifier = @"CommodityDescriptionCellIdentifier";
 
 @interface CommodityDescriptionCell () <WKNavigationDelegate, UIScrollViewDelegate>
-@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIView *bg;
 @property (nonatomic, assign) CGFloat webViewHeight;
 @property (nonatomic, assign) BOOL noNeedLoad;
@@ -21,9 +20,9 @@ NSString * const CommodityDescriptionCellIdentifier = @"CommodityDescriptionCell
 
 @implementation CommodityDescriptionCell
 
-- (void)dealloc {
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
-}
+//- (void)dealloc {
+//    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+//}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -47,7 +46,7 @@ NSString * const CommodityDescriptionCellIdentifier = @"CommodityDescriptionCell
     WKWebViewConfiguration *wkWebConfig = [[WKWebViewConfiguration alloc] init];
     wkWebConfig.userContentController = wkUController;
     self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:wkWebConfig];
-    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+//    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     _webView.scrollView.delegate = self;
     _webView.navigationDelegate = self;
     _webView.scrollView.scrollEnabled = NO;
@@ -82,40 +81,40 @@ NSString * const CommodityDescriptionCellIdentifier = @"CommodityDescriptionCell
 //    return nil;
 //}
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-//    _noNeedLoad = YES;
-//    [_webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-//        _webViewHeight = ((NSNumber *)result).floatValue;
+//- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+////    _noNeedLoad = YES;
+////    [_webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+////        _webViewHeight = ((NSNumber *)result).floatValue;
+////        [_webView updateConstraints:^(MASConstraintMaker *make) {
+////            make.height.equalTo(_webViewHeight);
+////        }];
+////        [self.tableView reloadData];
+////    }];
+//}
+
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+//    if ([keyPath isEqualToString:@"contentSize"]) {
+//        _noNeedLoad = YES;
+////        CGSize contentSize = [self.webView sizeThatFits:CGSizeZero];
+//        CGSize contentSize = self.webView.scrollView.contentSize;
+//        _webViewHeight = contentSize.height;
 //        [_webView updateConstraints:^(MASConstraintMaker *make) {
 //            make.height.equalTo(_webViewHeight);
 //        }];
+////        [self.tableView reloadRowAtIndexPath:_myIndexPath withRowAnimation:UITableViewRowAnimationNone];
 //        [self.tableView reloadData];
-//    }];
-}
+//    }
+//}
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentSize"]) {
-        _noNeedLoad = YES;
-//        CGSize contentSize = [self.webView sizeThatFits:CGSizeZero];
-        CGSize contentSize = self.webView.scrollView.contentSize;
-        _webViewHeight = contentSize.height;
-        [_webView updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(_webViewHeight);
-        }];
-//        [self.tableView reloadRowAtIndexPath:_myIndexPath withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView reloadData];
-    }
-}
+//- (void)configWithCommodityDescription:(NSString *)desc {
+//    if (!_noNeedLoad) {
+//        [_webView loadHTMLString:desc baseURL:nil];
+//    }
+//}
 
-- (void)configWithCommodityDescription:(NSString *)desc {
-    if (!_noNeedLoad) {
-        [_webView loadHTMLString:desc baseURL:nil];
-    }
-}
-
-- (CGFloat)cellHeightWithCommodityDescription:(NSString *)desc {
-    return _webViewHeight + 25 * WidthCoefficient;
-}
+//- (CGFloat)cellHeightWithCommodityDescription:(NSString *)desc {
+//    return _webViewHeight + 25 * WidthCoefficient;
+//}
 
 - (void)layoutSubviews {
     [super layoutSubviews];

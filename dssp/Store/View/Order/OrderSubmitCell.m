@@ -107,7 +107,7 @@
     }];
     
     self.name.text = commodity.title;
-    self.price.text = [NSString stringWithFormat:@"￥%@",commodity.price];
+    self.price.text = [NSString stringWithFormat:@"￥%@",commodity.salePrice];
 //    self.count.text = [NSString stringWithFormat:@"×%ld",commodity.num];
     self.count.text = @"×1";
 }

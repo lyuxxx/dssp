@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
@@ -198,6 +199,8 @@
 /* Begin PBXFileReference section */
 		10BBD8E837E05F1B4B40ABF6 /* Pods-dsspUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1E574CBB6F9BF8B9B4FB775F /* Pods-dsspUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		310368EA2045682300A9083E /* RangePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangePickerCell.h; sourceTree = "<group>"; };
+		310368EB2045682300A9083E /* RangePickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RangePickerCell.m; sourceTree = "<group>"; };
 		3109164F203EA53300C50D0E /* StoreBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreBaseViewController.h; sourceTree = "<group>"; };
 		31091650203EA53300C50D0E /* StoreBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreBaseViewController.m; sourceTree = "<group>"; };
 		310A07CE1FA95B6D00DC9529 /* LoginResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResult.h; sourceTree = "<group>"; };
@@ -1208,6 +1211,8 @@
 				45153F8B204113C800C41E10 /* TrafficReportCell.m */,
 				45153F902041461400C41E10 /* TrafficReportdatailCell.h */,
 				45153F912041461400C41E10 /* TrafficReportdatailCell.m */,
+				310368EA2045682300A9083E /* RangePickerCell.h */,
+				310368EB2045682300A9083E /* RangePickerCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1675,6 +1680,7 @@
 				315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
+				310368EC2045682300A9083E /* RangePickerCell.m in Sources */,
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,

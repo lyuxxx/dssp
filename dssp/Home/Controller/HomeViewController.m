@@ -267,7 +267,7 @@
             carflow.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:carflow animated:YES];
         }
-        if (btn.tag == 1000 + 2) {
+        if (btn.tag == 1000 + 2) {//商城
             StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
             storeTab.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:storeTab animated:YES];
