@@ -23,13 +23,14 @@
 @property (nonatomic, strong) EllipsePageControl *pageControl;
 @property (nonatomic, strong) UIImageView *bubble;
 @property (nonatomic, strong) NSMutableDictionary *result;
+@property (nonatomic, strong) NSMutableDictionary *result1;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 @property (nonatomic, copy) NSString *ID;
 @end
 
 @implementation InfoMessageLeftCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *))block {
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *))block {
     InfoMessageLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageLeftCell"];
     cell.serviceClickBlock = block;
     return cell;
@@ -54,6 +55,7 @@
             
         }
         [self.result setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
+        [self.result1 setObject:serviceList.sourceData forKey:serviceList.serviceName];
     }
     
     NSLog(@"%@",message);
@@ -307,8 +309,9 @@
         make.height.equalTo(self.scroll);
     }];
     
-    self.pageControl = [[EllipsePageControl alloc] init];
-    [self.contentView addSubview:_pageControl];
+//    self.pageControl = [[EllipsePageControl alloc] init];
+//    
+//    [self.contentView addSubview:_pageControl];
     
     self.bubble = [[UIImageView alloc] init];
     _bubble.image = [UIImage imageNamed:@"管家背景"];
@@ -330,8 +333,9 @@
 - (void)btnClick:(UIButton *)sender {
     if (self.serviceClickBlock) {
         NSString *Idstr = [_result objectForKey:sender.titleLabel.text];
+        NSString *sourceData = [_result1 objectForKey:sender.titleLabel.text];
         NSLog(@"2233%@",Idstr);
-        self.serviceClickBlock(sender,Idstr,self.ID);
+        self.serviceClickBlock(sender,Idstr,self.ID,sourceData);
     }
 }
 

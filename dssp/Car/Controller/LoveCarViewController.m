@@ -42,7 +42,7 @@
     UIButton *robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     robotBtn.tag = 1111;
     [robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
+    [robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:robotBtn];
     [robotBtn makeConstraints:^(MASConstraintMaker *make) {
        make.width.height.equalTo(24 * WidthCoefficient);

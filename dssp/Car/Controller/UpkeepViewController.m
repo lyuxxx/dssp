@@ -45,7 +45,7 @@
 //            self.upkeep.maintenanceMileage
         } else {
             [self setupUI];
-            [MBProgressHUD showText:dic[@"msg"]];
+//            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
         [self setupUI];
@@ -93,22 +93,20 @@
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(14.5 * HeightCoefficient);
+        make.top.equalTo(27.5 * HeightCoefficient);
         make.height.equalTo(60 * HeightCoefficient);
         make.width.equalTo(1 * HeightCoefficient);
-        
-        
     }];
     
     NSString *maintenanceDay = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceDay] stringByAppendingString:@"天"];
     UILabel *toplabel = [[UILabel alloc] init];
     toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel.textColor=[UIColor whiteColor];
-    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"xxx", nil);
+    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"0天", nil);
     toplabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel];
     [toplabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(20*HeightCoefficient);
+        make.top.equalTo(30*HeightCoefficient);
         make.height.equalTo(33.5 * HeightCoefficient);
         make.left.equalTo(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
@@ -129,15 +127,15 @@
     }];
     
     
-     NSString *maintenanceMileage = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceMileage] stringByAppendingString:@"km"];
+    NSString *maintenanceMileage = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceMileage] stringByAppendingString:@"km"];
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"xxx", nil);
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"0km", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(20*HeightCoefficient);
+        make.top.equalTo(30*HeightCoefficient);
         make.height.equalTo(33.5 * HeightCoefficient);
         make.left.equalTo(toplabel.right).offset(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
@@ -158,21 +156,21 @@
     }];
     
     
-    UILabel *Lastlabel = [[UILabel alloc] init];
-    Lastlabel.font=[UIFont fontWithName:FontName size:13];
-    Lastlabel.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
-    Lastlabel.layer.cornerRadius = 20 * HeightCoefficient/2;
-    Lastlabel.clipsToBounds = YES;
-    Lastlabel.textColor=[UIColor whiteColor];
-    Lastlabel.text=NSLocalizedString(@"上一次保养时间 60天前", nil);
-    Lastlabel.textAlignment = NSTextAlignmentCenter;
-    [bgImgV addSubview:Lastlabel];
-    [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(centrelabel.bottom).offset(12*HeightCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.centerX.equalTo(bgImgV);
-        make.width.equalTo(240 * WidthCoefficient);
-    }];
+//    UILabel *Lastlabel = [[UILabel alloc] init];
+//    Lastlabel.font=[UIFont fontWithName:FontName size:13];
+//    Lastlabel.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
+//    Lastlabel.layer.cornerRadius = 20 * HeightCoefficient/2;
+//    Lastlabel.clipsToBounds = YES;
+//    Lastlabel.textColor=[UIColor whiteColor];
+//    Lastlabel.text=NSLocalizedString(@"上一次保养时间 60天前", nil);
+//    Lastlabel.textAlignment = NSTextAlignmentCenter;
+//    [bgImgV addSubview:Lastlabel];
+//    [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(centrelabel.bottom).offset(12*HeightCoefficient);
+//        make.height.equalTo(20 * HeightCoefficient);
+//        make.centerX.equalTo(bgImgV);
+//        make.width.equalTo(240 * WidthCoefficient);
+//    }];
     
     
 //    UIView *lineView = [UIView new];
@@ -289,6 +287,10 @@
     
     UIImageView *rightImg = [[UIImageView alloc] init];
     rightImg.image = [UIImage imageNamed:@"电话bg"];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+    [rightImg addGestureRecognizer:tapGesture];
+    rightImg.userInteractionEnabled = YES;
+    [bottomView addSubview:rightImg];
     [bottomView addSubview:rightImg];
     [rightImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -349,9 +351,9 @@
     
     UIImageView *rightImg1 = [[UIImageView alloc] init];
     rightImg1.image = [UIImage imageNamed:@"手动预约bg"];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
-    [rightImg1 addGestureRecognizer:tapGesture];
-    rightImg1.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+//    [rightImg1 addGestureRecognizer:tapGesture];
+//    rightImg1.userInteractionEnabled = YES;
     [bottomView1 addSubview:rightImg1];
     [rightImg1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);

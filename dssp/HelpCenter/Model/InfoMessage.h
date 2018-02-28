@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, InfoMessageType) {
 @property (nonatomic , copy)   NSString              * serviceName;
 @property (nonatomic , copy)   NSString              * serviceParentId;
 @property (nonatomic , copy)   NSString              * serviceDetails;
+@property (nonatomic , copy)   NSString              *sourceData;
 @property (nonatomic , assign) NSInteger              isHelp;
 @property (nonatomic , assign) NSInteger              noHelp;
 @property (nonatomic , assign) NSInteger              readingNumber;

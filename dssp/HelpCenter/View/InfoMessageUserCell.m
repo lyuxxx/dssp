@@ -98,6 +98,9 @@
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.avatar = [[UIImageView alloc] init];
     self.avatar.image = selfPhoto?selfPhoto:[UIImage imageNamed:@"用户头像"];
+    
+    self.avatar.clipsToBounds=YES;
+    self.avatar.layer.cornerRadius=40 * HeightCoefficient/2;
 //      self.avatar.image = [UIImage imageNamed:_userModel.headPortrait];
 //    [self.avatar sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
     [self.contentView addSubview:self.avatar];

@@ -165,13 +165,7 @@
                 make.top.equalTo(0);
                 
             }];
-            
-//            @property (nonatomic, strong) UITextField *taxNoField;
-//            @property (nonatomic, strong) UITextField *receiverNameField;
-//            @property (nonatomic, strong) UITextField *receiverMobileField;
-//            @property (nonatomic, strong) UITextField *receiverZipField;
-//            @property (nonatomic, strong) UITextField *AddressField;
-            
+    
             
             if ([_indexs isEqualToString:@"个人"]) {
                 if (i == 0) {
@@ -292,8 +286,7 @@
 //    }
 //    
     
-    
-    
+
     
     NSDictionary *paras = @{
                             @"invoiceClient":@"1",

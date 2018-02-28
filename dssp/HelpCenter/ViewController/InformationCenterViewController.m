@@ -150,7 +150,7 @@
     InfoMessage *message = self.dataSource[indexPath.row];
     
     if (message.type == InfoMessageTypeOther) {
-        InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2) {
+        InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3) {
             NSLog(@"click:%@",sender.titleLabel.text);
             NSLog(@"click:%@",self.dataArray);
             NSLog(@"%@888",message.serviceParentId);
@@ -253,11 +253,20 @@
                 messageMe.text = sender.titleLabel.text;
                 messageMe.type = InfoMessageTypeMe;
                 [self sendMessage:messageMe];
-                
+                NSString *sourceData = nil;
+                if ([self isBlankString:str3] ) {
+                   
+                    sourceData = @"0";
+                }
+                else
+                {
+                   sourceData = str3;
+                    
+                }
                 
                 NSDictionary *paras = @{
                                         @"serviceParentId":str1,
-                                        @"sourceData":@"0"
+                                        @"sourceData":sourceData
                                         };
                 [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -298,7 +307,7 @@
     }
     if (message.type == InfoMessageTypeTwo) {
        
-         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2) {
+         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3) {
 
               if ([sender.titleLabel.text isEqualToString:@"确定"]) {
                   NSDictionary *paras = @{
