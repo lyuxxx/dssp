@@ -13,7 +13,7 @@
 #import "OrderObject.h"
 #import <UIImageView+SDWebImage.h>
 
-@interface EvaluateViewController () <YYStarViewDelegate>
+@interface EvaluateViewController () <YYStarViewDelegate, UITextViewDelegate>
 @property (nonatomic, strong) YYStarView *starView;
 @property (nonatomic, strong) UIImageView *imgV;
 @property (nonatomic, strong) YYLabel *label;
@@ -84,6 +84,7 @@
     [top addSubview:_label];
     
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 343 * WidthCoefficient, 136 * WidthCoefficient)];
+    _textView.delegate = self;
     _textView.font = [UIFont fontWithName:FontName size:14];
     _textView.center = CGPointMake(kScreenWidth / 2, (166 + 68) * WidthCoefficient);
     _textView.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
@@ -132,6 +133,12 @@
 
 - (void)starView:(YYStarView *)starView scorePercentDidChange:(CGFloat)newScorePercent {
     
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if (textView.text.length > 100) {
+        textView.text = [textView.text substringToIndex:100];
+    }
 }
 
 @end
