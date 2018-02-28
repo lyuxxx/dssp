@@ -171,7 +171,7 @@
             EvaluateViewController *vc = [[EvaluateViewController alloc] initWithOrder:order];
             [self.navigationController pushViewController:vc animated:YES];
         } else if (action == OrderActionInvoice) {
-            InvoicePageController *vc = [[InvoicePageController alloc] init];
+            InvoicePageController *vc = [[InvoicePageController alloc] initWithOrderId:[NSString stringWithFormat:@"%ld",order.orderId]];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }];

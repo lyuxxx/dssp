@@ -11,10 +11,18 @@
 #import "InvoiceEnterpriseViewController.h"
 
 @interface InvoicePageController ()
-
+@property (nonatomic, copy) NSString *orderID;
 @end
 
 @implementation InvoicePageController
+
+- (instancetype)initWithOrderId:(NSString *)orderId {
+    self = [super init];
+    if (self) {
+        self.orderID = orderId;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

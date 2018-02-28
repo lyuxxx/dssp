@@ -290,7 +290,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
         if (_order.status == 2) {//待评价
-            InvoicePageController *vc = [[InvoicePageController alloc] init];
+            InvoicePageController *vc = [[InvoicePageController alloc] initWithOrderId:[NSString stringWithFormat:@"%ld",self.orderDetail.orderId]];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
