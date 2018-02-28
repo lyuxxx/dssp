@@ -55,7 +55,7 @@ NSString * const CommodityDescriptionCellIdentifier = @"CommodityDescriptionCell
     [_webView makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.contentView).offset(CGPointMake(0, -2.5 * WidthCoefficient));
         make.width.equalTo(323 * WidthCoefficient);
-        make.height.equalTo(10 * WidthCoefficient);
+        make.height.equalTo(30 * WidthCoefficient);
     }];
     
     self.bg = [[UIView alloc] init];

@@ -52,16 +52,17 @@
     [self.contentView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 5 * WidthCoefficient, 5 * WidthCoefficient, 5 * WidthCoefficient));
-        make.width.equalTo(114.5 * WidthCoefficient);
-        make.height.equalTo(195 * WidthCoefficient);
+        make.width.equalTo(166.5 * WidthCoefficient);
+        make.height.equalTo(240 * WidthCoefficient);
     }];
     
     self.imgV = [[UIImageView alloc] init];
+    _imgV.contentMode = UIViewContentModeScaleAspectFill;
     _imgV.backgroundColor = [UIColor grayColor];
     [bg addSubview:_imgV];
     [_imgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(114.5 * WidthCoefficient);
-        make.height.equalTo(115 * WidthCoefficient);
+        make.width.equalTo(bg);
+        make.height.equalTo(152 * WidthCoefficient);
         make.left.top.right.equalTo(bg);
     }];
     
@@ -74,7 +75,6 @@
     }];
     
     self.titleLabel = [[UILabel alloc] init];
-    _titleLabel.text = @"基础流量包基础流量包";
     _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.font = [UIFont fontWithName:FontName size:13];
     _titleLabel.numberOfLines = 0;
@@ -82,22 +82,21 @@
     _titleLabel.preferredMaxLayoutWidth = 104.5 * WidthCoefficient;
     [bg addSubview:_titleLabel];
     [_titleLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(104.5 * WidthCoefficient);
+        make.width.equalTo(146.5 * WidthCoefficient);
         make.height.equalTo(40 * WidthCoefficient);
-        make.top.equalTo(_imgV.bottom).offset(5 * WidthCoefficient);
+        make.top.equalTo(_imgV.bottom).offset(10 * WidthCoefficient);
         make.centerX.equalTo(bg);
     }];
     
     self.priceLabel = [[UILabel alloc] init];
     _priceLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:13];
     _priceLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-    _priceLabel.text = @"¥200";
     [bg addSubview:_priceLabel];
     [_priceLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(20 * WidthCoefficient);
-        make.left.equalTo(5 * WidthCoefficient);
-        make.top.equalTo(_titleLabel.bottom).offset(10 * WidthCoefficient);
-        make.bottom.equalTo(-5 * WidthCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(_titleLabel.bottom).offset(9 * WidthCoefficient);
+        make.bottom.equalTo(-9 * WidthCoefficient);
     }];
     
     self.buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -110,10 +109,10 @@
     _buyBtn.layer.masksToBounds = YES;
     [bg addSubview:_buyBtn];
     [_buyBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(45 * WidthCoefficient);
+        make.width.equalTo(50 * WidthCoefficient);
         make.height.equalTo(18 * WidthCoefficient);
         make.centerY.equalTo(_priceLabel);
-        make.right.equalTo(-5 * WidthCoefficient);
+        make.right.equalTo(-10 * WidthCoefficient);
     }];
     
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
+		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
 		31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
@@ -20,7 +21,7 @@
 		3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
 		3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */; };
 		312FE1B82029883200B7AE48 /* StoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1B72029883200B7AE48 /* StoreTabViewController.m */; };
-		312FE1BB2029884700B7AE48 /* StoreHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BA2029884700B7AE48 /* StoreHomeViewController.m */; };
+		312FE1BB2029884700B7AE48 /* StoreSingleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BA2029884700B7AE48 /* StoreSingleViewController.m */; };
 		312FE1BE2029885200B7AE48 /* OrderPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BD2029885200B7AE48 /* OrderPageController.m */; };
 		312FE1C9202A917F00B7AE48 /* CommodityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1C8202A917F00B7AE48 /* CommodityCell.m */; };
 		312FE1CF202A9BE100B7AE48 /* CommodityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1CE202A9BE100B7AE48 /* CommodityHeaderView.m */; };
@@ -201,6 +202,8 @@
 		1E574CBB6F9BF8B9B4FB775F /* Pods-dsspUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dsspUITests/Pods-dsspUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		310368EA2045682300A9083E /* RangePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangePickerCell.h; sourceTree = "<group>"; };
 		310368EB2045682300A9083E /* RangePickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RangePickerCell.m; sourceTree = "<group>"; };
+		310368ED2046882200A9083E /* StorePageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorePageController.h; sourceTree = "<group>"; };
+		310368EE2046882200A9083E /* StorePageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StorePageController.m; sourceTree = "<group>"; };
 		3109164F203EA53300C50D0E /* StoreBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreBaseViewController.h; sourceTree = "<group>"; };
 		31091650203EA53300C50D0E /* StoreBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreBaseViewController.m; sourceTree = "<group>"; };
 		310A07CE1FA95B6D00DC9529 /* LoginResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResult.h; sourceTree = "<group>"; };
@@ -226,8 +229,8 @@
 		3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapUpdateHelpViewController.m; sourceTree = "<group>"; };
 		312FE1B62029883200B7AE48 /* StoreTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreTabViewController.h; sourceTree = "<group>"; };
 		312FE1B72029883200B7AE48 /* StoreTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreTabViewController.m; sourceTree = "<group>"; };
-		312FE1B92029884700B7AE48 /* StoreHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreHomeViewController.h; sourceTree = "<group>"; };
-		312FE1BA2029884700B7AE48 /* StoreHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreHomeViewController.m; sourceTree = "<group>"; };
+		312FE1B92029884700B7AE48 /* StoreSingleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreSingleViewController.h; sourceTree = "<group>"; };
+		312FE1BA2029884700B7AE48 /* StoreSingleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreSingleViewController.m; sourceTree = "<group>"; };
 		312FE1BC2029885200B7AE48 /* OrderPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPageController.h; sourceTree = "<group>"; };
 		312FE1BD2029885200B7AE48 /* OrderPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPageController.m; sourceTree = "<group>"; };
 		312FE1C7202A917F00B7AE48 /* CommodityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommodityCell.h; sourceTree = "<group>"; };
@@ -937,8 +940,10 @@
 			children = (
 				312FE1B62029883200B7AE48 /* StoreTabViewController.h */,
 				312FE1B72029883200B7AE48 /* StoreTabViewController.m */,
-				312FE1B92029884700B7AE48 /* StoreHomeViewController.h */,
-				312FE1BA2029884700B7AE48 /* StoreHomeViewController.m */,
+				310368ED2046882200A9083E /* StorePageController.h */,
+				310368EE2046882200A9083E /* StorePageController.m */,
+				312FE1B92029884700B7AE48 /* StoreSingleViewController.h */,
+				312FE1BA2029884700B7AE48 /* StoreSingleViewController.m */,
 				31B38B90202C278E0086EDC8 /* CommodityDetailViewController.h */,
 				31B38B91202C278E0086EDC8 /* CommodityDetailViewController.m */,
 				31B38B96202C29910086EDC8 /* CommodityDetail */,
@@ -1542,8 +1547,9 @@
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
 				319A58C420452E22006837DC /* TrackObject.m in Sources */,
 				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
+				310368EF2046882200A9083E /* StorePageController.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
-				312FE1BB2029884700B7AE48 /* StoreHomeViewController.m in Sources */,
+				312FE1BB2029884700B7AE48 /* StoreSingleViewController.m in Sources */,
 				4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */,
 				455036091FE246FC0088DAE0 /* ContractCell.m in Sources */,
 				31AC45312022F0080044A62C /* InfoMessageHelpCenterCell.m in Sources */,

@@ -7,11 +7,11 @@
 //
 
 #import "StoreTabViewController.h"
-#import "StoreHomeViewController.h"
+#import "StorePageController.h"
 #import "OrderPageController.h"
 
 @interface StoreTabViewController () <UITabBarDelegate>
-@property (nonatomic, strong) StoreHomeViewController *homeVC;
+@property (nonatomic, strong) StorePageController *homeVC;
 @property (nonatomic, strong) OrderPageController *orderVC;
 @property (nonatomic, strong) UIViewController *currentVC;
 
@@ -29,7 +29,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = NSLocalizedString(@"商城", nil);
     
-    self.homeVC = [[StoreHomeViewController alloc] init];
+    self.homeVC = [[StorePageController alloc] init];
     self.homeVC.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight - 1 + kNaviHeight);//高度会自动减一个导航栏高度,原因未知...
     [self addChildViewController:_homeVC];
     //addChildViewController 会调用 [child willMoveToParentViewController:self] 方法，但是不会调用 didMoveToParentViewController:方法，官方建议显示调用
@@ -126,9 +126,9 @@
 
 #pragma mark - lazy load -
 
-- (StoreHomeViewController *)homeVC {
+- (StorePageController *)homeVC {
     if (!_homeVC) {
-        _homeVC = [[StoreHomeViewController alloc] init];
+        _homeVC = [[StorePageController alloc] init];
     }
     return _homeVC;
 }

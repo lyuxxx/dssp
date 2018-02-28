@@ -8,6 +8,8 @@
 
 #import "StoreBaseViewController.h"
 
-@interface StoreHomeViewController : StoreBaseViewController
+@interface StoreSingleViewController : StoreBaseViewController
+
+- (instancetype)initWithCategoryId:(NSInteger)categoryId;
 
 @end
