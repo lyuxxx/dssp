@@ -24,6 +24,7 @@
 #import "CarflowViewController.h"
 #import "UITabBar+badge.h"
 #import "StoreTabViewController.h"
+#import "UpkeepViewController.h"
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
@@ -110,7 +111,7 @@
     
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
+    [_robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);
@@ -271,6 +272,11 @@
             StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
             storeTab.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:storeTab animated:YES];
+        }
+        if (btn.tag == 1000 + 4) {
+            UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];
+            upkeep.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:upkeep animated:YES];
         }
     };
     

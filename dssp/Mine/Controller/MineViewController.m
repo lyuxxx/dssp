@@ -243,7 +243,7 @@
     
     self.setBtn= [UIButton buttonWithType:UIButtonTypeCustom];
     [_setBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_setBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
+    [_setBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_setBtn];
     [_setBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);

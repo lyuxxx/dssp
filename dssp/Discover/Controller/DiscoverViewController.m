@@ -186,7 +186,7 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_robotBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_robotBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
+    [_robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);

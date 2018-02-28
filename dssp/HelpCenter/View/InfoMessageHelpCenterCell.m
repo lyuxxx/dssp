@@ -23,6 +23,7 @@
 @property (nonatomic, strong) EllipsePageControl *pageControl;
 @property (nonatomic, strong) UIImageView *bubble;
 @property (nonatomic, strong) NSMutableDictionary *result;
+@property (nonatomic, strong) NSMutableDictionary *result1;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 
 @property (nonatomic, copy) NSString *ID;
@@ -31,7 +32,7 @@
 
 @implementation InfoMessageHelpCenterCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *))block {
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *))block {
     InfoMessageHelpCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageHelpCenterCell"];
     cell.serviceClickBlock = block;
     return cell;
@@ -52,6 +53,7 @@
     [self.contentView addSubview:_pageControl];
     
     self.result = [NSMutableDictionary new];
+    self.result1 = [NSMutableDictionary new];
     //    [result setObject:message.infoMessagedatailId forKey:message.serviceName];
     NSArray *array = message.serviceKnowledgeProfileList;
     NSMutableArray *dataArray =[[NSMutableArray alloc] init];
@@ -66,11 +68,12 @@
         {
             
         }
+        
         [self.result setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
-//         [self.result1 setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
+        [self.result1 setObject:serviceList.sourceData forKey:serviceList.serviceName];
     }
-    NSString *Idstr = [_result objectForKey:message.serviceName];
     
+    NSString *Idstr = [_result objectForKey:message.serviceName];
     NSLog(@"555%@",Idstr);
     
     if (message.type == InfoMessageTypeMe) {
@@ -495,8 +498,9 @@
 - (void)btnClick:(UIButton *)sender {
     if (self.serviceClickBlock) {
         NSString *Idstr = [_result objectForKey:sender.titleLabel.text];
-        NSLog(@"2233%@",Idstr);
-        self.serviceClickBlock(sender,Idstr,self.ID);
+        NSString *sourceData = [_result1 objectForKey:sender.titleLabel.text];
+        NSLog(@"2233%@",sourceData);
+        self.serviceClickBlock(sender,Idstr,self.ID,sourceData);
     }
 }
 

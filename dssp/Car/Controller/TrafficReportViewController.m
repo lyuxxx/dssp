@@ -32,17 +32,7 @@
     self.navigationItem.title = NSLocalizedString(@"车况报告", nil);
     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     
-    
-   
-    [self initTableView];
-    [self setupUI];
     [self requestData];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//
-//
-//
-//                    });
-    
 }
 
 -(void)requestData
@@ -58,28 +48,66 @@
            
             [_tableView reloadData];
             
+            
+            [self initTableView];
+            [self setupUI];
+          
+            self.trafficReporData =_trafficReporData;
 //            dispatch_async(dispatch_get_main_queue(), ^{
             
-            self.trafficReporData =_trafficReporData;
+     
        
 //            });
           
         } else {
-           
-            [_tableView reloadData];
-           self.trafficReporData =_trafficReporData;
+            [self blankUI];
+//            [_tableView reloadData];
+//            self.trafficReporData =_trafficReporData;
             [hud hideAnimated:YES];
-            [MBProgressHUD showText:dic[@"msg"]];
+//            [MBProgressHUD showText:dic[@"msg"]];
+          
+            
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
-      
-        [_tableView reloadData];
-        self.trafficReporData =_trafficReporData;
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-        [hud hideAnimated:YES afterDelay:1];
+        [self blankUI];
+//        [_tableView reloadData];
+//        self.trafficReporData =_trafficReporData;
+//        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//        [hud hideAnimated:YES afterDelay:1];
     }];
+}
+
+-(void)blankUI{
+    
+    self.bgImgV = [[UIImageView alloc] init];
+    _bgImgV.image = [UIImage imageNamed:@"空页面1"];
+    [self.bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:_bgImgV];
+    [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(120 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(77.5 * HeightCoefficient);
+        make.width.equalTo(86.5 * WidthCoefficient);
+        
+    }];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text =@"空空如也";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor colorWithHexString:@"#999999"];
+    label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+
+    [self.view addSubview:label];
+    [label makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_bgImgV.bottom).offset(15*WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(100 *WidthCoefficient);
+    }];
+    
+    
 }
 
 -(void)initTableView
