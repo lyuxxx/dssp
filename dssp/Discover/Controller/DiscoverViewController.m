@@ -106,7 +106,7 @@
 
             self.unreadstrs = [[NSString alloc] initWithFormat:@"%@", dic[@"data"]];
             self.unreadstr = _unreadstrs;
-            [(AppDelegate *)[UIApplication sharedApplication].delegate setBadgeNumber:_unreadstrs.integerValue];
+//            [(AppDelegate *)[UIApplication sharedApplication].delegate setBadgeNumber:_unreadstrs.integerValue];
 
             //响应事件
         } else {

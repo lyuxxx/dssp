@@ -331,7 +331,7 @@
             [self showLogout];
         } else {
             if (!offLine) {//online
-                [self increaseBadgeNumber];//在线消息加一
+//                [self increaseBadgeNumber];//在线消息加一
                 [self registerLocalNotificationWithInfo:dic];
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:@"DidReceivePayloadMsg" object:nil userInfo:nil];
