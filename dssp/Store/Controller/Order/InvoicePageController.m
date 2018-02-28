@@ -42,15 +42,21 @@
 }
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    
-    NSArray *titles = @[@"个人",@"企业"];
-    InvoiceEnterpriseViewController *vc = [[InvoiceEnterpriseViewController alloc] init];
-    NSString *ids =titles[index];
-    vc.indexs = ids;
-    
-    return vc;
-    
-//    return [[InvoiceEnterpriseViewController alloc] init];
+
+    if (index == 0) {
+        
+        InvoiceEnterpriseViewController *vc = [[InvoiceEnterpriseViewController alloc] init];
+        vc.personalID = _orderID;
+        return vc;
+
+    }else {
+        
+        InvoiceIndividualViewController *vc = [[InvoiceIndividualViewController alloc] init];
+        vc.companyID = _orderID;
+        return vc;
+        
+    }
+
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {

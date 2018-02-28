@@ -7,8 +7,13 @@
 //
 
 #import "InvoiceEnterpriseViewController.h"
+#import "GFAddressPicker.h"
+@interface InvoiceEnterpriseViewController ()<GFAddressPickerDelegate>
+@property (nonatomic, strong) GFAddressPicker *pickerView;
+@property (nonatomic ,strong) NSString *province;
+@property (nonatomic ,strong) NSString *city;
+@property (nonatomic ,strong) NSString *area;
 
-@interface InvoiceEnterpriseViewController ()
 @property (nonatomic ,strong) UIScrollView *sc;
 @property (nonatomic ,strong) UITextField *field;
 
@@ -17,6 +22,7 @@
 @property (nonatomic, strong) UITextField *receiverNameField;
 @property (nonatomic, strong) UITextField *receiverMobileField;
 @property (nonatomic, strong) UITextField *receiverZipField;
+@property (nonatomic, strong) UIButton *regionField;
 @property (nonatomic, strong) UITextField *AddressField;
 
 @end
@@ -30,6 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+ 
     [self setupUI];
 }
 
@@ -40,24 +48,17 @@
     [self.view addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(330 * HeightCoefficient);
+        make.height.equalTo(300 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(10 * WidthCoefficient);
     }];
     
     NSArray *titles = nil;
     NSArray *righttitles = nil;
-    if ([_indexs isEqualToString:@"个人"]) {
-        titles = @[@"纳税人姓名",@"收货人姓名",@"移动电话",@"邮政编码",@"地址"];
-        righttitles = @[@"请填写纳税人姓名",@"请填写收货人姓名",@"请填写移动电话",@"请填写邮政编码",@"请填写地址"];
-    }
-    else
-    {
-        titles = @[@"税号",@"纳税人姓名",@"收货人姓名",@"移动电话",@"邮政编码",@"地址"];
-        righttitles = @[@"请填写税号",@"请填写纳税人姓名",@"请填写收货人姓名",@"请填写移动电话",@"请填写邮政编码",@"请填写地址"];
-   
-    }
-    
+
+        titles = @[@"纳税人姓名",@"收货人姓名",@"移动电话",@"所在地区",@"详细地址"];
+        righttitles = @[@"请填写纳税人姓名",@"请填写收货人姓名",@"请填写移动电话",@"",@"请填写详细地址"];
+
     
     self.sc = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
@@ -165,12 +166,11 @@
                 make.top.equalTo(0);
                 
             }];
-    
             
-            if ([_indexs isEqualToString:@"个人"]) {
+            
                 if (i == 0) {
                     _field.text = @"";
-                    self.taxNoField = _field;
+                    self.invoiceClient = _field;
                     
                 } else if (i == 1) {
                     
@@ -182,55 +182,35 @@
                     _field.text = @"";
                     self.receiverMobileField = _field;
                     
-                } else if (i == 3) {
+                }
+
+                else if (i == 3) {
                     
-                    _field.text = @"";
-                    self.receiverZipField = _field;
+                    self.regionField = [UIButton buttonWithType:UIButtonTypeCustom];
+
+                    _regionField.titleLabel.font = [UIFont fontWithName:FontName size:16];
+                    [_regionField setTitle:NSLocalizedString(@"请选择省市区", nil) forState:UIControlStateNormal];
+                    _regionField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+                    [_regionField setTitleColor:[UIColor colorWithHexString:@"#ac0042"] forState:UIControlStateNormal];
+                    [_regionField addTarget:self action:@selector(regionbtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [whiteV addSubview:_regionField];
+                    [_regionField makeConstraints:^(MASConstraintMaker *make) {
+//                        make.centerX.equalTo(whiteV);
+                        make.left.equalTo(0 * WidthCoefficient);
+                        make.width.equalTo(190 * WidthCoefficient);
+                        make.height.equalTo(20 * HeightCoefficient);
+                        make.top.equalTo(0);
+                    }];
                     
-                } else if (i == 4) {
+    
+                }
+                else if (i == 4) {
                     
                     _field.text = @"";
                     self.AddressField = _field;
                     
                 }
-            }
-            else
-            {
-                if (i == 0) {
-                    _field.text = @"";
-                    self.invoiceClient = _field;
-                    
-                }
-                if (i == 1) {
-                    _field.text = @"";
-                    self.taxNoField = _field;
-                    
-                } else if (i == 2) {
-                    
-                    _field.text = @"";
-                    self.receiverNameField = _field;
-                    
-                } else if (i == 3) {
-                    
-                    _field.text = @"";
-                    self.receiverMobileField = _field;
-                    
-                } else if (i == 4) {
-                    
-                    _field.text = @"";
-                    self.receiverZipField = _field;
-                    
-                } else if (i == 5) {
-                    
-                    _field.text = @"";
-                    self.AddressField = _field;
-                    
-                }
-                
-            }
-            
-            
-           
+
         }
         
         [contentView makeConstraints:^(MASConstraintMaker *make) {
@@ -257,53 +237,66 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(bg.bottom).offset(24 * WidthCoefficient);
     }];
+    
+//    [_regionField.keyboardToolbar.doneBarButton setTarget:self action:@selector(genderDoneAction:)];
 }
+
+-(void)regionbtnClick:(UIButton *)btn
+{
+    self.pickerView = [[GFAddressPicker alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.pickerView updateAddressAtProvince:@"河南省" city:@"郑州市" town:@"金水区"];
+    self.pickerView.delegate = self;
+    self.pickerView.font = [UIFont boldSystemFontOfSize:16];
+//    [self.view addSubview:self.pickerView];
+    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    [keywindow addSubview: self.pickerView];
+}
+
 
 -(void)btnClick:(UIButton *)btn
 {
     
-//    if (!_carModels.text || [_carModels.text isEqualToString:@""]) {
-//        [MBProgressHUD showText:NSLocalizedString(@"请选择车型", nil)];
-//        return;
-//    }
-//    else if (!_vhlColorName.text || [_vhlColorName.text isEqualToString:@""]) {
-//        [MBProgressHUD showText:NSLocalizedString(@"请选择车辆颜色", nil)];
-//        return;
-//    } else if (!_userName.text || [_userName.text isEqualToString:@""]) {
-//        [MBProgressHUD showText:NSLocalizedString(@"请填写用户名", nil)];
-//        return;
-//    }
-//    else if (!_mobilePhone.text || [_mobilePhone.text isEqualToString:@""]) {
-//        [MBProgressHUD showText:NSLocalizedString(@"请填写联系方式", nil)];
-//        return;
-//    }
-//    else if (![self valiMobile:_mobilePhone.text])
-//    {
-//        
-//        [MBProgressHUD showText:NSLocalizedString(@"请填写正确的手机号码", nil)];
-//        return;
-//        
-//    }
-//    
-    
-
+    if (!_invoiceClient.text || [self.invoiceClient.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写纳税人姓名", nil)];
+        return;
+    }
+    else if (!_receiverNameField.text || [_receiverNameField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写收货人姓名", nil)];
+        return;
+    } else if (!_receiverMobileField.text || [_receiverMobileField.text isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写移动电话", nil)];
+        return;
+    }
+    else if (!_province || [_province isEqualToString:@""]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请选择省市区", nil)];
+        return;
+    }
+    else if (!_AddressField.text||[_AddressField.text isEqualToString:@""])
+    {
+        
+        [MBProgressHUD showText:NSLocalizedString(@"请填写详细地址", nil)];
+        return;
+        
+    }
     
     NSDictionary *paras = @{
-                            @"invoiceClient":@"1",
-                            @"invoiceType":@"1",
-                            @"taxNo":@"1",
-                            @"receiverName":@"1",
-                            @"receiverMobile":@"1",
-                            @"receiverZip":@"1",
-                            @"receiverAddress":@"1",
+                            
+                            @"orderId":_personalID,
+                            @"invoiceClient":self.invoiceClient.text,
+                            @"invoiceType":@"2",
+//                            @"taxNo":@"1",
+                            @"receiverName":self.receiverNameField.text,
+                            @"receiverMobile":self.receiverMobileField.text,
+                            @"receiverState":_province,
+                            @"receiverCity":_city,
+                            @"receiverDistrict":_area,
+                            @"receiverAddress":self.AddressField.text,
                             };
     [CUHTTPRequest POST:orderinvoice parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [MBProgressHUD showText:NSLocalizedString(@"验证码已发送,请查看短信", nil)];
-            
-          
+            [MBProgressHUD showText:NSLocalizedString(@"发票信息提交成功", nil)];
             
         } else {
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -315,13 +308,34 @@
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"提交失败", nil),code];
         [hud hideAnimated:YES afterDelay:1];
     }];
-    
-    
-    
-    
-    
-    
+        
+ 
     
 }
+
+
+- (void)GFAddressPickerCancleAction
+{
+    [self.pickerView removeFromSuperview];
+}
+
+- (void)GFAddressPickerWithProvince:(NSString *)province
+                               city:(NSString *)city area:(NSString *)area
+{
+    [self.pickerView removeFromSuperview];
+    
+    _province = province;
+    _city = city;
+    _area = area;
+    [_regionField setTitle:[NSString stringWithFormat:@"%@ %@ %@",province,city,area] forState:UIControlStateNormal];
+}
+
+//- (void)completingTheSelection:(NSString *)province city:(NSString *)city area:(NSString *)area{
+//
+//
+//    [_regionField setTitle:[NSString stringWithFormat:@"%@ %@ %@",province,city,area] forState:UIControlStateNormal];
+////    _wordsLabel.text = [NSString stringWithFormat:@"%@ %@ %@123",province,city,area];
+//
+//}
 
 @end

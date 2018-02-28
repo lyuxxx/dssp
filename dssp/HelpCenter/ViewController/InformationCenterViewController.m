@@ -123,7 +123,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.dataSource.count != 0)
         {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
 
     });
@@ -236,14 +236,13 @@
             }
             else
             {
-                
                 NSArray *values = @[@"10010",@"10012",@"10001",@"10002",@"10003",@"10004",@"10005",@"10006",@"10007",@"10013",@"10009",@"10008",@"10014",@"10015",@"10011",@"10016"];
                 
                 NSArray *keys = @[@"MapHomeViewController",@"RefuelViewController",@"WifiViewController",@"UpkeepViewController",@"CarflowViewController",@"CarTrackViewController",@"TrafficReportViewController",@"驾驶行为",@"LllegalViewController",@"RealVinViewcontroller",@"紧急救援",@"道路救援",@"商品列表",@"OrderPageController",@"智慧停车",@"地图升级"];
                 
                 self.result3 = [NSMutableDictionary new];
 
-            
+                //根据value取页面名称
                 for (int i = 0; i < values.count; i++) {
                     [self.result3 setObject:keys[i] forKey:values[i]];
 //                    [_imgArray addObject:[_result objectForKey:_titleArray[i]]];
@@ -277,6 +276,7 @@
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
                         message.type = InfoMessageTypeOther;
                         [self sendMessage:message];
+                        
                         
                         NSLog(@"4433%@",message.appServiceNum);
                         if (![self isBlankString:message.appServiceNum]) {

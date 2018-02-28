@@ -86,7 +86,7 @@
                                   
                                     NSLocalizedString(@"开始时间:", nil),
                                     NSLocalizedString(@"结束时间:", nil),
-                                    NSLocalizedString(@"支付时间:", nil)
+//                                    NSLocalizedString(@"支付时间:", nil)
                                   
                                     ];
 
@@ -106,7 +106,6 @@
         [self addSubview:whiteV];
         
         
-       
         if (i == 0) {
             [label makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(71.5 * WidthCoefficient);

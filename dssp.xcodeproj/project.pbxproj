@@ -145,6 +145,8 @@
 		454C744220181C0C00108F1E /* LllegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744120181C0C00108F1E /* LllegalViewController.m */; };
 		454C744520181E1800108F1E /* LllegaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744420181E1800108F1E /* LllegaCell.m */; };
 		454C7448201823F600108F1E /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
+		454CE6E1204698E6003221F3 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454CE6DE204698E5003221F3 /* Address.plist */; };
+		454CE6E2204698E6003221F3 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 454CE6E0204698E6003221F3 /* GFAddressPicker.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
 		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
 		4555CFC420313EC70029598E /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
@@ -468,6 +470,9 @@
 		454C744420181E1800108F1E /* LllegaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegaCell.m; sourceTree = "<group>"; };
 		454C7446201823F600108F1E /* LllegadetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegadetailController.h; sourceTree = "<group>"; };
 		454C7447201823F600108F1E /* LllegadetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegadetailController.m; sourceTree = "<group>"; };
+		454CE6DE204698E5003221F3 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		454CE6DF204698E5003221F3 /* GFAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddressPicker.h; sourceTree = "<group>"; };
+		454CE6E0204698E6003221F3 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
 		455036071FE246FC0088DAE0 /* ContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractCell.h; sourceTree = "<group>"; };
 		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
 		4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindViewController.h; sourceTree = "<group>"; };
@@ -677,6 +682,7 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				454CE6D22046909C003221F3 /* AddressPickerView */,
 				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
 				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
@@ -1248,6 +1254,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		454CE6D22046909C003221F3 /* AddressPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				454CE6DE204698E5003221F3 /* Address.plist */,
+				454CE6DF204698E5003221F3 /* GFAddressPicker.h */,
+				454CE6E0204698E6003221F3 /* GFAddressPicker.m */,
+			);
+			path = AddressPickerView;
+			sourceTree = "<group>";
+		};
 		455974651FE8EAB300D7910A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1403,6 +1419,7 @@
 				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
+				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
 				454858102005EA6500170D85 /* application.html in Resources */,
 			);
@@ -1709,6 +1726,7 @@
 				31B38B99202C29EA0086EDC8 /* CommodityDetailCellsConfigurator.m in Sources */,
 				31B38B92202C278E0086EDC8 /* CommodityDetailViewController.m in Sources */,
 				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
+				454CE6E2204698E6003221F3 /* GFAddressPicker.m in Sources */,
 				310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */,
 				31F235DA204177C4002807D2 /* CommodityDescriptionTitleCell.m in Sources */,
 			);
