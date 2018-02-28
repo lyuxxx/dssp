@@ -100,7 +100,7 @@
         make.top.equalTo(topV.bottom).offset(20 * HeightCoefficient);
         make.centerX.equalTo(self.view);
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(217.5 * HeightCoefficient);
+        make.height.equalTo(217.5 * HeightCoefficient - 50 * HeightCoefficient);
     }];
     
     UILabel *tLabel = [[UILabel alloc] init];
@@ -117,7 +117,7 @@
     
     NSArray *botTitles = @[@"硬件码",@"检验码",@"数据版本"];
     NSArray *placeHolders = @[@"请输入系统id",@"请输入ACC码",@"请输入数据版本"];
-    for (NSInteger i = 0; i < 3; i++) {
+    for (NSInteger i = 0; i < 2; i++) {
         UILabel *label = [[UILabel alloc] init];
         label.text = botTitles[i];
         label.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -208,16 +208,17 @@
         [MBProgressHUD showText:@"请输入ACC码"];
         return;
     }
-    if (!_dataVersionField.text) {
-        [MBProgressHUD showText:@"请输入数据版本"];
-        return;
-    }
+//    if (!_dataVersionField.text) {
+//        [MBProgressHUD showText:@"请输入数据版本"];
+//        return;
+//    }
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSDictionary *paras = @{
                             @"vin":_vinLabel.text,
                             @"systemId":_systemIdField.text,
                             @"accCode":_accCodeField.text,
-                            @"dataVersion":_dataVersionField.text,
+//                            @"dataVersion":_dataVersionField.text,
+                            @"dataVersion":@"dataVersion",
                             @"custName":_userNameLabel.text,
                             @"custMobile":_phoneLabel.text
                             };

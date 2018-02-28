@@ -56,6 +56,8 @@
     }];
     
     self.avatar = [[UIImageView alloc] init];
+    _avatar.layer.cornerRadius = 4;
+    _avatar.layer.masksToBounds = YES;
     [_bgV addSubview:_avatar];
     [_avatar makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(80 * WidthCoefficient);
@@ -63,7 +65,7 @@
     }];
     
     self.stateImgV = [[UIImageView alloc] init];
-    [_bgV addSubview:_stateImgV];
+    [_avatar addSubview:_stateImgV];
     [_stateImgV makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_avatar);
     }];

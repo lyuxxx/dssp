@@ -159,6 +159,7 @@
     
     UIView *redV = [[UIView alloc] init];
     self.redV = redV;
+    self.redV.hidden = YES;
     redV.layer.cornerRadius = 2.5;
     redV.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
     [rtV addSubview:redV];
