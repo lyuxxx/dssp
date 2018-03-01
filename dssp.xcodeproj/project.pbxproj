@@ -10,6 +10,8 @@
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
 		310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
+		310368F52046B92800A9083E /* DrivingReportObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F42046B92800A9083E /* DrivingReportObject.m */; };
+		310368F82046C8C700A9083E /* DrivingReportWeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F72046C8C700A9083E /* DrivingReportWeekCell.m */; };
 		31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
 		310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
@@ -209,6 +211,10 @@
 		310368EE2046882200A9083E /* StorePageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StorePageController.m; sourceTree = "<group>"; };
 		310368F020469ECC00A9083E /* DrivingWeekReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrivingWeekReportViewController.h; sourceTree = "<group>"; };
 		310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrivingWeekReportViewController.m; sourceTree = "<group>"; };
+		310368F32046B92800A9083E /* DrivingReportObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrivingReportObject.h; sourceTree = "<group>"; };
+		310368F42046B92800A9083E /* DrivingReportObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrivingReportObject.m; sourceTree = "<group>"; };
+		310368F62046C8C700A9083E /* DrivingReportWeekCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrivingReportWeekCell.h; sourceTree = "<group>"; };
+		310368F72046C8C700A9083E /* DrivingReportWeekCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrivingReportWeekCell.m; sourceTree = "<group>"; };
 		3109164F203EA53300C50D0E /* StoreBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreBaseViewController.h; sourceTree = "<group>"; };
 		31091650203EA53300C50D0E /* StoreBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreBaseViewController.m; sourceTree = "<group>"; };
 		310A07CE1FA95B6D00DC9529 /* LoginResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResult.h; sourceTree = "<group>"; };
@@ -1210,6 +1216,8 @@
 				319A58BD20450A19006837DC /* MapUpdateObject.m */,
 				319A58C220452E22006837DC /* TrackObject.h */,
 				319A58C320452E22006837DC /* TrackObject.m */,
+				310368F32046B92800A9083E /* DrivingReportObject.h */,
+				310368F42046B92800A9083E /* DrivingReportObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1229,6 +1237,8 @@
 				45153F912041461400C41E10 /* TrafficReportdatailCell.m */,
 				310368EA2045682300A9083E /* RangePickerCell.h */,
 				310368EB2045682300A9083E /* RangePickerCell.m */,
+				310368F62046C8C700A9083E /* DrivingReportWeekCell.h */,
+				310368F72046C8C700A9083E /* DrivingReportWeekCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1690,6 +1700,7 @@
 				312FE1BE2029885200B7AE48 /* OrderPageController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */,
+				310368F52046B92800A9083E /* DrivingReportObject.m in Sources */,
 				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,
 				450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */,
@@ -1705,6 +1716,7 @@
 				4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */,
 				318B685E202AEBF500962F2A /* OrderViewController.m in Sources */,
 				459F22591FBC118300BA13CB /* MineCell.m in Sources */,
+				310368F82046C8C700A9083E /* DrivingReportWeekCell.m in Sources */,
 				4570EFF01FFF292B00FA6355 /* CarTrackModel.m in Sources */,
 				315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,

@@ -7,12 +7,31 @@
 //
 
 #import "DrivingWeekReportViewController.h"
+#import "DrivingReportObject.h"
+#import "DrivingReportWeekCell.h"
 
-@interface DrivingWeekReportViewController ()
+@interface DrivingWeekReportViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) UIScrollView *scroll;
+@property (nonatomic, strong) NSArray<DrivingReportWeek *> *reports;
 
-@property (nonatomic, strong) UIView *selectV;
+@property (nonatomic, strong) UIView *midV;
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, assign) NSInteger selectIndex;
+
+@property (nonatomic, strong) UILabel *filterStartLabel;
+@property (nonatomic, strong) UILabel *filterEndLabel;
+
+@property (nonatomic, strong) UILabel *harshBrakeLabel;
+@property (nonatomic, strong) UILabel *harshAccLabel;
+@property (nonatomic, strong) UILabel *harshTurnLabel;
+
+@property (nonatomic, strong) UILabel *mileageLabel;
+@property (nonatomic, strong) UILabel *fuelTotalLabel;
+@property (nonatomic, strong) UILabel *fuelAverageLabel;
+@property (nonatomic, strong) UILabel *brakeTimeLabel;
+@property (nonatomic, strong) UILabel *attentionTimesLabel;
+@property (nonatomic, strong) UILabel *accMileageLabel;
 
 @end
 
@@ -26,6 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupUI];
+    [self pullData];
 }
 
 - (void)setupUI {
@@ -74,6 +94,12 @@
             make.left.equalTo(label0.right).offset(5 * WidthCoefficient);
             make.top.equalTo(label0);
         }];
+        
+        if (i == 0) {
+            self.filterStartLabel = label1;
+        } else if (i == 1) {
+            self.filterEndLabel = label1;
+        }
     }
     
     UIImageView *arrow = [[UIImageView alloc] init];
@@ -86,12 +112,13 @@
     }];
     
     UIView *midV = [[UIView alloc] init];
+    self.midV = midV;
     midV.backgroundColor = [UIColor clearColor];
     [self.view addSubview:midV];
     [midV makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(topV.bottom);
-        make.height.equalTo(337 * WidthCoefficient);
+        make.height.equalTo(397 * WidthCoefficient);
     }];
     
     NSArray *harshTitles = @[
@@ -124,9 +151,18 @@
             make.top.equalTo(label0.bottom).offset(5 * WidthCoefficient);
             make.centerX.equalTo(label0);
         }];
+        
+        if (i == 0) {
+            self.harshBrakeLabel = label1;
+        } else if (i == 1) {
+            self.harshAccLabel = label1;
+        } else if (i == 2) {
+            self.harshTurnLabel = label1;
+        }
     }
     
     UIView *line0 = [[UIView alloc] init];
+    line0.backgroundColor = [UIColor colorWithHexString:@"1e1918"];
     [midV addSubview:line0];
     [line0 makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
@@ -160,7 +196,7 @@
         [imgV makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.equalTo(16 * WidthCoefficient);
             make.left.equalTo(16 * WidthCoefficient);
-            make.top.equalTo(line0.bottom).offset((12 + 41 * i) * WidthCoefficient);
+            make.top.equalTo(line0.bottom).offset((17 + 51 * i) * WidthCoefficient);
         }];
         
         UILabel *label0 = [[UILabel alloc] init];
@@ -186,64 +222,123 @@
         }];
         
         UIView *line = [[UIView alloc] init];
+        line.backgroundColor = [UIColor colorWithHexString:@"1e1918"];
         [midV addSubview:line];
         [line makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(317 * WidthCoefficient);
             make.height.equalTo(1 * WidthCoefficient);
             make.right.equalTo(label1);
-            make.top.equalTo(label1.bottom).offset(10 * WidthCoefficient);
+            make.top.equalTo(label1.bottom).offset(15 * WidthCoefficient);
         }];
+        
+        if (i == 0) {
+            self.mileageLabel = label1;
+        } else if (i == 1) {
+            self.fuelTotalLabel = label1;
+        } else if (i == 2) {
+            self.fuelAverageLabel = label1;
+        } else if (i == 3) {
+            self.brakeTimeLabel = label1;
+        } else if (i == 4) {
+            self.attentionTimesLabel = label1;
+        } else if (i == 5) {
+            self.accMileageLabel = label1;
+        }
     }
     
-    UIScrollView *scroll = [[UIScrollView alloc] init];
-    scroll.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview:scroll];
-    [scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(midV.bottom);
+    [self createCollectionView];
+}
+
+- (void)createCollectionView {
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flowLayout.minimumInteritemSpacing = 0 * WidthCoefficient;
+    flowLayout.minimumLineSpacing = 0 * WidthCoefficient;
+    flowLayout.sectionInset = UIEdgeInsetsMake(15 * WidthCoefficient, 11 * WidthCoefficient, 15 * WidthCoefficient, 11 * WidthCoefficient);
+    flowLayout.itemSize = CGSizeMake(100 * WidthCoefficient, 90 * WidthCoefficient);
+    
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _collectionView.showsVerticalScrollIndicator = NO;
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:_collectionView];
+    [_collectionView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_midV.bottom);
         make.left.right.equalTo(self.view);
         make.height.equalTo(120 * WidthCoefficient);
     }];
+
+    [_collectionView registerClass:[DrivingReportWeekCell class] forCellWithReuseIdentifier:@"DrivingReportWeekCell"];
     
-    UIView *content = [[UIView alloc] init];
-    [scroll addSubview:content];
-    [content makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(scroll);
-        make.height.equalTo(scroll);
-    }];
+}
+
+- (void)configWithReport:(DrivingReportWeek *)report {
+    self.harshBrakeLabel.text = report.harshDecelerationTimes;
+    self.harshAccLabel.text = report.harshAccelerationTimes;
+    self.harshTurnLabel.text = report.harshTurnTimes;
     
-    UIView *lastV;
-    
-    for (NSInteger i = 0; i < 10; i++) {
-        UIView *v = [[UIView alloc] init];
-        v.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
-        v.layer.cornerRadius = 4;
-        v.layer.shadowColor = [UIColor colorWithHexString:@"000000"].CGColor;
-        v.layer.shadowOffset = CGSizeMake(0, 6);
-        v.layer.shadowRadius = 7;
-        v.layer.shadowOpacity = 0.5;
-        [content addSubview:v];
-        [v makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(90 * WidthCoefficient);
-            make.height.equalTo(80 * HeightCoefficient);
-            make.top.equalTo(content).offset(20 * WidthCoefficient);
-            if (i == 0) {
-                make.left.equalTo(16 * WidthCoefficient);
-            } else {
-                make.left.equalTo(lastV.right).offset(10 * WidthCoefficient);
-            }
-        }];
-        lastV = v;
+    self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.mileage];
+    self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@L",report.totalFuelConsumed];
+    self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@L",report.averageFuelConsumed];
+    self.brakeTimeLabel.text = [NSString stringWithFormat:@"%@h",report.autoBrakeTimes];
+    self.attentionTimesLabel.text = [NSString stringWithFormat:@"%@次",report.driverAttentionTimes];
+    self.accMileageLabel.text = [NSString stringWithFormat:@"%@km",report.accMileage];
+}
+
+- (void)pullData {
+    NSDictionary *paras = @{
+//                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
+                            @"vin":@"1",
+                            @"startTime":@"1",
+                            @"endTime":@"1"
+                            };
+    [CUHTTPRequest POST:getDrivingReportWeekURL parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            DrivingReportWeekResponse *response = [DrivingReportWeekResponse yy_modelWithJSON:dic];
+            self.reports = response.data.record;
+            self.selectIndex = 0;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+                [self configWithReport:self.reports[self.selectIndex]];
+            });
+            
+        }
+    } failure:^(NSInteger code) {
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapWeek:)];
-        [v addGestureRecognizer:tap];
-    }
-    [lastV makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(content).offset(-16 * WidthCoefficient);
     }];
 }
 
-- (void)didTapWeek:(UITapGestureRecognizer *)sender {
-    
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.reports.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    DrivingReportWeekCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DrivingReportWeekCell" forIndexPath:indexPath];
+    DrivingReportWeek *report = self.reports[indexPath.row];
+    [cell configWithStart:report.startDate end:report.endDate isSelected:indexPath.row == self.selectIndex];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    DrivingReportWeek *report = self.reports[indexPath.row];
+    self.selectIndex = indexPath.row;
+    [self configWithReport:report];
+    [collectionView reloadData];
+}
+
+- (NSArray<DrivingReportWeek *> *)reports {
+    if (!_reports) {
+        _reports = [NSArray array];
+    }
+    return _reports;
 }
 
 @end

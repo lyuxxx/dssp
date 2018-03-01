@@ -55,17 +55,22 @@
     calendar.delegate = self;
     calendar.pagingEnabled = NO;
     calendar.allowsMultipleSelection = YES;
-    calendar.rowHeight = 60;
+    calendar.rowHeight = 60 * WidthCoefficient;
     calendar.placeholderType = FSCalendarPlaceholderTypeNone;
     [view addSubview:calendar];
     self.calendar = calendar;
     
+    calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase | FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
+    calendar.appearance.headerDateFormat = @"yyyy年MM月";
+    calendar.appearance.weekdayTextColor = [UIColor colorWithHexString:@"#666666"];
+    calendar.appearance.titleWeekendColor = [UIColor colorWithHexString:@"#ff6600"];
     calendar.appearance.titleDefaultColor = [UIColor blackColor];
     calendar.appearance.headerTitleColor = [UIColor blackColor];
     calendar.appearance.titleFont = [UIFont systemFontOfSize:16];
-    calendar.weekdayHeight = 0;
+    calendar.headerHeight = 40 * WidthCoefficient;
+    calendar.weekdayHeight = 40 * WidthCoefficient;
     
-    calendar.swipeToChooseGesture.enabled = YES;
+    calendar.swipeToChooseGesture.enabled = NO;
     
     calendar.today = nil; // Hide the today circle
     [calendar registerClass:[RangePickerCell class] forCellReuseIdentifier:@"cell"];

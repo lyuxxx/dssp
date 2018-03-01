@@ -104,9 +104,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //用户名验证码登录
 #define telephoneLogins [NSString stringWithFormat:@"%@login/telephone",baseUrl]
 
-///内网地址
-#define telephoneLogin @"http://172.23.102.73:10095/login/telephone"
-#define userNameLogin @"http://172.23.102.73:10095/login/userName"
+///209内网地址
+#define telephoneLogin @"http://172.23.105.209:10095/login/telephone"
+#define userNameLogin @"http://172.23.105.209:10095/login/userName"
 //查询车辆销售信息和套餐信息接口
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 //绑定客户-车辆信息
@@ -244,6 +244,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataList",baseUrl]
 ///轨迹详情
 #define getTrackDetailURL [NSString stringWithFormat:@"%@queryDetailOfTrip",baseUrl]
+///驾驶行为报告(周)
+//#define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
+#define getDrivingReportWeekURL @"http://172.23.105.209:10095/queryTheDrvingReportforEachVehicleTripByWeek"
 
 
 ///获取地图升级个数

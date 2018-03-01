@@ -238,7 +238,7 @@
         make.centerX.equalTo(self.view);
     }];
     
-    NSArray *midTitles = @[NSLocalizedString(@"开始:", nil),NSLocalizedString(@"结束:", nil)];
+    NSArray *midTitles = @[NSLocalizedString(@"起点:", nil),NSLocalizedString(@"终点:", nil)];
     for (NSInteger i = 0; i < midTitles.count; i++) {
         UIView *dot = [[UIView alloc] init];
         if (i == 0) {

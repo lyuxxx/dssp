@@ -16,13 +16,13 @@
     if (self) {
         
         CALayer *selectionLayer = [[CALayer alloc] init];
-        selectionLayer.backgroundColor = [UIColor orangeColor].CGColor;
+        selectionLayer.backgroundColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
         selectionLayer.actions = @{@"hidden":[NSNull null]}; // Remove hiding animation
         [self.contentView.layer insertSublayer:selectionLayer below:self.titleLabel.layer];
         self.selectionLayer = selectionLayer;
         
         CALayer *middleLayer = [[CALayer alloc] init];
-        middleLayer.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3].CGColor;
+        middleLayer.backgroundColor = [[UIColor colorWithHexString:GeneralColorString] colorWithAlphaComponent:0.3].CGColor;
         middleLayer.actions = @{@"hidden":[NSNull null]}; // Remove hiding animation
         [self.contentView.layer insertSublayer:middleLayer below:self.titleLabel.layer];
         self.middleLayer = middleLayer;
