@@ -19,6 +19,8 @@
 @implementation StorePageController
 
 - (void)viewDidLoad {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Notification) name:@"StorePageControllerRefresh" object:nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyCalculatesItemWidths = YES;
@@ -35,6 +37,13 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
     
     [self getStoreCategoriesList];
+}
+
+-(void)Notification
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getStoreCategoriesList];
+    });
 }
 
 - (void)getStoreCategoriesList {

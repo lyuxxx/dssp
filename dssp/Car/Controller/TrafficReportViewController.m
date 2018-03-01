@@ -48,7 +48,6 @@
            
             [_tableView reloadData];
             
-            
             [self initTableView];
             [self setupUI];
           
