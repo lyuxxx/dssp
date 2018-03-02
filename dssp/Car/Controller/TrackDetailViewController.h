@@ -8,6 +8,11 @@
 
 #import "BaseViewController.h"
 
+@class TrackInfo;
+
 @interface TrackDetailViewController : BaseViewController
 
+- (instancetype)initWithTrackInfo:(TrackInfo *)trackInfo;
+
 @end
+

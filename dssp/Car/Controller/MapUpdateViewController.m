@@ -282,7 +282,7 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             self.limit = ((NSString *)dic[@"data"][@"mapCount"]).integerValue;
             self.count = ((NSString *)dic[@"data"][@"activationCodeCount"]).integerValue;
-            self.tipLabel.text = [NSString stringWithFormat:@"您还可以获取激活%ld次",_limit - _count];
+            self.tipLabel.text = [NSString stringWithFormat:@"您还可以获取激活%ld次",_limit];
             self.limitLabel.text = [NSString stringWithFormat:@"%ld次",_limit];
             self.countLabel.text = [NSString stringWithFormat:@"%ld个",_count];
             if (_count == 0) {
@@ -290,12 +290,12 @@
             } else {
                 self.redV.hidden = NO;
             }
-            if (_count > 0) {
+            if (_count) {
                 self.canShowActivationList = YES;
             } else {
                 self.canShowActivationList = NO;
             }
-            if (_limit > _count) {
+            if (_limit) {
                 self.canGetActivationCode = YES;
             } else {
                 self.canGetActivationCode = NO;
@@ -311,20 +311,20 @@
 - (void)showCodeViewWithCode:(ActivationCode *)code {
     self.codeV.hidden = NO;
     self.codeLabel.text = code.checkCode;
-    if ([code.recordStatus isEqualToString:@"2"]) {
+    if ([code.recordStatus isEqualToString:@"1"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-        _stateLabel.text = NSLocalizedString(@"待激活", nil);
-    } else if ([code.recordStatus isEqualToString:@"1"]) {
-        _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-        _stateLabel.text = NSLocalizedString(@"已使用", nil);
+        _stateLabel.text = NSLocalizedString(@"已获取", nil);
     } else if ([code.recordStatus isEqualToString:@"0"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
         _stateLabel.text = NSLocalizedString(@"已过期", nil);
     }
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy/MM/dd";
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    self.expireLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.updateTime]];
+    
+    if (code.updateTime) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy/MM/dd";
+        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        self.expireLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.updateTime]];
+    }
 }
 
 - (void)helpBtnClick:(UIButton *)sender {
@@ -333,10 +333,10 @@
 }
 
 - (void)activate:(UITapGestureRecognizer *)sender {
-//    if (self.canGetActivationCode) {
+    if (self.canGetActivationCode) {
         GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-//    }
+    }
 }
 
 - (void)codeList:(UITapGestureRecognizer *)sender {

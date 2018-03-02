@@ -241,12 +241,14 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //实时车况报告(周)
 #define queryTheVehicleHealthReportForLatestSevenDays [NSString stringWithFormat:@"%@queryTheVehicleHealthReportForLatestSevenDays",baseUrl]
 ///轨迹列表
-#define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataList",baseUrl]
+#define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataEachDayList",baseUrl]
+//#define getTrackListURL @"http://172.23.105.209:10095/getEachVehicleTripDataEachDayList"
 ///轨迹详情
-#define getTrackDetailURL [NSString stringWithFormat:@"%@queryDetailOfTrip",baseUrl]
+#define getTrackDetailURL [NSString stringWithFormat:@"%@queryTheDetailofEachVehicleTripGeo",baseUrl]
+//#define getTrackDetailURL @"http://172.23.105.209:10095/queryTheDetailofEachVehicleTripGeo"
 ///驾驶行为报告(周)
-//#define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
-#define getDrivingReportWeekURL @"http://172.23.105.209:10095/queryTheDrvingReportforEachVehicleTripByWeek"
+#define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
+//#define getDrivingReportWeekURL @"http://172.23.105.209:10095/queryTheDrvingReportforEachVehicleTripByWeek"
 
 
 ///获取地图升级个数

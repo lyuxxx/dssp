@@ -71,7 +71,7 @@
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    self.scrollEnable = NO;
+    self.scrollEnable = YES;
     self.progressHeight = 3 * WidthCoefficient;
     self.progressViewCornerRadius = 1.5;
     return CGRectMake(0, 0, kScreenWidth, 44 * WidthCoefficient);

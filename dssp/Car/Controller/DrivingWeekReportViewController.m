@@ -9,8 +9,35 @@
 #import "DrivingWeekReportViewController.h"
 #import "DrivingReportObject.h"
 #import "DrivingReportWeekCell.h"
+#import <FSCalendar.h>
+#import "RangePickerCell.h"
+#import <FSCalendarExtensions.h>
 
-@interface DrivingWeekReportViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+#define CalendarContainerHeight (kScreenHeight - kNaviHeight - 80 * WidthCoefficient)
+
+typedef NS_ENUM(NSUInteger, ButtonTag) {
+    ButtonTagCancel = 1000,
+    ButtonTagOK,
+};
+
+@interface DrivingWeekReportViewController () <UICollectionViewDelegate, UICollectionViewDataSource, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
+
+@property (nonnull, strong) UIView *calendarContainer;
+@property (weak, nonatomic) FSCalendar *calendar;
+
+@property (weak, nonatomic) UILabel *eventLabel;
+@property (strong, nonatomic) NSCalendar *gregorian;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
+
+// The start date of the range
+@property (strong, nonatomic) NSDate *date1;
+// The end date of the range
+@property (strong, nonatomic) NSDate *date2;
+
+@property (nonatomic, strong) UIButton *cancelBtn;
+@property (nonatomic, strong) UIButton *okBtn;
+
+///
 
 @property (nonatomic, strong) NSArray<DrivingReportWeek *> *reports;
 
@@ -33,6 +60,11 @@
 @property (nonatomic, strong) UILabel *attentionTimesLabel;
 @property (nonatomic, strong) UILabel *accMileageLabel;
 
+@property (nonatomic, copy) NSString *startTimeStamp;
+@property (nonatomic, copy) NSString *endTimeStamp;
+
+- (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position;
+
 @end
 
 @implementation DrivingWeekReportViewController
@@ -41,11 +73,110 @@
     return YES;
 }
 
+- (void)loadView
+{
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor whiteColor];
+    self.view = view;
+    
+    self.calendarContainer = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kNaviHeight, kScreenWidth, CalendarContainerHeight)];
+    _calendarContainer.backgroundColor = [UIColor whiteColor];
+    _calendarContainer.layer.masksToBounds = YES;
+    [self.view addSubview:_calendarContainer];
+    
+    self.cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _cancelBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
+    _cancelBtn.tag = ButtonTagCancel;
+    [_cancelBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_cancelBtn setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
+    [_cancelBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
+    [self.calendarContainer addSubview:_cancelBtn];
+    _cancelBtn.frame = CGRectMake(0, 0, 50 * WidthCoefficient, 40 * WidthCoefficient);
+    
+    self.okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _okBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
+    _okBtn.tag = ButtonTagOK;
+    [_okBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_okBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [_okBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
+    [self.calendarContainer addSubview:_okBtn];
+    _okBtn.frame = CGRectMake(kScreenWidth - 50 * WidthCoefficient, 0, 50 * WidthCoefficient, 40 * WidthCoefficient);
+    
+    UILabel *tipLabel = [[UILabel alloc] init];
+    tipLabel.textColor = [UIColor blackColor];
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.text = NSLocalizedString(@"选择日期", nil);
+    [self.calendarContainer addSubview:tipLabel];
+    tipLabel.frame = CGRectMake(kScreenWidth / 2 - 50 * WidthCoefficient, 0, 100 * WidthCoefficient, 40 * WidthCoefficient);
+    
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 40 * WidthCoefficient, kScreenWidth, CalendarContainerHeight - 40 * WidthCoefficient)];
+    calendar.backgroundColor = [UIColor whiteColor];
+    calendar.dataSource = self;
+    calendar.delegate = self;
+    calendar.pagingEnabled = NO;
+    calendar.allowsMultipleSelection = YES;
+    calendar.rowHeight = 60 * WidthCoefficient;
+    calendar.placeholderType = FSCalendarPlaceholderTypeNone;
+    [self.calendarContainer addSubview:calendar];
+    self.calendar = calendar;
+    
+    calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase | FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
+    calendar.appearance.headerDateFormat = @"yyyy年MM月";
+    calendar.appearance.weekdayTextColor = [UIColor colorWithHexString:@"#666666"];
+    calendar.appearance.titleWeekendColor = [UIColor colorWithHexString:@"#ff6600"];
+    calendar.appearance.titleDefaultColor = [UIColor blackColor];
+    calendar.appearance.headerTitleColor = [UIColor blackColor];
+    calendar.appearance.titleFont = [UIFont systemFontOfSize:16];
+    calendar.headerHeight = 40 * WidthCoefficient;
+    calendar.weekdayHeight = 40 * WidthCoefficient;
+    
+    calendar.swipeToChooseGesture.enabled = NO;
+    
+    calendar.today = nil; // Hide the today circle
+    [calendar registerClass:[RangePickerCell class] forCellReuseIdentifier:@"cell"];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
+    
+    // Uncomment this to perform an 'initial-week-scope'
+    self.calendar.scope = FSCalendarScopeWeek;
+    
+    // For UITest
+    self.calendar.accessibilityIdentifier = @"calendar";
+    
     [self setupUI];
-    [self pullData];
+    
+    self.harshBrakeLabel.text = @"-";
+    self.harshAccLabel.text = @"-";
+    self.harshTurnLabel.text = @"-";
+    self.mileageLabel.text = @"-km";
+    self.fuelTotalLabel.text = @"-L";
+    self.fuelAverageLabel.text = @"-L";
+    self.brakeTimeLabel.text = @"-h";
+    self.attentionTimesLabel.text = @"-次";
+    self.accMileageLabel.text = @"-km";
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.view bringSubviewToFront:self.calendarContainer];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_calendarContainer.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(4, 4)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _calendarContainer.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _calendarContainer.layer.mask = maskLayer;
+    _calendarContainer.layer.masksToBounds = YES;
 }
 
 - (void)setupUI {
@@ -110,6 +241,21 @@
         make.right.equalTo(-16 * WidthCoefficient);
         make.centerY.equalTo(0);
     }];
+    
+    UILabel *chooseLabel = [[UILabel alloc] init];
+    chooseLabel.textAlignment = NSTextAlignmentRight;
+    chooseLabel.font = [UIFont fontWithName:FontName size:12];
+    chooseLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    chooseLabel.text = NSLocalizedString(@"请选择查看日期", nil);
+    [topV addSubview:chooseLabel];
+    [chooseLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(arrow.left);
+        make.centerY.equalTo(arrow);
+        make.height.equalTo(20 * WidthCoefficient);
+    }];
+    
+    UITapGestureRecognizer *showCalendarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showCalendar)];
+    [topV addGestureRecognizer:showCalendarTap];
     
     UIView *midV = [[UIView alloc] init];
     self.midV = midV;
@@ -287,12 +433,73 @@
     self.accMileageLabel.text = [NSString stringWithFormat:@"%@km",report.accMileage];
 }
 
+- (void)showCalendar {
+    [UIView animateWithDuration:0.25 animations:^{
+        _calendarContainer.frame = CGRectMake(0, 80 * WidthCoefficient, kScreenWidth, CalendarContainerHeight);
+    }];
+}
+
+- (void)hideCalendarWithCompletion:(void (^)(BOOL))completion {
+    [UIView animateWithDuration:0.25 animations:^{
+        _calendarContainer.frame = CGRectMake(0, kScreenHeight - kNaviHeight, kScreenWidth, CalendarContainerHeight);
+    } completion:^(BOOL finished) {
+        completion(finished);
+    }];
+}
+
+- (void)btnClick:(UIButton *)sender {
+    
+    [self hideCalendarWithCompletion:^(BOOL finished) {
+        if (finished) {
+            if (sender.tag == ButtonTagOK) {
+                if (self.date1 && self.date2) {//
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyy/MM/dd";
+                    formatter.timeZone = [NSTimeZone localTimeZone];
+                    self.filterStartLabel.text = [formatter stringFromDate:self.date1];
+                    self.filterEndLabel.text = [formatter stringFromDate:self.date2];
+                    
+                    self.startTimeStamp = [self convertDateToTimestamp:self.date1 isStart:YES];
+                    self.endTimeStamp = [self convertDateToTimestamp:self.date2 isStart:NO];
+                    [self pullData];
+                }
+            }
+            //还原
+            if (self.date1) {
+                [self.calendar deselectDate:self.date1];
+                self.date1 = nil;
+            }
+            if (self.date2) {
+                [self.calendar deselectDate:self.date2];
+                self.date2 = nil;
+            }
+            [self configureVisibleCells];
+        }
+    }];;
+}
+
 - (void)pullData {
+    
+    self.harshBrakeLabel.text = @"-";
+    self.harshAccLabel.text = @"-";
+    self.harshTurnLabel.text = @"-";
+    self.mileageLabel.text = @"-km";
+    self.fuelTotalLabel.text = @"-L";
+    self.fuelAverageLabel.text = @"-L";
+    self.brakeTimeLabel.text = @"-h";
+    self.attentionTimesLabel.text = @"-次";
+    self.accMileageLabel.text = @"-km";
+    
+    self.reports = nil;
+    [self.collectionView reloadData];
+    
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    
     NSDictionary *paras = @{
 //                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
                             @"vin":@"1",
-                            @"startTime":@"1",
-                            @"endTime":@"1"
+                            @"startTime":self.startTimeStamp,
+                            @"endTime":self.endTimeStamp
                             };
     [CUHTTPRequest POST:getDrivingReportWeekURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -302,15 +509,48 @@
             self.selectIndex = 0;
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [hud hideAnimated:YES];
                 [self.collectionView reloadData];
                 [self configWithReport:self.reports[self.selectIndex]];
             });
             
+        } else {
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
-        
+        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
+
+///用于选择日期后转化为接口入参
+- (NSString *)convertDateToTimestamp:(NSDate *)date isStart:(BOOL)isStart {
+    
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    cal.timeZone = [NSTimeZone localTimeZone];
+    
+    NSDateComponents *dateComps = [cal components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
+    dateComps.timeZone = [NSTimeZone localTimeZone];
+    
+    if (isStart) {
+        dateComps.hour = 0;
+        dateComps.minute = 0;
+        dateComps.second = 0;
+    } else {
+        dateComps.hour = 23;
+        dateComps.minute = 59;
+        dateComps.second = 59;
+    }
+    
+    NSDate *newDate = [cal dateFromComponents:dateComps];
+    
+    NSTimeInterval interval = [newDate timeIntervalSince1970];
+    NSString *timeStamp = [NSString stringWithFormat:@"%.0f",interval * 1000];
+    return timeStamp;
+}
+
+#pragma mark - UICollectionViewDelegate -
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -332,6 +572,136 @@
     self.selectIndex = indexPath.row;
     [self configWithReport:report];
     [collectionView reloadData];
+}
+
+#pragma mark - FSCalendarDataSource
+
+- (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
+{
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:-6];
+    return [self.gregorian dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
+}
+
+- (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
+{
+    return [NSDate date];
+}
+
+- (NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date
+{
+    if ([self.gregorian isDateInToday:date]) {
+        return @"今";
+    }
+    return nil;
+}
+
+- (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    RangePickerCell *cell = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:monthPosition];
+    return cell;
+}
+
+- (void)calendar:(FSCalendar *)calendar willDisplayCell:(FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition: (FSCalendarMonthPosition)monthPosition
+{
+    [self configureCell:cell forDate:date atMonthPosition:monthPosition];
+}
+
+#pragma mark - FSCalendarDelegate
+
+- (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated {
+    calendar.frame = (CGRect){calendar.frame.origin,bounds.size};
+}
+
+- (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    return monthPosition == FSCalendarMonthPositionCurrent;
+}
+
+- (BOOL)calendar:(FSCalendar *)calendar shouldDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    return NO;
+}
+
+- (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    
+    if (calendar.swipeToChooseGesture.state == UIGestureRecognizerStateChanged) {
+        // If the selection is caused by swipe gestures
+        if (!self.date1) {
+            self.date1 = date;
+        } else {
+            if (self.date2) {
+                [calendar deselectDate:self.date2];
+            }
+            self.date2 = date;
+        }
+    } else {
+        if (self.date2) {
+            [calendar deselectDate:self.date1];
+            [calendar deselectDate:self.date2];
+            self.date1 = date;
+            self.date2 = nil;
+        } else if (!self.date1) {
+            self.date1 = date;
+        } else {//有date1
+            //            self.date2 = date;
+            if ([date timeIntervalSinceDate:self.date1] > 0) {
+                self.date2 = date;
+            } else {
+                [calendar deselectDate:self.date1];
+                self.date1 = date;
+            }
+        }
+    }
+    
+    [self configureVisibleCells];
+}
+
+- (void)calendar:(FSCalendar *)calendar didDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    NSLog(@"did deselect date %@",[self.dateFormatter stringFromDate:date]);
+    [self configureVisibleCells];
+}
+
+- (NSArray<UIColor *> *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
+{
+    if ([self.gregorian isDateInToday:date]) {
+        return @[[UIColor orangeColor]];
+    }
+    return @[appearance.eventDefaultColor];
+}
+
+#pragma mark - Private methods
+
+- (void)configureVisibleCells
+{
+    [self.calendar.visibleCells enumerateObjectsUsingBlock:^(__kindof FSCalendarCell * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDate *date = [self.calendar dateForCell:obj];
+        FSCalendarMonthPosition position = [self.calendar monthPositionForCell:obj];
+        [self configureCell:obj forDate:date atMonthPosition:position];
+    }];
+}
+
+- (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position
+{
+    RangePickerCell *rangeCell = cell;
+    if (position != FSCalendarMonthPositionCurrent) {
+        rangeCell.middleLayer.hidden = YES;
+        rangeCell.selectionLayer.hidden = YES;
+        return;
+    }
+    if (self.date1 && self.date2) {
+        // The date is in the middle of the range
+        BOOL isMiddle = [date compare:self.date1] != [date compare:self.date2];
+        rangeCell.middleLayer.hidden = !isMiddle;
+    } else {
+        rangeCell.middleLayer.hidden = YES;
+    }
+    BOOL isSelected = NO;
+    isSelected |= self.date1 && [self.gregorian isDate:date inSameDayAsDate:self.date1];
+    isSelected |= self.date2 && [self.gregorian isDate:date inSameDayAsDate:self.date2];
+    rangeCell.selectionLayer.hidden = !isSelected;
 }
 
 - (NSArray<DrivingReportWeek *> *)reports {

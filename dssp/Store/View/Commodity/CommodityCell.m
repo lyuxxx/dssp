@@ -58,7 +58,7 @@
     
     self.imgV = [[UIImageView alloc] init];
     _imgV.contentMode = UIViewContentModeScaleAspectFill;
-    _imgV.backgroundColor = [UIColor grayColor];
+    _imgV.layer.masksToBounds = YES;
     [bg addSubview:_imgV];
     [_imgV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(bg);

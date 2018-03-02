@@ -225,15 +225,13 @@
     [CUHTTPRequest POST:getMapUpdateActivationCodeURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            if (1) {
-                NSString *code = dic[@"data"];
-                hud.label.text = @"请求成功";
-                [hud hideAnimated:YES afterDelay:1];
-            } else {
-                [hud hideAnimated:YES];
-                ActivationCode *code = dic[@"data"];
-                [self callMapUpdateHomeWithCode:code];
-            }
+            hud.label.text = NSLocalizedString(@"获取成功", nil);
+            [hud hideAnimated:YES afterDelay:1];
+//            ActivationCode *code = dic[@"data"];
+            ActivationCode *code = [[ActivationCode alloc] init];
+            code.recordStatus = @"1";
+            code.checkCode = dic[@"data"];
+            [self callMapUpdateHomeWithCode:code];
         } else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];

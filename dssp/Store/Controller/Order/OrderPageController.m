@@ -52,12 +52,12 @@
     self.titleSizeSelected = 15.5;
     self.titleColorNormal = [UIColor colorWithHexString:@"#999999"];
     self.titleColorSelected = [UIColor colorWithHexString:GeneralColorString];
-    NSArray *titles = @[@"全部",@"待付款",@"已付款",@"待评价"];
+    NSArray *titles = @[@"全部",@"待付款",@"已付款",@"已完成"];
     return titles[index];
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    self.scrollEnable = NO;
+    self.scrollEnable = YES;
     self.progressHeight = 3 * WidthCoefficient;
     self.progressViewCornerRadius = 1.5;
     return CGRectMake(0, 0, kScreenWidth, 44 * WidthCoefficient);

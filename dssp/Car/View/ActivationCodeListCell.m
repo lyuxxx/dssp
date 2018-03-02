@@ -77,12 +77,9 @@
 
 - (void)configWithActivationCode:(ActivationCode *)code {
     self.codeLabel.text = code.checkCode;
-    if ([code.recordStatus isEqualToString:@"2"]) {
+    if ([code.recordStatus isEqualToString:@"1"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-        _stateLabel.text = NSLocalizedString(@"待激活", nil);
-    } else if ([code.recordStatus isEqualToString:@"1"]) {
-        _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-        _stateLabel.text = NSLocalizedString(@"已使用", nil);
+        _stateLabel.text = NSLocalizedString(@"已获取", nil);
     } else if ([code.recordStatus isEqualToString:@"0"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
         _stateLabel.text = NSLocalizedString(@"已过期", nil);
@@ -96,10 +93,10 @@
     [components setYear:1];
     [components setMonth:0];
     [components setDay:0];
-    // laterDate则为一年后的时间
+    // laterDate为一年后的时间
     NSDate *laterDate = [calendar dateByAddingComponents:components toDate:code.getDate options:NSCalendarMatchStrictly];
     
-    self.timeLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:laterDate]];
+    self.timeLabel.text = [NSString stringWithFormat:@"到期时间:%@",[formatter stringFromDate:laterDate]];
 }
 
 @end

@@ -335,7 +335,7 @@
         self.stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
         self.stateLabel.text = NSLocalizedString(@"待评价", nil);
     } else if (order.status == 3) {
-        self.stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+        self.stateLabel.textColor = [UIColor colorWithHexString:@"#969696"];
         self.stateLabel.text = NSLocalizedString(@"已取消", nil);
     }
     
@@ -358,7 +358,7 @@
     self.descriptionLabel.text = order.items[0].title;
     
     if (order.status == 3) {
-        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"已取消", nil)];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"", nil)];
         text.yy_font = [UIFont fontWithName:FontName size:15];
         text.yy_color = [UIColor colorWithHexString:@"#999999"];
         self.priceLabel.attributedText = text;

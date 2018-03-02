@@ -12,59 +12,11 @@
 @end
 
 
-@implementation Geometry
-
-+ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
-    return @{
-             @"coordinates": [CoordinatesItem class]
-             };
-}
-
-@end
-
-
-@implementation AdasEventItem
-@end
-
-
-
-@implementation Properties
-
-+ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
-    return @{
-             @"adasEvent": [AdasEventItem class]
-             };
-}
-
-@end
-
-
-@implementation RecordItem
-@end
-
-
-@implementation TrackDetailResponseDetail
-
-+ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
-    return @{
-             @"record": [RecordItem class]
-             };
-}
-
-@end
-
-
-
 @implementation NewCoordinatesItem
 @end
 
 
-@implementation ReportGeometry
-+ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
-    return @{
-             @"afterCoordinates" : @"newCoordinates"
-             };
-}
+@implementation Geometry
 
 + (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
     return @{
@@ -73,23 +25,25 @@
              };
 }
 
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{
+             @"afterCoordinates" : @"newCoordinates"
+             };
+}
+
 @end
 
 
-@implementation Statis
+@implementation TrackStatis
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
-    formatter0.dateFormat = @"yyyyMMddTHHmmssZ";
+    formatter0.dateFormat = @"yyyyMMdd'T'HHmmss'Z'";
     formatter0.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     formatter1.dateFormat = @"HH:mm:ss";
     formatter1.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    
-    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-    formatter2.dateFormat = @"HHhmmmsss";
-    formatter2.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     
     NSString *startTime = dic[@"startTime"];
     NSDate *date0 = [formatter0 dateFromString:startTime];
@@ -107,7 +61,7 @@
     
     // Create the NSDates
     NSDate *date10 = [[NSDate alloc] init];
-    NSDate *date11 = [[NSDate alloc] initWithTimeInterval:theTimeInterval sinceDate:date1];
+    NSDate *date11 = [[NSDate alloc] initWithTimeInterval:theTimeInterval sinceDate:date10];
     
     // Get conversion to months, days, hours, minutes
     NSInteger unitFlags = NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
@@ -128,18 +82,69 @@
     
     return YES;
 }
+@end
+
+
+@implementation TrackInfo
+@end
+
+
+@implementation TrackListSection
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"list": [TrackInfo class]
+             };
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    NSString *dateStr = dic[@"date"];
+    
+    NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
+    formatter0.dateFormat = @"yyyy-MM-dd";
+    formatter0.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+    formatter1.dateFormat = @"yyyy/MM/dd";
+    formatter1.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    
+    NSDate *date = [formatter0 dateFromString:dateStr];
+    _date = [formatter1 stringFromDate:date];
+    
+    return YES;
+}
 
 @end
 
 
-@implementation DrvingReport
+@implementation TrackListResponseData
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"result": [TrackListSection class]
+             };
+}
+
+@end
+
+
+@implementation TrackListResponse
+@end
+
+@implementation TrackDetailRecordItem
 @end
 
 
 @implementation TrackDetailResponseData
+
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"record": [TrackDetailRecordItem class]
+             };
+}
+
 @end
 
 
 @implementation TrackDetailResponse
 @end
-

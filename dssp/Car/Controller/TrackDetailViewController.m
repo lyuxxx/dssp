@@ -10,6 +10,7 @@
 #import <MAMapKit/MAMapKit.h>
 #import "MapUtility.h"
 #import "TrackObject.h"
+#import <YYLabel.h>
 
 @interface TrackDetailViewController () <MAMapViewDelegate>
 
@@ -20,17 +21,15 @@
 
 @property (nonatomic, strong) UIView *top;
 
-@property (nonatomic, copy) NSString *tripId;
-
-@property (nonatomic, strong) DrvingReport *report;
-@property (nonatomic, strong) NSArray<CoordinatesItem *> *coordinates;
+@property (nonatomic, strong) TrackInfo *trackInfo;
+@property (nonatomic, strong) NSArray<TrackDetailRecordItem *> *coordinates;
 
 @property (nonatomic, strong) UILabel *harshBrakeLabel;
 @property (nonatomic, strong) UILabel *harshAccLabel;
 @property (nonatomic, strong) UILabel *harshTurnLabel;
 @property (nonatomic, strong) UILabel *autoBrakeLabel;
-@property (nonatomic, strong) UILabel *startAddressLabel;
-@property (nonatomic, strong) UILabel *endAddressLabel;
+@property (nonatomic, strong) YYLabel *startAddressLabel;
+@property (nonatomic, strong) YYLabel *endAddressLabel;
 @property (nonatomic, strong) UILabel *startTimeLabel;
 @property (nonatomic, strong) UILabel *endTimeLabel;
 @property (nonatomic, strong) UILabel *mileageLabel;
@@ -44,6 +43,14 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
+}
+
+- (instancetype)initWithTrackInfo:(TrackInfo *)trackInfo {
+    self = [super init];
+    if (self) {
+        self.trackInfo = trackInfo;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -64,11 +71,11 @@
     [self createGradientBg];
     [self createMapView];
     [self setupUI];
-    
+    [self showStatisWithTrackInfo:self.trackInfo];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self pullData];
 }
 
@@ -91,8 +98,9 @@
 - (void)pullData {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSDictionary *paras = @{
-                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-                            @"tripId":_tripId,
+//                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
+                            @"vin":@"VFNCA5GRMFW000000",
+                            @"tripId":self.trackInfo.properties.tripId,
                             @"pageNo":@"1",
                             @"pageSize":@"10000"
                             };
@@ -101,8 +109,7 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             TrackDetailResponse *response = [TrackDetailResponse yy_modelWithJSON:dic];
-            self.coordinates = [self transformRecordsToCoordinates:response.data.detail.record];
-            self.report = response.data.drvingReport;
+            self.coordinates = response.data.record;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showTrackWithCoordinates:self.coordinates];
             });
@@ -116,29 +123,19 @@
     }];
 }
 
-- (void)showStatisWithReport:(DrvingReport *)report {
-    self.harshBrakeLabel.text = report.properties.harshDecelerationTimes;
-    self.harshAccLabel.text = report.properties.harshAccelerationTimes;
-    self.harshTurnLabel.text = report.properties.harshTurnTimes;
-    self.autoBrakeLabel.text = report.properties.autoBrakeTimes;
-    self.startAddressLabel.text = report.geometry.afterCoordinates[0].address;
-    self.endAddressLabel.text = report.geometry.afterCoordinates[1].address;
-    self.startTimeLabel.text = report.properties.startTime;
-    self.endTimeLabel.text = report.properties.endTime;
-    self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.properties.mileage];
-    self.durationLabel.text = report.properties.duration;
-    self.averageSpeedLabel.text = [NSString stringWithFormat:@"%@km/s",report.properties.averageSpeed];
-    self.fuelConsumedLabel.text = [NSString stringWithFormat:@"%@L",report.properties.fuelConsumed];
-}
-
-- (NSArray<CoordinatesItem *> *)transformRecordsToCoordinates:(NSArray<RecordItem *> *)records {
-    NSMutableArray<CoordinatesItem *> *coordinates = [NSMutableArray arrayWithCapacity:records.count];
-    for (NSInteger i = 0; i < records.count; i++) {
-        RecordItem *record = records[i];
-        CoordinatesItem *coordinate = record.geometry.coordinates[0];
-        [coordinates addObject:coordinate];
-    }
-    return coordinates;
+- (void)showStatisWithTrackInfo:(TrackInfo *)trackInfo {
+    self.harshBrakeLabel.text = trackInfo.properties.harshDecelerationTimes;
+    self.harshAccLabel.text = trackInfo.properties.harshAccelerationTimes;
+    self.harshTurnLabel.text = trackInfo.properties.harshTurnTimes;
+    self.autoBrakeLabel.text = trackInfo.properties.autoBrakeTimes;
+    self.startAddressLabel.text = trackInfo.geometry.afterCoordinates[0].address;
+    self.endAddressLabel.text = trackInfo.geometry.afterCoordinates[1].address;
+    self.startTimeLabel.text = trackInfo.properties.startTime;
+    self.endTimeLabel.text = trackInfo.properties.endTime;
+    self.mileageLabel.text = [NSString stringWithFormat:@"%@km",trackInfo.properties.mileage];
+    self.durationLabel.text = trackInfo.properties.duration;
+    self.averageSpeedLabel.text = [NSString stringWithFormat:@"%@km/s",trackInfo.properties.averageSpeed];
+    self.fuelConsumedLabel.text = [NSString stringWithFormat:@"%@L",trackInfo.properties.fuelConsumed];
 }
 
 - (void)createGradientBg {
@@ -267,7 +264,9 @@
             make.centerY.equalTo(dot);
         }];
         
-        UILabel *label1 = [[UILabel alloc] init];
+        YYLabel *label1 = [[YYLabel alloc] init];
+        label1.textVerticalAlignment = YYTextVerticalAlignmentTop;
+        label1.textContainerInset = UIEdgeInsetsMake(2 * WidthCoefficient, 0, 2 * WidthCoefficient, 0);
         label1.numberOfLines = 2;
         label1.font = [UIFont fontWithName:FontName size:14];
         label1.textColor = [UIColor colorWithHexString:@"#ffffff"];
@@ -321,7 +320,7 @@
     UIView *lastV;
     
     NSArray *botImgNames = @[@"里程_icon",@"时间_icon",@"速度_icon",@"油耗_icon"];
-    NSArray *botTitles = @[NSLocalizedString(@"单次里程", nil),NSLocalizedString(@"平均速度", nil),NSLocalizedString(@"所用时间", nil),NSLocalizedString(@"单次油耗", nil)];
+    NSArray *botTitles = @[NSLocalizedString(@"单次里程", nil),NSLocalizedString(@"所用时间", nil),NSLocalizedString(@"平均速度", nil),NSLocalizedString(@"单次油耗", nil)];
     for (NSInteger i = 0; i < botImgNames.count; i++) {
         UIView *v = [[UIView alloc] init];
         v.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
@@ -400,13 +399,13 @@
     }];
 }
 
-- (void)showTrackWithCoordinates:(NSArray<CoordinatesItem *> *)coordinates {
+- (void)showTrackWithCoordinates:(NSArray<TrackDetailRecordItem *> *)coordinates {
     //构造折线数据对象
     
     CLLocationCoordinate2D commonPolylineCoords[coordinates.count];
     
     for (NSInteger i = 0; i < coordinates.count; i++) {
-        CoordinatesItem *item = coordinates[i];
+        TrackDetailRecordItem *item = coordinates[i];
         commonPolylineCoords[i].latitude = item.lat;
         commonPolylineCoords[i].longitude = item.lon;
         
@@ -528,3 +527,4 @@
 }
 
 @end
+

@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSDate *getDate;
 @property (nonatomic, strong) NSDate *createTime;
 @property (nonatomic, strong) NSDate *updateTime;
-///0：已过期1：已使用2：未使用
+///0：已过期1：已获取
 @property (nonatomic, copy) NSString *recordStatus;
 @property (nonatomic, copy) NSString *vin;
 @property (nonatomic, copy) NSString *custName;

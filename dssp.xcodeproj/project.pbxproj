@@ -94,6 +94,8 @@
 		31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC3202D8B930086EDC8 /* InvoiceEnterpriseViewController.m */; };
 		31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */; };
 		31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
+		31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
+		31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
 		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
 		31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
 		31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
@@ -381,6 +383,10 @@
 		31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitViewController.m; sourceTree = "<group>"; };
 		31B38BC8202D8F970086EDC8 /* OrderSubmitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderSubmitCell.h; sourceTree = "<group>"; };
 		31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitCell.m; sourceTree = "<group>"; };
+		31C1125E2047E1AC0094B157 /* TrackSingleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackSingleCell.h; sourceTree = "<group>"; };
+		31C1125F2047E1AC0094B157 /* TrackSingleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackSingleCell.m; sourceTree = "<group>"; };
+		31C112612047EB9C0094B157 /* TrackListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackListHeaderView.h; sourceTree = "<group>"; };
+		31C112622047EB9C0094B157 /* TrackListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackListHeaderView.m; sourceTree = "<group>"; };
 		31C176EB1FD5444A006E4AEA /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
 		31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
 		31C176ED1FD5444A006E4AEA /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
@@ -1239,6 +1245,10 @@
 				310368EB2045682300A9083E /* RangePickerCell.m */,
 				310368F62046C8C700A9083E /* DrivingReportWeekCell.h */,
 				310368F72046C8C700A9083E /* DrivingReportWeekCell.m */,
+				31C1125E2047E1AC0094B157 /* TrackSingleCell.h */,
+				31C1125F2047E1AC0094B157 /* TrackSingleCell.m */,
+				31C112612047EB9C0094B157 /* TrackListHeaderView.h */,
+				31C112622047EB9C0094B157 /* TrackListHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1651,6 +1661,7 @@
 				31B38BA6202C386A0086EDC8 /* CommodityCommentHeaderCell.m in Sources */,
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
 				31B38B9D202C38060086EDC8 /* CommodityBannerCell.m in Sources */,
+				31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */,
 				31F235D1204170B5002807D2 /* ActivationCodeListViewController.m in Sources */,
 				31AC452B2022E9250044A62C /* InfoMessage.m in Sources */,
 				31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */,
@@ -1659,6 +1670,7 @@
 				4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */,
+				31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */,
 				4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */,

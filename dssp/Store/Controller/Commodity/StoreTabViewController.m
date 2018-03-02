@@ -29,6 +29,8 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = NSLocalizedString(@"商城", nil);
     
+    self.rt_disableInteractivePop = YES;
+    
     self.homeVC = [[StorePageController alloc] init];
     self.homeVC.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight - 1 + kNaviHeight);//高度会自动减一个导航栏高度,原因未知...
     [self addChildViewController:_homeVC];

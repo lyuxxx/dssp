@@ -254,7 +254,7 @@
             cell.webView.tag = indexPath.section;
             cell.webView.navigationDelegate = self;
             
-            NSString *htmlStr = [NSString stringWithFormat:@"<html><head><style type='text/css'>p{background: #120f0e !important;color: #FFFFFF;}p span{background: #120f0e !important;color: #FFFFFF !important;}</style></head><body>%@</body></html>",self.cellConfigurator.desc];
+            NSString *htmlStr = [NSString stringWithFormat:@"<html><head><style type='text/css'>p{background: #120f0e !important;color: #FFFFFF;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{width: 100%%;}</style></head><body>%@</body></html>",self.cellConfigurator.desc];
             
             [cell.webView loadHTMLString:htmlStr baseURL:nil];
             [cell.webView updateConstraints:^(MASConstraintMaker *make) {
