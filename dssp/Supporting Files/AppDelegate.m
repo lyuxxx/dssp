@@ -24,6 +24,7 @@
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
 #import <CUPayTool.h>
+
 @interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
 
 @end
@@ -38,7 +39,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-//    [CUPayTool wechatRegisterAppWithAppId:@""];
+    [CUPayTool wechatRegisterAppWithAppId:WXAppId];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     LoginViewController *loginVC = [[LoginViewController alloc] init];
@@ -105,7 +106,7 @@
 #pragma mark - 支付相关 -
 //iOS9之前
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    if([url.host isEqualToString:@"wx"])//微信
+    if([url.scheme isEqualToString:WXAppId] && [url.host isEqualToString:@"pay"])//微信支付
     {
         return [CUPayTool wechatHandleOpenURL:url];
     }
@@ -118,7 +119,7 @@
 
 //iOS9之后
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if([url.host isEqualToString:@"wx"])//微信
+    if([url.scheme isEqualToString:WXAppId] && [url.host isEqualToString:@"pay"])//微信支付
     {
         return [CUPayTool wechatHandleOpenURL:url];
     }

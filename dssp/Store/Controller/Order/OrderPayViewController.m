@@ -182,20 +182,122 @@ typedef NS_ENUM(NSUInteger, PayType) {
 - (void)payBtnClick:(UIButton *)sender {
     if (self.payType == PayTypeAlipay) {
         [self aliPayFunc];
+    } else if (self.payType == PayTypeWeChatPay) {
+        [self wechatPayFunc];
     }
 }
 
 - (void)wechatPayFunc
 {
     //先获取微信支付参数
-    //...
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
-    CUPayTool *manager = [CUPayTool getInstance];
-    [manager wechatPayWithAppId:@"" partnerId:@"" prepayId:@"" package:@"" nonceStr:@"" timeStamp:@"" sign:@"" respBlock:^(NSInteger respCode, NSString *respMsg) {
-        
-        //处理支付结果
-        
-    }];
+    PayMessage *message = [[PayMessage alloc] init];
+    message.orderNo = _order.orderNo;
+    message.productId = [NSString stringWithFormat:@"%ld",_order.items[0].itemId];
+    message.totalFee = [NSNumber numberWithFloat:_order.payment.floatValue];
+    message.subject = [NSString stringWithFormat:@"capsa在线商城#%@#",_order.orderNo];
+    message.body = _order.items[0].title;
+    message.tradeType = @"APP";
+    message.payType = @"TENWXPAY";
+    message.channel = @"APP";
+    message.timeOut = @"90";
+    message.vin = [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"];
+    
+    PayRequest *request = [[PayRequest alloc] init];
+    request.appId = @"dssp";
+    request.userId = [NSString stringWithFormat:@"%ld",((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"]).integerValue];
+    request.protocolId = @"TENWXPAY010401";
+    request.thirdInfoId = @"7";
+    request.t = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
+    
+    NSDictionary *msgDic = [message yy_modelToJSONObject];
+    
+    NSString *msgStr = [self stringWithDict:msgDic];
+    
+    NSMutableString *info = [NSMutableString string];
+    [info appendString:[NSString stringWithFormat:@"appId=%@",request.appId]];
+    
+    [info appendString:[NSString stringWithFormat:@"&message={\"message\":%@}",msgStr]];
+    [info appendString:[NSString stringWithFormat:@"&protocolId=%@",request.protocolId]];
+    [info appendString:[NSString stringWithFormat:@"&t=%@",request.t]];
+    [info appendString:[NSString stringWithFormat:@"&thirdInfoId=%@",request.thirdInfoId]];
+    [info appendString:[NSString stringWithFormat:@"&userId=%@",request.userId]];
+    [info appendString:[NSString stringWithFormat:@"&appKey=ce54960341d675de1910d8f894216ae5"]];
+    
+    NSString *infoMD5 = [info md5String];
+    
+    request.h = infoMD5;
+    request.message = [NSString stringWithFormat:@"{\"message\":%@}",msgStr];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/payment/v1/appCreatePay"] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.0f];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [urlRequest setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"token"] forHTTPHeaderField:@"token"];
+    
+    [urlRequest setHTTPBody:[[NSString stringWithFormat:@"appId=%@&userId=%@&protocolId=%@&thirdInfoId=%@&t=%@&h=%@&message=%@",request.appId,request.userId,request.protocolId,request.thirdInfoId,request.t,request.h,request.message] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSError *inerror;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
+        NSString *returnCode = dic[@"message"][@"returnCode"];
+        if ([returnCode isEqualToString:@"SUCCESS"]) {
+            NSDictionary *orderInfo = dic[@"message"][@"orderInfo"];
+            CUPayTool *manager = [CUPayTool getInstance];
+            [manager wechatPayWithAppId:WXAppId partnerId:orderInfo[@"partner"] prepayId:orderInfo[@"prepayId"] package:orderInfo[@"package"] nonceStr:orderInfo[@"noncestr"] timeStamp:orderInfo[@"timestamp"] sign:orderInfo[@"sign"] respBlock:^(NSInteger respCode, NSString *respMsg) {
+                
+                //处理支付结果
+                
+                if (respCode == 0) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
+                    });
+                } else if (respCode == -1) {
+                    
+                } else if (respCode == -2) {
+                    
+                } else if (respCode == -3) {//未安装微信
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:NO];
+                        [MBProgressHUD showText:NSLocalizedString(@"您未安装微信", nil)];
+                    });
+                } else if (respCode == -99) {
+                    
+                }
+                
+                if (respCode != -3) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        hud.label.text = respMsg;
+                        [hud hideAnimated:YES afterDelay:1];
+                    });
+                }
+                
+            }];
+        } else if ([returnCode isEqualToString:@"FAIL"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                hud.label.text = dic[@"message"][@"returnMsg"];
+                [hud hideAnimated:YES afterDelay:1];
+            });
+            
+        } else {
+            NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+            NSInteger statusCode = [res statusCode];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                hud.label.text = [NSString stringWithFormat:@"%ld",statusCode];
+                [hud hideAnimated:YES afterDelay:1];
+            });
+            
+        }
+    }] resume];
+    
 }
 
 - (void)aliPayFunc
@@ -254,7 +356,6 @@ typedef NS_ENUM(NSUInteger, PayType) {
     
     [[session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"%@",dic);
         NSString *returnCode = dic[@"message"][@"returnCode"];
         if ([returnCode isEqualToString:@"SUCCESS"]) {
             NSString *orderInfo = dic[@"message"][@"orderInfo"];

@@ -76,6 +76,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
     PoiTypePark,
 };
 
+#define WXAppId @"wx0b2741cdbf3f22f2"
+
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 #define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
 
