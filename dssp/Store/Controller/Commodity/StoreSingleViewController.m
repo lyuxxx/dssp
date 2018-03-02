@@ -166,12 +166,17 @@
     [_collectionView registerClass:[CommodityCell class] forCellWithReuseIdentifier:NSStringFromClass([CommodityCell class])];
     [_collectionView registerClass:[CommodityHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([CommodityHeaderView class])];
     
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullCommodities)];
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullDownToRefreshLatestNews)];
     
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getCommoditiesWithCategoryId)];
     //    footer.refreshingTitleHidden = YES;
     footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
     self.collectionView.mj_footer = footer;
+}
+
+- (void)pullDownToRefreshLatestNews {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"StorePageControllerRefresh" object:nil userInfo:nil];
 }
 
 - (void)pullCommodities {

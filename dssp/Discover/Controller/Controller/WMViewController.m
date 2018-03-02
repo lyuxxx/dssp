@@ -53,14 +53,7 @@
 
 
 - (void)pullDownToRefreshLatestNews {
-    
-//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
-//        // 设置header
-//    //    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
-//        [_tableView.mj_header beginRefreshing];
-    
-    
-//     [self.tableView.mj_header beginRefreshing];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SubscribeVCneedRefresh" object:nil userInfo:nil];
 }
 

@@ -19,10 +19,12 @@
 @implementation StorePageController
 
 - (void)viewDidLoad {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Notification) name:@"StorePageControllerRefresh" object:nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyCalculatesItemWidths = YES;
-    
+   
     self.view.clipsToBounds = YES;
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -35,6 +37,13 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
     
     [self getStoreCategoriesList];
+}
+
+-(void)Notification
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getStoreCategoriesList];
+    });
 }
 
 - (void)getStoreCategoriesList {
@@ -55,6 +64,8 @@
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     self.menuViewStyle = WMMenuViewStyleLine;
     return self.categories.count;
+    
+    
 }
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
@@ -67,7 +78,13 @@
     self.titleSizeSelected = 15.5;
     self.titleColorNormal = [UIColor colorWithHexString:@"#999999"];
     self.titleColorSelected = [UIColor colorWithHexString:GeneralColorString];
+    
     return self.categories[index].name;
+}
+
+- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
+    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
+    return width +20;
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {

@@ -56,8 +56,8 @@
     NSArray *titles = nil;
     NSArray *righttitles = nil;
 
-        titles = @[@"纳税人姓名",@"收货人姓名",@"移动电话",@"所在地区",@"详细地址"];
-        righttitles = @[@"请填写纳税人姓名",@"请填写收货人姓名",@"请填写移动电话",@"",@"请填写详细地址"];
+        titles = @[@"发票抬头",@"收货人姓名",@"移动电话",@"所在地区",@"详细地址"];
+        righttitles = @[@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"",@"请填写详细地址"];
 
     
     self.sc = ({
@@ -257,7 +257,7 @@
 {
     
     if (!_invoiceClient.text || [self.invoiceClient.text isEqualToString:@""]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请填写纳税人姓名", nil)];
+        [MBProgressHUD showText:NSLocalizedString(@"请填写发票抬头", nil)];
         return;
     }
     else if (!_receiverNameField.text || [_receiverNameField.text isEqualToString:@""]) {
@@ -284,7 +284,6 @@
                             @"orderId":_personalID,
                             @"invoiceClient":self.invoiceClient.text,
                             @"invoiceType":@"2",
-//                            @"taxNo":@"1",
                             @"receiverName":self.receiverNameField.text,
                             @"receiverMobile":self.receiverMobileField.text,
                             @"receiverState":_province,

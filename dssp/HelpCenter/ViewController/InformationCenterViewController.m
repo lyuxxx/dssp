@@ -121,6 +121,7 @@
     [self.tableView reloadData];
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         if (self.dataSource.count != 0)
         {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -185,7 +186,7 @@
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
                                         @"noHelp": @"1",
-                                        @"id":@"2"
+                                        @"id":str2
                                         };
                 [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -376,7 +377,7 @@
              }
     
         return NO;
-     }
+}
 
 
 - (NSMutableArray<InfoMessage *> *)dataSource {

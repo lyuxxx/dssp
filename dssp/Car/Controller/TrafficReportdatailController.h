@@ -6,8 +6,9 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "TrafficReportModel.h"
-@interface TrafficReportdatailController : BaseViewController
+
+@interface TrafficReportdatailController : StoreBaseViewController
 @property (nonatomic, strong) NSArray *dataArray1;
 @end

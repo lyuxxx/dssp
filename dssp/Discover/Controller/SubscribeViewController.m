@@ -14,6 +14,7 @@
 #import "SubscribeModel.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import "NSObject+YYModel.h"
+#import "StoreObject.h"
 @interface SubscribeViewController ()<WMPageControllerDelegate,WMPageControllerDataSource>
 {
     
@@ -88,6 +89,7 @@
 
 -(void)doAskTitleArray
 {
+    
     NSDictionary *paras = @{
                             
                     
@@ -147,7 +149,7 @@
     
 //    pageController.ddd = info[@"title"];
 //    viewController.title = info[@"title"];
-    viewController.title = self.titleData[0];
+//    viewController.title = self.titleData[0];
    
 }
 

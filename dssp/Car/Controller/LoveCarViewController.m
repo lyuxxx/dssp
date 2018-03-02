@@ -311,7 +311,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 108) {
-        UIViewController *vc = [[NSClassFromString(@"TrafficReportViewController") alloc] init];
+        UIViewController *vc = [[NSClassFromString(@"TrafficReportdatailController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
