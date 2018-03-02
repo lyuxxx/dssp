@@ -149,7 +149,7 @@
 
 //    _userNameField.text = @"15871707603";
 //    _userNameField.text =@"13419506934";
-//      _userNameField.text = @"15907157363";
+//     _userNameField.text = @"15907157363";
 //    _userNameField.text = @"15810817108";
 //     _userNameField.text =@"18911568273";
 
@@ -505,6 +505,10 @@
             if (_userNameField.text.length == 0 || _passWordField.text.length == 0) {
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
             }
+//            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
+//            {
+//            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组合的密码", nil)];
+//            }
             else
             {
                 
@@ -547,9 +551,6 @@
                                 [defaults1 synchronize];
                                 
                             }
-                          
-                           
-                            
 //                            [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
@@ -567,7 +568,6 @@
                     
                 }
                 else{
-                    
                     [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
                 }
                 
@@ -611,6 +611,19 @@
     BOOL isMatch = [pred evaluateWithObject:telNumber];
     return isMatch;
 }
+
+//判断八位字母数字混合
+-(BOOL)checkPassWord:(NSString *)str
+{
+    //6-20位数字和字母组成
+    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([pred evaluateWithObject:str]) {
+        return YES ;
+    }else
+        return NO;
+}
+
 
 //判断手机号码格式是否正确
 - (BOOL)valiMobile:(NSString *)mobile
