@@ -231,7 +231,9 @@
             ActivationCode *code = [[ActivationCode alloc] init];
             code.recordStatus = @"1";
             code.checkCode = dic[@"data"];
-            [self callMapUpdateHomeWithCode:code];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self callMapUpdateHomeWithCode:code];
+            });
         } else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];

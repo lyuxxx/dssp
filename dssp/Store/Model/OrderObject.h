@@ -27,6 +27,7 @@
 @property (nonatomic, copy) NSString *orderNo;
 @property (nonatomic, copy) NSString *vin;
 @property (nonatomic, copy) NSString *payment;
+@property (nonatomic, assign) BOOL haveInvoice;
 @property (nonatomic, assign) NSInteger paymentType;
 @property (nonatomic, copy) NSString *postFee;
 ///0、未付款，1、已付款，2、交易成功，3、交易取消

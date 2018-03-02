@@ -4,7 +4,7 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
-//  version 2.0.0.5 - 2018.02.06
+//  version 2.0.0.6 - 2018.02.13
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 #import "TZImagePickerController.h"
@@ -182,10 +182,8 @@
             _tipLabel.numberOfLines = 0;
             _tipLabel.font = [UIFont systemFontOfSize:16];
             _tipLabel.textColor = [UIColor blackColor];
-            NSDictionary *infoDict = [NSBundle mainBundle].localizedInfoDictionary;
-            if (!infoDict || !infoDict.count) {
-                infoDict = [NSBundle mainBundle].infoDictionary;
-            }
+            
+            NSDictionary *infoDict = [TZCommonTools tz_getInfoDictionary];
             NSString *appName = [infoDict valueForKey:@"CFBundleDisplayName"];
             if (!appName) appName = [infoDict valueForKey:@"CFBundleName"];
             NSString *tipText = [NSString stringWithFormat:[NSBundle tz_localizedStringForKey:@"Allow %@ to access your album in \"Settings -> Privacy -> Photos\""],appName];
@@ -518,6 +516,12 @@
     [self configDefaultBtnTitle];
 }
 
+- (void)setLanguageBundle:(NSBundle *)languageBundle {
+    _languageBundle = languageBundle;
+    [TZImagePickerConfig sharedInstance].languageBundle = languageBundle;
+    [self configDefaultBtnTitle];
+}
+
 - (void)setSortAscendingByModificationDate:(BOOL)sortAscendingByModificationDate {
     _sortAscendingByModificationDate = sortAscendingByModificationDate;
     [TZImageManager manager].sortAscendingByModificationDate = sortAscendingByModificationDate;
@@ -787,6 +791,18 @@
     return [self tz_isIPhoneX] ? 44 : 20;
 }
 
+// 获得Info.plist数据字典
++ (NSDictionary *)tz_getInfoDictionary {
+    NSDictionary *infoDict = [NSBundle mainBundle].localizedInfoDictionary;
+    if (!infoDict || !infoDict.count) {
+        infoDict = [NSBundle mainBundle].infoDictionary;
+    }
+    if (!infoDict || !infoDict.count) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+        infoDict = [NSDictionary dictionaryWithContentsOfFile:path];
+    }
+    return infoDict ? infoDict : @{};
+}
 @end
 
 

@@ -7,7 +7,12 @@
 //
 
 #import "StoreBaseViewController.h"
-
+typedef NS_ENUM(NSUInteger, PayState) {
+    PayStateOK,
+    PayStateFail
+};
 @interface PayCompleteViewController : StoreBaseViewController
+
+- (instancetype)initWithState:(PayState)payState;
 
 @end

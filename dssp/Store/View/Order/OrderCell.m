@@ -227,6 +227,7 @@
         self.btn1.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
     }
     
+    
     if (order.status == 1 || order.status == 3) {
         [_bgV updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(_priceLabel.bottom).offset(10 * WidthCoefficient);

@@ -24,6 +24,7 @@
     //关闭缓存避免干扰测试r
     manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     [manager setSessionDidBecomeInvalidBlock:^(NSURLSession * _Nonnull session, NSError * _Nonnull error) {
+        NSLog(@"%@",error.localizedDescription);
     }];
     NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"client" ofType:@"p12"];
     NSFileManager *fileManager =[NSFileManager defaultManager];
@@ -332,7 +333,8 @@ static AFHTTPSessionManager *sessionManager = nil;
         if (uploadType == UploadDownloadType_Images) {
             for (NSInteger i = 0; i < arrayData.count; i++) {
                 NSTimeInterval time = [NSDate date].timeIntervalSince1970 * 1000;
-                NSString *name = [NSString stringWithFormat:@"image%.0f",time + i];
+                NSString *name = [NSString stringWithFormat:@"file%.0f",time + i];
+                name = @"file";
                 [formData appendPartWithFileData:arrayData[i] name:name fileName:[NSString stringWithFormat:@"%@_%ld.jpg",name,(long)i] mimeType:@"image/jpeg"];
             }
         } else if (uploadType == UploadDownloadType_Videos) {

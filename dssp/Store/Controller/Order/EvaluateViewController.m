@@ -55,7 +55,7 @@
     
     self.starView = [[YYStarView alloc] initWithFrame:CGRectMake(92 * WidthCoefficient, 20 * WidthCoefficient, 160 * WidthCoefficient, 24.75 * WidthCoefficient) numberOfStars:5];
     _starView.scorePercent = 1;
-    _starView.allowIncompleteStar = NO;;
+    _starView.allowIncompleteStar = NO;
     _starView.hasAnimation = NO;
     [top addSubview:_starView];
     

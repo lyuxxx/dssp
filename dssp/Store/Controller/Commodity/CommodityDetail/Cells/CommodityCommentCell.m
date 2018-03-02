@@ -10,12 +10,14 @@
 #import "NSString+Size.h"
 #import "StoreObject.h"
 #import <UIImageView+SDWebImage.h>
+#import "YYStarView.h"
 
 NSString * const CommodityCommentCellIdentifier = @"CommodityCommentCellIdentifier";
 
 @interface CommodityCommentCell ()
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *user;
+@property (nonatomic, strong) YYStarView *starView;
 @property (nonatomic, strong) UILabel *time;
 @property (nonatomic, strong) UILabel *comment;
 @end
@@ -53,16 +55,23 @@ NSString * const CommodityCommentCellIdentifier = @"CommodityCommentCellIdentifi
     }];
     
     self.user = [[UILabel alloc] init];
-    _user.font = [UIFont fontWithName:FontName size:15];
+    _user.font = [UIFont fontWithName:FontName size:12];
     _user.textColor = [UIColor whiteColor];
     _user.text = @"A用户";
     [bg addSubview:_user];
     [_user makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(124 * WidthCoefficient);
-        make.height.equalTo(20 * WidthCoefficient);
-        make.centerY.equalTo(_avatar);
+        make.height.equalTo(15 * WidthCoefficient);
+        make.top.equalTo(_avatar);
         make.left.equalTo(_avatar.right).offset(10 * WidthCoefficient);
     }];
+    
+    self.starView = [[YYStarView alloc] initWithFrame:CGRectMake(50 * WidthCoefficient, 27.5 * WidthCoefficient, 70 * WidthCoefficient, 12 * WidthCoefficient) numberOfStars:5];
+    _starView.userInteractionEnabled = NO;
+    _starView.scorePercent = 1;
+    _starView.allowIncompleteStar = YES;
+    _starView.hasAnimation = NO;
+    [bg addSubview:_starView];
     
     self.time = [[UILabel alloc] init];
     _time.textAlignment = NSTextAlignmentRight;
@@ -73,7 +82,7 @@ NSString * const CommodityCommentCellIdentifier = @"CommodityCommentCellIdentifi
     [_time makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(124 * WidthCoefficient);
         make.height.equalTo(20 * WidthCoefficient);
-        make.centerY.equalTo(_avatar);
+        make.top.equalTo(_avatar);
         make.right.equalTo(bg).offset(-10 * WidthCoefficient);
     }];
     
@@ -106,6 +115,7 @@ NSString * const CommodityCommentCellIdentifier = @"CommodityCommentCellIdentifi
 - (void)configWithComment:(CommodityComment *)comment {
     self.comment.text = comment.content;
     self.user.text = comment.nickName;
+    self.starView.scorePercent = comment.itemScore / 5.0f;
     self.time.text = [self stringFromDate:comment.createTime];
     [self.avatar downloadImage:comment.headPortrait placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
