@@ -355,7 +355,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 - (void)appendListData {
     NSDictionary *paras = @{
-                            @"vin":@"VFNCA5GRMFW000000",
+                            @"vin":@"VF7CAPSA000020154",
                             @"startTime":@"1519367046000",
                                          //1519888479.927832
                             @"endTime":@"1519723342000",
@@ -365,18 +365,27 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     [CUHTTPRequest POST:getTrackListURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            TrackListResponse *response = [TrackListResponse yy_modelWithJSON:dic];
-            if (response.data.result.count) {
-                [self appendSections:response.data.result];
-                self.currentPage++;
+            if (dic[@"data"] && ![dic[@"data"] isKindOfClass:[NSNull class]]) {
+                TrackListResponse *response = [TrackListResponse yy_modelWithJSON:dic];
+                if (response.data.result.count) {
+                    [self appendSections:response.data.result];
+                    self.currentPage++;
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                    [self.tableView.mj_footer endRefreshing];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView.mj_footer endRefreshing];
+                    [MBProgressHUD showText:NSLocalizedString(@"没有更多数据", nil)];
+                });
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                [self.tableView.mj_footer endRefreshing];
-            });
+            
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView.mj_footer endRefreshing];
+                [MBProgressHUD showText:NSLocalizedString(@"获取数据出错", nil)];
             });
         }
     } failure:^(NSInteger code) {

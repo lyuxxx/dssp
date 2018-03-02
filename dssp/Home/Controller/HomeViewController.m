@@ -198,6 +198,9 @@
         make.bottom.equalTo(content.bottom).offset(-40 * HeightCoefficient);
     }];
     
+    UITapGestureRecognizer *drivingReportWeekTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(drivingReportWeekTap:)];
+    [reportImgV addGestureRecognizer:drivingReportWeekTap];
+    
     UILabel * innerLabel = [[UILabel alloc] init];
     innerLabel.lineBreakMode = NSLineBreakByWordWrapping;
     innerLabel.textColor = [UIColor whiteColor];
@@ -291,6 +294,12 @@
             [self.navigationController pushViewController:mapVC animated:YES];
         }
     };
+}
+
+- (void)drivingReportWeekTap:(UITapGestureRecognizer *)sender {
+    UIViewController *vc = [[NSClassFromString(@"DrivingWeekReportViewController") alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)btnClick:(UIButton *)sender {

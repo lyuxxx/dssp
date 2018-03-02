@@ -172,7 +172,7 @@
     failLabel.numberOfLines = 2;
     failLabel.font = [UIFont fontWithName:FontName size:14];
     failLabel.textColor = [UIColor whiteColor];
-    failLabel.text = NSLocalizedString(@"请五分钟之后再次查询订单状态，如依然失败请咨询客服联系", nil);
+    failLabel.text = NSLocalizedString(@"请五分钟之后再次查询订单状态，如依然失败请联系客服咨询", nil);
     [midV1 addSubview:failLabel];
     [failLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(323 * WidthCoefficient);

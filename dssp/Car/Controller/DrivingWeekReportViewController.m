@@ -140,7 +140,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"驾驶车况报告", nil);
+    self.navigationItem.title = NSLocalizedString(@"驾驶行为报告", nil);
     
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     self.dateFormatter = [[NSDateFormatter alloc] init];

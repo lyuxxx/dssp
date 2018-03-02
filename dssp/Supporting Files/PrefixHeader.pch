@@ -106,8 +106,10 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define telephoneLogins [NSString stringWithFormat:@"%@login/telephone",baseUrl]
 
 ///209内网地址
-#define telephoneLogin @"http://172.23.105.209:10095/login/telephone"
-#define userNameLogin @"http://172.23.105.209:10095/login/userName"
+//#define telephoneLogins @"http://172.23.105.209:10095/login/telephone"
+//#define userNameLogins @"http://172.23.105.209:10095/login/userName"
+//#define telephoneLogins @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/login/telephone"
+//#define userNameLogins @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/login/userName"
 //查询车辆销售信息和套餐信息接口
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 //绑定客户-车辆信息
@@ -243,13 +245,13 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define queryTheVehicleHealthReportForLatestSevenDays [NSString stringWithFormat:@"%@queryTheVehicleHealthReportForLatestSevenDays",baseUrl]
 ///轨迹列表
 #define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataEachDayList",baseUrl]
-//#define getTrackListURL @"http://172.23.105.209:10095/getEachVehicleTripDataEachDayList"
+//#define getTrackListURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/getEachVehicleTripDataEachDayList"
 ///轨迹详情
 #define getTrackDetailURL [NSString stringWithFormat:@"%@queryTheDetailofEachVehicleTripGeo",baseUrl]
-//#define getTrackDetailURL @"http://172.23.105.209:10095/queryTheDetailofEachVehicleTripGeo"
+//#define getTrackDetailURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDetailofEachVehicleTripGeo"
 ///驾驶行为报告(周)
 #define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
-//#define getDrivingReportWeekURL @"http://172.23.105.209:10095/queryTheDrvingReportforEachVehicleTripByWeek"
+//#define getDrivingReportWeekURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDrvingReportforEachVehicleTripByWeek"
 
 
 ///获取地图升级个数
