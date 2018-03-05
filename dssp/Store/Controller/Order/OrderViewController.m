@@ -15,8 +15,9 @@
 #import "OrderObject.h"
 #import "OrderDetailViewController.h"
 #import "InputAlertView.h"
+#import <UIScrollView+EmptyDataSet.h>
 
-@interface OrderViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface OrderViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSNumber *type;// 0、未付款，1、已付款，2、交易成功，3、交易取消,不传查所有
 @property (nonatomic, strong) NSMutableArray<Order *> *orders;
@@ -60,6 +61,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -83,6 +85,10 @@
             [self.orders removeAllObjects];
             OrderResponse *response = [OrderResponse yy_modelWithJSON:dic];
             self.orders = [NSMutableArray arrayWithArray:response.data.result];
+            
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
+            
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
             if (response.data.result) {
@@ -184,6 +190,38 @@
     OrderDetailViewController *vc = [[OrderDetailViewController alloc] initWithOrder:order];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+#pragma mark - DZNEmptyDataSetSource -
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *text = NSLocalizedString(@"暂无订单", nil);
+    UIFont *font = [UIFont fontWithName:FontName size:16];
+    UIColor *textColor = [UIColor colorWithHexString:@"999999"];
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    [attributes setObject:font forKey:NSFontAttributeName];
+    [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"blank_placeholder"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+#pragma mark - DZNEmptyDataSetDelegate -
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    scrollView.contentOffset = CGPointZero;
+}
+
+#pragma mark - lazy load -
 
 - (NSMutableArray<Order *> *)orders {
     if (!_orders) {

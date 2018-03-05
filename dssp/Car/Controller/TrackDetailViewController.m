@@ -503,10 +503,9 @@
         pointAnnotationView.canShowCallout = NO;
         if (annotation == self.startAnnotation) {
             pointAnnotationView.image = [UIImage imageNamed:@"track_start"];
-        } else if (annotation == self.endAnnotation) {
+        }
+        if (annotation == self.endAnnotation) {
             pointAnnotationView.image = [UIImage imageNamed:@"track_end"];
-        } else {
-            
         }
         pointAnnotationView.centerOffset = CGPointMake(0, -14);
         return pointAnnotationView;

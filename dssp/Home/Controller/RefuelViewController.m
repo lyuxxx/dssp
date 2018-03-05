@@ -548,12 +548,17 @@ static dispatch_once_t oilOnceToken;
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            [SendPoiProgressView showWithCancelBlock:^{
-                [self cancelSendPoi];
-            }];
+//            [SendPoiProgressView showWithCancelBlock:^{
+//                [self cancelSendPoi];
+//            }];
+            __block MBProgressHUD *hud;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                hud = [MBProgressHUD showMessage:@""];
+            });
             [self sendPoiWithName:self.currentStation.name address:self.currentStation.address location:CLLocationCoordinate2DMake(self.currentStation.coordinatey, self.currentStation.coordinatex) tel:self.currentStation.telephonenum inResult:^(SendPoiResult result) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [SendPoiProgressView dismiss];
+//                    [SendPoiProgressView dismiss];
+                    [hud hideAnimated:YES];
                     [self showPoiSendAletWithResult:result];
                 });
             }];

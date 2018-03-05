@@ -163,6 +163,8 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     self.brakeTimeLabel.text = @"-h";
     self.attentionTimesLabel.text = @"-次";
     self.accMileageLabel.text = @"-km";
+    
+    [self pullDefaultData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -479,6 +481,23 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     }];;
 }
 
+- (void)pullDefaultData {
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:-1];
+    NSDate *startDate = [self.gregorian dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy/MM/dd";
+    formatter.timeZone = [NSTimeZone localTimeZone];
+    self.filterStartLabel.text = [formatter stringFromDate:startDate];
+    self.filterEndLabel.text = [formatter stringFromDate:[NSDate date]];
+    
+    self.startTimeStamp = [self convertDateToTimestamp:startDate isStart:YES];
+    self.endTimeStamp = [self convertDateToTimestamp:[NSDate date] isStart:NO];
+    
+    [self pullData];
+}
+
 - (void)pullData {
     
     self.harshBrakeLabel.text = @"-";
@@ -498,7 +517,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     NSDictionary *paras = @{
 //                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-                            @"vin":@"1",
+                            @"vin":@"VF7CAPSA000020154",
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp
                             };
@@ -512,7 +531,9 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hideAnimated:YES];
                 [self.collectionView reloadData];
-                [self configWithReport:self.reports[self.selectIndex]];
+                if (self.reports.count) {
+                    [self configWithReport:self.reports[self.selectIndex]];
+                }
             });
             
         } else {

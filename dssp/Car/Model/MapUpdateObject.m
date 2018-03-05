@@ -10,6 +10,15 @@
 
 @implementation ActivationCode
 
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSString *getDateStr = dic[@"getDate"];
+    NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
+    formatter0.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    formatter0.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+8"];
+    _getDate = [formatter0 dateFromString:getDateStr];
+    return YES;
+}
+
 @end
 
 @implementation ActivationCodeListResponse

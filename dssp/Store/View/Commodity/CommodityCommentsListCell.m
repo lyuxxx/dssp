@@ -52,6 +52,7 @@
     
     self.avatar = [[UIImageView alloc] init];
     _avatar.layer.cornerRadius = 15 * WidthCoefficient;
+    _avatar.layer.masksToBounds = YES;
     [bg addSubview:_avatar];
     [_avatar makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(30 * WidthCoefficient);

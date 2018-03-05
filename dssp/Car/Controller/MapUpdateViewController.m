@@ -272,6 +272,9 @@
     UITapGestureRecognizer *ListTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(codeList:)];
     [self.codeV addGestureRecognizer:ListTap];
     
+    UITapGestureRecognizer *storeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToStore:)];
+    [leftV addGestureRecognizer:storeTap];
+    
     self.codeV.hidden = YES;
 
 }
@@ -285,6 +288,12 @@
             self.tipLabel.text = [NSString stringWithFormat:@"您还可以获取激活%ld次",_limit];
             self.limitLabel.text = [NSString stringWithFormat:@"%ld次",_limit];
             self.countLabel.text = [NSString stringWithFormat:@"%ld个",_count];
+            NSString *validaGetCode = dic[@"data"][@"validaGetCode"];
+            if ([validaGetCode isEqualToString:@"true"]) {
+                self.canGetActivationCode = YES;
+            } else {
+                self.canGetActivationCode = NO;
+            }
             if (_count == 0) {
                 self.redV.hidden = YES;
             } else {
@@ -313,10 +322,10 @@
     self.codeLabel.text = code.checkCode;
     if ([code.recordStatus isEqualToString:@"1"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-        _stateLabel.text = NSLocalizedString(@"已获取", nil);
+        _stateLabel.text = NSLocalizedString(@"有效", nil);
     } else if ([code.recordStatus isEqualToString:@"0"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-        _stateLabel.text = NSLocalizedString(@"已过期", nil);
+        _stateLabel.text = NSLocalizedString(@"无效", nil);
     }
     
     if (code.getDate) {
@@ -329,6 +338,11 @@
 
 - (void)helpBtnClick:(UIButton *)sender {
     MapUpdateHelpViewController *vc = [[MapUpdateHelpViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)goToStore:(UITapGestureRecognizer *)sender {
+    UIViewController *vc = [[NSClassFromString(@"StoreTabViewController") alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

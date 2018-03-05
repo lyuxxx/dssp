@@ -25,8 +25,8 @@
 #import <MBProgressHUD+CU.h>
 #import <CUPayTool.h>
 
-@interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
-
+@interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate, CAAnimationDelegate>
+@property (nonatomic, strong) UIImageView *startupV;
 @end
 
 @implementation AppDelegate
@@ -46,6 +46,7 @@
     RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
     self.window.rootViewController = naVC;
     [self.window makeKeyAndVisible];
+    [self startupView];
     [self config];
     return YES;
 }
@@ -77,6 +78,58 @@
     [[WBAFNetworkingLogger sharedLogger] setLevel:WBLoggerLevelDebug];
     
     [self setupGeTui];
+}
+
+- (void)startupView {
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    imgV.contentMode = UIViewContentModeScaleAspectFill;
+    self.startupV = imgV;
+    [self.window addSubview:imgV];
+    [self.window bringSubviewToFront:imgV];
+    
+    UIView *botBlack = [[UIView alloc] initWithFrame:imgV.bounds];
+    botBlack.backgroundColor = [UIColor blackColor];
+    [imgV addSubview:botBlack];
+    
+    CABasicAnimation *colorAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    
+    colorAnimation.fromValue = (__bridge id)([UIColor blackColor].CGColor);
+    colorAnimation.toValue = (__bridge id)([UIColor clearColor].CGColor);
+    colorAnimation.duration = 1;
+    colorAnimation.fillMode = kCAFillModeForwards;
+    colorAnimation.removedOnCompletion = NO;
+    [botBlack.layer addAnimation:colorAnimation forKey:@"color"];
+    
+    UIView *black = [[UIView alloc] initWithFrame:imgV.bounds];
+    black.backgroundColor = [UIColor blackColor];
+    [imgV addSubview:black];
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:imgV.bounds];
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:imgV.center radius:0.01 startAngle:0 endAngle:2 * M_PI clockwise:NO];
+    [path appendPath:circlePath];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.path = path.CGPath;
+    black.layer.mask = shapeLayer;
+    
+    UIBezierPath *inPath = [UIBezierPath bezierPathWithRect:imgV.bounds];
+    UIBezierPath *inCirclePath = [UIBezierPath bezierPathWithArcCenter:imgV.center radius:sqrt(pow(kScreenHeight / 2, 2) + pow(kScreenWidth / 2, 2)) startAngle:0 endAngle:2 * M_PI clockwise:NO];
+    [inPath appendPath:inCirclePath];
+    
+    CABasicAnimation *maskAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+    
+    maskAnimation.fromValue = (__bridge id)(path.CGPath);
+    maskAnimation.toValue = (__bridge id)(inPath.CGPath);
+    maskAnimation.duration = 1;
+    maskAnimation.fillMode = kCAFillModeForwards;
+    maskAnimation.removedOnCompletion = NO;
+    maskAnimation.delegate = self;
+    [shapeLayer addAnimation:maskAnimation forKey:@"maskAnimation"];
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [_startupV removeFromSuperview];
 }
 
 #pragma mark - 个推推送相关 -

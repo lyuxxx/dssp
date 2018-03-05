@@ -79,14 +79,14 @@
     self.codeLabel.text = code.checkCode;
     if ([code.recordStatus isEqualToString:@"1"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-        _stateLabel.text = NSLocalizedString(@"已获取", nil);
+        _stateLabel.text = NSLocalizedString(@"有效", nil);
     } else if ([code.recordStatus isEqualToString:@"0"]) {
         _stateLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-        _stateLabel.text = NSLocalizedString(@"已过期", nil);
+        _stateLabel.text = NSLocalizedString(@"无效", nil);
     }
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy/MM/dd";
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    formatter.timeZone = [NSTimeZone localTimeZone];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];

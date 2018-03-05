@@ -389,12 +389,17 @@ static dispatch_once_t mapHomeOnceToken;
             
         }];
         [alert addButtonWithTitle:@"发送" type:CUButtonTypeNormal clicked:^{
-            [SendPoiProgressView showWithCancelBlock:^{
-                [self cancelSendPoi];
-            }];
+//            [SendPoiProgressView showWithCancelBlock:^{
+//                [self cancelSendPoi];
+//            }];
+            __block MBProgressHUD *hud;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                hud = [MBProgressHUD showMessage:@""];
+            });
             [self sendPoiWithName:self.currentPoi.name address:self.currentPoi.address location:self.currentPoi.coordinate tel:self.currentPoi.tel inResult:^(SendPoiResult result) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [SendPoiProgressView dismiss];
+//                    [SendPoiProgressView dismiss];
+                    [hud hideAnimated:YES];
                     [self showPoiSendAletWithResult:result];
                 });
             }];

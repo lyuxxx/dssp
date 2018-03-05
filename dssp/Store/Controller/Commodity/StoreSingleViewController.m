@@ -13,8 +13,9 @@
 #import "StoreObject.h"
 #import "OrderSubmitViewController.h"
 #import <MJRefresh.h>
+#import <UIScrollView+EmptyDataSet.h>
 
-@interface StoreSingleViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface StoreSingleViewController () <UICollectionViewDelegate, UICollectionViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) NSArray<StoreCategory *> *categories;
 @property (nonatomic, strong) NSMutableArray<StoreCommodity *> *commodities;
@@ -144,7 +145,7 @@
     flowLayout.minimumInteritemSpacing = 0 * WidthCoefficient;
     flowLayout.minimumLineSpacing = 0 * WidthCoefficient;
     flowLayout.sectionInset = UIEdgeInsetsMake(15 * WidthCoefficient, 11 * WidthCoefficient, 5 * WidthCoefficient, 11 * WidthCoefficient);
-    flowLayout.itemSize = CGSizeMake(166.5 * WidthCoefficient, 250 * WidthCoefficient);
+    flowLayout.itemSize = CGSizeMake(176.5 * WidthCoefficient, 250 * WidthCoefficient);
 //    flowLayout.headerReferenceSize = CGSizeMake(275 * WidthCoefficient, 45 * WidthCoefficient);
     flowLayout.headerReferenceSize = CGSizeMake(0, 0);
     
@@ -193,6 +194,10 @@
             if (response.data.result) {
                 self.currentPage++;
             }
+            
+            _collectionView.emptyDataSetSource = self;
+            _collectionView.emptyDataSetDelegate = self;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.collectionView reloadData];
                 [self.collectionView.mj_header endRefreshing];
@@ -268,6 +273,36 @@
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     CommodityDetailViewController *vc = [[CommodityDetailViewController alloc] initWithCommodity:self.commodities[indexPath.row]];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - DZNEmptyDataSetSource -
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *text = NSLocalizedString(@"暂无商品", nil);
+    UIFont *font = [UIFont fontWithName:FontName size:16];
+    UIColor *textColor = [UIColor colorWithHexString:@"999999"];
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    [attributes setObject:font forKey:NSFontAttributeName];
+    [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"blank_placeholder"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+#pragma mark - DZNEmptyDataSetDelegate -
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    scrollView.contentOffset = CGPointZero;
 }
 
 - (NSMutableArray<StoreCommodity *> *)commodities {

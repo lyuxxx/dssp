@@ -155,7 +155,8 @@ static dispatch_once_t mapBaseOnceToken;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             NSString *requestId = dic[@"data"][@"requestId"];
-            [self startPoiResultTimerWithRequestId:requestId];
+//            [self startPoiResultTimerWithRequestId:requestId];
+            self.sendPoiResultBlock(SendPoiResultSuccess);
         } else {
             self.sendPoiResultBlock(SendPoiResultFail);
         }

@@ -16,6 +16,7 @@
 #import "TrackSingleCell.h"
 #import <MJRefresh.h>
 #import <NSObject+FBKVOController.h>
+#import <UIScrollView+EmptyDataSet.h>
 
 #define CalendarContainerHeight (kScreenHeight - kNaviHeight - 80 * WidthCoefficient)
 
@@ -24,7 +25,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     ButtonTagOK,
 };
 
-@interface TrackListViewController () <FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource>
+@interface TrackListViewController () <FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
 
 @property (nonnull, strong) UIView *calendarContainer;
 @property (weak, nonatomic) FSCalendar *calendar;
@@ -153,6 +154,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     [self createTop];
     [self createTableView];
+    [self pullDefaultData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -346,6 +348,24 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     }];;
 }
 
+- (void)pullDefaultData {
+    //默认拉取3个月数据
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:-3];
+    NSDate *startDate = [self.gregorian dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy/MM/dd";
+    formatter.timeZone = [NSTimeZone localTimeZone];
+    self.filterStartLabel.text = [formatter stringFromDate:startDate];
+    self.filterEndLabel.text = [formatter stringFromDate:[NSDate date]];
+    
+    self.startTimeStamp = [self convertDateToTimestamp:startDate isStart:YES];
+    self.endTimeStamp = [self convertDateToTimestamp:[NSDate date] isStart:NO];
+    
+    [self pullData];
+}
+
 - (void)pullData {
     //清空
     self.currentPage = 1;
@@ -371,6 +391,10 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             if (response.data.result.count) {
                 self.currentPage++;
             }
+            
+            _tableView.emptyDataSetDelegate = self;
+            _tableView.emptyDataSetSource = self;
+            
             [self appendSections:response.data.result];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hideAnimated:YES];
@@ -389,9 +413,11 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)appendListData {
     NSDictionary *paras = @{
                             @"vin":@"VF7CAPSA000020154",
-                            @"startTime":@"1519367046000",
-                                         //1519888479.927832
-                            @"endTime":@"1519723342000",
+//                            @"startTime":@"1519367046000",
+//                                         //1519888479.927832
+//                            @"endTime":@"1519723342000",
+                            @"startTime":self.startTimeStamp,
+                            @"endTime":self.endTimeStamp,
                             @"pageNo":[NSString stringWithFormat:@"%ld",self.currentPage],
                             @"pageSize":@"10"
                             };
@@ -404,6 +430,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
                     [self appendSections:response.data.result];
                     self.currentPage++;
                 }
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                     [self.tableView.mj_footer endRefreshing];
@@ -516,6 +543,36 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 //- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
 //    view.tintColor = [UIColor colorWithHexString:@"040000"];
 //}
+
+#pragma mark - DZNEmptyDataSetSource -
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *text = NSLocalizedString(@"暂无数据", nil);
+    UIFont *font = [UIFont fontWithName:FontName size:16];
+    UIColor *textColor = [UIColor colorWithHexString:@"999999"];
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    [attributes setObject:font forKey:NSFontAttributeName];
+    [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"blank_placeholder"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+#pragma mark - DZNEmptyDataSetDelegate -
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    scrollView.contentOffset = CGPointZero;
+}
 
 #pragma mark - FSCalendarDataSource
 
