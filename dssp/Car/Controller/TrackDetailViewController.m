@@ -102,7 +102,7 @@
                             @"vin":@"VFNCA5GRMFW000000",
                             @"tripId":self.trackInfo.properties.tripId,
                             @"pageNo":@"1",
-                            @"pageSize":@"10000"
+                            @"pageSize":@"50000"
                             };
     [CUHTTPRequest POST:getTrackDetailURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -409,14 +409,18 @@
         commonPolylineCoords[i].latitude = item.lat;
         commonPolylineCoords[i].longitude = item.lon;
         
-        if (i == 0) {
-            self.startAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
-            
-        }
-        if (i == coordinates.count - 1) {
-            self.endAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
-        }
+//        if (i == 0) {
+//            self.startAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
+//
+//        }
+//        if (i == coordinates.count - 1) {
+//            self.endAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
+//        }
     }
+    
+    self.startAnnotation.coordinate = CLLocationCoordinate2DMake(_trackInfo.geometry.afterCoordinates[0].lat, _trackInfo.geometry.afterCoordinates[0].lon);
+    
+    self.endAnnotation.coordinate = CLLocationCoordinate2DMake(_trackInfo.geometry.afterCoordinates.lastObject.lat, _trackInfo.geometry.afterCoordinates.lastObject.lon);
     
 //    commonPolylineCoords[0].latitude = 30.621480;
 //    commonPolylineCoords[0].longitude = 114.234748;
@@ -462,7 +466,7 @@
     //在地图上添加折线对象
     [_mapView addOverlay:commonPolyline];
     
-//    [_mapView addAnnotations:@[_startAnnotation,_endAnnotation]];
+    [_mapView addAnnotations:@[_startAnnotation,_endAnnotation]];
     
     [self.mapView setVisibleMapRect:[MapUtility mapRectForOverlays:@[commonPolyline]] edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
 //    [_mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];

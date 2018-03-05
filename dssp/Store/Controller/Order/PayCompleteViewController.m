@@ -8,9 +8,16 @@
 
 #import "PayCompleteViewController.h"
 #import <UIViewController+RTRootNavigationController.h>
+#import "OrderObject.h"
+
+typedef NS_ENUM(NSUInteger, PayState) {
+    PayStateOK,
+    PayStateFail
+};
 
 @interface PayCompleteViewController ()
 
+@property (nonatomic, strong) PayRequest *payRequest;
 @property (nonatomic, assign) PayState payState;
 
 @property (nonatomic, strong) UILabel *stateLabel;
@@ -28,10 +35,10 @@
 
 @implementation PayCompleteViewController
 
-- (instancetype)initWithState:(PayState)payState {
+- (instancetype)initWithPayRequest:(PayRequest *)payRequest {
     self = [super init];
     if (self) {
-        _payState = payState;
+        _payRequest = payRequest;
     }
     return self;
 }
@@ -43,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"支付状态", nil);
+    self.navigationItem.title = NSLocalizedString(@"交易状态", nil);
     self.rt_disableInteractivePop = YES;
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(backToHome) forControlEvents:UIControlEventTouchUpInside];
@@ -54,6 +61,11 @@
     }];
     self.navigationItem.leftBarButtonItem = left;
     [self setupUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self checkOrderInfo];
 }
 
 //- (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action {
@@ -84,7 +96,7 @@
     okLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     okLabel.textColor = [UIColor whiteColor];
     okLabel.textAlignment = NSTextAlignmentCenter;
-    okLabel.text = NSLocalizedString(@"支付成功", nil);
+    okLabel.text = NSLocalizedString(@"交易成功", nil);
     [topV addSubview:okLabel];
     [okLabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(15 * WidthCoefficient);
@@ -202,47 +214,88 @@
 
 - (void)setPayState:(PayState)payState {
     _payState = payState;
-    if (_payState == PayStateOK) {
-        self.stateLabel.text = NSLocalizedString(@"支付成功", nil);
-        self.stateImgV.image = [UIImage imageNamed:@"payOK"];
-        self.okMidV.hidden = NO;
-        self.failMidV.hidden = YES;
-        _botBtn.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
-        [_botBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
-        [_botBtn updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.okMidV.bottom).offset(24 * WidthCoefficient);
-        }];
-    } else {
-        self.stateLabel.text = NSLocalizedString(@"支付失败", nil);
-        self.stateImgV.image = [UIImage imageNamed:@"payFail"];
-        self.okMidV.hidden = YES;
-        self.failMidV.hidden = NO;
-        _botBtn.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
-        [_botBtn setTitle:NSLocalizedString(@"刷新", nil) forState:UIControlStateNormal];
-        [_botBtn updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.failMidV.bottom).offset(24 * WidthCoefficient);
-        }];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_payState == PayStateOK) {
+            self.stateLabel.text = NSLocalizedString(@"交易成功", nil);
+            self.stateImgV.image = [UIImage imageNamed:@"payOK"];
+            self.okMidV.hidden = NO;
+            self.failMidV.hidden = YES;
+            _botBtn.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+            [_botBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
+            [_botBtn updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.okMidV.bottom).offset(24 * WidthCoefficient);
+            }];
+        } else {
+            self.stateLabel.text = NSLocalizedString(@"交易失败", nil);
+            self.stateImgV.image = [UIImage imageNamed:@"payFail"];
+            self.okMidV.hidden = YES;
+            self.failMidV.hidden = NO;
+            _botBtn.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
+            [_botBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
+            [_botBtn updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.failMidV.bottom).offset(24 * WidthCoefficient);
+            }];
+        }
+    });
 }
 
 - (void)checkOrderInfo {
-    NSDictionary *paras = @{
-                            
-                            };
-    [CUHTTPRequest POST:@"" parameters:paras success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-    } failure:^(NSInteger code) {
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:payOrderQuery] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.0f];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [urlRequest setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"token"] forHTTPHeaderField:@"token"];
+    
+    [urlRequest setHTTPBody:[[NSString stringWithFormat:@"thirdInfoId=%@&message=%@&t=%@&h=%@",_payRequest.thirdInfoId,_payRequest.message,_payRequest.t,_payRequest.h] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-    }];
+        NSError *inerror;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
+        NSLog(@"%@",dic);
+        if (dic[@"message"]) {
+            if ([dic[@"message"][@"returnCode"] isEqualToString:@"SUCCESS"]) {
+                NSString *tradeState = dic[@"message"][@"tradeState"];
+                if ([tradeState isEqualToString:@"TRADE_SUCCESS"]) {
+                    self.payState = PayStateOK;
+                    NSString *orderNo = dic[@"message"][@"orderNo"];
+                    NSString *totalFee = dic[@"message"][@"totalFee"];
+                    NSString *tradeTime = dic[@"message"][@"tradeTime"];
+                    
+                    NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
+                    formatter0.dateFormat = @"yyyyMMddHHmmss";
+                    formatter0.timeZone = [NSTimeZone localTimeZone];
+                    
+                    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+                    formatter1.dateFormat = @"yyyy/MM/dd HH:mm:ss";
+                    formatter1.timeZone = [NSTimeZone localTimeZone];
+                    NSDate *date = [formatter0 dateFromString:tradeTime];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.orderNoLabel.text = orderNo;
+                        self.paymentLabel.text = [NSString stringWithFormat:@"¥%@",totalFee];
+                        self.timeLabel.text = [formatter1 stringFromDate:date];
+                    });
+                    
+                } else {
+                    self.payState = PayStateFail;
+                }
+            } else if ([dic[@"message"][@"returnCode"] isEqualToString:@"FAIL"]) {
+                self.payState = PayStateFail;
+            }
+        } else {
+            NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+            NSInteger statusCode = [res statusCode];
+        }
+    }] resume];
 }
 
 //底下按钮
 - (void)btnClick:(UIButton *)sender {
-    if (_payState == PayStateOK) {
-        [self backToHome];
-    } else {//刷新订单数据
-        
-    }
+    [self backToHome];
 }
 
 - (void)backToHome {

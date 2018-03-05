@@ -15,6 +15,7 @@
 #import "TrackListHeaderView.h"
 #import "TrackSingleCell.h"
 #import <MJRefresh.h>
+#import <NSObject+FBKVOController.h>
 
 #define CalendarContainerHeight (kScreenHeight - kNaviHeight - 80 * WidthCoefficient)
 
@@ -250,6 +251,9 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 - (void)createTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedSectionFooterHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.tableFooterView = [UIView new];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
@@ -264,8 +268,37 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     [_tableView registerClass:[TrackListHeaderView class] forHeaderFooterViewReuseIdentifier:@"TrackListHeaderView"];
     
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(appendListData)];
+    footer.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    footer.hidden = YES;
+    if (@available(iOS 11.0, *)) {
+        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
+            footer.maskView = [[UIView alloc] init];
+            footer.maskView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+        }
+    }
     footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
+//    footer.stateLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     self.tableView.mj_footer = footer;
+    
+    [self.KVOController observe:self.tableView keyPath:@"contentOffset" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
+        if (@available(iOS 11.0, *)) {
+            if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
+                CGFloat distanceToSafeBottom = (self.tableView.contentOffset.y + CGRectGetHeight(self.tableView.frame) - self.view.safeAreaInsets.bottom) - self.tableView.contentSize.height;
+                if (distanceToSafeBottom < 0) {
+                    self.tableView.mj_footer.maskView.frame = CGRectZero;
+                } else {
+                    CGFloat showFooterHeight = distanceToSafeBottom;
+                    if (showFooterHeight > CGRectGetHeight(self.tableView.mj_footer.bounds)) {
+                        showFooterHeight = CGRectGetHeight(self.tableView.mj_footer.bounds);
+                    }
+                    if (self.tableView.mj_footer.state != MJRefreshStateRefreshing) {
+                        self.tableView.mj_footer.maskView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.mj_footer.bounds), showFooterHeight);
+                    }
+                }
+            }
+        }
+    }];
+    
 }
 
 - (void)showCalendar {
@@ -409,6 +442,12 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
         }
     } else {
         [self.sections addObjectsFromArray:appendSections];
+    }
+    
+    if (self.sections.count) {
+        self.tableView.mj_footer.hidden = NO;
+    } else {
+        self.tableView.mj_footer.hidden = YES;
     }
 }
 

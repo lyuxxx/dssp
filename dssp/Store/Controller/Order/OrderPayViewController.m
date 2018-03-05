@@ -230,7 +230,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
     request.h = infoMD5;
     request.message = [NSString stringWithFormat:@"{\"message\":%@}",msgStr];
     
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/payment/v1/appCreatePay"] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.0f];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:appCreatePay] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.0f];
     
     [urlRequest setHTTPMethod:@"POST"];
     
@@ -256,12 +256,17 @@ typedef NS_ENUM(NSUInteger, PayType) {
                 if (respCode == 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] init];
+                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
                             [self.navigationController pushViewController:vc animated:YES];
                         });
                     });
                 } else if (respCode == -1) {
-                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
+                    });
                 } else if (respCode == -2) {
                     
                 } else if (respCode == -3) {//未安装微信
@@ -367,12 +372,17 @@ typedef NS_ENUM(NSUInteger, PayType) {
                 if (respCode == 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] init];
+                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
                             [self.navigationController pushViewController:vc animated:YES];
                         });
                     });
                 } else if (respCode == -1) {
-                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
+                    });
                 } else if (respCode == -2) {
                     
                 } else if (respCode == -99) {
@@ -402,6 +412,37 @@ typedef NS_ENUM(NSUInteger, PayType) {
         }
     }] resume];
     
+}
+
+- (PayRequest *)createTmpRequestForOrderQueryWithRequest:(PayRequest *)inputRequest message:(PayMessage *)inputMessage {
+    
+    NSDictionary *msgDic = @{
+                             @"orderNo": inputMessage.orderNo,
+                             @"payType": inputMessage.payType
+                             };
+    
+    PayRequest *request = [[PayRequest alloc] init];
+    request.appId = inputRequest.appId;
+    request.userId = inputRequest.userId;
+    request.protocolId = inputRequest.protocolId;
+    request.thirdInfoId = inputRequest.thirdInfoId;
+    request.t = inputRequest.t;
+    
+    NSString *msgStr = [self stringWithDict:msgDic];
+    request.message = [NSString stringWithFormat:@"{\"message\":%@}",msgStr];
+    
+    NSMutableString *info = [NSMutableString string];
+    
+    [info appendString:[NSString stringWithFormat:@"message={\"message\":%@}",msgStr]];
+    [info appendString:[NSString stringWithFormat:@"&t=%@",request.t]];
+    [info appendString:[NSString stringWithFormat:@"&thirdInfoId=%@",request.thirdInfoId]];
+    [info appendString:[NSString stringWithFormat:@"&appKey=ce54960341d675de1910d8f894216ae5"]];
+    
+    NSString *infoMD5 = [info md5String];
+    
+    request.h = infoMD5;
+    
+    return request;
 }
 
 - (NSString *)stringWithDict:(NSDictionary *)dic{

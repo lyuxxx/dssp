@@ -234,7 +234,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define addOrderInvoiceURL [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
 ///获取支付签名参数
 #define appCreatePay @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/appCreatePay"
-
+#define payOrderQuery @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/orderQuery"
 
 
 //修改昵称
