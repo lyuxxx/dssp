@@ -22,15 +22,17 @@
 
 @implementation LllegalViewController
 
+- (BOOL)needGradientBg {
+    return NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
      self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
-    [self initTableView];
-    [self requestData];
-  
    
+    [self requestData];
 }
 
 -(void)requestData
@@ -57,26 +59,22 @@
                     
                     [self.DataArray addObject:lllegaModel];
                 }
-                
-                
+    
             }
-           
- 
-//            self.DataArray = dic[@"data"][@"viloationInfo"];
 
             [_tableView reloadData];
-            
-            
-//            [self setupUI];
+            [self initTableView];
+    
         } else {
-            
+             [self blankUI];
             [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
+         [self blankUI];
         //    self.carflow =_carflow;
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
         //        [hud hideAnimated:YES afterDelay:1];
     }];
@@ -226,6 +224,35 @@
 //        make.width.equalTo(240 * WidthCoefficient);
 //    }];
 
+}
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"空页面1"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(120 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(77.5 * HeightCoefficient);
+        make.width.equalTo(86.5 * WidthCoefficient);
+    }];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text =@"暂无数据";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor colorWithHexString:@"#999999"];
+    label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    
+    [self.view addSubview:label];
+    [label makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bgImgV.bottom).offset(15*WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(100 *WidthCoefficient);
+    }];
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

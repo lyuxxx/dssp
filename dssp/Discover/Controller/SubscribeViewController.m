@@ -131,11 +131,8 @@
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     
-    
 //    JCYJKTitleModel  * model = [self.titleArray  objectAtIndex:index];
-//
 //    NSString * titleString = model.titleString;
-    
     return self.titleData[index];
 }
 
@@ -146,24 +143,13 @@
     self.delegate = self;
     NSLog(@"%@",info);
    
-    
-//    pageController.ddd = info[@"title"];
-//    viewController.title = info[@"title"];
-//    viewController.title = self.titleData[0];
-   
 }
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-//    switch (index) {
-//        case 0: return [[WMViewController alloc] init];
-//        case 1: return [[WMViewController alloc] init];
-//        case 2: return [[WMCollectionViewController alloc] init];
-//    }
+
     
-//     NSArray *controllerArray = [NSArray arrayWithObjects:[ViewController class], [ViewController2 class], nil nil];
-    
+//   NSArray *controllerArray = [NSArray arrayWithObjects:[ViewController class], [ViewController2 class], nil nil];
 //    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
-////
 //    return controller;
 
     
@@ -182,24 +168,14 @@
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    if (self.menuViewPosition == WMMenuViewPositionBottom) {
-        menuView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
-        return CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
-    }
+   
     CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
-     //    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
     return CGRectMake(leftMargin+0, 0, self.view.frame.size.width - 2*leftMargin, 44 * HeightCoefficient);
 }
 
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    if (self.menuViewPosition == WMMenuViewPositionBottom) {
-        return CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64 - 44);
-    }
     CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
-    if (self.menuViewStyle == WMMenuViewStyleTriangle) {
-        originY += self.redView.frame.size.height;
-    }
     return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
 }
 

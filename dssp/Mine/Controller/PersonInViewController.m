@@ -249,7 +249,7 @@
 
          NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
          if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-             [MBProgressHUD showText:@"666"];
+             [MBProgressHUD showText:@"图片上传成功"];
          }
         else
         {

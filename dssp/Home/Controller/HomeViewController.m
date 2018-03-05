@@ -79,7 +79,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [InputalertView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        [InputalertView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: InputalertView];
@@ -275,6 +275,11 @@
             StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
             storeTab.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:storeTab animated:YES];
+        }
+        if (btn.tag == 1000 + 3) {//违章查询
+            UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
         if (btn.tag == 1000 + 4) {
             UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];

@@ -40,6 +40,8 @@
 @property (nonatomic,strong) TrafficReporData  *trafficReporData;
 @property (nonatomic, assign) BOOL isDo;
 
+@property (nonatomic, strong) UIView *view3;
+
 @property (nonatomic, strong) NSMutableArray<RecordItems *> *dataSource;
 //@property (nonatomic, strong) RecordItem *recordItem;
 @property (nonatomic,strong) NSMutableDictionary *result;
@@ -298,7 +300,7 @@ static NSString *const cellID = @"cell";
     _DataArray = [NSMutableArray new];
     NSString *totalMileage = [[NSString stringWithFormat:@"%@",_trafficReporData.totalMileage] stringByAppendingString:@"km"];
     NSString *mileageBeforeMaintenance = [[NSString stringWithFormat:@"%@",_trafficReporData.mileageBeforeMaintenance] stringByAppendingString:@"km"];
-    NSString *levelOil = [[NSString stringWithFormat:@"%@",_trafficReporData.levelOil] stringByAppendingString:@"L"];
+    NSString *levelOil = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
     NSString *levelFuel = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
     //
     [_DataArray addObject:_trafficReporData.totalMileage?totalMileage:@"0km"];
@@ -401,7 +403,9 @@ static NSString *const cellID = @"cell";
 
 -(void)setTrafficReporData:(TrafficReporData *)trafficReporData
 {
-    if (trafficReporData.healthAlerts.count > 6 || trafficReporData.healthAlerts.count == 6) {
+    
+  
+    if([trafficReporData.alertPriority isEqualToString:@"high"]) {
         
         _seeBtn.hidden = NO;
         _bgImgV.image = [UIImage imageNamed:@"需维修背景"];
@@ -410,7 +414,7 @@ static NSString *const cellID = @"cell";
         _titlelabel.text=NSLocalizedString(@"需维修", nil);
         
     }
-    else if (trafficReporData.healthAlerts.count < 6 && trafficReporData.healthAlerts.count > 0) {
+    else if([trafficReporData.alertPriority isEqualToString:@"low"]) {
         _seeBtn.hidden = NO;
         _bgImgV.image = [UIImage imageNamed:@"需检查背景"];
         _bgImgV1.image = [UIImage imageNamed:@"需检查车"];
@@ -484,29 +488,30 @@ static NSString *const cellID = @"cell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.dataSource removeAllObjects];
+    [self.cellArray2 removeAllObjects];
+    [self.cellArray3 removeAllObjects];
+    
     NSArray *data1=self.cellArray1[indexPath.section];
     for (NSDictionary *dic in data1) {
 
-         RecordItems *recordItem = [RecordItems yy_modelWithDictionary:dic];
+        RecordItems *recordItem = [RecordItems yy_modelWithDictionary:dic];
 //         [self setcellHight:recordItem.jdaName];
-
         recordItem.cellHeights = [self setcellHight:recordItem.jdaName];
 
+        [self.cellArray2 addObject:recordItem.jdaName];
         [self.cellArray3 addObject: [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"]];
         [self.dataSource addObject:recordItem];
     }
 
-    NSLog(@"显示高度21:%f",self.dataSource[indexPath.row].cellHeights);
-//
     return self.dataSource[indexPath.row].cellHeights;
- 
 }
 
 -(CGFloat)setcellHight:(NSString *)cellModel
 {
     CGRect tmpRect= [cellModel boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0]} context:nil];
    
-    CGFloat contentH = tmpRect.size.height+11;
+    CGFloat contentH = tmpRect.size.height+28 *HeightCoefficient;
     NSLog(@"显示高度:%f",contentH);
     return contentH;
 }
@@ -514,21 +519,22 @@ static NSString *const cellID = @"cell";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RecordItems *recordItem = self.dataSource[indexPath.row];
+    
+//    RecordItems *recordItem = self.dataSource[indexPath.row];
+//
     TrafficReportdatailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     if (cell == nil) {
         cell = [[TrafficReportdatailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
+   
      cell.backgroundColor = [UIColor colorWithHexString:@"#040000"];
      cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    
-     cell.recordItem = recordItem;
+  
+     cell.recordItem = self.dataSource[indexPath.row];
     
   
-//       cell.leftlab.text = self.cellArray2[indexPath.row];
-//      [self setcellHight:self.cellArray2[indexPath.row]];
-//      NSLog(@"555%f",[self setcellHight:self.cellArray2[indexPath.row]]);
+//      cell.leftlab.text = self.cellArray2[indexPath.row];
 //      cell.rightlab.text = self.cellArray3[indexPath.row];
       return cell;
 }
@@ -546,6 +552,12 @@ static NSString *const cellID = @"cell";
     view2.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     //     view1.backgroundColor=[UIColor grayColor];
     [view addSubview:view2];
+    
+    self.view3=[[UIView alloc]initWithFrame:CGRectMake(0, 39*HeightCoefficient, 297*WidthCoefficient, 1*HeightCoefficient)];
+    _view3.hidden = YES;
+    _view3.backgroundColor=[UIColor colorWithHexString:@"#1E1918"];
+//    view3.backgroundColor=[UIColor grayColor];
+    [view1 addSubview:_view3];
     
     UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(10*WidthCoefficient, 10*HeightCoefficient, 180*WidthCoefficient, 20*HeightCoefficient)];
     titleLabel.font = [UIFont systemFontOfSize:15];
@@ -571,11 +583,13 @@ static NSString *const cellID = @"cell";
     NSString *stringInt = [NSString stringWithFormat:@"%d",intString];
    
     if ([stringInt isEqualToString:@"1"]) {
+         _view3.hidden = NO;
         _rightimageView.image=[UIImage imageNamed:@"arrowup"];
     }else{
+        _view3.hidden = YES;
         _rightimageView.image=[UIImage imageNamed:@"arrowdown"];
     }
-//    _rightimageView.image=[UIImage imageNamed:@"arrowdown"];
+
     [view1 addSubview:_rightimageView];
     [_rightimageView makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(16*WidthCoefficient);
@@ -603,6 +617,7 @@ static NSString *const cellID = @"cell";
 - (void)buttonAction:(UIButton *)button {
     
     NSInteger section = button.tag - 666;
+
     self.isExpland[section] = [self.isExpland[section] isEqual:@0]?@1:@0;
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:section];
     [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];

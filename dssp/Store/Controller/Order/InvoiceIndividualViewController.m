@@ -177,7 +177,7 @@
             else if (i == 1) {
                 
                 _field.text = @"";
-                self.receiverNameField = _field;
+                self.invoiceClient = _field;
                 
             }else if (i == 2) {
                 
