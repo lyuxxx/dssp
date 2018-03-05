@@ -34,6 +34,7 @@
 @property (nonatomic , copy) NSString              * totalMileage;
 @property (nonatomic , copy) NSString              * levelOil;
 @property (nonatomic , copy) NSString              * levelFuel;
+@property (nonatomic , copy) NSString              * alertPriority;
 @property (nonatomic , copy) NSString              * mileageBeforeMaintenance;
 @property (nonatomic , strong) NSArray <HealthAlertsItem *>              * healthAlerts;
 

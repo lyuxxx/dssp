@@ -25,6 +25,7 @@
 #import "UITabBar+badge.h"
 #import "StoreTabViewController.h"
 #import "UpkeepViewController.h"
+#import "TrafficReportModel.h"
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) FSPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray<NSString *> *imgTitles;
 @property (nonatomic, strong) CLLocationManager *mgr;
+@property (nonatomic, strong) TrafficReporData *trafficReporData;
 @end
 
 @implementation HomeViewController
@@ -53,7 +55,31 @@
 //    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self postCustByMobile];
     [self setupUI];
+    [self requestData];
    
+}
+
+-(void)requestData
+{
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
+            self.topView.trafficReporData = _trafficReporData;
+
+        } else {
+            self.topView.trafficReporData = _trafficReporData;
+            [hud hideAnimated:YES];
+            //[MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+         self.topView.trafficReporData = _trafficReporData;
+        [hud hideAnimated:YES];
+    
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,7 +95,6 @@
 
 - (void)postCustByMobile
 {
-    
 //    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //    NSString *vin = [defaults1 objectForKey:@"vin"];
 //    
@@ -79,7 +104,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [InputalertView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        [InputalertView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: InputalertView];
@@ -229,8 +254,8 @@
         make.left.equalTo(9.5 * WidthCoefficient);
         make.top.equalTo(73 * HeightCoefficient);
     }];
-    
     [self.view insertSubview:_scroll atIndex:0];
+    
     
     [self.KVOController observe:self.scroll keyPath:@"contentOffset" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
@@ -275,6 +300,11 @@
             StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
             storeTab.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:storeTab animated:YES];
+        }
+        if (btn.tag == 1000 + 3) {//违章查询
+            UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
         if (btn.tag == 1000 + 4) {
             UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];

@@ -14,7 +14,7 @@
 #import "RefuelViewController.h"
 #import "MapUpdateViewController.h"
 #import "StoreTabViewController.h"
-
+#import "TrafficReportModel.h"
 @interface LoveCarViewController ()
 
 @property (nonatomic, strong) UILabel *plateLabel;
@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UILabel *mileageLabel;
 @property (nonatomic, strong) UILabel *oilLeftLabel;
 @property (nonatomic, strong) UILabel *healthLabel;
-
+@property (nonatomic, strong) TrafficReporData *trafficReporData;
 @end
 
 @implementation LoveCarViewController
@@ -35,6 +35,30 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupUI];
+    [self requestData];
+}
+
+-(void)requestData
+{
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
+            
+            self.trafficReporData =_trafficReporData;
+        } else {
+            self.trafficReporData =_trafficReporData;
+            [hud hideAnimated:YES];
+            //[MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+       self.trafficReporData =_trafficReporData;
+        [hud hideAnimated:YES];
+        
+    }];
 }
 
 - (void)setupUI {
@@ -148,7 +172,7 @@
     _mileageLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _mileageLabel.textAlignment = NSTextAlignmentRight;
     _mileageLabel.textColor = [UIColor whiteColor];
-    _mileageLabel.text = @"12903 km";
+//    _mileageLabel.text = @"12903 km";
     [previewImgV addSubview:_mileageLabel];
     [_mileageLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(21 * HeightCoefficient);
@@ -160,7 +184,7 @@
     _oilLeftLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _oilLeftLabel.textAlignment = NSTextAlignmentRight;
     _oilLeftLabel.textColor = [UIColor whiteColor];
-    _oilLeftLabel.text = @"28 L";
+//    _oilLeftLabel.text = @"28 L";
     [previewImgV addSubview:_oilLeftLabel];
     [_oilLeftLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(21 * HeightCoefficient);
@@ -172,7 +196,7 @@
     _healthLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _healthLabel.textAlignment = NSTextAlignmentRight;
     _healthLabel.textColor = [UIColor whiteColor];
-    _healthLabel.text = @"健康";
+//    _healthLabel.text = @"健康";
     [previewImgV addSubview:_healthLabel];
     [_healthLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(25 * HeightCoefficient);
@@ -258,6 +282,30 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoStore:)];
     [storeImgV addGestureRecognizer:tap];
+}
+
+-(void)setTrafficReporData:(TrafficReporData *)trafficReporData
+{
+    NSString *totalMileage = [[NSString stringWithFormat:@"%@",trafficReporData.totalMileage] stringByAppendingString:@"km"];
+    
+    NSString *levelOil = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
+    
+    if([trafficReporData.alertPriority isEqualToString:@"high"]) {
+        
+        _healthLabel.text = @"需维修";
+        
+    }
+    else if([trafficReporData.alertPriority isEqualToString:@"low"]) {
+        _healthLabel.text = @"需检查";
+    }
+    else
+    {
+        _healthLabel.text = @"健康";
+        
+    }
+    _mileageLabel.text = trafficReporData.totalMileage?totalMileage:@"0km";
+    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
+    
 }
 
 - (void)gotoStore:(UITapGestureRecognizer *)sender {

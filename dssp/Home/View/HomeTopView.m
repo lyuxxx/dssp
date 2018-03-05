@@ -160,7 +160,7 @@
         _mileageLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         _mileageLabel.textAlignment = NSTextAlignmentRight;
         _mileageLabel.textColor = [UIColor whiteColor];
-        _mileageLabel.text = @"12903 km";
+//        _mileageLabel.text = @"12903 km";
         [_previewImgV addSubview:_mileageLabel];
         [_mileageLabel makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(21 * HeightCoefficient);
@@ -172,7 +172,7 @@
         _oilLeftLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         _oilLeftLabel.textAlignment = NSTextAlignmentRight;
         _oilLeftLabel.textColor = [UIColor whiteColor];
-        _oilLeftLabel.text = @"28 L";
+//        _oilLeftLabel.text = @"28 L";
         [_previewImgV addSubview:_oilLeftLabel];
         [_oilLeftLabel makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(21 * HeightCoefficient);
@@ -184,7 +184,7 @@
         _healthLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         _healthLabel.textAlignment = NSTextAlignmentRight;
         _healthLabel.textColor = [UIColor whiteColor];
-        _healthLabel.text = @"健康";
+//        _healthLabel.text = @"健康";
         [_previewImgV addSubview:_healthLabel];
         [_healthLabel makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(25 * HeightCoefficient);
@@ -287,6 +287,33 @@
         }];
     }
     return self;
+}
+
+-(void)setTrafficReporData:(TrafficReporData *)trafficReporData
+{
+    
+    NSString *totalMileage = [[NSString stringWithFormat:@"%@",trafficReporData.totalMileage] stringByAppendingString:@"km"];
+    
+    NSString *levelOil = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
+    
+    
+    if([trafficReporData.alertPriority isEqualToString:@"high"]) {
+        
+        _healthLabel.text = @"需维修";
+        
+    }
+    else if([trafficReporData.alertPriority isEqualToString:@"low"]) {
+        _healthLabel.text = @"需检查";
+    }
+    else
+    {
+         _healthLabel.text = @"健康";
+        
+    }
+    _mileageLabel.text = trafficReporData.totalMileage?totalMileage:@"0km";
+    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
+ 
+    
 }
 
 - (void)setLocationStr:(NSString *)locationStr {

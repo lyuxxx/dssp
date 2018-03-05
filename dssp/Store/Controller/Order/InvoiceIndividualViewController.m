@@ -177,7 +177,7 @@
             else if (i == 1) {
                 
                 _field.text = @"";
-                self.receiverNameField = _field;
+                self.invoiceClient = _field;
                 
             }else if (i == 2) {
                 
@@ -304,7 +304,12 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+           
            [MBProgressHUD showText:NSLocalizedString(@"发票信息提交成功", nil)];
+//            
+//            UIViewController *viewCtl = self.navigationController.viewControllers[1];
+//            [self.navigationController popToViewController:viewCtl animated:YES];
+          [self.navigationController popViewControllerAnimated:YES];
             
         } else {
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];

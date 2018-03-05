@@ -27,31 +27,10 @@
         UIView *whiteView = [[UIView alloc] init];
         whiteView.layer.cornerRadius = 1;
         whiteView.layer.masksToBounds = YES;
-        
-        
-//        CALayer *topLayer = [CALayer layer];
-//        //設定邊線的顏色
-//        topLayer.backgroundColor = [[UIColor redColor] CGColor];
-//
-//        //設定邊線的大小
-//        CGFloat borderSize = 3.0;
-//        //指定邊線位置在view的上方，為了不擋住view所以y值調整成-borderSize
-//        topLayer.frame = CGRectMake(0, -3, whiteView.bounds.size.width, borderSize);
-//
-//        [whiteView.layer addSublayer:topLayer];
-//
-//
-//        CALayer *bottomLayer = [CALayer layer];
-//        bottomLayer.backgroundColor = [[UIColor redColor] CGColor];
-//        //指定邊線位置在view的下方
-//        bottomLayer.frame = CGRectMake(0, CGRectGetMaxY(whiteView.bounds), whiteView.bounds.size.width, borderSize);
-//
-//        [whiteView.layer addSublayer:bottomLayer];
-//         whiteView.backgroundColor = [UIColor whiteColor];
         whiteView.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
         [self.contentView addSubview:whiteView];
         [whiteView makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(44 *HeightCoefficient);
+            make.height.equalTo(41 *HeightCoefficient);
             make.left.equalTo(62*WidthCoefficient);
             make.width.equalTo(297 *WidthCoefficient);
             
@@ -61,19 +40,13 @@
     
     
     UIView *whiteView = [[UIView alloc] init];
-
-
-
-//    whiteView setBorderWithView
-//    whiteView.layer.cornerRadius = 2;
-//    whiteView.layer.masksToBounds = YES;
     whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
     [self.contentView addSubview:whiteView];
     [whiteView makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(1);
+        make.height.equalTo(1 *HeightCoefficient);
         make.left.equalTo(62*WidthCoefficient);
         make.width.equalTo(297*WidthCoefficient);
-        make.bottom.equalTo(1 - 1 * HeightCoefficient);
+        make.bottom.equalTo(1-1*HeightCoefficient);
 
     }];
     
@@ -95,7 +68,7 @@
         UILabel *lab=[[UILabel alloc] init];
         //        lab.text = @"123456";
         lab.textColor=[UIColor colorWithHexString:@"#FFFFFF"];
-//        _leftlab.backgroundColor=[UIColor redColor];
+//        lab.backgroundColor=[UIColor redColor];
         lab.textAlignment = NSTextAlignmentLeft;
         [lab setNumberOfLines:0];
         lab.font=[UIFont fontWithName:FontName size:14];
@@ -103,7 +76,7 @@
         [lab makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(0);
             make.height.equalTo(40 * HeightCoefficient);
-            make.width.equalTo(227 * WidthCoefficient);
+            make.width.equalTo(200 * WidthCoefficient);
             make.left.equalTo(10 * WidthCoefficient);
         }];
         lab;
@@ -121,6 +94,27 @@
             make.height.equalTo(20 * HeightCoefficient);
             make.width.equalTo(100 * WidthCoefficient);
             make.right.equalTo(-10 * WidthCoefficient);
+        }];
+        lab;
+    });
+    
+    
+    self.rightlab1=({
+        UILabel *lab=[[UILabel alloc] init];
+        lab.layer.cornerRadius = 2;
+        lab.clipsToBounds = YES;
+        lab.hidden = YES;
+//        lab.backgroundColor=[UIColor colorWithHexString:@"#AC0042"];
+//        lab.textColor=[UIColor colorWithHexString:@"#ffffff"];
+//        lab.text =@"严重";
+        lab.textAlignment = NSTextAlignmentCenter;
+        lab.font=[UIFont fontWithName:FontName size:14];
+        [_whiteView addSubview:lab];
+        [lab makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(0);
+            make.height.equalTo(15 * HeightCoefficient);
+            make.width.equalTo(32 * WidthCoefficient);
+            make.right.equalTo(-40 *WidthCoefficient);
         }];
         lab;
     });
@@ -163,9 +157,34 @@
         [self.leftlab updateConstraints:^(MASConstraintMaker *make) {
 
             make.height.equalTo([self setcellHight:recordItem.jdaName]);
+            make.centerY.equalTo(0);
 
         }];
+        [self.whiteView updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo([self setcellHight:recordItem.jdaName]-1);
+         
+            
+        }];
     }
+    
+    if([recordItem.alertPriority isEqualToString:@"low"])
+    {
+        _rightlab1.hidden = NO;
+        _rightlab1.backgroundColor=[UIColor colorWithHexString:@"#FFD9A5"];
+        _rightlab1.textColor=[UIColor colorWithHexString:@"#ffffff"];
+        _rightlab1.text =@"低级";
+      
+    }
+    else if([recordItem.alertPriority isEqualToString:@"high"])
+    {
+        
+        _rightlab1.hidden = NO;
+        _rightlab1.backgroundColor=[UIColor colorWithHexString:@"#DE0055"];
+        _rightlab1.textColor=[UIColor colorWithHexString:@"#ffffff"];
+        _rightlab1.text =@"高级";
+      
+    }
+    
     
     NSString *alertCount = [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"];
     self.rightlab.text = alertCount?alertCount:@"0次";
@@ -175,7 +194,7 @@
 {
     CGRect tmpRect= [cellModel boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0]} context:nil];
 
-    CGFloat contentH = tmpRect.size.height + 11*HeightCoefficient;
+    CGFloat contentH = tmpRect.size.height + 28*HeightCoefficient;
     NSLog(@"显示高度:%f",contentH);
 
 

@@ -296,7 +296,7 @@
         // LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [MBProgressHUD showText:NSLocalizedString(@"发票信息提交成功", nil)];
-            
+             [self.navigationController popViewControllerAnimated:YES];
         } else {
             MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
             hud.label.text = [dic objectForKey:@"msg"];

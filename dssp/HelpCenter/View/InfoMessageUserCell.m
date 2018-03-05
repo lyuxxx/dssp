@@ -43,15 +43,13 @@
                             };
     [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        
-        
+    
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             NSDictionary *dic1 = dic[@"data"];
             self.userModel = [UserModel yy_modelWithDictionary:dic1];
             
 //            dispatch_async(dispatch_get_main_queue(), ^{
 //                [self.avatar downloadImage:_userModel.headPortrait placeholder:nil success:^(CUImageCacheType cacheType, UIImage *image) {
-//
 //
 //                } failure:^(NSError *error) {
 //

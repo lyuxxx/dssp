@@ -225,15 +225,7 @@
                               NSLocalizedString(@"订阅", nil),
                            
                               ];
-    
-//    NSArray *unread = @[
-//                              NSLocalizedString(self.unreadstr, nil),
-//                              NSLocalizedString(@"订阅", nil),
-//
-//                              ];
 
-    
- 
     NSArray *imgArray = @[
                               NSLocalizedString(@"通知_icon", nil),
                               NSLocalizedString(@"订阅_icon", nil),
