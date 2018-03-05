@@ -74,7 +74,7 @@
 //                [self.navigationController popToRootViewControllerAnimated:YES];
                 UIViewController *viewCtl = self.navigationController.viewControllers[1];
                 [self.navigationController popToViewController:viewCtl animated:YES];
-               
+                
              
             } else {
                 
