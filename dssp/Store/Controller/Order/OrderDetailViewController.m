@@ -280,7 +280,7 @@
             };
         }
         if (_order.status == 2) {//待评价
-            EvaluateViewController *vc = [[EvaluateViewController alloc] initWithOrder:self.orderDetail];
+            InvoicePageController *vc = [[InvoicePageController alloc] initWithOrderId:[NSString stringWithFormat:@"%ld",self.orderDetail.orderId]];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -290,7 +290,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
         if (_order.status == 2) {//待评价
-            InvoicePageController *vc = [[InvoicePageController alloc] initWithOrderId:[NSString stringWithFormat:@"%ld",self.orderDetail.orderId]];
+            EvaluateViewController *vc = [[EvaluateViewController alloc] initWithOrder:self.orderDetail];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -385,11 +385,17 @@
         [self.btn1 setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
         self.btn1.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
     } else if (order.status == 2) {
-        [self.btn0 setTitle:NSLocalizedString(@"去评价", nil) forState:UIControlStateNormal];
+        [self.btn0 setTitle:NSLocalizedString(@"索要发票", nil) forState:UIControlStateNormal];
         [self.btn0 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.btn1 setTitle:NSLocalizedString(@"索要发票", nil) forState:UIControlStateNormal];
+        [self.btn1 setTitle:NSLocalizedString(@"去评价", nil) forState:UIControlStateNormal];
         [self.btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.btn1.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
+    }
+    
+    if (order.status == 2 && order.haveInvoice) {
+        self.btn0.hidden = YES;
+    } else {
+        self.btn0.hidden = NO;
     }
     
     if (order.status == 1 || order.status == 3) {

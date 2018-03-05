@@ -319,11 +319,11 @@
         _stateLabel.text = NSLocalizedString(@"已过期", nil);
     }
     
-    if (code.updateTime) {
+    if (code.getDate) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyy/MM/dd";
         formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-        self.expireLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.updateTime]];
+        self.expireLabel.text = [NSString stringWithFormat:@"有效期:%@",[formatter stringFromDate:code.getDate]];
     }
 }
 

@@ -159,7 +159,7 @@
             self.orderActionBlock(OrderActionCancel);
         }
         if (_order.status == 2) {//待评价
-            self.orderActionBlock(OrderActionEvaluate);
+            self.orderActionBlock(OrderActionInvoice);
         }
     }
     if (sender == _btn1) {//第二个按钮
@@ -167,7 +167,7 @@
             self.orderActionBlock(OrderActionPay);
         }
         if (_order.status == 2) {//待评价
-            self.orderActionBlock(OrderActionInvoice);
+            self.orderActionBlock(OrderActionEvaluate);
         }
     }
 }
@@ -220,13 +220,18 @@
         [self.btn1 setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
         self.btn1.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
     } else if (order.status == 2) {
-        [self.btn0 setTitle:NSLocalizedString(@"去评价", nil) forState:UIControlStateNormal];
+        [self.btn0 setTitle:NSLocalizedString(@"索要发票", nil) forState:UIControlStateNormal];
         [self.btn0 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.btn1 setTitle:NSLocalizedString(@"索要发票", nil) forState:UIControlStateNormal];
+        [self.btn1 setTitle:NSLocalizedString(@"去评价", nil) forState:UIControlStateNormal];
         [self.btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.btn1.layer.borderColor = [UIColor colorWithHexString:@"#999999"].CGColor;
     }
     
+    if (order.status == 2 && order.haveInvoice) {
+        self.btn0.hidden = YES;
+    } else {
+        self.btn0.hidden = NO;
+    }
     
     if (order.status == 1 || order.status == 3) {
         [_bgV updateConstraints:^(MASConstraintMaker *make) {
