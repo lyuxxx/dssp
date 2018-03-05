@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <YYText.h>
-
+#import "TrafficReportModel.h"
 @interface NoResponseView : UIView
 
 @end
@@ -29,6 +29,7 @@ typedef void(^locationClick)(NoResponseYYLabel *);
 @property (nonatomic, copy) btnClickBlock clickBlock;
 @property (nonatomic, copy) locationClick locationClick;
 @property (nonatomic, copy) NSString *locationStr;
+@property (nonatomic, strong) TrafficReporData *trafficReporData;
 - (void)didTapWithPoint:(CGPoint)point;
 - (void)updateWeatherText:(NSString *)text;
 

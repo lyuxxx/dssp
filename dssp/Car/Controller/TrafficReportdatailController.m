@@ -147,18 +147,7 @@ static NSString *const cellID = @"cell";
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
-            
-//            if (!self.dataArray) {
-//                self.dataArray = [NSMutableArray array];
-//            }
-//            
-//            if (!self.isExpland) {
-//                self.isExpland = [NSMutableArray array];
-//            }
-//            self.titleArray = [NSMutableArray array];
-//            self.cellArray1 = [NSMutableArray array];
-//            self.cellArray2 = [NSMutableArray array];
-//            self.cellArray3 = [NSMutableArray array];
+
             self.imgArray = [NSMutableArray array];
             self.result = [NSMutableDictionary new];
             NSMutableArray *vehicleSystem =[NSMutableArray array];
@@ -176,7 +165,7 @@ static NSString *const cellID = @"cell";
             
            NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Braking system",@"Airbag system"];
             
-            NSArray *imgs = @[@"胎压_icon",@"转向系统_icon",@"电器系统_icon",@"发动机_icon",@"电器系统灯光_icon",@"变速箱_icon",@"制动系统_icon",@"气囊_icon"];
+           NSArray *imgs = @[@"胎压_icon",@"转向系统_icon",@"电器系统_icon",@"发动机_icon",@"电器系统灯光_icon",@"变速箱_icon",@"制动系统_icon",@"气囊_icon"];
             
             
             for (int i = 0; i < self.titleArray.count; i++) {

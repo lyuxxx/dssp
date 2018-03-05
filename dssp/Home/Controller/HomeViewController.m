@@ -25,6 +25,7 @@
 #import "UITabBar+badge.h"
 #import "StoreTabViewController.h"
 #import "UpkeepViewController.h"
+#import "TrafficReportModel.h"
 @interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate>
 
 @property (nonatomic, strong) UIButton *robotBtn;
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) FSPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray<NSString *> *imgTitles;
 @property (nonatomic, strong) CLLocationManager *mgr;
+@property (nonatomic, strong) TrafficReporData *trafficReporData;
 @end
 
 @implementation HomeViewController
@@ -53,7 +55,31 @@
 //    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self postCustByMobile];
     [self setupUI];
+    [self requestData];
    
+}
+
+-(void)requestData
+{
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
+            self.topView.trafficReporData = _trafficReporData;
+
+        } else {
+            self.topView.trafficReporData = _trafficReporData;
+            [hud hideAnimated:YES];
+            //[MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+         self.topView.trafficReporData = _trafficReporData;
+        [hud hideAnimated:YES];
+    
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,7 +95,6 @@
 
 - (void)postCustByMobile
 {
-    
 //    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //    NSString *vin = [defaults1 objectForKey:@"vin"];
 //    
@@ -229,8 +254,8 @@
         make.left.equalTo(9.5 * WidthCoefficient);
         make.top.equalTo(73 * HeightCoefficient);
     }];
-    
     [self.view insertSubview:_scroll atIndex:0];
+    
     
     [self.KVOController observe:self.scroll keyPath:@"contentOffset" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
