@@ -327,13 +327,13 @@
         [location appendAttributedString:attachment];
         [location yy_appendString:_locationStr];
         location.yy_alignment = NSTextAlignmentCenter;
-        [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(0, [_locationStr rangeOfString:_locationStr].length + 1)];
+        [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(1, [_locationStr rangeOfString:_locationStr].length)];
         _locationLabel.attributedText = location;
         CGSize size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
         YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
         [self addSubview:_locationLabel];
-        NSInteger oriWidth = layout.textBoundingRect.size.width;
-        NSInteger width = oriWidth;
+        CGFloat oriWidth = layout.textBoundingRect.size.width;
+        CGFloat width = oriWidth;
         if (oriWidth > _locationLabel.preferredMaxLayoutWidth) {//两行
             width = _locationLabel.preferredMaxLayoutWidth;
             _locationBg.layer.cornerRadius = 21;

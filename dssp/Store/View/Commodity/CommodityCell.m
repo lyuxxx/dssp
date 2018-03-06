@@ -52,7 +52,7 @@
     [self.contentView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 5 * WidthCoefficient, 5 * WidthCoefficient, 5 * WidthCoefficient));
-        make.width.equalTo(166.5 * WidthCoefficient);
+        make.width.equalTo(166 * WidthCoefficient);
         make.height.equalTo(240 * WidthCoefficient);
     }];
     

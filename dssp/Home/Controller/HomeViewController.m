@@ -361,7 +361,7 @@
                 self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
             }];
         } else {
-
+            
         }
     } failure:^(NSInteger code) {
         

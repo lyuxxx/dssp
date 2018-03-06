@@ -228,11 +228,12 @@
             hud.label.text = NSLocalizedString(@"获取成功", nil);
             [hud hideAnimated:YES afterDelay:1];
 //            ActivationCode *code = dic[@"data"];
-            ActivationCode *code = [[ActivationCode alloc] init];
-            code.recordStatus = @"1";
-            code.checkCode = dic[@"data"];
+//            ActivationCode *code = [[ActivationCode alloc] init];
+//            code.recordStatus = @"1";
+//            code.checkCode = dic[@"data"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self callMapUpdateHomeWithCode:code];
+//                [self callMapUpdateHomeWithCode:code];
+                [self.navigationController popViewControllerAnimated:YES];
             });
         } else {
             hud.label.text = dic[@"msg"];

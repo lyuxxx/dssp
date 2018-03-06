@@ -11,14 +11,18 @@
 #import "MapUpdateHelpViewController.h"
 #import "ActivationCodeListViewController.h"
 #import "MapUpdateObject.h"
+#import "ActivationCodeListCell.h"
 
-@interface MapUpdateViewController ()
+@interface MapUpdateViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UILabel *limitLabel;
 @property (nonatomic, strong) UILabel *countLabel;
 
 @property (nonatomic, assign) NSInteger limit;
 @property (nonatomic, assign) NSInteger count;
+@property (nonatomic, strong) NSMutableArray<ActivationCode *> *codes;
+
+@property (nonatomic, strong) UITableView *table;
 
 @property (nonatomic, strong) UILabel *tipLabel;
 
@@ -216,52 +220,52 @@
         make.height.equalTo(18.5 * WidthCoefficient);
     }];
     
-    self.codeV = [[UIView alloc] init];
-    _codeV.layer.cornerRadius = 4;
-    _codeV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    _codeV.layer.shadowOffset = CGSizeMake(0, 4);
-    _codeV.layer.shadowOpacity = 0.5;
-    _codeV.layer.shadowRadius = 7;
-    _codeV.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:_codeV];
-    [_codeV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(85 * HeightCoefficient);
-        make.top.equalTo(botV.bottom).offset(20 * WidthCoefficient);
-        make.centerX.equalTo(self.view);
-    }];
-    
-    self.codeLabel = [[UILabel alloc] init];
-    _codeLabel.font = [UIFont fontWithName:FontName size:16];
-    _codeLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    [_codeV addSubview:_codeLabel];
-    [_codeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(20 * HeightCoefficient);
-        make.left.equalTo(10 * WidthCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-    }];
-    
-    self.stateLabel = [[UILabel alloc] init];
-    _stateLabel.textAlignment = NSTextAlignmentRight;
-    _stateLabel.font = [UIFont fontWithName:FontName size:16];
-    _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-    [_codeV addSubview:_stateLabel];
-    [_stateLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_codeLabel);
-        make.right.equalTo(-10 * WidthCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-    }];
-    
-    self.expireLabel = [[UILabel alloc] init];
-    _expireLabel.textAlignment = NSTextAlignmentLeft;
-    _expireLabel.font = [UIFont fontWithName:FontName size:13];
-    _expireLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    [_codeV addSubview:_expireLabel];
-    [_expireLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_codeLabel);
-        make.top.equalTo(_codeLabel.bottom).offset(5 * HeightCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-    }];
+//    self.codeV = [[UIView alloc] init];
+//    _codeV.layer.cornerRadius = 4;
+//    _codeV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    _codeV.layer.shadowOffset = CGSizeMake(0, 4);
+//    _codeV.layer.shadowOpacity = 0.5;
+//    _codeV.layer.shadowRadius = 7;
+//    _codeV.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:_codeV];
+//    [_codeV makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(343 * WidthCoefficient);
+//        make.height.equalTo(85 * HeightCoefficient);
+//        make.top.equalTo(botV.bottom).offset(20 * WidthCoefficient);
+//        make.centerX.equalTo(self.view);
+//    }];
+//
+//    self.codeLabel = [[UILabel alloc] init];
+//    _codeLabel.font = [UIFont fontWithName:FontName size:16];
+//    _codeLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    [_codeV addSubview:_codeLabel];
+//    [_codeLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(20 * HeightCoefficient);
+//        make.left.equalTo(10 * WidthCoefficient);
+//        make.height.equalTo(20 * HeightCoefficient);
+//    }];
+//
+//    self.stateLabel = [[UILabel alloc] init];
+//    _stateLabel.textAlignment = NSTextAlignmentRight;
+//    _stateLabel.font = [UIFont fontWithName:FontName size:16];
+//    _stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+//    [_codeV addSubview:_stateLabel];
+//    [_stateLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_codeLabel);
+//        make.right.equalTo(-10 * WidthCoefficient);
+//        make.height.equalTo(20 * HeightCoefficient);
+//    }];
+//
+//    self.expireLabel = [[UILabel alloc] init];
+//    _expireLabel.textAlignment = NSTextAlignmentLeft;
+//    _expireLabel.font = [UIFont fontWithName:FontName size:13];
+//    _expireLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+//    [_codeV addSubview:_expireLabel];
+//    [_expireLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_codeLabel);
+//        make.top.equalTo(_codeLabel.bottom).offset(5 * HeightCoefficient);
+//        make.height.equalTo(20 * HeightCoefficient);
+//    }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(activate:)];
     [botV addGestureRecognizer:tap];
@@ -275,8 +279,20 @@
     UITapGestureRecognizer *storeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToStore:)];
     [leftV addGestureRecognizer:storeTap];
     
-    self.codeV.hidden = YES;
-
+//    self.codeV.hidden = YES;
+    
+    self.table = [[UITableView alloc] init];
+    _table.showsVerticalScrollIndicator = NO;
+    _table.backgroundColor = [UIColor clearColor];
+    _table.delegate = self;
+    _table.dataSource = self;
+    _table.tableFooterView = [UIView new];
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.table];
+    [self.table makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(botV.bottom).offset(15 * WidthCoefficient);
+    }];
 }
 
 - (void)pullData {
@@ -293,6 +309,13 @@
                 self.canGetActivationCode = YES;
             } else {
                 self.canGetActivationCode = NO;
+                NSArray<NSDictionary *> *tmp = dic[@"data"][@"validaCodeList"];
+                [self.codes removeAllObjects];
+                for (NSInteger i = 0; i < tmp.count; i++) {
+                    ActivationCode *code = [ActivationCode yy_modelWithJSON:tmp[i]];
+                    [self.codes addObject:code];
+                }
+                [self.table reloadData];
             }
             if (_count == 0) {
                 self.redV.hidden = YES;
@@ -304,17 +327,32 @@
             } else {
                 self.canShowActivationList = NO;
             }
-            if (_limit) {
-                self.canGetActivationCode = YES;
-            } else {
-                self.canGetActivationCode = NO;
-            }
         } else {
             
         }
     } failure:^(NSInteger code) {
         
     }];
+}
+
+#pragma mark - UITableViewDelegate -
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.codes.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellId = @"activationCodeCellId";
+    ActivationCodeListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[ActivationCodeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        [cell configWithActivationCode:self.codes[indexPath.row]];
+    }
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 95 * HeightCoefficient;
 }
 
 - (void)showCodeViewWithCode:(ActivationCode *)code {
@@ -350,6 +388,14 @@
     if (self.canGetActivationCode) {
         GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        if (self.codes.count) {
+            [MBProgressHUD showText:NSLocalizedString(@"当前还有未过期的激活码", nil)];
+        } else if (_limit == 0) {
+            [MBProgressHUD showText:NSLocalizedString(@"请前往商城购买权限再获取激活码", nil)];
+        } else {
+            [MBProgressHUD showText:NSLocalizedString(@"无法获取激活码", nil)];
+        }
     }
 }
 
@@ -358,6 +404,13 @@
         ActivationCodeListViewController *vc = [[ActivationCodeListViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+-(NSMutableArray<ActivationCode *> *)codes {
+    if (!_codes) {
+        _codes = [NSMutableArray array];
+    }
+    return _codes;
 }
 
 @end

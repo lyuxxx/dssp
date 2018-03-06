@@ -144,8 +144,8 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing = 0 * WidthCoefficient;
     flowLayout.minimumLineSpacing = 0 * WidthCoefficient;
-    flowLayout.sectionInset = UIEdgeInsetsMake(15 * WidthCoefficient, 11 * WidthCoefficient, 5 * WidthCoefficient, 11 * WidthCoefficient);
-    flowLayout.itemSize = CGSizeMake(176.5 * WidthCoefficient, 250 * WidthCoefficient);
+    flowLayout.sectionInset = UIEdgeInsetsMake(15 * WidthCoefficient, 11 * WidthCoefficient, 10 * WidthCoefficient, 11 * WidthCoefficient);
+    flowLayout.itemSize = CGSizeMake(176 * WidthCoefficient, 250 * WidthCoefficient);
 //    flowLayout.headerReferenceSize = CGSizeMake(275 * WidthCoefficient, 45 * WidthCoefficient);
     flowLayout.headerReferenceSize = CGSizeMake(0, 0);
     

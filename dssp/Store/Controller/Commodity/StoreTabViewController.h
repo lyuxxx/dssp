@@ -10,4 +10,6 @@
 
 @interface StoreTabViewController : StoreBaseViewController
 
+- (void)gotoOrderPageController;
+
 @end

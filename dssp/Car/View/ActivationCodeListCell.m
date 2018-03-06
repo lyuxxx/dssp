@@ -27,6 +27,8 @@
 
 - (void)setupUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;

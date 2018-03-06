@@ -82,6 +82,13 @@
     _tabBar.selectedItem = items[0];
 }
 
+- (void)gotoOrderPageController {
+    if (self.currentVC == self.homeVC) {
+        [self replaceController:self.currentVC newController:self.orderVC];
+        self.navigationItem.title = NSLocalizedString(@"订单", nil);
+    }
+}
+
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     if (item.tag == 100) {
         if (self.currentVC == self.orderVC) {
