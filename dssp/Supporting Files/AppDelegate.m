@@ -41,12 +41,15 @@
     
     [CUPayTool wechatRegisterAppWithAppId:WXAppId];
     
+    [NSThread sleepForTimeInterval:1];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
     self.window.rootViewController = naVC;
     [self.window makeKeyAndVisible];
     [self startupView];
+    
     [self config];
     return YES;
 }
@@ -83,10 +86,16 @@
 - (void)startupView {
     UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     imgV.contentMode = UIViewContentModeScaleAspectFill;
+    imgV.image = [UIImage imageNamed:@"launch"];
     self.startupV = imgV;
     [self.window addSubview:imgV];
     [self.window bringSubviewToFront:imgV];
-    
+    [UIView animateWithDuration:2 animations:^{
+        imgV.alpha = 0;
+    } completion:^(BOOL finished) {
+        [imgV removeFromSuperview];
+    }];
+    /**
     UIView *botBlack = [[UIView alloc] initWithFrame:imgV.bounds];
     botBlack.backgroundColor = [UIColor blackColor];
     [imgV addSubview:botBlack];
@@ -98,7 +107,7 @@
     colorAnimation.duration = 1;
     colorAnimation.fillMode = kCAFillModeForwards;
     colorAnimation.removedOnCompletion = NO;
-    [botBlack.layer addAnimation:colorAnimation forKey:@"color"];
+//    [botBlack.layer addAnimation:colorAnimation forKey:@"color"];
     
     UIView *black = [[UIView alloc] initWithFrame:imgV.bounds];
     black.backgroundColor = [UIColor blackColor];
@@ -124,8 +133,8 @@
     maskAnimation.fillMode = kCAFillModeForwards;
     maskAnimation.removedOnCompletion = NO;
     maskAnimation.delegate = self;
-    [shapeLayer addAnimation:maskAnimation forKey:@"maskAnimation"];
-    
+//    [shapeLayer addAnimation:maskAnimation forKey:@"maskAnimation"];
+    **/
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
