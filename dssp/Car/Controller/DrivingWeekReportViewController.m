@@ -154,15 +154,15 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     [self setupUI];
     
-    self.harshBrakeLabel.text = @"-";
-    self.harshAccLabel.text = @"-";
-    self.harshTurnLabel.text = @"-";
-    self.mileageLabel.text = @"-km";
-    self.fuelTotalLabel.text = @"-L";
-    self.fuelAverageLabel.text = @"-L";
-    self.brakeTimeLabel.text = @"-h";
-    self.attentionTimesLabel.text = @"-次";
-    self.accMileageLabel.text = @"-km";
+    self.harshBrakeLabel.text = @"0";
+    self.harshAccLabel.text = @"0";
+    self.harshTurnLabel.text = @"0";
+    self.mileageLabel.text = @"0km";
+    self.fuelTotalLabel.text = @"0L";
+    self.fuelAverageLabel.text = @"0L";
+    self.brakeTimeLabel.text = @"0h";
+    self.attentionTimesLabel.text = @"0次";
+    self.accMileageLabel.text = @"0km";
     
     [self pullDefaultData];
 }
@@ -500,15 +500,15 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 - (void)pullData {
     
-    self.harshBrakeLabel.text = @"-";
-    self.harshAccLabel.text = @"-";
-    self.harshTurnLabel.text = @"-";
-    self.mileageLabel.text = @"-km";
-    self.fuelTotalLabel.text = @"-L";
-    self.fuelAverageLabel.text = @"-L";
-    self.brakeTimeLabel.text = @"-h";
-    self.attentionTimesLabel.text = @"-次";
-    self.accMileageLabel.text = @"-km";
+    self.harshBrakeLabel.text = @"0";
+    self.harshAccLabel.text = @"0";
+    self.harshTurnLabel.text = @"0";
+    self.mileageLabel.text = @"0km";
+    self.fuelTotalLabel.text = @"0L";
+    self.fuelAverageLabel.text = @"0L";
+    self.brakeTimeLabel.text = @"0h";
+    self.attentionTimesLabel.text = @"0次";
+    self.accMileageLabel.text = @"0km";
     
     self.reports = nil;
     [self.collectionView reloadData];
