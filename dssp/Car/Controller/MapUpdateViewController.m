@@ -385,7 +385,7 @@
 }
 
 - (void)activate:(UITapGestureRecognizer *)sender {
-    if (self.canGetActivationCode) {
+    if (self.canGetActivationCode && _limit) {
         GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
