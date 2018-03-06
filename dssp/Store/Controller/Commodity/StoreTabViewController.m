@@ -83,6 +83,7 @@
 }
 
 - (void)gotoOrderPageController {
+    _tabBar.selectedItem = _tabBar.items[1];
     if (self.currentVC == self.homeVC) {
         [self replaceController:self.currentVC newController:self.orderVC];
         self.navigationItem.title = NSLocalizedString(@"订单", nil);
