@@ -171,18 +171,18 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSString *js = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= 'white';document.getElementsByTagName('body')[0].style.background='#120f0e';document.getElementsByTagName('body')[0].color='#ffffff';";
-    //    NSString *js = @"document.body.style.backgroundColor='#120f0e'; document.body.style.color='#ffffff';document.body.style.webkitTextFillColor='#ffffff'";
-    [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        
+//    NSString *js = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= 'white';document.getElementsByTagName('body')[0].style.background='#120f0e';document.getElementsByTagName('body')[0].color='#ffffff';";
+//    //    NSString *js = @"document.body.style.backgroundColor='#120f0e'; document.body.style.color='#ffffff';document.body.style.webkitTextFillColor='#ffffff'";
+//    [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+//
         dispatch_async(dispatch_get_main_queue(), ^{
             [_hud hideAnimated:YES afterDelay:0.3];
         });
-        
-        if (error) {
-            
-        }
-    }];
+//
+//        if (error) {
+//
+//        }
+//    }];
     if (self.webViewHeight) {
         return;
     }
@@ -254,8 +254,7 @@
             cell.webView.tag = indexPath.section;
             cell.webView.navigationDelegate = self;
             
-            NSString *htmlStr = [NSString stringWithFormat:@"<html><head><style type='text/css'>p{background: #120f0e !important;color: #FFFFFF;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{width: 100%%;}</style></head><body>%@</body></html>",self.cellConfigurator.desc];
-            
+            NSString *htmlStr = [NSString stringWithFormat:@"<html><head><style type='text/css'>body{color:#ffffff;background:#120f0e !important;}p{background: #120f0e !important;color: #FFFFFF;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{width: 100%%;}</style></head><body>%@</body></html>",self.cellConfigurator.desc];
             [cell.webView loadHTMLString:htmlStr baseURL:nil];
             [cell.webView updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(self.webViewHeight);
