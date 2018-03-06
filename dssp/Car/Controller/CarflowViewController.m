@@ -13,6 +13,7 @@
 #import "CarflowCell.h"
 #import "CarflowModel.h"
 #import "NSObject+YYModel.h"
+#import "BlankView.h"
 @interface CarflowViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -21,22 +22,21 @@
 @property (nonatomic, strong) UILabel *totalflowlabel;
 @property (nonatomic, strong) NSMutableArray *DataArray;
 @property (nonatomic,strong) CarflowModel *carflow;
+@property (nonatomic,strong) BlankView *blankView;
 @end
 
 @implementation CarflowViewController
+- (BOOL)needGradientBg {
+    return NO;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self initTableView];
-    [self setupUI];
+    self.navigationItem.title = NSLocalizedString(@"流量", nil);
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self requestData];
-//    [self initTableView];
-
 }
-
 
 -(void)requestData
 {
@@ -50,21 +50,57 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
+            [self initTableView];
+            [self setupUI];
             [_tableView reloadData];
           
             self.carflow =_carflow;
         } else {
-            self.carflow =_carflow;
+            [self blankUI];
+        
             [hud hideAnimated:YES];
-            [MBProgressHUD showText:dic[@"msg"]];
+//            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+        [self blankUI];
       [hud hideAnimated:YES];
-      self.carflow =_carflow;
+//      self.carflow =_carflow;
 //      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
+}
+
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"空页面1"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(120 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(77.5 * HeightCoefficient);
+        make.width.equalTo(86.5 * WidthCoefficient);
+        
+    }];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text =@"暂无数据";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor colorWithHexString:@"#999999"];
+    label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    
+    [self.view addSubview:label];
+    [label makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(bgImgV.bottom).offset(15*WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(100 *WidthCoefficient);
+    }];
+    
+    
 }
 
 -(void)initTableView
@@ -128,13 +164,7 @@
 
 -(void)setupUI
 {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.title = NSLocalizedString(@"流量", nil);
-//    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,197*HeightCoefficient)];
-//    _headerView.backgroundColor=[UIColor whiteColor];
-//    _tableView.tableHeaderView=_headerView;
-    
-    
+   
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
     [_headerView addSubview:bgImgV];

@@ -73,12 +73,19 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"MineViewController"];
     [self.mgr startUpdatingLocation];
 //    if ([kVin isEqualToString:@""]) {
         [self initTableView];
         [self setupUI];
 //    }
     
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"MineViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"MineViewController"];
 }
 
 - (CLLocationManager *)mgr

@@ -173,6 +173,9 @@
 		4570EFE51FFCDC0E00FA6355 /* CarUnbindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE41FFCDC0E00FA6355 /* CarUnbindModel.m */; };
 		4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFEC1FFE4B0700FA6355 /* UITabBar+badge.m */; };
 		4570EFF01FFF292B00FA6355 /* CarTrackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFEF1FFF292B00FA6355 /* CarTrackModel.m */; };
+		45765260204E2B5E006585BA /* BlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576525F204E2B5E006585BA /* BlankView.m */; };
+		45765270204E7BB5006585BA /* statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* statistics.m */; };
+		45765273204E7BBE006585BA /* QDataSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765271204E7BBE006585BA /* QDataSaver.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
 		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
@@ -530,6 +533,12 @@
 		4570EFEC1FFE4B0700FA6355 /* UITabBar+badge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+badge.m"; sourceTree = "<group>"; };
 		4570EFEE1FFF292B00FA6355 /* CarTrackModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarTrackModel.h; sourceTree = "<group>"; };
 		4570EFEF1FFF292B00FA6355 /* CarTrackModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarTrackModel.m; sourceTree = "<group>"; };
+		4576525E204E2B5E006585BA /* BlankView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlankView.h; sourceTree = "<group>"; };
+		4576525F204E2B5E006585BA /* BlankView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlankView.m; sourceTree = "<group>"; };
+		4576526E204E7BB4006585BA /* statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = statistics.m; sourceTree = "<group>"; };
+		4576526F204E7BB5006585BA /* statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statistics.h; sourceTree = "<group>"; };
+		45765271204E7BBE006585BA /* QDataSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDataSaver.m; sourceTree = "<group>"; };
+		45765272204E7BBE006585BA /* QDataSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDataSaver.h; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
@@ -1096,6 +1105,10 @@
 		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45765272204E7BBE006585BA /* QDataSaver.h */,
+				45765271204E7BBE006585BA /* QDataSaver.m */,
+				4576526F204E7BB5006585BA /* statistics.h */,
+				4576526E204E7BB4006585BA /* statistics.m */,
 				31CB2B9A200766DF0085FBA1 /* waiting.gif */,
 				4548580F2005EA6500170D85 /* application.html */,
 				316CA45E1F9F3475009F541E /* AppDelegate.h */,
@@ -1249,6 +1262,8 @@
 				31C1125F2047E1AC0094B157 /* TrackSingleCell.m */,
 				31C112612047EB9C0094B157 /* TrackListHeaderView.h */,
 				31C112622047EB9C0094B157 /* TrackListHeaderView.m */,
+				4576525E204E2B5E006585BA /* BlankView.h */,
+				4576525F204E2B5E006585BA /* BlankView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1585,6 +1600,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
+				45765270204E7BB5006585BA /* statistics.m in Sources */,
 				45153F8F2041391700C41E10 /* TrafficReportdatailController.m in Sources */,
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
 				319A58C420452E22006837DC /* TrackObject.m in Sources */,
@@ -1670,6 +1686,7 @@
 				4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */,
+				45765273204E7BBE006585BA /* QDataSaver.m in Sources */,
 				31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */,
@@ -1721,6 +1738,7 @@
 				4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,
 				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,
+				45765260204E2B5E006585BA /* BlankView.m in Sources */,
 				319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */,
 				453218DC201EC3650064369F /* LllegaModel.m in Sources */,
 				451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */,

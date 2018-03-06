@@ -19,13 +19,19 @@
 
 @implementation UpkeepViewController
 
+- (BOOL)needGradientBg {
+    return NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationItem.title = NSLocalizedString(@"预约保养", nil);
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
 
+    
     [self requestData];
-  
 }
 
 
@@ -42,24 +48,52 @@
           self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
          [self setupUI];
             NSLog(@"%@", self.upkeep.maintenanceMileage);
-//            self.upkeep.maintenanceMileage
+
         } else {
-            [self setupUI];
+            [self blankUI];
 //            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        [self setupUI];
+        [self blankUI];
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
+}
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"空页面1"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(120 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(77.5 * HeightCoefficient);
+        make.width.equalTo(86.5 * WidthCoefficient);
+        
+    }];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text =@"暂无数据";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor colorWithHexString:@"#999999"];
+    label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    
+    [self.view addSubview:label];
+    [label makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bgImgV.bottom).offset(15*WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(100 *WidthCoefficient);
+    }];
+    
+    
 }
 
 
 -(void)setupUI
 {
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.title = NSLocalizedString(@"预约保养", nil);
-    
+   
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
@@ -291,7 +325,7 @@
     [rightImg addGestureRecognizer:tapGesture];
     rightImg.userInteractionEnabled = YES;
     [bottomView addSubview:rightImg];
-    [bottomView addSubview:rightImg];
+//    [bottomView addSubview:rightImg];
     [rightImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
         make.height.equalTo(100*HeightCoefficient);
@@ -401,37 +435,8 @@
     
 }
 
-- (void)setBorderWithView:(UIView *)view top:(BOOL)top left:(BOOL)left bottom:(BOOL)bottom right:(BOOL)right borderColor:(UIColor *)color borderWidth:(CGFloat)width
-{
-    if (top) {
-        CALayer *layer = [CALayer layer];
-        layer.frame = CGRectMake(0, 0, view.frame.size.width, width);
-        layer.backgroundColor = color.CGColor;
-        [view.layer addSublayer:layer];
-    }
-    if (left) {
-        CALayer *layer = [CALayer layer];
-        layer.frame = CGRectMake(0, 0, width, view.frame.size.height);
-        layer.backgroundColor = color.CGColor;
-        [view.layer addSublayer:layer];
-    }
-    if (bottom) {
-        CALayer *layer = [CALayer layer];
-        layer.frame = CGRectMake(0, view.frame.size.height - width, view.frame.size.width, width);
-        layer.backgroundColor = color.CGColor;
-        [view.layer addSublayer:layer];
-    }
-    if (right) {
-        CALayer *layer = [CALayer layer];
-        layer.frame = CGRectMake(view.frame.size.width - width, 0, width, view.frame.size.height);
-        layer.backgroundColor = color.CGColor;
-        [view.layer addSublayer:layer];
-    }
-}
-
 -(void)clickImage
 {
-    
     NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-400800888"];
     UIWebView *callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];

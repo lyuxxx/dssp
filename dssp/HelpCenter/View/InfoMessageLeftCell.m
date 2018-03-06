@@ -162,15 +162,15 @@
                 
                 if (j==0) {
                     
-                    btn.backgroundColor  = [UIColor colorWithRed:86.0/255 green:141.0/255 blue:223.0/255 alpha:1];
+                    btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
                     
                     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     //                        [btn setImage:[UIImage imageNamed:@"用户背景"] forState:UIControlStateNormal];
                 }
                 else
                 {
-                    btn.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-                    [btn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+                    btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
+                    [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                 }
                 
                 btn.layer.cornerRadius = 4;
@@ -233,8 +233,8 @@
 
 - (void)setupUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
-    
+//    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
+      self.contentView.backgroundColor = [UIColor clearColor];
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _timeLabel.font = [UIFont fontWithName:FontName size:11];
@@ -271,7 +271,7 @@
     _contentLabel.numberOfLines = 0;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _contentLabel.font = [UIFont fontWithName:FontName size:15];
-    _contentLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+    _contentLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.contentView addSubview:_contentLabel];
     [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_nameLabel).offset(10 * WidthCoefficient);

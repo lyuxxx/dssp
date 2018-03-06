@@ -6,8 +6,8 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "UpkeepModel.h"
-@interface UpkeepViewController : BaseViewController
+@interface UpkeepViewController : StoreBaseViewController
 @property (nonatomic ,strong) UpkeepModel *upkeep;
 @end

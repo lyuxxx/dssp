@@ -6,8 +6,8 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "CarflowModel.h"
-@interface CarflowViewController : BaseViewController
+@interface CarflowViewController : StoreBaseViewController
 
 @end

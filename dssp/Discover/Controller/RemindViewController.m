@@ -9,6 +9,7 @@
 #import "RemindViewController.h"
 #import <YYCategories.h>
 #import "NoticeViewController.h"
+#import "LllegalViewController.h"
 @interface RemindViewController ()
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, copy) NSString *intro;
@@ -43,10 +44,8 @@
     [self setupUI];
 }
 
-
 -(void)requestNoticeData1
 {
-    
     NSDictionary *paras = @{
                             @"readStatus":@"1",
                             @"isDel":@"0",
@@ -63,7 +62,6 @@
 //            [defaults1 synchronize];
             
              [[NSNotificationCenter defaultCenter] postNotificationName:@"NoticeVCneedRefresh" object:nil userInfo:nil];
-            
             
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
@@ -133,6 +131,7 @@
     
     
     self.imgV = [[UIImageView alloc] init];
+     _imgV.userInteractionEnabled = YES;
     [whiteV addSubview:_imgV];
     [_imgV makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(CGSizeMake(48 * WidthCoefficient, 48 * WidthCoefficient));
@@ -168,6 +167,7 @@
     
     
     if ([notice.businType isEqualToString:@"maintenance_notice"]) {
+
          _imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
     }
     if ([notice.businType isEqualToString:@"CaTtheft"]) {
@@ -180,8 +180,20 @@
          _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
     }
     if ([notice.businType isEqualToString:@"violation"]) {
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+        [whiteV addGestureRecognizer:tapGesture];
+//        _imgV.userInteractionEnabled = YES;
+        
         _imgV.image = [UIImage imageNamed:@"违章提醒_icon"];
     }
+    
+    
+}
+
+-(void)clickImage
+{
+    LllegalViewController *vc =[[LllegalViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
     
 }

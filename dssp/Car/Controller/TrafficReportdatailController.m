@@ -163,23 +163,33 @@ static NSString *const cellID = @"cell";
                 
             }
             
+//           NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Airbag system",@"Braking system"];
+//
            NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Braking system",@"Airbag system"];
             
            NSArray *imgs = @[@"胎压_icon",@"转向系统_icon",@"电器系统_icon",@"发动机_icon",@"电器系统灯光_icon",@"变速箱_icon",@"制动系统_icon",@"气囊_icon"];
             
             
+            NSDictionary * dic2 = @{ @"TPMS status":@"胎压_icon",
+                                     @"Steering system":@"转向系统_icon",
+                                     @"Electronic system":@"电器系统_icon",
+                                     @"engine system":@"发动机_icon",
+                                     @"Electronic lighting system":@"电器系统灯光_icon",
+                                     @"Gearbox system":@"变速箱_icon",
+                                     @"Airbag system":@"气囊_icon",
+                                     @"Braking system":@"制动系统_icon"
+                                     };
+            
+            
             for (int i = 0; i < self.titleArray.count; i++) {
-                [self.isExpland addObject:@0];
-  
-             [_result setObject:imgs[i] forKey:titles[i]];
-             [_imgArray addObject:[_result objectForKey:vehicleSystem[i]]];
+             [self.isExpland addObject:@0];
+//             [_result setObject:imgs[i] forKey:titles[i]];
+             [_imgArray addObject:[dic2 objectForKey:vehicleSystem[i]]];
            
             }
             
             [_tableView reloadData];
             [self initTableView];
-        
-//            [self loadData];
             [self setupUI];
             
             self.trafficReporData =_trafficReporData;
@@ -451,8 +461,7 @@ static NSString *const cellID = @"cell";
         make.centerX.equalTo(0);
         make.width.equalTo(100 *WidthCoefficient);
     }];
-    
-    
+
 }
 
 

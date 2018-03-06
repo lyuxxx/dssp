@@ -9,18 +9,18 @@
         "mode" : "9-part",
         "center" : {
           "mode" : "tile",
-          "width" : 899,
-          "height" : 292
+          "width" : 463,
+          "height" : 147
         },
         "cap-insets" : {
-          "bottom" : 20,
-          "top" : 18,
-          "right" : 33,
-          "left" : 32
+          "bottom" : 8,
+          "top" : 8,
+          "right" : 8,
+          "left" : 8
         }
       },
       "idiom" : "universal",
-      "filename" : "管家背景2@2x.png",
+      "filename" : "管家背景@2x.png",
       "scale" : "2x"
     },
     {
@@ -28,18 +28,18 @@
         "mode" : "9-part",
         "center" : {
           "mode" : "tile",
-          "width" : 1363,
-          "height" : 423
+          "width" : 695,
+          "height" : 221
         },
         "cap-insets" : {
-          "bottom" : 38,
-          "top" : 34,
-          "right" : 42,
-          "left" : 41
+          "bottom" : 12,
+          "top" : 12,
+          "right" : 12,
+          "left" : 12
         }
       },
       "idiom" : "universal",
-      "filename" : "管家背景2@3x.png",
+      "filename" : "管家背景@3x.png",
       "scale" : "3x"
     }
   ],

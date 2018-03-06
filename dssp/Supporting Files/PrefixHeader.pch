@@ -20,7 +20,7 @@
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "NSDictionary+NilSafe.h"
-
+#import "statistics.h"
 //通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -266,4 +266,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 ///添加发票
 #define orderinvoice [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
 
+///统计
+#define uploading @"http://sit-dssp.dstsp.com:50005/dssp/v1/message/monitoring/uploading"
 #endif /* PrefixHeader_pch */

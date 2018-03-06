@@ -76,7 +76,8 @@
 - (void)setupUI {
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
+//    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
+    self.contentView.backgroundColor = [UIColor clearColor];
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _timeLabel.font = [UIFont fontWithName:FontName size:11];

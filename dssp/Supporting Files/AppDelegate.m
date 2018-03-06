@@ -35,7 +35,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 //    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server" ofType:@"cer"]];
+    
+    [self setuploading];
     //清空cid
+
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -51,9 +54,45 @@
     [self startupView];
     
     [self config];
+    
     return YES;
 }
 
+
+-(void)setuploading
+{
+    NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/Documents/myJson.txt"];//获取json文件保存的路径
+    NSData *data = [NSData dataWithContentsOfFile:filePath];//获取指定路径的data文件
+    NSArray<NSData *> *arr = [NSArray arrayWithObjects:data, nil];
+    
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    //    [filePath removeItemAtPath:jsonString:&err];
+    NSLog(@"8889%@",jsonString);
+    [CUHTTPRequest POSTUpload:uploading parameters:@{} uploadType:(UploadDownloadType_Images) dataArray:arr success:^(id responseData) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            
+            //上传TXT文件成功，就删除
+            NSFileManager *fileMgr = [NSFileManager defaultManager];
+            BOOL bRet = [fileMgr fileExistsAtPath:filePath];
+            if (bRet) {
+                NSError *err;
+                [fileMgr removeItemAtPath:filePath error:&err];
+            }
+            
+        }
+        else
+        {
+            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+        }
+        
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+
+}
 
 - (void)config {
     [IQKeyboardManager sharedManager].enable = YES;

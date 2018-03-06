@@ -62,22 +62,22 @@
 -(void)requestData
 {
     NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
             _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
             self.topView.trafficReporData = _trafficReporData;
 
         } else {
             self.topView.trafficReporData = _trafficReporData;
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
             //[MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
          self.topView.trafficReporData = _trafficReporData;
-        [hud hideAnimated:YES];
+//        [hud hideAnimated:YES];
     
     }];
 }
@@ -85,12 +85,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
     [self.mgr startUpdatingLocation];
     self.imgTitles = [NSMutableArray arrayWithArray:@[
                                                       @"广告",
                                                       @"广告",
                                                       @"广告"
                                                       ]];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"HomeViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"HomeViewController"];
 }
 
 - (void)postCustByMobile

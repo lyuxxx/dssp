@@ -38,25 +38,43 @@
     [self requestData];
 }
 
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
+    
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"LoveCarViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"LoveCarViewController"];
+}
+
+
+
 -(void)requestData
 {
     NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
             _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
             
             self.trafficReporData =_trafficReporData;
         } else {
             self.trafficReporData =_trafficReporData;
-            [hud hideAnimated:YES];
+//            [hud hideAnimated:YES];
             //[MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
        self.trafficReporData =_trafficReporData;
-        [hud hideAnimated:YES];
+//        [hud hideAnimated:YES];
         
     }];
 }

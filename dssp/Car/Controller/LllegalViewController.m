@@ -29,8 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+      self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
      self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
+    
    
     [self requestData];
 }
@@ -71,8 +72,10 @@
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+        
+           [self blankUI];
         [hud hideAnimated:YES];
-         [self blankUI];
+      
         //    self.carflow =_carflow;
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];

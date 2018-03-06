@@ -34,12 +34,14 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *))block {
     InfoMessageHelpCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageHelpCenterCell"];
+     cell.backgroundColor = [UIColor clearColor];
     cell.serviceClickBlock = block;
     return cell;
 }
 
 - (void)setMessage:(InfoMessage *)message {
     
+  
     _message = message;
     
     [self.scrollContentView removeAllSubviews];
@@ -176,15 +178,15 @@
                     
                     if (j==0) {
                         
-                        btn.backgroundColor  = [UIColor colorWithRed:86.0/255 green:141.0/255 blue:223.0/255 alpha:1];
+                        btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
                         
                         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                         //                        [btn setImage:[UIImage imageNamed:@"用户背景"] forState:UIControlStateNormal];
                     }
                     else
                     {
-                        btn.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-                        [btn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+                        btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
+                        [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     }
                     
                     btn.layer.cornerRadius = 4;
@@ -317,9 +319,9 @@
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [btn setTitle:pageArr[j] forState:UIControlStateNormal];
-                    [btn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+                    [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
-                    btn.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
+                     btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                     btn.layer.cornerRadius = 4;
                     [v addSubview:btn];
                     [btns addObject:btn];
@@ -330,9 +332,9 @@
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [btn setTitle:pageArr[0] forState:UIControlStateNormal];
-                    [btn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+                    [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
-                    btn.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
+                    btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                     btn.layer.cornerRadius = 4;
                     [v addSubview:btn];
                     [btn makeConstraints:^(MASConstraintMaker *make) {
@@ -402,7 +404,8 @@
 
 - (void)setupUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
+//    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
+    self.contentView.backgroundColor = [UIColor clearColor];
     
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
@@ -427,7 +430,7 @@
     self.nameLabel = [[UILabel alloc] init];
     _nameLabel.text = NSLocalizedString(@"DS管家", nil);
     _nameLabel.font = [UIFont fontWithName:FontName size:11];
-    _nameLabel.textColor = [UIColor colorWithHexString:@"#666666"];
+    _nameLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     [self.contentView addSubview:_nameLabel];
     [_nameLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_avatar.right).offset(10 * WidthCoefficient);
@@ -440,7 +443,7 @@
     _contentLabel.numberOfLines = 0;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _contentLabel.font = [UIFont fontWithName:FontName size:15];
-    _contentLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+    _contentLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.contentView addSubview:_contentLabel];
     [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_nameLabel).offset(10 * WidthCoefficient);
