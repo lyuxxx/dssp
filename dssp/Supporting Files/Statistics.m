@@ -78,25 +78,24 @@ static NSMutableArray *dataSources;
             
             [QDataSaver saveString:dateStr forKey:[NSString stringWithFormat:@"%@%@",type,name]];
             
-            
-           //点击btn
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSNumber *userId = [defaults objectForKey:@"userId"];
-            NSString *userIdStr = [userId stringValue];
-            
-            NSDictionary * dic=@{@"userId":userIdStr,
-                                 @"deviceType":@"3",
-                                 @"businessCode":[NSString stringWithFormat:@"%@",name],
-                                 @"currentTime":[QDataSaver getStringForKey:@"currentTime"]
-                                 };
-            [dataSources addObject:dic];
-            
-            NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/Documents/myJson.txt"];
-            //            NSDictionary *json_dic = @{@"arr":dataSources};//key为arr value为arr数组的字典
-            //            NSData *json_data = [NSJSONSerialization dataWithJSONObject:dataSources options:NSJSONWritingPrettyPrinted error:nil];
-            //数组转json存储
-            NSString *jsonString = [Statistics arrayToJSONString:dataSources];
-            [jsonString writeToFile:filePath atomically:YES];
+//           //点击btn
+//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//            NSNumber *userId = [defaults objectForKey:@"userId"];
+//            NSString *userIdStr = [userId stringValue];
+//
+//            NSDictionary * dic=@{@"userId":userIdStr,
+//                                 @"deviceType":@"3",
+//                                 @"businessCode":[NSString stringWithFormat:@"%@",name],
+//                                 @"currentTime":[QDataSaver getStringForKey:@"currentTime"]
+//                                 };
+//            [dataSources addObject:dic];
+//
+//            NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/Documents/myJson.txt"];
+//            //            NSDictionary *json_dic = @{@"arr":dataSources};//key为arr value为arr数组的字典
+//            //            NSData *json_data = [NSJSONSerialization dataWithJSONObject:dataSources options:NSJSONWritingPrettyPrinted error:nil];
+//            //数组转json存储
+//            NSString *jsonString = [Statistics arrayToJSONString:dataSources];
+//            [jsonString writeToFile:filePath atomically:YES];
             
         }
         break;
@@ -173,6 +172,44 @@ static NSMutableArray *dataSources;
             //数组转json存储
             NSString *jsonString = [Statistics arrayToJSONString:dataSources];
             [jsonString writeToFile:filePath atomically:YES];
+        }
+        break;
+        case 3://用来获取进入界面的时间
+        {
+            NSDate * date=[NSDate date];
+            //用于格式化NSDate对象
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            //设置格式：zzz表示时区
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            //NSDate转NSString
+            NSString *currentDateString = [dateFormatter stringFromDate:date];
+            
+            NSString * dateStr=[NSString stringWithFormat:@"%0.f",[date timeIntervalSince1970]];
+            //            存储开始时间
+            [QDataSaver saveString:currentDateString forKey:@"currentTime"];
+            
+            [QDataSaver saveString:dateStr forKey:[NSString stringWithFormat:@"%@%@",type,name]];
+            
+            
+            //点击btn
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSNumber *userId = [defaults objectForKey:@"userId"];
+            NSString *userIdStr = [userId stringValue];
+            
+            NSDictionary * dic=@{@"userId":userIdStr,
+                                 @"deviceType":@"3",
+                                 @"businessCode":[NSString stringWithFormat:@"%@",name],
+                                 @"currentTime":[QDataSaver getStringForKey:@"currentTime"]
+                                 };
+            [dataSources addObject:dic];
+            
+            NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/Documents/myJson.txt"];
+            //            NSDictionary *json_dic = @{@"arr":dataSources};//key为arr value为arr数组的字典
+            //            NSData *json_data = [NSJSONSerialization dataWithJSONObject:dataSources options:NSJSONWritingPrettyPrinted error:nil];
+            //数组转json存储
+            NSString *jsonString = [Statistics arrayToJSONString:dataSources];
+            [jsonString writeToFile:filePath atomically:YES];
+            
         }
             break;
         default:
