@@ -416,18 +416,18 @@
 }
 
 - (void)activate:(UITapGestureRecognizer *)sender {
-//    if (self.canGetActivationCode && _limit) {
+    if (self.canGetActivationCode && _limit) {
         GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-//    } else {
-//        if (self.codes.count) {
-//            [MBProgressHUD showText:NSLocalizedString(@"当前还有未过期的激活码", nil)];
-//        } else if (_limit == 0) {
-//            [MBProgressHUD showText:NSLocalizedString(@"请前往商城购买地图升级商品", nil)];
-//        } else {
-//            [MBProgressHUD showText:NSLocalizedString(@"无法获取激活码", nil)];
-//        }
-//    }
+    } else {
+        if (self.codes.count) {
+            [MBProgressHUD showText:NSLocalizedString(@"当前还有未过期的激活码", nil)];
+        } else if (_limit == 0) {
+            [MBProgressHUD showText:NSLocalizedString(@"请前往商城购买地图升级商品", nil)];
+        } else {
+            [MBProgressHUD showText:NSLocalizedString(@"无法获取激活码", nil)];
+        }
+    }
 }
 
 - (void)codeList:(UITapGestureRecognizer *)sender {
