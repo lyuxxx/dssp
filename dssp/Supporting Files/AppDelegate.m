@@ -61,7 +61,7 @@
 
 -(void)setuploading
 {
-    NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/Documents/myJson.txt"];//获取json文件保存的路径
+    NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/tmp/myJson.txt"];//获取json文件保存的路径
     NSData *data = [NSData dataWithContentsOfFile:filePath];//获取指定路径的data文件
     NSArray<NSData *> *arr = [NSArray arrayWithObjects:data, nil];
     
@@ -72,7 +72,7 @@
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-             [MBProgressHUD showText:@"chengg"];
+             [MBProgressHUD showText:@"上传TXT文件成功"];
             //上传TXT文件成功，就删除
             NSFileManager *fileMgr = [NSFileManager defaultManager];
             BOOL bRet = [fileMgr fileExistsAtPath:filePath];
