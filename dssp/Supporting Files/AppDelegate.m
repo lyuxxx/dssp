@@ -67,12 +67,11 @@
     
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     //    [filePath removeItemAtPath:jsonString:&err];
-    NSLog(@"8889%@",jsonString);
     [CUHTTPRequest POSTUpload:uploading parameters:@{} uploadType:(UploadDownloadType_Images) dataArray:arr success:^(id responseData) {
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-             [MBProgressHUD showText:@"上传TXT文件成功"];
+//             [MBProgressHUD showText:@"上传TXT文件成功"];
             //上传TXT文件成功，就删除
             NSFileManager *fileMgr = [NSFileManager defaultManager];
             BOOL bRet = [fileMgr fileExistsAtPath:filePath];
@@ -84,7 +83,7 @@
         }
         else
         {
-            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+//            [MBProgressHUD showText:[dic objectForKey:@"msg"]];
         }
         
     } failure:^(NSInteger code) {
