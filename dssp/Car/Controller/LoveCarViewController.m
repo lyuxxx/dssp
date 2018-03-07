@@ -43,15 +43,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
     
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"LoveCarViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"LoveCarViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"LoveCarViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"LoveCarViewController"];
 }
 
 

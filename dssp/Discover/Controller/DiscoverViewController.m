@@ -65,7 +65,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
     self.isViewVisable = YES;
     [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
     if (self.currentVC == self.noticeVC) {
@@ -78,8 +78,8 @@
     [super viewWillDisappear:animated];
     self.isViewVisable = NO;
     
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"DiscoverViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"DiscoverViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"DiscoverViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"DiscoverViewController"];
 }
 
 

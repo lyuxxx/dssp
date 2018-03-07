@@ -86,7 +86,7 @@
 {
     [super viewWillAppear:animated];
     
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
     [self.mgr startUpdatingLocation];
     self.imgTitles = [NSMutableArray arrayWithArray:@[
                                                       @"广告",
@@ -97,8 +97,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"HomeViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"HomeViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"HomeViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"HomeViewController"];
 }
 
 - (void)postCustByMobile

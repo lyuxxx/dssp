@@ -1,5 +1,5 @@
 //
-//  statistics.m
+//  Statistics.m
 //  dssp
 //
 //  Created by qinbo on 2018/3/1.
@@ -12,12 +12,12 @@
 #import "QDataSaver.h"
 //#import "MassageModel.h"
 
-@interface statistics ()
+@interface Statistics ()
 //@property (nonatomic,strong) NSMutableArray *dataSources;
 @end
 
 
-@implementation statistics
+@implementation Statistics
 static NSMutableArray *dataSources;
 /*
  key值-Value值对应关系:
@@ -95,7 +95,7 @@ static NSMutableArray *dataSources;
             //            NSDictionary *json_dic = @{@"arr":dataSources};//key为arr value为arr数组的字典
             //            NSData *json_data = [NSJSONSerialization dataWithJSONObject:dataSources options:NSJSONWritingPrettyPrinted error:nil];
             //数组转json存储
-            NSString *jsonString = [statistics arrayToJSONString:dataSources];
+            NSString *jsonString = [Statistics arrayToJSONString:dataSources];
             [jsonString writeToFile:filePath atomically:YES];
             
         }
@@ -149,7 +149,7 @@ static NSMutableArray *dataSources;
 //            massageModel.businessCode = @"";
 //            massageModel.remainTime = longStr;
 //            massageModel.currentTime = [CUDataSaver getStringForKey:[NSString stringWithFormat:@"%@%@",@"1",name]]?[CUDataSaver getStringForKey:[NSString stringWithFormat:@"%@%@",@"1",name]]:@"0";
-//            NSString * time1=[statistics getStayTime:[NSString stringWithFormat:@"%@",name]];//判断是否一直停留在该界面,离开取总时间,停留取相对时间
+//            NSString * time1=[Statistics getStayTime:[NSString stringWithFormat:@"%@",name]];//判断是否一直停留在该界面,离开取总时间,停留取相对时间
 //
             
             NSNumber *longNumber = [NSNumber numberWithLong:time];
@@ -171,7 +171,7 @@ static NSMutableArray *dataSources;
 //            NSDictionary *json_dic = @{@"arr":dataSources};//key为arr value为arr数组的字典
 //            NSData *json_data = [NSJSONSerialization dataWithJSONObject:dataSources options:NSJSONWritingPrettyPrinted error:nil];
             //数组转json存储
-            NSString *jsonString = [statistics arrayToJSONString:dataSources];
+            NSString *jsonString = [Statistics arrayToJSONString:dataSources];
             [jsonString writeToFile:filePath atomically:YES];
         }
             break;
@@ -252,7 +252,7 @@ static NSMutableArray *dataSources;
     
     [QDataSaver saveString:dateStr forKey:[NSString stringWithFormat:@"%@%@",@"1",name]];
     
-    [statistics staticsvisitTimesDataWithViewControllerType:name];
+    [Statistics staticsvisitTimesDataWithViewControllerType:name];
     
     return [NSString stringWithFormat:@"%ld",time];
     
@@ -260,7 +260,7 @@ static NSMutableArray *dataSources;
 
 +(NSString *)getStayTime:(NSString *)controller
 {
-    NSString * time=[QDataSaver getStringForKey:[NSString stringWithFormat:@"1%@",controller]]&&![QDataSaver getStringForKey:[NSString stringWithFormat:@"2%@",controller]]?[statistics staticsTimeDataWithController:[NSString stringWithFormat:@"%@",controller]]:[QDataSaver getStringForKey:[NSString stringWithFormat:@"%@time",controller]];
+    NSString * time=[QDataSaver getStringForKey:[NSString stringWithFormat:@"1%@",controller]]&&![QDataSaver getStringForKey:[NSString stringWithFormat:@"2%@",controller]]?[Statistics staticsTimeDataWithController:[NSString stringWithFormat:@"%@",controller]]:[QDataSaver getStringForKey:[NSString stringWithFormat:@"%@time",controller]];
     
     return time;
 }
@@ -282,7 +282,7 @@ static NSMutableArray *dataSources;
 +(NSDictionary *)packageDictionary:(NSString *)name WithType:(NSString *)type
 //打包字典
 {
-    NSString * time=[statistics getStayTime:[NSString stringWithFormat:@"%@",name]];//判断是否一直停留在该界面,离开取总时间,停留取相对时间
+    NSString * time=[Statistics getStayTime:[NSString stringWithFormat:@"%@",name]];//判断是否一直停留在该界面,离开取总时间,停留取相对时间
     
 //    NSMutableArray * dataArray=Get(@"StaticsArray")?Get(@"StaticsArray"):[NSMutableArray array];
     

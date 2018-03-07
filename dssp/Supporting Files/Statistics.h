@@ -1,5 +1,5 @@
 //
-//  statistics.h
+//  Statistics.h
 //  dssp
 //
 //  Created by qinbo on 2018/3/1.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@interface statistics : NSObject
+@interface Statistics : NSObject
 
 
 /*

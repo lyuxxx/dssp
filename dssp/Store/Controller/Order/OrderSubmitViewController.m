@@ -99,6 +99,7 @@
 }
 
 - (void)submitOrder:(UIButton *)sender {
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventCommitOrder"];
     [self createOrder];
 }
 

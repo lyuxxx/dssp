@@ -73,7 +73,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"MineViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"MineViewController"];
     [self.mgr startUpdatingLocation];
 //    if ([kVin isEqualToString:@""]) {
         [self initTableView];
@@ -84,8 +84,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"MineViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"MineViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"MineViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"MineViewController"];
 }
 
 - (CLLocationManager *)mgr

@@ -106,6 +106,7 @@
 }
 
 - (void)submitClick:(UIButton *)sender {
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventComment"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSDictionary *paras = @{
                             @"itemId": [NSNumber numberWithInteger:self.order.items[0].itemId],

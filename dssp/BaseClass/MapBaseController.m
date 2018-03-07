@@ -62,6 +62,7 @@ static dispatch_once_t mapBaseOnceToken;
 }
 
 - (void)addPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location tel:(NSString *)tel cpid:(NSString *)cpid type:(PoiType)type inResult:(void (^)(BOOL,NSString *))result {
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiCollect"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSString *typeStr = @"";
     if (type == PoiTypeAmap) {
@@ -139,6 +140,7 @@ static dispatch_once_t mapBaseOnceToken;
 }
 
 - (void)sendPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location tel:(NSString *)tel inResult:(void (^)(SendPoiResult))result {
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSend"];
     self.sendPoiResultBlock = result;
     NSString *telephone = tel? tel: @"";
     NSDictionary *paras = @{
@@ -303,6 +305,7 @@ static dispatch_once_t mapBaseOnceToken;
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
     }
     if (sender == _carLocationBtn) {//车定位按钮
+        [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventFindMyCar"];
         [self checkCarLocation];
     }
 }

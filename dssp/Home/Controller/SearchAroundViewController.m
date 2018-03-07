@@ -293,6 +293,7 @@
         [self getHistory];
     }
     if (sender == _searchBtn) {
+        [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSearch"];
         weakifySelf
         [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.currentPoi.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf
@@ -687,6 +688,7 @@
 }
 
 - (void)textFieldEditChanged:(UITextField *)field {
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSearch"];
     weakifySelf
     [[MapSearchManager sharedManager] inputTipsSearch:field.text city:self.city location:self.currentPoi.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
         strongifySelf
@@ -703,6 +705,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == _searchField) {
+        [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSearch"];
         weakifySelf
         [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.currentPoi.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf
