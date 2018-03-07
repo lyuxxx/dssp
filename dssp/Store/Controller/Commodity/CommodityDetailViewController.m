@@ -175,20 +175,23 @@
 //    //    NSString *js = @"document.body.style.backgroundColor='#120f0e'; document.body.style.color='#ffffff';document.body.style.webkitTextFillColor='#ffffff'";
 //    [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
 //
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_hud hideAnimated:YES afterDelay:0.3];
-        });
 //
 //        if (error) {
 //
 //        }
 //    }];
-    if (self.webViewHeight) {
-        return;
-    }
-    self.webViewHeight = webView.scrollView.contentSize.height;
-    [self.tableView reloadRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:webView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
+    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        if (!error) {
+            if (self.webViewHeight) {
+                return;
+            }
+            self.webViewHeight = [result doubleValue];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_hud hideAnimated:YES afterDelay:0.3];
+                [self.tableView reloadRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:webView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+        }
+    }];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -199,7 +202,9 @@
         return;
     }
     self.webViewHeight = webView.scrollView.contentSize.height;
-    [self.tableView reloadRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:webView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:webView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+    });
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -266,10 +271,14 @@
             cell.webView.navigationDelegate = self;
             
             NSString *htmlStr = [NSString stringWithFormat:@"<html><head><style type='text/css'>body{color:#ffffff;background:#120f0e !important;}p{background: #120f0e !important;color: #FFFFFF;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{width: 100%%;}</style></head><body>%@</body></html>",self.cellConfigurator.desc];
-            [cell.webView loadHTMLString:htmlStr baseURL:nil];
+            if (!cell.webView.isLoading) {
+                [cell.webView loadHTMLString:htmlStr baseURL:nil];
+            }
             [cell.webView updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(self.webViewHeight);
             }];
+            [cell setNeedsUpdateConstraints];
+            [cell updateConstraintsIfNeeded];
             return cell;
         }
             break;

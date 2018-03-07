@@ -11,12 +11,13 @@
 
 NSString * const CommodityBannerCellIdentifier = @"CommodityBannerCellIdentifier";
 
-@interface CommodityBannerCell ()
+@interface CommodityBannerCell () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIView *bg;
 @property (nonatomic, strong) UIScrollView *scroll;
 @property (nonatomic, strong) UIView *content;
-
+@property (nonatomic, strong) UILabel *pageLabel;
+@property (nonatomic, strong) NSArray *imgs;
 @end
 
 @implementation CommodityBannerCell
@@ -46,6 +47,7 @@ NSString * const CommodityBannerCellIdentifier = @"CommodityBannerCellIdentifier
     }];
     
     self.scroll = [[UIScrollView alloc] init];
+    _scroll.delegate = self;
     _scroll.pagingEnabled = YES;
     _scroll.showsHorizontalScrollIndicator = NO;
     _scroll.bounces = NO;
@@ -61,10 +63,32 @@ NSString * const CommodityBannerCellIdentifier = @"CommodityBannerCellIdentifier
         make.height.equalTo(self.scroll);
     }];
     
+    self.pageLabel = [[UILabel alloc] init];
+    _pageLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    _pageLabel.font = [UIFont fontWithName:FontName size:10];
+    _pageLabel.textColor = [UIColor whiteColor];
+    _pageLabel.textAlignment = NSTextAlignmentCenter;
+    _pageLabel.layer.cornerRadius = 10 * WidthCoefficient;
+    _pageLabel.layer.masksToBounds = YES;
+    [self.bg addSubview:_pageLabel];
+    [_pageLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(30 * WidthCoefficient);
+        make.height.equalTo(20 * WidthCoefficient);
+        make.right.equalTo(-5 * WidthCoefficient);
+        make.bottom.equalTo(-5 * WidthCoefficient);
+    }];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    NSInteger currentPage = targetContentOffset->x / scrollView.frame.size.width;
+    _pageLabel.text = [NSString stringWithFormat:@"%ld/%ld",currentPage + 1,self.imgs.count];
 }
 
 - (void)configWithImages:(NSArray *)images {
-    
+    self.imgs = images;
+    if (self.imgs.count) {
+        self.pageLabel.text = [NSString stringWithFormat:@"1/%ld",self.imgs.count];
+    }
     [self.content removeAllSubviews];
     
     UIImageView *lastView;
