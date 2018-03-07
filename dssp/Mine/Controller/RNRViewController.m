@@ -56,6 +56,18 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"RNRViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"RNRViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"RNRViewController"];
+}
+
 - (void)setupUI {
 
     _typeid = @[

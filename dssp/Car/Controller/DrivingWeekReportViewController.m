@@ -182,6 +182,18 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     _calendarContainer.layer.masksToBounds = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"DrivingWeekReportViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"DrivingWeekReportViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"DrivingWeekReportViewController"];
+}
+
 - (void)setupUI {
     UIView *topV = [[UIView alloc] init];
     topV.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];

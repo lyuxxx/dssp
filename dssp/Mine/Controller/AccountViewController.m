@@ -35,6 +35,18 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"AccountViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics staticsvisitTimesDataWithViewControllerType:@"AccountViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"AccountViewController"];
+}
+
 - (void)setupUI {
     
     self.navigationItem.title = NSLocalizedString(@"账户管理", nil);

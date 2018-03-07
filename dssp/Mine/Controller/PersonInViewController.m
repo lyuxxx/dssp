@@ -42,9 +42,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"PersonInViewController"];
     [self initTableView];
     [self requestData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics staticsvisitTimesDataWithViewControllerType:@"PersonInViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"PersonInViewController"];
 }
 
 -(void)requestData
@@ -60,6 +66,7 @@
             [hud hideAnimated:YES];
             NSDictionary *dic1 = dic[@"data"];
             self.userModel = [UserModel yy_modelWithDictionary:dic1];
+            
             [self.tableView reloadData];
             
         } else {
@@ -122,24 +129,8 @@
     
    
        if (indexPath.row==0) {
-           
-//           cell.img.image =_selectedImgV.image;
-           NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-           NSString *documentsDirectory = [paths objectAtIndex:0];
-           NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
-           NSLog(@"imageFile->>%@",imageFilePath);
-           UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
-           
-           if(selfPhoto)
-           {
-              cell.img.image = selfPhoto;
-           }
-           else
-           {
-                cell.img.image = [UIImage imageNamed:@"avatar"]; ;
-               
-           }
-           
+
+            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@""]];
             cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
            
         }
@@ -249,6 +240,7 @@
 
          NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
          if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+              [self requestData];
              [MBProgressHUD showText:@"图片上传成功"];
          }
         else

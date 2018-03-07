@@ -17,12 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.navigationItem.title = NSLocalizedString(@"DS预约保养规则", nil);
-    
     [self setupUI];
 }
-
 
 -(void)setupUI
 {
@@ -35,10 +32,7 @@
         make.bottom.equalTo(0);
         make.right.equalTo(0);
     }];
-    
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

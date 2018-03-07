@@ -72,8 +72,10 @@
         self.ID = @"";
         
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
-        [dataArray1 addObject:@"确定"];
-        [dataArray1 addObject:@"关闭"];
+        
+        dataArray1 = message.choices;
+//        [dataArray1 addObject:@"确定"];
+//        [dataArray1 addObject:@"关闭"];
         _timeLabel.text = [self stringFromDate:message.time];
         [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
             if (message.showTime) {

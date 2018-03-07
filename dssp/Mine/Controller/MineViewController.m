@@ -30,11 +30,12 @@
 #import "RealnameViewController.h"
 #import "InputAlertView.h"
 #import "BindCarViewController.h"
+#import "UserModel.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) NSArray<NSArray *> *dataArray;
-@property (nonatomic, strong) UIButton *photoBtn;
+@property (nonatomic, strong) UIImageView *photoBtn;
 @property (nonatomic, strong) UIButton *setBtn;
 @property (nonatomic, strong) UIImageView *img;
 @property(nonatomic, strong) NSData *fileData;
@@ -78,6 +79,7 @@
 //    if ([kVin isEqualToString:@""]) {
         [self initTableView];
         [self setupUI];
+        [self pullData];
 //    }
     
 }
@@ -87,6 +89,46 @@
     [Statistics  staticsvisitTimesDataWithViewControllerType:@"MineViewController"];
     [Statistics staticsstayTimeDataWithType:@"2" WithController:@"MineViewController"];
 }
+
+
+-(void)pullData
+{
+    
+    NSDictionary *paras = @{
+                            
+                            };
+    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic1 = dic[@"data"];
+            UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
+            
+        
+            [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                [self.avatar downloadImage:_userModel.headPortrait placeholder:nil success:^(CUImageCacheType cacheType, UIImage *image) {
+            //
+            //                } failure:^(NSError *error) {
+            //
+            //                } received:^(CGFloat progress) {
+            //
+            //                }];
+            //            });
+            
+        } else {
+            
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+        
+        
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+  
+}
+
 
 - (CLLocationManager *)mgr
 {
@@ -256,21 +298,41 @@
         make.width.height.equalTo(24 * WidthCoefficient);
     }];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
-    NSLog(@"imageFile->>%@",imageFilePath);
-    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
+//    NSLog(@"imageFile->>%@",imageFilePath);
+//    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
+//
+//    //头像
+//    self.photoBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+////    [_photoBtn setImage:selfPhoto?selfPhoto:[UIImage imageNamed:@"avatar"] forState:UIControlStateNormal];
+//    [_photoBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    _photoBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
+//    _photoBtn.clipsToBounds=YES;
+//    _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;
+//
+//
+//    [whiteView addSubview:_photoBtn];
+//    [_photoBtn makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(20 * HeightCoefficient);
+//        make.left.equalTo(10 * WidthCoefficient);
+//        make.width.equalTo(60 * HeightCoefficient);
+//        make.height.equalTo(60 * HeightCoefficient);
+//    }];
+
     
-    //头像
-    self.photoBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    [_photoBtn setImage:selfPhoto?selfPhoto:[UIImage imageNamed:@"avatar"] forState:UIControlStateNormal];
-    [_photoBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _photoBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
+    
+    self.photoBtn = [[UIImageView alloc] init];
+    //    self.avatar.image = selfPhoto?selfPhoto:[UIImage imageNamed:@"用户头像"];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+    [_photoBtn addGestureRecognizer:tapGesture];
+    _photoBtn.userInteractionEnabled = YES;
     _photoBtn.clipsToBounds=YES;
     _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;
-
-
+    
+    //      self.avatar.image = [UIImage imageNamed:_userModel.headPortrait];
+    
     [whiteView addSubview:_photoBtn];
     [_photoBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(20 * HeightCoefficient);
@@ -278,7 +340,7 @@
         make.width.equalTo(60 * HeightCoefficient);
         make.height.equalTo(60 * HeightCoefficient);
     }];
-
+    
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *userName = [defaults objectForKey:@"userName"];
@@ -688,7 +750,7 @@
     UIImage *smallImage = [self thumbnailWithImageWithoutScale:image size:CGSizeMake(80, 80)];
     [UIImageJPEGRepresentation(smallImage, 1.0f) writeToFile:imageFilePath atomically:YES];//写入文件
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];//读取图片文件
-    [_photoBtn setImage:selfPhoto forState:UIControlStateNormal];
+//    [_photoBtn setImage:selfPhoto forState:UIControlStateNormal];
   
 }
 
@@ -747,10 +809,16 @@
     }];
 }
 
+-(void)clickImage
+{
+    PersonInViewController *vc=[[PersonInViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
 }
 
 

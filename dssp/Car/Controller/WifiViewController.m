@@ -27,6 +27,18 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"WifiViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"WifiViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"WifiViewController"];
+}
+
 - (void)setupUI {
     
     self.navigationItem.title = NSLocalizedString(@"Wifi密码", nil);
