@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = NSLocalizedString(@"轨迹列表", nil);
+    self.navigationItem.title = NSLocalizedString(@"行车日志", nil);
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
@@ -155,6 +155,16 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     [self createTop];
     [self createTableView];
     [self pullDefaultData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"TrackListViewController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrackListViewController"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
 @property (nonatomic, strong) UIImageView *weChatState;
 @property (nonatomic, strong) UIImageView *alipayState;
 @property (nonatomic, strong) Order *order;
+@property (nonatomic, strong) UIButton *payBtn;
 @end
 
 @implementation OrderPayViewController
@@ -152,13 +153,12 @@ typedef NS_ENUM(NSUInteger, PayType) {
     self.payType = PayTypeWeChatPay;
     
     UIButton *payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.payBtn = payBtn;
     [payBtn addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     payBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     [payBtn setTitle:[NSString stringWithFormat:@"支付%.2f元",self.order.payment.floatValue] forState:UIControlStateNormal];
     [payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     payBtn.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
-    payBtn.frame = CGRectMake(0, kScreenHeight - kNaviHeight - kBottomHeight - 49 * WidthCoefficient, kScreenWidth, 49 * WidthCoefficient);
-    payBtn.frame = CGRectMake(16 * WidthCoefficient, kScreenHeight - kNaviHeight - kBottomHeight - 49 * WidthCoefficient, 343 * WidthCoefficient, 49 * WidthCoefficient);
     if (Is_Iphone_X) {
         payBtn.layer.cornerRadius = 4;
         payBtn.layer.shadowOffset = CGSizeMake(0, -5);
@@ -191,6 +191,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
 - (void)wechatPayFunc
 {
     //先获取微信支付参数
+    
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
     PayMessage *message = [[PayMessage alloc] init];
@@ -248,6 +249,10 @@ typedef NS_ENUM(NSUInteger, PayType) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
         NSString *returnCode = dic[@"message"][@"returnCode"];
         if ([returnCode isEqualToString:@"SUCCESS"]) {
+            
+            [hud hideAnimated:YES];
+            [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+            
             NSDictionary *orderInfo = dic[@"message"][@"orderInfo"];
             CUPayTool *manager = [CUPayTool getInstance];
             [manager wechatPayWithAppId:WXAppId partnerId:orderInfo[@"partner"] prepayId:orderInfo[@"prepayId"] package:orderInfo[@"package"] nonceStr:orderInfo[@"noncestr"] timeStamp:orderInfo[@"timestamp"] sign:orderInfo[@"sign"] respBlock:^(NSInteger respCode, NSString *respMsg) {
@@ -272,7 +277,6 @@ typedef NS_ENUM(NSUInteger, PayType) {
                     
                 } else if (respCode == -3) {//未安装微信
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [hud hideAnimated:NO];
                         [MBProgressHUD showText:NSLocalizedString(@"您未安装微信", nil)];
                     });
                 } else if (respCode == -99) {
@@ -281,8 +285,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
                 
                 if (respCode != -3) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        hud.label.text = respMsg;
-                        [hud hideAnimated:YES afterDelay:1];
+                        [MBProgressHUD showText:respMsg];
                     });
                 }
                 
@@ -297,7 +300,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
             NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
             NSInteger statusCode = [res statusCode];
             dispatch_async(dispatch_get_main_queue(), ^{
-                hud.label.text = [NSString stringWithFormat:@"%ld",statusCode];
+                hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",statusCode];
                 [hud hideAnimated:YES afterDelay:1];
             });
             
@@ -308,6 +311,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
 
 - (void)aliPayFunc
 {
+    
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     //先获取支付宝支付参数
     PayMessage *message = [[PayMessage alloc] init];
@@ -364,6 +368,10 @@ typedef NS_ENUM(NSUInteger, PayType) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         NSString *returnCode = dic[@"message"][@"returnCode"];
         if ([returnCode isEqualToString:@"SUCCESS"]) {
+            
+            [hud hideAnimated:YES];
+            [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+            
             NSString *orderInfo = dic[@"message"][@"orderInfo"];
             CUPayTool *manager = [CUPayTool getInstance];
             [manager aliPayOrder:orderInfo scheme:@"dssp" respBlock:^(NSInteger respCode, NSString *respMsg) {
@@ -391,8 +399,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    hud.label.text = respMsg;
-                    [hud hideAnimated:YES afterDelay:1];
+                    [MBProgressHUD showText:respMsg];
                 });
 
             }];
@@ -406,7 +413,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
             NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
             NSInteger statusCode = [res statusCode];
             dispatch_async(dispatch_get_main_queue(), ^{
-                hud.label.text = [NSString stringWithFormat:@"%ld",statusCode];
+                hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",statusCode];
                 [hud hideAnimated:YES afterDelay:1];
             });
             

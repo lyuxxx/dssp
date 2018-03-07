@@ -74,6 +74,16 @@
     [self showStatisWithTrackInfo:self.trackInfo];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"TrackDetailViewController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrackDetailViewController"];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self pullData];

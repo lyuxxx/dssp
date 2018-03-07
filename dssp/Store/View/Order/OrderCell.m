@@ -174,7 +174,7 @@
 
 - (void)configWithOrder:(Order *)order {
     self.order = order;
-    [self.avatar downloadImage:order.items[0].picPath placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.avatar downloadImage:order.items[0].picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
         _avatar.image = [UIImage imageNamed:@"加载失败小"];

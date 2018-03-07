@@ -6,11 +6,11 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
 @class ActivationCode;
 
-@interface MapUpdateViewController : BaseViewController
+@interface MapUpdateViewController : StoreBaseViewController
 
 - (void)showCodeViewWithCode:(ActivationCode *)code;
 

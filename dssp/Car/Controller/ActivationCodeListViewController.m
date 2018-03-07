@@ -17,6 +17,10 @@
 
 @implementation ActivationCodeListViewController
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -31,6 +35,7 @@
 
 - (void)setupUI {
     self.table = [[UITableView alloc] init];
+    _table.backgroundColor = [UIColor clearColor];
     _table.delegate = self;
     _table.dataSource = self;
     _table.tableFooterView = [UIView new];
@@ -79,7 +84,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 95 * HeightCoefficient;
+    return 85 * HeightCoefficient;
 }
 
 @end

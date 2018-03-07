@@ -22,6 +22,7 @@
 @property (nonatomic, assign) NSInteger count;
 @property (nonatomic, strong) NSMutableArray<ActivationCode *> *codes;
 
+@property (nonatomic, strong) UILabel *availableLabel;
 @property (nonatomic, strong) UITableView *table;
 
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -30,7 +31,8 @@
 @property (nonatomic, strong) UILabel *codeLabel;
 @property (nonatomic, strong) UILabel *stateLabel;
 @property (nonatomic, strong) UILabel *expireLabel;
-@property (nonatomic, strong) UIView *redV;
+
+@property (nonatomic, strong) UIImageView *redV;
 
 @property (nonatomic, assign) BOOL canGetActivationCode;
 @property (nonatomic, assign) BOOL canShowActivationList;
@@ -38,6 +40,10 @@
 @end
 
 @implementation MapUpdateViewController
+
+- (BOOL)needGradientBg {
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -65,30 +71,29 @@
 
 - (void)setupUI {
     UIImageView *bg = [[UIImageView alloc] init];
-    bg.image = [UIImage imageNamed:@"update_backgroud"];
+    bg.image = [UIImage imageNamed:@"update_background"];
+    bg.layer.masksToBounds = YES;
+    bg.layer.shadowOffset = CGSizeMake(0, 4);
+    bg.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
+    bg.layer.shadowOpacity = 0.5;
+    bg.layer.shadowRadius = 7;
     [self.view addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.equalTo(95 * WidthCoefficient);
+        make.height.equalTo(120 * WidthCoefficient);
     }];
     
     UIView *topWV = [[UIView alloc] init];
-    topWV.layer.cornerRadius = 4;
-    topWV.layer.masksToBounds = YES;
-    topWV.layer.shadowOffset = CGSizeMake(0, 4);
-    topWV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    topWV.layer.shadowOpacity = 0.5;
-    topWV.layer.shadowRadius = 7;
-    topWV.backgroundColor = [UIColor whiteColor];
+    topWV.backgroundColor = [UIColor clearColor];
     [self.view addSubview:topWV];
     [topWV makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(70 * WidthCoefficient);
-        make.top.equalTo(86 * WidthCoefficient);
+        make.width.height.equalTo(bg);
+        make.top.equalTo(bg);
     }];
     
     UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#1e1918"];
     [topWV addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(topWV);
@@ -99,7 +104,7 @@
     UIView *leftV = [[UIView alloc] init];
     [topWV addSubview:leftV];
     [leftV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(171.5 * WidthCoefficient);
+        make.width.equalTo(187.5 * WidthCoefficient);
         make.height.equalTo(topWV);
         make.left.equalTo(topWV);
         make.centerY.equalTo(topWV);
@@ -108,19 +113,19 @@
     UILabel *timeLabel = [[UILabel alloc] init];
     self.limitLabel = timeLabel;
     timeLabel.text = @"-次";
-    timeLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+    timeLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:20];
     [leftV addSubview:timeLabel];
     [timeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(leftV);
         make.height.equalTo(25 * WidthCoefficient);
-        make.top.equalTo(13 * WidthCoefficient);
+        make.top.equalTo(37.5 * WidthCoefficient);
     }];
     
     UILabel *leftLabel = [[UILabel alloc] init];
     leftLabel.text = NSLocalizedString(@"已购买升级权限", nil);
     leftLabel.textColor = [UIColor colorWithHexString:GeneralColorString];
-    leftLabel.font = [UIFont fontWithName:FontName size:11];
+    leftLabel.font = [UIFont fontWithName:FontName size:12];
     [leftV addSubview:leftLabel];
     [leftLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(leftV);
@@ -131,7 +136,7 @@
     UIView *rtV = [[UIView alloc] init];
     [topWV addSubview:rtV];
     [rtV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(171.5 * WidthCoefficient);
+        make.width.equalTo(leftV);
         make.height.equalTo(topWV);
         make.right.equalTo(topWV);
         make.centerY.equalTo(topWV);
@@ -140,32 +145,31 @@
     UILabel *numLabel = [[UILabel alloc] init];
     self.countLabel = numLabel;
     numLabel.text = @"-个";
-    numLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    numLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+    numLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    numLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:20];
     [rtV addSubview:numLabel];
     [numLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(rtV);
         make.height.equalTo(25 * WidthCoefficient);
-        make.top.equalTo(13 * WidthCoefficient);
+        make.top.equalTo(37.5 * WidthCoefficient);
     }];
     
     UILabel *rtLabel = [[UILabel alloc] init];
     rtLabel.text = NSLocalizedString(@"已获取激活码", nil);
     rtLabel.textColor = [UIColor colorWithHexString:GeneralColorString];
-    rtLabel.font = [UIFont fontWithName:FontName size:11];
+    rtLabel.font = [UIFont fontWithName:FontName size:12];
     [rtV addSubview:rtLabel];
     [rtLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(rtV);
         make.height.equalTo(15 * WidthCoefficient);
-        make.width.equalTo(66 * WidthCoefficient);
+        make.width.equalTo(75 * WidthCoefficient);
         make.top.equalTo(numLabel.bottom).offset(5 * WidthCoefficient);
     }];
     
-    UIView *redV = [[UIView alloc] init];
+    UIImageView *redV = [[UIImageView alloc] init];
+    redV.image = [UIImage imageNamed:@"update_arrow"];
     self.redV = redV;
     self.redV.hidden = YES;
-    redV.layer.cornerRadius = 2.5;
-    redV.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
     [rtV addSubview:redV];
     [redV makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(rtLabel);
@@ -177,10 +181,10 @@
     botV.layer.cornerRadius = 4;
     botV.layer.masksToBounds = YES;
     botV.layer.shadowOffset = CGSizeMake(0, 4);
-    botV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+    botV.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
     botV.layer.shadowOpacity = 0.5;
     botV.layer.shadowRadius = 7;
-    botV.backgroundColor = [UIColor whiteColor];
+    botV.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
     [self.view addSubview:botV];
     [botV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
@@ -191,22 +195,21 @@
     
     UIImageView *imgV = [[UIImageView alloc] init];
     imgV.userInteractionEnabled = YES;
-    imgV.image = [UIImage imageNamed:@"激活bg"];
+    imgV.image = [UIImage imageNamed:@"activate_background"];
     [botV addSubview:imgV];
     [imgV makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(botV);
-        make.width.equalTo(123.5 * WidthCoefficient);
+        make.edges.equalTo(botV);
     }];
     
     UILabel *label = [[UILabel alloc] init];
     label.text = NSLocalizedString(@"点击获取激活码", nil);
     label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    label.textColor = [UIColor colorWithHexString:@"#ac0042"];
+    label.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [botV addSubview:label];
     [label makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(10 * WidthCoefficient);
-        make.top.equalTo(10 * WidthCoefficient);
-        make.height.equalTo(22.5 * WidthCoefficient);
+        make.top.equalTo(28.5 * WidthCoefficient);
+        make.height.equalTo(20 * WidthCoefficient);
     }];
     
     UILabel *label1 = [[UILabel alloc] init];
@@ -218,6 +221,15 @@
         make.left.equalTo(10 * WidthCoefficient);
         make.top.equalTo(label.bottom).offset(5 * WidthCoefficient);
         make.height.equalTo(18.5 * WidthCoefficient);
+    }];
+    
+    UIImageView *hand = [[UIImageView alloc] init];
+    hand.image = [UIImage imageNamed:@"activate_hand"];
+    [botV addSubview:hand];
+    [hand makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(32 * WidthCoefficient);
+        make.right.equalTo(-15 * WidthCoefficient);
+        make.centerY.equalTo(botV);
     }];
     
 //    self.codeV = [[UIView alloc] init];
@@ -273,13 +285,27 @@
     UITapGestureRecognizer *countTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(codeList:)];
     [rtV addGestureRecognizer:countTap];
     
-    UITapGestureRecognizer *ListTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(codeList:)];
-    [self.codeV addGestureRecognizer:ListTap];
+//    UITapGestureRecognizer *ListTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(codeList:)];
+//    [self.codeV addGestureRecognizer:ListTap];
     
     UITapGestureRecognizer *storeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToStore:)];
     [leftV addGestureRecognizer:storeTap];
     
 //    self.codeV.hidden = YES;
+    
+    self.availableLabel = [[UILabel alloc] init];
+    _availableLabel.hidden = YES;
+    _availableLabel.font = [UIFont fontWithName:FontName size:12];
+    _availableLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    _availableLabel.text = NSLocalizedString(@"- 以下为可用激活码 -", nil);
+    _availableLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_availableLabel];
+    [_availableLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(156 * WidthCoefficient);
+        make.height.equalTo(15 * WidthCoefficient);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(botV.bottom).offset(30 * WidthCoefficient);
+    }];
     
     self.table = [[UITableView alloc] init];
     _table.showsVerticalScrollIndicator = NO;
@@ -291,7 +317,7 @@
     [self.view addSubview:self.table];
     [self.table makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(botV.bottom).offset(15 * WidthCoefficient);
+        make.top.equalTo(_availableLabel.bottom).offset(15 * WidthCoefficient);
     }];
 }
 
@@ -314,6 +340,11 @@
                 for (NSInteger i = 0; i < tmp.count; i++) {
                     ActivationCode *code = [ActivationCode yy_modelWithJSON:tmp[i]];
                     [self.codes addObject:code];
+                }
+                if (self.codes.count) {
+                    _availableLabel.hidden = NO;
+                } else {
+                    _availableLabel.hidden = YES;
                 }
                 [self.table reloadData];
             }
@@ -352,7 +383,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 95 * HeightCoefficient;
+    return 85 * WidthCoefficient;
 }
 
 - (void)showCodeViewWithCode:(ActivationCode *)code {
@@ -385,18 +416,18 @@
 }
 
 - (void)activate:(UITapGestureRecognizer *)sender {
-    if (self.canGetActivationCode && _limit) {
+//    if (self.canGetActivationCode && _limit) {
         GetActivationCodeViewController *vc = [[GetActivationCodeViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    } else {
-        if (self.codes.count) {
-            [MBProgressHUD showText:NSLocalizedString(@"当前还有未过期的激活码", nil)];
-        } else if (_limit == 0) {
-            [MBProgressHUD showText:NSLocalizedString(@"请前往商城购买地图升级商品", nil)];
-        } else {
-            [MBProgressHUD showText:NSLocalizedString(@"无法获取激活码", nil)];
-        }
-    }
+//    } else {
+//        if (self.codes.count) {
+//            [MBProgressHUD showText:NSLocalizedString(@"当前还有未过期的激活码", nil)];
+//        } else if (_limit == 0) {
+//            [MBProgressHUD showText:NSLocalizedString(@"请前往商城购买地图升级商品", nil)];
+//        } else {
+//            [MBProgressHUD showText:NSLocalizedString(@"无法获取激活码", nil)];
+//        }
+//    }
 }
 
 - (void)codeList:(UITapGestureRecognizer *)sender {
