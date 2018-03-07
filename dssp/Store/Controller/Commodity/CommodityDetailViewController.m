@@ -191,6 +191,17 @@
     
 }
 
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_hud hideAnimated:YES afterDelay:0.3];
+    });
+    if (self.webViewHeight) {
+        return;
+    }
+    self.webViewHeight = webView.scrollView.contentSize.height;
+    [self.tableView reloadRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:webView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CommodityDescriptionCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:CommodityDetailCellTypeDescription]];
     if (cell) {
