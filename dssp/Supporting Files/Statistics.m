@@ -166,14 +166,15 @@ static NSMutableArray *dataSources;
                                  };
             [dataSources addObject:dic];
 
-            NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/Documents/myJson.txt"];
+            NSString *filePath = [NSHomeDirectory() stringByAppendingString:@"/tmp/myJson.txt"];
 //            NSDictionary *json_dic = @{@"arr":dataSources};//key为arr value为arr数组的字典
 //            NSData *json_data = [NSJSONSerialization dataWithJSONObject:dataSources options:NSJSONWritingPrettyPrinted error:nil];
             //数组转json存储
             NSString *jsonString = [Statistics arrayToJSONString:dataSources];
             [jsonString writeToFile:filePath atomically:YES];
+          
         }
-        break;
+        break;  
         case 3://用来获取进入界面的时间
         {
             NSDate * date=[NSDate date];
