@@ -28,6 +28,18 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"RnunbindViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"RnunbindViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"RnunbindViewController"];
+}
+
 - (void)setupUI {
     
     self.navigationItem.title = NSLocalizedString(@"实名制解绑", nil);

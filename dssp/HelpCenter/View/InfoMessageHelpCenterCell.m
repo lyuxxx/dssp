@@ -166,7 +166,7 @@
                 lastView = v;
                 
                 
-                
+    
                 ///添加button
                 NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
                 for (NSInteger j = 0; j < pageArr.count; j++) {
@@ -252,7 +252,7 @@
             }];
             
             
-            _contentLabel.text = message.serviceDetails;
+            _contentLabel.text = message.serviceName;
             NSLog(@"%@666",_contentLabel.text);
             CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
@@ -387,11 +387,7 @@
             
             self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
         }
-        
-   
     }
-    
-  
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

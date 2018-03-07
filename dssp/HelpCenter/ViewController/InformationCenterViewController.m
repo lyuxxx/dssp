@@ -98,13 +98,11 @@
             [self.dataSource removeAllObjects];
             [self sendMessage:message];
             
-            
         } else {
             
             [MBProgressHUD showText:dic[@"msg"]];
         }
-        
-        
+    
     } failure:^(NSInteger code) {
         
         
@@ -181,6 +179,7 @@
                         [MBProgressHUD showText:@"提交反馈成功"];
                         InfoMessage *message1 = [[InfoMessage alloc] init];
                         message1.type = InfoMessageTypeTwo;
+                        message1.choices = @[@"确定",@"关闭"];
                         message1.serviceDetails = @"是否继续使用dssp知识库服务";
                         [self sendMessage:message1];
                         
@@ -208,6 +207,7 @@
                         [MBProgressHUD showText:@"提交反馈成功"];
                         InfoMessage *message1 = [[InfoMessage alloc] init];
                         message1.type = InfoMessageTypeTwo;
+                        message1.choices = @[@"咨询",@"否"];
                         message1.serviceDetails = @"是否继续咨询客服人员";
                         [self sendMessage:message1];
                         
@@ -305,7 +305,6 @@
                         message.type = InfoMessageTypeOther;
                         [self sendMessage:message];
                         
-                        
                         NSLog(@"4433%@",message.appServiceNum);
                         if (![self isBlankString:message.appServiceNum]) {
                             UIViewController *vc = [[NSClassFromString([_result3 objectForKey:message.appServiceNum]) alloc] init];
@@ -361,7 +360,6 @@
                           message.type = InfoMessageTypeOther;
                           [self sendMessage:message];
                           
-                          
                       } else {
                           
                           [MBProgressHUD showText:dic[@"msg"]];
@@ -372,6 +370,19 @@
                       
                       
                   }];
+              }
+              else if([sender.titleLabel.text isEqualToString:@"咨询"])
+              {
+                  NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-400800888"];
+                  UIWebView *callWebview = [[UIWebView alloc] init];
+                  [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+                  [self.view addSubview:callWebview];
+                 
+              }
+              else if([sender.titleLabel.text isEqualToString:@"否"])
+              {
+                 
+                  
               }
               else
               {

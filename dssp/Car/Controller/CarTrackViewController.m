@@ -46,10 +46,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+    self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
     // Do any additional setup after loading the view.
     [self requestData];
-    [self setupUI];
+ 
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"CarTrackViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"CarTrackViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"CarTrackViewController"];
+}
+
 
 -(void)requestData
 {
@@ -69,19 +84,51 @@
             [hud hideAnimated:YES];
           _carTrack =[CarTrackModel yy_modelWithDictionary:dic[@"data"]];
            self.carTrack=_carTrack;
+          [self setupUI];
 //           [self.dataArray addObject:_carTrack];
            
         } else {
         [hud hideAnimated:YES];
-        self.carTrack=_carTrack;
+        [self blankUI];
         [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
          [hud hideAnimated:YES];
-        self.carTrack=_carTrack;
+        [self blankUI];
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];
+}
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"空页面1"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(120 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(77.5 * HeightCoefficient);
+        make.width.equalTo(86.5 * WidthCoefficient);
+        
+    }];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text =@"暂无数据";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor colorWithHexString:@"#999999"];
+    label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    
+    [self.view addSubview:label];
+    [label makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bgImgV.bottom).offset(15*WidthCoefficient);
+        make.height.equalTo(22 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(100 *WidthCoefficient);
+    }];
+    
+    
 }
 
 
@@ -172,9 +219,6 @@
 
 - (void)setupUI {
 
-    
-    self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
-    self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.backgroundColor = [UIColor whiteColor];

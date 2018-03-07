@@ -55,11 +55,21 @@ static dispatch_once_t oilOnceToken;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"CarflowViewController"];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics  staticsvisitTimesDataWithViewControllerType:@"CarflowViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"CarflowViewController"];
+}
+
 
 - (void)dealloc {
     oilOnceToken = 0l;

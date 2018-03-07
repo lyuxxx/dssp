@@ -50,6 +50,18 @@
     [self pullUpToLoadMoreNews];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [statistics staticsstayTimeDataWithType:@"1" WithController:@"ContractViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [statistics staticsvisitTimesDataWithViewControllerType:@"ContractViewController"];
+    [statistics staticsstayTimeDataWithType:@"2" WithController:@"ContractViewController"];
+}
+
 
 /**
  *  下拉加载最新数据
