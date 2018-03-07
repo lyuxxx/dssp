@@ -64,7 +64,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
     self.isViewVisable = YES;
     [self.tabBarController.tabBar hideBadgeOnItemIndex:1];

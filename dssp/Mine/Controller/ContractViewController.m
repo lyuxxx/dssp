@@ -53,13 +53,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"ContractViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ContractViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics staticsvisitTimesDataWithViewControllerType:@"ContractViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"ContractViewController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"ContractViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"ContractViewController"];
 }
 
 

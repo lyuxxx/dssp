@@ -38,13 +38,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"AccountViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"AccountViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics staticsvisitTimesDataWithViewControllerType:@"AccountViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"AccountViewController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"AccountViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"AccountViewController"];
 }
 
 - (void)setupUI {

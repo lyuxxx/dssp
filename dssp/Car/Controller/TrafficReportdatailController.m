@@ -88,13 +88,13 @@ static NSString *const cellID = @"cell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"TrafficReportdatailController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"TrafficReportdatailController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics staticsvisitTimesDataWithViewControllerType:@"TrafficReportdatailController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"TrafficReportdatailController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"TrafficReportdatailController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrafficReportdatailController"];
 }
 
 #pragma mark 懒加载

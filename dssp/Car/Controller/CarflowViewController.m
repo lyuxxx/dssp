@@ -41,13 +41,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"CarflowViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarflowViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"CarflowViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"CarflowViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"CarflowViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarflowViewController"];
 }
 
 -(void)requestData

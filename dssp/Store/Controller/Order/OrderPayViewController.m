@@ -180,7 +180,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
 }
 
 - (void)payBtnClick:(UIButton *)sender {
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventOrderPayment"];
+    [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventOrderPayment"];
     if (self.payType == PayTypeAlipay) {
         [self aliPayFunc];
     } else if (self.payType == PayTypeWeChatPay) {

@@ -42,15 +42,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"PersonInViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"PersonInViewController"];
     [self initTableView];
     [self requestData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics staticsvisitTimesDataWithViewControllerType:@"PersonInViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"PersonInViewController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"PersonInViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"PersonInViewController"];
 }
 
 -(void)requestData

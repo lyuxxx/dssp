@@ -31,13 +31,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"RnunbindViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"RnunbindViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"RnunbindViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"RnunbindViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"RnunbindViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"RnunbindViewController"];
 }
 
 - (void)setupUI {

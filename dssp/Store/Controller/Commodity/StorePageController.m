@@ -42,13 +42,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"StorePageController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"StorePageController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"StorePageController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"StorePageController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"StorePageController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"StorePageController"];
 }
 
 -(void)Notification

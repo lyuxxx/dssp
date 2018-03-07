@@ -185,13 +185,13 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"DrivingWeekReportViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DrivingWeekReportViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"DrivingWeekReportViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"DrivingWeekReportViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"DrivingWeekReportViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"DrivingWeekReportViewController"];
 }
 
 - (void)setupUI {

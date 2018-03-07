@@ -30,13 +30,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"WifiViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"WifiViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"WifiViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"WifiViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"WifiViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"WifiViewController"];
 }
 
 - (void)setupUI {

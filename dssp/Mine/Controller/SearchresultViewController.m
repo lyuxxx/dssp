@@ -29,13 +29,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"SearchresultViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"SearchresultViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"SearchresultViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"SearchresultViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"SearchresultViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"SearchresultViewController"];
 }
 
 - (void)setupUI {

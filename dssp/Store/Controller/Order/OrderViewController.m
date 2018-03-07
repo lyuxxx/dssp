@@ -122,7 +122,7 @@
 }
 
 - (void)cancelOrderWithOrderNo:(NSString *)orderNo {
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventCancel"];
+    [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventCancel"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:cancelOrderURL parameters:@{@"orderNo":orderNo} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

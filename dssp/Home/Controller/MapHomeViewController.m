@@ -323,7 +323,7 @@ static dispatch_once_t mapHomeOnceToken;
         [self getHistory];
     }
     if (sender == _searchBtn) {
-        [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSearch"];
+        [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
         weakifySelf
         [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf
@@ -737,7 +737,7 @@ static dispatch_once_t mapHomeOnceToken;
 }
 
 - (void)textFieldEditChanged:(UITextField *)textField {
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSearch"];
+    [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
     weakifySelf
     [[MapSearchManager sharedManager] inputTipsSearch:textField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
         strongifySelf
@@ -754,7 +754,7 @@ static dispatch_once_t mapHomeOnceToken;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == _searchField) {
-        [Statistics staticsstayTimeDataWithType:@"1" WithController:@"ClickEventPoiSearch"];
+        [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
         weakifySelf
         [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf

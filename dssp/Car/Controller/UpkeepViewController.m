@@ -37,13 +37,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"UpkeepViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"UpkeepViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"UpkeepViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"UpkeepViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"UpkeepViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"UpkeepViewController"];
 }
 
 -(void)requestData

@@ -58,13 +58,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"CarUnbindViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarUnbindViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics staticsvisitTimesDataWithViewControllerType:@"CarUnbindViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"CarUnbindViewController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"CarUnbindViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarUnbindViewController"];
 }
 
 -(void)requestData

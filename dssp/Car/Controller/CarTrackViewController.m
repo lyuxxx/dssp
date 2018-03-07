@@ -56,13 +56,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [statistics staticsstayTimeDataWithType:@"1" WithController:@"CarTrackViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarTrackViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [statistics  staticsvisitTimesDataWithViewControllerType:@"CarTrackViewController"];
-    [statistics staticsstayTimeDataWithType:@"2" WithController:@"CarTrackViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"CarTrackViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarTrackViewController"];
 }
 
 
