@@ -72,7 +72,7 @@
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            
+             [MBProgressHUD showText:@"chengg"];
             //上传TXT文件成功，就删除
             NSFileManager *fileMgr = [NSFileManager defaultManager];
             BOOL bRet = [fileMgr fileExistsAtPath:filePath];
