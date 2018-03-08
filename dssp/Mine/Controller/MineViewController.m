@@ -81,7 +81,7 @@
         [self setupUI];
         [self pullData];
 //    }
-    
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

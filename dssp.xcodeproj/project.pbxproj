@@ -177,6 +177,7 @@
 		45765260204E2B5E006585BA /* BlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576525F204E2B5E006585BA /* BlankView.m */; };
 		45765270204E7BB5006585BA /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* Statistics.m */; };
 		45765273204E7BBE006585BA /* QDataSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765271204E7BBE006585BA /* QDataSaver.m */; };
+		4581E1BE2050F64B00B435B5 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581E1BD2050F64A00B435B5 /* PopupView.m */; };
 		4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
 		459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
 		4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
@@ -542,6 +543,8 @@
 		4576526F204E7BB5006585BA /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		45765271204E7BBE006585BA /* QDataSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDataSaver.m; sourceTree = "<group>"; };
 		45765272204E7BBE006585BA /* QDataSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDataSaver.h; sourceTree = "<group>"; };
+		4581E1BC2050F64A00B435B5 /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
+		4581E1BD2050F64A00B435B5 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		4592B39D1FDE1C07000ADCA0 /* WeatherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
 		459679851FDF700A008A0C67 /* RealVinViewcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealVinViewcontroller.h; sourceTree = "<group>"; };
@@ -1338,6 +1341,8 @@
 		45A145BB1FCFA4B2002C0A78 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4581E1BC2050F64A00B435B5 /* PopupView.h */,
+				4581E1BD2050F64A00B435B5 /* PopupView.m */,
 				459F22571FBC118300BA13CB /* MineCell.h */,
 				459F22581FBC118300BA13CB /* MineCell.m */,
 				455036071FE246FC0088DAE0 /* ContractCell.h */,
@@ -1673,6 +1678,7 @@
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */,
 				31B38BAC202C38BF0086EDC8 /* CommodityCommentFooterCell.m in Sources */,
+				4581E1BE2050F64B00B435B5 /* PopupView.m in Sources */,
 				4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */,
 				4570EFD91FFB541600FA6355 /* CarBindingTViewController.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,

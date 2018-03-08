@@ -147,7 +147,7 @@
         make.width.equalTo(150 * WidthCoefficient);
     }];
 
-    _userNameField.text = @"15871707603";
+//    _userNameField.text = @"15871707603";
 //    _userNameField.text =@"13419506934";
 //     _userNameField.text = @"15907157363";
 //    _userNameField.text = @"15810817108";
@@ -192,7 +192,7 @@
         make.right.left.height.equalTo(_userNameField);
     }];
 //  _passWordField.text = @"666";
-  _passWordField.text = @"123456";
+//  _passWordField.text = @"123456";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -465,11 +465,15 @@
                         if ([result.code isEqualToString:@"200"]) {
                             
                             NSDictionary *dic1 =dic[@"data"];
-                            NSString *str=dic1[@"userName"];
+                            NSString *userName=dic1[@"userName"];
                             NSString *vin=dic1[@"vin"];
+                            NSString *vhlTStatus=dic1[@"vhlTStatus"];
+                            NSString *certificationStatus = dic1[@"certificationStatus"];
+                            
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                            [defaults setObject:str forKey:@"userName"];
+                            [defaults setObject:userName forKey:@"userName"];
                             [defaults synchronize];
+                            
                             
                             if ((NSNull *)vin == [NSNull null]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
@@ -483,6 +487,26 @@
                                 [defaults1 synchronize];
                                 
                             }
+                            
+                            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                            [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
+                            [defaults2 synchronize];
+                            
+                            
+                            if ((NSNull *)certificationStatus == [NSNull null]) {
+                                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                                [defaults3 setObject:@"" forKey:@"certificationStatus"];
+                                [defaults3 synchronize];
+                            }
+                            else
+                            {
+                                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                                [defaults3 setObject:certificationStatus forKey:@"certificationStatus"];
+                                [defaults3 synchronize];
+                                
+                            }
+                            
+                            
                             
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
@@ -534,6 +558,8 @@
                             NSDictionary *dic1 =dic[@"data"];
                             NSString *userName=dic1[@"userName"];
                             NSString *vin=dic1[@"vin"];
+                            NSString *vhlTStatus=dic1[@"vhlTStatus"];
+                            NSString *certificationStatus = dic1[@"certificationStatus"];
                             
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             [defaults setObject:userName forKey:@"userName"];
@@ -552,7 +578,28 @@
                                 [defaults1 synchronize];
                                 
                             }
-//                            [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+                            
+                            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                            [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
+                            [defaults2 synchronize];
+                            
+                            
+                            if ((NSNull *)certificationStatus == [NSNull null]) {
+                                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                                [defaults3 setObject:@"" forKey:@"certificationStatus"];
+                                [defaults3 synchronize];
+                            }
+                            else
+                            {
+                                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                                [defaults3 setObject:certificationStatus forKey:@"certificationStatus"];
+                                [defaults3 synchronize];
+                                
+                            }
+                            
+                            
+                    
+                    
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];

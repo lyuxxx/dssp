@@ -22,6 +22,7 @@
 #import "NSDictionary+NilSafe.h"
 #import "statistics.h"
 #import "UIImageView+WebCache.h"
+#import "PopupView.h"
 //通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -81,6 +82,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 #define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
+#define CuvhlTStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"vhlTStatus"]
+#define KcertificationStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"certificationStatus"]
 
 //外网50
 #define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
