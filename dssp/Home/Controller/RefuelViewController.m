@@ -53,21 +53,17 @@ static dispatch_once_t oilOnceToken;
     [self setupBackBtn];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarflowViewController"];
-
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"RefuelViewController"];
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [Statistics  staticsvisitTimesDataWithViewControllerType:@"CarflowViewController"];
-    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarflowViewController"];
+    [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"RefuelViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"RefuelViewController"];
 }
 
 

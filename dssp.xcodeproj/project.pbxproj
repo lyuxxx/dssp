@@ -167,7 +167,7 @@
 		456454A11FF09E2700B30401 /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
 		45685FD12043B42600017989 /* InfoMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45685FD02043B42600017989 /* InfoMessageLeftCell.m */; };
 		456ABDA42027FF6F00F4A7E6 /* UpkeepdetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */; };
-		4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */; };
+		4570EFD91FFB541600FA6355 /* CarBindingTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarBindingTViewController.m */; };
 		4570EFDC1FFB939F00FA6355 /* CarUnbindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */; };
 		4570EFDF1FFC788D00FA6355 /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
 		4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */; };
@@ -522,8 +522,8 @@
 		45685FD02043B42600017989 /* InfoMessageLeftCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoMessageLeftCell.m; sourceTree = "<group>"; };
 		456ABDA22027FF6F00F4A7E6 /* UpkeepdetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpkeepdetailController.h; sourceTree = "<group>"; };
 		456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpkeepdetailController.m; sourceTree = "<group>"; };
-		4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarbinddetailViewController.h; sourceTree = "<group>"; };
-		4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarbinddetailViewController.m; sourceTree = "<group>"; };
+		4570EFD71FFB541600FA6355 /* CarBindingTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarBindingTViewController.h; sourceTree = "<group>"; };
+		4570EFD81FFB541600FA6355 /* CarBindingTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarBindingTViewController.m; sourceTree = "<group>"; };
 		4570EFDA1FFB939F00FA6355 /* CarUnbindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindingViewController.h; sourceTree = "<group>"; };
 		4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarUnbindingViewController.m; sourceTree = "<group>"; };
 		4570EFDD1FFC788D00FA6355 /* ContractdetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractdetailCell.h; sourceTree = "<group>"; };
@@ -1130,8 +1130,8 @@
 				310A07DF1FA96BF800DC9529 /* MineViewController.m */,
 				313070D01FBA9BD900A0DE71 /* VINBindingViewController.h */,
 				313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */,
-				4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */,
-				4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */,
+				4570EFD71FFB541600FA6355 /* CarBindingTViewController.h */,
+				4570EFD81FFB541600FA6355 /* CarBindingTViewController.m */,
 				316B6CEA1FB97F6A008A6094 /* CarBindingViewController.h */,
 				316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */,
 				316B6CF11FB99BA7008A6094 /* CarSeriesViewController.h */,
@@ -1674,7 +1674,7 @@
 				455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */,
 				31B38BAC202C38BF0086EDC8 /* CommodityCommentFooterCell.m in Sources */,
 				4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */,
-				4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */,
+				4570EFD91FFB541600FA6355 /* CarBindingTViewController.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */,
 				31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */,

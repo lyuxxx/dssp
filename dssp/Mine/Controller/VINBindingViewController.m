@@ -14,7 +14,7 @@
 #import <CUHTTPRequest.h>
 #import "CarBindingViewController.h"
 #import "MineViewController.h"
-#import "CarbinddetailViewController.h"
+#import "CarBindingTViewController.h"
 @interface VINBindingViewController ()
 
 @property (nonatomic, strong) UITextField *vinField;
@@ -171,7 +171,7 @@
                                     
                                 }else{
                                     ///T车跳绑定详细页面
-                                    CarbinddetailViewController *vc = [[CarbinddetailViewController alloc] init];
+                                    CarBindingTViewController *vc = [[CarBindingTViewController alloc] init];
                                     vc.carbind = _carbind;
                                     [self.navigationController pushViewController:vc animated:YES];
                                     

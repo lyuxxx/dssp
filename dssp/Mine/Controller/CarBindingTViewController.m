@@ -1,15 +1,15 @@
 //
-//  CarbinddetailViewController.m
+//  CarBindingTViewController.m
 //  dssp
 //
 //  Created by qinbo on 2018/1/2.
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "CarbinddetailViewController.h"
+#import "CarBindingTViewController.h"
 #import "RealVinViewcontroller.h"
 #import "InputAlertView.h"
-@interface CarbinddetailViewController ()
+@interface CarBindingTViewController ()
 @property (nonatomic, strong) UITextField *customerNameField;
 @property (nonatomic, strong) UITextField *vinField;
 @property (nonatomic, strong) UITextField *doptField;
@@ -34,7 +34,7 @@
 
 @end
 
-@implementation CarbinddetailViewController
+@implementation CarBindingTViewController
 - (BOOL)needGradientImg {
     return YES;
 }
@@ -45,7 +45,18 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarBindingTViewController"];
+}
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"CarBindingTViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarBindingTViewController"];
+}
 
 
 - (void)setupUI {

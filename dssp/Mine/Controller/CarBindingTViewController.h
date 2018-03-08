@@ -1,5 +1,5 @@
 //
-//  CarbinddetailViewController.h
+//  CarBindingTViewController.h
 //  dssp
 //
 //  Created by qinbo on 2018/1/2.
@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 #import "CarInfoModel.h"
-@interface CarbinddetailViewController : BaseViewController
+@interface CarBindingTViewController : BaseViewController
 @property (nonatomic,strong) CarbindModel *carbind;
 @end

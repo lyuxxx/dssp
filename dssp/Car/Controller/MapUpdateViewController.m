@@ -64,9 +64,18 @@
     [self setupUI];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"MapUpdateViewController"];
     [self pullData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"MapUpdateViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"MapUpdateViewController"];
 }
 
 - (void)setupUI {
