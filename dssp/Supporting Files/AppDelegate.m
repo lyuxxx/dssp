@@ -36,7 +36,7 @@
     // Override point for customization after application launch.
 //    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server" ofType:@"cer"]];
     
-    [self setuploading];
+//    [self setuploading];
     //清空cid
 
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
@@ -87,7 +87,6 @@
         }
         
     } failure:^(NSInteger code) {
-        
         
     }];
 

@@ -15,11 +15,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         //创建遮罩
-       _blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,kScreenHeight)];
+        _blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,kScreenHeight)];
         _blackView.backgroundColor = [UIColor blackColor];
         _blackView.alpha = 0.5;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(blackClick)];
-        [self.blackView addGestureRecognizer:tap];
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(blackClick)];
+//        [self.blackView addGestureRecognizer:tap];
         [self addSubview:_blackView];
         
         

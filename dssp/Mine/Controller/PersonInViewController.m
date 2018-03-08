@@ -219,6 +219,7 @@
     }
 }
 
+//相册回调
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos {
 //    _selectedImgV = [[UIImageView alloc] init];
     _selectedImgV.image = photos[0];
@@ -241,11 +242,11 @@
          NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
          if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
               [self requestData];
-             [MBProgressHUD showText:@"图片上传成功"];
+//             [MBProgressHUD showText:@"图片上传成功"];
          }
         else
         {
-             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+//             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
         }
 
     } failure:^(NSInteger code) {
@@ -320,6 +321,30 @@
                  [_selectedImgV removeAllSubviews];
                   [self saveImage:image name:@"photo"];
                   [_tableView reloadData];;
+                 
+                 NSDictionary *paras = @{
+                                         
+                                         };
+                 
+                 NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation(image, 0.3)];
+                 NSArray<NSData *> *arr = [NSArray arrayWithObjects:imageData, nil];
+                 [CUHTTPRequest POSTUpload:updateHeadPortrait parameters:paras uploadType:(UploadDownloadType_Images) dataArray:arr success:^(id responseData) {
+                     
+                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                         [self requestData];
+//                         [MBProgressHUD showText:@"图片上传成功"];
+                     }
+                     else
+                     {
+                         [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                     }
+                     
+                 } failure:^(NSInteger code) {
+                     
+                     
+                 }];
+                 
              } else {
                  _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
                  [_selectedImgV removeAllSubviews];
@@ -328,17 +353,7 @@
              }
          });
      }];
-    //    UIImage *image = info[UIImagePickerControllerEditedImage];
-    //    if (image) {
-    //        _selectedImgV.image = image;
-    //       [_selectedImgV removeAllSubviews];
-    //    } else {
-    //        _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
-    //        [_selectedImgV removeAllSubviews];
-    //    }
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [picker dismissViewControllerAnimated:YES completion:nil];
-//    });
+  
 }
 
 

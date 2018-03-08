@@ -269,16 +269,17 @@
     }
     if (sender == self.modifyBtn) {
         
-        if (_originalField.text.length==0) {
-        [MBProgressHUD showText:NSLocalizedString(@"原密码不能为空", nil)];
-        }
-        else if (_newsPasswordField.text.length==0)
+        if (_originalField.text.length !=8 || ![self checkPassWord:_originalField.text])
         {
-          [MBProgressHUD showText:NSLocalizedString(@"新密码不能为空", nil)];
+         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
         }
-        else if (_confirmField.text==0)
+        else if (_newsPasswordField.text.length !=8 || ![self checkPassWord:_newsPasswordField.text])
         {
-           [MBProgressHUD showText:NSLocalizedString(@"确定密码不能为空", nil)];
+          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
+        }
+        else if (_confirmField.text.length !=8 || ![self checkPassWord:_confirmField.text])
+        {
+          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
         }
         else if (![_newsPasswordField.text isEqualToString:_confirmField.text])
         {
@@ -344,6 +345,19 @@
     }
     
 }
+
+
+-(BOOL)checkPassWord:(NSString *)str
+{
+    //6-20位数字和字母组成
+    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([pred evaluateWithObject:str]) {
+        return YES ;
+    }else
+        return NO;
+}
+
 //- (void)secureBtnClick:(UIButton *)sender {
 //    sender.selected = !sender.selected;
 //    _passwordField.secureTextEntry = !sender.selected;

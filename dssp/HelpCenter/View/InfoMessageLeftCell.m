@@ -24,13 +24,14 @@
 @property (nonatomic, strong) UIImageView *bubble;
 @property (nonatomic, strong) NSMutableDictionary *result;
 @property (nonatomic, strong) NSMutableDictionary *result1;
+@property (nonatomic, strong) NSMutableDictionary *result2;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 @property (nonatomic, copy) NSString *ID;
 @end
 
 @implementation InfoMessageLeftCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *))block {
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *,NSString *))block {
     InfoMessageLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageLeftCell"];
     cell.serviceClickBlock = block;
     return cell;
@@ -56,6 +57,7 @@
         }
         [self.result setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
         [self.result1 setObject:serviceList.sourceData forKey:serviceList.serviceName];
+        [self.result2 setObject:serviceList.appServiceNum forKey:serviceList.serviceName];
     }
     
     NSLog(@"%@",message);
@@ -72,7 +74,6 @@
         self.ID = @"";
         
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
-        
         dataArray1 = message.choices;
 //        [dataArray1 addObject:@"确定"];
 //        [dataArray1 addObject:@"关闭"];
@@ -87,8 +88,6 @@
         
     
         _contentLabel.text = message.serviceDetails;
-        
-        
         CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
         
         //            _contentLabel.backgroundColor =[UIColor redColor];
@@ -336,8 +335,9 @@
     if (self.serviceClickBlock) {
         NSString *Idstr = [_result objectForKey:sender.titleLabel.text];
         NSString *sourceData = [_result1 objectForKey:sender.titleLabel.text];
+        NSString *appNum = [_result1 objectForKey:sender.titleLabel.text];
         NSLog(@"2233%@",Idstr);
-        self.serviceClickBlock(sender,Idstr,self.ID,sourceData);
+        self.serviceClickBlock(sender,Idstr,self.ID,sourceData,appNum);
     }
 }
 

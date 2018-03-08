@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIImageView *bubble;
 @property (nonatomic, strong) NSMutableDictionary *result;
 @property (nonatomic, strong) NSMutableDictionary *result1;
+@property (nonatomic, strong) NSMutableDictionary *result2;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 
 @property (nonatomic, copy) NSString *ID;
@@ -32,7 +33,7 @@
 
 @implementation InfoMessageHelpCenterCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *))block {
++ (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *,NSString *))block {
     InfoMessageHelpCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageHelpCenterCell"];
      cell.backgroundColor = [UIColor clearColor];
     cell.serviceClickBlock = block;
@@ -56,6 +57,7 @@
     
     self.result = [NSMutableDictionary new];
     self.result1 = [NSMutableDictionary new];
+    self.result2 = [NSMutableDictionary new];
     //    [result setObject:message.infoMessagedatailId forKey:message.serviceName];
     NSArray *array = message.serviceKnowledgeProfileList;
     NSMutableArray *dataArray =[[NSMutableArray alloc] init];
@@ -73,6 +75,7 @@
         
         [self.result setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
         [self.result1 setObject:serviceList.sourceData forKey:serviceList.serviceName];
+        [self.result2 setObject:serviceList.appServiceNum forKey:serviceList.serviceName];
     }
     
     NSString *Idstr = [_result objectForKey:message.serviceName];
@@ -87,6 +90,8 @@
         [dataArray1 addObject:@"是"];
         [dataArray1 addObject:@"否"];
         
+        NSLog(@"ffff%ld",array.count);
+        
       if (array.count == 0) {
           
             self.ID = message.serviceParentId;
@@ -100,17 +105,24 @@
                 }
             }];
           
-          
-            NSString *string = [NSString stringWithFormat:@"%@,该服务对您是否有帮助?", message.serviceDetails];
-            _contentLabel.text = string;
-            CGSize size = [string stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-            
-            //            _contentLabel.backgroundColor =[UIColor redColor];
+
+//            NSString *string = [NSString stringWithFormat:@"%@ 该服务对您是否有帮助?", message.serviceDetails];
+            _contentLabel.text = message.serviceDetails;
+            CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+            //_contentLabel.backgroundColor =[UIColor redColor];
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
             }];
-            
-            [self layoutIfNeeded];
+          
+          _contentLabel1.text = @"该提示对您是否有帮助?";
+          CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+          //_contentLabel.backgroundColor =[UIColor redColor];
+          [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
+              make.height.equalTo(size1.height);
+          }];
+
+          [self layoutIfNeeded];
+          
             
             NSLog(@"%@665556",_contentLabel.text);
             if (dataArray1.count > 2) {//显示线
@@ -172,6 +184,8 @@
                 for (NSInteger j = 0; j < pageArr.count; j++) {
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    btn.titleLabel.numberOfLines = 0;
                     [btn setTitle:pageArr[j] forState:UIControlStateNormal];
                     
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
@@ -194,7 +208,7 @@
                     [btns addObject:btn];
                 }
                 
-                [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];    
+                [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:20 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];    
             }
             [lastView makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(_scrollContentView.right);
@@ -209,9 +223,8 @@
             } else {
                 
                 [_bubble updateConstraints:^(MASConstraintMaker *make) {
-                    make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
+                    make.bottom.equalTo(_scroll).offset(15 * WidthCoefficient);
                 }];
-                
             }
             
             [self layoutIfNeeded];
@@ -258,6 +271,8 @@
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
             }];
+            
+            _contentLabel1.text = @"";
             
             if (dataArray.count > 2) {//显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
@@ -317,6 +332,7 @@
                 NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
                 for (NSInteger j = 0; j < pageArr.count; j++) {
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+                    btn.titleLabel.numberOfLines = 0;
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [btn setTitle:pageArr[j] forState:UIControlStateNormal];
                     [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
@@ -331,6 +347,7 @@
                     
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                     btn.titleLabel.numberOfLines = 0;
                     [btn setTitle:pageArr[0] forState:UIControlStateNormal];
                     [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
@@ -448,6 +465,21 @@
         make.height.equalTo(67 * WidthCoefficient);
     }];
     
+    self.contentLabel1 = [[UILabel alloc] init];
+    _contentLabel1.preferredMaxLayoutWidth = 220 * WidthCoefficient;
+    _contentLabel1.numberOfLines = 0;
+//    _contentLabel1.lineBreakMode = NSLineBreakByWordWrapping;
+    _contentLabel1.font = [UIFont fontWithName:FontName size:15];
+    _contentLabel1.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    [self.contentView addSubview:_contentLabel1];
+    [_contentLabel1 makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_contentLabel).offset(0 * WidthCoefficient);
+        make.top.equalTo(_contentLabel.bottom).offset(0 * WidthCoefficient);
+        make.width.equalTo(220 * WidthCoefficient);
+        make.height.equalTo(67 * WidthCoefficient);
+    }];
+    
+    
     self.line = [[UIView alloc] init];
     _line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dashLine"]];
     [self.contentView addSubview:_line];
@@ -498,8 +530,9 @@
     if (self.serviceClickBlock) {
         NSString *Idstr = [_result objectForKey:sender.titleLabel.text];
         NSString *sourceData = [_result1 objectForKey:sender.titleLabel.text];
+        NSString *appNum = [_result2 objectForKey:sender.titleLabel.text];
         NSLog(@"2233%@",sourceData);
-        self.serviceClickBlock(sender,Idstr,self.ID,sourceData);
+        self.serviceClickBlock(sender,Idstr,self.ID,sourceData,appNum);
     }
 }
 

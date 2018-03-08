@@ -159,12 +159,32 @@
     InfoMessage *message = self.dataSource[indexPath.row];
     
     if (message.type == InfoMessageTypeOther) {
-        InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3) {
+        InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3,NSString *str4) {
             
-            cell.backgroundColor=[UIColor clearColor];
+//            cell.backgroundColor=[UIColor clearColor];
             NSLog(@"click:%@",sender.titleLabel.text);
             NSLog(@"click:%@",self.dataArray);
             NSLog(@"%@888",message.serviceParentId);
+            
+            NSDictionary * dic2 = @{ @"10010":@"MapHomeViewController",
+                                     @"10012":@"RefuelViewController",
+                                     @"10001":@"WifiViewController",
+                                     @"10002":@"UpkeepViewController",
+                                     @"10003":@"CarflowViewController",
+                                     @"10004":@"CarTrackViewController",
+                                     @"10005":@"TrafficReportViewController",
+                                     @"10006":@"DrivingWeekReportViewController",
+                                     @"10007":@"LllegalViewController",
+                                     @"10013":@"RealVinViewcontroller",
+                                     @"10009":@"紧急救援",
+                                     @"10008":@"道路救援",
+                                     @"10014":@"商品列表",
+                                     @"10015":@"OrderPageController",
+                                     @"10011":@"智慧停车",
+                                     @"10016":@"地图升级"
+                                     };
+            
+ 
             if ([sender.titleLabel.text isEqualToString:@"是"]) {
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
@@ -176,12 +196,12 @@
                     
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        [MBProgressHUD showText:@"提交反馈成功"];
-                        InfoMessage *message1 = [[InfoMessage alloc] init];
-                        message1.type = InfoMessageTypeTwo;
-                        message1.choices = @[@"确定",@"关闭"];
-                        message1.serviceDetails = @"是否继续使用dssp知识库服务";
-                        [self sendMessage:message1];
+//                        [MBProgressHUD showText:@"提交反馈成功"];
+                        InfoMessage *message = [[InfoMessage alloc] init];
+                        message.type = InfoMessageTypeTwo;
+                        message.choices = @[@"确定",@"关闭"];
+                        message.serviceDetails = @"是否继续使用dssp知识库服务?";
+                        [self sendMessage:message];
                         
                     } else {
                         
@@ -201,15 +221,13 @@
                                         };
                 [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    
-                    
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        [MBProgressHUD showText:@"提交反馈成功"];
-                        InfoMessage *message1 = [[InfoMessage alloc] init];
-                        message1.type = InfoMessageTypeTwo;
-                        message1.choices = @[@"咨询",@"否"];
-                        message1.serviceDetails = @"是否继续咨询客服人员";
-                        [self sendMessage:message1];
+//                        [MBProgressHUD showText:@"提交反馈成功"];
+                        InfoMessage *message = [[InfoMessage alloc] init];
+                        message.type = InfoMessageTypeTwo;
+                        message.choices = @[@"咨询客服",@"关闭"];
+                        message.serviceDetails = @"是否拨打客服电话继续咨询?";
+                        [self sendMessage:message];
                         
                     } else {
                         
@@ -262,19 +280,16 @@
                     
                 }];
             }
+            else if ([dic2 objectForKey:str4])
+            {
+
+                UIViewController *vc = [[NSClassFromString([dic2 objectForKey:str4]) alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }
             else
             {
-                NSArray *values = @[@"10010",@"10012",@"10001",@"10002",@"10003",@"10004",@"10005",@"10006",@"10007",@"10013",@"10009",@"10008",@"10014",@"10015",@"10011",@"10016"];
-                
-                NSArray *keys = @[@"MapHomeViewController",@"RefuelViewController",@"WifiViewController",@"UpkeepViewController",@"CarflowViewController",@"CarTrackViewController",@"TrafficReportViewController",@"驾驶行为",@"LllegalViewController",@"RealVinViewcontroller",@"紧急救援",@"道路救援",@"商品列表",@"OrderPageController",@"智慧停车",@"地图升级"];
-                
-                self.result3 = [NSMutableDictionary new];
-
-                //根据value取页面名称
-                for (int i = 0; i < values.count; i++) {
-                    [self.result3 setObject:keys[i] forKey:values[i]];
-//                    [_imgArray addObject:[_result objectForKey:_titleArray[i]]];
-                }
                 
                 InfoMessage *messageMe = [[InfoMessage alloc] init];
                 messageMe.text = sender.titleLabel.text;
@@ -290,7 +305,6 @@
                    sourceData = str3;
                     
                 }
-                
                 NSDictionary *paras = @{
                                         @"serviceParentId":str1,
                                         @"sourceData":sourceData
@@ -300,17 +314,10 @@
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         NSDictionary *dic1 = dic[@"data"];
-                        _dataArray =[[NSMutableArray alloc] init];
+//                        _dataArray =[[NSMutableArray alloc] init];
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
                         message.type = InfoMessageTypeOther;
                         [self sendMessage:message];
-                        
-                        NSLog(@"4433%@",message.appServiceNum);
-                        if (![self isBlankString:message.appServiceNum]) {
-                            UIViewController *vc = [[NSClassFromString([_result3 objectForKey:message.appServiceNum]) alloc] init];
-                            vc.hidesBottomBarWhenPushed = YES;
-                            [self.navigationController pushViewController:vc animated:YES];
-                        }
 
                     } else {
                         [MBProgressHUD showText:dic[@"msg"]];
@@ -320,9 +327,7 @@
                     
                     
                 }];
-                
             }
-            
         }];
         cell.message = message;
         return cell;
@@ -335,22 +340,24 @@
     }
     if (message.type == InfoMessageTypeTwo) {
        
-         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3) {
+         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3,NSString *str4) {
             
               if ([sender.titleLabel.text isEqualToString:@"确定"]) {
+                
                   NSDictionary *paras = @{
                                           @"serviceParentId":@"0",
                                           @"sourceData":@"0"
-                                          
+
                                           };
                   [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                       NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                      
-                      
+
+
                       if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                           NSDictionary *dic1 = dic[@"data"];
-                          InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
                           
+                          InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+
                           NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                           // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
                           [formatter setDateFormat:@"MM-dd HH:mm:ss"];
@@ -359,19 +366,18 @@
                           message.time = datenow;
                           message.type = InfoMessageTypeOther;
                           [self sendMessage:message];
-                          
+
                       } else {
-                          
+
                           [MBProgressHUD showText:dic[@"msg"]];
                       }
-                      
-                      
+
                   } failure:^(NSInteger code) {
-                      
-                      
+
+
                   }];
               }
-              else if([sender.titleLabel.text isEqualToString:@"咨询"])
+              else if([sender.titleLabel.text isEqualToString:@"咨询客服"])
               {
                   NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-400800888"];
                   UIWebView *callWebview = [[UIWebView alloc] init];
@@ -379,22 +385,17 @@
                   [self.view addSubview:callWebview];
                  
               }
-              else if([sender.titleLabel.text isEqualToString:@"否"])
+              else if([sender.titleLabel.text isEqualToString:@"关闭"])
               {
-                 
-                  
+                  [self.navigationController popToRootViewControllerAnimated:YES];
               }
-              else
-              {
-                 [self.navigationController popToRootViewControllerAnimated:YES];
-              }
- 
-         }];
         
+         }];
         cell.backgroundColor=[UIColor clearColor];
         cell.message = message;
         return cell;
     }
+    
     return nil;
 }
 

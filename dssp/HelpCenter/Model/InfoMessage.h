@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, InfoMessageType) {
     InfoMessageTypeMe = 0,
     InfoMessageTypeOther,
     InfoMessageTypeTwo
+  
     
 };
 
@@ -31,7 +32,8 @@ typedef NS_ENUM(NSUInteger, InfoMessageType) {
 @property (nonatomic , assign) NSInteger              readingNumber;
 @property (nonatomic , assign) NSInteger              createTime;
 @property (nonatomic , assign) NSInteger              lastUpdateTime;
-@property (nonatomic , assign) BOOL              parent;
+@property (nonatomic , assign) BOOL isLeaf;
+@property (nonatomic , copy) NSString              *appServiceNum;
 @end
 
 

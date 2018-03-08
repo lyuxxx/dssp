@@ -11,6 +11,7 @@
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "UpkeepdetailController.h"
+#import "MaintainViewController.h"
 @interface UpkeepViewController ()
 @property (nonatomic ,strong) UIButton *operationBtn;
 @property (nonatomic ,strong) UIButton *upkeepBtn;
@@ -28,7 +29,7 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = NSLocalizedString(@"预约保养", nil);
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+  
 
     
     [self requestData];
@@ -72,6 +73,8 @@
 
 -(void)blankUI{
     
+    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"空页面1"];
     [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
@@ -104,8 +107,7 @@
 
 -(void)setupUI
 {
-   
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
     [self.view addSubview:bgImgV];
@@ -396,9 +398,9 @@
     
     UIImageView *rightImg1 = [[UIImageView alloc] init];
     rightImg1.image = [UIImage imageNamed:@"手动预约bg"];
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
-//    [rightImg1 addGestureRecognizer:tapGesture];
-//    rightImg1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage1)];
+    [rightImg1 addGestureRecognizer:tapGesture1];
+    rightImg1.userInteractionEnabled = YES;
     [bottomView1 addSubview:rightImg1];
     [rightImg1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -454,6 +456,18 @@
     [self.view addSubview:callWebview];
     
 }
+
+
+-(void)clickImage1
+{
+ 
+    MaintainViewController *vc = [[MaintainViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

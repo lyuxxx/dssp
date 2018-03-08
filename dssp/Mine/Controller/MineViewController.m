@@ -103,19 +103,8 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             NSDictionary *dic1 = dic[@"data"];
             UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
-            
-        
             [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                [self.avatar downloadImage:_userModel.headPortrait placeholder:nil success:^(CUImageCacheType cacheType, UIImage *image) {
-            //
-            //                } failure:^(NSError *error) {
-            //
-            //                } received:^(CGFloat progress) {
-            //
-            //                }];
-            //            });
-            
+          
         } else {
             
             [MBProgressHUD showText:dic[@"msg"]];
@@ -124,9 +113,7 @@
         
     } failure:^(NSInteger code) {
         
-        
     }];
-  
 }
 
 
