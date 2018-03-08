@@ -250,8 +250,10 @@ typedef NS_ENUM(NSUInteger, PayType) {
         NSString *returnCode = dic[@"message"][@"returnCode"];
         if ([returnCode isEqualToString:@"SUCCESS"]) {
             
-            [hud hideAnimated:YES];
-            [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hud hideAnimated:YES];
+                [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+            });
             
             NSDictionary *orderInfo = dic[@"message"][@"orderInfo"];
             CUPayTool *manager = [CUPayTool getInstance];
@@ -369,8 +371,10 @@ typedef NS_ENUM(NSUInteger, PayType) {
         NSString *returnCode = dic[@"message"][@"returnCode"];
         if ([returnCode isEqualToString:@"SUCCESS"]) {
             
-            [hud hideAnimated:YES];
-            [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hud hideAnimated:YES];
+                [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+            });
             
             NSString *orderInfo = dic[@"message"][@"orderInfo"];
             CUPayTool *manager = [CUPayTool getInstance];
