@@ -157,13 +157,16 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     [self pullDefaultData];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"TrackListViewController"];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+-(void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"TrackListViewController"];
     [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrackListViewController"];
 }
 
