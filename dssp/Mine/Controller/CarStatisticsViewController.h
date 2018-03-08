@@ -1,5 +1,5 @@
 //
-//  CarUnbindViewController.h
+//  CarStatisticsViewController.h
 //  dssp
 //
 //  Created by qinbo on 2017/12/14.
@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface CarUnbindViewController : BaseViewController
+@interface CarStatisticsViewController : BaseViewController
 
 @end

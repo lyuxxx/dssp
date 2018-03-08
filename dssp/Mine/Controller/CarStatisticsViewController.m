@@ -1,12 +1,12 @@
 //
-//  CarUnbindViewController.m
+//  CarStatisticsViewController.m
 //  dssp
 //
 //  Created by qinbo on 2017/12/14.
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "CarUnbindViewController.h"
+#import "CarStatisticsViewController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
@@ -15,7 +15,7 @@
 #import "InputAlertView.h"
 
 
-@interface CarUnbindViewController ()
+@interface CarStatisticsViewController ()
 @property (nonatomic, strong) UIScrollView *sc;
 @property (nonatomic, strong) UIButton *unbindBtn;
 @property (nonatomic, strong) UIButton *rightBarItem;
@@ -40,7 +40,7 @@
 @property (nonatomic, strong) NSArray<NSString *> *titles;
 @end
 
-@implementation CarUnbindViewController
+@implementation CarStatisticsViewController
 
 - (BOOL)needGradientImg {
     return YES;
@@ -58,13 +58,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarUnbindViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarStatisticsViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [Statistics staticsvisitTimesDataWithViewControllerType:@"CarUnbindViewController"];
-    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarUnbindViewController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"CarStatisticsViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarStatisticsViewController"];
 }
 
 -(void)requestData

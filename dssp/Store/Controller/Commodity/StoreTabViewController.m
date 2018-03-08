@@ -46,6 +46,19 @@
     [self setupTabBar];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"StoreTabViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"StoreTabViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"StoreTabViewController"];
+}
+
 - (void)setupTabBar {
     self.tabBar = [[UITabBar alloc] init];
     [_tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#040000"]]];

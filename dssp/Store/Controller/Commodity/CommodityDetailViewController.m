@@ -180,7 +180,7 @@
 //
 //        }
 //    }];
-    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+    [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         if (!error) {
             if (self.webViewHeight) {
                 return;
@@ -270,7 +270,8 @@
             cell.webView.tag = indexPath.section;
             cell.webView.navigationDelegate = self;
             
-            NSString *htmlStr = [NSString stringWithFormat:@"<html><head><style type='text/css'>body{color:#ffffff;background:#120f0e !important;}p{background: #120f0e !important;color: #FFFFFF;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{width: 100%%;}</style></head><body>%@</body></html>",self.cellConfigurator.desc];
+            NSString *cssStr = @"<style type='text/css'>body{color:#ffffff;background:#120f0e !important;}p{background: #120f0e !important;color: #FFFFFF;line-height: 24px!important;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{max-width: 100%!important;}</style>";
+            NSString *htmlStr = [NSString stringWithFormat:@"<!DOCTYPE html><html><head><title>webview</title></head><body>%@%@</body></html>",cssStr,self.cellConfigurator.desc];
             if (!cell.webView.isLoading) {
                 [cell.webView loadHTMLString:htmlStr baseURL:nil];
             }

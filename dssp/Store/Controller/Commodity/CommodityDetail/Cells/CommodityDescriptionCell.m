@@ -45,11 +45,11 @@ NSString * const CommodityDescriptionCellIdentifier = @"CommodityDescriptionCell
 
     WKWebViewConfiguration *wkWebConfig = [[WKWebViewConfiguration alloc] init];
     wkWebConfig.userContentController = wkUController;
+    wkWebConfig.allowsInlineMediaPlayback = YES;
     self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:wkWebConfig];
     _webView.backgroundColor = [UIColor colorWithHexString:@"120f0e"];
     _webView.scrollView.backgroundColor = [UIColor colorWithHexString:@"120f0e"];
 //    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    _webView.scrollView.delegate = self;
     _webView.navigationDelegate = self;
     _webView.scrollView.scrollEnabled = NO;
     _webView.scrollView.showsVerticalScrollIndicator = NO;

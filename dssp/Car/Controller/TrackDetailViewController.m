@@ -108,8 +108,8 @@
 - (void)pullData {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSDictionary *paras = @{
-//                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-                            @"vin":@"VFNCA5GRMFW000000",
+                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
+//                            @"vin":@"VFNCA5GRMFW000000",
                             @"tripId":self.trackInfo.properties.tripId,
                             @"pageNo":@"1",
                             @"pageSize":@"50000"

@@ -528,8 +528,8 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
     NSDictionary *paras = @{
-//                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-                            @"vin":@"VF7CAPSA000020154",
+                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
+//                            @"vin":@"VF7CAPSA000020154",
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp
                             };

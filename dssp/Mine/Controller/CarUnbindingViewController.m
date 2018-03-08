@@ -1,16 +1,16 @@
 //
-//  BindCarViewController.m
+//  CarUnbindingViewController.m
 //  dssp
 //
 //  Created by qinbo on 2018/1/2.
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BindCarViewController.h"
+#import "CarUnbindingViewController.h"
 #import "VhlModel.h"
 #import "NSObject+YYModel.h"
 #import "InputAlertView.h"
-@interface BindCarViewController ()
+@interface CarUnbindingViewController ()
 @property (nonatomic, strong) UIScrollView *sc;
 @property (nonatomic, strong) UIButton *unbindBtn;
 @property (nonatomic, strong) UIButton *rightBarItem;
@@ -35,7 +35,7 @@
 @property (nonatomic, strong) NSArray<NSString *> *titles;
 @end
 
-@implementation BindCarViewController
+@implementation CarUnbindingViewController
 
 - (BOOL)needGradientImg {
     return YES;
@@ -46,6 +46,19 @@
     // Do any additional setup after loading the view.
     [self requestData];
    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarUnbindingViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"CarUnbindingViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarUnbindingViewController"];
 }
 
 -(void)requestData

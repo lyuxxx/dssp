@@ -69,6 +69,19 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"CarBindingViewController"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"CarBindingViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"CarBindingViewController"];
+}
+
 -(void)requestData
 {
 

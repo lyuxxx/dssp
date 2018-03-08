@@ -246,14 +246,14 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //实时车况报告(周)
 #define queryTheVehicleHealthReportForLatestSevenDays [NSString stringWithFormat:@"%@queryTheVehicleHealthReportForLatestSevenDays",baseUrl]
 ///轨迹列表
-//#define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataEachDayList",baseUrl]
-#define getTrackListURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/getEachVehicleTripDataEachDayList"
+#define getTrackListURL [NSString stringWithFormat:@"%@getEachVehicleTripDataEachDayList",baseUrl]
+//#define getTrackListURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/getEachVehicleTripDataEachDayList"
 ///轨迹详情
-//#define getTrackDetailURL [NSString stringWithFormat:@"%@queryTheDetailofEachVehicleTripGeo",baseUrl]
-#define getTrackDetailURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDetailofEachVehicleTripGeo"
+#define getTrackDetailURL [NSString stringWithFormat:@"%@queryTheDetailofEachVehicleTripGeo",baseUrl]
+//#define getTrackDetailURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDetailofEachVehicleTripGeo"
 ///驾驶行为报告(周)
-//#define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
-#define getDrivingReportWeekURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDrvingReportforEachVehicleTripByWeek"
+#define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
+//#define getDrivingReportWeekURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDrvingReportforEachVehicleTripByWeek"
 
 
 ///获取地图升级个数

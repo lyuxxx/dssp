@@ -154,7 +154,7 @@
 		454CE6E1204698E6003221F3 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454CE6DE204698E5003221F3 /* Address.plist */; };
 		454CE6E2204698E6003221F3 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 454CE6E0204698E6003221F3 /* GFAddressPicker.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
-		4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */; };
+		4550360C1FE255AA0088DAE0 /* CarStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */; };
 		4555CFC420313EC70029598E /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
 		455974501FE77B1F00D7910A /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
@@ -168,7 +168,7 @@
 		45685FD12043B42600017989 /* InfoMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45685FD02043B42600017989 /* InfoMessageLeftCell.m */; };
 		456ABDA42027FF6F00F4A7E6 /* UpkeepdetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */; };
 		4570EFD91FFB541600FA6355 /* CarbinddetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */; };
-		4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */; };
+		4570EFDC1FFB939F00FA6355 /* CarUnbindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */; };
 		4570EFDF1FFC788D00FA6355 /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
 		4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */; };
 		4570EFE51FFCDC0E00FA6355 /* CarUnbindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE41FFCDC0E00FA6355 /* CarUnbindModel.m */; };
@@ -496,8 +496,8 @@
 		454CE6E0204698E6003221F3 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
 		455036071FE246FC0088DAE0 /* ContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractCell.h; sourceTree = "<group>"; };
 		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
-		4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindViewController.h; sourceTree = "<group>"; };
-		4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarUnbindViewController.m; sourceTree = "<group>"; };
+		4550360A1FE255AA0088DAE0 /* CarStatisticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarStatisticsViewController.h; sourceTree = "<group>"; };
+		4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarStatisticsViewController.m; sourceTree = "<group>"; };
 		4555CFC220313EC70029598E /* NicknameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NicknameViewController.h; sourceTree = "<group>"; };
 		4555CFC320313EC70029598E /* NicknameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NicknameViewController.m; sourceTree = "<group>"; };
 		4559744E1FE77B1F00D7910A /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -524,8 +524,8 @@
 		456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpkeepdetailController.m; sourceTree = "<group>"; };
 		4570EFD71FFB541600FA6355 /* CarbinddetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarbinddetailViewController.h; sourceTree = "<group>"; };
 		4570EFD81FFB541600FA6355 /* CarbinddetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarbinddetailViewController.m; sourceTree = "<group>"; };
-		4570EFDA1FFB939F00FA6355 /* BindCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindCarViewController.h; sourceTree = "<group>"; };
-		4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindCarViewController.m; sourceTree = "<group>"; };
+		4570EFDA1FFB939F00FA6355 /* CarUnbindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarUnbindingViewController.h; sourceTree = "<group>"; };
+		4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarUnbindingViewController.m; sourceTree = "<group>"; };
 		4570EFDD1FFC788D00FA6355 /* ContractdetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractdetailCell.h; sourceTree = "<group>"; };
 		4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractdetailCell.m; sourceTree = "<group>"; };
 		4570EFE01FFC7D6C00FA6355 /* CarTrackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarTrackViewController.h; sourceTree = "<group>"; };
@@ -1152,10 +1152,10 @@
 				459679981FE13328008A0C67 /* ContractViewController.m */,
 				4596799A1FE1417C008A0C67 /* ContractdetailViewController.h */,
 				4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */,
-				4550360A1FE255AA0088DAE0 /* CarUnbindViewController.h */,
-				4550360B1FE255AA0088DAE0 /* CarUnbindViewController.m */,
-				4570EFDA1FFB939F00FA6355 /* BindCarViewController.h */,
-				4570EFDB1FFB939F00FA6355 /* BindCarViewController.m */,
+				4550360A1FE255AA0088DAE0 /* CarStatisticsViewController.h */,
+				4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */,
+				4570EFDA1FFB939F00FA6355 /* CarUnbindingViewController.h */,
+				4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */,
 				4559744E1FE77B1F00D7910A /* AccountViewController.h */,
 				4559744F1FE77B1F00D7910A /* AccountViewController.m */,
 				450AF1721FEB502900E48445 /* PersonInViewController.h */,
@@ -1713,7 +1713,7 @@
 				31AC45382022F5E90044A62C /* EllipsePageControl.m in Sources */,
 				312FE1B82029883200B7AE48 /* StoreTabViewController.m in Sources */,
 				31B38BBE202D8A8F0086EDC8 /* InvoicePageController.m in Sources */,
-				4550360C1FE255AA0088DAE0 /* CarUnbindViewController.m in Sources */,
+				4550360C1FE255AA0088DAE0 /* CarStatisticsViewController.m in Sources */,
 				31B38BB8202D4B0B0086EDC8 /* CommodityCommentsListCell.m in Sources */,
 				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,
 				316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */,
@@ -1733,7 +1733,7 @@
 				31D5C8DF202FE9EF00A44C5C /* OrderObject.m in Sources */,
 				312FE1BE2029885200B7AE48 /* OrderPageController.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
-				4570EFDC1FFB939F00FA6355 /* BindCarViewController.m in Sources */,
+				4570EFDC1FFB939F00FA6355 /* CarUnbindingViewController.m in Sources */,
 				310368F52046B92800A9083E /* DrivingReportObject.m in Sources */,
 				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,

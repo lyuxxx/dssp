@@ -385,10 +385,11 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
     NSDictionary *paras = @{
-                            @"vin":@"VF7CAPSA000020154",
+//                            @"vin":@"VF7CAPSA000020154",
 //                            @"startTime":@"1519367046000",
 //                                         //1519888479.927832
 //                            @"endTime":@"1519723342000",
+                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp,
                             @"pageNo":[NSString stringWithFormat:@"%ld",self.currentPage],
@@ -422,10 +423,11 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 - (void)appendListData {
     NSDictionary *paras = @{
-                            @"vin":@"VF7CAPSA000020154",
+//                            @"vin":@"VF7CAPSA000020154",
 //                            @"startTime":@"1519367046000",
 //                                         //1519888479.927832
 //                            @"endTime":@"1519723342000",
+                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp,
                             @"pageNo":[NSString stringWithFormat:@"%ld",self.currentPage],

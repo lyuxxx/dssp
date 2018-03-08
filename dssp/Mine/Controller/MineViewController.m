@@ -22,14 +22,14 @@
 #import "RealVinViewcontroller.h"
 #import "ContractViewController.h"
 #import "ContractdetailViewController.h"
-#import "CarUnbindViewController.h"
+#import "CarStatisticsViewController.h"
 #import "AccountViewController.h"
 #import "LoginViewController.h"
 #import <CUAlertController.h>
 #import "PersonInViewController.h"
 #import "RealnameViewController.h"
 #import "InputAlertView.h"
-#import "BindCarViewController.h"
+#import "CarUnbindingViewController.h"
 #import "UserModel.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -499,7 +499,7 @@
             }
             else
             {
-                BindCarViewController *vc =[[BindCarViewController alloc] init];
+                CarUnbindingViewController *vc =[[CarUnbindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
                
@@ -507,7 +507,7 @@
         }
         else if (indexPath.row == 1)
         {
-            CarUnbindViewController *vc=[[CarUnbindViewController alloc] init];
+            CarStatisticsViewController *vc=[[CarStatisticsViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
            
