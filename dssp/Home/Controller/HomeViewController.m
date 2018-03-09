@@ -179,89 +179,111 @@
         make.width.equalTo(_scroll);
     }];
     
-    self.banner = [[FSPagerView alloc] init];
-    _banner.automaticSlidingInterval = 3.0;
-    _banner.isInfinite = YES;
-    _banner.delegate = self;
-    _banner.dataSource = self;
-    _banner.itemSize = CGSizeZero;
-    [_banner registerClass:[FSPagerViewCell class] forCellWithReuseIdentifier:@"FSPagerViewCell"];
-    [content addSubview:_banner];
-    [_banner makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(359 * WidthCoefficient);
-        make.height.equalTo(101.5 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(4 * HeightCoefficient);
-    }];
+//    self.banner = [[FSPagerView alloc] init];
+//    _banner.automaticSlidingInterval = 3.0;
+//    _banner.isInfinite = YES;
+//    _banner.delegate = self;
+//    _banner.dataSource = self;
+//    _banner.itemSize = CGSizeZero;
+//    [_banner registerClass:[FSPagerViewCell class] forCellWithReuseIdentifier:@"FSPagerViewCell"];
+//    [content addSubview:_banner];
+//    [_banner makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(359 * WidthCoefficient);
+//        make.height.equalTo(101.5 * HeightCoefficient);
+//        make.centerX.equalTo(0);
+//        make.top.equalTo(4 * HeightCoefficient);
+//    }];
+//
+//    self.pageControl = [[FSPageControl alloc] init];
+//    _pageControl.numberOfPages = self.imgTitles.count;
+//    _pageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+//    _pageControl.contentInsets = UIEdgeInsetsMake(0, 20, 0, 20);
+//    [_banner addSubview:_pageControl];
+//    [_pageControl makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(_banner);
+//        make.bottom.equalTo(_banner);
+//        make.width.equalTo(_banner);
+//        make.height.equalTo(15);
+//    }];
     
-    self.pageControl = [[FSPageControl alloc] init];
-    _pageControl.numberOfPages = self.imgTitles.count;
-    _pageControl.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _pageControl.contentInsets = UIEdgeInsetsMake(0, 20, 0, 20);
-    [_banner addSubview:_pageControl];
-    [_pageControl makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_banner);
-        make.bottom.equalTo(_banner);
-        make.width.equalTo(_banner);
-        make.height.equalTo(15);
-    }];
+    NSArray *labelNames = @[NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为周报", nil),NSLocalizedString(@"行车日志", nil)];
+    NSArray *imgNames = @[@"车况报告背景图",@"驾驶行为周报背景图",@"行车日志背景图"];
+    NSArray *innerLabelNames = @[NSLocalizedString(@"最新车况报告", nil),NSLocalizedString(@"最新一期驾驶行为周报", nil),NSLocalizedString(@"最新行车日志", nil)];
     
-    UILabel *reportLabel = [[UILabel alloc] init];
-    reportLabel.textColor = [UIColor colorWithHexString:@"#040000"];
-    reportLabel.font = [UIFont fontWithName:FontName size:16];
-    reportLabel.text = NSLocalizedString(@"行车报告", nil);
-    [content addSubview:reportLabel];
-    [reportLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(71.2 * WidthCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.top.equalTo(_banner.bottom).offset(20 * HeightCoefficient);
-        make.left.equalTo(7.5 * WidthCoefficient);
-    }];
+    UILabel *lastLabel;
     
-    UIImageView *reportImgV = [[UIImageView alloc] init];
-    reportImgV.userInteractionEnabled = YES;
-    reportImgV.layer.cornerRadius = 4;
-    reportImgV.backgroundColor = [UIColor colorWithHexString:@"#4d443e"];
-    [content addSubview:reportImgV];
-    [reportImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(359 * WidthCoefficient);
-        make.height.equalTo(158 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(reportLabel.bottom).offset(10 * HeightCoefficient);
-        make.bottom.equalTo(content.bottom).offset(-40 * HeightCoefficient);
-    }];
+    for (NSInteger i = 0; i < labelNames.count; i++) {
+        UILabel *reportLabel = [[UILabel alloc] init];
+        reportLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+        reportLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        reportLabel.text = labelNames[i];
+        [content addSubview:reportLabel];
+        [reportLabel makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(20 * WidthCoefficient);
+            make.left.equalTo(8 * WidthCoefficient);
+            if (i == 0) {
+                make.top.equalTo(content).offset(20 * WidthCoefficient);
+            } else {
+                make.top.equalTo(lastLabel.bottom).offset(198 * WidthCoefficient);
+            }
+        }];
+        
+        lastLabel = reportLabel;
+        
+        UIImageView *reportImgV = [[UIImageView alloc] init];
+        reportImgV.tag = 100 + i;
+        reportImgV.image = [UIImage imageNamed:imgNames[i]];
+        reportImgV.userInteractionEnabled = YES;
+        reportImgV.backgroundColor = [UIColor colorWithHexString:@"#1a1515"];
+        reportImgV.layer.cornerRadius = 4;
+        reportImgV.layer.shadowColor = [UIColor colorWithHexString:@"000000"].CGColor;
+        reportImgV.layer.shadowOffset = CGSizeMake(0, 6);
+        reportImgV.layer.shadowRadius = 7;
+        reportImgV.layer.shadowOpacity = 0.3;
+        [content addSubview:reportImgV];
+        [reportImgV makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(359 * WidthCoefficient);
+            make.height.equalTo(158 * WidthCoefficient);
+            make.centerX.equalTo(0);
+            make.top.equalTo(reportLabel.bottom).offset(10 * HeightCoefficient);
+            if (i == labelNames.count - 1) {
+                make.bottom.equalTo(content.bottom).offset(-40 * HeightCoefficient);
+            }
+        }];
+        
+        UITapGestureRecognizer *reportTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reportTap:)];
+        [reportImgV addGestureRecognizer:reportTap];
+        
+        UILabel * innerLabel = [[UILabel alloc] init];
+        innerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        innerLabel.textColor = [UIColor whiteColor];
+        innerLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+        innerLabel.numberOfLines = 1;
+        innerLabel.text = innerLabelNames[i];
+        [reportImgV addSubview:innerLabel];
+        [innerLabel makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(0);
+            make.height.equalTo(25 * WidthCoefficient);
+            make.top.equalTo(53 * WidthCoefficient);
+        }];
+        
+        UIButton *detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        detailBtn.userInteractionEnabled = NO;
+        detailBtn.layer.cornerRadius = 11 * WidthCoefficient;
+        detailBtn.layer.masksToBounds = YES;
+        [detailBtn setTitle:NSLocalizedString(@"查看详细", nil) forState:UIControlStateNormal];
+        [detailBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        detailBtn.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+        detailBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
+        [reportImgV addSubview:detailBtn];
+        [detailBtn makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(75 * WidthCoefficient);
+            make.height.equalTo(22 * WidthCoefficient);
+            make.centerX.equalTo(0);
+            make.top.equalTo(innerLabel.bottom).offset(5 * WidthCoefficient);
+        }];
+    }
     
-    UITapGestureRecognizer *drivingReportWeekTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(drivingReportWeekTap:)];
-    [reportImgV addGestureRecognizer:drivingReportWeekTap];
-    
-    UILabel * innerLabel = [[UILabel alloc] init];
-    innerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    innerLabel.textColor = [UIColor whiteColor];
-    innerLabel.font = [UIFont fontWithName:FontName size:14];
-    innerLabel.numberOfLines = 0;
-    innerLabel.text = @"驾驶行为周\n2017-12-07";
-    [reportImgV addSubview:innerLabel];
-    [innerLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(152.5 * WidthCoefficient);
-        make.height.equalTo(50 * HeightCoefficient);
-        make.left.equalTo(10 * WidthCoefficient);
-        make.top.equalTo(20 * HeightCoefficient);
-    }];
-    
-    UIButton *detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [detailBtn addTarget:self action:@selector(detailBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    detailBtn.layer.cornerRadius = 11 * HeightCoefficient;
-    [detailBtn setTitle:NSLocalizedString(@"查看详细", nil) forState:UIControlStateNormal];
-    [detailBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    detailBtn.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
-    detailBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
-    [reportImgV addSubview:detailBtn];
-    [detailBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(75 * WidthCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.left.equalTo(9.5 * WidthCoefficient);
-        make.top.equalTo(73 * HeightCoefficient);
-    }];
     [self.view insertSubview:_scroll atIndex:0];
     
     
@@ -334,8 +356,9 @@
     };
 }
 
-- (void)drivingReportWeekTap:(UITapGestureRecognizer *)sender {
-    UIViewController *vc = [[NSClassFromString(@"DrivingWeekReportViewController") alloc] init];
+- (void)reportTap:(UITapGestureRecognizer *)sender {
+    NSArray *csS = @[@"TrafficReportViewController",@"DrivingWeekReportViewController",@"TrackListViewController"];
+    UIViewController *vc = [[NSClassFromString(csS[sender.view.tag - 100]) alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -344,10 +367,6 @@
     UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)detailBtnClick:(UIButton *)sender {
-    NSLog(@"detail");
 }
 
 - (void)didTap:(UITapGestureRecognizer *)sender {

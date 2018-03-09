@@ -138,11 +138,11 @@
     }];
     
     self.carImgV = [[UIImageView alloc] init];
-    _carImgV.image = [UIImage imageNamed:@"11"];
+    _carImgV.image = [UIImage imageNamed:@"DS 7"];
     [previewImgV addSubview:_carImgV];
     [_carImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(230 * WidthCoefficient);
-        make.height.equalTo(106.5 * HeightCoefficient);
+        make.width.equalTo(208 * WidthCoefficient);
+        make.height.equalTo(111 * WidthCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
         make.top.equalTo(48 * HeightCoefficient);
     }];

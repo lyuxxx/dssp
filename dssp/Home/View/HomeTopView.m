@@ -107,14 +107,26 @@
             make.left.equalTo(15 * WidthCoefficient);
         }];
         
+        UILabel *dsLabel = [[UILabel alloc] init];
+        dsLabel.text = @"DS 7";
+        dsLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:60];
+        dsLabel.textColor = [UIColor colorWithHexString:@"#433938"];
+        [_previewImgV addSubview:dsLabel];
+        [dsLabel makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(159.5 * WidthCoefficient);
+            make.height.equalTo(84 * HeightCoefficient);
+            make.top.equalTo(2.5 * HeightCoefficient);
+            make.left.equalTo(53 * WidthCoefficient);
+        }];
+        
         self.carImgV = [[NoResponseImgView alloc] init];
-        _carImgV.image = [UIImage imageNamed:@"11"];
+        _carImgV.image = [UIImage imageNamed:@"DS 7"];
         [_previewImgV addSubview:_carImgV];
         [_carImgV makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(230 * WidthCoefficient);
-            make.height.equalTo(106.5 * HeightCoefficient);
-            make.left.equalTo(16 * WidthCoefficient);
-            make.top.equalTo(48 * HeightCoefficient);
+            make.width.equalTo(208 * WidthCoefficient);
+            make.height.equalTo(111 * WidthCoefficient);
+            make.left.equalTo(29 * WidthCoefficient);
+            make.top.equalTo(44 * HeightCoefficient);
         }];
         
         UILabel *label0 = [[UILabel alloc] init];
