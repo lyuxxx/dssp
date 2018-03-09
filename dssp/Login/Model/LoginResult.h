@@ -42,7 +42,9 @@
 @property (nonatomic, copy) NSString *token;
 ///失效日期
 @property (nonatomic, assign) NSInteger expiredTime;
-
+@property (nonatomic, copy) NSString *vin;
+@property (nonatomic, copy) NSString *vhlTStatus;
+@property (nonatomic, copy) NSString *certificationStatus;
 @end
 
 @interface LoginResult : NSObject

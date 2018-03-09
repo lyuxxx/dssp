@@ -45,7 +45,7 @@
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
-    [self postCustByMobile];
+//    [self postCustByMobile];
 }
 
 
@@ -66,8 +66,8 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: popupView];
@@ -157,7 +157,7 @@
     UIButton *robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     robotBtn.tag = 1111;
     [robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
+    [robotBtn setImage:[UIImage imageNamed:@"机器人"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:robotBtn];
     [robotBtn makeConstraints:^(MASConstraintMaker *make) {
        make.width.height.equalTo(24 * WidthCoefficient);
@@ -445,7 +445,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 107) {
-        UIViewController *vc = [[NSClassFromString(@"TrafficReportdatailController") alloc] init];
+        UIViewController *vc = [[NSClassFromString(@"TrafficReportController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

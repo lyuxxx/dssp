@@ -32,6 +32,7 @@
 @property (nonatomic, copy)  NSString *latitudeString;
 @property (nonatomic, copy)  NSString *longitudeString;
 @property (nonatomic,strong) CarTrackModel *carTrack;
+@property (nonatomic,strong) UIView *whiteV1;
 @end
 
 @implementation CarTrackViewController
@@ -50,6 +51,7 @@
     self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
     // Do any additional setup after loading the view.
     [self requestData];
+    [self setupUI];
  
 }
 
@@ -74,7 +76,7 @@
                             
                             
                         };
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", getSvnResponseDataByVin,kVin];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@",getSvnResponseDataByVin,kVin];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:paras success:^(id responseData) {
@@ -84,17 +86,19 @@
             [hud hideAnimated:YES];
           _carTrack =[CarTrackModel yy_modelWithDictionary:dic[@"data"]];
            self.carTrack=_carTrack;
-          [self setupUI];
+        
 //           [self.dataArray addObject:_carTrack];
            
         } else {
         [hud hideAnimated:YES];
-        [self blankUI];
+//        [self blankUI];
+        self.carTrack=_carTrack;
         [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
          [hud hideAnimated:YES];
-        [self blankUI];
+//        [self blankUI];
+        self.carTrack=_carTrack;
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];
@@ -127,8 +131,6 @@
         make.centerX.equalTo(0);
         make.width.equalTo(100 *WidthCoefficient);
     }];
-    
-    
 }
 
 
@@ -139,12 +141,12 @@
         NSString *JSONString =_carTrack.previousPosition;
         NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
         // 将流转换为字典
-        NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+        NSArray *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
         
-        self.latitudeString = dataDict[@"latitude"];
+        self.latitudeString = dataDict[0][@"lat"];
         double latitudeNumber = [self.latitudeString doubleValue];
         
-        self.longitudeString = dataDict[@"longitude"];
+        self.longitudeString = dataDict[0][@"lon"];
         double longitudeNumber = [self.longitudeString doubleValue];
         
         
@@ -171,12 +173,11 @@
         
     }else
     {
-        
+        _whiteV1.hidden = YES;
         _rightImg.image = [UIImage imageNamed:@"盗车提醒安全bg"];
         _msgLabel.text = NSLocalizedString(@"安全保护中，请保持",nil);
         _msgLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-        _positionLabel.text = NSLocalizedString(@"位置:xxxxxx",nil);
-       
+//        _positionLabel.text = NSLocalizedString(@"位置:xxxxxx",nil);
     }
     
     
@@ -287,14 +288,24 @@
         make.left.equalTo(10 * WidthCoefficient);
     }];
     
+
+    self.whiteV1 = [[UIView alloc] init];
+    _whiteV1.backgroundColor = [UIColor colorWithHexString:@"#F9F8F8"];
+    [self.view addSubview:_whiteV1];
+    [_whiteV1 makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(375 * WidthCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(20 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.bottom.equalTo(0);
+    }];
     
     UILabel *centerLabel = [[UILabel alloc] init];
     centerLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
     centerLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     centerLabel.text = NSLocalizedString(@"请按如下步骤开启车辆追踪",nil);
-    [self.view addSubview:centerLabel];
+    [_whiteV1 addSubview:centerLabel];
     [centerLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(whiteV.bottom).offset(20 * HeightCoefficient);
+        make.top.equalTo(0 * HeightCoefficient);
         make.height.equalTo(18.5 * HeightCoefficient);
         make.width.equalTo(170 * HeightCoefficient);
         make.centerX.equalTo(0);
@@ -305,7 +316,7 @@
     title1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title1.textColor = [UIColor colorWithHexString:@"#AC0042"];
     title1.text = NSLocalizedString(@"拨打110",nil);
-    [self.view addSubview:title1];
+    [_whiteV1 addSubview:title1];
     [title1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(centerLabel.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
@@ -319,7 +330,7 @@
     msgLabel1.numberOfLines = 0;
     msgLabel1.textColor = [UIColor colorWithHexString:@"#999999"];
     msgLabel1.text = NSLocalizedString(@"当您的车辆发生异常移动，请第一时间自行拨打110报警，并记住报警号",nil);
-    [self.view addSubview:msgLabel1];
+    [_whiteV1 addSubview:msgLabel1];
     [msgLabel1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(title1.bottom).offset(5 * HeightCoefficient);
         make.height.equalTo(37 * HeightCoefficient);
@@ -332,7 +343,7 @@
     title2.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title2.textColor = [UIColor colorWithHexString:@"#AC0042"];
     title2.text = NSLocalizedString(@"拨打呼叫中心",nil);
-    [self.view addSubview:title2];
+    [_whiteV1 addSubview:title2];
     [title2 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel1.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
@@ -346,7 +357,7 @@
     msgLabel2.numberOfLines = 0;
     msgLabel2.textColor = [UIColor colorWithHexString:@"#999999"];
     msgLabel2.text = NSLocalizedString(@"您报警完毕后，请及时拨打呼叫中心车辆追踪电话，并向客服人员提供报警号，客服人员会为您核实信息",nil);
-    [self.view addSubview:msgLabel2];
+    [_whiteV1 addSubview:msgLabel2];
     [msgLabel2 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(title2.bottom).offset(5 * HeightCoefficient);
         make.height.equalTo(37 * HeightCoefficient);
@@ -359,7 +370,7 @@
     title3.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title3.textColor = [UIColor colorWithHexString:@"#AC0042"];
     title3.text = NSLocalizedString(@"开启车辆追踪",nil);
-    [self.view addSubview:title3];
+    [_whiteV1 addSubview:title3];
     [title3 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel2.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
@@ -373,7 +384,7 @@
     msgLabel3.numberOfLines = 0;
     msgLabel3.textColor = [UIColor colorWithHexString:@"#999999"];
     msgLabel3.text = NSLocalizedString(@"客服人员经您确认后，会为您开启车辆追踪",nil);
-    [self.view addSubview:msgLabel3];
+    [_whiteV1 addSubview:msgLabel3];
     [msgLabel3 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(title3.bottom).offset(5 * HeightCoefficient);
         make.height.equalTo(18 * HeightCoefficient);
@@ -388,7 +399,7 @@
     title4.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title4.textColor = [UIColor colorWithHexString:@"#AC0042"];
     title4.text = NSLocalizedString(@"车辆找回",nil);
-    [self.view addSubview:title4];
+    [_whiteV1 addSubview:title4];
     [title4 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel3.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
@@ -402,7 +413,7 @@
     msgLabel4.textColor = [UIColor colorWithHexString:@"#999999"];
     msgLabel4.numberOfLines = 0;
     msgLabel4.text = NSLocalizedString(@"车辆追踪到位置后，成功找回车辆",nil);
-    [self.view addSubview:msgLabel4];
+    [_whiteV1 addSubview:msgLabel4];
     [msgLabel4 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(title4.bottom).offset(5 * HeightCoefficient);
         make.height.equalTo(18 * HeightCoefficient);
@@ -418,7 +429,7 @@
     [callpoliceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     callpoliceBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [callpoliceBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
-    [self.view addSubview:callpoliceBtn];
+    [_whiteV1 addSubview:callpoliceBtn];
     [callpoliceBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);

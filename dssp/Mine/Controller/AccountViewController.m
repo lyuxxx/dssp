@@ -271,15 +271,15 @@
         
         if (_originalField.text.length !=8 || ![self checkPassWord:_originalField.text])
         {
-         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
+         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字组混合的原始密码", nil)];
         }
         else if (_newsPasswordField.text.length !=8 || ![self checkPassWord:_newsPasswordField.text])
         {
-          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
+          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字组混合的新密码", nil)];
         }
         else if (_confirmField.text.length !=8 || ![self checkPassWord:_confirmField.text])
         {
-          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
+          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字组混合的确认密码", nil)];
         }
         else if (![_newsPasswordField.text isEqualToString:_confirmField.text])
         {

@@ -53,7 +53,7 @@
     // Do any additional setup after loading the view.
     
     //    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-    [self postCustByMobile];
+ 
     [self setupUI];
     [self requestData];
     
@@ -88,6 +88,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
     
+    [self postCustByMobile];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
     [self.mgr startUpdatingLocation];
     self.imgTitles = [NSMutableArray arrayWithArray:@[
@@ -114,19 +115,16 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: popupView];
         
         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-            if (btn.tag == 100) {//左边按钮
-                
-            }
-            if(btn.tag ==101)
+          
+            if(btn.tag ==100)
             {
-                //右边按钮
                 //响应事件
                 VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
@@ -141,33 +139,9 @@
         //非T车
         if([CuvhlTStatus isEqualToString:@"0"])
         {
+           
             
-            //            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-            //            [[NSUserDefaults standardUserDefaults] synchronize];
-            //
-            //            PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-            //            [popupView initWithTitle:@"您当前是非T用户,功能不可用!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
-            //            //            InputalertView.delegate = self;
-            //            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-            //            [keywindow addSubview: popupView];
-            //
-            //            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-            //                if (btn.tag == 100) {//左边按钮
-            //
-            //
-            //                }
-            //                if(btn.tag ==101)
-            //                {
-            //                    //右边按钮
-            //                    //响应事件
-            //                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-            //                    vc.hidesBottomBarWhenPushed = YES;
-            //                    [self.navigationController pushViewController:vc animated:YES];
-            //
-            //                }
-            //
-            //            };
-            //
+            
             
         }
         else if ([CuvhlTStatus isEqualToString:@"1"])
@@ -184,8 +158,9 @@
 - (void)setupUI {
     
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.robotBtn setContentMode:UIViewContentModeScaleAspectFill];
     [_robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
+    [_robotBtn setImage:[UIImage imageNamed:@"机器人"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);
@@ -342,19 +317,16 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
                 
                 popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                    }
-                    if(btn.tag ==101)
+                    
+                    if(btn.tag ==100)
                     {
-                        //右边按钮
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
@@ -363,6 +335,34 @@
                     }
                     
                 };
+                
+                
+                
+//                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+//                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//                //            InputalertView.delegate = self;
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: popupView];
+//
+//                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
+//                        //右边按钮
+//                        //响应事件
+//                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    }
+//                    if(btn.tag ==101)
+//                    {
+//                        //右边按钮
+//                        //响应事件
+//                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//
+//                    }
+//
+//                };
             }
             else
             {
@@ -438,19 +438,16 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
                 
                 popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                    }
-                    if(btn.tag ==101)
+                    
+                    if(btn.tag ==100)
                     {
-                        //右边按钮
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
@@ -537,19 +534,16 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
                 
                 popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                    }
-                    if(btn.tag ==101)
+                    
+                    if(btn.tag ==100)
                     {
-                        //右边按钮
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
@@ -634,19 +628,16 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
                 
                 popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                    }
-                    if(btn.tag ==101)
+                    
+                    if(btn.tag ==100)
                     {
-                        //右边按钮
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
@@ -733,19 +724,16 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
                 
                 popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                    }
-                    if(btn.tag ==101)
+                    
+                    if(btn.tag ==100)
                     {
-                        //右边按钮
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;

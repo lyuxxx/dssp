@@ -33,6 +33,7 @@
 
     
     [self requestData];
+     [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,20 +54,25 @@
     NSDictionary *paras = @{
                             @"vin":kVin
                             };
+    
+     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryMaintenRules parameters:paras success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            
+             [hud hideAnimated:YES];
           self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
-         [self setupUI];
+        
             NSLog(@"%@", self.upkeep.maintenanceMileage);
 
         } else {
-            [self blankUI];
-//            [MBProgressHUD showText:dic[@"msg"]];
+            [hud hideAnimated:YES];
+            [self setupUI];
+            [MBProgressHUD showText:@"暂无数据"];
         }
     } failure:^(NSInteger code) {
-        [self blankUI];
+        [hud hideAnimated:YES];
+        [self setupUI];
+        [MBProgressHUD showText:@"暂无数据"];
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
 }
@@ -149,7 +155,7 @@
     UILabel *toplabel = [[UILabel alloc] init];
     toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel.textColor=[UIColor whiteColor];
-    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"0天", nil);
+    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"", nil);
     toplabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel];
     [toplabel makeConstraints:^(MASConstraintMaker *make) {
@@ -178,7 +184,7 @@
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"0km", nil);
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
@@ -450,7 +456,7 @@
 
 -(void)clickImage
 {
-    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-400800888"];
+    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"10010"];
     UIWebView *callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];

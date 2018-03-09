@@ -99,24 +99,19 @@
     });
     
     
-    self.rightlab1=({
-        UILabel *lab=[[UILabel alloc] init];
-        lab.layer.cornerRadius = 2;
-        lab.clipsToBounds = YES;
-        lab.hidden = YES;
-//        lab.backgroundColor=[UIColor colorWithHexString:@"#AC0042"];
-//        lab.textColor=[UIColor colorWithHexString:@"#ffffff"];
-//        lab.text =@"严重";
-        lab.textAlignment = NSTextAlignmentCenter;
-        lab.font=[UIFont fontWithName:FontName size:14];
-        [_whiteView addSubview:lab];
-        [lab makeConstraints:^(MASConstraintMaker *make) {
+    self.rightimg=({
+        UIImageView *ImgV = [[UIImageView alloc] init];
+        //    ImgV.image = [UIImage imageNamed:@"backgroud_mine"];
+        [_whiteView addSubview:ImgV];
+        [ImgV makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(0);
             make.height.equalTo(15 * HeightCoefficient);
-            make.width.equalTo(32 * WidthCoefficient);
+            make.width.equalTo(42 * WidthCoefficient);
             make.right.equalTo(-40 *WidthCoefficient);
+            
         }];
-        lab;
+    
+        ImgV;
     });
     
 }
@@ -169,20 +164,28 @@
     
     if([recordItem.alertPriority isEqualToString:@"low"])
     {
-        _rightlab1.hidden = NO;
-        _rightlab1.backgroundColor=[UIColor colorWithHexString:@"#FFD9A5"];
-        _rightlab1.textColor=[UIColor colorWithHexString:@"#ffffff"];
-        _rightlab1.text =@"低级";
+//        _rightlab1.hidden = NO;
+//        _rightlab1.backgroundColor=[UIColor colorWithHexString:@"#FFD9A5"];
+//        _rightlab1.textColor=[UIColor colorWithHexString:@"#ffffff"];
+//        _rightlab1.text =@"低级";
       
+        _rightimg.image = [UIImage imageNamed:@"低风险"];
+        
     }
     else if([recordItem.alertPriority isEqualToString:@"high"])
     {
         
-        _rightlab1.hidden = NO;
-        _rightlab1.backgroundColor=[UIColor colorWithHexString:@"#DE0055"];
-        _rightlab1.textColor=[UIColor colorWithHexString:@"#ffffff"];
-        _rightlab1.text =@"高级";
+//        _rightlab1.hidden = NO;
+//        _rightlab1.backgroundColor=[UIColor colorWithHexString:@"#DE0055"];
+//        _rightlab1.textColor=[UIColor colorWithHexString:@"#ffffff"];
+//        _rightlab1.text =@"高级";
       
+         _rightimg.image = [UIImage imageNamed:@"高风险"];
+    }
+    else
+    {
+        
+         _rightimg.image = [UIImage imageNamed:@"健康"];
     }
     
     

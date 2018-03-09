@@ -151,7 +151,7 @@ static NSMutableArray *dataSources;
 //            NSString * time1=[Statistics getStayTime:[NSString stringWithFormat:@"%@",name]];//判断是否一直停留在该界面,离开取总时间,停留取相对时间
 //
             
-            NSNumber *longNumber = [NSNumber numberWithLong:time];
+            NSNumber *longNumber = [NSNumber numberWithLong:time*1000];
             NSString *longStr = [longNumber stringValue];
             
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

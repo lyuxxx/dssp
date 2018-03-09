@@ -62,7 +62,7 @@
             [hud hideAnimated:YES];
             
             NSArray *array = dic[@"data"][@"viloationInfo"];
-            
+
             if (array != nil && ![array isKindOfClass:[NSNull class]] && array.count != 0){
                 
                 self.DataArray = [NSMutableArray new];
@@ -73,11 +73,15 @@
                     [self.DataArray addObject:lllegaModel];
                 }
     
+                
+                [_tableView reloadData];
+                [self initTableView];
             }
-
-            [_tableView reloadData];
-            [self initTableView];
-    
+            else
+            {
+                 [self blankUI];
+                
+            }
         } else {
              [self blankUI];
             [hud hideAnimated:YES];

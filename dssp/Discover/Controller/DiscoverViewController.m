@@ -15,6 +15,7 @@
 #import "SubscribeViewController.h"
 #import "UITabBar+badge.h"
 #import "AppDelegate.h"
+#import "VINBindingViewController.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate,UITabBarControllerDelegate>
 
 @property(nonatomic,strong) UIButton *robotBtn;
@@ -94,25 +95,19 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: popupView];
         
         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
             if (btn.tag == 100) {//左边按钮
-                
+                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+               [self.navigationController pushViewController:vc animated:YES];
             }
-            if(btn.tag ==101)
-            {
-                //右边按钮
-                //响应事件
-                //                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                //                vc.hidesBottomBarWhenPushed = YES;
-                //                [self.navigationController pushViewController:vc animated:YES];
-                
-            }
+           
             
         };
     }
@@ -151,6 +146,8 @@
         else if ([CuvhlTStatus isEqualToString:@"1"])
         {
             //T车辆
+            
+            
             
             
             
@@ -270,7 +267,7 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_robotBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
+    [_robotBtn setImage:[UIImage imageNamed:@"机器人"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);

@@ -36,6 +36,8 @@
     self.navigationItem.title = NSLocalizedString(@"流量", nil);
     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self requestData];
+    [self initTableView];
+    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,8 +64,7 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-            [self initTableView];
-            [self setupUI];
+          
             [_tableView reloadData];
           
             self.carflow =_carflow;

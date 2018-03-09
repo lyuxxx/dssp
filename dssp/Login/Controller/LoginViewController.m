@@ -152,6 +152,7 @@
 //     _userNameField.text = @"15907157363";
 //    _userNameField.text = @"15810817108";
 //     _userNameField.text =@"18911568273";
+//    _userNameField.text =@"18627131310";
 
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
@@ -191,8 +192,8 @@
         make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
         make.right.left.height.equalTo(_userNameField);
     }];
-//  _passWordField.text = @"666";
-//  _passWordField.text = @"123456";
+//  _passWordField.text = @"abcd1234";
+//    _passWordField.text = @"123456";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -465,17 +466,20 @@
                         if ([result.code isEqualToString:@"200"]) {
                             
                             NSDictionary *dic1 =dic[@"data"];
-                            NSString *userName=dic1[@"userName"];
-                            NSString *vin=dic1[@"vin"];
-                            NSString *vhlTStatus=dic1[@"vhlTStatus"];
-                            NSString *certificationStatus = dic1[@"certificationStatus"];
+                            LoginResultData *loginResult = [LoginResultData yy_modelWithDictionary:dic1];
+                            
+                            
+                            NSString *userName = loginResult.userName;
+                            NSString *vin = loginResult.vin;
+                            NSString *vhlTStatus=loginResult.vhlTStatus;
+                            NSString *certificationStatus = loginResult.certificationStatus;
                             
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             [defaults setObject:userName forKey:@"userName"];
                             [defaults synchronize];
                             
                             
-                            if ((NSNull *)vin == [NSNull null]) {
+                            if ([self isBlankString:vin]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                                 [defaults1 setObject:@"" forKey:@"vin"];
                                 [defaults1 synchronize];
@@ -488,12 +492,23 @@
                                 
                             }
                             
-                            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
-                            [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
-                            [defaults2 synchronize];
+                            
+                            if ([self isBlankString:vhlTStatus]) {
+                                NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                                [defaults2 setObject:@"" forKey:@"vhlTStatus"];
+                                [defaults2 synchronize];
+                            }
+                            else
+                            {
+                                NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                                [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
+                                [defaults2 synchronize];
+                                
+                            }
                             
                             
-                            if ((NSNull *)certificationStatus == [NSNull null]) {
+                            
+                            if ([self isBlankString:certificationStatus]) {
                                 NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
                                 [defaults3 setObject:@"" forKey:@"certificationStatus"];
                                 [defaults3 synchronize];
@@ -505,7 +520,6 @@
                                 [defaults3 synchronize];
                                 
                             }
-                            
                             
                             
                             [hud hideAnimated:YES];
@@ -529,6 +543,7 @@
         {
             if (_userNameField.text.length == 0 || _passWordField.text.length == 0) {
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
+                 [self setuploading];
             }
 //            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
 //            {
@@ -536,7 +551,7 @@
 //            }
             else
             {
-                
+                [self setuploading];
                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                NSString *cid = [defaults1 objectForKey:@"cid"];
                 if([self valiMobile:_userNameField.text])
@@ -556,17 +571,21 @@
                             
                             [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                             NSDictionary *dic1 =dic[@"data"];
-                            NSString *userName=dic1[@"userName"];
-                            NSString *vin=dic1[@"vin"];
-                            NSString *vhlTStatus=dic1[@"vhlTStatus"];
-                            NSString *certificationStatus = dic1[@"certificationStatus"];
+                            
+                            LoginResultData *loginResult = [LoginResultData yy_modelWithDictionary:dic1];
+                            
+                            
+                            NSString *userName = loginResult.userName;
+                            NSString *vin = loginResult.vin;
+                            NSString *vhlTStatus=loginResult.vhlTStatus;
+                            NSString *certificationStatus = loginResult.certificationStatus;
                             
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             [defaults setObject:userName forKey:@"userName"];
                             [defaults synchronize];
                             
                         
-                            if ((NSNull *)vin == [NSNull null]) {
+                            if ([self isBlankString:vin]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                                 [defaults1 setObject:@"" forKey:@"vin"];
                                 [defaults1 synchronize];
@@ -579,12 +598,23 @@
                                 
                             }
                             
-                            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
-                            [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
-                            [defaults2 synchronize];
+                            
+                            if ([self isBlankString:vhlTStatus]) {
+                                NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                                [defaults2 setObject:@"" forKey:@"vhlTStatus"];
+                                [defaults2 synchronize];
+                            }
+                            else
+                            {
+                                NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                                [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
+                                [defaults2 synchronize];
+                                
+                            }
+                          
                             
                             
-                            if ((NSNull *)certificationStatus == [NSNull null]) {
+                            if ([self isBlankString:certificationStatus]) {
                                 NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
                                 [defaults3 setObject:@"" forKey:@"certificationStatus"];
                                 [defaults3 synchronize];
@@ -604,7 +634,7 @@
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                             
-                            [self setuploading];
+                         
                             
                         } else {
 
@@ -639,18 +669,27 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     //返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first responder
-    
-    
+
     if(textField == self.phoneField) {
         _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
         _phoneField.font = [UIFont fontWithName:FontName size:15];
     }
-    else
+    else if(textField == self.phoneCodeField)
     {
         _phoneCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机验证码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
         _phoneCodeField.font = [UIFont fontWithName:FontName size:15];
     }
-
+    else if(textField == self.passWordField)
+    {
+        _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+        _passWordField.font = [UIFont fontWithName:FontName size:15];
+    }
+    else if(textField == self.userNameField)
+    {
+        _userNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+        _userNameField.font = [UIFont fontWithName:FontName size:15];
+    }
+    
     return YES;
 }
 
@@ -746,5 +785,19 @@
     
 }
 
+
+-  (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+                return YES;
+            }
+        if ([string isKindOfClass:[NSNull class]]) {
+                 return YES;
+            }
+         if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+              return YES;
+            }
+         return NO;
+ }
 
 @end

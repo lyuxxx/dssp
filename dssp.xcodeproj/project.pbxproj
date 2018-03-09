@@ -132,10 +132,9 @@
 		450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
 		450B0215204FF9DA0038EC9C /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B0214204FF9DA0038EC9C /* MaintainViewController.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
-		45153F862041121E00C41E10 /* TrafficReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F852041121E00C41E10 /* TrafficReportViewController.m */; };
 		45153F892041130800C41E10 /* TrafficReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F882041130800C41E10 /* TrafficReportModel.m */; };
 		45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
-		45153F8F2041391700C41E10 /* TrafficReportdatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportdatailController.m */; };
+		45153F8F2041391700C41E10 /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
 		45153F922041461400C41E10 /* TrafficReportdatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F912041461400C41E10 /* TrafficReportdatailCell.m */; };
 		451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */; };
 		451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EC1FEB99A4008CC890 /* WMSecondViewController.m */; };
@@ -456,14 +455,12 @@
 		450B0214204FF9DA0038EC9C /* MaintainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaintainViewController.m; sourceTree = "<group>"; };
 		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
-		45153F842041121E00C41E10 /* TrafficReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportViewController.h; sourceTree = "<group>"; };
-		45153F852041121E00C41E10 /* TrafficReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportViewController.m; sourceTree = "<group>"; };
 		45153F872041130800C41E10 /* TrafficReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportModel.h; sourceTree = "<group>"; };
 		45153F882041130800C41E10 /* TrafficReportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportModel.m; sourceTree = "<group>"; };
 		45153F8A204113C800C41E10 /* TrafficReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportCell.h; sourceTree = "<group>"; };
 		45153F8B204113C800C41E10 /* TrafficReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportCell.m; sourceTree = "<group>"; };
-		45153F8D2041391700C41E10 /* TrafficReportdatailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportdatailController.h; sourceTree = "<group>"; };
-		45153F8E2041391700C41E10 /* TrafficReportdatailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportdatailController.m; sourceTree = "<group>"; };
+		45153F8D2041391700C41E10 /* TrafficReportController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportController.h; sourceTree = "<group>"; };
+		45153F8E2041391700C41E10 /* TrafficReportController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportController.m; sourceTree = "<group>"; };
 		45153F902041461400C41E10 /* TrafficReportdatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportdatailCell.h; sourceTree = "<group>"; };
 		45153F912041461400C41E10 /* TrafficReportdatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportdatailCell.m; sourceTree = "<group>"; };
 		451744E91FEB99A4008CC890 /* WMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCollectionViewController.h; sourceTree = "<group>"; };
@@ -1212,10 +1209,8 @@
 				31F235CF204170B4002807D2 /* ActivationCodeListViewController.m */,
 				3125E9DD201F0F6D009F6650 /* MapUpdateHelpViewController.h */,
 				3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */,
-				45153F842041121E00C41E10 /* TrafficReportViewController.h */,
-				45153F852041121E00C41E10 /* TrafficReportViewController.m */,
-				45153F8D2041391700C41E10 /* TrafficReportdatailController.h */,
-				45153F8E2041391700C41E10 /* TrafficReportdatailController.m */,
+				45153F8D2041391700C41E10 /* TrafficReportController.h */,
+				45153F8E2041391700C41E10 /* TrafficReportController.m */,
 				319A58C520454EEA006837DC /* TrackListViewController.h */,
 				319A58C620454EEA006837DC /* TrackListViewController.m */,
 				31F235D2204171E4002807D2 /* TrackDetailViewController.h */,
@@ -1611,7 +1606,7 @@
 			files = (
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
 				45765270204E7BB5006585BA /* Statistics.m in Sources */,
-				45153F8F2041391700C41E10 /* TrafficReportdatailController.m in Sources */,
+				45153F8F2041391700C41E10 /* TrafficReportController.m in Sources */,
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
 				319A58C420452E22006837DC /* TrackObject.m in Sources */,
 				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
@@ -1715,7 +1710,6 @@
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				31D1FDCE1FF494440021D47C /* OilStation.m in Sources */,
 				451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */,
-				45153F862041121E00C41E10 /* TrafficReportViewController.m in Sources */,
 				31AC45382022F5E90044A62C /* EllipsePageControl.m in Sources */,
 				312FE1B82029883200B7AE48 /* StoreTabViewController.m in Sources */,
 				31B38BBE202D8A8F0086EDC8 /* InvoicePageController.m in Sources */,

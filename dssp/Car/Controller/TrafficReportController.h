@@ -9,6 +9,6 @@
 #import "StoreBaseViewController.h"
 #import "TrafficReportModel.h"
 
-@interface TrafficReportdatailController : StoreBaseViewController
+@interface TrafficReportController : StoreBaseViewController
 @property (nonatomic, strong) NSArray *dataArray1;
 @end
