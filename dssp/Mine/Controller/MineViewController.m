@@ -81,7 +81,7 @@
         [self setupUI];
         [self pullData];
 //    }
-    
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -279,7 +279,7 @@
     
     self.setBtn= [UIButton buttonWithType:UIButtonTypeCustom];
     [_setBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_setBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
+    [_setBtn setImage:[UIImage imageNamed:@"机器人"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_setBtn];
     [_setBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);

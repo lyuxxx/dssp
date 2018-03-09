@@ -160,6 +160,10 @@
                                 
                                 [MBProgressHUD showText:NSLocalizedString(@"实名制解绑成功", nil)];
                                 
+                                //实名制解绑成功，登录保存的vin置为空字符串
+                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                                [defaults1 setObject:@"" forKey:@"certificationStatus"];
+                                [defaults1 synchronize];
                             } else {
                                 
                                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];

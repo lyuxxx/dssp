@@ -150,18 +150,13 @@
                 
             }];
             
-            if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.vhlFlowStatus isEqualToString:@"6"]) {
+            if ([_queryModel.certificationStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 logo.image = [UIImage imageNamed:@"delete text"];
-                 lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab.hidden = NO;
             }
-            else if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.vhlFlowStatus isEqualToString:@"7"])
-            {
-                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
-                logo.image = [UIImage imageNamed:@"check"];
-            }
-            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
+            else if ([_queryModel.certificationStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                 logo.image = [UIImage imageNamed:@"check"];
@@ -180,17 +175,17 @@
         }
         if (i==1) {
             
-            if ([_queryModel.certificationStatus isEqualToString:@"0"] && [_queryModel.vhlFlowStatus isEqualToString:@"7"])
+            if ([_queryModel.vhlActivate isEqualToString:@"0"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+                logo.image = [UIImage imageNamed:@"check grey"];
+            }
+            else if ([_queryModel.certificationStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                 logo.image = [UIImage imageNamed:@"check"];
             }
-            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
-            {
-                lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
-                logo.image = [UIImage imageNamed:@"check"];
-            }
-            else if ([_queryModel.certificationStatus isEqualToString:@"0"])
+            else if ([_queryModel.vhlActivate isEqualToString:@"1"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#666666"];
                 logo.image = [UIImage imageNamed:@"check grey"];
@@ -208,7 +203,7 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#666666"];
                 logo.image = [UIImage imageNamed:@"check grey"];
             }
-            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
+            else if ([_queryModel.certificationStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                 logo.image = [UIImage imageNamed:@"check"];
@@ -223,11 +218,7 @@
         }
         if (i==3) {
             
-            if ([_queryModel.certificationStatus isEqualToString:@"0"]) {
-                lab1.textColor = [UIColor colorWithHexString:@"#666666"];
-                logo.image = [UIImage imageNamed:@"check grey"];
-            }
-            else if ([_queryModel.certificationStatus isEqualToString:@"1"])
+           if ([_queryModel.certificationStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#1DA342"];
                  logo.image = [UIImage imageNamed:@"check"];

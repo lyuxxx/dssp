@@ -192,24 +192,24 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             
-            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-            [InputalertView initWithTitle:@"实名制认证信息提交成功" img:@"账号警告" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"返回首页", nil] ];
-            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-            [keywindow addSubview: InputalertView];
+//            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//            [InputalertView initWithTitle:@"实名制认证信息提交成功" img:@"账号警告" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"返回首页", nil] ];
+//            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//            [keywindow addSubview: InputalertView];
+//
+//            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                if (btn.tag == 100) {//左边按钮
+//
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+//
+//             }
 
-            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-                if (btn.tag == 100) {//左边按钮
-
-            [self.navigationController popToRootViewControllerAnimated:YES];
-
-             }
-
-        };
+//        };
             
-//            QueryViewController *vc = [[QueryViewController alloc] init];
-//            vc.vin = dic1[@"vin"];
-//            NSLog(@"666%@",dic1[@"vin"]);
-//            [self.navigationController pushViewController:vc animated:YES];
+            QueryViewController *vc = [[QueryViewController alloc] init];
+            vc.vin = dic1[@"vin"];
+            NSLog(@"666%@",dic1[@"vin"]);
+            [self.navigationController pushViewController:vc animated:YES];
         }
       else
         {

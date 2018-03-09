@@ -6,12 +6,12 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "TrafficReportdatailController.h"
+#import "TrafficReportController.h"
 #import "TrafficReportdatailCell.h"
 #import "TrafficReportModel.h"
 #import "NSArray+Sudoku.h"
 
-@interface TrafficReportdatailController ()<UITableViewDataSource,UITableViewDelegate>
+@interface TrafficReportController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSInteger openSection;
 }
@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *cellArray2;
 @property (nonatomic, strong) NSMutableArray *cellArray3;
 @property (nonatomic, strong) NSMutableArray *imgArray;
+@property (nonatomic, strong) NSMutableArray *imgArray1;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) NSMutableArray *isExpland;
 @property (nonatomic, strong) NSMutableArray *cArr;
@@ -47,7 +48,7 @@
 @property (nonatomic,strong) NSMutableDictionary *result;
 @end
 
-@implementation TrafficReportdatailController
+@implementation TrafficReportController
 static NSString *const cellID = @"cell";
 
 
@@ -160,25 +161,36 @@ static NSString *const cellID = @"cell";
             _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
 
             self.imgArray = [NSMutableArray array];
+            self.imgArray1 = [NSMutableArray array];
             self.result = [NSMutableDictionary new];
             NSMutableArray *vehicleSystem =[NSMutableArray array];
+            NSMutableArray *alertPriority =[NSMutableArray array];
             
-            for (NSDictionary *dic in _trafficReporData.healthAlerts) {
-                HealthAlertsItem *healthAlerts = [HealthAlertsItem yy_modelWithDictionary:dic];
-                //保存title数组
-                [self.titleArray addObject:healthAlerts.vehicleSystemName];
+            if ( _trafficReporData.healthAlerts != nil && ![ _trafficReporData.healthAlerts isKindOfClass:[NSNull class]] &&  _trafficReporData.healthAlerts.count != 0){
                 
-                [vehicleSystem addObject:healthAlerts.vehicleSystem];
+                for (NSDictionary *dic in _trafficReporData.healthAlerts) {
+                    HealthAlertsItem *healthAlerts = [HealthAlertsItem yy_modelWithDictionary:dic];
+                    //保存title数组
+                    [self.titleArray addObject:healthAlerts.vehicleSystemName];
+                    
+                    [vehicleSystem addObject:healthAlerts.vehicleSystem];
+                    [alertPriority addObject:healthAlerts.alertPriority];
+                    [self.cellArray1 addObject:healthAlerts.record];
+                    
+                }
                 
-                [self.cellArray1 addObject:healthAlerts.record];
+            }
+            else
+            {
+                [self blankUI];
                 
             }
             
-//           NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Airbag system",@"Braking system"];
+  
 //
-           NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Braking system",@"Airbag system"];
-            
-           NSArray *imgs = @[@"胎压_icon",@"转向系统_icon",@"电器系统_icon",@"发动机_icon",@"电器系统灯光_icon",@"变速箱_icon",@"制动系统_icon",@"气囊_icon"];
+//           NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Braking system",@"Airbag system"];
+//
+//           NSArray *imgs = @[@"胎压_icon",@"转向系统_icon",@"电器系统_icon",@"发动机_icon",@"电器系统灯光_icon",@"变速箱_icon",@"制动系统_icon",@"气囊_icon"];
             
             
             NSDictionary * dic2 = @{ @"TPMS status":@"胎压_icon",
@@ -192,11 +204,19 @@ static NSString *const cellID = @"cell";
                                      };
             
             
+           
+            
+            NSDictionary * dic3 = @{
+                                     @"low":@"低风险",
+                                     @"high":@"高风险",
+                                     @"health":@"健康"
+                                     };
+            
             for (int i = 0; i < self.titleArray.count; i++) {
              [self.isExpland addObject:@0];
 //             [_result setObject:imgs[i] forKey:titles[i]];
              [_imgArray addObject:[dic2 objectForKey:vehicleSystem[i]]];
-           
+             [_imgArray1 addObject:[dic3 objectForKey:alertPriority[i]]];
             }
             
             [_tableView reloadData];
@@ -310,13 +330,12 @@ static NSString *const cellID = @"cell";
     _DataArray = [NSMutableArray new];
     NSString *totalMileage = [[NSString stringWithFormat:@"%@",_trafficReporData.totalMileage] stringByAppendingString:@"km"];
     NSString *mileageBeforeMaintenance = [[NSString stringWithFormat:@"%@",_trafficReporData.mileageBeforeMaintenance] stringByAppendingString:@"km"];
-    NSString *levelOil = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
-    NSString *levelFuel = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
-    //
+//    NSString *levelFuel = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
+    
     [_DataArray addObject:_trafficReporData.totalMileage?totalMileage:@"0km"];
     [_DataArray addObject:_trafficReporData.mileageBeforeMaintenance?mileageBeforeMaintenance:@"0km"];
-    [_DataArray addObject:_trafficReporData.levelOil?levelOil:@"0L"];
-    [_DataArray addObject:_trafficReporData.levelFuel?levelFuel:@"0L"];
+    [_DataArray addObject:_trafficReporData.levelFuel];
+    
     
      NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:titles.count];
     
@@ -359,7 +378,35 @@ static NSString *const cellID = @"cell";
         UILabel *bottomlabel = [[UILabel alloc] init];
         bottomlabel.font=[UIFont fontWithName:@"PingFangSC-Regular" size:15];
         bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        bottomlabel.text=NSLocalizedString(_DataArray[i], nil);
+
+        if (i==0) {
+          bottomlabel.text=NSLocalizedString(_DataArray[0], nil);
+            
+        }else if (i==1)
+        {
+          bottomlabel.text=NSLocalizedString(_DataArray[1], nil);
+            
+        }
+        else
+        {
+            NSString *stringInt = _DataArray[2];
+            int ivalue = [stringInt intValue];
+            NSString *levelFuel = [[NSString stringWithFormat:@"%@",_DataArray[2]] stringByAppendingString:@"%"];
+            if (ivalue<10 || ivalue==10) {
+                
+              
+                bottomlabel.text=NSLocalizedString(levelFuel, nil);
+                bottomlabel.textColor = [UIColor redColor];
+            }
+            else
+            {
+                bottomlabel.text=NSLocalizedString(levelFuel, nil);
+                bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+                
+            }
+            
+        }
+       
         bottomlabel.textAlignment = NSTextAlignmentLeft;
         [views addSubview:bottomlabel];
         [bottomlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -369,8 +416,6 @@ static NSString *const cellID = @"cell";
             //            make.centerX.equalTo(_bgImgV1);
             make.width.equalTo(99 * WidthCoefficient);
         }];
-        
-        
     }
 
      [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:161 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
@@ -413,8 +458,7 @@ static NSString *const cellID = @"cell";
 
 -(void)setTrafficReporData:(TrafficReporData *)trafficReporData
 {
-    
-  
+
     if([trafficReporData.alertPriority isEqualToString:@"high"]) {
         
         _seeBtn.hidden = NO;
@@ -607,6 +651,18 @@ static NSString *const cellID = @"cell";
         make.centerY.equalTo(view1).offset(0);
         
     }];
+    
+    UIImageView *rightimageView1=[[UIImageView alloc] init];
+    rightimageView1.image=[UIImage imageNamed:[self.imgArray1 objectAtIndex:section]];
+    [view1 addSubview:rightimageView1];
+    [rightimageView1 makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(15*HeightCoefficient);
+        make.width.equalTo(42*WidthCoefficient);
+        make.right.equalTo(_rightimageView.left).offset(-10*WidthCoefficient);
+        make.centerY.equalTo(view1).offset(0);
+    }];
+    
+    
 
     //添加一个button 用来监听点击分组，实现分组的展开关闭。
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];

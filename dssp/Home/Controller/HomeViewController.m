@@ -51,34 +51,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-  
-//    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-    [self postCustByMobile];
+    
+    //    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+ 
     [self setupUI];
     [self requestData];
-   
+    
 }
 
 -(void)requestData
 {
     NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
-//    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//            [hud hideAnimated:YES];
+            //            [hud hideAnimated:YES];
             _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
             self.topView.trafficReporData = _trafficReporData;
-
+            
         } else {
             self.topView.trafficReporData = _trafficReporData;
-//            [hud hideAnimated:YES];
+            //            [hud hideAnimated:YES];
             //[MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-         self.topView.trafficReporData = _trafficReporData;
-//        [hud hideAnimated:YES];
-    
+        self.topView.trafficReporData = _trafficReporData;
+        //        [hud hideAnimated:YES];
+        
     }];
 }
 
@@ -86,6 +86,9 @@
 {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
+    
+    [self postCustByMobile];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
     [self.mgr startUpdatingLocation];
     self.imgTitles = [NSMutableArray arrayWithArray:@[
@@ -103,27 +106,25 @@
 
 - (void)postCustByMobile
 {
-//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//    NSString *vin = [defaults1 objectForKey:@"vin"];
-//    
+    //    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+    //    NSString *vin = [defaults1 objectForKey:@"vin"];
+    //
+    //    非车
     if ([kVin isEqualToString:@""]) {
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [InputalertView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定",nil] ];
+        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-        [keywindow addSubview: InputalertView];
+        [keywindow addSubview: popupView];
         
-        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-            if (btn.tag == 100) {//左边按钮
-                
-            }
-            if(btn.tag ==101)
+        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+          
+            if(btn.tag ==100)
             {
-                //右边按钮
                 //响应事件
                 VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
@@ -135,16 +136,31 @@
     }
     else
     {
-        
-
+        //非T车
+        if([CuvhlTStatus isEqualToString:@"0"])
+        {
+           
+            
+            
+            
+        }
+        else if ([CuvhlTStatus isEqualToString:@"1"])
+        {
+            //T车辆
+            
+            
+            
+            
+        }
     }
 }
 
 - (void)setupUI {
     
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.robotBtn setContentMode:UIViewContentModeScaleAspectFill];
     [_robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_robotBtn setImage:[UIImage imageNamed:@"Group 4 Copy"] forState:UIControlStateNormal];
+    [_robotBtn setImage:[UIImage imageNamed:@"机器人"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_robotBtn];
     [_robotBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);
@@ -316,30 +332,502 @@
     weakifySelf
     self.topView.clickBlock = ^(UIButton *btn) {
         strongifySelf
-        if (btn.tag == 1000 + 1) {//出行
-            MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
-            mapVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:mapVC animated:YES];
+        if (btn.tag == 1000 + 1) {
+            
+            if ([kVin isEqualToString:@""]) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if(btn.tag ==100)
+                    {
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+                
+                
+                
+//                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+//                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//                //            InputalertView.delegate = self;
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: popupView];
+//
+//                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
+//                        //右边按钮
+//                        //响应事件
+//                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    }
+//                    if(btn.tag ==101)
+//                    {
+//                        //右边按钮
+//                        //响应事件
+//                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                        vc.hidesBottomBarWhenPushed = YES;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//
+//                    }
+//
+//                };
+            }
+            else
+            {
+                //非T车
+                if([CuvhlTStatus isEqualToString:@"0"])
+                {
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview: popupView];
+                    
+                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            
+                        }
+                        
+                        
+                    };
+                    
+                }
+                else if ([CuvhlTStatus isEqualToString:@"1"])
+                {
+                    //T车辆
+                    
+                    if([KcertificationStatus isEqualToString:@"1"])
+                    {
+                        //T车辆
+                        //出行
+                        MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
+                        mapVC.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:mapVC animated:YES];
+                        
+                    }
+                    else
+                    {
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        
+                        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        //            InputalertView.delegate = self;
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: popupView];
+                        
+                        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                                
+                                
+                                
+                            }
+                            
+                        };
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            
         }
         if (btn.tag == 1000 ) {//实现流量
-            CarflowViewController *carflow = [[CarflowViewController alloc] init];
-            carflow.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:carflow animated:YES];
+            
+            if ([kVin isEqualToString:@""]) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if(btn.tag ==100)
+                    {
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+            }
+            else
+            {
+                //非T车
+                if([CuvhlTStatus isEqualToString:@"0"])
+                {
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview: popupView];
+                    
+                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            
+                        }
+                        
+                        
+                    };
+                    
+                }
+                else if ([CuvhlTStatus isEqualToString:@"1"])
+                {
+                    
+                    //                    是否实名
+                    if([KcertificationStatus isEqualToString:@"1"])
+                    {
+                        //T车辆
+                        CarflowViewController *carflow = [[CarflowViewController alloc] init];
+                        carflow.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:carflow animated:YES];
+                        
+                    }
+                    else
+                    {
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        
+                        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        //            InputalertView.delegate = self;
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: popupView];
+                        
+                        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                                
+                                
+                                
+                            }
+                            
+                        };
+                        
+                    }
+                    
+                    
+                    
+                    
+                }
+                
+            }
+            
+            
         }
         if (btn.tag == 1000 + 2) {//商城
-            StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
-            storeTab.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:storeTab animated:YES];
+            
+            
+            if ([kVin isEqualToString:@""]) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if(btn.tag ==100)
+                    {
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+            }
+            else
+            {
+                //非T车
+                if([CuvhlTStatus isEqualToString:@"0"])
+                {
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview: popupView];
+                    
+                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            
+                        }
+                        
+                        
+                    };
+                    
+                }
+                //T车辆
+                else if ([CuvhlTStatus isEqualToString:@"1"])
+                {
+                    //                    是否实名
+                    if([KcertificationStatus isEqualToString:@"1"])
+                    {
+                        //T车辆
+                        StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
+                        storeTab.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:storeTab animated:YES];
+                        
+                    }
+                    else
+                    {
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        
+                        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        //            InputalertView.delegate = self;
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: popupView];
+                        
+                        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                                
+                                
+                                
+                            }
+                            
+                            
+                        };
+                        
+                    }
+                    
+                    
+                }
+                
+            }
+            
+            
         }
         if (btn.tag == 1000 + 3) {//违章查询
-            UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+            
+            if ([kVin isEqualToString:@""]) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if(btn.tag ==100)
+                    {
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+            }
+            else
+            {
+                //非T车
+                if([CuvhlTStatus isEqualToString:@"0"])
+                {
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview: popupView];
+                    
+                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            
+                        }
+                        
+                        
+                    };
+                    
+                }
+                else if ([CuvhlTStatus isEqualToString:@"1"])
+                {
+                    //T车辆
+                    //出行
+                    //                    是否实名
+                    if([KcertificationStatus isEqualToString:@"1"])
+                    {
+                        //T车辆
+                        UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    else
+                    {
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        
+                        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        //            InputalertView.delegate = self;
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: popupView];
+                        
+                        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                                
+                                
+                                
+                            }
+                            
+                            
+                        };
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+            }
+            
+            
         }
         if (btn.tag == 1000 + 4) {
-            UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];
-            upkeep.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:upkeep animated:YES];
+            
+            if ([kVin isEqualToString:@""]) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if(btn.tag ==100)
+                    {
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+            }
+            else
+            {
+                //非T车
+                if([CuvhlTStatus isEqualToString:@"0"])
+                {
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview: popupView];
+                    
+                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            
+                        }
+                        
+                    };
+                }
+                else if ([CuvhlTStatus isEqualToString:@"1"])
+                {
+                    
+                    if([KcertificationStatus isEqualToString:@"1"])
+                    {
+                        //T车辆
+                        UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];
+                        upkeep.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:upkeep animated:YES];
+                        
+                    }
+                    else
+                    {
+                        
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        
+                        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        //            InputalertView.delegate = self;
+                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                        [keywindow addSubview: popupView];
+                        
+                        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                            if (btn.tag == 100) {//左边按钮
+                                
+                                
+                                
+                            }
+                            
+                            
+                        };
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+            }
         }
     };
     
@@ -384,7 +872,7 @@
             weakifySelf
             [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
                 strongifySelf
-//                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
+                //                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
                 self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
             }];
         } else {
@@ -416,7 +904,7 @@
             NSLog(@"用户未决定");
             break;
         }
-        // 系统预留字段,暂时还没用到
+            // 系统预留字段,暂时还没用到
         case kCLAuthorizationStatusRestricted:
         {
             NSLog(@"受限制");
@@ -429,8 +917,8 @@
                 NSLog(@"真正被拒绝");
                 
                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"温馨提示"
-               message:@"请在设置中打开定位服务功能！"
-               preferredStyle:UIAlertControllerStyleAlert];
+                                                                               message:@"请在设置中打开定位服务功能！"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                     //响应事件
@@ -467,7 +955,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     [_mgr stopUpdatingLocation];//关闭定位
     CLLocation *newLocation = locations[0];
-//    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+    //    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark * placemark in placemarks) {
@@ -475,10 +963,10 @@
             // Country(国家)
             // State(城市) SubLocality(区)
             //            NSString *location= [[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
-
-//            NSArray *location=[test objectForKey:@"FormattedAddressLines"];
-//            NSString *str= [location objectAtIndex:0];
-//            self.topView.locationStr = str;
+            
+            //            NSArray *location=[test objectForKey:@"FormattedAddressLines"];
+            //            NSString *str= [location objectAtIndex:0];
+            //            self.topView.locationStr = str;
             weakifySelf
             [[MapSearchManager sharedManager] weatherLive:test[@"City"] returnBlock:^(MapWeatherLive *weatherInfo) {
                 strongifySelf
@@ -552,3 +1040,4 @@
 }
 
 @end
+

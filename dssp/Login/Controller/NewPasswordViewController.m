@@ -163,12 +163,12 @@
     }
     if (sender == self.nextBtn) {
      
-        if (_newpassphoneField.text.length==0) {
-            [MBProgressHUD showText:NSLocalizedString(@"新密码不能为空", nil)];
+        if (_newpassphoneField.text.length==0|| ![self checkPassWord:_newpassphoneField.text]) {
+            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字混合的新密码", nil)];
         }
-        else if(_confirmField.text.length==0)
+        else if(_confirmField.text.length==0|| ![self checkPassWord:_confirmField.text])
         {
-            [MBProgressHUD showText:NSLocalizedString(@"确认新密码不能为空", nil)];
+            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字混合的确认密码", nil)];
         }
         else if ([_newpassphoneField.text isEqualToString:_confirmField.text])
         {
@@ -246,6 +246,19 @@
         _confirmField.font = [UIFont fontWithName:FontName size:15];
     }
     return YES;
+}
+
+
+//判断八位字母数字混合
+-(BOOL)checkPassWord:(NSString *)str
+{
+    //6-20位数字和字母组成
+    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([pred evaluateWithObject:str]) {
+        return YES ;
+    }else
+        return NO;
 }
 
 - (void)didReceiveMemoryWarning {

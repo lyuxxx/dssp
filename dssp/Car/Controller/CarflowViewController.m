@@ -36,6 +36,8 @@
     self.navigationItem.title = NSLocalizedString(@"流量", nil);
     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self requestData];
+    [self initTableView];
+    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,20 +64,17 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-            [self initTableView];
-            [self setupUI];
             [_tableView reloadData];
-          
             self.carflow =_carflow;
         } else {
-            [self blankUI];
-        
+//            [self blankUI];
             [hud hideAnimated:YES];
-//            [MBProgressHUD showText:dic[@"msg"]];
+            [MBProgressHUD showText:@"暂无数据"];
         }
     } failure:^(NSInteger code) {
-        [self blankUI];
+//        [self blankUI];
       [hud hideAnimated:YES];
+      [MBProgressHUD showText:@"暂无数据"];
 //      self.carflow =_carflow;
 //      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];

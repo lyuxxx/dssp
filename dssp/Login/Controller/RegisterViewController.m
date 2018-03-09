@@ -287,7 +287,7 @@
         }
         else if (_passwordField.text.length !=8 || ![self checkPassWord:_passwordField.text])
         {
-         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组混合的密码", nil)];
+         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字混合的密码", nil)];
         }
          else if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
              [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];

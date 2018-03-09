@@ -23,6 +23,7 @@
 
 @interface HealthAlertsItem :NSObject <YYModel>
 @property (nonatomic , copy) NSString        * vehicleSystem;
+@property (nonatomic , copy) NSString        * alertPriority;
 @property (nonatomic , copy) NSString        *vehicleSystemName;
 @property (nonatomic , strong) NSArray <RecordItems *> *record;
 
