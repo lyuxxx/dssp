@@ -20,7 +20,7 @@
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "NSDictionary+NilSafe.h"
-#import "statistics.h"
+#import "Statistics.h"
 #import "UIImageView+WebCache.h"
 #import "PopupView.h"
 //通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
