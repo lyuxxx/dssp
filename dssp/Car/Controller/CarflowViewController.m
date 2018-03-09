@@ -64,19 +64,17 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _carflow =[CarflowModel yy_modelWithDictionary:dic[@"data"]];
-          
             [_tableView reloadData];
-          
             self.carflow =_carflow;
         } else {
-            [self blankUI];
-        
+//            [self blankUI];
             [hud hideAnimated:YES];
-//            [MBProgressHUD showText:dic[@"msg"]];
+            [MBProgressHUD showText:@"暂无数据"];
         }
     } failure:^(NSInteger code) {
-        [self blankUI];
+//        [self blankUI];
       [hud hideAnimated:YES];
+      [MBProgressHUD showText:@"暂无数据"];
 //      self.carflow =_carflow;
 //      [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
