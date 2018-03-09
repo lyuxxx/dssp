@@ -845,7 +845,7 @@
 }
 
 - (void)reportTap:(UITapGestureRecognizer *)sender {
-    NSArray *csS = @[@"TrafficReportViewController",@"DrivingWeekReportViewController",@"TrackListViewController"];
+    NSArray *csS = @[@"TrafficReportController",@"DrivingWeekReportViewController",@"TrackListViewController"];
     UIViewController *vc = [[NSClassFromString(csS[sender.view.tag - 100]) alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
