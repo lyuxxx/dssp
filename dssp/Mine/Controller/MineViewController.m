@@ -262,6 +262,8 @@
     
     
     UIView *whiteView = [UIView new];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+    [whiteView addGestureRecognizer:tapGesture];
     whiteView.backgroundColor = [UIColor whiteColor];
     whiteView.layer.cornerRadius = 4;
     whiteView.layer.shadowOpacity = 0.5;// 阴影透明度
@@ -312,8 +314,8 @@
     
     self.photoBtn = [[UIImageView alloc] init];
     //    self.avatar.image = selfPhoto?selfPhoto:[UIImage imageNamed:@"用户头像"];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
-    [_photoBtn addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+//    [_photoBtn addGestureRecognizer:tapGesture];
     _photoBtn.userInteractionEnabled = YES;
     _photoBtn.clipsToBounds=YES;
     _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;

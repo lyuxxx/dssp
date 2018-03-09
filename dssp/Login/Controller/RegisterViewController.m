@@ -266,6 +266,8 @@
 }
 
 - (void)btnClick:(UIButton *)sender {
+    
+    [self registerSuccess];
     if (sender == self.eyeBtn) {
         sender.selected = !sender.selected;
         self.passwordField.secureTextEntry = !sender.selected;
@@ -456,21 +458,21 @@
     __block NSInteger time = 3;
     
     UIImageView *container = [[UIImageView alloc] init];
-    container.image = [UIImage imageNamed:@"clearbackgroud"];
+    container.image = [UIImage imageNamed:@"launch"];
     [self.view addSubview:container];
     [container makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-    UIImageView *logo = [[UIImageView alloc] init];
-    logo.image = [UIImage imageNamed:@"logo"];
-    [container addSubview:logo];
-    [logo makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(131 * WidthCoefficient);
-        make.height.equalTo(99.5 * HeightCoefficient);
-        make.centerX.equalTo(container);
-        make.top.equalTo(64 * HeightCoefficient);
-    }];
+//    UIImageView *logo = [[UIImageView alloc] init];
+//    logo.image = [UIImage imageNamed:@"logo"];
+//    [container addSubview:logo];
+//    [logo makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(131 * WidthCoefficient);
+//        make.height.equalTo(99.5 * HeightCoefficient);
+//        make.centerX.equalTo(container);
+//        make.top.equalTo(64 * HeightCoefficient);
+//    }];
     
     UILabel *label0 = [[UILabel alloc] init];
     label0.textAlignment = NSTextAlignmentCenter;

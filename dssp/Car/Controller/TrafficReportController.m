@@ -460,8 +460,7 @@ static NSString *const cellID = @"cell";
 {
 
     if([trafficReporData.alertPriority isEqualToString:@"high"]) {
-        
-        _seeBtn.hidden = NO;
+      
         _bgImgV.image = [UIImage imageNamed:@"需维修背景"];
         _bgImgV1.image = [UIImage imageNamed:@"需维修车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#CE004F"];
@@ -469,20 +468,27 @@ static NSString *const cellID = @"cell";
         
     }
     else if([trafficReporData.alertPriority isEqualToString:@"low"]) {
-        _seeBtn.hidden = NO;
+      
         _bgImgV.image = [UIImage imageNamed:@"需检查背景"];
         _bgImgV1.image = [UIImage imageNamed:@"需检查车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#FFC3A5"];
         _titlelabel.text=NSLocalizedString(@"需检查", nil);
     }
-    else
+    else if([trafficReporData.alertPriority isEqualToString:@"health"])
     {
-        _seeBtn.hidden = YES;
+        
         _bgImgV.image = [UIImage imageNamed:@"健康背景"];
         _bgImgV1.image = [UIImage imageNamed:@"健康车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#A5FFD2"];
         _titlelabel.text=NSLocalizedString(@"健康", nil);
-        
+    }
+    else
+    {
+       
+        _bgImgV.image = [UIImage imageNamed:@"健康背景"];
+//        _bgImgV1.image = [UIImage imageNamed:@"健康车"];
+        _titlelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
+        _titlelabel.text=NSLocalizedString(@"未知", nil);
     }
     
 }
@@ -504,7 +510,7 @@ static NSString *const cellID = @"cell";
     }];
     
     UILabel *label = [[UILabel alloc] init];
-    label.text =@"空空如也";
+    label.text =@"暂无数据";
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor colorWithHexString:@"#999999"];
     label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];

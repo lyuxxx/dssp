@@ -126,11 +126,10 @@
     }
     
      cell.lab.text = _titles[indexPath.row] ;
-    
-   
+
        if (indexPath.row==0) {
 
-            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@""]];
+            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
             cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
            
         }

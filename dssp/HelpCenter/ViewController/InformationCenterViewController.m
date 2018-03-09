@@ -177,12 +177,12 @@
                                      @"10006":@"DrivingWeekReportViewController",
                                      @"10007":@"LllegalViewController",
                                      @"10013":@"RealVinViewcontroller",
-                                     @"10009":@"紧急救援",
-                                     @"10008":@"道路救援",
-                                     @"10014":@"商品列表",
+                                     @"10009":@"MapUpdateViewController",
+                                     @"10008":@"TrackListViewController",
+                                     @"10014":@"StorePageController",
                                      @"10015":@"OrderPageController",
-                                     @"10011":@"智慧停车",
-                                     @"10016":@"地图升级"
+                                     @"10011":@"智慧停车"
+                                 
                                      };
             
  
