@@ -8,7 +8,6 @@
 
 #import "NSBundle+TZImagePicker.h"
 #import "TZImagePickerController.h"
-
 @implementation NSBundle (TZImagePicker)
 
 + (NSBundle *)tz_imagePickerBundle {

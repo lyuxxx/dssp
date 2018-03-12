@@ -27,11 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     self.navigationItem.title = NSLocalizedString(@"预约保养", nil);
-  
-
-    
     [self requestData];
      [self setupUI];
 }
@@ -63,7 +60,7 @@
           self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
         
             NSLog(@"%@", self.upkeep.maintenanceMileage);
-
+            [self setupUI];
         } else {
             [hud hideAnimated:YES];
             [self setupUI];
@@ -113,54 +110,51 @@
 
 -(void)setupUI
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+
+    
+    UIView *backView = [UIView new];
+    backView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+    [self.view addSubview:backView];
+    [backView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(0 * HeightCoefficient);
+        make.height.equalTo(140 * HeightCoefficient);
+        make.width.equalTo(375 * WidthCoefficient);
+        make.left.equalTo(0 * WidthCoefficient);
+    }];
+    
+    
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
-    [self.view addSubview:bgImgV];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    bgImgV.image = [UIImage imageNamed:@"保养预约纹理背景"];
+    [backView addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(0);
-        make.height.equalTo(126*HeightCoefficient);
+        make.bottom.equalTo(0 *HeightCoefficient);
+        make.height.equalTo(55*HeightCoefficient);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
     
     
-//    UIView *whiteView = [UIView new];
-//    whiteView.backgroundColor = [UIColor whiteColor];
-//    whiteView.layer.cornerRadius = 4;
-//    whiteView.layer.shadowOpacity = 0.5;// 阴影透明度
-//    whiteView.layer.shadowOffset = CGSizeMake(0,7.5);
-//    whiteView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-//    whiteView.layer.shadowRadius = 20.5;//阴影半径，默认3
-//    [self.view addSubview:whiteView];
-//    [whiteView makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(116 * HeightCoefficient);
-//        make.height.equalTo(70 * HeightCoefficient);
-//        make.width.equalTo(343 * WidthCoefficient);
-//        make.left.equalTo(16 * WidthCoefficient);
-//    }];
-//
-    
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
-    [self.view addSubview:line];
+    line.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+    [backView addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(27.5 * HeightCoefficient);
-        make.height.equalTo(60 * HeightCoefficient);
-        make.width.equalTo(1 * HeightCoefficient);
+        make.top.equalTo(42 * HeightCoefficient);
+        make.height.equalTo(40 * HeightCoefficient);
+        make.width.equalTo(2 * HeightCoefficient);
     }];
     
     NSString *maintenanceDay = [[NSString stringWithFormat:@"%@",self.upkeep.maintenanceDay] stringByAppendingString:@"天"];
     UILabel *toplabel = [[UILabel alloc] init];
     toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel.textColor=[UIColor whiteColor];
-    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"", nil);
+    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"0天", nil);
     toplabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:toplabel];
+    [backView addSubview:toplabel];
     [toplabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(30*HeightCoefficient);
-        make.height.equalTo(33.5 * HeightCoefficient);
+        make.top.equalTo(38*HeightCoefficient);
+        make.height.equalTo(25 * HeightCoefficient);
         make.left.equalTo(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
     }];
@@ -168,10 +162,10 @@
     
     UILabel *centrelabel = [[UILabel alloc] init];
     centrelabel.font=[UIFont fontWithName:FontName size:12];
-    centrelabel.textColor=[UIColor whiteColor];
+    centrelabel.textColor=[UIColor colorWithHexString:@"#A18E79"];
     centrelabel.text=NSLocalizedString(@"距离下一次保养时间", nil);
     centrelabel.textAlignment = NSTextAlignmentCenter;
-    [bgImgV addSubview:centrelabel];
+    [backView addSubview:centrelabel];
     [centrelabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(toplabel.bottom).offset(5*HeightCoefficient);
         make.height.equalTo(18 * HeightCoefficient);
@@ -184,12 +178,12 @@
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"", nil);
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"0km", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:toplabel1];
+    [backView addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(30*HeightCoefficient);
-        make.height.equalTo(33.5 * HeightCoefficient);
+        make.top.equalTo(38*HeightCoefficient);
+        make.height.equalTo(25 * HeightCoefficient);
         make.left.equalTo(toplabel.right).offset(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
     }];
@@ -197,10 +191,10 @@
     
     UILabel *centrelabel1 = [[UILabel alloc] init];
     centrelabel1.font=[UIFont fontWithName:FontName size:12];
-    centrelabel1.textColor=[UIColor whiteColor];
+    centrelabel1.textColor=[UIColor colorWithHexString:@"#A18E79"];
     centrelabel1.text=NSLocalizedString(@"距离下一次保养里程", nil);
     centrelabel1.textAlignment = NSTextAlignmentCenter;
-    [bgImgV addSubview:centrelabel1];
+    [backView addSubview:centrelabel1];
     [centrelabel1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(toplabel.bottom).offset(5*HeightCoefficient);
         make.height.equalTo(18 * HeightCoefficient);
@@ -295,12 +289,14 @@
 //
 //
     UIView *bottomView = [[UIView alloc] init];
-    bottomView.backgroundColor = [UIColor whiteColor];
-    bottomView.layer.cornerRadius = 4;
-    bottomView.layer.shadowOpacity = 0.5;// 阴影透明度
-    bottomView.layer.shadowOffset = CGSizeMake(0,7.5);
-    bottomView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    bottomView.layer.shadowRadius = 20.5;//阴影半径，默认3
+    bottomView.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+    [bottomView addGestureRecognizer:tapGesture];
+//    bottomView.layer.cornerRadius = 4;
+//    bottomView.layer.shadowOpacity = 0.5;// 阴影透明度
+//    bottomView.layer.shadowOffset = CGSizeMake(0,7.5);
+//    bottomView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    bottomView.layer.shadowRadius = 20.5;//阴影半径，默认3
     [self.view addSubview:bottomView];
     [bottomView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(156 * HeightCoefficient);
@@ -312,7 +308,7 @@
 
     UILabel *phone = [[UILabel alloc] init];
     phone.font=[UIFont fontWithName:FontName size:16];
-    phone.textColor=[UIColor colorWithHexString:@"#AC0042"];
+    phone.textColor=[UIColor colorWithHexString:@"#ffffff"];
     phone.text=NSLocalizedString(@"400-800-888", nil);
     phone.textAlignment = NSTextAlignmentLeft;
     [bottomView addSubview:phone];
@@ -338,30 +334,47 @@
     }];
     
     
+    
+    UIImageView *bottomImgV = [[UIImageView alloc] init];
+    bottomImgV.image = [UIImage imageNamed:@"保养预约电话背景"];
+    [bottomView addSubview:bottomImgV];
+    [bottomImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(0 *HeightCoefficient);
+        make.height.equalTo(53.5*HeightCoefficient);
+        make.width.equalTo(343*WidthCoefficient);
+        make.left.equalTo(0);
+    }];
+    
+    
+    
     UIImageView *rightImg = [[UIImageView alloc] init];
-    rightImg.image = [UIImage imageNamed:@"电话bg"];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
-    [rightImg addGestureRecognizer:tapGesture];
-    rightImg.userInteractionEnabled = YES;
+    rightImg.image = [UIImage imageNamed:@"预约保养电话_icon"];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+//    [rightImg addGestureRecognizer:tapGesture];
+     rightImg.userInteractionEnabled = YES;
     [bottomView addSubview:rightImg];
 //    [bottomView addSubview:rightImg];
     [rightImg makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(0);
-        make.height.equalTo(100*HeightCoefficient);
-        make.width.equalTo(123.5 *WidthCoefficient);
-        make.right.equalTo(0);
+//        make.top.equalTo(0);
+        make.height.equalTo(30.5*WidthCoefficient);
+        make.width.equalTo(30.5 *WidthCoefficient);
+        make.right.equalTo(-16 *WidthCoefficient);
+        make.centerY.equalTo(0);
     }];
     
     
     
     
     UIView *bottomView1 = [UIView new];
-    bottomView1.backgroundColor = [UIColor whiteColor];
-    bottomView1.layer.cornerRadius = 4;
-    bottomView1.layer.shadowOpacity = 0.5;// 阴影透明度
-    bottomView1.layer.shadowOffset = CGSizeMake(0,7.5);
-    bottomView1.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    bottomView1.layer.shadowRadius = 20.5;//阴影半径，默认3
+//    bottomView1.backgroundColor = [UIColor whiteColor];
+    bottomView1.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage1)];
+    [bottomView1 addGestureRecognizer:tapGesture1];
+//    bottomView1.layer.cornerRadius = 4;
+//    bottomView1.layer.shadowOpacity = 0.5;// 阴影透明度
+//    bottomView1.layer.shadowOffset = CGSizeMake(0,7.5);
+//    bottomView1.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    bottomView1.layer.shadowRadius = 20.5;//阴影半径，默认3
     [self.view addSubview:bottomView1];
     [bottomView1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bottomView.bottom).offset(20 * HeightCoefficient);
@@ -376,7 +389,7 @@
 //    _operationBtn.layer.cornerRadius = 2;
     _operationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_operationBtn setTitle:NSLocalizedString(@"保养登记", nil) forState:UIControlStateNormal];
-    [_operationBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
+    [_operationBtn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
     _operationBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
 //    [_operationBtn setBackgroundColor:[UIColor colorWithHexString:@"#A18E79"]];
     [bottomView1 addSubview:_operationBtn];
@@ -402,17 +415,28 @@
     }];
     
     
+    UIImageView *bottomImgV1 = [[UIImageView alloc] init];
+    bottomImgV1.image = [UIImage imageNamed:@"保养登记背景"];
+    [bottomView1 addSubview:bottomImgV1];
+    [bottomImgV1 makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(0 *HeightCoefficient);
+        make.height.equalTo(53.5*HeightCoefficient);
+        make.width.equalTo(343*WidthCoefficient);
+        make.left.equalTo(0);
+    }];
+    
+    
     UIImageView *rightImg1 = [[UIImageView alloc] init];
-    rightImg1.image = [UIImage imageNamed:@"手动预约bg"];
-    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage1)];
-    [rightImg1 addGestureRecognizer:tapGesture1];
+    rightImg1.image = [UIImage imageNamed:@"保养登记_icon"];
+//    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage1)];
+//    [rightImg1 addGestureRecognizer:tapGesture1];
     rightImg1.userInteractionEnabled = YES;
     [bottomView1 addSubview:rightImg1];
     [rightImg1 makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(0);
-        make.height.equalTo(100*HeightCoefficient);
-        make.width.equalTo(123.5 *WidthCoefficient);
-        make.right.equalTo(0);
+        make.height.equalTo(30.5*WidthCoefficient);
+        make.width.equalTo(30.5 *WidthCoefficient);
+        make.right.equalTo(-16 *WidthCoefficient);
+        make.centerY.equalTo(0);
     }];
     
    

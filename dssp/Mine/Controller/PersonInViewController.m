@@ -206,15 +206,19 @@
         [self presentViewController:imagePickerVC animated:YES completion:nil];
         
     } else if (buttonIndex == 1) {
-        TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self];
-        imagePickerVC.allowPickingOriginalPhoto = NO;
-        imagePickerVC.allowPickingVideo = NO;
-        imagePickerVC.allowPickingGif = NO;
-        imagePickerVC.allowTakePicture = NO;
-        imagePickerVC.allowCrop = YES;
-        imagePickerVC.cropRect = CGRectMake(0, (kScreenHeight - kScreenWidth) / 2.0f, kScreenWidth, kScreenWidth);
-        imagePickerVC.oKButtonTitleColorNormal = [UIColor whiteColor];
-        [self presentViewController:imagePickerVC animated:YES completion:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self];
+            imagePickerVC.allowPickingOriginalPhoto = NO;
+            imagePickerVC.allowPickingVideo = NO;
+            imagePickerVC.allowPickingGif = NO;
+            imagePickerVC.allowTakePicture = NO;
+            imagePickerVC.allowCrop = YES;
+            imagePickerVC.cropRect = CGRectMake(0, (kScreenHeight - kScreenWidth) / 2.0f, kScreenWidth, kScreenWidth);
+            imagePickerVC.oKButtonTitleColorNormal = [UIColor whiteColor];
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
+        });
+       
     }
 }
 
@@ -241,11 +245,11 @@
          NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
          if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
               [self requestData];
-//             [MBProgressHUD showText:@"图片上传成功"];
+             [MBProgressHUD showText:@"图片上传成功"];
          }
         else
         {
-//             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
         }
 
     } failure:^(NSInteger code) {

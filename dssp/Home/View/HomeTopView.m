@@ -319,12 +319,37 @@
     }
     else
     {
-         _healthLabel.text = @"健康";
+         _healthLabel.text = @"未知";
         
     }
     _mileageLabel.text = trafficReporData.totalMileage?totalMileage:@"0km";
-    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
- 
+//    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
+    
+    if(trafficReporData.levelFuel)
+    {
+        
+        NSString *stringInt = trafficReporData.levelFuel;
+        int ivalue = [stringInt intValue];
+        NSString *levelFuel = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
+        if (ivalue<10 || ivalue==10) {
+            
+            _oilLeftLabel.text=NSLocalizedString(levelFuel, nil);
+            _oilLeftLabel.textColor = [UIColor redColor];
+        }
+        else
+        {
+            _oilLeftLabel.text=NSLocalizedString(levelFuel, nil);
+            _oilLeftLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+            
+        }
+    }
+    else
+    {
+        _oilLeftLabel.text= @"0%";
+        _oilLeftLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        
+    }
+    
     
 }
 

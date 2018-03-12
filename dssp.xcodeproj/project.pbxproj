@@ -194,6 +194,7 @@
 		45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C71FD8D61B002C0A78 /* ContractModel.m */; };
 		45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */; };
 		45ABF33620076CE0003FC560 /* QueryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABF33520076CE0003FC560 /* QueryModel.m */; };
+		45E56766205610B200B958E8 /* ParkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E56765205610B200B958E8 /* ParkingViewController.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		DAF044A6FBC1E984C6DCFEAA /* libPods-dsspUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */; };
 /* End PBXBuildFile section */
@@ -576,6 +577,8 @@
 		45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractDetailed.m; sourceTree = "<group>"; };
 		45ABF33420076CE0003FC560 /* QueryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryModel.h; sourceTree = "<group>"; };
 		45ABF33520076CE0003FC560 /* QueryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryModel.m; sourceTree = "<group>"; };
+		45E56764205610B200B958E8 /* ParkingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkingViewController.h; sourceTree = "<group>"; };
+		45E56765205610B200B958E8 /* ParkingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkingViewController.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1217,6 +1220,8 @@
 				31F235D3204171E4002807D2 /* TrackDetailViewController.m */,
 				310368F020469ECC00A9083E /* DrivingWeekReportViewController.h */,
 				310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */,
+				45E56764205610B200B958E8 /* ParkingViewController.h */,
+				45E56765205610B200B958E8 /* ParkingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1761,6 +1766,7 @@
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,
+				45E56766205610B200B958E8 /* ParkingViewController.m in Sources */,
 				45685FD12043B42600017989 /* InfoMessageLeftCell.m in Sources */,
 				31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */,
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
