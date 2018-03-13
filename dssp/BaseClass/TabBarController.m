@@ -48,6 +48,10 @@
 }
 
 - (void)setup {
+    
+    [self.tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#040000"]]];
+    self.tabBar.shadowImage = [UIImage imageWithColor:[UIColor colorWithHexString:@"#2f2726"] size:CGSizeMake(kScreenWidth, 1)];
+    
     NSArray *cls = @[
                      @"HomeViewController",
                      @"DiscoverViewController",
@@ -83,19 +87,12 @@
         naVC.delegate = self;
         naVC.tabBarItem.title = titles[i];
         [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:11]} forState:UIControlStateSelected];
-        [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#c4b7a6"],NSFontAttributeName:[UIFont fontWithName:FontName size:11]} forState:UIControlStateNormal];
+        [naVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#a18e79"],NSFontAttributeName:[UIFont fontWithName:FontName size:11]} forState:UIControlStateNormal];
         [naVC.tabBarItem setImage:[[UIImage imageNamed:imgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [naVC.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImgTitles[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
         [viewControllers addObject:naVC];
         
-        
-        if (i == 1) {
-            DiscoverViewController *discoverVC = (DiscoverViewController *)vc;
-            self.delegate = discoverVC;
-         
-      
-        }
     }
    
     self.viewControllers = viewControllers;

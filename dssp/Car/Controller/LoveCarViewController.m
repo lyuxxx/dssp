@@ -27,7 +27,7 @@
 
 @implementation LoveCarViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -53,6 +53,16 @@
 {
     [Statistics  staticsvisitTimesDataWithViewControllerType:@"LoveCarViewController"];
     [Statistics staticsstayTimeDataWithType:@"2" WithController:@"LoveCarViewController"];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_plateLabel.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(4, 4)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _plateLabel.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _plateLabel.layer.mask = maskLayer;
+    _plateLabel.layer.masksToBounds = YES;
 }
 
 - (void)postCustByMobile
@@ -154,6 +164,13 @@
 
 - (void)setupUI {
     
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(16 * WidthCoefficient, kNaviHeight - kStatusBarHeight - 37 * WidthCoefficient, 79.5 * WidthCoefficient, 30 * WidthCoefficient)];
+    title.textAlignment = NSTextAlignmentLeft;
+    title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:24];
+    title.textColor = [UIColor whiteColor];
+    title.text = NSLocalizedString(@"爱车", nil);
+    [self.navigationController.navigationBar addSubview:title];
+    
     UIButton *robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     robotBtn.tag = 1111;
     [robotBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -163,7 +180,6 @@
        make.width.height.equalTo(24 * WidthCoefficient);
     }];
     
-    self.navigationItem.title = NSLocalizedString(@"爱车", nil);
     UIScrollView *scroll = [[UIScrollView alloc] init];
     scroll.showsVerticalScrollIndicator = NO;
     if (@available(iOS 11.0, *)) {
@@ -173,7 +189,7 @@
     }
     [self.view addSubview:scroll];
     [scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
+        make.edges.equalTo(self.view);
     }];
     
     UIView *content = [[UIView alloc] init];
@@ -184,124 +200,114 @@
     }];
     
     UIImageView *previewImgV = [[UIImageView alloc] init];
-    previewImgV.layer.cornerRadius = 4;
-    previewImgV.layer.shadowOffset = CGSizeMake(0, 0);
-    previewImgV.layer.shadowColor = [UIColor colorWithHexString:@"#333333"].CGColor;
-    previewImgV.layer.shadowOpacity = 0.5;
-    previewImgV.layer.shadowRadius = 14.5;
-    previewImgV.backgroundColor = [UIColor colorWithHexString:@"#3a302f"];
+    previewImgV.image = [UIImage imageNamed:@"home_bg"];
     [content addSubview:previewImgV];
     [previewImgV makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(content);
-        make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(167.5 * HeightCoefficient);
-        make.top.equalTo(content).offset(20 * HeightCoefficient);
+        make.width.equalTo(kScreenWidth);
+        make.height.equalTo(225 * WidthCoefficient);
+        make.top.equalTo(content);
+    }];
+    
+    UILabel *ds = [[UILabel alloc] init];
+    ds.textAlignment = NSTextAlignmentCenter;
+    ds.font = [UIFont fontWithName:@"PingFang-Semibold" size:55];
+    ds.textColor = [UIColor colorWithHexString:@"#443938"];
+    ds.text = @"DS 7";
+    [previewImgV addSubview:ds];
+    [ds makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(0);
+        make.top.equalTo(40 * WidthCoefficient);
+        make.height.equalTo(55.5 * WidthCoefficient);
     }];
     
     self.plateLabel = [[UILabel alloc] init];
+    _plateLabel.textAlignment = NSTextAlignmentCenter;
     _plateLabel.text = @"鄂A12345";
-    _plateLabel.font = [UIFont fontWithName:@"PingFangSC" size:16];
-    _plateLabel.textColor = [UIColor colorWithHexString:GeneralColorString];
+    _plateLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+    _plateLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    _plateLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
     [previewImgV addSubview:_plateLabel];
     [_plateLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(164.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.left.equalTo(15 * WidthCoefficient);
-        make.top.equalTo(8 * HeightCoefficient);
+        make.width.equalTo(98 * WidthCoefficient);
+        make.height.equalTo(22 * WidthCoefficient);
+        make.left.equalTo(0);
+        make.top.equalTo(30 * WidthCoefficient);
     }];
+    
     
     self.carImgV = [[UIImageView alloc] init];
     _carImgV.image = [UIImage imageNamed:@"DS 7"];
     [previewImgV addSubview:_carImgV];
     [_carImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(208 * WidthCoefficient);
-        make.height.equalTo(111 * WidthCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
-        make.top.equalTo(48 * HeightCoefficient);
+        make.width.equalTo(251.7 * WidthCoefficient);
+        make.height.equalTo(133.5 * WidthCoefficient);
+        make.left.equalTo(62 * WidthCoefficient);
+        make.top.equalTo(68.5 * WidthCoefficient);
     }];
     
-    UILabel *label0 = [[UILabel alloc] init];
-    label0.font = [UIFont fontWithName:FontName size:11];
-    label0.textAlignment = NSTextAlignmentRight;
-    label0.text = NSLocalizedString(@"总里程", nil);
-    label0.textColor = [UIColor colorWithHexString:GeneralColorString];
-    [previewImgV addSubview:label0];
-    [label0 makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(80 * WidthCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
-        make.right.equalTo(-15 * WidthCoefficient);
-        make.top.equalTo(10 * HeightCoefficient);
+    UIView *dataContainer = [[UIView alloc] init];
+    [content addSubview:dataContainer];
+    [dataContainer makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(kScreenWidth);
+        make.height.equalTo(75 * WidthCoefficient);
+        make.top.equalTo(previewImgV.bottom);
+        make.centerX.equalTo(0);
     }];
     
-    UILabel *label1 = [[UILabel alloc] init];
-    label1.font = [UIFont fontWithName:FontName size:11];
-    label1.textAlignment = NSTextAlignmentRight;
-    label1.text = NSLocalizedString(@"剩余油量", nil);
-    label1.textColor = [UIColor colorWithHexString:GeneralColorString];
-    [previewImgV addSubview:label1];
-    [label1 makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(80 * WidthCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
-        make.right.equalTo(-15 * WidthCoefficient);
-        make.top.equalTo(61 * HeightCoefficient);
-    }];
+    NSArray *dataTitles = @[NSLocalizedString(@"总里程", nil),NSLocalizedString(@"剩余油量", nil),NSLocalizedString(@"车况健康", nil)];
+    for (NSInteger i = 0; i < dataTitles.count; i++) {
+        UILabel *label0 = [[UILabel alloc] init];
+        label0.font = [UIFont fontWithName:FontName size:11];
+        label0.textAlignment = NSTextAlignmentCenter;
+        label0.text = dataTitles[i];
+        label0.textColor = [UIColor colorWithHexString:GeneralColorString];
+        [dataContainer addSubview:label0];
+        [label0 makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(114 * WidthCoefficient);
+            make.height.equalTo(15 * WidthCoefficient);
+            make.left.equalTo((16 + 114 * i) * WidthCoefficient);
+            make.top.equalTo(20 * WidthCoefficient);
+        }];
+        
+        UILabel *label1 = [[UILabel alloc] init];
+        label1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        label1.textAlignment = NSTextAlignmentCenter;
+        label1.textColor = [UIColor whiteColor];
+        [dataContainer addSubview:label1];
+        [label1 makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(114 * WidthCoefficient);
+            make.height.equalTo(20 * WidthCoefficient);
+            make.top.equalTo(label0.bottom);
+            make.centerX.equalTo(label0);
+        }];
+        
+        if (i == 0) {
+            self.mileageLabel = label1;
+        } else if (i == 1) {
+            self.oilLeftLabel = label1;
+        } else if (i == 2) {
+            self.healthLabel = label1;
+        }
+    }
     
-    UILabel *label2 = [[UILabel alloc] init];
-    label2.font = [UIFont fontWithName:FontName size:11];
-    label2.textAlignment = NSTextAlignmentRight;
-    label2.text = NSLocalizedString(@"车况健康", nil);
-    label2.textColor = [UIColor colorWithHexString:GeneralColorString];
-    [previewImgV addSubview:label2];
-    [label2 makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(80 * WidthCoefficient);
-        make.height.equalTo(15 * HeightCoefficient);
-        make.right.equalTo(-15 * WidthCoefficient);
-        make.top.equalTo(112 * HeightCoefficient);
-    }];
-    
-    self.mileageLabel = [[UILabel alloc] init];
-    _mileageLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _mileageLabel.textAlignment = NSTextAlignmentRight;
-    _mileageLabel.textColor = [UIColor whiteColor];
-//    _mileageLabel.text = @"12903 km";
-    [previewImgV addSubview:_mileageLabel];
-    [_mileageLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(21 * HeightCoefficient);
-        make.top.equalTo(25.5 * HeightCoefficient);
-        make.right.equalTo(- 15.2 * WidthCoefficient);
-    }];
-    
-    self.oilLeftLabel = [[UILabel alloc] init];
-    _oilLeftLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _oilLeftLabel.textAlignment = NSTextAlignmentRight;
-    _oilLeftLabel.textColor = [UIColor whiteColor];
-//    _oilLeftLabel.text = @"28 L";
-    [previewImgV addSubview:_oilLeftLabel];
-    [_oilLeftLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(21 * HeightCoefficient);
-        make.top.equalTo(74.5 * HeightCoefficient);
-        make.right.equalTo(- 15.2 * WidthCoefficient);
-    }];
-    
-    self.healthLabel = [[UILabel alloc] init];
-    _healthLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _healthLabel.textAlignment = NSTextAlignmentRight;
-    _healthLabel.textColor = [UIColor whiteColor];
-//    _healthLabel.text = @"健康";
-    [previewImgV addSubview:_healthLabel];
-    [_healthLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(25 * HeightCoefficient);
-        make.top.equalTo(128 * HeightCoefficient);
-        make.right.equalTo(- 15.2 * WidthCoefficient);
+    UIImageView *line = [[UIImageView alloc] init];
+    line.image = [UIImage imageNamed:@"bg_line"];
+    [content addSubview:line];
+    [line makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(kScreenWidth);
+        make.height.equalTo(1 * WidthCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(dataContainer.bottom);
     }];
     
     UIView *btnContainer = [[UIView alloc] init];
-    btnContainer.backgroundColor = [UIColor whiteColor];
+    btnContainer.backgroundColor = [UIColor clearColor];
     [content addSubview:btnContainer];
     [btnContainer makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(content);
-        make.height.equalTo(270 * WidthCoefficient);
-        make.top.equalTo(previewImgV.bottom).offset(12 * HeightCoefficient);
+        make.width.equalTo(kScreenWidth);
+        make.height.equalTo(243 * WidthCoefficient);
+        make.top.equalTo(line.bottom);
         make.centerX.equalTo(content);
     }];
     
@@ -313,7 +319,7 @@
         TopImgButton *btn = [TopImgButton buttonWithType:UIButtonTypeCustom];
         btn.tag = 100 + i;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitleColor:[UIColor colorWithHexString:@"#040000"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#777777"] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont fontWithName:FontName size:13];
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [btn setTitle:titles[i] forState:UIControlStateNormal];
@@ -322,28 +328,28 @@
         [btns addObject:btn];
     }
     
-    [btns mas_distributeSudokuViewsWithFixedItemWidth:52.5 * WidthCoefficient fixedItemHeight:62 * WidthCoefficient warpCount:4 topSpacing:14.5 * WidthCoefficient bottomSpacing:26.5 * WidthCoefficient leadSpacing:29 * WidthCoefficient tailSpacing:29 * WidthCoefficient];
-    
-    UIView *space = [[UIView alloc] init];
-    space.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
-    [content addSubview:space];
-    [space makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(scroll);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(btnContainer.bottom);
-    }];
+    [btns mas_distributeSudokuViewsWithFixedItemWidth:61 * WidthCoefficient fixedItemHeight:61 * WidthCoefficient warpCount:4 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:16 * WidthCoefficient tailSpacing:16 * WidthCoefficient];
     
     UILabel *storeLabel = [[UILabel alloc] init];
-    storeLabel.text = NSLocalizedString(@"DS商城", nil);
-    storeLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+    storeLabel.text = NSLocalizedString(@"商城", nil);
+    storeLabel.textColor = [UIColor colorWithHexString:GeneralColorString];
     storeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     [content addSubview:storeLabel];
     [storeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(71.2 * WidthCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
-        make.top.equalTo(space.bottom).offset(15 * HeightCoefficient);
+        make.width.equalTo(70 * WidthCoefficient);
+        make.height.equalTo(22 * WidthCoefficient);
+        make.left.equalTo(24 * WidthCoefficient);
+        make.top.equalTo(btnContainer.bottom).offset(20 * WidthCoefficient);
+    }];
+    
+    UIView *redV = [[UIView alloc] init];
+    redV.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
+    [content addSubview:redV];
+    [redV makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 * WidthCoefficient);
+        make.height.equalTo(15 * WidthCoefficient);
+        make.centerY.equalTo(storeLabel);
+        make.right.equalTo(storeLabel.left).offset(-5 * WidthCoefficient);
     }];
     
     UIImageView *storeImgV = [[UIImageView alloc] init];
@@ -351,24 +357,11 @@
     storeImgV.image = [UIImage imageNamed:@"背景图"];
     [content addSubview:storeImgV];
     [storeImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(342.5 * WidthCoefficient);
-        make.height.equalTo(158 * HeightCoefficient);
+        make.width.equalTo(343 * WidthCoefficient);
+        make.height.equalTo(158 * WidthCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(storeLabel.bottom).offset(10 * HeightCoefficient);
-        make.bottom.equalTo(content.bottom).offset(-40.5 * HeightCoefficient);
-    }];
-    
-    UILabel *innerLabel = [[UILabel alloc] init];
-    innerLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-    innerLabel.numberOfLines = 0;
-    innerLabel.text = @"DS商城\n更多优惠 邀您选购";
-    innerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [storeImgV addSubview:innerLabel];
-    [innerLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(210 * WidthCoefficient);
-        make.height.equalTo(50 * HeightCoefficient);
-        make.left.equalTo(15 * WidthCoefficient);
-        make.top.equalTo(20 * HeightCoefficient);
+        make.top.equalTo(storeLabel.bottom).offset(10 * WidthCoefficient);
+        make.bottom.equalTo(content.bottom).offset(-30 * WidthCoefficient);
     }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoStore:)];

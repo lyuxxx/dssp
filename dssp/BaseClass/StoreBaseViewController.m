@@ -15,6 +15,10 @@
 
 @implementation StoreBaseViewController
 
+- (BOOL)needGradientBg {
+    return NO;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
@@ -25,7 +29,6 @@
     [self config];
     [self setNavBar];
     [self createGradientBg];
-    [self setNavBar];
 }
 
 - (void)config {

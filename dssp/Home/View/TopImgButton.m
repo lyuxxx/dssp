@@ -20,12 +20,12 @@
 
 - (CGRect)titleRectForContentRect:(CGRect)contentRect
 {
-    return CGRectMake(0, contentRect.size.height * 84 / 124, contentRect.size.width, contentRect.size.height * 40 / 124);
+    return CGRectMake(0, contentRect.size.height * 41 / 61, contentRect.size.width, contentRect.size.height * 20 / 61);
 }
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
-    return CGRectMake(contentRect.size.width * 16.5 / 105, 0, contentRect.size.width * 72 / 105, contentRect.size.height * 72 / 124);
+    return CGRectMake(contentRect.size.width * 12.5 / 61, 0, contentRect.size.width * 36 / 61, contentRect.size.height * 36 / 61);
 }
 
 @end
