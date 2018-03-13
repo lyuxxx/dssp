@@ -51,8 +51,6 @@
     self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
     // Do any additional setup after loading the view.
     [self requestData];
-    [self setupUI];
- 
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -70,10 +68,7 @@
 
 -(void)requestData
 {
-//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//    NSString *vin = [defaults1 objectForKey:@"vin"];
     NSDictionary *paras = @{
-                            
                             
                         };
     NSString *numberByVin = [NSString stringWithFormat:@"%@/%@",getSvnResponseDataByVin,kVin];
@@ -84,21 +79,21 @@
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-          _carTrack =[CarTrackModel yy_modelWithDictionary:dic[@"data"]];
+           _carTrack =[CarTrackModel yy_modelWithDictionary:dic[@"data"]];
+            [self setupUI];
            self.carTrack=_carTrack;
         
-//           [self.dataArray addObject:_carTrack];
-           
         } else {
-        [hud hideAnimated:YES];
-//        [self blankUI];
+        [self setupUI];
         self.carTrack=_carTrack;
+        [hud hideAnimated:YES];
+
         [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+    [self setupUI];
+    self.carTrack=_carTrack;
          [hud hideAnimated:YES];
-//        [self blankUI];
-        self.carTrack=_carTrack;
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         
     }];

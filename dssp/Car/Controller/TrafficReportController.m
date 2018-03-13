@@ -89,13 +89,13 @@ static NSString *const cellID = @"cell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"TrafficReportdatailController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"TrafficReportController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [Statistics staticsvisitTimesDataWithViewControllerType:@"TrafficReportdatailController"];
-    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrafficReportdatailController"];
+    [Statistics staticsvisitTimesDataWithViewControllerType:@"TrafficReportController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrafficReportController"];
 }
 
 #pragma mark 懒加载
@@ -149,10 +149,10 @@ static NSString *const cellID = @"cell";
     return _cellArray3;
 }
 
-
 -(void)requestData
 {
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
+    
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"LPAA5CKC6H2Z91989"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -176,23 +176,13 @@ static NSString *const cellID = @"cell";
                     [vehicleSystem addObject:healthAlerts.vehicleSystem];
                     [alertPriority addObject:healthAlerts.alertPriority];
                     [self.cellArray1 addObject:healthAlerts.record];
-                    
                 }
-                
             }
             else
             {
                 [self blankUI];
-                
             }
-            
-  
-//
-//           NSArray *titles = @[@"TPMS status",@"Steering system",@"Electronic system",@"engine system",@"Electronic lighting system",@"Gearbox system",@"Braking system",@"Airbag system"];
-//
-//           NSArray *imgs = @[@"胎压_icon",@"转向系统_icon",@"电器系统_icon",@"发动机_icon",@"电器系统灯光_icon",@"变速箱_icon",@"制动系统_icon",@"气囊_icon"];
-            
-            
+
             NSDictionary * dic2 = @{ @"TPMS status":@"胎压_icon",
                                      @"Steering system":@"转向系统_icon",
                                      @"Electronic system":@"电器系统_icon",
@@ -204,8 +194,6 @@ static NSString *const cellID = @"cell";
                                      };
             
             
-           
-            
             NSDictionary * dic3 = @{
                                      @"low":@"低风险",
                                      @"high":@"高风险",
@@ -213,26 +201,21 @@ static NSString *const cellID = @"cell";
                                      };
             
             for (int i = 0; i < self.titleArray.count; i++) {
-             [self.isExpland addObject:@0];
+             [self.isExpland addObject:@1];
 //             [_result setObject:imgs[i] forKey:titles[i]];
-             [_imgArray addObject:[dic2 objectForKey:vehicleSystem[i]]];
-             [_imgArray1 addObject:[dic3 objectForKey:alertPriority[i]]];
+             [_imgArray addObject:[dic2 objectForKey:vehicleSystem[i]]?[dic2 objectForKey:vehicleSystem[i]]:@""];
+             [_imgArray1 addObject:[dic3 objectForKey:alertPriority[i]]?[dic3 objectForKey:alertPriority[i]]:@""];
             }
             
             [_tableView reloadData];
             [self initTableView];
             [self setupUI];
-            
             self.trafficReporData =_trafficReporData;
  
         } else {
-            
             [self blankUI];
-            
             [hud hideAnimated:YES];
             //[MBProgressHUD showText:dic[@"msg"]];
-            
-            
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
@@ -240,7 +223,6 @@ static NSString *const cellID = @"cell";
         
     }];
 }
-
 
 -(void)setupUI
 {
@@ -334,12 +316,11 @@ static NSString *const cellID = @"cell";
     
     [_DataArray addObject:_trafficReporData.totalMileage?totalMileage:@"0km"];
     [_DataArray addObject:_trafficReporData.mileageBeforeMaintenance?mileageBeforeMaintenance:@"0km"];
-    [_DataArray addObject:_trafficReporData.levelFuel];
+    [_DataArray addObject:_trafficReporData.levelFuel?_trafficReporData.levelFuel:@"0"];
     
     
      NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:titles.count];
-    
-    for (int i=0; i<titles.count; i++) {
+    for (int i = 0; i < titles.count; i++) {
         
         UIView *views = [[UIView alloc] init];
 //        views.backgroundColor = [UIColor redColor];

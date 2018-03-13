@@ -29,6 +29,10 @@
 
 @implementation InformationCenterViewController
 
+- (BOOL)needGradientBg {
+    return NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -112,7 +116,7 @@
 }
 
 - (void)sendMessage:(InfoMessage *)message {
-    
+
     if (self.dataSource > 0) {
         NSDate *lastDate = self.dataSource.lastObject.time;
         message.time = [NSDate date];
@@ -173,7 +177,7 @@
                                      @"10002":@"UpkeepViewController",
                                      @"10003":@"CarflowViewController",
                                      @"10004":@"CarTrackViewController",
-                                     @"10005":@"TrafficReportViewController",
+                                     @"10005":@"TrafficReportController",
                                      @"10006":@"DrivingWeekReportViewController",
                                      @"10007":@"LllegalViewController",
                                      @"10013":@"RealVinViewcontroller",
@@ -181,7 +185,7 @@
                                      @"10008":@"TrackListViewController",
                                      @"10014":@"StorePageController",
                                      @"10015":@"OrderPageController",
-                                     @"10011":@"智慧停车"
+                                     @"10011":@"ParkingViewController"
                                  
                                      };
             
@@ -194,7 +198,6 @@
                                         };
                 [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
 //                        [MBProgressHUD showText:@"提交反馈成功"];
@@ -367,19 +370,20 @@
                         }
                     }
                 }
-                
-                
             }
             else
             {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    InfoMessage *messageMe = [[InfoMessage alloc] init];
+                    messageMe.text = sender.titleLabel.text;
+                    messageMe.type = InfoMessageTypeMe;
+                    [self sendMessage:messageMe];
+                    
+                });
                 
-                InfoMessage *messageMe = [[InfoMessage alloc] init];
-                messageMe.text = sender.titleLabel.text;
-                messageMe.type = InfoMessageTypeMe;
-                [self sendMessage:messageMe];
                 NSString *sourceData = nil;
                 if ([self isBlankString:str3] ) {
-                   
                     sourceData = @"0";
                 }
                 else
@@ -417,6 +421,7 @@
     if (message.type == InfoMessageTypeMe) {
         InfoMessageUserCell *cell = [InfoMessageUserCell cellWithTableView:tableView];
           cell.backgroundColor=[UIColor clearColor];
+        
         cell.message = message;
         return cell;
     }
@@ -445,9 +450,17 @@
                           [formatter setDateFormat:@"MM-dd HH:mm:ss"];
                           //现在时间,你可以输出来看下是什么格式
                           NSDate *datenow = [NSDate date];
-                          message.time = datenow;
-                          message.type = InfoMessageTypeOther;
-                          [self sendMessage:message];
+                          
+                         
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              
+                              message.time = datenow;
+                              message.type = InfoMessageTypeOther;
+                              [self sendMessage:message];
+                              
+                          });
+                          
+                        
 
                       } else {
 

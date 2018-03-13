@@ -45,7 +45,7 @@
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
-    [self postCustByMobile];
+//    [self postCustByMobile];
 }
 
 
@@ -141,7 +141,7 @@
 
 -(void)requestData
 {
-    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,@"1"];
+    NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,kVin];
 //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -372,7 +372,7 @@
 {
     NSString *totalMileage = [[NSString stringWithFormat:@"%@",trafficReporData.totalMileage] stringByAppendingString:@"km"];
     
-    NSString *levelOil = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
+//    NSString *levelOil = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
     
     if([trafficReporData.alertPriority isEqualToString:@"high"]) {
         
@@ -384,11 +384,37 @@
     }
     else
     {
-        _healthLabel.text = @"健康";
+        _healthLabel.text = @"未知";
         
     }
+    
     _mileageLabel.text = trafficReporData.totalMileage?totalMileage:@"0km";
-    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
+//    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
+    
+    if(trafficReporData.levelFuel)
+    {
+    
+    NSString *stringInt = trafficReporData.levelFuel;
+    int ivalue = [stringInt intValue];
+    NSString *levelFuel = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
+    if (ivalue<10 || ivalue==10) {
+        
+        _oilLeftLabel.text=NSLocalizedString(levelFuel, nil);
+        _oilLeftLabel.textColor = [UIColor redColor];
+    }
+    else
+    {
+        _oilLeftLabel.text=NSLocalizedString(levelFuel, nil);
+        _oilLeftLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        
+    }
+    }
+    else
+    {
+        _oilLeftLabel.text= @"0%";
+        _oilLeftLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        
+    }
     
 }
 

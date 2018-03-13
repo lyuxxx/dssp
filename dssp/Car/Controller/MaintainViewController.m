@@ -26,7 +26,7 @@
     _v.scrollView.showsVerticalScrollIndicator = NO;
     _v.scrollView.showsVerticalScrollIndicator = NO;
     
-    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];//创建URL
+    NSURL *url = [NSURL URLWithString:@"http://www.ds.com.cn/web/cn/service/reservation"];//创建URL
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url]; // 定义请求地址
     [self.view addSubview:_v];

@@ -24,49 +24,49 @@
 
 @implementation LllegadetailController
 
-- (BOOL)needGradientImg {
-    return YES;
+- (BOOL)needGradientBg {
+    return NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self setupUI];
 }
 
 - (void)setupUI {
     
-    self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
+    self.navigationItem.title = NSLocalizedString(@"违章详细", nil);
     
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.5;
-    whiteV.backgroundColor = [UIColor whiteColor];
+//    whiteV.layer.cornerRadius = 4;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.5;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 *WidthCoefficient);
-        make.height.equalTo(405 * HeightCoefficient);
+        make.height.equalTo(427.5 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20.5 * HeightCoefficient);
         make.bottom.equalTo(self.view.bottom).offset(-77 * HeightCoefficient - kBottomHeight);
         
     }];
     
-    UILabel *query = [[UILabel alloc] init];
-    query.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    query.textAlignment = NSTextAlignmentCenter;
-    query.text = NSLocalizedString(@"详细记录", nil);
-    [whiteV addSubview:query];
-    [query makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(whiteV);
-        make.width.equalTo(170 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.top.equalTo(20 * HeightCoefficient);
-    }];
+//    UILabel *query = [[UILabel alloc] init];
+//    query.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+//    query.textAlignment = NSTextAlignmentCenter;
+//    query.text = NSLocalizedString(@"详细记录", nil);
+//    [whiteV addSubview:query];
+//    [query makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(whiteV);
+//        make.width.equalTo(170 * WidthCoefficient);
+//        make.height.equalTo(22.5 * HeightCoefficient);
+//        make.top.equalTo(20 * HeightCoefficient);
+//    }];
     
     NSArray<NSString *> *titles = @[
                                     
@@ -90,7 +90,7 @@
         }
         [whiteV addSubview:scroll];
         [scroll makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(66 * HeightCoefficient, 0, 50 * HeightCoefficient, 0));
+            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(10 * HeightCoefficient, 0, 10 * HeightCoefficient, 0));
         }];
         
         UIView *contentView = [[UIView alloc] init];
@@ -107,7 +107,7 @@
             UILabel *label = [[UILabel alloc] init];
             label.text = titles[i];
 //              label.backgroundColor = [UIColor redColor];
-            label.textColor = [UIColor colorWithHexString:@"#040000"];
+            label.textColor = [UIColor colorWithHexString:@"#A18E79"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
             
@@ -117,7 +117,7 @@
             [contentView addSubview:whiteV];
             
             UIView *whiteView = [[UIView alloc] init];
-            whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+            whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
             [contentView addSubview:whiteView];
             
             
@@ -297,7 +297,7 @@
                 [_rightLabel setNumberOfLines:0];
 //            _rightLabel.backgroundColor = [UIColor redColor];
                 _rightLabel.textAlignment = NSTextAlignmentLeft;
-                _rightLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+                _rightLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
                 _rightLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
 //                _rightLabel.text = NSLocalizedString(@"未处理", nil);
                 [whiteV addSubview:_rightLabel];
@@ -361,7 +361,7 @@
                     
                 }
                 else if (i == 6) {
-                    
+                  
                     if (contentH1>30) {
                         [_rightLabel updateConstraints:^(MASConstraintMaker *make) {
                             make.top.equalTo(0);
@@ -385,7 +385,7 @@
                     
                 }
                 else if (i == 7) {
-                    
+                      whiteView.hidden = YES;
                     _penaltyLabel =_rightLabel;
                     _rightLabel.text = _lllegaModel.point;
                     

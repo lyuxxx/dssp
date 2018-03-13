@@ -29,7 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-      self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+//    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
      self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
     
    
@@ -115,7 +116,7 @@
 //    _tableView.bounces=NO;
     //滚动条隐藏
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor whiteColor];
+    _tableView.backgroundColor=[UIColor clearColor];
     //    隐藏线
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];

@@ -6,9 +6,9 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "LllegaModel.h"
-@interface LllegadetailController : BaseViewController
+@interface LllegadetailController : StoreBaseViewController
 @property (nonatomic,strong) LllegaModel *lllegaModel;
 @end
 

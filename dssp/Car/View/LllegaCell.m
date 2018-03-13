@@ -35,12 +35,12 @@
     
     self.white = ({
         UIView *whiteV = [[UIView alloc] init];
-        whiteV.backgroundColor = [UIColor whiteColor];
-        whiteV.layer.cornerRadius = 4;
-        whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-        whiteV.layer.shadowOffset = CGSizeMake(0, 5);
-        whiteV.layer.shadowRadius = 7;
-        whiteV.layer.shadowOpacity = 0.5;
+        whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+//        whiteV.layer.cornerRadius = 4;
+//        whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//        whiteV.layer.shadowOffset = CGSizeMake(0, 5);
+//        whiteV.layer.shadowRadius = 7;
+//        whiteV.layer.shadowOpacity = 0.5;
         [self.contentView addSubview:whiteV];
         [whiteV makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(UIEdgeInsetsMake(10 * WidthCoefficient, 8 * WidthCoefficient, 0 * WidthCoefficient, 8 * WidthCoefficient));
@@ -51,14 +51,10 @@
         whiteV;
     });
     
-//    @property (nonnull,strong)UILabel *topLabel;
-//    @property (nonnull,strong)UILabel *centerLabel;
-//    @property (nonnull,strong)UILabel *bottomLabel;
-//    @property (nonnull,strong)UILabel *rightLabel;
     
     self.topLabel = [[UILabel alloc] init];
     _topLabel.textAlignment = NSTextAlignmentLeft;
-    _topLabel.textColor = [UIColor colorWithHexString:@"##333333"];
+    _topLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
     _topLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
 //    _topLabel.text = NSLocalizedString(@"创红的", nil);
     [_white addSubview:_topLabel];
