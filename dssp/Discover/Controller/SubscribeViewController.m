@@ -63,7 +63,7 @@
     
     self.view.clipsToBounds = YES;
     
-     CGFloat height = kScreenHeight -(70 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight-kNaviHeight;
+     CGFloat height = kScreenHeight -(70 * HeightCoefficient)-kTabbarHeight-kNaviHeight;
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = CGRectMake(0, 0, kScreenWidth, height);
     gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
@@ -72,8 +72,7 @@
     gradient.endPoint = CGPointMake(0.5, 1);
     [self.view.layer addSublayer:gradient];
     [self.view.layer insertSublayer:gradient atIndex:0];
-//    self.view.backgroundColor=[UIColor blueColor];
-    
+
 
      [self doAskTitleArray];
 
@@ -162,6 +161,7 @@
 //    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
 //    return controller;
 
+    self.scrollView.backgroundColor = [UIColor clearColor];
     
     WMViewController *wmView = [[WMViewController alloc] init];
     NSString *ids =self.idData[index];
@@ -185,15 +185,15 @@
 }
 
 
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    return CGRectMake(0, 44 * WidthCoefficient, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight -1 - 44 * WidthCoefficient);
-}
-
-
 //- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-//    CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
-//    return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
+//    return CGRectMake(0, 44 * WidthCoefficient, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight -1 - 44 * WidthCoefficient);
 //}
+
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
+    CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
+    return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

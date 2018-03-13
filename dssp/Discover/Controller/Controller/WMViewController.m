@@ -29,11 +29,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+   
     self.view.backgroundColor = [UIColor clearColor];
     [self initTableView];
-     [self requestData];
-//    [self.tableView.mj_header beginRefreshing];
+    [self requestData];
+
 }
 
 //-(void)viewWillAppear:(BOOL)animated{
@@ -157,9 +157,8 @@
 
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
-         make.edges.equalTo(self.view);
-       
-//        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0 *HeightCoefficient, 0, kNaviHeight, 0));
+//         make.edges.equalTo(self.view);
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(10 *HeightCoefficient, 0, kNaviHeight+kTabbarHeight, 0));
        
     }];
     

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
-@interface MineViewController : BaseViewController
+#import "StoreBaseViewController.h"
+@interface MineViewController : StoreBaseViewController
 @property (nonatomic, copy) NSString *locationStr;
 @end

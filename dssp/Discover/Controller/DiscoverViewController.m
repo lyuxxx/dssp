@@ -259,9 +259,13 @@
 
 -(void)setupUI
 {
-    self.navigationItem.title = NSLocalizedString(@"发现", nil);
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(16 * WidthCoefficient, kNaviHeight - kStatusBarHeight - 37 * WidthCoefficient, 79.5 * WidthCoefficient, 30 * WidthCoefficient)];
+    title.textAlignment = NSTextAlignmentLeft;
+    title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:24];
+    title.textColor = [UIColor whiteColor];
+    title.text = NSLocalizedString(@"发现", nil);
+    [self.navigationController.navigationBar addSubview:title];
+
     self.robotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_robotBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_robotBtn setImage:[UIImage imageNamed:@"机器人"] forState:UIControlStateNormal];
@@ -273,10 +277,11 @@
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"发现背景"];
+//    bgImgV.backgroundColor =[UIColor redColor];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(kNaviHeight);
-        make.height.equalTo(70*HeightCoefficient+kStatusBarHeight);
+        make.top.equalTo(0);
+        make.height.equalTo(70*HeightCoefficient);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
@@ -355,8 +360,8 @@
         if (i == 0) {
             [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(0);
-                make.top.equalTo(kNaviHeight);
-                make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
+                make.top.equalTo(0);
+                make.height.equalTo(70*HeightCoefficient);
                 make.width.equalTo(374.5*WidthCoefficient/2);
             }];
             
@@ -380,8 +385,8 @@
             
             [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(lastBtn.right).offset(1*WidthCoefficient);
-            make.top.equalTo(kNaviHeight);
-            make.height.equalTo(74 * HeightCoefficient+kStatusBarHeight);
+            make.top.equalTo(0);
+            make.height.equalTo(70 * HeightCoefficient);
             make.width.equalTo(374.5 * WidthCoefficient/2);
             }];
             
@@ -409,15 +414,14 @@
 
     
     
-    CGFloat height = kScreenHeight -(70 * HeightCoefficient)-kTabbarHeight-kNaviHeight;
+    CGFloat height = kScreenHeight -(70 * HeightCoefficient);
     self.noticeVC = [[NoticeViewController alloc] init];
-    [self.noticeVC.view setFrame:CGRectMake(0, 70*HeightCoefficient+kStatusBarHeight
-                                            +kNaviHeight, kScreenWidth, height)];
+    [self.noticeVC.view setFrame:CGRectMake(0, 70*HeightCoefficient, kScreenWidth, height)];
     [self addChildViewController:self.noticeVC];
 
 
     _subscribeVC = [[SubscribeViewController alloc] init];
-    [self.subscribeVC.view setFrame:CGRectMake(0, 70*HeightCoefficient+kStatusBarHeight+kNaviHeight, kScreenWidth, height)];
+    [self.subscribeVC.view setFrame:CGRectMake(0, 70*HeightCoefficient, kScreenWidth, height)];
 
     // 默认,第一个视图
     [self.view addSubview:self.noticeVC.view];

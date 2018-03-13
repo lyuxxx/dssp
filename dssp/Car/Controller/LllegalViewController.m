@@ -23,14 +23,14 @@
 @implementation LllegalViewController
 
 - (BOOL)needGradientBg {
-    return NO;
+    return YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
-     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+
+//     self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
      self.navigationItem.title = NSLocalizedString(@"违章查询", nil);
     
    
