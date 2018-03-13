@@ -27,8 +27,12 @@
 
 -(void)createUI
 {
+    
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
+    
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.backgroundColor = [UIColor whiteColor];
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.contentView addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(0);
@@ -39,7 +43,7 @@
     
     
     UIView *whiteView = [[UIView alloc] init];
-    whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
     [self.contentView addSubview:whiteView];
     [whiteView makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(1 * HeightCoefficient);
@@ -69,7 +73,7 @@
 //    _remindLabel.backgroundColor =[UIColor redColor];
     _remindLabel.textAlignment = NSTextAlignmentLeft;
     _remindLabel.numberOfLines = 0;
-    _remindLabel.textColor = [UIColor blackColor];
+    _remindLabel.textColor = [UIColor whiteColor];
     _remindLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
 //    _remindLabel.text = NSLocalizedString(@"22", nil);
     [self.contentView addSubview:_remindLabel];

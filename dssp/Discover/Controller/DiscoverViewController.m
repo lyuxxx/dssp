@@ -29,9 +29,14 @@
 @property (nonatomic ,strong) UILabel *bottomLabel;
 @property (nonatomic ,strong) UILabel *bottomLabels;
 @property (nonatomic, assign) BOOL isViewVisable;
+@property (nonatomic ,strong) UIImageView *imgV;
+@property (nonatomic ,strong) UIImageView *imgV1;
 @end
 
 @implementation DiscoverViewController
+- (BOOL)needGradientBg {
+    return NO;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,7 +74,7 @@
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
     self.isViewVisable = YES;
     [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-    [self postCustByMobile];
+//    [self postCustByMobile];
     if (self.currentVC == self.noticeVC) {
         [self requestData];
     }
@@ -86,9 +91,6 @@
 
 - (void)postCustByMobile
 {
-    //    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    //    NSString *vin = [defaults1 objectForKey:@"vin"];
-    //
     //    非车
     if ([kVin isEqualToString:@""]) {
         
@@ -146,11 +148,6 @@
         else if ([CuvhlTStatus isEqualToString:@"1"])
         {
             //T车辆
-            
-            
-            
-            
-            
             
         }
         
@@ -273,34 +270,18 @@
         make.width.height.equalTo(24 * WidthCoefficient);
     }];
     
-    UIImageView *topBg = [[UIImageView alloc] init];
-    topBg.image = [UIImage imageNamed:@"tophead"];
-    [self.view addSubview:topBg];
-    [topBg makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.height.equalTo(kNaviHeight);
-    }];
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"belowhead"];
+    bgImgV.image = [UIImage imageNamed:@"发现背景"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topBg.bottom).offset(0);
-        make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
+        make.top.equalTo(kNaviHeight);
+        make.height.equalTo(70*HeightCoefficient+kStatusBarHeight);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
     
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
-    [self.view addSubview:line];
-    [line makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight+kNaviHeight);
-        make.height.equalTo(36 * HeightCoefficient);
-         make.width.equalTo(1 * HeightCoefficient);
-    }];
-    
+
     NSArray *placeHolders = @[
                               NSLocalizedString(@"通知", nil),
                               NSLocalizedString(@"订阅", nil),
@@ -308,10 +289,12 @@
                               ];
 
     NSArray *imgArray = @[
-                              NSLocalizedString(@"通知_icon", nil),
+                            NSLocalizedString(@"通知_icon", nil),
                               NSLocalizedString(@"订阅_icon", nil),
                               
                               ];
+    
+    
     
     UIButton *lastBtn = nil;
     UIImageView *lastimg = nil;
@@ -330,14 +313,6 @@
         [self.view addSubview:_noticeBtn];
         
         
-        UIImageView *imgV = [[UIImageView alloc] init];
-        imgV.layer.cornerRadius = 36 * HeightCoefficient/2;
-        imgV.layer.masksToBounds =YES;
-        imgV.backgroundColor=[UIColor redColor];
-        imgV.image = [UIImage imageNamed:imgArray[i]];
-        [_noticeBtn addSubview:imgV];
-       
-        
         UILabel *label = [[UILabel alloc] init];
         label.text = placeHolders[i];
         label.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
@@ -346,52 +321,52 @@
         
         
         if (i==0) {
-            self.bottomLabel = [[UILabel alloc] init];
-            _bottomLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-            _bottomLabel.font = [UIFont fontWithName:FontName size:11];
-            [_noticeBtn addSubview:_bottomLabel];
-            [_bottomLabel makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(100 * WidthCoefficient);
-                make.height.equalTo(15 * WidthCoefficient);
-                make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
-                make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
+            
+            self.imgV = [[UIImageView alloc] init];
+            _imgV.image = [UIImage imageNamed:@"通知选中_icon"];
+            [_noticeBtn addSubview:_imgV];
+            [_imgV makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(36 * HeightCoefficient);
+                make.height.equalTo(36 * HeightCoefficient);
+                make.left.equalTo(32 * WidthCoefficient);
+                make.centerY.equalTo(0);
             }];
+            
         }
-        if (i==1) {
-            self.bottomLabels = [[UILabel alloc] init];
-            _bottomLabels.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-             _bottomLabels.text = @"无订阅消息";
-            _bottomLabels.font = [UIFont fontWithName:FontName size:11];
-            [_noticeBtn addSubview:_bottomLabels];
-            [_bottomLabels makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(100 * WidthCoefficient);
-                make.height.equalTo(15 * WidthCoefficient);
-                make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
-                make.top.equalTo(label.bottom).offset(0.5*HeightCoefficient);
+        else
+        {
+            
+            self.imgV1 = [[UIImageView alloc] init];
+            _imgV1.image = [UIImage imageNamed:imgArray[i]];
+            [_noticeBtn addSubview:_imgV1];
+            [_imgV1 makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(36 * HeightCoefficient);
+                make.height.equalTo(36 * HeightCoefficient);
+           make.left.equalTo(32 * WidthCoefficient);
+                make.centerY.equalTo(0);
             }];
+            
+            
         }
+        
+        
         
       
         if (i == 0) {
             [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(0);
                 make.top.equalTo(kNaviHeight);
-            make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
+                make.height.equalTo(74*HeightCoefficient+kStatusBarHeight);
                 make.width.equalTo(374.5*WidthCoefficient/2);
             }];
             
-            [imgV makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(36 * HeightCoefficient);
-                make.height.equalTo(36 * HeightCoefficient);
-                make.left.equalTo(32 * WidthCoefficient);
-                make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
-            }];
+           
             
             [label makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(65 * WidthCoefficient);
                 make.height.equalTo(22.5 * WidthCoefficient);
-            make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
-                make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+                make.left.equalTo(_imgV.right).offset(10*WidthCoefficient);
+                make.centerY.equalTo(0);
             }];
             
 //            [bottomLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -410,19 +385,12 @@
             make.width.equalTo(374.5 * WidthCoefficient/2);
             }];
             
-            [imgV makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(36 * HeightCoefficient);
-                make.height.equalTo(36 * HeightCoefficient);
-            make.left.equalTo(lastimg.right).offset(152.5*WidthCoefficient);
-                make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
-            }];
-            
-            
+          
             [label makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(65 * WidthCoefficient);
                 make.height.equalTo(22.5 * WidthCoefficient);
-            make.left.equalTo(imgV.right).offset(10*WidthCoefficient);
-                make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.left.equalTo(_imgV1.right).offset(10*WidthCoefficient);
+                make.centerY.equalTo(0);
             }];
             
             
@@ -434,31 +402,22 @@
 //            }];
         }
         lastBtn = _noticeBtn;
-        lastimg =imgV;
+        lastimg =_imgV;
         lastLabel = label;
 //        lastLabels = bottomLabel;
       }
 
-    self.line1 = [[UIView alloc] init];
-    _line1.backgroundColor = [UIColor colorWithHexString:@"#C4B7A6"];
-    [self.view addSubview:_line1];
-    [_line1 makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(0);
-        make.bottom.equalTo(_noticeBtn.bottom).offset(0);
-        make.height.equalTo(3 * HeightCoefficient);
-        make.width.equalTo(375 * WidthCoefficient / 2 );
-    }];
     
     
-    CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight;
+    CGFloat height = kScreenHeight -(70 * HeightCoefficient)-kTabbarHeight-kNaviHeight;
     self.noticeVC = [[NoticeViewController alloc] init];
-    [self.noticeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight
+    [self.noticeVC.view setFrame:CGRectMake(0, 70*HeightCoefficient+kStatusBarHeight
                                             +kNaviHeight, kScreenWidth, height)];
     [self addChildViewController:self.noticeVC];
 
 
     _subscribeVC = [[SubscribeViewController alloc] init];
-    [self.subscribeVC.view setFrame:CGRectMake(0, 74*HeightCoefficient+kStatusBarHeight+kNaviHeight, kScreenWidth, height)];
+    [self.subscribeVC.view setFrame:CGRectMake(0, 70*HeightCoefficient+kStatusBarHeight+kNaviHeight, kScreenWidth, height)];
 
     // 默认,第一个视图
     [self.view addSubview:self.noticeVC.view];
@@ -496,13 +455,15 @@
 
 -(void)BtnClick:(UIButton *)sender
 {
-    
 
     if ((self.currentVC == self.noticeVC && sender.tag == 100)||(self.currentVC == self.subscribeVC && sender.tag == 101)) {
         return;
     }else{
         if(sender.tag==100)
         {
+            
+            _imgV.image = [UIImage imageNamed:@"通知选中_icon"];
+            _imgV1.image = [UIImage imageNamed:@"订阅_icon"];
             [self replaceController:self.currentVC newController:self.noticeVC];
             [_line1 updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(0);
@@ -511,6 +472,8 @@
         else if(sender.tag==101)
         {
 
+             _imgV1.image = [UIImage imageNamed:@"订阅选中_icon"];
+             _imgV.image = [UIImage imageNamed:@"通知_icon"];
             [self replaceController:self.currentVC newController:self.subscribeVC];
             [_line1 updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(375 *WidthCoefficient/2);

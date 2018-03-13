@@ -194,7 +194,7 @@
     }];
     
 //  _passWordField.text = @"abcd1234";
-//  _passWordField.text = @"123456";
+//    _passWordField.text = @"123456";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;

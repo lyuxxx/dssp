@@ -47,7 +47,7 @@
     
     self.white = ({
         UIView *whiteV = [[UIView alloc] init];
-        whiteV.backgroundColor = [UIColor whiteColor];
+        whiteV.backgroundColor = [UIColor redColor];
         whiteV.layer.cornerRadius = 4;
         whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
         whiteV.layer.shadowOffset = CGSizeMake(0, 5);

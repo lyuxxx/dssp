@@ -50,9 +50,7 @@
 //    self.tableView.backgroundColor = [UIColor redColor];
     self.tableView.backgroundColor= [UIColor clearColor];
     
-    
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"背景"]];
-    
     self.tableView.backgroundView = imageView;
     
     // cellForRowAtIndexPath
@@ -137,7 +135,7 @@
         
         if (self.dataSource.count != 0)
         {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         }
 
     });

@@ -350,7 +350,6 @@
         
     }
     
-    
 }
 
 - (void)setLocationStr:(NSString *)locationStr {

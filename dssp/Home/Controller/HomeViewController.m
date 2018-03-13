@@ -359,32 +359,6 @@
                 };
                 
                 
-                
-//                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-//                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-//                //            InputalertView.delegate = self;
-//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-//                [keywindow addSubview: popupView];
-//
-//                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-//                    if (btn.tag == 100) {//左边按钮
-//                        //右边按钮
-//                        //响应事件
-//                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-//                        vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
-//                    }
-//                    if(btn.tag ==101)
-//                    {
-//                        //右边按钮
-//                        //响应事件
-//                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-//                        vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
-//
-//                    }
-//
-//                };
             }
             else
             {

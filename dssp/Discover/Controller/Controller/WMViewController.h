@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface WMViewController : UIViewController
+#import "BaseViewController.h"
+@interface WMViewController : BaseViewController
 @property (nonatomic, strong) NSDictionary *model;
 @property (nonatomic, copy) NSString *indexs;
 @property (nonatomic, assign) BOOL doNotRefresh;

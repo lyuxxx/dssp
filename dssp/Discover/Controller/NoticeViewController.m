@@ -31,14 +31,29 @@
 
 @implementation NoticeViewController
 
+//- (BOOL)needGradientBg {
+//    return YES;
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
     
+    self.view.clipsToBounds = YES;
+    
+    CGFloat height = kScreenHeight -(70 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight-kNaviHeight;
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, height);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
+    
     
     [self createTable];
-   
     [self.tableView.mj_header beginRefreshing];
   
 }
@@ -195,7 +210,8 @@
     
     NoticeModel *notice=self.dataSource[indexPath.row];
     cell.noticeModel = notice;
-    cell.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+//    cell.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+    cell.backgroundColor=[UIColor clearColor];
 //     cell.backgroundColor=[UIColor redColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.delegate = self;
@@ -306,7 +322,7 @@
         //        _tableView.allowsMultipleSelection = YES;
         //        _tableView.allowsSelectionDuringEditing = YES;
         //        _tableView.allowsMultipleSelectionDuringEditing = YES;
-        _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+        _tableView.backgroundColor=[UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
