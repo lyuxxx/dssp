@@ -596,10 +596,10 @@
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
                  [self setuploading];
             }
-            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
-            {
-            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组合的密码", nil)];
-            }
+//            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
+//            {
+//            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组合的密码", nil)];
+//            }
             else
             {
                 [self setuploading];
