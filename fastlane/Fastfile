@@ -68,7 +68,7 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
                 provisioningProfiles: {
-                    "com.capsa.dssp" => "dsspdevelop",
+                    "com.mobile.capsa" => "dsspdevelop",
                 }
             }
     })
@@ -107,7 +107,7 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
                 provisioningProfiles: {
-                    "com.capsa.dssp" => "dsspdistribution",
+                    "com.mobile.capsa" => "dsspdistribution",
                 }
             }
     })
@@ -140,7 +140,7 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
                 provisioningProfiles: {
-                    "com.capsa.dssp" => "dsspdistribution",
+                    "com.mobile.capsa" => "dsspdistribution",
                 }
             }
     })

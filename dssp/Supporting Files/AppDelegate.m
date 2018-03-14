@@ -96,7 +96,7 @@
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].keyboardDistanceFromTextField = 70 * HeightCoefficient;
     [IQKeyboardManager sharedManager].canAdjustAdditionalSafeAreaInsets = YES;
-    [AMapServices sharedServices].apiKey = @"e3aed20c93efeea15495d8bf27a87fac";
+    [AMapServices sharedServices].apiKey = AmapKey;
     [AMapServices sharedServices].enableHTTPS = YES;
     
 //    [DDLog addLogger:[DDASLLogger sharedInstance]];

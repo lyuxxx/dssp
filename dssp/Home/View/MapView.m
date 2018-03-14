@@ -15,7 +15,7 @@ static dispatch_once_t onceToken;
 
 + (MapView *)sharedMapView {
     dispatch_once(&onceToken, ^{
-        [AMapServices sharedServices].apiKey = @"e3aed20c93efeea15495d8bf27a87fac";
+        [AMapServices sharedServices].apiKey = AmapKey;
         [AMapServices sharedServices].enableHTTPS = YES;
         mapView = [[MapView alloc] init];
         mapView.showsUserLocation = YES;
