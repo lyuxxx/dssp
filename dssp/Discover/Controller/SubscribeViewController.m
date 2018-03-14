@@ -8,7 +8,6 @@
 
 #import "SubscribeViewController.h"
 #import "WMViewController.h"
-#import "WMCollectionViewController.h"
 #import <MBProgressHUD+CU.h>
 #import <CUHTTPRequest.h>
 #import "SubscribeModel.h"
@@ -59,15 +58,24 @@
 - (void)viewDidLoad {
    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"SubscribeVCneedRefresh" object:nil];
+    [super viewDidLoad];
     self.automaticallyCalculatesItemWidths = YES;
+    
+    self.view.clipsToBounds = YES;
+    
+     CGFloat height = kScreenHeight -(70 * HeightCoefficient)-kTabbarHeight-kNaviHeight;
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, height);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
 
 
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self reloadData];
-//    });
      [self doAskTitleArray];
-     [super viewDidLoad];
-   
+
 }
 
 -(void)executeNotification
@@ -82,10 +90,6 @@
 //     [self doAskTitleArray];
 }
 
-//-(void)dealloc
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
 
 -(void)doAskTitleArray
 {
@@ -125,12 +129,17 @@
 
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
+     self.menuViewStyle = WMMenuViewStyleLine;
     return self.titleData.count;
 }
 
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     
+    self.titleSizeNormal = 15;
+    self.titleSizeSelected = 15.5;
+    self.titleColorNormal = [UIColor colorWithHexString:@"#999999"];
+    self.titleColorSelected = [UIColor colorWithHexString:GeneralColorString];
 //    JCYJKTitleModel  * model = [self.titleArray  objectAtIndex:index];
 //    NSString * titleString = model.titleString;
     return self.titleData[index];
@@ -152,13 +161,13 @@
 //    WMViewController  * controller = [self.controllerArray  objectAtIndex:index];
 //    return controller;
 
+    self.scrollView.backgroundColor = [UIColor clearColor];
     
     WMViewController *wmView = [[WMViewController alloc] init];
     NSString *ids =self.idData[index];
     wmView.indexs = ids;
     
     return wmView;
-
 }
 
 
@@ -169,9 +178,16 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
    
-    CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
-    return CGRectMake(leftMargin+0, 0, self.view.frame.size.width - 2*leftMargin, 44 * HeightCoefficient);
+    self.progressHeight = 3 * WidthCoefficient;
+    self.progressViewCornerRadius = 1.5;
+    return CGRectMake(0, 0, kScreenWidth, 44 * WidthCoefficient);
+
 }
+
+
+//- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
+//    return CGRectMake(0, 44 * WidthCoefficient, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight -1 - 44 * WidthCoefficient);
+//}
 
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {

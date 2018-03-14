@@ -41,27 +41,32 @@
     
     self.backgroundColor = [UIColor clearColor];
     self.contentView.backgroundColor = [UIColor clearColor];
-    self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.frame];
-    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-    self.multipleSelectionBackgroundView = [UIView new];
+//    self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.frame];
+//    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+//    self.multipleSelectionBackgroundView = [UIView new];
     
     self.white = ({
         UIView *whiteV = [[UIView alloc] init];
-        whiteV.backgroundColor = [UIColor whiteColor];
-        whiteV.layer.cornerRadius = 4;
-        whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-        whiteV.layer.shadowOffset = CGSizeMake(0, 5);
-        whiteV.layer.shadowRadius = 7;
-        whiteV.layer.shadowOpacity = 0.5;
+        whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
         [self.contentView addSubview:whiteV];
         [whiteV makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(UIEdgeInsetsMake(10 * WidthCoefficient, 8 * WidthCoefficient, 0 * WidthCoefficient, 8 * WidthCoefficient));
+            make.edges.equalTo(UIEdgeInsetsMake(0 * WidthCoefficient, 0 * WidthCoefficient, 0 * WidthCoefficient, 0 * WidthCoefficient));
             make.height.equalTo(100 * WidthCoefficient);
            
         }];
         
         whiteV;
     });
+    
+    UIView *whiteView = [[UIView alloc] init];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+    [self.contentView addSubview:whiteView];
+    [whiteView makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(1 * HeightCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
+        make.right.equalTo(0);
+        make.bottom.equalTo(1 - 1 * HeightCoefficient);
+    }];
     
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textAlignment = NSTextAlignmentRight;
@@ -72,12 +77,10 @@
     [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(13 * HeightCoefficient);
-        make.right.equalTo(-10 * HeightCoefficient);
+        make.right.equalTo(-16 * WidthCoefficient);
         make.top.equalTo(14.5 * HeightCoefficient);
     }];
 
-    
-    
     
     self.unreadImgV = [[UIImageView alloc] init];
     _unreadImgV.image = [UIImage imageNamed:@"unread"];
@@ -88,20 +91,20 @@
         make.top.equalTo(18 * HeightCoefficient);
         make.height.equalTo(7 * WidthCoefficient);
         make.width.equalTo(7 * WidthCoefficient);
-        make.left.equalTo(10 * WidthCoefficient);
+        make.left.equalTo(6 * WidthCoefficient);
     }];
     
     
     self.remindLabel = [[UILabel alloc] init];
     _remindLabel.textAlignment = NSTextAlignmentLeft;
-    _remindLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+    _remindLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     _remindLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
 //    _remindLabel.text = NSLocalizedString(@"流量提醒", nil);
     [_white addSubview:_remindLabel];
     [_remindLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(180.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
-        make.left.equalTo(21 * HeightCoefficient);
+        make.left.equalTo(16 *WidthCoefficient );
         make.top.equalTo(10 * HeightCoefficient);
     }];
 
@@ -116,7 +119,7 @@
     [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(339 * WidthCoefficient);
         make.height.equalTo(40 * HeightCoefficient);
-        make.left.equalTo(10 * HeightCoefficient);
+        make.left.equalTo(16 * HeightCoefficient);
         make.top.equalTo(_remindLabel.bottom).offset(10*HeightCoefficient);
     }];
 }
@@ -127,20 +130,19 @@
     if ([noticeModel.readStatus isEqualToString:@"1"]) {
         _unreadImgV.hidden = YES;
         [_remindLabel updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(10 * HeightCoefficient);
+            make.left.equalTo(16 * WidthCoefficient);
         }];
     }else
     {
         _unreadImgV.hidden = NO;
         [_remindLabel updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(21 * HeightCoefficient);
+            make.left.equalTo(16 * WidthCoefficient );
            
         }];
     }
  
     _remindLabel.text = NSLocalizedString(noticeModel.title, nil);
     _timeLabel.text = [self setWithTimeString:noticeModel.lastUpdateTime];
-    
     
     _contentLabel.text =NSLocalizedString(noticeModel.noticeData, nil);
 

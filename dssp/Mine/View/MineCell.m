@@ -27,9 +27,22 @@
 -(void)createUI
 {
     
+    
+    UIView *whiteV = [[UIView alloc] init];
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [self.contentView addSubview:whiteV];
+    [whiteV makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(0);
+        make.right.equalTo(0);
+        make.height.equalTo(44 * HeightCoefficient);
+        make.top.equalTo(0 * HeightCoefficient);
+    }];
+    
+    
+    
     self.whiteView=({
         UIView *whiteView = [[UIView alloc] init];
-        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+        whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
         [self.contentView addSubview:whiteView];
         [whiteView makeConstraints:^(MASConstraintMaker *make) {
 //            make.top.equalTo(43 * HeightCoefficient);
@@ -72,7 +85,8 @@
     });
     
     self.lab=({
-    UILabel *lab=[[UILabel alloc] init];
+        UILabel *lab=[[UILabel alloc] init];
+        lab.textColor = [UIColor whiteColor];
         lab.font=[UIFont fontWithName:FontName size:16];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {

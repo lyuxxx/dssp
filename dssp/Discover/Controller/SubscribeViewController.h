@@ -9,10 +9,6 @@
 //#import "BaseViewController.h"
 #import "WMPageController.h"
 
-typedef NS_ENUM(NSUInteger, WMMenuViewPosition) {
-    WMMenuViewPositionDefault,
-    WMMenuViewPositionBottom,
-};
 @interface SubscribeViewController : WMPageController
-@property (nonatomic, assign) WMMenuViewPosition menuViewPosition;
+
 @end

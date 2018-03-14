@@ -53,22 +53,39 @@
 
 @implementation MineViewController
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.navigationItem.title = NSLocalizedString(@"", nil);
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(16 * WidthCoefficient, kNaviHeight - kStatusBarHeight - 37 * WidthCoefficient, 79.5 * WidthCoefficient, 30 * WidthCoefficient)];
+    title.textAlignment = NSTextAlignmentLeft;
+    title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:24];
+    title.textColor = [UIColor whiteColor];
+    title.text = NSLocalizedString(@"账户", nil);
+    [self.navigationController.navigationBar addSubview:title];
+
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+//    self.navigationItem.title = NSLocalizedString(@"", nil);
+//
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"身份证",@"车辆信息"],@[@"汽车信息",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
+    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"signout",@"退出登录"]]];
     
     
 //  [self RealnameUserName];
 //    [self initTableView];
 //    [self setupUI];
+//     [self setupUI];
+    [self initTableView];
+    [self setupUI];
+  
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,11 +93,9 @@
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"MineViewController"];
     [self.mgr startUpdatingLocation];
-//    if ([kVin isEqualToString:@""]) {
-        [self initTableView];
-        [self setupUI];
-        [self pullData];
-//    }
+    [self pullData];
+     [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
+    
      [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
 }
 
@@ -93,7 +108,6 @@
 
 -(void)pullData
 {
-    
     NSDictionary *paras = @{
                             
                             };
@@ -236,7 +250,8 @@
     _tableView.bounces=NO;
     //滚动条隐藏
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+    _tableView.backgroundColor =[UIColor clearColor];
+//    _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
@@ -245,17 +260,17 @@
 
 -(void)setupUI
 {
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,183.5*HeightCoefficient+kStatusBarHeight)];
-    _headerView.backgroundColor=[UIColor whiteColor];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,130*HeightCoefficient)];
+    _headerView.backgroundColor=[UIColor clearColor];
     _tableView.tableHeaderView=_headerView;
     
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
+    bgImgV.image = [UIImage imageNamed:@"账户背景"];
     [_headerView addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
-        make.height.equalTo(140*HeightCoefficient+kStatusBarHeight);
+        make.height.equalTo(120*HeightCoefficient);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
@@ -264,19 +279,20 @@
     UIView *whiteView = [UIView new];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
     [whiteView addGestureRecognizer:tapGesture];
-    whiteView.backgroundColor = [UIColor whiteColor];
-    whiteView.layer.cornerRadius = 4;
-    whiteView.layer.shadowOpacity = 0.5;// 阴影透明度
-    whiteView.layer.shadowOffset = CGSizeMake(0,7.5);
-    whiteView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteView.layer.shadowRadius = 20.5;//阴影半径，默认3
+    whiteView.backgroundColor = [UIColor clearColor];
+//    whiteView.layer.cornerRadius = 4;
+//    whiteView.layer.shadowOpacity = 0.5;// 阴影透明度
+//    whiteView.layer.shadowOffset = CGSizeMake(0,7.5);
+//    whiteView.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteView.layer.shadowRadius = 20.5;//阴影半径，默认3
     [_headerView addSubview:whiteView];
     [whiteView makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(63.5 * HeightCoefficient+kStatusBarHeight);
-        make.height.equalTo(100 * HeightCoefficient);
-        make.width.equalTo(343 * WidthCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
+        make.top.equalTo(0);
+        make.height.equalTo(120 * HeightCoefficient);
+        make.width.equalTo(375 * WidthCoefficient);
+       
     }];
+    
     
     
     self.setBtn= [UIButton buttonWithType:UIButtonTypeCustom];
@@ -287,45 +303,16 @@
         make.width.height.equalTo(24 * WidthCoefficient);
     }];
     
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
-//    NSLog(@"imageFile->>%@",imageFilePath);
-//    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
-//
-//    //头像
-//    self.photoBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-////    [_photoBtn setImage:selfPhoto?selfPhoto:[UIImage imageNamed:@"avatar"] forState:UIControlStateNormal];
-//    [_photoBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    _photoBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
-//    _photoBtn.clipsToBounds=YES;
-//    _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;
-//
-//
-//    [whiteView addSubview:_photoBtn];
-//    [_photoBtn makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(20 * HeightCoefficient);
-//        make.left.equalTo(10 * WidthCoefficient);
-//        make.width.equalTo(60 * HeightCoefficient);
-//        make.height.equalTo(60 * HeightCoefficient);
-//    }];
 
     
-    
     self.photoBtn = [[UIImageView alloc] init];
-    //    self.avatar.image = selfPhoto?selfPhoto:[UIImage imageNamed:@"用户头像"];
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
-//    [_photoBtn addGestureRecognizer:tapGesture];
     _photoBtn.userInteractionEnabled = YES;
     _photoBtn.clipsToBounds=YES;
-    _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;
-    
-    //      self.avatar.image = [UIImage imageNamed:_userModel.headPortrait];
-    
+    _photoBtn.layer.cornerRadius=4;
     [whiteView addSubview:_photoBtn];
     [_photoBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(20 * HeightCoefficient);
-        make.left.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(30 * HeightCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
         make.width.equalTo(60 * HeightCoefficient);
         make.height.equalTo(60 * HeightCoefficient);
     }];
@@ -334,16 +321,16 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *userName = [defaults objectForKey:@"userName"];
     UILabel *namelabel = [[UILabel alloc] init];
-    namelabel.font=[UIFont fontWithName:FontName size:16];
-    namelabel.textColor=[UIColor colorWithHexString:@"#333333"];
+    namelabel.font=[UIFont fontWithName:FontName size:18];
+    namelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
     namelabel.text=NSLocalizedString(userName, nil);
     namelabel.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:namelabel];
     [namelabel makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(26*HeightCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
+       make.top.equalTo(30*HeightCoefficient);
+        make.height.equalTo(24 * HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
-        make.width.equalTo(150 * WidthCoefficient);
+        make.width.equalTo(110 * WidthCoefficient);
     }];
 
     
@@ -352,20 +339,20 @@
     locationImg.image = [UIImage imageNamed:@"location_mine"];
     [whiteView addSubview:locationImg];
     [locationImg makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(namelabel.bottom).offset(11.5*HeightCoefficient);
+    make.top.equalTo(namelabel.bottom).offset(7.5*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
-        make.width.equalTo(12 * WidthCoefficient);
-         make.height.equalTo(12 * HeightCoefficient);
+        make.width.equalTo(8 * WidthCoefficient);
+         make.height.equalTo(10.5 * HeightCoefficient);
     }];
 
     self.locationLabel= [[UILabel alloc] init];
     _locationLabel.font=[UIFont fontWithName:FontName size:11];
-    _locationLabel.textColor=[UIColor colorWithHexString:@"#666666"];
+    _locationLabel.textColor=[UIColor colorWithHexString:@"#A18E79"];
     _locationLabel.text=NSLocalizedString(_locationName?_locationName:@"未获取到当前位置", nil);
     _locationLabel.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:_locationLabel];
     [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(namelabel.bottom).offset(10*HeightCoefficient);
+    make.top.equalTo(namelabel.bottom).offset(5*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(22 * WidthCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
@@ -373,25 +360,31 @@
     
     self.bindingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _bindingBtn.frame=CGRectMake(283 * WidthCoefficient, 20*HeightCoefficient, 60 * WidthCoefficient, 24 *HeightCoefficient);
-//    _bindingBtn.layer.cornerRadius = 24 * HeightCoefficient/2;
+    _bindingBtn.layer.cornerRadius = 2;
     [_bindingBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_bindingBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-    [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
+    [_bindingBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
+//    [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
     [_bindingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _bindingBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
+    _bindingBtn.titleLabel.font = [UIFont fontWithName:FontName size:12];
     [whiteView addSubview:_bindingBtn];
-//    [_bindingBtn makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(60 * WidthCoefficient);
-//        make.height.equalTo(24 * HeightCoefficient);
-//        make.right.equalTo(0 *WidthCoefficient);
-//        make.top.equalTo(20 * HeightCoefficient);
-//    }];
-   
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_bindingBtn.bounds   byRoundingCorners:UIRectCornerBottomLeft |    UIRectCornerTopLeft   cornerRadii:CGSizeMake(24 * HeightCoefficient/2, 24 * HeightCoefficient/2)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = _bindingBtn.bounds;
-    maskLayer.path = maskPath.CGPath;
-    _bindingBtn.layer.mask = maskLayer;
+    [_bindingBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(50 * WidthCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(namelabel.right).offset(9.5*WidthCoefficient);
+        make.top.equalTo(33 * HeightCoefficient);
+    }];
+    
+
+    
+    UIImageView *img = [[UIImageView alloc] init];
+    [whiteView addSubview:img];
+    img.image=[UIImage imageNamed:@"箭头_icon"];
+    [img makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(0);
+        make.height.equalTo(14.15 * HeightCoefficient);
+        make.width.equalTo(14.15 * WidthCoefficient);
+        make.right.equalTo(-16 * WidthCoefficient);
+    }];
     
 }
 
@@ -414,23 +407,7 @@
     return 20*HeightCoefficient;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *viewss=[UIView new];
-//    viewss.frame=CGRectMake(0, 0,375 , 0.0001);
-//    viewss.backgroundColor=[UIColor redColor];
-//
-//   return viewss;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHFooterInSection:(NSInteger)section
-//{
-//
-//    UIView *views=[UIView new];
-//    views.frame=CGRectMake(0, 0,375 , 20*HeightCoefficient);
-//    views.backgroundColor=[UIColor redColor];
-//    return views;
-//}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -447,7 +424,7 @@
     
     cell.img.image = [UIImage imageNamed:_dataArray[indexPath.section][indexPath.row][0]];
     cell.lab.text =_dataArray[indexPath.section][indexPath.row][1];
-    cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
+    cell.arrowImg.image=[UIImage imageNamed:@"箭头_icon"];
     if (indexPath.section==0) {
 //        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
@@ -484,6 +461,7 @@
             cell.whiteView.hidden=YES;
         }
     }
+    cell.backgroundColor =[UIColor clearColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
 

@@ -13,7 +13,7 @@
 #import "SubscribeModel.h"
 #import "SubscribedatailController.h"
 #import <MJRefresh.h>
-@interface WMViewController ()<UITableViewDataSource,UITableViewDelegate,WMPageControllerDelegate,WMPageControllerDataSource>
+@interface WMViewController ()<UITableViewDataSource,UITableViewDelegate>
 //@property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSMutableArray  *channelArray;
@@ -23,15 +23,17 @@
 
 @implementation WMViewController
 
-//static dispatch_once_t WMonceToken;
+- (BOOL)needGradientBg {
+    return NO;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#F9F8F8"];
+   
+    self.view.backgroundColor = [UIColor clearColor];
     [self initTableView];
-     [self requestData];
-//    [self.tableView.mj_header beginRefreshing];
+    [self requestData];
+
 }
 
 //-(void)viewWillAppear:(BOOL)animated{
@@ -135,11 +137,11 @@
 {
 
     _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.estimatedRowHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.estimatedSectionHeaderHeight = 0;
-    //    _tableView.tableFooterView = [UIView new];
-    //    _tableView.tableHeaderView = [UIView new];
+   
     //取消cell的线
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -151,12 +153,12 @@
     //    _tableView.bounces=NO;
     //滚动条隐藏
     //    _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor whiteColor];
+   
+
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
 //         make.edges.equalTo(self.view);
-       
-        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(10 *HeightCoefficient, 0, kNaviHeight, 0));
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(10 *HeightCoefficient, 0, kNaviHeight+kTabbarHeight, 0));
        
     }];
     

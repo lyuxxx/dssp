@@ -31,14 +31,29 @@
 
 @implementation NoticeViewController
 
+//- (BOOL)needGradientBg {
+//    return YES;
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DiscoverVCneedRefresh" object:nil];
     
+    self.view.clipsToBounds = YES;
+    
+    CGFloat height = kScreenHeight -(70 * HeightCoefficient)-kTabbarHeight-kNaviHeight;
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, height);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
+//    self.view.backgroundColor=[UIColor blueColor];
     
     [self createTable];
-   
     [self.tableView.mj_header beginRefreshing];
   
 }
@@ -90,7 +105,7 @@
     NSDictionary *paras = @{
                             
                           };
-    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,kVin];
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",findAppPushInboxTitleByVin,@"VF7CAPSA000020155"];
     [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
@@ -195,7 +210,8 @@
     
     NoticeModel *notice=self.dataSource[indexPath.row];
     cell.noticeModel = notice;
-    cell.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+    cell.backgroundColor=[UIColor colorWithHexString:@"#AC0042"];
+//    cell.backgroundColor=[UIColor clearColor];
 //     cell.backgroundColor=[UIColor redColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.delegate = self;
@@ -207,10 +223,6 @@
     
     NoticeModel *notice = self.dataSource[indexPath.row];
     RemindViewController *remindView =[[RemindViewController alloc] init];
-//    remindView.vin= notice.vin;
-//    remindView.title=notice.title;
-//    remindView.businType= notice.businType;
-//    remindView.noticeId = notice.noticeId;
     remindView.noticeModel = notice;
     remindView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:remindView animated:YES];
@@ -274,7 +286,7 @@
         swipeSettings.transition = MGSwipeTransitionClipCenter;
         //            expansionSettings.buttonIndex = 0;
         //            expansionSettings.fillOnTrigger = YES;
-        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor colorWithHexString:@"#AC0042"] insets:UIEdgeInsetsMake(0, 25 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
     } else {
         return nil;
     }
@@ -285,7 +297,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
-         CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kTabbarHeight-kNaviHeight;
+         CGFloat height = kScreenHeight -(70 * HeightCoefficient)-kTabbarHeight-kNaviHeight;
          [_tableView setFrame:CGRectMake(0, 0, kScreenWidth, height)];
         if (@available(iOS 11.0, *)) {
             if (Is_Iphone_X) {
@@ -306,7 +318,7 @@
         //        _tableView.allowsMultipleSelection = YES;
         //        _tableView.allowsSelectionDuringEditing = YES;
         //        _tableView.allowsMultipleSelectionDuringEditing = YES;
-        _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+        _tableView.backgroundColor=[UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;

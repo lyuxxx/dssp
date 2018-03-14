@@ -143,11 +143,7 @@
 		45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
 		45153F8F2041391700C41E10 /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
 		45153F922041461400C41E10 /* TrafficReportdatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F912041461400C41E10 /* TrafficReportdatailCell.m */; };
-		451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */; };
-		451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744EC1FEB99A4008CC890 /* WMSecondViewController.m */; };
 		451744F41FEB99A4008CC890 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
-		451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F71FEB9A6B008CC890 /* WMImageViewCell.m */; };
-		451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F91FEB9A6B008CC890 /* WMLoopView.m */; };
 		451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
 		453218DC201EC3650064369F /* LllegaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453218DB201EC3650064369F /* LllegaModel.m */; };
 		453718A42044052D009D0E99 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453718A32044052D009D0E99 /* UserModel.m */; };
@@ -483,16 +479,8 @@
 		45153F8E2041391700C41E10 /* TrafficReportController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportController.m; sourceTree = "<group>"; };
 		45153F902041461400C41E10 /* TrafficReportdatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportdatailCell.h; sourceTree = "<group>"; };
 		45153F912041461400C41E10 /* TrafficReportdatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportdatailCell.m; sourceTree = "<group>"; };
-		451744E91FEB99A4008CC890 /* WMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCollectionViewController.h; sourceTree = "<group>"; };
-		451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMCollectionViewController.m; sourceTree = "<group>"; };
-		451744EB1FEB99A4008CC890 /* WMSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMSecondViewController.h; sourceTree = "<group>"; };
-		451744EC1FEB99A4008CC890 /* WMSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMSecondViewController.m; sourceTree = "<group>"; };
 		451744EF1FEB99A4008CC890 /* WMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMViewController.h; sourceTree = "<group>"; };
 		451744F01FEB99A4008CC890 /* WMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMViewController.m; sourceTree = "<group>"; };
-		451744F61FEB9A6B008CC890 /* WMImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMImageViewCell.h; sourceTree = "<group>"; };
-		451744F71FEB9A6B008CC890 /* WMImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMImageViewCell.m; sourceTree = "<group>"; };
-		451744F81FEB9A6B008CC890 /* WMLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLoopView.h; sourceTree = "<group>"; };
-		451744F91FEB9A6B008CC890 /* WMLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLoopView.m; sourceTree = "<group>"; };
 		451F5F3F1FBD6D3400DFD3F5 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
 		451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
 		453218DA201EC3650064369F /* LllegaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegaModel.h; sourceTree = "<group>"; };
@@ -753,7 +741,6 @@
 		313AC7E01FAC5AC400A3662E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				451744F51FEB9A6B008CC890 /* Views */,
 				451744E81FEB99A4008CC890 /* Controller */,
 				316CCCBE1FC68C6000AFF915 /* DiscoverViewController.h */,
 				316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */,
@@ -1318,27 +1305,12 @@
 		451744E81FEB99A4008CC890 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				451744E91FEB99A4008CC890 /* WMCollectionViewController.h */,
-				451744EA1FEB99A4008CC890 /* WMCollectionViewController.m */,
-				451744EB1FEB99A4008CC890 /* WMSecondViewController.h */,
-				451744EC1FEB99A4008CC890 /* WMSecondViewController.m */,
 				451744EF1FEB99A4008CC890 /* WMViewController.h */,
 				451744F01FEB99A4008CC890 /* WMViewController.m */,
 				450644E120039A2A0099D7AC /* SubscribedatailController.h */,
 				450644E220039A2A0099D7AC /* SubscribedatailController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		451744F51FEB9A6B008CC890 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				451744F61FEB9A6B008CC890 /* WMImageViewCell.h */,
-				451744F71FEB9A6B008CC890 /* WMImageViewCell.m */,
-				451744F81FEB9A6B008CC890 /* WMLoopView.h */,
-				451744F91FEB9A6B008CC890 /* WMLoopView.m */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		454CE6D22046909C003221F3 /* AddressPickerView */ = {
@@ -1693,7 +1665,6 @@
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
-				451744FB1FEB9A6B008CC890 /* WMLoopView.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
 				31B38BC1202D8B800086EDC8 /* InvoiceIndividualViewController.m in Sources */,
 				454C744220181C0C00108F1E /* LllegalViewController.m in Sources */,
@@ -1758,7 +1729,6 @@
 				3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */,
 				31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */,
 				31D1FDCE1FF494440021D47C /* OilStation.m in Sources */,
-				451744FA1FEB9A6B008CC890 /* WMImageViewCell.m in Sources */,
 				31AC45382022F5E90044A62C /* EllipsePageControl.m in Sources */,
 				312FE1B82029883200B7AE48 /* StoreTabViewController.m in Sources */,
 				31B38BBE202D8A8F0086EDC8 /* InvoicePageController.m in Sources */,
@@ -1785,7 +1755,6 @@
 				4570EFDC1FFB939F00FA6355 /* CarUnbindingViewController.m in Sources */,
 				31E7B96B2057B78F003844E0 /* HomeCarReportCell.m in Sources */,
 				310368F52046B92800A9083E /* DrivingReportObject.m in Sources */,
-				451744F11FEB99A4008CC890 /* WMCollectionViewController.m in Sources */,
 				459679991FE13328008A0C67 /* ContractViewController.m in Sources */,
 				450AF16F1FE9F9B900E48445 /* SubscriCell.m in Sources */,
 				31B38BBB202D70EE0086EDC8 /* OrderPayViewController.m in Sources */,
@@ -1797,7 +1766,6 @@
 				45765260204E2B5E006585BA /* BlankView.m in Sources */,
 				319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */,
 				453218DC201EC3650064369F /* LllegaModel.m in Sources */,
-				451744F21FEB99A4008CC890 /* WMSecondViewController.m in Sources */,
 				451F5F411FBD6D3400DFD3F5 /* CarInfoModel.m in Sources */,
 				4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */,
 				318B685E202AEBF500962F2A /* OrderViewController.m in Sources */,

@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *cellArray2;
 @property (nonatomic, strong) NSMutableArray *cellArray3;
 @property (nonatomic, strong) NSMutableArray *imgArray;
+@property (nonatomic, strong) NSMutableArray *imgArrays;
 @property (nonatomic, strong) NSMutableArray *imgArray1;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) NSMutableArray *isExpland;
@@ -53,7 +54,7 @@ static NSString *const cellID = @"cell";
 
 
 - (BOOL)needGradientBg {
-    return NO;
+    return YES;
 }
 
 - (NSMutableArray<RecordItems *> *)dataSource {

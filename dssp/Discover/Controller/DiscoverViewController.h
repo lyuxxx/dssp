@@ -6,9 +6,9 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
-@interface DiscoverViewController : BaseViewController
+@interface DiscoverViewController : StoreBaseViewController
 @property BOOL refresh;
 @property (nonatomic,copy) NSString *unreadstr;
 @end

@@ -21,7 +21,7 @@
 @implementation UpkeepViewController
 
 - (BOOL)needGradientBg {
-    return NO;
+    return YES;
 }
 
 - (void)viewDidLoad {
@@ -149,7 +149,7 @@
     UILabel *toplabel = [[UILabel alloc] init];
     toplabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel.textColor=[UIColor whiteColor];
-    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"0天", nil);
+    toplabel.text=NSLocalizedString(self.upkeep.maintenanceDay?maintenanceDay:@"未知", nil);
     toplabel.textAlignment = NSTextAlignmentCenter;
     [backView addSubview:toplabel];
     [toplabel makeConstraints:^(MASConstraintMaker *make) {
@@ -178,7 +178,7 @@
     UILabel *toplabel1 = [[UILabel alloc] init];
     toplabel1.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:24];
     toplabel1.textColor=[UIColor whiteColor];
-    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"0km", nil);
+    toplabel1.text=NSLocalizedString(self.upkeep.maintenanceMileage?maintenanceMileage:@"未知", nil);
     toplabel1.textAlignment = NSTextAlignmentCenter;
     [backView addSubview:toplabel1];
     [toplabel1 makeConstraints:^(MASConstraintMaker *make) {
