@@ -7,7 +7,7 @@
 //
 
 //#import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-@interface NewPasswordViewController : BaseViewController
+#import "StoreBaseViewController.h"
+@interface NewPasswordViewController : StoreBaseViewController
 @property (nonatomic,copy) NSString *phone;
 @end

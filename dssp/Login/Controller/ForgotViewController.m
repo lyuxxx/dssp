@@ -21,14 +21,24 @@
 
 @implementation ForgotViewController
 
-- (BOOL)needGradientImg {
-    return YES;
+- (BOOL)needGradientBg {
+    return NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+   
+    self.view.clipsToBounds = YES;
     
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backgroud"] forBarMetrics:UIBarMetricsDefault];
     [self setupUI];
@@ -42,28 +52,31 @@
 
 - (void)setupUI {
     
-    self.navigationItem.title = NSLocalizedString(@"手机验证", nil);
+    self.navigationItem.title = NSLocalizedString(@"找回密码", nil);
   
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud"];
+    bgImgV.image = [UIImage imageNamed:@"找回密码背景"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
-    }];
-    
-    UIImageView *logoView = [[UIImageView alloc] init];
-    logoView.image = [UIImage imageNamed:@"resetpassword_icon"];
-    logoView.layer.cornerRadius = 64 / 2;
-    logoView.layer.masksToBounds = YES;
-    [self.view addSubview:logoView];
-    [logoView makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.width.equalTo(64 * WidthCoefficient);
-        make.height.equalTo(64 * WidthCoefficient);
-        make.top.equalTo(65.5 * HeightCoefficient + kStatusBarHeight);
+ 
     }];
     
 
+
+    UILabel *topLabel = [[UILabel alloc] init];
+    topLabel.text = NSLocalizedString(@"手机号找回密码", nil);
+    topLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:24];
+    topLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:topLabel];
+    [topLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(42.5 * WidthCoefficient);
+        make.top.equalTo(38.5 * HeightCoefficient);
+        make.width.equalTo(170 * WidthCoefficient);
+        make.height.equalTo(30 * HeightCoefficient);
+    }];
+    
+    
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
     _phoneField.textColor = [UIColor whiteColor];
@@ -72,7 +85,7 @@
     _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机号", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneField];
     [_phoneField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(198 * HeightCoefficient +kStatusBarHeight);
+        make.top.equalTo(topLabel.bottom).offset(70*HeightCoefficient);
         make.left.equalTo(42.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
@@ -80,12 +93,12 @@
     
     
     UIView *line0 = [[UIView alloc] init];
-    line0.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+    line0.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
     [self.view addSubview:line0];
     [line0 makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(223 * HeightCoefficient +kStatusBarHeight);
-        make.height.equalTo(0.5 * HeightCoefficient);
+        make.top.equalTo(_phoneField.bottom).offset(5*HeightCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
@@ -98,18 +111,18 @@
     _phoneCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机验证码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneCodeField];
     [_phoneCodeField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(255.5 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(line0.bottom).offset(40*HeightCoefficient);
         make.right.left.height.equalTo(_phoneField);
     }];
 
     
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+    line.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(280.5 * HeightCoefficient + kStatusBarHeight);
-        make.height.equalTo(0.5 * HeightCoefficient);
+       make.top.equalTo(line0.bottom).offset(65*HeightCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
@@ -144,13 +157,16 @@
         make.centerX.equalTo(self.view);
         make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
-        make.top.equalTo(355 * HeightCoefficient + kStatusBarHeight);
+      make.top.equalTo(line.bottom).offset(50*HeightCoefficient);
     }];
 
 }
 
 
 - (void)BtnClick:(UIButton *)sender {
+//    NewPasswordViewController *VC = [[NewPasswordViewController alloc] init];
+//    VC.phone = _phoneField.text;
+//    [self.navigationController pushViewController:VC animated:YES];
     if (sender == self.authBtn) {
      //获取手机验证码
         if (_phoneField.text.length == 0) {

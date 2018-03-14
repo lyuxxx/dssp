@@ -46,43 +46,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.view.clipsToBounds = YES;
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
+    
+    
     [self setupUI];
 }
 
 - (void)setupUI {
     
-    UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud"];
-    [self.view addSubview:bgImgV];
-    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+
+    UIImageView *logoView = [[UIImageView alloc] init];
+    logoView.image = [UIImage imageNamed:@"注册登录背景"];
+    [self.view addSubview:logoView];
+    [logoView makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(375 * WidthCoefficient);
+        make.height.equalTo(194 * HeightCoefficient+kStatusBarHeight);
+        make.top.equalTo( kStatusBarHeight);
     }];
     
-    UIImageView *logoImgV = [[UIImageView alloc] init];
-    logoImgV.image = [UIImage imageNamed:@"logo"];
-    [self.view addSubview:logoImgV];
-    [logoImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.width.equalTo(131 * WidthCoefficient);
-        make.height.equalTo(99.5 * HeightCoefficient);
-        make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
+    
+    
+    UILabel *topLabel = [[UILabel alloc] init];
+    topLabel.text = NSLocalizedString(@"欢迎注册", nil);
+    topLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:24];
+    topLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:topLabel];
+    [topLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(42.5 * WidthCoefficient);
+        make.top.equalTo(84 * HeightCoefficient+kStatusBarHeight);
+        make.width.equalTo(105 * WidthCoefficient);
+        make.height.equalTo(30 * HeightCoefficient);
     }];
-    /**
-    self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _skipBtn.enabled = NO;
-    [_skipBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _skipBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [_skipBtn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
-    [_skipBtn setTitle:NSLocalizedString(@"跳过", nil) forState:UIControlStateNormal];
-    [_skipBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
-    [self.view addSubview:_skipBtn];
-    [_skipBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(24 * HeightCoefficient + kStatusBarHeight);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.right.equalTo(-18 * WidthCoefficient);
-        make.width.equalTo(50 * WidthCoefficient);
-    }];
-    **/
+    
+    
+    
+    
     NSArray *placeHolders = @[
                               NSLocalizedString(@"手机号", nil),
                               NSLocalizedString(@"手机验证码", nil),
@@ -93,9 +102,9 @@
     
     NSArray<NSNumber *> *yOffset = @[
                                      @(216.5 * HeightCoefficient + kStatusBarHeight),
-                                     @(274.0 * HeightCoefficient + kStatusBarHeight),
-                                     @(331.0 * HeightCoefficient + kStatusBarHeight),
-                                     @(388.5 * HeightCoefficient + kStatusBarHeight)
+                                     @(281.5 * HeightCoefficient + kStatusBarHeight),
+                                     @(346.5 * HeightCoefficient + kStatusBarHeight),
+                                     @(411.5* HeightCoefficient + kStatusBarHeight)
 //                                     ,
 //                                     @(446.0 * HeightCoefficient + kStatusBarHeight)
                           ];
@@ -103,11 +112,11 @@
     for (NSInteger i = 0; i < placeHolders.count; i++) {
         
         UIView *line = [[UIView alloc] init];
-        line.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+        line.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
         [self.view addSubview:line];
         [line makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.height.equalTo(0.5 * HeightCoefficient);
+            make.height.equalTo(1 * HeightCoefficient);
             make.width.equalTo(290 * WidthCoefficient);
             make.top.equalTo(yOffset[i].floatValue);
         }];
@@ -167,12 +176,14 @@
             
             self.eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [_eyeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_eyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
-            [_eyeBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
+            [_eyeBtn setImage:[UIImage imageNamed:@"密码不可见_icon"] forState:UIControlStateNormal];
+            [_eyeBtn setImage:[UIImage imageNamed:@"密码可见_icon"] forState:UIControlStateSelected];
+            
+           
             [self.view addSubview:_eyeBtn];
             [_eyeBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(16 * WidthCoefficient);
-                make.height.equalTo(10 * HeightCoefficient);
+                make.height.equalTo(16 * WidthCoefficient);
                 make.centerY.equalTo(field);
                 make.right.equalTo(line);
             }];
@@ -192,10 +203,10 @@
         }
     }
     
-    NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册及表示同意<用户协议>"];
+    NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册即表示同意<用户协议>"];
     agreement.yy_font = [UIFont fontWithName:FontName size:12];
     agreement.yy_color = [UIColor colorWithHexString:@"#999999"];
-    NSRange range = [@"注册及表示同意<用户协议>" rangeOfString:@"<用户协议>"];
+    NSRange range = [@"注册即表示同意<用户协议>" rangeOfString:@"<用户协议>"];
     [agreement yy_setTextHighlightRange:range color:[UIColor colorWithHexString:@"#AC0042 "] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         
     }];
@@ -204,7 +215,7 @@
     [self.view addSubview:agreeLabel];
     [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(125 * WidthCoefficient);
-        make.top.equalTo(466.5 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(438 * HeightCoefficient + kStatusBarHeight);
         make.width.equalTo(150 * WidthCoefficient);
         make.height.equalTo(16 * HeightCoefficient);
     }];
@@ -239,14 +250,14 @@
     }];
     
     UILabel *botLabel = [[UILabel alloc] init];
-    botLabel.text = NSLocalizedString(@"已经有账号?", nil);
+    botLabel.text = NSLocalizedString(@"已有账号?", nil);
     botLabel.font = [UIFont fontWithName:FontName size:14];
     botLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(126.5 * WidthCoefficient);
         make.top.equalTo(_registerBtn.bottom).offset(25 * HeightCoefficient);
-        make.width.equalTo(91 * WidthCoefficient);
+        make.width.equalTo(72 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
     
@@ -254,20 +265,30 @@
     _loginBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_loginBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [_loginBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _loginBtn.titleLabel.font = [UIFont fontWithName:FontName size:13];
+    _loginBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     [_loginBtn setTitle:NSLocalizedString(@"登录", nil) forState:UIControlStateNormal];
-    [_loginBtn setTitleColor:[UIColor colorWithHexString:@"#ac0042"] forState:UIControlStateNormal];
+    [_loginBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
     [self.view addSubview:_loginBtn];
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(botLabel.right);
+        make.left.equalTo(botLabel.right).offset(0*WidthCoefficient);
         make.width.equalTo(31 * WidthCoefficient);
+    }];
+    
+    UIImageView *jumpImg = [[UIImageView alloc] init];
+    jumpImg.image = [UIImage imageNamed:@"跳转_icon"];
+    [self.view addSubview:jumpImg];
+    [jumpImg makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(botLabel);
+        make.left.equalTo(_loginBtn.right).offset(10*WidthCoefficient);
+        make.width.equalTo(16 * WidthCoefficient);
+        make.height.equalTo(16 * WidthCoefficient);
     }];
 }
 
 - (void)btnClick:(UIButton *)sender {
     
-    [self registerSuccess];
+//    [self registerSuccess];
     if (sender == self.eyeBtn) {
         sender.selected = !sender.selected;
         self.passwordField.secureTextEntry = !sender.selected;
@@ -277,9 +298,9 @@
     }
     if (sender == self.loginBtn) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
-         RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
+        RTRootNavigationController *naVC = [[RTRootNavigationController alloc] initWithRootViewController:loginVC];
         [self presentViewController:naVC animated:NO completion:nil];
-//         [self.navigationController pushViewController:loginVC animated:YES];
+//         [self.navigationController pushViewController:naVC animated:YES];
     }
     if (sender == self.registerBtn) {
         [self.view endEditing:YES];

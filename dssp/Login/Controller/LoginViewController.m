@@ -33,19 +33,35 @@
 @property (nonatomic, strong) UIButton *smallEyeBtn;
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, copy) NSString *phoneCode;
+@property (nonatomic, strong) UILabel *topLabel;
 @end
 
 @implementation LoginViewController
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+- (BOOL)needGradientBg {
+    return NO;
 }
+
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = NSLocalizedString(@"", nil);
     self.navigationController.navigationBarHidden = YES;
+    
+    self.view.clipsToBounds = YES;
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
     // Do any additional setup after loading the view.
     [self setupUI];
     [self network];
@@ -97,24 +113,39 @@
 
 - (void)setupUI {
     
-    NSString *uuid = [[NSUUID UUID] UUIDString];
-    NSLog(@"%@",uuid);
-    UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud"];
-    [self.view addSubview:bgImgV];
-    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
+//    UIImageView *bgImgV = [[UIImageView alloc] init];
+//    bgImgV.image = [UIImage imageNamed:@"backgroud1"];
+//    [self.view addSubview:bgImgV];
+//    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
     
     UIImageView *logoView = [[UIImageView alloc] init];
-    logoView.image = [UIImage imageNamed:@"logo"];
+    logoView.image = [UIImage imageNamed:@"注册登录背景"];
     [self.view addSubview:logoView];
     [logoView makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.equalTo(131 * WidthCoefficient);
-        make.height.equalTo(99.5 * WidthCoefficient);
-        make.top.equalTo(44 * HeightCoefficient + kStatusBarHeight);
+        make.width.equalTo(375 * WidthCoefficient);
+        make.height.equalTo(194 * HeightCoefficient+kStatusBarHeight);
+        make.top.equalTo( kStatusBarHeight);
     }];
+    
+    
+    
+    self.topLabel = [[UILabel alloc] init];
+    _topLabel.text = NSLocalizedString(@"欢迎登录", nil);
+    _topLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:24];
+    _topLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:_topLabel];
+    [_topLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(42.5 * WidthCoefficient);
+        make.top.equalTo(84 * HeightCoefficient+kStatusBarHeight);
+        make.width.equalTo(160 * WidthCoefficient);
+        make.height.equalTo(30 * HeightCoefficient);
+    }];
+    
+    
+    
     
     /**
     self.skipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,12 +202,12 @@
     
 
     UIView *line0 = [[UIView alloc] init];
-    line0.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+    line0.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
     [self.view addSubview:line0];
     [line0 makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(216.5 * HeightCoefficient +kStatusBarHeight);
-        make.height.equalTo(0.5 * HeightCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
@@ -189,12 +220,12 @@
     _passWordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_passWordField];
     [_passWordField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(line0.bottom).offset(40*HeightCoefficient);
         make.right.left.height.equalTo(_userNameField);
     }];
     
 //  _passWordField.text = @"abcd1234";
-//    _passWordField.text = @"123456";
+//    _passWordField.text = @"1234567q";
 
     self.phoneCodeField = [[UITextField alloc] init];
     _phoneCodeField.keyboardType = UIKeyboardTypeNumberPad;
@@ -206,31 +237,32 @@
     _phoneCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"手机验证码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneCodeField];
     [_phoneCodeField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(249 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(line0.bottom).offset(40*HeightCoefficient);
         make.right.left.height.equalTo(_phoneField);
     }];
 
     
     self.smallEyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_smallEyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
-    [_smallEyeBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
+    [_smallEyeBtn setImage:[UIImage imageNamed:@"密码不可见_icon"] forState:UIControlStateNormal];
+    [_smallEyeBtn setImage:[UIImage imageNamed:@"密码可见_icon"] forState:UIControlStateSelected];
+    [_smallEyeBtn setContentMode:UIViewContentModeScaleAspectFill];
     [_smallEyeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_smallEyeBtn];
     [_smallEyeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(16 * WidthCoefficient);
         make.right.equalTo(line0);
-        make.height.equalTo(10 * HeightCoefficient);
+        make.height.equalTo(16 * WidthCoefficient);
         make.top.equalTo(254.5 * HeightCoefficient + kStatusBarHeight);
     }];
     
     
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+    line.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(273.5 * HeightCoefficient + kStatusBarHeight);
-        make.height.equalTo(0.5 * HeightCoefficient);
+        make.top.equalTo(line0.bottom).offset(65*HeightCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
@@ -265,7 +297,7 @@
         make.width.equalTo(112 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(line);
-        make.top.equalTo(286 * HeightCoefficient + kStatusBarHeight);
+         make.top.equalTo(line.bottom).offset(15 * HeightCoefficient);
     }];
     
     
@@ -280,7 +312,8 @@
         make.width.equalTo(70.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.right.equalTo(line);
-        make.top.equalTo(286 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(line.bottom).offset(15 * HeightCoefficient);
+ 
     }];
     
     
@@ -307,7 +340,7 @@
     botLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(131.5 * WidthCoefficient);
+        make.left.equalTo(117 * WidthCoefficient);
         make.top.equalTo(_loginBtn.bottom).offset(32 * HeightCoefficient);
         make.width.equalTo(78.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
@@ -316,16 +349,29 @@
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_registerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _registerBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
+    _registerBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     _registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [_registerBtn setTitle:NSLocalizedString(@"注册", nil) forState:UIControlStateNormal];
     [_registerBtn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
     [self.view addSubview:self.registerBtn];
     [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(215.5 * WidthCoefficient);
+        make.left.equalTo(201 * WidthCoefficient);
         make.width.equalTo(30.5 * WidthCoefficient);
     }];
+    
+    
+    UIImageView *jumpImg = [[UIImageView alloc] init];
+    jumpImg.image = [UIImage imageNamed:@"跳转_icon"];
+    [self.view addSubview:jumpImg];
+    [jumpImg makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(botLabel);
+        make.left.equalTo(_registerBtn.right).offset(5*WidthCoefficient);
+        make.width.equalTo(16 * WidthCoefficient);
+        make.height.equalTo(16 * WidthCoefficient);
+    }];
+    
+    
 }
 
 - (void)btnClick:(UIButton *)sender {
@@ -421,6 +467,8 @@
             _userNameField.hidden = YES;
             _passWordField.hidden =YES;
             _smallEyeBtn.hidden=YES;
+            _forgotPassword.hidden = YES;
+            _topLabel.text = NSLocalizedString(@"验证码登录", nil);
         }
         else
         {
@@ -429,7 +477,9 @@
             _phoneCodeField.hidden = YES;
             _userNameField.hidden = NO;
             _passWordField.hidden =NO;
-             _smallEyeBtn.hidden=NO;
+            _smallEyeBtn.hidden=NO;
+            _forgotPassword.hidden = NO;
+            _topLabel.text = NSLocalizedString(@"欢迎登录", nil);
         }
     }
     if (sender == self.loginBtn) {
@@ -546,10 +596,10 @@
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
                  [self setuploading];
             }
-//            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
-//            {
-//            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组合的密码", nil)];
-//            }
+            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
+            {
+            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组合的密码", nil)];
+            }
             else
             {
                 [self setuploading];

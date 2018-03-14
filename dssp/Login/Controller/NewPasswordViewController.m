@@ -27,10 +27,25 @@
 
 @implementation NewPasswordViewController
 
+- (BOOL)needGradientBg {
+    return NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backgroud"] forBarMetrics:UIBarMetricsDefault];
+    
+    self.view.clipsToBounds = YES;
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight);
+    gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
+    gradient.locations = @[@0,@0.8,@1];
+    gradient.startPoint = CGPointMake(0.5, 0);
+    gradient.endPoint = CGPointMake(0.5, 1);
+    [self.view.layer addSublayer:gradient];
+    [self.view.layer insertSublayer:gradient atIndex:0];
     [self setupUI];
 }
 
@@ -39,35 +54,37 @@
     self.navigationItem.title = NSLocalizedString(@"重置密码", nil);
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud"];
+    bgImgV.image = [UIImage imageNamed:@"找回密码背景"];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-    UIImageView *logoView = [[UIImageView alloc] init];
-    logoView.image = [UIImage imageNamed:@"resetpassword_icon"];
-    logoView.layer.cornerRadius = 64 / 2;
-    logoView.layer.masksToBounds = YES;
-    [self.view addSubview:logoView];
-    [logoView makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.width.equalTo(64 * WidthCoefficient);
-        make.height.equalTo(64 * WidthCoefficient);
-        make.top.equalTo(65.5 * HeightCoefficient + kStatusBarHeight);
+    
+    
+    UILabel *topLabel = [[UILabel alloc] init];
+    topLabel.text = NSLocalizedString(@"输入新密码", nil);
+    topLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:24];
+    topLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:topLabel];
+    [topLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(42.5 * WidthCoefficient);
+        make.top.equalTo(38.5 * HeightCoefficient);
+        make.width.equalTo(170 * WidthCoefficient);
+        make.height.equalTo(30 * HeightCoefficient);
     }];
     
     
     self.newpassphoneField = [[UITextField alloc] init];
-    _newpassphoneField.keyboardType = UIKeyboardTypePhonePad;
+//    _newpassphoneField.keyboardType = UIKeyboardTypePhonePad;
     _newpassphoneField.textColor = [UIColor whiteColor];
     _newpassphoneField.delegate = self;
     //    _phoneField.hidden = YES;
     _newpassphoneField.font = [UIFont fontWithName:FontName size:15];
-    _newpassphoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"新密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    _newpassphoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_newpassphoneField];
     [_newpassphoneField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(198 * HeightCoefficient +kStatusBarHeight);
+        make.top.equalTo(topLabel.bottom).offset(70*HeightCoefficient);
         make.left.equalTo(42.5 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
@@ -75,62 +92,64 @@
     
     
     UIView *line0 = [[UIView alloc] init];
-    line0.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+    line0.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
     [self.view addSubview:line0];
     [line0 makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(223 * HeightCoefficient +kStatusBarHeight);
-        make.height.equalTo(0.5 * HeightCoefficient);
+    make.top.equalTo(_newpassphoneField.bottom).offset(5*HeightCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
     self.confirmField = [[UITextField alloc] init];
-    _confirmField.keyboardType = UIKeyboardTypeNumberPad;
+//    _confirmField.keyboardType = UIKeyboardTypeNumberPad;
 //    _confirmField.secureTextEntry = false;
     //    _phoneCodeField.hidden = YES;
     _confirmField.delegate = self;
     _confirmField.textColor = [UIColor whiteColor];
     _confirmField.font = [UIFont fontWithName:FontName size:15];
-    _confirmField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"确认新密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    _confirmField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"确认密码", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_confirmField];
     [_confirmField makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(255.5 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(line0.bottom).offset(40*HeightCoefficient);
+       
         make.right.left.height.equalTo(_newpassphoneField);
     }];
     
     
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+    line.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(280.5 * HeightCoefficient + kStatusBarHeight);
-        make.height.equalTo(0.5 * HeightCoefficient);
+        make.top.equalTo(_confirmField.bottom).offset(5*HeightCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
         make.width.equalTo(290 * WidthCoefficient);
     }];
     
     self.smallEyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_smallEyeBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateNormal];
-    [_smallEyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateSelected];
+    [_smallEyeBtn setImage:[UIImage imageNamed:@"密码可见_icon"] forState:UIControlStateNormal];
+    [_smallEyeBtn setImage:[UIImage imageNamed:@"密码不可见_icon"] forState:UIControlStateSelected];
     [_smallEyeBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_smallEyeBtn];
     [_smallEyeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(16 * WidthCoefficient);
         make.right.equalTo(line0);
-        make.height.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(206 * HeightCoefficient + kStatusBarHeight);
+        make.height.equalTo(16 * WidthCoefficient);
+        make.top.equalTo(146.2 * HeightCoefficient);
     }];
     
     self.smallEyeBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_smallEyeBtn1 setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateNormal];
-    [_smallEyeBtn1 setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateSelected];
+    [_smallEyeBtn1 setImage:[UIImage imageNamed:@"密码可见_icon"] forState:UIControlStateNormal];
+    [_smallEyeBtn1 setImage:[UIImage imageNamed:@"密码不可见_icon"] forState:UIControlStateSelected];
+
     [_smallEyeBtn1 addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_smallEyeBtn1];
     [_smallEyeBtn1 makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(16 * WidthCoefficient);
         make.right.equalTo(line);
-        make.height.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(263.5 * HeightCoefficient + kStatusBarHeight);
+        make.height.equalTo(16 * WidthCoefficient);
+        make.top.equalTo(211 * HeightCoefficient);
     }];
     
     self.nextBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -138,7 +157,7 @@
     _nextBtn.layer.borderWidth = 0.75;
     _nextBtn.layer.cornerRadius = 2;
     _nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-    [_nextBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [_nextBtn setTitle:NSLocalizedString(@"完成", nil) forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor colorWithHexString:@"#C4B7A6"] forState:UIControlStateNormal];
     [_nextBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_nextBtn];
@@ -146,7 +165,7 @@
         make.centerX.equalTo(self.view);
         make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
-        make.top.equalTo(355 * HeightCoefficient + kStatusBarHeight);
+       make.top.equalTo(line.bottom).offset(50*HeightCoefficient);
     }];
     
 }
