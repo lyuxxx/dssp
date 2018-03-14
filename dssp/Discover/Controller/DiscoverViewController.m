@@ -74,7 +74,7 @@
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
     self.isViewVisable = YES;
     [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-//    [self postCustByMobile];
+    [self postCustByMobile];
     if (self.currentVC == self.noticeVC) {
         [self requestData];
     }

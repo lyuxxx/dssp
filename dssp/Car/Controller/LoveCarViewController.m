@@ -45,7 +45,7 @@
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
-//    [self postCustByMobile];
+    [self postCustByMobile];
 }
 
 
@@ -67,9 +67,7 @@
 
 - (void)postCustByMobile
 {
-    //    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-    //    NSString *vin = [defaults1 objectForKey:@"vin"];
-    //
+ 
     //    非车
     if ([kVin isEqualToString:@""]) {
         
@@ -88,12 +86,7 @@
             }
             if(btn.tag ==101)
             {
-                //右边按钮
-                //响应事件
-                //                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                //                vc.hidesBottomBarWhenPushed = YES;
-                //                [self.navigationController pushViewController:vc animated:YES];
-                
+               
             }
             
         };
