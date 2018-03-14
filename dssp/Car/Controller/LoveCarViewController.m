@@ -211,7 +211,7 @@
     
     UILabel *ds = [[UILabel alloc] init];
     ds.textAlignment = NSTextAlignmentCenter;
-    ds.font = [UIFont fontWithName:@"PingFang-Semibold" size:55];
+    ds.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:55];
     ds.textColor = [UIColor colorWithHexString:@"#443938"];
     ds.text = @"DS 7";
     [previewImgV addSubview:ds];
@@ -219,6 +219,7 @@
         make.centerX.equalTo(0);
         make.top.equalTo(40 * WidthCoefficient);
         make.height.equalTo(55.5 * WidthCoefficient);
+        make.width.equalTo(kScreenWidth);
     }];
     
     self.plateLabel = [[UILabel alloc] init];
@@ -258,7 +259,7 @@
     NSArray *dataTitles = @[NSLocalizedString(@"总里程", nil),NSLocalizedString(@"剩余油量", nil),NSLocalizedString(@"车况健康", nil)];
     for (NSInteger i = 0; i < dataTitles.count; i++) {
         UILabel *label0 = [[UILabel alloc] init];
-        label0.font = [UIFont fontWithName:FontName size:11];
+        label0.font = [UIFont fontWithName:FontName size:12];
         label0.textAlignment = NSTextAlignmentCenter;
         label0.text = dataTitles[i];
         label0.textColor = [UIColor colorWithHexString:GeneralColorString];
@@ -342,8 +343,8 @@
         make.top.equalTo(btnContainer.bottom).offset(20 * WidthCoefficient);
     }];
     
-    UIView *redV = [[UIView alloc] init];
-    redV.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
+    UIImageView *redV = [[UIImageView alloc] init];
+    redV.image = [UIImage imageNamed:@"red_vertical"];
     [content addSubview:redV];
     [redV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(3 * WidthCoefficient);
