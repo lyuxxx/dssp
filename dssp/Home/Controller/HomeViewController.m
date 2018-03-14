@@ -1566,12 +1566,77 @@ typedef void(^PullWeatherFinished)(void);
         HomeCarReportCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCarReportCellIdentifier];
         [cell configWithTitle:titles[indexPath.row] clickEvent:^(ReportType type) {
             strongifySelf;
-            NSArray *csS = @[@"TrafficReportController",@"DrivingWeekReportViewController",@"TrackListViewController"];
-            UIViewController *vc = [[NSClassFromString(csS[type]) alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController pushViewController:vc animated:YES];
-            });
+            
+            //    非车
+            if ([kVin isEqualToString:@""]) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    
+                    if(btn.tag ==100)
+                    {
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                };
+                
+            }
+            else
+            {
+                //非T车
+                if([CuvhlTStatus isEqualToString:@"0"])
+                {
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"",nil] ];
+                    //            InputalertView.delegate = self;
+                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                    [keywindow addSubview: popupView];
+                    
+                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                        if (btn.tag == 100) {//左边按钮
+                            
+                            
+                        }
+                        if(btn.tag ==101)
+                        {
+                            
+                            
+                        }
+                        
+                    };
+                    
+                    
+                }
+                else if ([CuvhlTStatus isEqualToString:@"1"])
+                {
+                    //T车辆
+                    NSArray *csS = @[@"TrafficReportController",@"DrivingWeekReportViewController",@"TrackListViewController"];
+                    UIViewController *vc = [[NSClassFromString(csS[type]) alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
+     
+                }
+                
+            }
+            
+
         }];
         return cell;
     }
