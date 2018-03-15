@@ -22,10 +22,9 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 @interface DrivingWeekReportViewController () <UICollectionViewDelegate, UICollectionViewDataSource, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
 
-@property (nonnull, strong) UIView *calendarContainer;
+@property (weak, nonatomic) UIView *calendarContainer;
 @property (weak, nonatomic) FSCalendar *calendar;
 
-@property (weak, nonatomic) UILabel *eventLabel;
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
@@ -34,8 +33,8 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 // The end date of the range
 @property (strong, nonatomic) NSDate *date2;
 
-@property (nonatomic, strong) UIButton *cancelBtn;
-@property (nonatomic, strong) UIButton *okBtn;
+@property (nonatomic, weak) UIButton *cancelBtn;
+@property (nonatomic, weak) UIButton *okBtn;
 
 ///
 
@@ -79,34 +78,41 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     view.backgroundColor = [UIColor whiteColor];
     self.view = view;
     
-    self.calendarContainer = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kNaviHeight, kScreenWidth, CalendarContainerHeight)];
-    _calendarContainer.backgroundColor = [UIColor whiteColor];
-    _calendarContainer.layer.masksToBounds = YES;
-    [self.view addSubview:_calendarContainer];
+    UIView *calendarContainer = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kNaviHeight, kScreenWidth, CalendarContainerHeight)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:calendarContainer.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(4, 4)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = calendarContainer.bounds;
+    maskLayer.path = maskPath.CGPath;
+    calendarContainer.layer.mask = maskLayer;
+    calendarContainer.layer.masksToBounds = YES;
+    [view addSubview:calendarContainer];
+    self.calendarContainer = calendarContainer;
     
-    self.cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _cancelBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
-    _cancelBtn.tag = ButtonTagCancel;
-    [_cancelBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_cancelBtn setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
-    [_cancelBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
-    [self.calendarContainer addSubview:_cancelBtn];
-    _cancelBtn.frame = CGRectMake(0, 0, 50 * WidthCoefficient, 40 * WidthCoefficient);
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
+    cancelBtn.tag = ButtonTagCancel;
+    [cancelBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelBtn setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
+    [calendarContainer addSubview:cancelBtn];
+    cancelBtn.frame = CGRectMake(0, 0, 50 * WidthCoefficient, 40 * WidthCoefficient);
+    self.cancelBtn = cancelBtn;
     
-    self.okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _okBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
-    _okBtn.tag = ButtonTagOK;
-    [_okBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_okBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
-    [_okBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
-    [self.calendarContainer addSubview:_okBtn];
-    _okBtn.frame = CGRectMake(kScreenWidth - 50 * WidthCoefficient, 0, 50 * WidthCoefficient, 40 * WidthCoefficient);
+    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    okBtn.titleLabel.font = [UIFont fontWithName:FontName size:15];
+    okBtn.tag = ButtonTagOK;
+    [okBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [okBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [okBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
+    [calendarContainer addSubview:okBtn];
+    okBtn.frame = CGRectMake(kScreenWidth - 50 * WidthCoefficient, 0, 50 * WidthCoefficient, 40 * WidthCoefficient);
+    self.okBtn = okBtn;
     
     UILabel *tipLabel = [[UILabel alloc] init];
     tipLabel.textColor = [UIColor blackColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.text = NSLocalizedString(@"选择日期", nil);
-    [self.calendarContainer addSubview:tipLabel];
+    [calendarContainer addSubview:tipLabel];
     tipLabel.frame = CGRectMake(kScreenWidth / 2 - 50 * WidthCoefficient, 0, 100 * WidthCoefficient, 40 * WidthCoefficient);
     
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 40 * WidthCoefficient, kScreenWidth, CalendarContainerHeight - 40 * WidthCoefficient)];
@@ -117,7 +123,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     calendar.allowsMultipleSelection = YES;
     calendar.rowHeight = 60 * WidthCoefficient;
     calendar.placeholderType = FSCalendarPlaceholderTypeNone;
-    [self.calendarContainer addSubview:calendar];
+    [calendarContainer addSubview:calendar];
     self.calendar = calendar;
     
     calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase | FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
@@ -170,16 +176,6 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.view bringSubviewToFront:self.calendarContainer];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_calendarContainer.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(4, 4)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = _calendarContainer.bounds;
-    maskLayer.path = maskPath.CGPath;
-    _calendarContainer.layer.mask = maskLayer;
-    _calendarContainer.layer.masksToBounds = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated

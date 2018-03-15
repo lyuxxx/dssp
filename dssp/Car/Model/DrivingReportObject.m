@@ -13,7 +13,7 @@
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     
     NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
-    formatter0.dateFormat = @"yyyy-MM-dd";
+    formatter0.dateFormat = @"yyyyMMdd";
     formatter0.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];

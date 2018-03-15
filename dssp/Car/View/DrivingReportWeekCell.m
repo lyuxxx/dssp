@@ -54,10 +54,12 @@
     
     self.topLabel = [[UILabel alloc] init];
     _topLabel.font = [UIFont fontWithName:FontName size:12];
+    _topLabel.adjustsFontSizeToFitWidth = YES;
     _topLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     [_bgV addSubview:_topLabel];
     [_topLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_topDot.right).offset(5 * WidthCoefficient);
+        make.right.equalTo(_bgV);
         make.height.equalTo(20 * WidthCoefficient);
         make.centerY.equalTo(_topDot);
     }];
@@ -74,10 +76,12 @@
     
     self.botLabel = [[UILabel alloc] init];
     _botLabel.font = [UIFont fontWithName:FontName size:12];
+    _botLabel.adjustsFontSizeToFitWidth = YES;
     _botLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     [_bgV addSubview:_botLabel];
     [_botLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_botDot.right).offset(5 * WidthCoefficient);
+        make.right.equalTo(_bgV);
         make.height.equalTo(20 * WidthCoefficient);
         make.centerY.equalTo(_botDot);
     }];

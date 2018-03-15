@@ -152,7 +152,7 @@
             
             if ([_queryModel.certificationStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                logo.image = [UIImage imageNamed:@"delete text"];
+                logo.image = [UIImage imageNamed:@"deletetext"];
                 lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab.hidden = NO;
             }

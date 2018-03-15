@@ -96,6 +96,7 @@
 		31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC3202D8B930086EDC8 /* InvoiceEnterpriseViewController.m */; };
 		31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */; };
 		31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
+		31B9DC91205A71DB00C8B840 /* UIFont+FontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */; };
 		31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
 		31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
 		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
@@ -393,6 +394,8 @@
 		31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitViewController.m; sourceTree = "<group>"; };
 		31B38BC8202D8F970086EDC8 /* OrderSubmitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderSubmitCell.h; sourceTree = "<group>"; };
 		31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitCell.m; sourceTree = "<group>"; };
+		31B9DC8F205A71DB00C8B840 /* UIFont+FontSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontSize.h"; sourceTree = "<group>"; };
+		31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontSize.m"; sourceTree = "<group>"; };
 		31C1125E2047E1AC0094B157 /* TrackSingleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackSingleCell.h; sourceTree = "<group>"; };
 		31C1125F2047E1AC0094B157 /* TrackSingleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackSingleCell.m; sourceTree = "<group>"; };
 		31C112612047EB9C0094B157 /* TrackListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackListHeaderView.h; sourceTree = "<group>"; };
@@ -732,6 +735,8 @@
 				31AC452D2022EDB10044A62C /* NSString+Size.m */,
 				3172B57F202BF1BD006D3749 /* UITextView+Placeholder.h */,
 				3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */,
+				31B9DC8F205A71DB00C8B840 /* UIFont+FontSize.h */,
+				31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */,
 				31F235D52041722B002807D2 /* MapUtility.h */,
 				31F235D62041722C002807D2 /* MapUtility.m */,
 			);
@@ -1628,6 +1633,7 @@
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
 				319A58C420452E22006837DC /* TrackObject.m in Sources */,
 				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
+				31B9DC91205A71DB00C8B840 /* UIFont+FontSize.m in Sources */,
 				310368EF2046882200A9083E /* StorePageController.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
 				31E7B9682057A419003844E0 /* HomeBtnsHeader.m in Sources */,
