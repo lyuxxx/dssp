@@ -16,9 +16,9 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios pgyer
+### ios pg
 ```
-fastlane ios pgyer
+fastlane ios pg
 ```
 Submit a new Build to pgyer
 ### ios beta
