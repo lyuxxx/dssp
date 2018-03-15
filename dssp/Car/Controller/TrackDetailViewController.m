@@ -295,6 +295,7 @@
         UILabel *label2 = [[UILabel alloc] init];
         label2.text = @"12:35:35";
         label2.font = [UIFont fontWithName:FontName size:14];
+        label2.adjustsFontSizeToFitWidth = YES;
         label2.textColor = [UIColor colorWithHexString:@"#999999"];
         label2.textAlignment = NSTextAlignmentRight;
         [midV addSubview:label2];
@@ -366,6 +367,7 @@
         
         UILabel *label0 = [[UILabel alloc] init];
         label0.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+        label0.adjustsFontSizeToFitWidth = YES;
         label0.textColor = [UIColor whiteColor];
         label0.text = @"-";
         [v addSubview:label0];

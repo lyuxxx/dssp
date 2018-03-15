@@ -98,6 +98,7 @@
         
         UILabel *label2 = [[UILabel alloc] init];
         label2.font = [UIFont fontWithName:FontName size:14];
+        label2.adjustsFontSizeToFitWidth = YES;
         label2.textColor = [UIColor colorWithHexString:@"#999999"];
         label2.textAlignment = NSTextAlignmentRight;
         [bg addSubview:label2];
