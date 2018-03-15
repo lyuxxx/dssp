@@ -79,6 +79,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     self.view = view;
     
     UIView *calendarContainer = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - kNaviHeight, kScreenWidth, CalendarContainerHeight)];
+    calendarContainer.backgroundColor = [UIColor whiteColor];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:calendarContainer.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(4, 4)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = calendarContainer.bounds;
