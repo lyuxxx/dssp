@@ -66,8 +66,8 @@
     //    [_tipLable setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
     //    _tipLable.backgroundColor=[UIColor blackColor];
     
-    
-    [_tipLable setFont:[UIFont systemFontOfSize:16]];
+    [_tipLable setFont:[UIFont fontWithName:FontName size:16]];
+//    [_tipLable setFont:[UIFont systemFontOfSize:16]];
     [_tipLable setNumberOfLines:0];
     [_tipLable setTextColor:[UIColor colorWithHexString:@"#333333"]];
     [self.alertview addSubview:_tipLable];
