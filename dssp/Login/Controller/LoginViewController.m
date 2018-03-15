@@ -342,7 +342,7 @@
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(117 * WidthCoefficient);
         make.top.equalTo(_loginBtn.bottom).offset(32 * HeightCoefficient);
-        make.width.equalTo(78.5 * WidthCoefficient);
+        make.width.equalTo(85 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
     
@@ -356,7 +356,7 @@
     [self.view addSubview:self.registerBtn];
     [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(201 * WidthCoefficient);
+        make.left.equalTo(204 * WidthCoefficient);
         make.width.equalTo(30.5 * WidthCoefficient);
     }];
     
