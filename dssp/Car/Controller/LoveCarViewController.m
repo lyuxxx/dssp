@@ -15,6 +15,7 @@
 #import "MapUpdateViewController.h"
 #import "StoreTabViewController.h"
 #import "TrafficReportModel.h"
+#import "VINBindingViewController.h"
 @interface LoveCarViewController ()
 
 @property (nonatomic, strong) UILabel *plateLabel;
@@ -37,7 +38,6 @@
     [self setupUI];
     [self requestData];
 }
-
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,14 +81,14 @@
         [keywindow addSubview: popupView];
         
         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-            if (btn.tag == 100) {//左边按钮
+            if(btn.tag ==100)
+            {
+                //响应事件
+                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
                 
             }
-            if(btn.tag ==101)
-            {
-               
-            }
-            
         };
     }
     else
@@ -106,15 +106,7 @@
             [keywindow addSubview: popupView];
             
             popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                if (btn.tag == 100) {//左边按钮
-                    
-                    
-                }
-                if(btn.tag ==101)
-                {
-                  
-                    
-                }
+             
                 
             };
             

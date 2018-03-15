@@ -904,8 +904,10 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
+//                        [self.navigationController pushViewController:vc animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                     }
                     
                 };
@@ -973,8 +975,11 @@ typedef void(^PullWeatherFinished)(void);
                         //出行
                         MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
                         mapVC.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:mapVC animated:YES];
+//                        [self.navigationController pushViewController:mapVC animated:YES];
                         
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:mapVC animated:YES];
+                        });
                     }
                     else
                     {
@@ -1025,7 +1030,10 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+//                        [self.navigationController pushViewController:vc animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                         
                     }
                     
@@ -1065,7 +1073,10 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         CarflowViewController *carflow = [[CarflowViewController alloc] init];
                         carflow.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:carflow animated:YES];
+//                        [self.navigationController pushViewController:carflow animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:carflow animated:YES];
+                        });
                         
                     }
                     else
@@ -1121,7 +1132,10 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+//                        [self.navigationController pushViewController:vc animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                         
                     }
                     
@@ -1161,8 +1175,11 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
                         storeTab.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:storeTab animated:YES];
+//                        [self.navigationController pushViewController:storeTab animated:YES];
                         
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:storeTab animated:YES];
+                        });
                     }
                     else
                     {
@@ -1215,7 +1232,10 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+//                        [self.navigationController pushViewController:vc animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                         
                     }
                     
@@ -1256,7 +1276,10 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+//                        [self.navigationController pushViewController:vc animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                         
                     }
                     else
@@ -1311,7 +1334,10 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+//                        [self.navigationController pushViewController:vc animated:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                         
                     }
                     
@@ -1348,8 +1374,11 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];
                         upkeep.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:upkeep animated:YES];
+//                        [self.navigationController pushViewController:upkeep animated:YES];
                         
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:upkeep animated:YES];
+                        });
                     }
                     else
                     {
@@ -1583,10 +1612,15 @@ typedef void(^PullWeatherFinished)(void);
                     
                     if(btn.tag ==100)
                     {
+                        
+                        
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
+                       
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationController pushViewController:vc animated:YES];
+                        });
                         
                     }
                     

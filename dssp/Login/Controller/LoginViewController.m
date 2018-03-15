@@ -183,7 +183,7 @@
 //     _userNameField.text = @"15907157363";
 //    _userNameField.text = @"15810817108";
 //     _userNameField.text =@"18911568273";
-//    _userNameField.text =@"18627131310";
+//    _userNameField.text =@"15697179380";
 
     self.phoneField = [[UITextField alloc] init];
     _phoneField.keyboardType = UIKeyboardTypePhonePad;
@@ -224,7 +224,7 @@
         make.right.left.height.equalTo(_userNameField);
     }];
     
-//  _passWordField.text = @"abcd1234";
+//     _passWordField.text = @"lu123456";
 //    _passWordField.text = @"1234567q";
 
     self.phoneCodeField = [[UITextField alloc] init];
