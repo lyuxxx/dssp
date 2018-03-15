@@ -72,7 +72,7 @@
     [topLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(42.5 * WidthCoefficient);
         make.top.equalTo(38.5 * HeightCoefficient);
-        make.width.equalTo(170 * WidthCoefficient);
+        make.width.equalTo(240 * WidthCoefficient);
         make.height.equalTo(30 * HeightCoefficient);
     }];
     

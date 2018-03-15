@@ -20,6 +20,9 @@
 @end
 
 @implementation WifiViewController
+- (BOOL)needGradientBg {
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,66 +44,94 @@
 
 - (void)setupUI {
     
-    self.navigationItem.title = NSLocalizedString(@"Wifi密码", nil);
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.clipsToBounds = YES;
+    self.navigationItem.title = NSLocalizedString(@"车载WIFI", nil);
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.clipsToBounds = YES;
+    
+    
+    UIView *bgV = [[UIView alloc] init];
+    bgV.layer.cornerRadius = 4;
+    bgV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [self.view addSubview:bgV];
+    [bgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(20*HeightCoefficient);
+        make.height.equalTo(63.5 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.right.equalTo(-16*WidthCoefficient);
+    }];
+    
+    
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"wifi密码"];
-    [self.view addSubview:bgImgV];
+    bgImgV.image = [UIImage imageNamed:@"wifi背景"];
+    [bgV addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(0);
-        make.height.equalTo(126 * HeightCoefficient + kNaviHeight);
+        make.top.left.right.bottom.equalTo(0*HeightCoefficient);
+        
     }];
     
     self.wifiLabel = [[UILabel alloc] init];
     _wifiLabel.textColor = [UIColor whiteColor];
+     _wifiLabel.textAlignment = NSTextAlignmentCenter;
     _wifiLabel.font = [UIFont fontWithName:FontName size:16];
-    _wifiLabel.text = @"";
-    [self.view addSubview:_wifiLabel];
+    _wifiLabel.text = @"WIFI名:未知";
+    [bgImgV addSubview:_wifiLabel];
     [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(20 * HeightCoefficient + kNaviHeight);
+        make.centerX.equalTo(bgImgV);
+         make.centerY.equalTo(bgImgV);
         make.height.equalTo(22 * HeightCoefficient);
     }];
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.backgroundColor = [UIColor whiteColor];
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowOpacity = 0.2;
+//    whiteV.layer.shadowRadius = 7;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(190 * HeightCoefficient);
+        make.height.equalTo(80 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(71 * HeightCoefficient + kNaviHeight);
+        make.top.equalTo(bgImgV.bottom).offset(55*HeightCoefficient);
     }];
     
+    
+    UIView *redV = [[UIView alloc] init];
+    redV.layer.cornerRadius = 2;
+    redV.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+    [self.view addSubview:redV];
+    [redV makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.top.equalTo(bgImgV.bottom).offset(22.5*HeightCoefficient);
+    }];
+    
+    
     UILabel *password = [[UILabel alloc] init];
-    password.textAlignment = NSTextAlignmentCenter;
+    password.textAlignment = NSTextAlignmentLeft;
     password.text = NSLocalizedString(@"密码", nil);
-    password.textColor = [UIColor colorWithHexString:@"#333333"];
+    password.textColor = [UIColor colorWithHexString:@"#ffffff"];
     password.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    [whiteV addSubview:password];
+    [self.view addSubview:password];
     [password makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(214 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.centerX.equalTo(whiteV);
-        make.top.equalTo(20 * HeightCoefficient);
+        make.width.equalTo(60 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(redV.right).offset(5*WidthCoefficient);
+        make.top.equalTo(bgImgV.bottom).offset(22.5*HeightCoefficient);
     }];
     
     self.passwordField = [[UITextField alloc] init];
-    _passwordField.textColor = [UIColor colorWithHexString:@"#040000"];
+    _passwordField.textColor = [UIColor colorWithHexString:@"#999999"];
     _passwordField.font = [UIFont fontWithName:FontName size:15];
     [whiteV addSubview:_passwordField];
     [_passwordField makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(15 * WidthCoefficient);
-        make.top.equalTo(password.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(30 * HeightCoefficient);
     }];
     
     self.secureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -116,24 +147,25 @@
         make.right.equalTo(-15 * WidthCoefficient);
     }];
     
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
-    [whiteV addSubview:line];
-    [line makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(313 * WidthCoefficient);
-        make.height.equalTo(1 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(_passwordField.bottom).offset(14 * HeightCoefficient);
-    }];
+//    UIView *line = [[UIView alloc] init];
+//    line.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+//    [whiteV addSubview:line];
+//    [line makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(313 * WidthCoefficient);
+//        make.height.equalTo(1 * HeightCoefficient);
+//        make.centerX.equalTo(0);
+//        make.top.equalTo(_passwordField.bottom).offset(14 * HeightCoefficient);
+//    }];
     
     UILabel *tipLabel = [[UILabel alloc] init];
     tipLabel.text = @"*请输入除去I、O的字母任意组合的八位字符";
-    tipLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
+    tipLabel.font = [UIFont systemFontOfSize:11];
+    tipLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     [whiteV addSubview:tipLabel];
     [tipLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(line);
-        make.top.equalTo(line.bottom).offset(20 * HeightCoefficient);
-        make.height.equalTo(30 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(whiteV.bottom).offset(5 * HeightCoefficient);
+        make.height.equalTo(15 * HeightCoefficient);
     }];
     tipLabel.adjustsFontSizeToFitWidth = YES;
     
@@ -149,7 +181,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(40 * HeightCoefficient);
     }];
     
     [self getWifiInfo];

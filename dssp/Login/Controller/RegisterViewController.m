@@ -85,7 +85,7 @@
     [topLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(42.5 * WidthCoefficient);
         make.top.equalTo(84 * HeightCoefficient+kStatusBarHeight);
-        make.width.equalTo(105 * WidthCoefficient);
+        make.width.equalTo(150 * WidthCoefficient);
         make.height.equalTo(30 * HeightCoefficient);
     }];
     
@@ -216,7 +216,7 @@
     [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(125 * WidthCoefficient);
         make.top.equalTo(438 * HeightCoefficient + kStatusBarHeight);
-        make.width.equalTo(150 * WidthCoefficient);
+        make.width.equalTo(220 * WidthCoefficient);
         make.height.equalTo(16 * HeightCoefficient);
     }];
     
@@ -272,7 +272,7 @@
     [_loginBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
         make.left.equalTo(botLabel.right).offset(0*WidthCoefficient);
-        make.width.equalTo(31 * WidthCoefficient);
+        make.width.equalTo(30.5 * WidthCoefficient);
     }];
     
     UIImageView *jumpImg = [[UIImageView alloc] init];

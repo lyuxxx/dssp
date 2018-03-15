@@ -48,6 +48,7 @@ __strong __typeof(&*weakSelf)self = weakSelf;
 #define kScreenHeight ([[UIScreen mainScreen] bounds].size.height)
 #define Is_Iphone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define Is_Iphone_X (Is_Iphone && kScreenHeight == 812.0)
+#define Is_Iphone_5 (Is_Iphone && kScreenHeight == 568.0)
 #define kStatusBarHeight ([UIApplication sharedApplication].statusBarFrame.size.height)
 #define kNaviHeight (Is_Iphone_X ? 88 : 64)
 #define kSensorHeight (Is_Iphone_X ? 32 : 0)

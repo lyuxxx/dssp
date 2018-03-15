@@ -229,6 +229,7 @@ static NSString *const cellID = @"cell";
 {
     self.bgImgV = [[UIImageView alloc] init];
     _bgImgV.image = [UIImage imageNamed:@"健康背景"];
+    _bgImgV.backgroundColor =[UIColor redColor];
     [_headerView addSubview:_bgImgV];
     [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -252,28 +253,28 @@ static NSString *const cellID = @"cell";
     }];
     
     
-    self.bgImgV1 = [[UIImageView alloc] init];
-//    _bgImgV1.backgroundColor=[UIColor redColor];
-    _bgImgV1.image = [UIImage imageNamed:@"健康车"];
-    [_headerView addSubview:_bgImgV1];
-    [_bgImgV1 makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(52.5 *HeightCoefficient);
-        make.height.equalTo(201*HeightCoefficient);
-        make.width.equalTo(375*WidthCoefficient);
-        make.centerX.equalTo(0);
-    }];
-    
+//    self.bgImgV1 = [[UIImageView alloc] init];
+////    _bgImgV1.backgroundColor=[UIColor redColor];
+//    _bgImgV1.image = [UIImage imageNamed:@"健康车"];
+//    [_headerView addSubview:_bgImgV1];
+//    [_bgImgV1 makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(40 *HeightCoefficient);
+//        make.height.equalTo(201*HeightCoefficient);
+//        make.width.equalTo(375*WidthCoefficient);
+//        make.centerX.equalTo(0);
+//    }];
+//
     
     UILabel *Lastlabel = [[UILabel alloc] init];
     Lastlabel.font=[UIFont fontWithName:FontName size:12];
     Lastlabel.textColor = [UIColor colorWithHexString:@"#999999"];
     Lastlabel.text=NSLocalizedString(@"本数据为近一周统计数据", nil);
     Lastlabel.textAlignment = NSTextAlignmentCenter;
-    [_bgImgV1 addSubview:Lastlabel];
+    [_bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(0 *HeightCoefficient);
+        make.top.equalTo(215 *HeightCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
-        make.centerX.equalTo(_bgImgV1);
+        make.centerX.equalTo(0);
         make.width.equalTo(240 * WidthCoefficient);
     }];
     
@@ -281,14 +282,15 @@ static NSString *const cellID = @"cell";
     UIView *bg = [[UIView alloc] init];
     
 //     bg.backgroundColor = [UIColor grayColor];
-    bg.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+    bg.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     bg.layer.cornerRadius = 4;
+  
     [_headerView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
         make.height.equalTo(161 * HeightCoefficient/2);
         make.centerX.equalTo(0);
-        make.top.equalTo(_bgImgV1.bottom).offset(15*HeightCoefficient);
+        make.top.equalTo(Lastlabel.bottom).offset(20*HeightCoefficient);
     }];
     
 
@@ -301,9 +303,9 @@ static NSString *const cellID = @"cell";
     [Lastlabel1 makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(bg.bottom).offset(30*HeightCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
-        make.centerX.equalTo(_bgImgV1);
+        make.centerX.equalTo(0);
         make.width.equalTo(240 * WidthCoefficient);
-        make.bottom.equalTo(-5*HeightCoefficient);
+        make.top.equalTo(bg.bottom).offset(30*HeightCoefficient);
     }];
     
     NSArray *titles = @[NSLocalizedString(@"总里程", nil),NSLocalizedString(@"保养里程", nil),NSLocalizedString(@"车辆油量", nil)];
@@ -321,13 +323,39 @@ static NSString *const cellID = @"cell";
     
     
      NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:titles.count];
+    
+   
     for (int i = 0; i < titles.count; i++) {
         
         UIView *views = [[UIView alloc] init];
+        views.layer.cornerRadius = 4;
 //        views.backgroundColor = [UIColor redColor];
         views.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
         [bg addSubview:views];
         [viewArray addObject:views];
+        
+        
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+        [bg addSubview:lineView];
+        [lineView makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(20 *HeightCoefficient);
+            make.bottom.equalTo(-20 *HeightCoefficient);
+            make.width.equalTo(1 * WidthCoefficient);
+            make.left.equalTo(343 * WidthCoefficient/3-1);
+        }];
+        
+        UIView *lineView1 = [[UIView alloc] init];
+        lineView1.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+        [bg addSubview:lineView1];
+        [lineView1 makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(20 *HeightCoefficient);
+            make.bottom.equalTo(-20 *HeightCoefficient);
+            make.width.equalTo(1 * WidthCoefficient);
+            make.left.equalTo(lineView.right).offset(343 * WidthCoefficient/3-1);
+        }];
+     
+        
         
         
         UIImageView *ImgV = [[UIImageView alloc] init];
@@ -401,7 +429,7 @@ static NSString *const cellID = @"cell";
     }
 
      [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:161 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
-
+    
 }
 
 -(void)initTableView
@@ -430,7 +458,7 @@ static NSString *const cellID = @"cell";
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,395*HeightCoefficient)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,385*HeightCoefficient)];
 //     _headerView.backgroundColor=[UIColor redColor];
     _headerView.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     _tableView.tableHeaderView=_headerView;
@@ -444,7 +472,7 @@ static NSString *const cellID = @"cell";
     if([trafficReporData.alertPriority isEqualToString:@"high"]) {
       
         _bgImgV.image = [UIImage imageNamed:@"需维修背景"];
-        _bgImgV1.image = [UIImage imageNamed:@"需维修车"];
+//        _bgImgV1.image = [UIImage imageNamed:@"需维修车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#CE004F"];
         _titlelabel.text=NSLocalizedString(@"需维修", nil);
         
@@ -452,7 +480,7 @@ static NSString *const cellID = @"cell";
     else if([trafficReporData.alertPriority isEqualToString:@"low"]) {
       
         _bgImgV.image = [UIImage imageNamed:@"需检查背景"];
-        _bgImgV1.image = [UIImage imageNamed:@"需检查车"];
+//        _bgImgV1.image = [UIImage imageNamed:@"需检查车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#FFC3A5"];
         _titlelabel.text=NSLocalizedString(@"需检查", nil);
     }

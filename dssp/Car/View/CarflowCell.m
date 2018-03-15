@@ -26,13 +26,27 @@
 
 -(void)createUI
 {
+    
+    
+    UIView *whiteV = [[UIView alloc] init];
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [self.contentView addSubview:whiteV];
+    [whiteV makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(0);
+        make.right.equalTo(0);
+        make.height.equalTo(60 * HeightCoefficient);
+        make.top.equalTo(0 * HeightCoefficient);
+    }];
+    
+    
+    
     self.whiteView=({
         UIView *whiteView = [[UIView alloc] init];
-        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+        whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
         [self.contentView addSubview:whiteView];
         [whiteView makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(1);
-            make.left.equalTo(15*WidthCoefficient);
+            make.left.equalTo(16*WidthCoefficient);
             make.right.equalTo(0);
             make.bottom.equalTo(1 - 1 * HeightCoefficient);
         }];
@@ -43,46 +57,47 @@
     self.toplab=({
         UILabel *lab=[[UILabel alloc] init];
         lab.textAlignment = NSTextAlignmentLeft;
-        lab.font=[UIFont fontWithName:FontName size:16];
+        lab.textColor=[UIColor colorWithHexString:@"#ffffff"];
+        lab.font=[UIFont fontWithName:FontName size:15];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(0);
             make.height.equalTo(22 * HeightCoefficient);
             make.width.equalTo(211 * WidthCoefficient);
-            make.left.equalTo(15 * WidthCoefficient);
+            make.left.equalTo(16 * WidthCoefficient);
         }];
         lab;
     });
     
     
     
-    self.bottolab=({
-        UILabel *lab=[[UILabel alloc] init];
-        lab.textAlignment = NSTextAlignmentLeft;
-        lab.textColor=[UIColor colorWithHexString:@"##666666"];
-        lab.font=[UIFont fontWithName:FontName size:12];
-        [self.contentView addSubview:lab];
-        [lab makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_toplab.bottom).offset(2.5 * HeightCoefficient);
-            make.height.equalTo(16.5 * HeightCoefficient);
-            make.width.equalTo(211 * WidthCoefficient);
-            make.left.equalTo(15 * WidthCoefficient);
-        }];
-        lab;
-    });
-    
+//    self.bottolab=({
+//        UILabel *lab=[[UILabel alloc] init];
+//        lab.textAlignment = NSTextAlignmentLeft;
+//        lab.textColor=[UIColor colorWithHexString:@"#ffffff"];
+//        lab.font=[UIFont fontWithName:FontName size:12];
+//        [self.contentView addSubview:lab];
+//        [lab makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(_toplab.bottom).offset(2.5 * HeightCoefficient);
+//            make.height.equalTo(16.5 * HeightCoefficient);
+//            make.width.equalTo(211 * WidthCoefficient);
+//            make.left.equalTo(15 * WidthCoefficient);
+//        }];
+//        lab;
+//    });
+//
     
     self.rightlab=({
         UILabel *lab=[[UILabel alloc] init];
-        lab.textColor=[UIColor colorWithHexString:@"##666666"];
+        lab.textColor=[UIColor colorWithHexString:@"#ffffff"];
         lab.textAlignment = NSTextAlignmentRight;
-        lab.font=[UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        lab.font=[UIFont fontWithName:@"PingFangSC-Medium" size:15];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.height.equalTo(22 * HeightCoefficient);
             make.width.equalTo(83 * WidthCoefficient);
-            make.right.equalTo(-15 * WidthCoefficient);
+            make.right.equalTo(-16 * WidthCoefficient);
         }];
         lab;
     });

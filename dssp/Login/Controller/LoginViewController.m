@@ -294,7 +294,7 @@
     [_switchBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_switchBtn];
     [_switchBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(112 * WidthCoefficient);
+        make.width.equalTo(150 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(line);
          make.top.equalTo(line.bottom).offset(15 * HeightCoefficient);
@@ -370,8 +370,6 @@
         make.width.equalTo(16 * WidthCoefficient);
         make.height.equalTo(16 * WidthCoefficient);
     }];
-    
-    
 }
 
 - (void)btnClick:(UIButton *)sender {

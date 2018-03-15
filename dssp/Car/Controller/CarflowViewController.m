@@ -27,14 +27,14 @@
 
 @implementation CarflowViewController
 - (BOOL)needGradientBg {
-    return NO;
+    return YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"流量", nil);
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+    self.navigationItem.title = NSLocalizedString(@"流量查询", nil);
+//    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self requestData];
     [self initTableView];
     [self setupUI];
@@ -130,7 +130,7 @@
     _tableView.bounces=NO;
     //滚动条隐藏
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor whiteColor];
+    _tableView.backgroundColor=[UIColor clearColor];
 //    隐藏线
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
@@ -138,8 +138,8 @@
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,126*HeightCoefficient)];
-    _headerView.backgroundColor=[UIColor whiteColor];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,140*HeightCoefficient)];
+    _headerView.backgroundColor=[UIColor clearColor];
     _tableView.tableHeaderView=_headerView;
     
 }
@@ -177,11 +177,11 @@
 {
    
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"backgroud_mine"];
+    bgImgV.image = [UIImage imageNamed:@"流量背景"];
     [_headerView addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(0);
-        make.height.equalTo(126*HeightCoefficient);
+        make.top.equalTo(67*HeightCoefficient);
+        make.height.equalTo(53*HeightCoefficient);
         make.width.equalTo(kScreenWidth);
         make.left.equalTo(0);
     }];
@@ -190,7 +190,7 @@
 //    NSString *remainFlow = [[NSString stringWithFormat:@"%@",_carflow.remainFlow] stringByAppendingString:@"M"];
    
     self.flowlabel = [[UILabel alloc] init];
-    _flowlabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:28];
+    _flowlabel.font=[UIFont fontWithName:@"PingFangSC-Semibold" size:21];
     _flowlabel.textColor=[UIColor whiteColor];
     _flowlabel.text = @"0M";
   
@@ -198,34 +198,34 @@
     _flowlabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:_flowlabel];
     [_flowlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(20*HeightCoefficient);
-        make.height.equalTo(33.5 * HeightCoefficient);
+        make.top.equalTo(33.5*HeightCoefficient);
+        make.height.equalTo(25 * HeightCoefficient);
         make.left.equalTo(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
     }];
     
     
     UILabel *surpluslabel = [[UILabel alloc] init];
-    surpluslabel.font=[UIFont fontWithName:FontName size:13];
-    surpluslabel.textColor=[UIColor whiteColor];
+    surpluslabel.font=[UIFont fontWithName:FontName size:12];
+    surpluslabel.textColor=[UIColor colorWithHexString:@"#A18E79"];
     surpluslabel.text=NSLocalizedString(@"剩余流量", nil);
     surpluslabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:surpluslabel];
     [surpluslabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_flowlabel.bottom).offset(5*HeightCoefficient);
-        make.height.equalTo(18 * HeightCoefficient);
+        make.height.equalTo(15 * HeightCoefficient);
         make.left.equalTo(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
     }];
     
     
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
+    line.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
     [self.view addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(14.5 * HeightCoefficient);
-        make.height.equalTo(60 * HeightCoefficient);
+        make.top.equalTo(39 * HeightCoefficient);
+        make.height.equalTo(40 * HeightCoefficient);
         make.width.equalTo(1 * HeightCoefficient);
         
         
@@ -235,28 +235,28 @@
 
 //     NSString *totalFlow = [[NSString stringWithFormat:@"%@",_carflow.totalFlow] stringByAppendingString:@"M"];
     self.totalflowlabel = [[UILabel alloc] init];
-    _totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:28];
+    _totalflowlabel.font=[UIFont fontWithName:@"PingFangSC-Medium" size:21];
     _totalflowlabel.textColor=[UIColor whiteColor];
     _totalflowlabel.text = @"0M";
     _totalflowlabel.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:_totalflowlabel];
     [_totalflowlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(20*HeightCoefficient);
-        make.height.equalTo(33.5 * HeightCoefficient);
+        make.top.equalTo(33.5*HeightCoefficient);
+        make.height.equalTo(25 * HeightCoefficient);
         make.right.equalTo(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
     }];
 
 
     UILabel *totalflow = [[UILabel alloc] init];
-    totalflow.font=[UIFont fontWithName:FontName size:13];
-    totalflow.textColor=[UIColor colorWithHexString:@"#FFFFFF"];
+    totalflow.font=[UIFont fontWithName:FontName size:12];
+    totalflow.textColor=[UIColor colorWithHexString:@"#A18E79"];
     totalflow.text=NSLocalizedString(@"总流量", nil);
     totalflow.textAlignment = NSTextAlignmentCenter;
     [_headerView addSubview:totalflow];
     [totalflow makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_totalflowlabel.bottom).offset(5*HeightCoefficient);
-        make.height.equalTo(18 * HeightCoefficient);
+        make.height.equalTo(15 * HeightCoefficient);
         make.right.equalTo(0);
         make.width.equalTo(375 *WidthCoefficient / 2);
     }];
@@ -264,16 +264,16 @@
     
     
     UILabel *Lastlabel = [[UILabel alloc] init];
-    Lastlabel.font=[UIFont fontWithName:FontName size:13];
-    Lastlabel.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
+    Lastlabel.font=[UIFont fontWithName:FontName size:11];
+//    Lastlabel.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
     Lastlabel.layer.cornerRadius = 20 * HeightCoefficient/2;
     Lastlabel.clipsToBounds = YES;
-    Lastlabel.textColor=[UIColor whiteColor];
+    Lastlabel.textColor=[UIColor colorWithHexString:@"#999999"];
     Lastlabel.text=NSLocalizedString(@"本数据均为前一天统计数", nil);
     Lastlabel.textAlignment = NSTextAlignmentCenter;
     [bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(totalflow.bottom).offset(12*HeightCoefficient);
+    make.top.equalTo(totalflow.bottom).offset(12.5*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(bgImgV);
         make.width.equalTo(240 * WidthCoefficient);
@@ -329,7 +329,7 @@
     cell.toplab.text =titles[indexPath.row];
 //    cell.bottolab.text =@"最近使用:2017/12/31";
     cell.rightlab.text =_DataArray[indexPath.row];
-    
+    cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
     

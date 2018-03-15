@@ -26,7 +26,7 @@
 @property (nonatomic, strong) UILabel *msgLabel;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) UIImageView *rightImg;
-
+@property (nonatomic,strong) UIImageView *rightImg1;
 @property (nonatomic,strong) UILabel *positionLabel;
 
 @property (nonatomic, copy)  NSString *latitudeString;
@@ -36,6 +36,9 @@
 @end
 
 @implementation CarTrackViewController
+- (BOOL)needGradientBg {
+    return YES;
+}
 
 - (NSMutableArray *)dataSource {
     if (!_dataArray) {
@@ -47,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+//    self.view.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     self.navigationItem.title = NSLocalizedString (@"车辆追踪",nil);
     // Do any additional setup after loading the view.
     [self requestData];
@@ -161,17 +164,19 @@
         }];
         NSString *time = [self setWithTimeString:_carTrack.createTime];
         NSString *maintenanceDay = [[NSString stringWithFormat:@"您的车辆在%@",time] stringByAppendingString:@"发生异常移动"];
-        _rightImg.image = [UIImage imageNamed:@"盗车提醒bg"];
+        _rightImg.image = [UIImage imageNamed:@"盗车提醒背景"];
         _msgLabel.text = NSLocalizedString(maintenanceDay,nil);
+         _rightImg1.image = [UIImage imageNamed:@"盗车提醒_icon"];
         _msgLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
         
         
     }else
     {
         _whiteV1.hidden = YES;
-        _rightImg.image = [UIImage imageNamed:@"盗车提醒安全bg"];
+        _rightImg.image = [UIImage imageNamed:@"盗车提醒背景-安全"];
+        _rightImg1.image = [UIImage imageNamed:@"盗车提醒-安全_icon"];
         _msgLabel.text = NSLocalizedString(@"安全保护中，请保持",nil);
-        _msgLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _msgLabel.textColor = [UIColor colorWithHexString:@"#00FFB4"];
 //        _positionLabel.text = NSLocalizedString(@"位置:xxxxxx",nil);
     }
     
@@ -218,13 +223,13 @@
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
     whiteV.backgroundColor = [UIColor whiteColor];
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.5;
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.5;
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(CGSizeMake(359 * WidthCoefficient, 130 * HeightCoefficient));
+        make.size.equalTo(CGSizeMake(343 * WidthCoefficient, 100 * HeightCoefficient));
         make.top.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(0);
     }];
@@ -237,20 +242,33 @@
     [whiteV addSubview:_rightImg];
     [_rightImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
-        make.height.equalTo(130*HeightCoefficient);
-        make.width.equalTo(123.5 *WidthCoefficient);
+        make.height.equalTo(100*HeightCoefficient);
+        make.left.equalTo(0);
         make.right.equalTo(0);
     }];
+    
+    self.rightImg1 = [[UIImageView alloc] init];
+ 
+    //    [_eyeBtn setImage:[UIImage imageNamed:@"see off"] forState:UIControlStateNormal];
+    //    [_eyeBtn setImage:[UIImage imageNamed:@"see on"] forState:UIControlStateSelected];
+    [whiteV addSubview:_rightImg1];
+    [_rightImg1 makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(0);
+        make.height.equalTo(32*WidthCoefficient);
+        make.width.equalTo(32*WidthCoefficient);
+        make.right.equalTo(-15*WidthCoefficient);
+    }];
+
 
     
     self.titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _titleLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+    _titleLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     _titleLabel.text = NSLocalizedString(@"盗车提醒",nil);
     [whiteV addSubview:_titleLabel];
     [_titleLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(10 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
+        make.top.equalTo(10 * HeightCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
         make.width.equalTo(70 * HeightCoefficient);
         make.left.equalTo(10 * WidthCoefficient);
     }];
@@ -273,7 +291,7 @@
     self.positionLabel = [[UILabel alloc] init];
     _positionLabel.numberOfLines = 0;
     _positionLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:13];
-    _positionLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+    _positionLabel.textColor = [UIColor colorWithHexString:@"#A18E79"];
 //    _positionLabel.text = NSLocalizedString(@"位置:江汉路",nil);
     [whiteV addSubview:_positionLabel];
     [_positionLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -285,11 +303,11 @@
     
 
     self.whiteV1 = [[UIView alloc] init];
-    _whiteV1.backgroundColor = [UIColor colorWithHexString:@"#F9F8F8"];
+    _whiteV1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_whiteV1];
     [_whiteV1 makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(375 * WidthCoefficient);
-        make.top.equalTo(whiteV.bottom).offset(20 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(30 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.bottom.equalTo(0);
     }];
@@ -297,19 +315,19 @@
     UILabel *centerLabel = [[UILabel alloc] init];
     centerLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
     centerLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    centerLabel.text = NSLocalizedString(@"请按如下步骤开启车辆追踪",nil);
+    centerLabel.text = NSLocalizedString(@"-请按如下步骤开启车辆追踪-",nil);
     [_whiteV1 addSubview:centerLabel];
     [centerLabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0 * HeightCoefficient);
         make.height.equalTo(18.5 * HeightCoefficient);
-        make.width.equalTo(170 * HeightCoefficient);
+        make.width.equalTo(220 * HeightCoefficient);
         make.centerX.equalTo(0);
     }];
     
     
     UILabel *title1 = [[UILabel alloc] init];
     title1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    title1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    title1.textColor = [UIColor colorWithHexString:@"#A18E79"];
     title1.text = NSLocalizedString(@"拨打110",nil);
     [_whiteV1 addSubview:title1];
     [title1 makeConstraints:^(MASConstraintMaker *make) {
@@ -336,13 +354,13 @@
     
     UILabel *title2 = [[UILabel alloc] init];
     title2.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    title2.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    title2.textColor = [UIColor colorWithHexString:@"#A18E79"];
     title2.text = NSLocalizedString(@"拨打呼叫中心",nil);
     [_whiteV1 addSubview:title2];
     [title2 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel1.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
-        make.width.equalTo(100 * HeightCoefficient);
+        make.width.equalTo(180 * HeightCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
     }];
     
@@ -363,13 +381,13 @@
     
     UILabel *title3 = [[UILabel alloc] init];
     title3.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    title3.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    title3.textColor = [UIColor colorWithHexString:@"#A18E79"];
     title3.text = NSLocalizedString(@"开启车辆追踪",nil);
     [_whiteV1 addSubview:title3];
     [title3 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel2.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
-        make.width.equalTo(100 * HeightCoefficient);
+        make.width.equalTo(180 * HeightCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
     }];
     
@@ -392,13 +410,13 @@
     
     UILabel *title4 = [[UILabel alloc] init];
     title4.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    title4.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    title4.textColor = [UIColor colorWithHexString:@"#A18E79"];
     title4.text = NSLocalizedString(@"车辆找回",nil);
     [_whiteV1 addSubview:title4];
     [title4 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel3.bottom).offset(20 * HeightCoefficient);
         make.height.equalTo(22 * HeightCoefficient);
-        make.width.equalTo(70 * HeightCoefficient);
+        make.width.equalTo(180 * HeightCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
     }];
     
@@ -429,7 +447,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.bottom.equalTo(-(kBottomHeight+10));
+        make.top.equalTo(msgLabel4.bottom).offset(30*HeightCoefficient);
     }];
     
     
