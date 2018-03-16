@@ -147,7 +147,7 @@
     self.endTimeLabel.text = trackInfo.properties.endTime;
     self.mileageLabel.text = [NSString stringWithFormat:@"%@km",trackInfo.properties.mileage];
     self.durationLabel.text = trackInfo.properties.duration;
-    self.averageSpeedLabel.text = [NSString stringWithFormat:@"%@km/s",trackInfo.properties.averageSpeed];
+    self.averageSpeedLabel.text = [NSString stringWithFormat:@"%@km/h",trackInfo.properties.averageSpeed];
     self.fuelConsumedLabel.text = [NSString stringWithFormat:@"%@L",trackInfo.properties.fuelConsumed];
 }
 
@@ -164,6 +164,7 @@
 
 - (void)createMapView {
     self.mapView = [[MAMapView alloc] init];
+    _mapView.userInteractionEnabled = NO;
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
     [_mapView makeConstraints:^(MASConstraintMaker *make) {
@@ -418,12 +419,12 @@
     //构造折线数据对象
     
     CLLocationCoordinate2D commonPolylineCoords[coordinates.count];
-    
+
     for (NSInteger i = 0; i < coordinates.count; i++) {
         TrackDetailRecordItem *item = coordinates[i];
         commonPolylineCoords[i].latitude = item.lat;
         commonPolylineCoords[i].longitude = item.lon;
-        
+
 //        if (i == 0) {
 //            self.startAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
 //
@@ -432,11 +433,12 @@
 //            self.endAnnotation.coordinate = CLLocationCoordinate2DMake(commonPolylineCoords[i].latitude, commonPolylineCoords[i].longitude);
 //        }
     }
-    
+
     self.startAnnotation.coordinate = CLLocationCoordinate2DMake(_trackInfo.geometry.afterCoordinates[0].lat, _trackInfo.geometry.afterCoordinates[0].lon);
-    
+
     self.endAnnotation.coordinate = CLLocationCoordinate2DMake(_trackInfo.geometry.afterCoordinates.lastObject.lat, _trackInfo.geometry.afterCoordinates.lastObject.lon);
     
+//    CLLocationCoordinate2D commonPolylineCoords[10];
 //    commonPolylineCoords[0].latitude = 30.621480;
 //    commonPolylineCoords[0].longitude = 114.234748;
 //
@@ -483,7 +485,7 @@
     
     [_mapView addAnnotations:@[_startAnnotation,_endAnnotation]];
     
-    [self.mapView setVisibleMapRect:[MapUtility mapRectForOverlays:@[commonPolyline]] edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
+    [self.mapView setVisibleMapRect:[MapUtility mapRectForOverlays:@[commonPolyline]] edgePadding:UIEdgeInsetsMake(100, 100, 100, 100) animated:NO];
 //    [_mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
     
 }
