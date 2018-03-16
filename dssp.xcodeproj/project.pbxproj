@@ -261,7 +261,6 @@
 		312FE1CE202A9BE100B7AE48 /* CommodityHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommodityHeaderView.m; sourceTree = "<group>"; };
 		313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StatusBar.h"; sourceTree = "<group>"; };
 		313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StatusBar.m"; sourceTree = "<group>"; };
-		313070CA1FBA89C500A0DE71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		313070CC1FBA89EC00A0DE71 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		313070CD1FBA924000A0DE71 /* RNRFinishedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRFinishedViewController.h; sourceTree = "<group>"; };
 		313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRFinishedViewController.m; sourceTree = "<group>"; };
@@ -1462,7 +1461,6 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 				"zh-Hans",
 			);
@@ -1834,7 +1832,6 @@
 		313070CB1FBA89C500A0DE71 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				313070CA1FBA89C500A0DE71 /* en */,
 				313070CC1FBA89EC00A0DE71 /* zh-Hans */,
 			);
 			name = Localizable.strings;
@@ -1985,7 +1982,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a495904-2e37-4522-8ed1-a5562fed13e8";
+				PROVISIONING_PROFILE = "a86f51a1-e088-4fdf-b51c-259f5369a4c5";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
