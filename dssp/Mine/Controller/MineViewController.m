@@ -321,7 +321,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *userName = [defaults objectForKey:@"userName"];
     UILabel *namelabel = [[UILabel alloc] init];
-    namelabel.font=[UIFont fontWithName:FontName size:18];
+    namelabel.font=[UIFont fontWithName:FontName size:17];
     namelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
     namelabel.text=NSLocalizedString(userName, nil);
     namelabel.textAlignment = NSTextAlignmentLeft;
@@ -330,7 +330,7 @@
        make.top.equalTo(30*HeightCoefficient);
         make.height.equalTo(24 * HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
-        make.width.equalTo(110 * WidthCoefficient);
+        make.width.equalTo(120 * WidthCoefficient);
     }];
 
     
