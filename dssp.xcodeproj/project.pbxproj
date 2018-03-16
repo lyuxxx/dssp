@@ -1988,7 +1988,7 @@
 				PROVISIONING_PROFILE = "0a495904-2e37-4522-8ed1-a5562fed13e8";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -2020,7 +2020,7 @@
 				PROVISIONING_PROFILE = "e1fe8442-73cf-448b-b298-324ff170d66e";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
