@@ -19,6 +19,8 @@
 		310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
 		310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */; };
 		310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 310FC5641FFF489A00F18312 /* CarAnnotation.m */; };
+		31129246205D07620049A647 /* HomeBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31129245205D07620049A647 /* HomeBannerCell.m */; };
+		3112924A205D23900049A647 /* server_formal.cer in Resources */ = {isa = PBXBuildFile; fileRef = 31129249205D23900049A647 /* server_formal.cer */; };
 		31158926201B0DC100A4AEFB /* MapUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158925201B0DC100A4AEFB /* MapUpdateViewController.m */; };
 		31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */; };
 		3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
@@ -60,7 +62,7 @@
 		3172B581202BF1BE006D3749 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */; };
 		318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
 		3189EED22058D1AA0009B742 /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED12058D1A90009B742 /* client.p12 */; };
-		3189EED42058D1B10009B742 /* server.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server.cer */; };
+		3189EED42058D1B10009B742 /* server_pre.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server_pre.cer */; };
 		318B685B202AE4B300962F2A /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
 		318B685E202AEBF500962F2A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
@@ -240,6 +242,9 @@
 		310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapSearchHistory.m; sourceTree = "<group>"; };
 		310FC5631FFF489900F18312 /* CarAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarAnnotation.h; sourceTree = "<group>"; };
 		310FC5641FFF489A00F18312 /* CarAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarAnnotation.m; sourceTree = "<group>"; };
+		31129244205D07620049A647 /* HomeBannerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeBannerCell.h; sourceTree = "<group>"; };
+		31129245205D07620049A647 /* HomeBannerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeBannerCell.m; sourceTree = "<group>"; };
+		31129249205D23900049A647 /* server_formal.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = server_formal.cer; sourceTree = "<group>"; };
 		31158924201B0DC100A4AEFB /* MapUpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapUpdateViewController.h; sourceTree = "<group>"; };
 		31158925201B0DC100A4AEFB /* MapUpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapUpdateViewController.m; sourceTree = "<group>"; };
 		31158927201B198C00A4AEFB /* GetActivationCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetActivationCodeViewController.h; sourceTree = "<group>"; };
@@ -322,7 +327,7 @@
 		318148061FD6964300F00A4D /* WBAFNetworkingLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBAFNetworkingLogger.h; sourceTree = "<group>"; };
 		318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBAFNetworkingLogger.m; sourceTree = "<group>"; };
 		3189EED12058D1A90009B742 /* client.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = client.p12; sourceTree = "<group>"; };
-		3189EED32058D1B10009B742 /* server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = server.cer; sourceTree = "<group>"; };
+		3189EED32058D1B10009B742 /* server_pre.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = server_pre.cer; sourceTree = "<group>"; };
 		318B6859202AE4B300962F2A /* OrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
 		318B685A202AE4B300962F2A /* OrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
 		318B685C202AEBF500962F2A /* OrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
@@ -1130,6 +1135,8 @@
 				31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */,
 				31E7B9662057A419003844E0 /* HomeBtnsHeader.h */,
 				31E7B9672057A419003844E0 /* HomeBtnsHeader.m */,
+				31129244205D07620049A647 /* HomeBannerCell.h */,
+				31129245205D07620049A647 /* HomeBannerCell.m */,
 				31E7B9692057B78F003844E0 /* HomeCarReportCell.h */,
 				31E7B96A2057B78F003844E0 /* HomeCarReportCell.m */,
 			);
@@ -1139,8 +1146,9 @@
 		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				31129249205D23900049A647 /* server_formal.cer */,
 				3189EED12058D1A90009B742 /* client.p12 */,
-				3189EED32058D1B10009B742 /* server.cer */,
+				3189EED32058D1B10009B742 /* server_pre.cer */,
 				45765272204E7BBE006585BA /* QDataSaver.h */,
 				45765271204E7BBE006585BA /* QDataSaver.m */,
 				4576526F204E7BB5006585BA /* Statistics.h */,
@@ -1481,9 +1489,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
-				3189EED42058D1B10009B742 /* server.cer in Resources */,
+				3189EED42058D1B10009B742 /* server_pre.cer in Resources */,
 				3189EED22058D1AA0009B742 /* client.p12 in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
+				3112924A205D23900049A647 /* server_formal.cer in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
@@ -1784,6 +1793,7 @@
 				315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
+				31129246205D07620049A647 /* HomeBannerCell.m in Sources */,
 				310368EC2045682300A9083E /* RangePickerCell.m in Sources */,
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
@@ -1885,7 +1895,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1943,7 +1953,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1971,7 +1981,7 @@
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TTHP924WDZ;
@@ -1987,7 +1997,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a86f51a1-e088-4fdf-b51c-259f5369a4c5";
+				PROVISIONING_PROFILE = "c013ebc6-744c-4840-b48e-df95e60d0236";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2003,7 +2013,7 @@
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TTHP924WDZ;

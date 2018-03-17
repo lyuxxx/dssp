@@ -280,6 +280,8 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     [_tableView registerClass:[TrackSingleCell class] forCellReuseIdentifier:@"TrackSingleCell"];
     [_tableView registerClass:[TrackListHeaderView class] forHeaderFooterViewReuseIdentifier:@"TrackListHeaderView"];
     
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullDefaultData)];
+    
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(appendListData)];
     footer.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
     footer.hidden = YES;
@@ -293,6 +295,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 //    footer.stateLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     self.tableView.mj_footer = footer;
     
+    //处理iphoneX显示footer问题
     [self.KVOController observe:self.tableView keyPath:@"contentOffset" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         if (@available(iOS 11.0, *)) {
             if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
@@ -411,14 +414,17 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hideAnimated:YES];
                 [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
             });
         } else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
+            [self.tableView.mj_header endRefreshing];
         }
     } failure:^(NSInteger code) {
         hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
         [hud hideAnimated:YES afterDelay:1];
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 

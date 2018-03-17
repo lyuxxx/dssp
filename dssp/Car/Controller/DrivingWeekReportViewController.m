@@ -343,7 +343,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
                               @"油耗",
                               @"平均油耗",
                               @"汽车制动时间",
-                              @"开车注意次数",
+                              @"疲劳驾驶提醒次数",
                               @"ACC里程"
                               ];
     
