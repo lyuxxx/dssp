@@ -30,7 +30,7 @@
 
 @implementation RNRPhotoViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -58,9 +58,9 @@
         make.width.equalTo(scroll);
     }];
     
-    NSArray *titles = @[NSLocalizedString(@"身份证正面", nil),NSLocalizedString(@"身份证反面", nil),NSLocalizedString(@"手持身份证照片", nil)];
+    NSArray *titles = @[NSLocalizedString(@"证件正面", nil),NSLocalizedString(@"证件反面", nil),NSLocalizedString(@"手持证件照", nil)];
     
-     NSArray *imgs = @[NSLocalizedString(@"身份证icon", nil),NSLocalizedString(@"身份证国徽", nil),NSLocalizedString(@"faceID_background_IMG", nil)];
+     NSArray *imgs = @[NSLocalizedString(@"身份证1", nil),NSLocalizedString(@"身份证背面", nil),NSLocalizedString(@"手持身份证", nil)];
     
     
     
@@ -70,16 +70,16 @@
         UIImageView *imgV = [[UIImageView alloc] init];
         imgV.contentMode = UIViewContentModeScaleAspectFit;
         imgV.userInteractionEnabled = YES;
-        imgV.backgroundColor = [UIColor whiteColor];
-        imgV.layer.cornerRadius = 4;
-        imgV.layer.shadowOffset = CGSizeMake(0, 4);
-        imgV.layer.shadowRadius = 7;
-        imgV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-        imgV.layer.shadowOpacity = 0.2;
+        imgV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+        imgV.layer.cornerRadius = 2;
+//        imgV.layer.shadowOffset = CGSizeMake(0, 4);
+//        imgV.layer.shadowRadius = 7;
+//        imgV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//        imgV.layer.shadowOpacity = 0.2;
         [content addSubview:imgV];
         [imgV makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(343 * WidthCoefficient);
-            make.height.equalTo(170 * HeightCoefficient);
+            make.height.equalTo(120 * HeightCoefficient);
             make.centerX.equalTo(0);
             if (i == 0) {
                 make.top.equalTo((20 + 208 * i) * HeightCoefficient);
@@ -88,34 +88,47 @@
             }
         }];
         
+
+        
         lastView = imgV;
         UIImageView *reverseside = [[UIImageView alloc] init];
         reverseside.image = [UIImage imageNamed:imgs[i]];
-         reverseside.contentMode = UIViewContentModeScaleAspectFit;
+        reverseside.contentMode = UIViewContentModeScaleAspectFit;
         [imgV addSubview:reverseside];
-        [reverseside makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(244 * WidthCoefficient);
-            make.height.equalTo(77.5 * HeightCoefficient);
-            make.centerX.equalTo(imgV);
-            make.top.equalTo(imgV).offset(46 * HeightCoefficient);
-        }];
         
+        if (i==2) {
+        [reverseside makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(73 * WidthCoefficient);
+            make.height.equalTo(96 * HeightCoefficient);
+            make.right.equalTo(-15*WidthCoefficient);
+            make.bottom.equalTo(0 * HeightCoefficient);
+             }];
+        }
+        else
+        {
+        [reverseside makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(36 * WidthCoefficient);
+            make.height.equalTo(36 * HeightCoefficient);
+            make.centerY.equalTo(imgV);
+            make.right.equalTo(-15 * WidthCoefficient);
+        }];
+        }
         
         UIImageView *camera = [[UIImageView alloc] init];
         camera.image = [UIImage imageNamed:@"shot"];
         [imgV addSubview:camera];
         [camera makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(24 * WidthCoefficient);
-            make.height.equalTo(21.5 * HeightCoefficient);
+            make.height.equalTo(24 * HeightCoefficient);
             make.centerY.equalTo(imgV);
-            make.left.equalTo(122.5 * HeightCoefficient);
+            make.left.equalTo(15 * HeightCoefficient);
         }];
         
         UILabel *title = [[UILabel alloc] init];
         title.text = titles[i];
         title.textAlignment = NSTextAlignmentLeft;
         title.textColor = [UIColor colorWithHexString:@"#c4b7a6"];
-        title.font = [UIFont fontWithName:FontName size:16];
+        title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         [imgV addSubview:title];
         [title makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(214.5 * WidthCoefficient);
@@ -134,13 +147,13 @@
         } else if (i == 2) {
             self.facepicImgV = imgV;
             
-        [reverseside makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(119 * WidthCoefficient);
-//                make.height.equalTo(156 * HeightCoefficient);
-                make.centerX.equalTo(imgV);
-                make.top.equalTo(14 * HeightCoefficient);
-               make.bottom.equalTo(0 * HeightCoefficient);
-            }];
+//        [reverseside makeConstraints:^(MASConstraintMaker *make) {
+//                make.width.equalTo(119 * WidthCoefficient);
+//                make.height.equalTo(96 * HeightCoefficient);
+//                make.right.equalTo(-15*WidthCoefficient);
+//                make.top.equalTo(10 * HeightCoefficient);
+//               make.bottom.equalTo(0 * HeightCoefficient);
+//            }];
         }
     }
     
@@ -160,7 +173,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.bottom.equalTo(self.view.bottom).offset(-8 * HeightCoefficient - kBottomHeight);
+        make.top.equalTo(lastView.bottom).offset(30* HeightCoefficient);
     }];
     
 }

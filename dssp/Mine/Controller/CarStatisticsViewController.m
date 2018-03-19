@@ -42,7 +42,7 @@
 
 @implementation CarStatisticsViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -69,9 +69,7 @@
 
 -(void)requestData
 {
-    
-//    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-//    NSString *vin = [defaults1 objectForKey:@"vin"];
+ 
     NSDictionary *paras = @{
 //                            @"vin": @"VF7CAPSA000020944"
                             };
@@ -296,36 +294,59 @@
     }];
     
    
+    UIView *V = [[UIView alloc] init];
+    V.layer.cornerRadius = 2;
+    V.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+    [self.view addSubview:V];
+    [V makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 *WidthCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.top.equalTo(22 * HeightCoefficient);
+    }];
+    
+    UILabel *intro = [[UILabel alloc] init];
+    intro.textAlignment = NSTextAlignmentLeft;
+    intro.textColor = [UIColor whiteColor];
+    intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    intro.text = NSLocalizedString(@"您的车辆信息", nil);
+    [self.view addSubview:intro];
+    [intro makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(24*WidthCoefficient);
+        make.width.equalTo(214.5 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.top.equalTo(20 * HeightCoefficient);
+    }];
     
     
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.5;
-    whiteV.backgroundColor = [UIColor whiteColor];
+    whiteV.layer.cornerRadius = 2;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.5;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 *WidthCoefficient);
         make.height.equalTo(405 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(20.5 * HeightCoefficient);
+        make.top.equalTo(55 * HeightCoefficient);
         make.bottom.equalTo(self.view.bottom).offset(-77 * HeightCoefficient - kBottomHeight);
         
     }];
     
-    UILabel *query = [[UILabel alloc] init];
-    query.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    query.textAlignment = NSTextAlignmentCenter;
-    query.text = NSLocalizedString(@"您的车辆信息", nil);
-    [whiteV addSubview:query];
-    [query makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(whiteV);
-        make.width.equalTo(170 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.top.equalTo(20 * HeightCoefficient);
-    }];
+//    UILabel *query = [[UILabel alloc] init];
+//    query.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+//    query.textAlignment = NSTextAlignmentCenter;
+//    query.text = NSLocalizedString(@"您的车辆信息", nil);
+//    [whiteV addSubview:query];
+//    [query makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(whiteV);
+//        make.width.equalTo(170 * WidthCoefficient);
+//        make.height.equalTo(22.5 * HeightCoefficient);
+//        make.top.equalTo(20 * HeightCoefficient);
+//    }];
     
    
    
@@ -340,7 +361,7 @@
         }
         [whiteV addSubview:scroll];
         [scroll makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(66 * HeightCoefficient, 0, 50 * HeightCoefficient, 0));
+            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(15 * HeightCoefficient, 0, 15 * HeightCoefficient, 0));
         }];
         
         UIView *contentView = [[UIView alloc] init];
@@ -356,7 +377,7 @@
         for (NSInteger i = 0 ; i < _titles.count; i++) {
             UILabel *label = [[UILabel alloc] init];
             label.text = _titles[i];
-            label.textColor = [UIColor colorWithHexString:@"#040000"];
+            label.textColor = [UIColor colorWithHexString:@"#A18E79"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
             
@@ -366,7 +387,7 @@
             [contentView addSubview:whiteV];
             
             UIView *whiteView = [[UIView alloc] init];
-            whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+            whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
             [contentView addSubview:whiteView];
             
            
@@ -429,7 +450,7 @@
                 
                 self.field = [[UITextField alloc] init];
                 _field.font = [UIFont fontWithName:FontName size:15];
-                _field.textColor = [UIColor colorWithHexString:@"333333"];
+                _field.textColor = [UIColor colorWithHexString:@"#ffffff"];
                 _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _field.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

@@ -6,10 +6,10 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "RNRInput.h"
 
-@interface RNRPhotoViewController : BaseViewController
+@interface RNRPhotoViewController : StoreBaseViewController
 
 @property (nonatomic, strong) RNRInput *rnrInfo;
 

@@ -46,7 +46,7 @@
 
 @implementation RNRViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -89,58 +89,63 @@
     
     self.navigationItem.title = NSLocalizedString(@"实名制", nil);
     
-    UILabel *explain = [[UILabel alloc] init];
-    explain.textAlignment = NSTextAlignmentCenter;
-    explain.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
-//    explain.text = NSLocalizedString(@"关于实名制要求的说明", nil);
-    [self.view addSubview:explain];
-    [explain makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(0);
-        make.width.equalTo(214.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.top.equalTo(10 * HeightCoefficient);
-    }];
     
-    UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:whiteV];
-    [whiteV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(343 *WidthCoefficient);
-        make.height.equalTo(405 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(51 * HeightCoefficient);
+    
+    UIView *V = [[UIView alloc] init];
+    V.layer.cornerRadius = 2;
+    V.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+    [self.view addSubview:V];
+    [V makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 *WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.top.equalTo(20 * HeightCoefficient);
     }];
     
     UILabel *intro = [[UILabel alloc] init];
-    intro.textAlignment = NSTextAlignmentCenter;
+    intro.textAlignment = NSTextAlignmentLeft;
+    intro.textColor = [UIColor whiteColor];
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     intro.text = NSLocalizedString(@"请完成实名制认证", nil);
-    [whiteV addSubview:intro];
+    [self.view addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(0);
+        make.left.equalTo(24*WidthCoefficient);
         make.width.equalTo(214.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
         make.top.equalTo(20 * HeightCoefficient);
     }];
+   
+    
+    UIView *whiteV = [[UIView alloc] init];
+    whiteV.layer.cornerRadius = 2;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.2;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [self.view addSubview:whiteV];
+    [whiteV makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(343 *WidthCoefficient);
+        make.height.equalTo(305 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(55 * HeightCoefficient);
+    }];
+    
+   
     
     NSArray<NSString *> *titles = @[NSLocalizedString(@"姓名", nil),NSLocalizedString(@"性别", nil),NSLocalizedString(@"证件类型", nil),NSLocalizedString(@"证件号码", nil),NSLocalizedString(@"电话号码", nil),NSLocalizedString(@"证件地址", nil)];
     NSArray *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"请选择性别", nil),NSLocalizedString(@"请选择证件类型", nil),NSLocalizedString(@"请填写证件号码", nil),NSLocalizedString(@"请填写电话号码", nil),NSLocalizedString(@"请填写证件地址", nil)];
     for (NSInteger i = 0; i < titles.count; i++) {
         UILabel *label = [[UILabel alloc] init];
         label.text = titles[i];
-        label.textColor = [UIColor colorWithHexString:@"#040000"];
+        label.textColor = [UIColor colorWithHexString:@"#A18E79"];
         label.font = [UIFont fontWithName:FontName size:15];
         [whiteV addSubview:label];
         [label makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(60 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
             make.left.equalTo(15 * WidthCoefficient);
-            make.top.equalTo((66.5 + 49 * i) * HeightCoefficient);
+            make.top.equalTo((15 + 49 * i) * HeightCoefficient);
         }];
         
         UITextField *field = [[UITextField alloc] init];
@@ -156,7 +161,7 @@
         
         if (i < titles.count - 1) {
             UIView *line = [[UIView alloc] init];
-            line.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
+            line.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
             [whiteV addSubview:line];
             [line makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(313 * WidthCoefficient);
@@ -194,7 +199,7 @@
     [self.view addSubview:_agreeBtn];
     [_agreeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(12 * WidthCoefficient);
-        make.top.equalTo(whiteV.bottom).offset(18 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(22 * HeightCoefficient);
         make.left.equalTo(87* WidthCoefficient);
     }];
     
@@ -209,15 +214,10 @@
         make.left.equalTo(_agreeBtn.right).offset(12 * WidthCoefficient);
         make.width.equalTo(30 * WidthCoefficient);
         make.height.equalTo(16 * HeightCoefficient);
-       make.top.equalTo(whiteV.bottom).offset(16 * HeightCoefficient);
+       make.top.equalTo(whiteV.bottom).offset(20 * HeightCoefficient);
     }];
     
-    
-    
-//    NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否确定将\"光谷广场\"位置发送到车" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
-//    NSRange range = [@"是否确定将\"光谷广场\"位置发送到车" rangeOfString:@"光谷广场"];
-//    [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:172.0/255.0 green:0 blue:66.0/255.0 alpha:1] range:range];
-//    
+
     
     self.serviceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _serviceBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -231,7 +231,7 @@
         make.left.equalTo(agreeLabel.right).offset(0 * WidthCoefficient);
         make.width.equalTo(180 * WidthCoefficient);
         make.height.equalTo(16 * HeightCoefficient);
-        make.top.equalTo(whiteV.bottom).offset(16 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(20 * HeightCoefficient);
     }];
     
     
@@ -247,7 +247,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(_serviceBtn.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(_serviceBtn.bottom).offset(30 * HeightCoefficient);
     }];
     
     self.picker = [[UIPickerView alloc] init];
@@ -342,7 +342,7 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    
+ 
     if (!self.usernameField.text || [self.usernameField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写姓名", nil)];
         return;
@@ -387,7 +387,6 @@
     rnrInfo.servnumber = self.servnumberField.text;
     RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
     vc.rnrInfo = rnrInfo;
-    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

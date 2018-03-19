@@ -210,8 +210,8 @@
     
     NoticeModel *notice=self.dataSource[indexPath.row];
     cell.noticeModel = notice;
-    cell.backgroundColor=[UIColor colorWithHexString:@"#AC0042"];
-//    cell.backgroundColor=[UIColor clearColor];
+//    cell.backgroundColor=[UIColor colorWithHexString:@"#AC0042"];
+    cell.backgroundColor=[UIColor clearColor];
 //     cell.backgroundColor=[UIColor redColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.delegate = self;

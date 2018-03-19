@@ -6,11 +6,11 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "NoticeModel.h"
 
 typedef void(^RemindBackBlcok) (NSString *text);
-@interface RemindViewController : BaseViewController
+@interface RemindViewController : StoreBaseViewController
 @property(nonatomic,copy) NSString *vin;
 @property(nonatomic,copy) NSString *businType;
 @property(nonatomic,copy) NSString *noticeId;

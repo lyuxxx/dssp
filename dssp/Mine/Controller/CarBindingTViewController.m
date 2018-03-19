@@ -35,7 +35,7 @@
 @end
 
 @implementation CarBindingTViewController
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -63,29 +63,42 @@
     self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
     
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.backgroundColor = [UIColor whiteColor];
-    whiteV.layer.cornerRadius = 4;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.2;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    whiteV.layer.cornerRadius = 2;
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(461.5 * HeightCoefficient);
+        make.height.equalTo(254 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(20.5 * HeightCoefficient);
+        make.top.equalTo(55 * HeightCoefficient);
+    }];
+    
+    
+    UIView *V = [[UIView alloc] init];
+    V.layer.cornerRadius = 2;
+    V.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+    [self.view addSubview:V];
+    [V makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 *WidthCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.top.equalTo(22 * HeightCoefficient);
     }];
     
     UILabel *intro = [[UILabel alloc] init];
-    intro.textAlignment = NSTextAlignmentCenter;
+    intro.textAlignment = NSTextAlignmentLeft;
+    intro.textColor = [UIColor whiteColor];
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     intro.text = NSLocalizedString(@"绑定详细", nil);
-    [whiteV addSubview:intro];
+    [self.view addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(0);
+        make.left.equalTo(24*WidthCoefficient);
         make.width.equalTo(214.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
         make.top.equalTo(20 * HeightCoefficient);
     }];
     
@@ -123,7 +136,7 @@
         }
         [whiteV addSubview:scroll];
         [scroll makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(66 * HeightCoefficient, 0, 50 * HeightCoefficient, 0));
+            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(15 * HeightCoefficient, 0, 0 * HeightCoefficient, 0));
         }];
         
         UIView *contentView = [[UIView alloc] init];
@@ -138,7 +151,7 @@
         for (NSInteger i = 0 ; i < titles.count; i++) {
             UILabel *label = [[UILabel alloc] init];
             label.text = titles[i];
-            label.textColor = [UIColor colorWithHexString:@"#040000"];
+            label.textColor = [UIColor colorWithHexString:@"#A18E79"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
             
@@ -147,13 +160,13 @@
             [contentView addSubview:whiteV];
             
             UIView *whiteView = [[UIView alloc] init];
-            whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+            whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
             [contentView addSubview:whiteView];
             
             
             UILabel *rightLabel = [[UILabel alloc] init];
             rightLabel.text = titles[i];
-            rightLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+            rightLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
             rightLabel.font = [UIFont fontWithName:FontName size:14];
             [whiteV  addSubview:rightLabel];
             [rightLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -268,7 +281,7 @@
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     confirmBtn.layer.cornerRadius = 2;
-    [confirmBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [confirmBtn setTitle:NSLocalizedString(@"确认并绑定", nil) forState:UIControlStateNormal];
     [confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     confirmBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
     [confirmBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
@@ -277,7 +290,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(30 * HeightCoefficient);
     }];
 }
 

@@ -27,9 +27,20 @@
 
 -(void)createUI
 {
+    UIView *whiteView = [[UIView alloc] init];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [self.contentView addSubview:whiteView];
+    [whiteView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(0);
+        make.left.equalTo(0);
+        make.right.equalTo(0);
+        make.bottom.equalTo(0);
+    }];
+    
+    
     self.whiteView=({
         UIView *whiteView = [[UIView alloc] init];
-        whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+        whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
         [self.contentView addSubview:whiteView];
         [whiteView makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(1);
@@ -44,6 +55,7 @@
     self.toplab=({
         UILabel *lab=[[UILabel alloc] init];
         lab.textAlignment = NSTextAlignmentLeft;
+        lab.textColor = [UIColor colorWithHexString:@"#999999"];
         lab.font=[UIFont fontWithName:FontName size:16];
         [self.contentView addSubview:lab];
         [lab makeConstraints:^(MASConstraintMaker *make) {

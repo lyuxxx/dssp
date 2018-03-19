@@ -200,6 +200,8 @@
         make.width.equalTo(150 * WidthCoefficient);
     }];
     
+   
+    
 
     UIView *line0 = [[UIView alloc] init];
     line0.backgroundColor = [UIColor colorWithHexString:@"#2F2726"];
@@ -224,6 +226,10 @@
         make.right.left.height.equalTo(_userNameField);
     }];
     
+    
+     NSDictionary *user = CONF_GET(@"user");
+    _userNameField.text =[user objectForKey:@"userName"];
+    _passWordField.text = [user objectForKey:@"passWord"];
 //     _passWordField.text = @"lu123456";
 //    _passWordField.text = @"1234567q";
 
@@ -334,17 +340,36 @@
     }];
     
     
+//    UIFont *fnt = [UIFont fontWithName:@"Courier New" size:24.0f];
+//    lbl_text.font = fnt;
+//    // 根据字体得到NSString的尺寸
+//    CGSize size = [lbl_text.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:fnt,NSFontAttributeName,nil]];
+//    // 名字的H
+//    CGFloat nameH = size.height;
+//    // 名字的W
+//    CGFloat nameW = size.width;
+//    lbl_text.frame = CGRectMake(100,100, nameW,nameH);
+//    [self.view addSubview:lbl_text];
+    
     UILabel *botLabel = [[UILabel alloc] init];
     botLabel.text = NSLocalizedString(@"还没有账号?", nil);
+    CGSize size = [botLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:14],NSFontAttributeName,nil]];
+    // 名字的H
+//    CGFloat nameH = size.height;
+    // 名字的W
+    CGFloat nameW = size.width;
     botLabel.font = [UIFont fontWithName:FontName size:14];
     botLabel.textColor = [UIColor whiteColor];
+//    botLabel.backgroundColor =[UIColor redColor];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(117 * WidthCoefficient);
         make.top.equalTo(_loginBtn.bottom).offset(32 * HeightCoefficient);
-        make.width.equalTo(85 * WidthCoefficient);
+        make.width.equalTo(nameW+1);
         make.height.equalTo(20 * HeightCoefficient);
     }];
+    
+    
     
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -356,20 +381,30 @@
     [self.view addSubview:self.registerBtn];
     [_registerBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(204 * WidthCoefficient);
-        make.width.equalTo(30.5 * WidthCoefficient);
+    make.left.equalTo(botLabel.right).offset(5);
+        make.width.equalTo(30);
     }];
     
     
     UIImageView *jumpImg = [[UIImageView alloc] init];
     jumpImg.image = [UIImage imageNamed:@"跳转_icon"];
+    jumpImg.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpImg)];
+    [jumpImg addGestureRecognizer:tap];
     [self.view addSubview:jumpImg];
     [jumpImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(botLabel);
-        make.left.equalTo(_registerBtn.right).offset(5*WidthCoefficient);
+        make.left.equalTo(_registerBtn.right).offset(5);
         make.width.equalTo(16 * WidthCoefficient);
         make.height.equalTo(16 * WidthCoefficient);
     }];
+}
+
+-(void)jumpImg
+{
+    RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+    [self presentViewController:registerVC animated:NO completion:nil];
+    
 }
 
 - (void)btnClick:(UIButton *)sender {
@@ -676,7 +711,12 @@
                                 
                             }
                             
-                            
+                           
+                            //缓存
+                            NSMutableDictionary *result = [NSMutableDictionary new];
+                            [result setObject:_userNameField.text forKey:@"userName"];
+                            [result setObject:_passWordField.text forKey:@"passWord"];
+                            CONF_SET(@"user",result);
                     
                     
                             [hud hideAnimated:YES];

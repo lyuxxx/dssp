@@ -31,9 +31,10 @@
 
 @implementation ContractViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,7 +93,7 @@
     NSString *string = [[NSString alloc] initWithFormat:@"%d",_count];
     self.tableView.mj_header.hidden =YES;
     NSDictionary *paras = @{
-                            @"vin": [kVin isEqualToString:@""]?kVins:kVin,
+                            @"vin": kVin,
                             @"currentPage":string,
                             @"pageSize":@"5"
                             };
@@ -120,12 +121,12 @@
         } else {
              self.tableView.mj_footer.hidden =YES;
              [_tableView.mj_header endRefreshing];
-            [MBProgressHUD showText:dic[@"msg"]];
+//            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
          self.tableView.mj_footer.hidden =YES;
          [_tableView.mj_header endRefreshing];
-         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];

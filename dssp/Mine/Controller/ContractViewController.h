@@ -7,7 +7,7 @@
 //
 
 //#import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-@interface ContractViewController : BaseViewController
+#import "StoreBaseViewController.h"
+@interface ContractViewController : StoreBaseViewController
 
 @end

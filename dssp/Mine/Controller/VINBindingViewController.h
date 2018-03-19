@@ -6,8 +6,8 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
-@interface VINBindingViewController : BaseViewController
+@interface VINBindingViewController : StoreBaseViewController
 
 @end

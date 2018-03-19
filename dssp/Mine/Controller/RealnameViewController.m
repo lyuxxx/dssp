@@ -16,9 +16,9 @@
 @end
 
 @implementation RealnameViewController
-//- (BOOL)needGradientImg {
-//    return YES;
-//}
+- (BOOL)needGradientBg {
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,9 +29,9 @@
 
 - (void)setupUI {
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi密码"] forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.title = NSLocalizedString(@"实名制认证", nil);
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
     
     NSArray *titles = @[
                         NSLocalizedString(@"实名制认证 | 入口", nil),
@@ -40,53 +40,56 @@
                         ];
     
     NSArray *imgArray= @[
-                         NSLocalizedString(@"business-card-6", nil),
-                         NSLocalizedString(@"len", nil),
-                         NSLocalizedString(@"解绑", nil)
+                         NSLocalizedString(@"实名制_icon", nil),
+                         NSLocalizedString(@"实名制结果_icon", nil),
+                         NSLocalizedString(@"解绑实名制_icon", nil)
                          ];
     
-    UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"wifi密码"];
-    [self.view addSubview:bgImgV];
-    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(0);
-        make.height.equalTo(96*HeightCoefficient);
-        make.width.equalTo(kScreenWidth);
-        make.left.equalTo(0);
-    }];
+    NSArray *imgArray1= @[
+                         NSLocalizedString(@"实名制入口认证背景", nil),
+                         NSLocalizedString(@"实名制结果", nil),
+                         NSLocalizedString(@"解绑实名制", nil)
+                         ];
+
     
     UIView *lastView = nil;
     for (NSInteger i = 0 ; i < titles.count; i++) {
         UIView *whiteV = [[UIView alloc] init];
-        whiteV.layer.cornerRadius = 4;
-        whiteV.layer.shadowOffset = CGSizeMake(0, 7);
-        whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-        whiteV.layer.shadowOpacity = 0.2;
-        whiteV.layer.shadowRadius = 7;
-        whiteV.backgroundColor = [UIColor whiteColor];
+//        whiteV.layer.cornerRadius = 4;
+//        whiteV.layer.shadowOffset = CGSizeMake(0, 7);
+//        whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//        whiteV.layer.shadowOpacity = 0.2;
+//        whiteV.layer.shadowRadius = 7;
+        whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
         [self.view addSubview:whiteV];
         
+        
+    
         UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         nextBtn.tag = 100+i;
         [nextBtn setBackgroundColor:[UIColor clearColor]];
         [whiteV addSubview:nextBtn];
         
-        UILabel *label = [[UILabel alloc] init];
-        label.textAlignment = NSTextAlignmentLeft;
-        label.textColor = [UIColor colorWithHexString:@"#333333"];
-        label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        label.text = titles[i];
-        [nextBtn addSubview:label];
-        
         UIImageView *arrownext = [[UIImageView alloc] init];
         arrownext.image = [UIImage imageNamed:@"arrownext"];
         [nextBtn addSubview:arrownext];
        
         
+        UIImageView *BtnImg = [[UIImageView alloc] init];
+        BtnImg.image = [UIImage imageNamed:imgArray1[i]];
+        [nextBtn addSubview:BtnImg];
+        
         UIImageView *rightImg = [[UIImageView alloc] init];
         rightImg.image = [UIImage imageNamed:imgArray[i]];
-        [nextBtn addSubview:rightImg];
+        [BtnImg addSubview:rightImg];
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.textAlignment = NSTextAlignmentLeft;
+        label.textColor = [UIColor colorWithHexString:@"#ffffff"];
+        label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        label.text = titles[i];
+        [BtnImg addSubview:label];
         
        
         if (i == 0) {
@@ -111,13 +114,18 @@
             [arrownext makeConstraints:^(MASConstraintMaker *make) {
                 make.height.width.equalTo(14.5 * HeightCoefficient);
                 make.centerY.equalTo(0);
-                make.left.equalTo(label.right).offset(10 * WidthCoefficient);
+                make.left.equalTo(label.right).offset(15 * WidthCoefficient);
+            }];
+            
+            
+            [BtnImg makeConstraints:^(MASConstraintMaker *make) {
+               make.edges.equalTo(nextBtn);
             }];
             
             
             [rightImg makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(64 * HeightCoefficient);
-                make.height.equalTo(62 * HeightCoefficient);
+                make.width.equalTo(32 * HeightCoefficient);
+                make.height.equalTo(32 * HeightCoefficient);
                 make.centerY.equalTo(0);
                 make.right.equalTo(-20 * WidthCoefficient);
             }];
@@ -145,12 +153,17 @@
             [arrownext makeConstraints:^(MASConstraintMaker *make) {
                 make.height.width.equalTo(14.5 * HeightCoefficient);
                 make.centerY.equalTo(0);
-                make.left.equalTo(label.right).offset(10 * WidthCoefficient);
+                make.left.equalTo(label.right).offset(15 * WidthCoefficient);
+            }];
+            
+            
+            [BtnImg makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(nextBtn);
             }];
             
             [rightImg makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(64 * HeightCoefficient);
-                make.height.equalTo(62 * HeightCoefficient);
+                make.width.equalTo(32 * HeightCoefficient);
+                make.height.equalTo(32 * HeightCoefficient);
                 make.centerY.equalTo(0);
                 make.right.equalTo(-20 * WidthCoefficient);
             }];

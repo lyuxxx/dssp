@@ -72,6 +72,10 @@ vc.automaticallyAdjustsScrollViewInsets = NO;\
 _Pragma("clang diagnostic pop") \
 } while (0)
 
+
+#define CONF_SET(_K, _V) _V == nil ? [[NSUserDefaults standardUserDefaults] removeObjectForKey:_K] : [[NSUserDefaults standardUserDefaults] setObject:_V forKey:_K]
+#define CONF_GET(_K) [[NSUserDefaults standardUserDefaults] objectForKey:_K]
+
 typedef NS_ENUM(NSUInteger, PoiType) {
     PoiTypeAll,
     PoiTypeAmap,

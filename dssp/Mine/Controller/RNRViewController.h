@@ -6,9 +6,9 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
-@interface RNRViewController : BaseViewController
+@interface RNRViewController : StoreBaseViewController
 @property (nonatomic, copy) NSString *bingVin;
 @property (nonatomic, copy) NSString *names;
 @end

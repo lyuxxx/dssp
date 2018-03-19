@@ -7,8 +7,9 @@
 //
 
 //#import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-@interface RealVinViewcontroller : BaseViewController
+#import "StoreBaseViewController.h"
+//#import "BaseViewController.h"
+@interface RealVinViewcontroller : StoreBaseViewController
 @property (nonatomic, copy) NSString *vin;
 @property (nonatomic, copy) NSString *isSuccess;
 @end

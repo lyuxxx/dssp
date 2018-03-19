@@ -15,6 +15,10 @@
 
 @implementation NicknameViewController
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -42,9 +46,9 @@
      _phoneField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20 * WidthCoefficient, 40 * HeightCoefficient)];
     _phoneField.text = name;
     _phoneField.leftViewMode = UITextFieldViewModeAlways;
-    _phoneField.textColor = [UIColor grayColor];
+    _phoneField.textColor = [UIColor whiteColor];
     _phoneField.delegate = self;
-    _phoneField.backgroundColor =  [UIColor whiteColor];
+    _phoneField.backgroundColor =  [UIColor colorWithHexString:@"#120F0E"];
     _phoneField.font = [UIFont fontWithName:FontName size:15];
     _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"昵称", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
     [self.view addSubview:_phoneField];

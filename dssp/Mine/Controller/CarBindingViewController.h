@@ -6,9 +6,9 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "CarInfoModel.h"
-@interface CarBindingViewController : BaseViewController
+@interface CarBindingViewController : StoreBaseViewController
 @property (nonatomic, copy) NSString *bingVin;
 @property (nonatomic, copy) NSString *doptCode;
 @property (nonatomic, strong) NSObject *bingVins;

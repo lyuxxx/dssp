@@ -6,10 +6,10 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
 
 typedef void(^CallBackBlcok) (NSString *text);
-@interface PrivacypolicyController : BaseViewController
+@interface PrivacypolicyController : StoreBaseViewController
 @property (nonatomic,copy)CallBackBlcok callBackBlock;
 @end

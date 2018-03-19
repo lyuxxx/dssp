@@ -39,10 +39,13 @@
 -(void)pullData
 {
     
+    
+    NSString *NumberByVin = [NSString stringWithFormat:@"%@/%@",@"http://pay.jtpay.com/form/pay",@"123"];
+    
     NSDictionary *paras = @{
                           
                             };
-    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
+    [CUHTTPRequest POST:NumberByVin parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
     
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {

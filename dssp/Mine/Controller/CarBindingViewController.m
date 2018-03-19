@@ -55,7 +55,7 @@
 
 @implementation CarBindingViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -162,36 +162,47 @@
               
               ];
     
-  
-    
-    
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.backgroundColor = [UIColor whiteColor];
-    whiteV.layer.cornerRadius = 4;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.2;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    whiteV.layer.cornerRadius = 2;
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(430.5 * HeightCoefficient);
+        make.height.equalTo(358 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(20.5 * HeightCoefficient);
+        make.top.equalTo(55 * HeightCoefficient);
+    }];
+    
+    
+    UIView *V = [[UIView alloc] init];
+    V.layer.cornerRadius = 2;
+    V.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+    [self.view addSubview:V];
+    [V makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 *WidthCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.top.equalTo(22 * HeightCoefficient);
     }];
     
     UILabel *intro = [[UILabel alloc] init];
-    intro.textAlignment = NSTextAlignmentCenter;
+    intro.textAlignment = NSTextAlignmentLeft;
+    intro.textColor = [UIColor whiteColor];
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     intro.text = NSLocalizedString(@"填写车辆信息完成车辆绑定", nil);
-    [whiteV addSubview:intro];
+    [self.view addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(0);
+        make.left.equalTo(24*WidthCoefficient);
         make.width.equalTo(214.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
         make.top.equalTo(20 * HeightCoefficient);
     }];
     
+   
     
     NSArray<NSString *> *titles = @[
                                     
@@ -211,7 +222,7 @@
                                           NSLocalizedString(@"请填写发动机号", nil),
 //                                          NSLocalizedString(@"", nil),
                                           NSLocalizedString(@"请选择车型", nil),
-                                          NSLocalizedString(@"请填写车辆颜色", nil),
+                                          NSLocalizedString(@"请选择车辆颜色", nil),
                                           NSLocalizedString(@"请填写用户名", nil),
                                           NSLocalizedString(@"请填写手机号", nil),
                                           NSLocalizedString(@"请选择性别", nil)
@@ -228,7 +239,7 @@
         }
         [whiteV addSubview:scroll];
         [scroll makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(66 * HeightCoefficient, 0, 50 * HeightCoefficient, 0));
+            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(15 * HeightCoefficient, 0, 0 * HeightCoefficient, 0));
         }];
         
         UIView *contentView = [[UIView alloc] init];
@@ -244,7 +255,7 @@
             UILabel *label = [[UILabel alloc] init];
             label.text = titles[i];
             label.textAlignment = NSTextAlignmentLeft;
-            label.textColor = [UIColor colorWithHexString:@"#040000"];
+            label.textColor = [UIColor colorWithHexString:@"#A18E79"];
             label.font = [UIFont fontWithName:FontName size:15];
             [contentView addSubview:label];
             
@@ -253,7 +264,7 @@
             [contentView addSubview:whiteV];
             
             UIView *whiteView = [[UIView alloc] init];
-            whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+            whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
             [contentView addSubview:whiteView];
             
             
@@ -287,7 +298,7 @@
                     make.width.equalTo(85 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
-                    make.top.equalTo(lastLabel.bottom).offset(29 * HeightCoefficient);
+                    make.top.equalTo(lastLabel.bottom).offset(31 * HeightCoefficient);
                 }];
                 
                 
@@ -295,11 +306,11 @@
                     make.right.equalTo(0);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(label.right).offset(20*WidthCoefficient);
-                    make.top.equalTo(lastLabel.bottom).offset(29*HeightCoefficient);
+                    make.top.equalTo(lastLabel.bottom).offset(31*HeightCoefficient);
                 }];
                 
                 [whiteView makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(lastView.bottom).offset(48 * HeightCoefficient);
+                    make.top.equalTo(lastView.bottom).offset(50 * HeightCoefficient);
                     make.height.equalTo(1);
                     make.left.equalTo(15 * WidthCoefficient);
                     make.right.equalTo(-15 * WidthCoefficient);
@@ -315,7 +326,7 @@
             
                 self.field = [[UITextField alloc] init];
                 _field.font = [UIFont fontWithName:FontName size:15];
-                _field.textColor = [UIColor colorWithHexString:@"333333"];
+            _field.textColor = [UIColor colorWithHexString:@"#ffffff"];
                 _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
 //                _field.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -347,17 +358,20 @@
                     self.vhlColorName = _field;
                     self.vhlColorName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                     
-                } else if (i == 4) {
+                }
+                else if (i == 4) {
                     _field.text = @"";
                     self.userName = _field;
-                    
-                } else if (i == 5) {
+
+                }
+                else if (i == 5) {
                     _field.text = @"";
                     _field.keyboardType = UIKeyboardTypeNumberPad;
                     self.mobilePhone = _field;
-                    
-                } else if (i == 6) {
-                   
+
+                }
+                else if (i == 6) {
+                    whiteView.hidden = YES;
                     self.sex = _field;
                     self.sex.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#ac0042"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                     
@@ -525,7 +539,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(30 * HeightCoefficient);
     }];
     
     
@@ -690,7 +704,8 @@
     else if (!_vhlColorName.text || [_vhlColorName.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请选择车辆颜色", nil)];
         return;
-    } else if (!_userName.text || [_userName.text isEqualToString:@""]) {
+    }
+    else if (!_userName.text || [_userName.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写用户名", nil)];
         return;
     }
@@ -698,13 +713,13 @@
         [MBProgressHUD showText:NSLocalizedString(@"请填写联系方式", nil)];
         return;
     }
-    else if (![self valiMobile:_mobilePhone.text])
-    {
-        
-     [MBProgressHUD showText:NSLocalizedString(@"请填写正确的手机号码", nil)];
-        return;
-        
-    }
+//    else if (![self valiMobile:_mobilePhone.text])
+//    {
+//
+//     [MBProgressHUD showText:NSLocalizedString(@"请填写正确的手机号码", nil)];
+//        return;
+//
+//    }
     else if (!self.sex.text || [self.sex.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请选择性别", nil)];
         return;

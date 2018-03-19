@@ -6,8 +6,8 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
-
-@interface SearchresultViewController : BaseViewController
+//#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
+@interface SearchresultViewController :StoreBaseViewController
 
 @end

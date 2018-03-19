@@ -7,7 +7,7 @@
 //
 
 
-#import "BaseViewController.h"
-@interface ContractdetailViewController : BaseViewController
+#import "StoreBaseViewController.h"
+@interface ContractdetailViewController : StoreBaseViewController
 @property (nonatomic,copy) NSString *contractCode;
 @end

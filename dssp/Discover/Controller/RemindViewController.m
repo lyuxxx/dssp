@@ -24,6 +24,10 @@
 
 @implementation RemindViewController
 
+- (BOOL)needGradientBg {
+    return YES;
+}
+
 - (instancetype)initWithImage:(UIImage *)image title:(NSString *)title message:(NSString *)message {
     self = [super init];
     if (self) {
@@ -116,16 +120,16 @@
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
-    whiteV.backgroundColor = [UIColor whiteColor];
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowRadius = 7;
-    whiteV.layer.shadowOpacity = 0.5;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowRadius = 7;
+//    whiteV.layer.shadowOpacity = 0.5;
     [self.view addSubview:whiteV];
 //    [self.view insertSubview:_content aboveSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(CGSizeMake(359 * WidthCoefficient, 140 * HeightCoefficient));
-        make.top.equalTo(44 * HeightCoefficient);
+        make.top.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(0);
     }];
     
@@ -140,9 +144,24 @@
     }];
     
     
+    UILabel *topLabel = [[UILabel alloc] init];
+   
+    topLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+    topLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    //    botLabel.backgroundColor =[UIColor redColor];
+    [whiteV addSubview:topLabel];
+    [topLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(16 * WidthCoefficient);
+        make.top.equalTo(10 * HeightCoefficient);
+        make.right.equalTo(-16 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+    }];
+    
+    
+    
     _content = [[UILabel alloc] init];
 //    _content.frame = CGRectMake(17, 30, self.view.frame.size.width-34, 120);
-    _content.textColor = [UIColor colorWithHexString:@"#666666"];
+    _content.textColor = [UIColor colorWithHexString:@"#999999"];
 //        _content.backgroundColor = [UIColor redColor];
     _content.clipsToBounds = YES;
     _content.clipsToBounds = YES;
@@ -168,23 +187,28 @@
     
     if ([notice.businType isEqualToString:@"maintenance_notice"]) {
 
-         _imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
+         topLabel.text = NSLocalizedString(@"预约保养?", nil);
+//         _imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
     }
     if ([notice.businType isEqualToString:@"CaTtheft"]) {
-         _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
+         topLabel.text = NSLocalizedString(@"盗车提醒", nil);
+//         _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
     }
     if ([notice.businType isEqualToString:@"flow"]) {
-         _imgV.image = [UIImage imageNamed:@"详细_流量查询_icon"];
+         topLabel.text = NSLocalizedString(@"流量查询", nil);
+//         _imgV.image = [UIImage imageNamed:@"详细_流量查询_icon"];
     }
     if ([notice.businType isEqualToString:@"svn"]) {
-         _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
+        topLabel.text = NSLocalizedString(@"盗车提醒", nil);
+//         _imgV.image = [UIImage imageNamed:@"详细_盗车提醒_icon"];
     }
     if ([notice.businType isEqualToString:@"violation"]) {
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
         [whiteV addGestureRecognizer:tapGesture];
 //        _imgV.userInteractionEnabled = YES;
-        
-        _imgV.image = [UIImage imageNamed:@"违章提醒_icon"];
+
+        topLabel.text = NSLocalizedString(@"违章提醒", nil);
+//        _imgV.image = [UIImage imageNamed:@"违章提醒_icon"];
     }
     
     
@@ -194,8 +218,6 @@
 {
     LllegalViewController *vc =[[LllegalViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    
-    
 }
 
 - (void)setupUI {

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 #import "CarInfoModel.h"
-@interface CarBindingTViewController : BaseViewController
+@interface CarBindingTViewController : StoreBaseViewController
 @property (nonatomic,strong) CarbindModel *carbind;
 @end

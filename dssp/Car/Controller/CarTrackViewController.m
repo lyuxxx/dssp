@@ -314,6 +314,7 @@
     
     UILabel *centerLabel = [[UILabel alloc] init];
     centerLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    centerLabel.textAlignment = NSTextAlignmentCenter;
     centerLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     centerLabel.text = NSLocalizedString(@"-请按如下步骤开启车辆追踪-",nil);
     [_whiteV1 addSubview:centerLabel];

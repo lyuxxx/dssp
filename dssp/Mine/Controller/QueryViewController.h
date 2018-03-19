@@ -6,9 +6,9 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 //#import "QueryModel.h"
-@interface QueryViewController : BaseViewController
+@interface QueryViewController : StoreBaseViewController
 //@property (nonatomic,strong)QueryModel *queryModel;
 @property (nonatomic,strong)NSString *vin;
 @end

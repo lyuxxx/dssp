@@ -28,16 +28,16 @@
 -(void)createUI
 {
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 7.5);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.backgroundColor = [UIColor whiteColor];
+    whiteV.layer.cornerRadius = 2;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 7.5);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowOpacity = 0.2;
+//    whiteV.layer.shadowRadius = 7;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(142.5 * HeightCoefficient);
+        make.height.equalTo(130 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(0 * HeightCoefficient);
     }];
@@ -58,10 +58,11 @@
 //        make.right.equalTo(whiteV.right).offset(-10 * HeightCoefficient);
 //    }];
     
+    
     self.serialNumber = [[UILabel alloc] init];
     _serialNumber.textAlignment = NSTextAlignmentLeft;
     _serialNumber.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-   
+    _serialNumber.textColor = [UIColor whiteColor];
     [whiteV addSubview:_serialNumber];
     [_serialNumber makeConstraints:^(MASConstraintMaker *make) {
 //        make.width.equalTo(141.5 * WidthCoefficient);
@@ -73,7 +74,7 @@
     
     
     UIImageView *rightImg = [[UIImageView alloc] init];
-    rightImg.image = [UIImage imageNamed:@"left-alignment copy"];
+    rightImg.image = [UIImage imageNamed:@"合同服务背景"];
     [whiteV addSubview:rightImg];
     [rightImg makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(0);

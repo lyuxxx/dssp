@@ -375,7 +375,6 @@
     }];
     
 
-    
     UIImageView *img = [[UIImageView alloc] init];
     [whiteView addSubview:img];
     img.image=[UIImage imageNamed:@"箭头_icon"];

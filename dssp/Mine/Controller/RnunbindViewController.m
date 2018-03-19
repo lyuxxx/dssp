@@ -17,7 +17,7 @@
 @end
 
 @implementation RnunbindViewController
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
@@ -44,16 +44,16 @@
     
     self.navigationItem.title = NSLocalizedString(@"实名制解绑", nil);
     UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.backgroundColor = [UIColor whiteColor];
+    whiteV.layer.cornerRadius = 2;
+//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+//    whiteV.layer.shadowOpacity = 0.2;
+//    whiteV.layer.shadowRadius = 7;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(287.5 * HeightCoefficient);
+        make.height.equalTo(262 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20 * HeightCoefficient);
     }];
@@ -70,6 +70,7 @@
     
     UILabel *intro = [[UILabel alloc] init];
     intro.textAlignment = NSTextAlignmentCenter;
+    intro.textColor = [UIColor whiteColor];
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     intro.text = NSLocalizedString(@"输入车辆VIN号", nil);
     [whiteV addSubview:intro];
@@ -93,7 +94,7 @@
     _vinField.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_vinField];
     [_vinField makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(280 * WidthCoefficient);
+        make.width.equalTo(313* WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(intro.bottom).offset(27.5 * HeightCoefficient);
@@ -111,7 +112,7 @@
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(whiteV.bottom).offset(24 * HeightCoefficient);
+        make.top.equalTo(whiteV.bottom).offset(30 * HeightCoefficient);
     }];
 }
 

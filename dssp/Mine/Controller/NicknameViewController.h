@@ -6,8 +6,8 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
-@interface NicknameViewController : BaseViewController
+@interface NicknameViewController :StoreBaseViewController
 
 @end

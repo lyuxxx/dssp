@@ -50,8 +50,8 @@
         whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
         [self.contentView addSubview:whiteV];
         [whiteV makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(UIEdgeInsetsMake(0 * WidthCoefficient, 0 * WidthCoefficient, 0 * WidthCoefficient, 0 * WidthCoefficient));
-            make.height.equalTo(100 * WidthCoefficient);
+            make.edges.equalTo(UIEdgeInsetsMake(0 , 0, 0, 0 ));
+//            make.height.equalTo(100 * WidthCoefficient);
            
         }];
         
@@ -65,7 +65,7 @@
         make.height.equalTo(1 * HeightCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
         make.right.equalTo(0);
-        make.bottom.equalTo(1 - 1 * HeightCoefficient);
+        make.bottom.equalTo(-1);
     }];
     
     self.timeLabel = [[UILabel alloc] init];
@@ -84,13 +84,13 @@
     
     self.unreadImgV = [[UIImageView alloc] init];
     _unreadImgV.image = [UIImage imageNamed:@"unread"];
-    _unreadImgV.layer.cornerRadius = 7 * WidthCoefficient/2;
+    _unreadImgV.layer.cornerRadius = 5 * WidthCoefficient/2;
     _unreadImgV.layer.masksToBounds =YES;
     [_white addSubview:_unreadImgV];
     [_unreadImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(18 * HeightCoefficient);
-        make.height.equalTo(7 * WidthCoefficient);
-        make.width.equalTo(7 * WidthCoefficient);
+        make.top.equalTo(19 * HeightCoefficient);
+        make.height.equalTo(5 * WidthCoefficient);
+        make.width.equalTo(5 * WidthCoefficient);
         make.left.equalTo(6 * WidthCoefficient);
     }];
     

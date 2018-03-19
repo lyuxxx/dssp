@@ -23,18 +23,20 @@
 @property (nonatomic,strong) UILabel *describeLabel;
 @property (nonatomic,strong) ContractData *contractData;
 @property (nonatomic,strong) NSArray *dataArray;
+@property (nonatomic,strong) UIView * headerView;
 @end
 
 @implementation ContractdetailViewController
 
-- (BOOL)needGradientImg {
+- (BOOL)needGradientBg {
     return YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self requestData];
-//    [self setupUI];
+    [self tableViews];
+   [self setupUI];
 }
 
 -(void)requestData
@@ -66,49 +68,80 @@
     }];
 }
 
+-(void)tableViews
+{
+    _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedSectionFooterHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
+    //    _tableView.tableFooterView = [UIView new];
+    //    _tableView.tableHeaderView = [UIView new];
+    
+    adjustsScrollViewInsets_NO(_tableView,self);
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    //不回弹
+    _tableView.bounces=NO;
+    //滚动条隐藏
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.backgroundColor=[UIColor clearColor];
+    //    隐藏线
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:_tableView];
+    [_tableView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+
+    
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,265*HeightCoefficient)];
+    _headerView.backgroundColor=[UIColor clearColor];
+    _tableView.tableHeaderView=_headerView;
+    
+}
+
 
 -(void)setupUI
 {
 
     self.navigationItem.title = NSLocalizedString(@"合同详细", nil);
-    UIScrollView *scroll = [[UIScrollView alloc] init];
-    scroll.showsVerticalScrollIndicator = NO;
-    if (@available(iOS 11.0, *)) {
-        scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        // Fallback on earlier versions
-    }
-    [self.view addSubview:scroll];
-    [scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
-    }];
-    
-    UIView *content = [[UIView alloc] init];
-    [scroll addSubview:content];
-    [content makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(scroll);
-        make.width.equalTo(kScreenWidth);
-    }];
-    
-    
+
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
-    whiteV.layer.shadowOpacity = 0.5;// 阴影透明度
-    whiteV.layer.shadowOffset = CGSizeMake(0,7.5);
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowRadius = 20.5;//阴影半径，默认3
-
-    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    whiteV.layer.shadowOpacity = 0.2;
-    whiteV.layer.shadowRadius = 7;
-    whiteV.backgroundColor = [UIColor whiteColor];
-    [content addSubview:whiteV];
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [_headerView addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(200 * HeightCoefficient);
+        make.height.equalTo(190 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20 * HeightCoefficient);
     }];
+    
+    
+    UIView *V = [[UIView alloc] init];
+    V.layer.cornerRadius = 2;
+    V.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+    [_headerView addSubview:V];
+    [V makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(3 *WidthCoefficient);
+        make.height.equalTo(18 * HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+    make.top.equalTo(whiteV.bottom).offset(22.5*HeightCoefficient);
+    }];
+    
+    
+    UILabel *service = [[UILabel alloc] init];
+    service.textAlignment = NSTextAlignmentLeft;
+    service.textColor=[UIColor colorWithHexString:@"#ffffff"];
+    service.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    service.text = NSLocalizedString(@"可用服务", nil);
+    [_headerView addSubview:service];
+    [service makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(100 * WidthCoefficient);
+        make.left.equalTo(24 * WidthCoefficient);
+        make.height.equalTo(18.5 * HeightCoefficient);
+    make.top.equalTo(whiteV.bottom).offset(22.5*HeightCoefficient);
+    }];
+
     
     
     self.vipLabel = [[UILabel alloc] init];
@@ -143,18 +176,19 @@
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textAlignment = NSTextAlignmentLeft;
     _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    NSString *a = _contractData.createTime;
-    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
-    NSString *a1 = _contractData.lastUpdateTime;
-    NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
-    NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",b] stringByAppendingString:b1];
+    NSString *a = _contractData.createTime?_contractData.createTime:@"";
+//    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
+    NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
+//    NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
+    NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",a] stringByAppendingString:a1];
 //    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
+    _timeLabel.numberOfLines = 0;
     _timeLabel.text = NSLocalizedString(time, nil);
     _timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
     [whiteV addSubview:_timeLabel];
     [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
 //        make.width.equalTo(170 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
+        make.height.equalTo(40 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
         make.right.equalTo(-10 * HeightCoefficient);
         make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
@@ -176,102 +210,7 @@
     }];
     
     
-    
-//    UIButton *testdriveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    //    [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    testdriveBtn.layer.cornerRadius = 10;
-//    [testdriveBtn setTitle:NSLocalizedString(@"试驾", nil) forState:UIControlStateNormal];
-//    [testdriveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    testdriveBtn.titleLabel.font = [UIFont fontWithName:FontName size:14];
-//    [testdriveBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-//    [whiteV addSubview:testdriveBtn];
-//    [testdriveBtn makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(50 * WidthCoefficient);
-//        make.height.equalTo(20 * HeightCoefficient);
-//        make.top.equalTo(10 * HeightCoefficient);
-//        make.right.equalTo(whiteV.right).offset(-10 * HeightCoefficient);
-//    }];
-//
-    
 
-//
-    
-//    UIView *btnContainer = [[UIView alloc] init];
-//    btnContainer.backgroundColor = [UIColor whiteColor];
-//    [content addSubview:btnContainer];
-//    [btnContainer makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(self.view);
-//        make.height.equalTo(270 * WidthCoefficient);
-//        make.top.equalTo(service.bottom).offset(15 * HeightCoefficient);
-//        make.centerX.equalTo(self.view);
-//    }];
-//
-//    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"wifi密码", nil),NSLocalizedString(@"流量查询", nil),NSLocalizedString(@"紧急救援", nil),NSLocalizedString(@"盗车提醒", nil),NSLocalizedString(@"车况检测", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"道路救援", nil)];
-//    NSArray *imgTitles = @[@"智慧出行_icon",@"智慧停车_icon",@"智慧加油_icon",@"违章查询_icon",@"wifi密码_icon",@"流量查询_icon",@"紧急救援_icon",@"盗车提醒_icon",@"车况检测_icon",@"驾驶行为_icon",@"预约保养_icon",@"道路救援_icon"];
-//    NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
-//
-//    for (NSInteger i = 0; i < titles.count; i++) {
-//        TopImgButton *btn = [TopImgButton buttonWithType:UIButtonTypeCustom];
-//        btn.tag = 100 + i;
-////        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [btn setTitleColor:[UIColor colorWithHexString:@"#040000"] forState:UIControlStateNormal];
-//        btn.titleLabel.font = [UIFont fontWithName:FontName size:13];
-//        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-//        [btn setTitle:titles[i] forState:UIControlStateNormal];
-//        [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
-//        [btnContainer addSubview:btn];
-//        [btns addObject:btn];
-//    }
-//
-//
-//    [btns mas_distributeSudokuViewsWithFixedItemWidth:52.5 * WidthCoefficient fixedItemHeight:62 * WidthCoefficient warpCount:4 topSpacing:14.5 * WidthCoefficient bottomSpacing:23.5 * WidthCoefficient leadSpacing:29 * WidthCoefficient tailSpacing:29 * WidthCoefficient];
-    
-    
-    
-    _tableView=[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.estimatedRowHeight = 0;
-    _tableView.estimatedSectionFooterHeight = 0;
-    _tableView.estimatedSectionHeaderHeight = 0;
-    //    _tableView.tableFooterView = [UIView new];
-    //    _tableView.tableHeaderView = [UIView new];
-    
-    adjustsScrollViewInsets_NO(_tableView,self);
-    _tableView.delegate=self;
-    _tableView.dataSource=self;
-    //不回弹
-    _tableView.bounces=NO;
-    //滚动条隐藏
-    _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor whiteColor];
-    //    隐藏线
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_tableView];
-    [_tableView makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.width.equalTo(kScreenWidth);
-        make.height.equalTo(300 * HeightCoefficient);
-        make.top.equalTo(whiteV.bottom).offset(20*HeightCoefficient);
-    }];
-    
-   UIView * headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,30 * HeightCoefficient)];
-    headerView.backgroundColor = [UIColor colorWithHexString:@"#F9F8F8"];
-   self.tableView.tableHeaderView = headerView;
-    
-    UILabel *service = [[UILabel alloc] init];
-    service.textAlignment = NSTextAlignmentLeft;
-    service.textColor=[UIColor colorWithHexString:@"#999999"];
-    service.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
-    service.text = NSLocalizedString(@"可用服务", nil);
-    [headerView addSubview:service];
-    [service makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(100 * WidthCoefficient);
-        make.left.equalTo(16 * WidthCoefficient);
-        make.height.equalTo(18.5 * HeightCoefficient);
-        make.top.equalTo(5.75 * HeightCoefficient);
-    }];
-
-    
-//      [self setupUI];
 }
 
 
@@ -295,7 +234,7 @@
     }
     
     cell.toplab.text = _dataArray[indexPath.row][@"deviceType"];
-    
+    cell.backgroundColor =[UIColor clearColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
     

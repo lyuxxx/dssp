@@ -23,6 +23,9 @@
 @end
 
 @implementation PersonInViewController
+- (BOOL)needGradientBg {
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -96,7 +99,7 @@
 //    _tableView.bounces=NO;
     //滚动条隐藏
 //    _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
+    _tableView.backgroundColor=[UIColor clearColor];
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -130,7 +133,7 @@
        if (indexPath.row==0) {
 
             [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
-            cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
+            cell.arrowImg.image=[UIImage imageNamed:@"箭头_icon"];
            
         }
        if (indexPath.row==1) {
@@ -146,9 +149,9 @@
             cell.whiteView.hidden=YES;
             NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
             cell.realName.text = _userModel.nickname?_userModel.nickname:name;
-            cell.arrowImg.image=[UIImage imageNamed:@"arrownext"];
+            cell.arrowImg.image=[UIImage imageNamed:@"箭头_icon"];
         }
-
+  cell.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
 }

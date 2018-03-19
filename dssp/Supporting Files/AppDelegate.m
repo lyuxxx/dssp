@@ -34,9 +34,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
     [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server_formal" ofType:@"cer"]];
     
 //    [self setuploading];
+
     //清空cid
 
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
@@ -57,6 +59,7 @@
     
     return YES;
 }
+
 
 
 -(void)setuploading
