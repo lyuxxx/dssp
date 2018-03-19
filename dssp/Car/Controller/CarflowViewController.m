@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"流量查询", nil);
+    self.navigationItem.title = NSLocalizedString(@"车载流量查询", nil);
 //    self.view.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self requestData];
     [self initTableView];

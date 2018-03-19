@@ -87,7 +87,6 @@
                 VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-                
             }
         };
     }
@@ -297,7 +296,7 @@
         make.centerX.equalTo(content);
     }];
     
-    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"流量查询", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil)];
+    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil)];
     NSArray *imgTitles = @[@"智慧出行_icon",@"智慧停车_icon",@"智慧加油_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
