@@ -6,9 +6,9 @@
 //  Copyright © 2017年 capsa. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "StoreBaseViewController.h"
 
-@interface FavoritesViewController : BaseViewController
+@interface FavoritesViewController : StoreBaseViewController
 
 - (instancetype)initWithType:(PoiType)type checkPoi:(NSString *)serviceId block:(void (^)(BOOL))block;
 

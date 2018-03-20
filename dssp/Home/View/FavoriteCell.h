@@ -12,6 +12,7 @@
 
 @interface FavoriteCell : MGSwipeTableCell
 
++ (CGFloat)cellHeight;
 - (void)configWithModel:(ResultItem *)item;
 
 @end

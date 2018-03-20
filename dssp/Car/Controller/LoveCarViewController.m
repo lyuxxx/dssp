@@ -207,8 +207,8 @@
     }];
     
     self.plateLabel = [[UILabel alloc] init];
+    _plateLabel.hidden = YES;
     _plateLabel.textAlignment = NSTextAlignmentCenter;
-    _plateLabel.text = @"鄂A12345";
     _plateLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     _plateLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     _plateLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
@@ -296,8 +296,8 @@
         make.centerX.equalTo(content);
     }];
     
-    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"智慧停车", nil),NSLocalizedString(@"智慧加油", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil)];
-    NSArray *imgTitles = @[@"智慧出行_icon",@"智慧停车_icon",@"智慧加油_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon"];
+    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"油价查询", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil)];
+    NSArray *imgTitles = @[@"智慧出行_icon",@"智慧加油_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
     for (NSInteger i = 0; i < titles.count; i++) {
@@ -423,52 +423,52 @@
 //        vc.hidesBottomBarWhenPushed = YES;
 //        [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 102) {
+    if (sender.tag == 101) {
         RefuelViewController *vc = [[RefuelViewController alloc] initWithType:PoiTypeOil];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 103) {
+    if (sender.tag == 102) {
         UIViewController *vc = [[NSClassFromString(@"WifiViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 104) {
+    if (sender.tag == 103) {
         UIViewController *vc = [[NSClassFromString(@"UpkeepViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 105) {
+    if (sender.tag == 104) {
         UIViewController *vc = [[NSClassFromString(@"CarflowViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 106) {
+    if (sender.tag == 105) {
         UIViewController *vc = [[NSClassFromString(@"CarTrackViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 107) {
+    if (sender.tag == 106) {
         UIViewController *vc = [[NSClassFromString(@"TrafficReportController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 108) {
+    if (sender.tag == 107) {
         UIViewController *vc = [[NSClassFromString(@"DrivingWeekReportViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 109) {
+    if (sender.tag == 108) {
         UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 110) {
+    if (sender.tag == 109) {
         UIViewController *vc = [[NSClassFromString(@"TrackListViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (sender.tag == 111) {
+    if (sender.tag == 110) {
         UIViewController *vc = [[NSClassFromString(@"MapUpdateViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
