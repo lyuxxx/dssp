@@ -45,6 +45,7 @@
 @property(nonatomic, copy) NSString *locationName;
 @property(nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) UIButton *bindingBtn;
+@property (nonatomic, strong) UILabel *namelabel;
 @end
 
 @interface MineViewController ()
@@ -77,11 +78,6 @@
     _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
   @[@[@"signout",@"退出登录"]]];
     
-    
-//  [self RealnameUserName];
-//    [self initTableView];
-//    [self setupUI];
-//     [self setupUI];
     [self initTableView];
     [self setupUI];
   
@@ -115,10 +111,24 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+          
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *userName = [defaults objectForKey:@"userName"];
+           
+            
             NSDictionary *dic1 = dic[@"data"];
             UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
             [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
-          
+        
+            _namelabel.text=NSLocalizedString(userModel.nickName?userModel.nickName:userName, nil);
+            CGSize size = [_namelabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:17],NSFontAttributeName,nil]];
+            // 名字的H
+            //    CGFloat nameH = size.height;
+            // 名字的W
+            CGFloat nameW = size.width;
+            [_namelabel updateConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(nameW+1);
+            }];
         } else {
             
             [MBProgressHUD showText:dic[@"msg"]];
@@ -318,28 +328,29 @@
     }];
     
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userName = [defaults objectForKey:@"userName"];
-    UILabel *namelabel = [[UILabel alloc] init];
-    namelabel.font=[UIFont fontWithName:FontName size:17];
-    namelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
-    namelabel.text=NSLocalizedString(userName, nil);
-    namelabel.textAlignment = NSTextAlignmentLeft;
-    [whiteView addSubview:namelabel];
-    [namelabel makeConstraints:^(MASConstraintMaker *make) {
-       make.top.equalTo(30*HeightCoefficient);
+    
+    self.namelabel = [[UILabel alloc] init];
+    _namelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
+    //    _namelabel.text=NSLocalizedString(userName, nil);
+    _namelabel.textAlignment = NSTextAlignmentLeft;
+  
+    _namelabel.font=[UIFont fontWithName:FontName size:17];
+    [whiteView addSubview:_namelabel];
+    [_namelabel makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(30*HeightCoefficient);
         make.height.equalTo(24 * HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
-        make.width.equalTo(120 * WidthCoefficient);
+        make.width.equalTo(120);
     }];
-
+   
+   
     
     UIImageView *locationImg = [[UIImageView alloc] init];
     locationImg.contentMode = UIViewContentModeScaleAspectFit;
     locationImg.image = [UIImage imageNamed:@"location_mine"];
     [whiteView addSubview:locationImg];
     [locationImg makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(namelabel.bottom).offset(7.5*HeightCoefficient);
+    make.top.equalTo(_namelabel.bottom).offset(7.5*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(10 * WidthCoefficient);
         make.width.equalTo(8 * WidthCoefficient);
          make.height.equalTo(10.5 * HeightCoefficient);
@@ -352,7 +363,7 @@
     _locationLabel.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:_locationLabel];
     [_locationLabel makeConstraints:^(MASConstraintMaker *make) {
-    make.top.equalTo(namelabel.bottom).offset(5*HeightCoefficient);
+    make.top.equalTo(_namelabel.bottom).offset(5*HeightCoefficient);
         make.left.equalTo(_photoBtn.right).offset(22 * WidthCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
         make.width.equalTo(150 * WidthCoefficient);
@@ -370,7 +381,7 @@
     [_bindingBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(50 * WidthCoefficient);
         make.height.equalTo(18 * HeightCoefficient);
-        make.left.equalTo(namelabel.right).offset(9.5*WidthCoefficient);
+    make.left.equalTo(_namelabel.right).offset(9.5*WidthCoefficient);
         make.top.equalTo(33 * HeightCoefficient);
     }];
     
@@ -490,44 +501,7 @@
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
            
-            
-//            if ([_certificationStatus isEqualToString:@"0"]||[_certificationStatus isEqualToString:@"2"]) {
-//
-//                RNRViewController *vc=[[RNRViewController alloc] init];
-//                vc.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:vc animated:YES];
-//            }
-//            else if([_certificationStatus isEqualToString:@"1"])
-//            {
-//
-//            }
-//            else if([_certificationStatus isEqualToString:@"3"])
-//            {
-//                [MBProgressHUD showText:NSLocalizedString(@"非T客户不需要实名", nil)];
-//            }
-//            else if([_certificationStatus isEqualToString:@"4"])
-//            {
-//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-//                [[NSUserDefaults standardUserDefaults] synchronize];
-//                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
-//                        message:@"当前用户未绑定车辆,请绑定！"
-//                    preferredStyle:UIAlertControllerStyleAlert];
-//
-//                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//                    //响应事件
-//                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-//                    vc.hidesBottomBarWhenPushed = YES;
-//                    [self.navigationController pushViewController:vc animated:YES];
-//
-//                }];
-//                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//
-//                }];
-//                [alert addAction:defaultAction];
-//                [alert addAction:cancelAction];
-//                [self presentViewController:alert animated:YES completion:nil];
-//
-//            }
+  
         }else if (indexPath.row == 2)
         {
             

@@ -149,7 +149,7 @@
         }];
         
         UITextField *field = [[UITextField alloc] init];
-        field.textColor = [UIColor colorWithHexString:@"#040000"];
+        field.textColor = [UIColor colorWithHexString:@"#ffffff"];
         field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
         field.font = [UIFont fontWithName:FontName size:15];
         [whiteV addSubview:field];

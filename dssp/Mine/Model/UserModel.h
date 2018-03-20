@@ -17,7 +17,7 @@
 @property (nonatomic , copy) NSString *updateTime ;
 @property (nonatomic , copy) NSString *tserviceStatus ;
 @property (nonatomic , copy) NSString *vin ;
-@property (nonatomic , copy) NSString *nickname ;
+@property (nonatomic , copy) NSString *nickName ;
 @property (nonatomic , copy) NSString *headPortrait ;
 
 @end

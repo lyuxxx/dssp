@@ -115,18 +115,10 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    
+  
     if (_vinField.text.length !=17) {
         
         [MBProgressHUD showText:NSLocalizedString(@"请输入17位VIN号", nil)];
-        
-        
-//        RNRViewController *vc = [[RNRViewController alloc] init];
-//        vc.bingVin = _vin?_vin:_vinField.text;
-//        [self.navigationController pushViewController:vc animated:YES];
-//        RNRPhotoViewController *vc = [[RNRPhotoViewController alloc] init];
-////        vc.rnrInfo = rnrInfo;
-//        [self.navigationController pushViewController:vc animated:YES];
     }
     else if (_vinField.text.length == 17)
     {

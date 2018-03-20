@@ -148,7 +148,7 @@
         if (indexPath.row==2) {
             cell.whiteView.hidden=YES;
             NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
-            cell.realName.text = _userModel.nickname?_userModel.nickname:name;
+            cell.realName.text = _userModel.nickName?_userModel.nickName:name;
             cell.arrowImg.image=[UIImage imageNamed:@"箭头_icon"];
         }
   cell.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
