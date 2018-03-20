@@ -103,35 +103,20 @@
 
 -(void)blankUI{
     
-    self.bgImgV = [[UIImageView alloc] init];
-    _bgImgV.image = [UIImage imageNamed:@"空页面"];
-    [self.bgImgV setContentMode:UIViewContentModeScaleAspectFill];
-    [self.view addSubview:_bgImgV];
-    [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top .equalTo(120 * HeightCoefficient);
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"暂无内容"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(50 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.height.equalTo(77.5 * HeightCoefficient);
-        make.width.equalTo(86.5 * WidthCoefficient);
+        make.height.equalTo(175 * HeightCoefficient);
+        make.width.equalTo(278 * WidthCoefficient);
         
-    }];
-    
-    self.label = [[UILabel alloc] init];
-    _label.text =@"空空如也";
-    _label.textAlignment = NSTextAlignmentCenter;
-    _label.textColor = [UIColor colorWithHexString:@"#999999"];
-    _label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    
-    [self.view addSubview:_label];
-    [_label makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bgImgV.bottom).offset(15*WidthCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.width.equalTo(100 *WidthCoefficient);
     }];
     
     
 }
-
 
 -(void)initTableView
 {

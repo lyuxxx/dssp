@@ -165,30 +165,16 @@
 -(void)blankUI{
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"空页面1"];
+    bgImgV.image = [UIImage imageNamed:@"暂无内容"];
     [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top .equalTo(120 * HeightCoefficient);
+        make.top .equalTo(50 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.height.equalTo(77.5 * HeightCoefficient);
-        make.width.equalTo(86.5 * WidthCoefficient);
+        make.height.equalTo(175 * HeightCoefficient);
+        make.width.equalTo(278 * WidthCoefficient);
+        
     }];
-    
-    UILabel *label = [[UILabel alloc] init];
-    label.text =@"暂无数据";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor colorWithHexString:@"#999999"];
-    label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    
-    [self.view addSubview:label];
-    [label makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bgImgV.bottom).offset(15*WidthCoefficient);
-        make.height.equalTo(22 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.width.equalTo(100 *WidthCoefficient);
-    }];
-    
 }
 
 //-(void)setVhl:(VhlModel *)vhl
@@ -478,7 +464,7 @@
                 self.field = [[UITextField alloc] init];
                 _field.font = [UIFont fontWithName:FontName size:15];
                 _field.textColor = [UIColor colorWithHexString:@"#ffffff"];
-                _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _field.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 
@@ -538,8 +524,8 @@
                 _doptCodeField.font = [UIFont fontWithName:FontName size:15];
 //                 _doptCodeField.text = @"999";
                 _doptCodeField.keyboardType = UIKeyboardTypePhonePad;
-                _doptCodeField.textColor = [UIColor colorWithHexString:@"333333"];
-                _doptCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                _doptCodeField.textColor = [UIColor colorWithHexString:@"#ffffff"];
+                _doptCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _doptCodeField.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 
@@ -571,8 +557,8 @@
                 self.vhlLisenceField = [[UITextField alloc] init];
                 _vhlLisenceField.font = [UIFont fontWithName:FontName size:15];
 //                _vhlLisenceField.text = @"999";
-                _vhlLisenceField.textColor = [UIColor colorWithHexString:@"333333"];
-                _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_titles[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                _vhlLisenceField.textColor = [UIColor colorWithHexString:@"#ffffff"];
+                _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _vhlLisenceField.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 

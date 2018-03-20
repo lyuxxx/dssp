@@ -232,6 +232,19 @@
     }
     
     
+    UILabel *botLabel = [[UILabel alloc] init];
+    botLabel.text = NSLocalizedString(@"*请输入不少于八位字母和数字的混合密码", nil);
+    
+    botLabel.font = [UIFont fontWithName:FontName size:11];
+    botLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    [self.view addSubview:botLabel];
+    [botLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(16 * WidthCoefficient);
+       make.top.equalTo(whiteV.bottom).offset(0 * HeightCoefficient);
+        make.width.equalTo(260);
+        make.height.equalTo(20 * HeightCoefficient);
+    }];
+    
     self.modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _modifyBtn.layer.cornerRadius = 2;
     [_modifyBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -262,17 +275,17 @@
     }
     if (sender == self.modifyBtn) {
         
-        if (_originalField.text.length !=8 || ![self checkPassWord:_originalField.text])
+        if (![self checkPassWord:_originalField.text]||_originalField.text.length <8)
         {
-         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字组混合的原始密码", nil)];
+         [MBProgressHUD showText:NSLocalizedString(@"原始密码格式有误", nil)];
         }
-        else if (_newsPasswordField.text.length !=8 || ![self checkPassWord:_newsPasswordField.text])
+        else if (![self checkPassWord:_newsPasswordField.text]||_newsPasswordField.text.length <8)
         {
-          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字组混合的新密码", nil)];
+          [MBProgressHUD showText:NSLocalizedString(@"新密码格式有误", nil)];
         }
-        else if (_confirmField.text.length !=8 || ![self checkPassWord:_confirmField.text])
+        else if (_confirmField.text.length <8 || ![self checkPassWord:_confirmField.text])
         {
-          [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字组混合的确认密码", nil)];
+          [MBProgressHUD showText:NSLocalizedString(@"确认密码格式有误", nil)];
         }
         else if (![_newsPasswordField.text isEqualToString:_confirmField.text])
         {

@@ -112,6 +112,7 @@
             self.latestNewsFrame = contractData;
             if (self.latestNewsFrame.count == 0) {
                 self.tableView.mj_footer.hidden =YES;
+                 [self blankUI];
             }
 
             [_tableView reloadData];
@@ -119,11 +120,13 @@
             [_tableView.mj_header endRefreshing];
            
         } else {
+            [self blankUI];
              self.tableView.mj_footer.hidden =YES;
              [_tableView.mj_header endRefreshing];
 //            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+         [self blankUI];
          self.tableView.mj_footer.hidden =YES;
          [_tableView.mj_header endRefreshing];
 //         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
@@ -131,6 +134,25 @@
 //        [hud hideAnimated:YES afterDelay:1];
     }];
 }
+
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"暂无内容"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(50 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(175 * HeightCoefficient);
+        make.width.equalTo(278 * WidthCoefficient);
+        
+    }];
+    
+   
+}
+
 
 -(void)requestMoreNews
 {

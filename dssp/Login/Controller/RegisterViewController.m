@@ -178,8 +178,6 @@
             [_eyeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_eyeBtn setImage:[UIImage imageNamed:@"密码不可见_icon"] forState:UIControlStateNormal];
             [_eyeBtn setImage:[UIImage imageNamed:@"密码可见_icon"] forState:UIControlStateSelected];
-            
-           
             [self.view addSubview:_eyeBtn];
             [_eyeBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(16 * WidthCoefficient);
@@ -187,6 +185,23 @@
                 make.centerY.equalTo(field);
                 make.right.equalTo(line);
             }];
+            
+            
+            UILabel *botLabel = [[UILabel alloc] init];
+            botLabel.text = NSLocalizedString(@"*请输入不少于八位字母和数字的混合密码", nil);
+          
+            botLabel.font = [UIFont fontWithName:FontName size:11];
+            botLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            [self.view addSubview:botLabel];
+            [botLabel makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(42.5 * WidthCoefficient);
+                make.top.equalTo(line.bottom).offset(0 * HeightCoefficient);
+                make.width.equalTo(260);
+                make.height.equalTo(20 * HeightCoefficient);
+            }];
+            
+            
+            
             
         } else if (i == 3) {
             self.confirmPasswordField = field;
@@ -202,6 +217,7 @@
             }];
         }
     }
+    
     
     NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册即表示同意<用户协议>"];
     agreement.yy_font = [UIFont fontWithName:FontName size:12];
@@ -323,9 +339,9 @@
         if (_attentionImgV.hidden == NO) {
            [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
         }
-        else if (_passwordField.text.length !=8 || ![self checkPassWord:_passwordField.text])
+        else if (_passwordField.text.length <8 || ![self checkPassWord:_passwordField.text])
         {
-         [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母和数字混合的密码", nil)];
+         [MBProgressHUD showText:NSLocalizedString(@"密码格式有误", nil)];
         }
          else if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
              [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];
