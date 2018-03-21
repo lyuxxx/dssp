@@ -25,8 +25,8 @@
 #import <MBProgressHUD+CU.h>
 #import <CUPayTool.h>
 
-@interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate, CAAnimationDelegate>
-@property (nonatomic, strong) UIImageView *startupV;
+@interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
+
 @end
 
 @implementation AppDelegate
@@ -127,7 +127,6 @@
     UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     imgV.contentMode = UIViewContentModeScaleAspectFill;
     imgV.image = [UIImage imageNamed:@"launch"];
-    self.startupV = imgV;
     [self.window addSubview:imgV];
     [self.window bringSubviewToFront:imgV];
     [UIView animateWithDuration:2 animations:^{
@@ -176,12 +175,6 @@
 //    [shapeLayer addAnimation:maskAnimation forKey:@"maskAnimation"];
     **/
 }
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [_startupV removeFromSuperview];
-}
-
-#pragma mark - 个推推送相关 -
 
 #pragma mark -BadgeNumber相关-
 
@@ -232,6 +225,7 @@
     return YES;
 }
 
+#pragma mark - 个推推送相关 -
 
 - (void)registerLocalNotificationWithInfo:(NSDictionary *)info {
     if (@available(iOS 10.0, *)) {
@@ -245,7 +239,7 @@
         
         UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:0.1 repeats:NO];
         
-        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"com.capsa.dssp.local" content:content trigger:trigger];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"com.mobile.capsa.local" content:content trigger:trigger];
         
         [center addNotificationRequest:request withCompletionHandler:nil];
     } else {
