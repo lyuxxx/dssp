@@ -8,6 +8,6 @@
 
 #import "StoreBaseViewController.h"
 
-@interface InformationCenterViewController : StoreBaseViewController
+@interface InformationCenterViewController : StoreBaseViewController<UIGestureRecognizerDelegate>
 
 @end

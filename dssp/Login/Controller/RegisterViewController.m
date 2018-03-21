@@ -13,6 +13,7 @@
 #import "TabBarController.h"
 #import <CUHTTPRequest/CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
+#import "AgreementViewController.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
 
@@ -31,7 +32,8 @@
 @property (nonatomic, strong) UIImageView *checkImgV;
 
 @property (nonatomic, strong) UIButton *agreeBtn;
-
+@property (nonatomic, strong) UIButton *agreementBtn;
+@property (nonatomic, copy) NSString *agree;
 @end
 
 @implementation RegisterViewController
@@ -219,36 +221,56 @@
     }
     
     
-    NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册即表示同意<用户协议>"];
-    agreement.yy_font = [UIFont fontWithName:FontName size:12];
-    agreement.yy_color = [UIColor colorWithHexString:@"#999999"];
-    NSRange range = [@"注册即表示同意<用户协议>" rangeOfString:@"<用户协议>"];
-    [agreement yy_setTextHighlightRange:range color:[UIColor colorWithHexString:@"#AC0042 "] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-        
-    }];
-    YYLabel *agreeLabel = [[YYLabel alloc] init];
-    agreeLabel.attributedText = agreement;
-    [self.view addSubview:agreeLabel];
-    [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(125 * WidthCoefficient);
-        make.top.equalTo(438 * HeightCoefficient + kStatusBarHeight);
-        make.width.equalTo(220 * WidthCoefficient);
-        make.height.equalTo(16 * HeightCoefficient);
-    }];
+//    NSMutableAttributedString *agreement = [[NSMutableAttributedString alloc] initWithString:@"注册即表示同意<用户协议>"];
+//    agreement.yy_font = [UIFont fontWithName:FontName size:12];
+//    agreement.yy_color = [UIColor colorWithHexString:@"#999999"];
+//    NSRange range = [@"注册即表示同意<用户协议>" rangeOfString:@"<用户协议>"];
+//    [agreement yy_setTextHighlightRange:range color:[UIColor colorWithHexString:@"#AC0042 "] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+//
+//    }];
+//    YYLabel *agreeLabel = [[YYLabel alloc] init];
+//    agreeLabel.attributedText = agreement;
+//    [self.view addSubview:agreeLabel];
+//    [agreeLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(125 * WidthCoefficient);
+//        make.top.equalTo(438 * HeightCoefficient + kStatusBarHeight);
+//        make.width.equalTo(220 * WidthCoefficient);
+//        make.height.equalTo(16 * HeightCoefficient);
+//    }];
     
     
     self.agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _agreeBtn.selected = YES;
+    //    _agreeBtn.selected = NO;
     [_agreeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_agreeBtn setImage:[UIImage imageNamed:@"check grey"] forState:UIControlStateNormal];
     [_agreeBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
     [self.view addSubview:_agreeBtn];
     [_agreeBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(12 * WidthCoefficient);
-        make.centerY.equalTo(agreeLabel);
-        make.right.equalTo(agreeLabel.left).offset(-12 * WidthCoefficient);
+        make.top.equalTo(440 * HeightCoefficient + kStatusBarHeight);
+        make.left.equalTo(103 * WidthCoefficient);
     }];
     
+    
+    self.agreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_agreementBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _agreementBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:12];
+    _agreementBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_agreementBtn setTitle:NSLocalizedString(@"注册即表示同意<用户协议>", nil) forState:UIControlStateNormal];
+    [_agreementBtn setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+    [self.view addSubview:self.agreementBtn];
+    [_agreementBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(125 * WidthCoefficient);
+                make.top.equalTo(438 * HeightCoefficient + kStatusBarHeight);
+                make.width.equalTo(220 * WidthCoefficient);
+                make.height.equalTo(16 * HeightCoefficient);
+//        make.top.equalTo(_registerBtn.bottom).offset(46*HeightCoefficient);
+//        make.centerX.equalTo(0);
+//        make.width.equalTo(130*WidthCoefficient);
+//        make.height.equalTo(28*HeightCoefficient);
+    }];
+    
+
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_registerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     _registerBtn.layer.borderColor = [UIColor colorWithHexString:GeneralColorString].CGColor;
@@ -262,7 +284,7 @@
         make.centerX.equalTo(self.view);
         make.width.equalTo(290 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
-        make.top.equalTo(agreeLabel.bottom).offset(30.5 * HeightCoefficient);
+        make.top.equalTo(_agreementBtn.bottom).offset(30.5 * HeightCoefficient);
     }];
     
     UILabel *botLabel = [[UILabel alloc] init];
@@ -273,7 +295,7 @@
     // 名字的W
     CGFloat nameW = size.width;
     botLabel.font = [UIFont fontWithName:FontName size:14];
-    botLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    botLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(126.5 * WidthCoefficient);
@@ -325,7 +347,23 @@
         self.passwordField.secureTextEntry = !sender.selected;
     }
     if (sender == self.agreeBtn) {
-        sender.selected = !sender.selected;
+        if (self.agreeBtn.selected == YES) {
+            self.agreeBtn.selected = NO;
+        }
+        else
+        {
+            weakifySelf
+            AgreementViewController *AgreementVC = [[AgreementViewController alloc] init];
+            AgreementVC.callBackBlocks = ^(NSString *text){   // 1
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    strongifySelf
+                    self.agreeBtn.selected = YES;
+                    
+                });
+            };
+            [self presentViewController:AgreementVC animated:NO completion:nil];
+        }
     }
     if (sender == self.loginBtn) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
@@ -486,12 +524,34 @@
             }
             else
             {
-                
                 [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
             }
         }
     }
+    if (sender == self.agreementBtn) {
+
+        if (self.agreeBtn.selected == YES) {
+            self.agreeBtn.selected = NO;
+        }
+        else
+        {
+            weakifySelf
+            AgreementViewController *AgreementVC = [[AgreementViewController alloc] init];
+            AgreementVC.callBackBlocks = ^(NSString *text){   // 1
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    strongifySelf
+                    self.agreeBtn.selected = YES;
+                    
+                });
+            };
+            [self presentViewController:AgreementVC animated:NO completion:nil];
+        }
+
+    }
+    
 }
+
 
 -(BOOL)checkPassWord:(NSString *)str
 {

@@ -78,6 +78,9 @@
         [self.result2 setObject:serviceList.appServiceNum forKey:serviceList.serviceName];
     }
     
+    CONF_SET(@"resultId",self.result);
+    CONF_SET(@"resultsourceData",self.result1);
+    
     NSString *Idstr = [_result objectForKey:message.serviceName];
     NSLog(@"555%@",Idstr);
     

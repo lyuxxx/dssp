@@ -112,27 +112,53 @@
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             NSArray *dataArray = dic[@"data"];
             _noticeDatas =[NSMutableArray new];
-            for (NSDictionary *dic in dataArray) {
-                self.notice = [NoticeModel yy_modelWithDictionary:dic];
-                [self.noticeDatas addObject:_notice];
-            }
-            self.dataSource = _noticeDatas;
-//            [self.dataSource addObjectsFromArray:resultArr];
-//            [self.dataSource addObjectsFromArray:_noticeDatas];
-            [_tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
             
+        if (dataArray != nil && ![dataArray isKindOfClass:[NSNull class]] &&  dataArray.count != 0){
+                   for (NSDictionary *dic in dataArray) {
+                       self.notice = [NoticeModel yy_modelWithDictionary:dic];
+                       [self.noticeDatas addObject:_notice];
+                   }
+                   self.dataSource = _noticeDatas;
+                   //            [self.dataSource addObjectsFromArray:resultArr];
+                   //            [self.dataSource addObjectsFromArray:_noticeDatas];
+                   [_tableView reloadData];
+                   [self.tableView.mj_header endRefreshing];
+            }
+            else
+            {
+                [self.tableView.mj_header endRefreshing];
+                [self blankUI];
+               
+            }
         } else {
+          
             [self.tableView.mj_header endRefreshing];
+            [self blankUI];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        
-         [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        [self blankUI];
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
        
     }];
 }
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"暂无内容"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(50 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(175 * HeightCoefficient);
+        make.width.equalTo(278 * WidthCoefficient);
+        
+    }];
+}
+
 
 // delete
 - (void)deleteSelectIndexPaths:(NSArray *)indexPaths

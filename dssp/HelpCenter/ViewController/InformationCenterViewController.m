@@ -14,8 +14,11 @@
 #import "InfoMessageLeftCell.h"
 #import "InputAlertView.h"
 #import "VINBindingViewController.h"
-@interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource>
+#import "DKSTextView.h"
+#import "DKSKeyboardView.h"
+@interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource,DKSKeyboardDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) DKSKeyboardView *keyView;
 @property (nonatomic, strong) NSMutableArray<InfoMessage *> *dataSource;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 //@property (nonatomic, strong) InfoMessage *message;
@@ -44,7 +47,10 @@
 
 - (void)createTableView {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView = [[UITableView alloc] init];
+//    self.tableView = [[UITableView alloc] init];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50) style:UITableViewStylePlain];
+    
 //     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
 //    self.tableView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
 //    self.tableView.backgroundColor = [UIColor redColor];
@@ -64,9 +70,9 @@
     [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
      [self.tableView registerClass:[InfoMessageLeftCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageLeftCell class])];
     [self.view addSubview:self.tableView];
-    [self.tableView makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
+//    [self.tableView makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
     
 //    UIView *view = [[UIView alloc] init];
 //    self.tableView.tableFooterView = view;
@@ -74,7 +80,130 @@
     
 //    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
 //    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
+    
+    
+    //给UITableView添加手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    tapGesture.delegate = self;
+    [self.tableView addGestureRecognizer:tapGesture];
+    
+    //添加输入框
+    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50, kScreenWidth, 50)];
+    self.keyView.backgroundColor = [UIColor colorWithHexString:@"#232120"];
+    
+    [self.keyView.moreBtn addTarget:self action:@selector(clickSengMsg:) forControlEvents:UIControlEventTouchUpInside];
+    //设置代理方法
+    self.keyView.delegate = self;
+    [self.view addSubview:_keyView];
 }
+
+- (void)clickSengMsg:(UIButton *)btn
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        InfoMessage *messageMe = [[InfoMessage alloc] init];
+        messageMe.text = self.keyView.textView.text;
+        messageMe.type = InfoMessageTypeMe;
+        [self sendMessage:messageMe];
+        
+    });
+    
+   
+    NSDictionary *result = CONF_GET(@"resultId");
+    NSDictionary *result1 = CONF_GET(@"resultsourceData");
+    
+    NSString *str3 =[result objectForKey:self.keyView.textView.text];
+    
+    NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
+    
+    NSString *sourceData = nil;
+    if ([self isBlankString:str4] ) {
+        sourceData = @"0";
+    }
+    else
+    {
+        sourceData = str4;
+        
+    }
+    NSDictionary *paras = @{
+                            @"serviceParentId":str3,
+                            @"sourceData":sourceData
+                            };
+    [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic1 = dic[@"data"];
+            //                        _dataArray =[[NSMutableArray alloc] init];
+            InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+            message.type = InfoMessageTypeOther;
+            [self sendMessage:message];
+            
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+        
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+    
+    
+}
+
+//发送的文zi
+- (void)textViewContentText:(NSString *)textStr {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        InfoMessage *messageMe = [[InfoMessage alloc] init];
+        messageMe.text = textStr;
+        messageMe.type = InfoMessageTypeMe;
+        [self sendMessage:messageMe];
+        
+    });
+    
+    
+    NSDictionary *result = CONF_GET(@"resultId");
+    NSDictionary *result1 = CONF_GET(@"resultsourceData");
+    
+    NSString *str3 =[result objectForKey:self.keyView.textView.text];
+    
+    NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
+    
+    NSString *sourceData = nil;
+    if ([self isBlankString:str4] ) {
+        sourceData = @"0";
+    }
+    else
+    {
+        sourceData = str4;
+        
+    }
+    NSDictionary *paras = @{
+                            @"serviceParentId":str3,
+                            @"sourceData":sourceData
+                            };
+    [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic1 = dic[@"data"];
+            //                        _dataArray =[[NSMutableArray alloc] init];
+            InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+            message.type = InfoMessageTypeOther;
+            [self sendMessage:message];
+            
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+        
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+    
+    
+}
+
 
 - (void)pullData {
     

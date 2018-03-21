@@ -34,9 +34,9 @@
 //    self.view.backgroundColor = [UIColor whiteColor];
     
     NSArray *titles = @[
-                        NSLocalizedString(@"实名制认证 | 入口", nil),
-                        NSLocalizedString(@"实名制结果 | 查询", nil),
-                        NSLocalizedString(@"解绑实名制 | 入口", nil)
+                        NSLocalizedString(@"实名制与T服务激活 | 入口", nil),
+                        NSLocalizedString(@"实名制与T服务结果 | 查询", nil),
+                        NSLocalizedString(@"实名制与T服务解绑 | 入口", nil)
                         ];
     
     NSArray *imgArray= @[
@@ -89,6 +89,13 @@
         label.textColor = [UIColor colorWithHexString:@"#ffffff"];
         label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         label.text = titles[i];
+        CGSize size = [label.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"PingFangSC-Medium" size:16],NSFontAttributeName,nil]];
+        // 名字的H
+        //    CGFloat nameH = size.height;
+        // 名字的W
+        CGFloat nameW = size.width;
+        
+        
         [BtnImg addSubview:label];
         
        
@@ -106,7 +113,7 @@
             
             [label makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(0);
-                make.width.equalTo(127 * WidthCoefficient);
+                make.width.equalTo(nameW+1);
                 make.height.equalTo(22.5 * HeightCoefficient);
                 make.left.equalTo(20*WidthCoefficient);
             }];
@@ -145,7 +152,7 @@
             
             [label makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(0);
-                make.width.equalTo(127 * WidthCoefficient);
+                make.width.equalTo(nameW+1);
                 make.height.equalTo(22.5 * HeightCoefficient);
                 make.left.equalTo(20*WidthCoefficient);
             }];

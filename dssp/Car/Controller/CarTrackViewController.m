@@ -466,10 +466,33 @@
 {
     if (callpoliceBtn ==btn) {
         
-        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-82208136"];
-        UIWebView *callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-        [self.view addSubview:callWebview];
+//       预生产环境SVT电话
+//       "010-82208136";
+        
+//       生产环境SVT电话
+//       "010-82208148";
+        
+        if ([baseUrl isEqualToString:@"https://dssp.dstsp.com:443/dssp/v1/core/"])
+        {
+            NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-82208148"];
+            UIWebView *callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [self.view addSubview:callWebview];
+            
+            
+        }
+        else
+        {
+            NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"010-82208136"];
+            UIWebView *callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [self.view addSubview:callWebview];
+            
+        }
+        
+        
+        
+      
     }
     if (trackBtn ==btn) {
         

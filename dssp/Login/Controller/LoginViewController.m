@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UITextField *phoneCodeField;
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *registerBtn;
+@property (nonatomic, strong) UIButton *touristBtn;
 @property (nonatomic, strong) UIButton *forgotPassword;
 @property (nonatomic, strong) UIButton *switchBtn;
 @property (nonatomic, strong) UIButton *skipBtn;
@@ -359,7 +360,7 @@
     // 名字的W
     CGFloat nameW = size.width;
     botLabel.font = [UIFont fontWithName:FontName size:14];
-    botLabel.textColor = [UIColor whiteColor];
+    botLabel.textColor = [UIColor colorWithHexString:@"#999999"];
 //    botLabel.backgroundColor =[UIColor redColor];
     [self.view addSubview:botLabel];
     [botLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -398,13 +399,45 @@
         make.width.equalTo(16 * WidthCoefficient);
         make.height.equalTo(16 * WidthCoefficient);
     }];
+    
+    
+    UIImageView *lineImg = [[UIImageView alloc] init];
+    lineImg.image = [UIImage imageNamed:@"Line"];
+    [self.view addSubview:lineImg];
+    [lineImg makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.view);
+        make.height.equalTo(1 * HeightCoefficient);
+    make.top.equalTo(_registerBtn.bottom).offset(30*HeightCoefficient);
+        make.left.equalTo(40*WidthCoefficient);
+        make.right.equalTo(-40*WidthCoefficient);
+    }];
+    
+    
+    
+    self.touristBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _touristBtn.layer.borderColor = [UIColor colorWithHexString:@"#1E1918"].CGColor;
+    _touristBtn.layer.borderWidth = 0.75;
+    _touristBtn.layer.cornerRadius = 14;
+    [_touristBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _touristBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    _touristBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_touristBtn setTitle:NSLocalizedString(@"游客模式", nil) forState:UIControlStateNormal];
+    [_touristBtn setTitleColor:[UIColor colorWithHexString:@"#A18E79 "] forState:UIControlStateNormal];
+    [self.view addSubview:self.touristBtn];
+    [_touristBtn makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(_registerBtn.bottom).offset(46*HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.width.equalTo(130*WidthCoefficient);
+        make.height.equalTo(28*HeightCoefficient);
+    }];
+    
+    
 }
 
 -(void)jumpImg
 {
     RegisterViewController *registerVC = [[RegisterViewController alloc] init];
     [self presentViewController:registerVC animated:NO completion:nil];
-    
 }
 
 - (void)btnClick:(UIButton *)sender {
@@ -747,6 +780,99 @@
         RegisterViewController *registerVC = [[RegisterViewController alloc] init];
         [self presentViewController:registerVC animated:NO completion:nil];
     }
+    if (sender == self.touristBtn) {
+//        18911568273
+//        ye123456
+        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+        NSString *cid = [defaults1 objectForKey:@"cid"];
+        NSDictionary *paras = @{
+                                @"userName": _userNameField.text,
+                                @"userPassword": [_passWordField.text md5String],
+                                @"phoneToken":cid
+                                };
+        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+        [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+            if ([result.code isEqualToString:@"200"]) {
+                
+                NSDictionary *dic1 =dic[@"data"];
+                LoginResultData *loginResult = [LoginResultData yy_modelWithDictionary:dic1];
+                
+                
+                NSString *userName = loginResult.userName;
+                NSString *vin = loginResult.vin;
+                NSString *vhlTStatus=loginResult.vhlTStatus;
+                NSString *certificationStatus = loginResult.certificationStatus;
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setObject:userName forKey:@"userName"];
+                [defaults synchronize];
+                
+                
+                if ([self isBlankString:vin]) {
+                    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                    [defaults1 setObject:@"" forKey:@"vin"];
+                    [defaults1 synchronize];
+                }
+                else
+                {
+                    NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                    [defaults1 setObject:vin forKey:@"vin"];
+                    [defaults1 synchronize];
+                    
+                }
+                
+                
+                if ([self isBlankString:vhlTStatus]) {
+                    NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                    [defaults2 setObject:@"" forKey:@"vhlTStatus"];
+                    [defaults2 synchronize];
+                }
+                else
+                {
+                    NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                    [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
+                    [defaults2 synchronize];
+                    
+                }
+                
+                
+                
+                if ([self isBlankString:certificationStatus]) {
+                    NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                    [defaults3 setObject:@"" forKey:@"certificationStatus"];
+                    [defaults3 synchronize];
+                }
+                else
+                {
+                    NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                    [defaults3 setObject:certificationStatus forKey:@"certificationStatus"];
+                    [defaults3 synchronize];
+                    
+                }
+                
+                
+                [hud hideAnimated:YES];
+                TabBarController *tabVC = [[TabBarController alloc] init];
+                [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
+            }
+            else {
+                [hud hideAnimated:YES];
+                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+                
+            }
+        } failure:^(NSInteger code) {
+            [hud hideAnimated:YES];
+            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+            
+        }];
+   
+        
+        
+    }
+    
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{

@@ -233,14 +233,12 @@
         cell = [[ContractdetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-    cell.toplab.text = _dataArray[indexPath.row][@"deviceType"];
+    cell.toplab.text = _dataArray[indexPath.row][@"servElemLabel"];
     cell.backgroundColor =[UIColor clearColor];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
     
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

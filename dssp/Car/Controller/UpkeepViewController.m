@@ -457,13 +457,11 @@
         [self.navigationController pushViewController:upkeepdetail animated:YES];
         
     }
-    
-    
 }
 
 -(void)clickImage
 {
-    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"10010"];
+    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-650-5556"];
     UIWebView *callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];

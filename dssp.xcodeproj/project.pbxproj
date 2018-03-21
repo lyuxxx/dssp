@@ -153,6 +153,9 @@
 		4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
 		454858102005EA6500170D85 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		454858122005EE6D00170D85 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
+		454B78BE2061F05100FABD60 /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
+		454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
+		454B78C22062018700FABD60 /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C12062018700FABD60 /* AgreementViewController.m */; };
 		454C744220181C0C00108F1E /* LllegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744120181C0C00108F1E /* LllegalViewController.m */; };
 		454C744520181E1800108F1E /* LllegaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744420181E1800108F1E /* LllegaCell.m */; };
 		454C7448201823F600108F1E /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
@@ -498,6 +501,12 @@
 		4548580D2005B53200170D85 /* PrivacypolicyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacypolicyController.m; sourceTree = "<group>"; };
 		4548580F2005EA6500170D85 /* application.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
 		454858112005EE6C00170D85 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		454B78BA2061F05100FABD60 /* DKSKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSKeyboardView.h; sourceTree = "<group>"; };
+		454B78BB2061F05100FABD60 /* DKSKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSKeyboardView.m; sourceTree = "<group>"; };
+		454B78BC2061F05100FABD60 /* DKSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSTextView.h; sourceTree = "<group>"; };
+		454B78BD2061F05100FABD60 /* DKSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSTextView.m; sourceTree = "<group>"; };
+		454B78C02062018700FABD60 /* AgreementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgreementViewController.h; sourceTree = "<group>"; };
+		454B78C12062018700FABD60 /* AgreementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgreementViewController.m; sourceTree = "<group>"; };
 		454C744020181C0C00108F1E /* LllegalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegalViewController.h; sourceTree = "<group>"; };
 		454C744120181C0C00108F1E /* LllegalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegalViewController.m; sourceTree = "<group>"; };
 		454C744320181E1800108F1E /* LllegaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegaCell.h; sourceTree = "<group>"; };
@@ -641,6 +650,8 @@
 				459679901FE0B7DE008A0C67 /* ForgotViewController.m */,
 				459679941FE0CAA4008A0C67 /* NewPasswordViewController.h */,
 				459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */,
+				454B78C02062018700FABD60 /* AgreementViewController.h */,
+				454B78C12062018700FABD60 /* AgreementViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -932,6 +943,7 @@
 		31AC45222022E86F0044A62C /* HelpCenter */ = {
 			isa = PBXGroup;
 			children = (
+				454B78B92061F05100FABD60 /* DKSKeyBoard */,
 				31AC45252022E8AF0044A62C /* View */,
 				31AC45242022E8AA0044A62C /* Model */,
 				31AC45232022E8A00044A62C /* ViewController */,
@@ -1325,6 +1337,17 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		454B78B92061F05100FABD60 /* DKSKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				454B78BA2061F05100FABD60 /* DKSKeyboardView.h */,
+				454B78BB2061F05100FABD60 /* DKSKeyboardView.m */,
+				454B78BC2061F05100FABD60 /* DKSTextView.h */,
+				454B78BD2061F05100FABD60 /* DKSTextView.m */,
+			);
+			path = DKSKeyBoard;
+			sourceTree = "<group>";
+		};
 		454CE6D22046909C003221F3 /* AddressPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1652,6 +1675,7 @@
 				312FE1BB2029884700B7AE48 /* StoreSingleViewController.m in Sources */,
 				4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */,
 				455036091FE246FC0088DAE0 /* ContractCell.m in Sources */,
+				454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */,
 				31AC45312022F0080044A62C /* InfoMessageHelpCenterCell.m in Sources */,
 				31E7B9522057A092003844E0 /* HomeBtn.m in Sources */,
 				31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */,
@@ -1705,6 +1729,7 @@
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
 				3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */,
+				454B78BE2061F05100FABD60 /* DKSKeyboardView.m in Sources */,
 				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
 				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
@@ -1712,6 +1737,7 @@
 				31B38BAC202C38BF0086EDC8 /* CommodityCommentFooterCell.m in Sources */,
 				4581E1BE2050F64B00B435B5 /* PopupView.m in Sources */,
 				4599C9BF1FF21BBD00B23713 /* ModifyPhonesController.m in Sources */,
+				454B78C22062018700FABD60 /* AgreementViewController.m in Sources */,
 				4570EFD91FFB541600FA6355 /* CarBindingTViewController.m in Sources */,
 				316B6CF91FB9A56A008A6094 /* RNRPhotoViewController.m in Sources */,
 				31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */,

@@ -312,7 +312,7 @@
         PrivacypolicyController *privacypolicyVC = [[PrivacypolicyController alloc] init];
         privacypolicyVC.callBackBlock = ^(NSString *text){   // 1
           
-                  _agree =text;
+//                  _agree =text;
                   self.agreeBtn.selected = YES;
     
         };
