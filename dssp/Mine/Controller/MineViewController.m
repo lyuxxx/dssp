@@ -31,6 +31,7 @@
 #import "InputAlertView.h"
 #import "CarUnbindingViewController.h"
 #import "UserModel.h"
+#import "ManualViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -75,11 +76,11 @@
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-//    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"]],
-//  @[@[@"signout",@"退出登录"]]];
+    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"]],
+  @[@[@"signout",@"退出登录"]]];
     
-    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
-                 @[@[@"signout",@"退出登录"]]];
+//    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
+//                 @[@[@"signout",@"退出登录"]]];
     
     [self initTableView];
     [self setupUI];
@@ -465,11 +466,11 @@
 //            }
         }
         if (indexPath.row==4) {
-          cell.whiteView.hidden=YES;
+//          cell.whiteView.hidden=YES;
         }
-//        if (indexPath.row==5) {
-//            cell.whiteView.hidden=YES;
-//        }
+        if (indexPath.row==5) {
+            cell.whiteView.hidden=YES;
+        }
     }
     
     if (indexPath.section==1) {
@@ -526,6 +527,12 @@
         }else if (indexPath.row == 4)
         {
             AccountViewController *vc=[[AccountViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else if (indexPath.row == 5)
+        {
+            ManualViewController *vc=[[ManualViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

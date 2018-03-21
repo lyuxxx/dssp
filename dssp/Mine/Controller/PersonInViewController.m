@@ -159,14 +159,39 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    if (indexPath.row == 0) {
-       dispatch_async(dispatch_get_main_queue(), ^{
-         _selectedImgV = [[UIImageView alloc] init];
-           TBActionSheet *sheet = [[TBActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"拍照", nil),NSLocalizedString(@"从图库选择", nil), nil];
-           sheet.ambientColor = [UIColor whiteColor];
-           sheet.cancelButtonColor = [UIColor colorWithHexString:GeneralColorString];
-           sheet.tintColor = [UIColor colorWithHexString:GeneralColorString];
-           [sheet show];
-       });
+       
+       if ([KuserName isEqualToString:@"18911568274"]) {
+           InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+           [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+           //            InputalertView.delegate = self;
+           UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+           [keywindow addSubview: popupView];
+           
+           popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+               
+               if(btn.tag ==100)
+               {
+                   
+                   
+               }
+               
+           };
+           
+           
+       }
+       else
+       {
+           dispatch_async(dispatch_get_main_queue(), ^{
+               _selectedImgV = [[UIImageView alloc] init];
+               TBActionSheet *sheet = [[TBActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"拍照", nil),NSLocalizedString(@"从图库选择", nil), nil];
+               sheet.ambientColor = [UIColor whiteColor];
+               sheet.cancelButtonColor = [UIColor colorWithHexString:GeneralColorString];
+               sheet.tintColor = [UIColor colorWithHexString:GeneralColorString];
+               [sheet show];
+           });
+           
+       }
+    
     }
     if (indexPath.row == 1) {
         
@@ -176,8 +201,34 @@
 //        [self.navigationController pushViewController:modifyPhone animated:YES];
 //    }
     if (indexPath.row == 2) {
-        NicknameViewController *nicknameVC = [[NicknameViewController alloc] init];
-        [self.navigationController pushViewController:nicknameVC animated:YES];
+       
+        if ([KuserName isEqualToString:@"18911568274"]) {
+            InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+            //            InputalertView.delegate = self;
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: popupView];
+            
+            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                
+                if(btn.tag ==100)
+                {
+                   
+                    
+                }
+                
+            };
+            
+            
+        }
+        else
+        {
+            NicknameViewController *nicknameVC = [[NicknameViewController alloc] init];
+            [self.navigationController pushViewController:nicknameVC animated:YES];
+            
+        }
+        
+       
     }
     
 }

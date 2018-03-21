@@ -7,7 +7,7 @@
 //
 
 //#import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-@interface MaintainViewController : BaseViewController
+#import "StoreBaseViewController.h"
+@interface MaintainViewController : StoreBaseViewController
 
 @end

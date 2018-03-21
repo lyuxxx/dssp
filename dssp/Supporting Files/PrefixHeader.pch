@@ -23,6 +23,7 @@
 #import "Statistics.h"
 #import "UIImageView+WebCache.h"
 #import "PopupView.h"
+#import "InputAlertView.h"
 //通过DEBUG模式设置全局日志等级，DEBUG时为Verbose，所有日志信息都可以打印，否则只打印Error
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -90,6 +91,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
 #define CuvhlTStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"vhlTStatus"]
 #define KcertificationStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"certificationStatus"]
+
+#define KuserName [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]
+
 
 ///生产环境
 #define baseUrl @"https://dssp.dstsp.com:443/dssp/v1/core/"
@@ -283,4 +287,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 ///统计
 #define uploading @"http://sit-dssp.dstsp.com:50005/dssp/v1/message/monitoring/uploading"
+//保养图片
+#define queryImgStore [NSString stringWithFormat:@"%@queryImgStore",baseUrl]
+
 #endif /* PrefixHeader_pch */

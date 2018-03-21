@@ -225,13 +225,37 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
-    if (![self checkWifi:_passwordField.text]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请输入正确的八位字符串!", nil)];
-        return;
+    
+    if ([KuserName isEqualToString:@"18911568274"]) {
+        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: popupView];
+        
+        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+            
+            if(btn.tag ==100)
+            {
+                
+                
+            }
+            
+        };
+        
+        
     }
-    //大写
-    NSString *upper = [_passwordField.text uppercaseString];
-    [self modifyWifiWithPassword:upper];
+    else
+    {
+        if (![self checkWifi:_passwordField.text]) {
+            [MBProgressHUD showText:NSLocalizedString(@"请输入正确的八位字符串!", nil)];
+            return;
+        }
+        //大写
+        NSString *upper = [_passwordField.text uppercaseString];
+        [self modifyWifiWithPassword:upper];
+    }
+
 }
 
 - (void)getWifiInfo {

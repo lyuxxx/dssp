@@ -19,6 +19,31 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = NSLocalizedString(@"DS预约保养规则", nil);
     [self setupUI];
+    [self requestData];
+}
+
+-(void)requestData
+{
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/maintain",queryImgStore] parameters:@{} success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+//            self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
+//            
+//            NSLog(@"%@", self.upkeep.maintenanceMileage);
+            [self setupUI];
+        } else {
+            [hud hideAnimated:YES];
+            [self setupUI];
+            [MBProgressHUD showText:@"暂无数据"];
+        }
+    } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
+        [self setupUI];
+        [MBProgressHUD showText:@"暂无数据"];
+        //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+    }];
 }
 
 -(void)setupUI

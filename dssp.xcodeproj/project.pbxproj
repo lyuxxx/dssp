@@ -156,6 +156,7 @@
 		454B78BE2061F05100FABD60 /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
 		454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
 		454B78C22062018700FABD60 /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C12062018700FABD60 /* AgreementViewController.m */; };
+		454B78C5206272C000FABD60 /* ManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C4206272C000FABD60 /* ManualViewController.m */; };
 		454C744220181C0C00108F1E /* LllegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744120181C0C00108F1E /* LllegalViewController.m */; };
 		454C744520181E1800108F1E /* LllegaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744420181E1800108F1E /* LllegaCell.m */; };
 		454C7448201823F600108F1E /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
@@ -507,6 +508,8 @@
 		454B78BD2061F05100FABD60 /* DKSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSTextView.m; sourceTree = "<group>"; };
 		454B78C02062018700FABD60 /* AgreementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgreementViewController.h; sourceTree = "<group>"; };
 		454B78C12062018700FABD60 /* AgreementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgreementViewController.m; sourceTree = "<group>"; };
+		454B78C3206272C000FABD60 /* ManualViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManualViewController.h; sourceTree = "<group>"; };
+		454B78C4206272C000FABD60 /* ManualViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManualViewController.m; sourceTree = "<group>"; };
 		454C744020181C0C00108F1E /* LllegalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegalViewController.h; sourceTree = "<group>"; };
 		454C744120181C0C00108F1E /* LllegalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LllegalViewController.m; sourceTree = "<group>"; };
 		454C744320181E1800108F1E /* LllegaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LllegaCell.h; sourceTree = "<group>"; };
@@ -1227,6 +1230,8 @@
 				4555CFC320313EC70029598E /* NicknameViewController.m */,
 				455F36901FF4CCF400D09A63 /* QueryViewController.h */,
 				455F36911FF4CCF400D09A63 /* QueryViewController.m */,
+				454B78C3206272C000FABD60 /* ManualViewController.h */,
+				454B78C4206272C000FABD60 /* ManualViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1786,6 +1791,7 @@
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */,
+				454B78C5206272C000FABD60 /* ManualViewController.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
 				455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */,
 				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,
