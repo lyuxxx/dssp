@@ -31,7 +31,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     self.contentView.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSArray *dataTitles = @[NSLocalizedString(@"总里程", nil),NSLocalizedString(@"剩余油量", nil),NSLocalizedString(@"车况健康", nil)];
+    NSArray *dataTitles = @[NSLocalizedString(@"总里程", nil),NSLocalizedString(@"剩余油量", nil),NSLocalizedString(@"车辆状况", nil)];
     for (NSInteger i = 0; i < dataTitles.count; i++) {
         UILabel *label0 = [[UILabel alloc] init];
         label0.font = [UIFont fontWithName:FontName size:12];

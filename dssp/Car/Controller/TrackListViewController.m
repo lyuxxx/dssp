@@ -565,18 +565,18 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 #pragma mark - DZNEmptyDataSetSource -
 
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *text = NSLocalizedString(@"暂无数据", nil);
-    UIFont *font = [UIFont fontWithName:FontName size:16];
-    UIColor *textColor = [UIColor colorWithHexString:@"999999"];
-    NSMutableDictionary *attributes = [NSMutableDictionary new];
-    [attributes setObject:font forKey:NSFontAttributeName];
-    [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
+//- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+//    NSString *text = NSLocalizedString(@"暂无数据", nil);
+//    UIFont *font = [UIFont fontWithName:FontName size:16];
+//    UIColor *textColor = [UIColor colorWithHexString:@"999999"];
+//    NSMutableDictionary *attributes = [NSMutableDictionary new];
+//    [attributes setObject:font forKey:NSFontAttributeName];
+//    [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+//    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+//}
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
-    return [UIImage imageNamed:@"blank_placeholder"];
+    return [UIImage imageNamed:@"暂无内容"];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {

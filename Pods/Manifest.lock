@@ -1,18 +1,18 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (3.2.0):
+    - AFNetworking/NSURLSession (= 3.2.0)
+    - AFNetworking/Reachability (= 3.2.0)
+    - AFNetworking/Security (= 3.2.0)
+    - AFNetworking/Serialization (= 3.2.0)
+    - AFNetworking/UIKit (= 3.2.0)
+  - AFNetworking/NSURLSession (3.2.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (3.2.0)
+  - AFNetworking/Security (3.2.0)
+  - AFNetworking/Serialization (3.2.0)
+  - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
   - Alipay-SDK (15.5.0)
   - AMap3DMap (5.6.0):
@@ -27,8 +27,8 @@ PODS:
   - CocoaLumberjack/Extensions (3.4.1):
     - CocoaLumberjack/Default
   - CUAlertController (0.1.1)
-  - CUHTTPRequest (0.1.10):
-    - AFNetworking (~> 3.1.0)
+  - CUHTTPRequest (0.1.11):
+    - AFNetworking (~> 3.2.0)
   - CUPayTool (0.1.0):
     - Alipay-SDK
     - XXWeChatSDK
@@ -118,14 +118,14 @@ CHECKOUT OPTIONS:
     :tag: 2.0.4
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Alipay-SDK: 704c302c8619e235f9acfb6f731bb7f36265bca5
   AMap3DMap: 2ac4f9ad7f2f8b015013d8d282c55882bcd68dc9
   AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
-  CUHTTPRequest: 6661a98ab9b4dfe52e2c5c05af15ff427a6684a7
+  CUHTTPRequest: 6cd881619235fcb3c909515e04b2a3c33c55740d
   CUPayTool: 9d280be743b9667e21fe29132c8be8860d9ea6cc
   CUProgressHUD: 4f595470398cecc3d19bb2f6e74be89f1a323657
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7

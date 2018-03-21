@@ -13,7 +13,7 @@
 
 /**
  设置https认证证书
-
+ 客户端验证固定:client.p12 123456
  @param path 证书路径
  */
 + (void)customSecurityPolicyWithCerPath:(NSString *)path;

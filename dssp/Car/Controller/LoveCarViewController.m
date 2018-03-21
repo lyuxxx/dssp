@@ -230,7 +230,7 @@
         make.left.equalTo(62 * WidthCoefficient);
         make.top.equalTo(68.5 * WidthCoefficient);
     }];
-    
+    /**
     UIView *dataContainer = [[UIView alloc] init];
     [content addSubview:dataContainer];
     [dataContainer makeConstraints:^(MASConstraintMaker *make) {
@@ -275,7 +275,7 @@
             self.healthLabel = label1;
         }
     }
-    
+    **/
     UIImageView *line = [[UIImageView alloc] init];
     line.image = [UIImage imageNamed:@"bg_line"];
     [content addSubview:line];
@@ -283,7 +283,7 @@
         make.width.equalTo(kScreenWidth);
         make.height.equalTo(1 * WidthCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(dataContainer.bottom);
+        make.top.equalTo(previewImgV.bottom);
     }];
     
     UIView *btnContainer = [[UIView alloc] init];
@@ -292,7 +292,7 @@
     [btnContainer makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(kScreenWidth);
         make.height.equalTo(243 * WidthCoefficient);
-        make.top.equalTo(line.bottom);
+        make.top.equalTo(line.bottom).offset(20 * WidthCoefficient);
         make.centerX.equalTo(content);
     }];
     

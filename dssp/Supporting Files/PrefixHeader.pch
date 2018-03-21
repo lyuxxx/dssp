@@ -210,6 +210,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define getSvnResponseDataByVin [NSString stringWithFormat:@"%@getSvnResponseDataByVin",baseUrl]
 //查询车辆位置信息接口
 #define getLastPostionService [NSString stringWithFormat:@"%@getLastPostionService",baseUrl]
+//查询车辆总里程和油量
+#define getVinInfoService [NSString stringWithFormat:@"%@getVinInfoService",baseUrl]
 //保养预约规则查询
 #define queryMaintenRules [NSString stringWithFormat:@"%@queryMaintenRules",baseUrl]
 //查询非T车车型

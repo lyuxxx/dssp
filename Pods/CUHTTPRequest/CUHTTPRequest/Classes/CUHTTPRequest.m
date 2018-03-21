@@ -179,6 +179,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -202,6 +205,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -226,6 +232,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -245,6 +254,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -263,6 +275,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -281,6 +296,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -308,6 +326,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -353,6 +374,9 @@ static AFHTTPSessionManager *sessionManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
         NSInteger statusCode = [response statusCode];
+        if (statusCode == 0) {
+            statusCode = error.code;
+        }
         if (failure) {
             failure(statusCode);
         }
@@ -369,6 +393,9 @@ static AFHTTPSessionManager *sessionManager = nil;
         if (error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
             NSInteger statusCode = [response statusCode];
+            if (statusCode == 0) {
+                statusCode = error.code;
+            }
             failure(statusCode);
         } else {
             success(responseObject);
@@ -390,6 +417,9 @@ static AFHTTPSessionManager *sessionManager = nil;
         if (error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
             NSInteger statusCode = [response statusCode];
+            if (statusCode == 0) {
+                statusCode = error.code;
+            }
             failure(statusCode);
         } else {
             success(filePath);
@@ -408,6 +438,9 @@ static AFHTTPSessionManager *sessionManager = nil;
         if (error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *) [task response];
             NSInteger statusCode = [response statusCode];
+            if (statusCode == 0) {
+                statusCode = error.code;
+            }
             failure(statusCode);
         } else {
             success(filePath);
