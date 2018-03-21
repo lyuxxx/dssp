@@ -24,6 +24,7 @@
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
 #import <CUPayTool.h>
+#import "CatchCrash.h"
 
 @interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
 
@@ -34,7 +35,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
+    [self setupCrash];
+    
     [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server_formal" ofType:@"cer"]];
     
 //    [self setuploading];
@@ -60,6 +63,27 @@
     return YES;
 }
 
+- (void)setupCrash {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *crashPath = [NSString stringWithFormat:@"%@/Documents/crash", NSHomeDirectory()];
+    if ([fileManager fileExistsAtPath:crashPath]) {//上次存在crash
+        NSMutableArray *arr = [NSMutableArray arrayWithContentsOfFile:crashPath];
+        NSDictionary *paras = @{@"appErrorInfoList": arr};
+        [CUHTTPRequest POST:addAppErrorInfo parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"%@",dic);
+            if ([dic[@"code"] isEqualToString:@"200"] && ((NSNumber *)dic[@"data"]).integerValue > 0) {//成功
+                //成功后删除文件
+                NSError *error;
+                [fileManager removeItemAtPath:crashPath error:&error];
+            }
+        } failure:^(NSInteger code) {
+            
+        }];
+    }
+}
 
 
 -(void)setuploading

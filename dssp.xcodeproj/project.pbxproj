@@ -82,6 +82,7 @@
 		31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45332022F0210044A62C /* InfoMessageUserCell.m */; };
 		31AC45382022F5E90044A62C /* EllipsePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45372022F5E80044A62C /* EllipsePageControl.m */; };
 		31AD66271FDFD5BB0049D48D /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD66261FDFD5BB0049D48D /* FavoriteCell.m */; };
+		31ADB3BE205F8C3B002F79CE /* CatchCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ADB3BD205F8C3B002F79CE /* CatchCrash.m */; };
 		31B38B92202C278E0086EDC8 /* CommodityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B91202C278E0086EDC8 /* CommodityDetailViewController.m */; };
 		31B38B99202C29EA0086EDC8 /* CommodityDetailCellsConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B98202C29EA0086EDC8 /* CommodityDetailCellsConfigurator.m */; };
 		31B38B9D202C38060086EDC8 /* CommodityBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B9C202C38060086EDC8 /* CommodityBannerCell.m */; };
@@ -370,6 +371,8 @@
 		31AC45372022F5E80044A62C /* EllipsePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EllipsePageControl.m; sourceTree = "<group>"; };
 		31AD66251FDFD5BB0049D48D /* FavoriteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteCell.h; sourceTree = "<group>"; };
 		31AD66261FDFD5BB0049D48D /* FavoriteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
+		31ADB3BC205F8C3B002F79CE /* CatchCrash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatchCrash.h; sourceTree = "<group>"; };
+		31ADB3BD205F8C3B002F79CE /* CatchCrash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatchCrash.m; sourceTree = "<group>"; };
 		31B38B90202C278E0086EDC8 /* CommodityDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommodityDetailViewController.h; sourceTree = "<group>"; };
 		31B38B91202C278E0086EDC8 /* CommodityDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommodityDetailViewController.m; sourceTree = "<group>"; };
 		31B38B97202C29EA0086EDC8 /* CommodityDetailCellsConfigurator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommodityDetailCellsConfigurator.h; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 				31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */,
 				31F235D52041722B002807D2 /* MapUtility.h */,
 				31F235D62041722C002807D2 /* MapUtility.m */,
+				31ADB3BC205F8C3B002F79CE /* CatchCrash.h */,
+				31ADB3BD205F8C3B002F79CE /* CatchCrash.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1826,6 +1831,7 @@
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
 				31129246205D07620049A647 /* HomeBannerCell.m in Sources */,
+				31ADB3BE205F8C3B002F79CE /* CatchCrash.m in Sources */,
 				310368EC2045682300A9083E /* RangePickerCell.m in Sources */,
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
