@@ -101,7 +101,7 @@
 {
     
     
-    if (self.keyView.textView.text.length>1) {
+    if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
        
 //        dispatch_async(dispatch_get_main_queue(), ^{
             InfoMessage *messageMe = [[InfoMessage alloc] init];
@@ -166,7 +166,7 @@
 //发送的文zi
 - (void)textViewContentText:(NSString *)textStr {
     
-    if (textStr.length>1) {
+    if (textStr.length>1 ||textStr.length == 1) {
         dispatch_async(dispatch_get_main_queue(), ^{
             InfoMessage *messageMe = [[InfoMessage alloc] init];
             messageMe.text = textStr;
@@ -174,7 +174,6 @@
             [self sendMessage:messageMe];
             
         });
-        
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
