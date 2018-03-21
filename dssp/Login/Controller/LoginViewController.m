@@ -781,17 +781,18 @@
         [self presentViewController:registerVC animated:NO completion:nil];
     }
     if (sender == self.touristBtn) {
-//        18911568273
-//        ye123456
+
+        NSString *userName = @"18911568274";
+        NSString *password = @"ye123456";;
         NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
         NSString *cid = [defaults1 objectForKey:@"cid"];
         NSDictionary *paras = @{
-                                @"userName": _userNameField.text,
-                                @"userPassword": [_passWordField.text md5String],
+                                @"userName": userName,
+                                @"userPassword": [password md5String],
                                 @"phoneToken":cid
                                 };
         MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-        [CUHTTPRequest POST:telephoneLogins parameters:paras success:^(id responseData) {
+        [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
             if ([result.code isEqualToString:@"200"]) {
@@ -852,19 +853,18 @@
                     
                 }
                 
-                
                 [hud hideAnimated:YES];
                 TabBarController *tabVC = [[TabBarController alloc] init];
                 [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
             }
             else {
                 [hud hideAnimated:YES];
-                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
+//                [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
             [hud hideAnimated:YES];
-            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+//            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
             
         }];
    

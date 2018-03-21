@@ -14,6 +14,7 @@
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
+@property (nonatomic, strong) UILabel *available;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UIButton *secureBtn;
 @property (nonatomic, copy) NSString *originPassword;
@@ -55,7 +56,7 @@
     [self.view addSubview:bgV];
     [bgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(20*HeightCoefficient);
-        make.height.equalTo(63.5 * HeightCoefficient);
+        make.height.equalTo(70 * HeightCoefficient);
         make.left.equalTo(16*WidthCoefficient);
         make.right.equalTo(-16*WidthCoefficient);
     }];
@@ -73,14 +74,30 @@
     self.wifiLabel = [[UILabel alloc] init];
     _wifiLabel.textColor = [UIColor whiteColor];
      _wifiLabel.textAlignment = NSTextAlignmentCenter;
-    _wifiLabel.font = [UIFont fontWithName:FontName size:16];
+    _wifiLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _wifiLabel.text = @"WIFI名:未知";
     [bgImgV addSubview:_wifiLabel];
     [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bgImgV);
-         make.centerY.equalTo(bgImgV);
-        make.height.equalTo(22 * HeightCoefficient);
+         make.top.equalTo(18*HeightCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
     }];
+    
+    
+    self.available = [[UILabel alloc] init];
+//    _available.textColor = [UIColor whiteColor];
+    _available.textAlignment = NSTextAlignmentCenter;
+    _available.font = [UIFont fontWithName:FontName size:12];
+    _available.text = @"未知";
+    [bgImgV addSubview:_available];
+    [_available makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(bgImgV);
+        make.top.equalTo(_wifiLabel.bottom).offset(3*HeightCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+    }];
+    
+    
+    
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 4;
@@ -226,10 +243,27 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
             NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
+            NSString *available = dic[@"data"][@"available"];
             if (wifiSsid) {
                 self.originPassword = wifiPassword;
                 _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
                 _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
+                
+                
+                if([available isEqualToString:@"1"])
+                {
+                    _available.textColor = [UIColor colorWithHexString:@"#999999"];
+                    _available.text = @"可用";
+                    
+                }
+                else
+                {
+                    _available.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                    _available.text = @"不可用";
+                    
+                }
+                
+                
             }
         } else {
             //                [MBProgressHUD showText:NSLocalizedString(@"获取wifi失败", nil)];

@@ -99,108 +99,126 @@
 
 - (void)clickSengMsg:(UIButton *)btn
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        InfoMessage *messageMe = [[InfoMessage alloc] init];
-        messageMe.text = self.keyView.textView.text;
-        messageMe.type = InfoMessageTypeMe;
-        [self sendMessage:messageMe];
-        
-    });
     
-   
-    NSDictionary *result = CONF_GET(@"resultId");
-    NSDictionary *result1 = CONF_GET(@"resultsourceData");
     
-    NSString *str3 =[result objectForKey:self.keyView.textView.text];
-    
-    NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
-    
-    NSString *sourceData = nil;
-    if ([self isBlankString:str4] ) {
-        sourceData = @"0";
-    }
-    else
-    {
-        sourceData = str4;
-        
-    }
-    NSDictionary *paras = @{
-                            @"serviceParentId":str3,
-                            @"sourceData":sourceData
-                            };
-    [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        
-        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            NSDictionary *dic1 = dic[@"data"];
-            //                        _dataArray =[[NSMutableArray alloc] init];
-            InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-            message.type = InfoMessageTypeOther;
-            [self sendMessage:message];
+    if (self.keyView.textView.text.length>1) {
+       
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            InfoMessage *messageMe = [[InfoMessage alloc] init];
+            messageMe.text = self.keyView.textView.text;
+            messageMe.type = InfoMessageTypeMe;
+            [self sendMessage:messageMe];
             
-        } else {
-            [MBProgressHUD showText:dic[@"msg"]];
+//        });
+        
+        
+        NSDictionary *result = CONF_GET(@"resultId");
+        NSDictionary *result1 = CONF_GET(@"resultsourceData");
+        
+        NSString *str3 =[result objectForKey:self.keyView.textView.text];
+        
+        NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
+        
+        NSString *sourceData = nil;
+        if ([self isBlankString:str4] ) {
+            sourceData = @"0";
+        }
+        else
+        {
+            sourceData = str4;
+            
         }
         
-    } failure:^(NSInteger code) {
-        
-        
-    }];
+        self.keyView.textView.text = @"";
+        NSDictionary *paras = @{
+                                @"serviceParentId":str3,
+                                @"sourceData":sourceData
+                                };
+        [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                NSDictionary *dic1 = dic[@"data"];
+                //                        _dataArray =[[NSMutableArray alloc] init];
+                InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                message.type = InfoMessageTypeOther;
+                [self sendMessage:message];
+                
+            
+                
+            } else {
+                [MBProgressHUD showText:dic[@"msg"]];
+            }
+            
+        } failure:^(NSInteger code) {
+            
+            
+        }];
+    }
+    
+
+    
+   
     
     
 }
 
 //发送的文zi
 - (void)textViewContentText:(NSString *)textStr {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        InfoMessage *messageMe = [[InfoMessage alloc] init];
-        messageMe.text = textStr;
-        messageMe.type = InfoMessageTypeMe;
-        [self sendMessage:messageMe];
-        
-    });
     
-    
-    NSDictionary *result = CONF_GET(@"resultId");
-    NSDictionary *result1 = CONF_GET(@"resultsourceData");
-    
-    NSString *str3 =[result objectForKey:self.keyView.textView.text];
-    
-    NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
-    
-    NSString *sourceData = nil;
-    if ([self isBlankString:str4] ) {
-        sourceData = @"0";
-    }
-    else
-    {
-        sourceData = str4;
-        
-    }
-    NSDictionary *paras = @{
-                            @"serviceParentId":str3,
-                            @"sourceData":sourceData
-                            };
-    [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        
-        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            NSDictionary *dic1 = dic[@"data"];
-            //                        _dataArray =[[NSMutableArray alloc] init];
-            InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-            message.type = InfoMessageTypeOther;
-            [self sendMessage:message];
+    if (textStr.length>1) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            InfoMessage *messageMe = [[InfoMessage alloc] init];
+            messageMe.text = textStr;
+            messageMe.type = InfoMessageTypeMe;
+            [self sendMessage:messageMe];
             
-        } else {
-            [MBProgressHUD showText:dic[@"msg"]];
+        });
+        
+        
+        NSDictionary *result = CONF_GET(@"resultId");
+        NSDictionary *result1 = CONF_GET(@"resultsourceData");
+        
+        NSString *str3 =[result objectForKey:self.keyView.textView.text];
+        
+        NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
+        
+        NSString *sourceData = nil;
+        if ([self isBlankString:str4] ) {
+            sourceData = @"0";
         }
+        else
+        {
+            sourceData = str4;
+            
+        }
+        NSDictionary *paras = @{
+                                @"serviceParentId":str3,
+                                @"sourceData":sourceData
+                                };
+        [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                NSDictionary *dic1 = dic[@"data"];
+                //                        _dataArray =[[NSMutableArray alloc] init];
+                InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                message.type = InfoMessageTypeOther;
+                [self sendMessage:message];
+                
+            } else {
+                [MBProgressHUD showText:dic[@"msg"]];
+            }
+            
+        } failure:^(NSInteger code) {
+            
+            
+        }];
         
-    } failure:^(NSInteger code) {
-        
-        
-    }];
+    }
     
+    
+   
     
 }
 
