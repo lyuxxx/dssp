@@ -786,9 +786,9 @@
                             
                         } else {
                             
-                            [hud hideAnimated:YES];
-//                            hud.label.text = [dic objectForKey:@"msg"];
-//                            [hud hideAnimated:YES afterDelay:1];
+//                            [hud hideAnimated:YES];
+                            hud.label.text = [dic objectForKey:@"msg"];
+                            [hud hideAnimated:YES afterDelay:1];
                         }
                     } failure:^(NSInteger code) {
 //                        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];

@@ -94,11 +94,11 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     _mileageLabel.text = trafficReporData.totalMileage?totalMileage:@"0km";
     //    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
     
-    if(trafficReporData.levelFuel)
+    if(![self isBlankString:trafficReporData.levelFuel])
     {
         
         NSString *stringInt = trafficReporData.levelFuel;
-        int ivalue = [stringInt intValue];
+        NSInteger ivalue = [stringInt integerValue];
         NSString *levelFuel = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
         if (ivalue<10 || ivalue==10) {
             
@@ -118,6 +118,20 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
         _oilLeftLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
         
     }
+}
+
+-  (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
 }
 
 @end
