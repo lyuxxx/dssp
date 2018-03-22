@@ -96,7 +96,7 @@
     _tableView.delegate=self;
     _tableView.dataSource=self;
     //不回弹
-//    _tableView.bounces=NO;
+    _tableView.bounces=NO;
     //滚动条隐藏
 //    _tableView.showsVerticalScrollIndicator = NO;
     _tableView.backgroundColor=[UIColor clearColor];
@@ -132,7 +132,7 @@
 
        if (indexPath.row==0) {
 
-            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
+            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@""]];
             cell.arrowImg.image=[UIImage imageNamed:@"箭头_icon"];
            
         }

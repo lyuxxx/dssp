@@ -7,10 +7,11 @@
 //
 
 #import "NicknameViewController.h"
-
+#import "UserModel.h"
 @interface NicknameViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong)UITextField *phoneField;
 @property (nonatomic,strong)UIButton *rightBarItem;
+@property(nonatomic,strong) UserModel *userModel;
 @end
 
 @implementation NicknameViewController
@@ -23,8 +24,38 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"昵称";
+    [self requestData];
     [self setupUI];
 }
+
+
+-(void)requestData
+{
+    NSDictionary *paras = @{
+                            
+                            
+                            };
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
+        NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [hud hideAnimated:YES];
+            NSDictionary *dic1 = dic[@"data"];
+            self.userModel = [UserModel yy_modelWithDictionary:dic1];
+            NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
+            _phoneField.text = _userModel.nickName?_userModel.nickName:name;
+//            [self.tableView reloadData];
+            
+        } else {
+            [hud hideAnimated:YES];
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
+        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+    }];
+}
+
 
 -(void)setupUI
 {
@@ -40,11 +71,11 @@
     }];
 
     
-    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
+   
     self.phoneField = [[UITextField alloc] init];
 //    _phoneField.keyboardType = UIKeyboardTypePhonePad
      _phoneField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20 * WidthCoefficient, 40 * HeightCoefficient)];
-    _phoneField.text = name;
+ 
     _phoneField.leftViewMode = UITextFieldViewModeAlways;
     _phoneField.textColor = [UIColor whiteColor];
     _phoneField.delegate = self;
