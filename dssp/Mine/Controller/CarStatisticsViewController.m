@@ -299,6 +299,15 @@
     [_rightBarItem setTitle:@"编辑" forState: UIControlStateNormal];
     [_rightBarItem setTitle:@"完成" forState: UIControlStateSelected];
     _rightBarItem.titleLabel.font = [UIFont fontWithName:FontName size:16];
+    
+    if ([KuserName isEqualToString:@"18911568274"]) {
+        _rightBarItem.hidden = YES;
+    }
+    else
+    {
+        _rightBarItem.hidden = NO;
+    }
+        
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBarItem];
     [_rightBarItem addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_rightBarItem makeConstraints:^(MASConstraintMaker *make) {
@@ -616,29 +625,7 @@
 -(void)BtnClick:(UIButton *)sender
 {
     
-    if ([KuserName isEqualToString:@"18911568274"]) {
-        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-        //            InputalertView.delegate = self;
-        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-        [keywindow addSubview: popupView];
-        
-        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-            
-            if(btn.tag ==100)
-            {
-                
-                
-            }
-            
-        };
-        
-        
-    }
-    else
-    {
-    
-    
+   
     if (self.rightBarItem == sender) {
         if (!self.vhl) {
             return;
@@ -730,8 +717,6 @@
     if (self.unbindBtn == sender) {
         
     }
-        
-  }
     
 }
 

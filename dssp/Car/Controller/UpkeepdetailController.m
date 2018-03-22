@@ -9,7 +9,7 @@
 #import "UpkeepdetailController.h"
 
 @interface UpkeepdetailController ()
-
+@property(nonatomic,strong) UIImageView *Img;
 @end
 
 @implementation UpkeepdetailController
@@ -22,6 +22,7 @@
     [self requestData];
 }
 
+
 -(void)requestData
 {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -29,33 +30,49 @@
         NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-//            self.upkeep =[UpkeepModel yy_modelWithDictionary:dic[@"data"]];
-//            
-//            NSLog(@"%@", self.upkeep.maintenanceMileage);
             [self setupUI];
+            NSArray *dataArray = dic[@"data"][@"images"];
+            NSDictionary *ss  =dataArray[0];
+            [self.Img sd_setImageWithURL:[NSURL URLWithString:ss[@"imgUrl"]] placeholderImage:[UIImage imageNamed:@""]];
+           
         } else {
             [hud hideAnimated:YES];
-            [self setupUI];
-            [MBProgressHUD showText:@"暂无数据"];
+            [self blankUI];
+//            [MBProgressHUD showText:@"暂无数据"];
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
-        [self setupUI];
-        [MBProgressHUD showText:@"暂无数据"];
+        [self blankUI];
+//        [MBProgressHUD showText:@"暂无数据"];
         //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
     }];
 }
 
 -(void)setupUI
 {
-    UIImageView *rightImg = [[UIImageView alloc] init];
-    rightImg.image = [UIImage imageNamed:@"DS 保养规则"];
-    [self.view addSubview:rightImg];
-    [rightImg makeConstraints:^(MASConstraintMaker *make) {
+   self.Img = [[UIImageView alloc] init];
+//    _Img.image = [UIImage imageNamed:@"DS 保养规则"];
+    [self.view addSubview:_Img];
+    [_Img makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
         make.left.equalTo(0);
         make.bottom.equalTo(0);
         make.right.equalTo(0);
+    }];
+}
+
+-(void)blankUI{
+    
+    UIImageView *bgImgV = [[UIImageView alloc] init];
+    bgImgV.image = [UIImage imageNamed:@"暂无内容"];
+    [bgImgV setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:bgImgV];
+    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+        make.top .equalTo(50 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.height.equalTo(175 * HeightCoefficient);
+        make.width.equalTo(278 * WidthCoefficient);
+        
     }];
 }
 

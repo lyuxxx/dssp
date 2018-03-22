@@ -117,7 +117,28 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    
+   
+    if ([KuserName isEqualToString:@"18911568274"]) {
+        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: popupView];
+        
+        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+            
+            if(btn.tag ==100)
+            {
+                
+                
+            }
+            
+        };
+        
+        
+    }
+    else
+    {
     if (_vinField.text.length !=17) {
         
         [MBProgressHUD showText:NSLocalizedString(@"请输入17位VIN号", nil)];
@@ -185,11 +206,10 @@
             
         };
         
-    
-    
+
     }
     
-    
+    }
     
     
     

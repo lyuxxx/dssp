@@ -36,7 +36,7 @@
     [super viewDidLoad];
     [self requestData];
     [self tableViews];
-   [self setupUI];
+    [self setupUI];
 }
 
 -(void)requestData
@@ -52,6 +52,7 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
+         
            _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
            _dataArray =_contractData.serviceItemProfiles;
             [_tableView reloadData];
@@ -67,6 +68,8 @@
         [hud hideAnimated:YES afterDelay:1];
     }];
 }
+
+
 
 -(void)tableViews
 {
