@@ -553,7 +553,7 @@ static NSString *const cellID = @"cell";
         recordItem.cellHeights = [self setcellHight:recordItem.jdaName];
 
         [self.cellArray2 addObject:recordItem.jdaName];
-        [self.cellArray3 addObject: [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"]];
+//        [self.cellArray3 addObject: [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"]];
         [self.dataSource addObject:recordItem];
     }
 

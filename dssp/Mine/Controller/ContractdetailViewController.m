@@ -52,11 +52,11 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-         
+            [self setupUI];
            _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
            _dataArray =_contractData.serviceItemProfiles;
             [_tableView reloadData];
-            [self setupUI];
+        
             //响应事件
         } else {
             [hud hideAnimated:YES];
@@ -179,14 +179,31 @@
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textAlignment = NSTextAlignmentLeft;
     _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    NSString *a = _contractData.createTime?_contractData.createTime:@"";
+//    NSString *a = _contractData.createTime?_contractData.createTime:@"";
+//
+//    NSLog(@"555%@",a);
 //    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
-    NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
+//    NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
 //    NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
-    NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",a] stringByAppendingString:a1];
+     NSString *a = _contractData.createTime?_contractData.createTime:@"";
+     NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
+    if ([self isBlankString:a]||[self isBlankString:a1]) {
+        NSLog(@"555%@",a);
+        _timeLabel.text = NSLocalizedString(@"有效时间：", nil);
+    }
+    else
+    {
+        NSString *b = [a substringWithRange:NSMakeRange(0,10)];
+        NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
+        NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",b] stringByAppendingString:b1];
+        _timeLabel.text = NSLocalizedString(time, nil);
+       
+    
+    }
+
 //    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
     _timeLabel.numberOfLines = 0;
-    _timeLabel.text = NSLocalizedString(time, nil);
+   
     _timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
     [whiteV addSubview:_timeLabel];
     [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -214,6 +231,20 @@
     
     
 
+}
+
+-  (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
 }
 
 

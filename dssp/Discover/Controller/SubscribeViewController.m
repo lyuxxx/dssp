@@ -56,7 +56,7 @@
 }
 
 - (void)viewDidLoad {
-   
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"SubscribeVCneedRefresh" object:nil];
     [super viewDidLoad];
     self.automaticallyCalculatesItemWidths = YES;

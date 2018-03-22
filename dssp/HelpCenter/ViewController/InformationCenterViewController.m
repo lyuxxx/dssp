@@ -212,7 +212,19 @@
             
                 
             } else {
-                [MBProgressHUD showText:dic[@"msg"]];
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    InfoMessage *message = [[InfoMessage alloc] init];
+                    message.type = InfoMessageTypeTwo;
+                    message.choices = @[@"确定",@"关闭"];
+                    message.serviceDetails = @"没有查询到问题，是否继续使用dssp知识库服务?";
+                    [self sendMessage:message];
+                    
+                });
+              
+                
+//                [MBProgressHUD showText:dic[@"msg"]];
             }
             
         } failure:^(NSInteger code) {
@@ -275,7 +287,16 @@
                 [self sendMessage:message];
                 
             } else {
-                [MBProgressHUD showText:dic[@"msg"]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    InfoMessage *message = [[InfoMessage alloc] init];
+                    message.type = InfoMessageTypeTwo;
+                    message.choices = @[@"确定",@"关闭"];
+                    message.serviceDetails = @"没有查询到问题，是否继续使用dssp知识库服务?";
+                    [self sendMessage:message];
+                    
+                });
+//                [MBProgressHUD showText:dic[@"msg"]];
             }
             
         } failure:^(NSInteger code) {

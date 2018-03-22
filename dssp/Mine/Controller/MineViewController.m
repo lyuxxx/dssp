@@ -76,7 +76,7 @@
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"]],
+    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"]],
   @[@[@"signout",@"退出登录"]]];
     
 //    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],

@@ -19,6 +19,7 @@
 #import "NewPasswordViewController.h"
 #import "UITabBar+badge.h"
 #import <MapSearchManager.h>
+#import "AppDelegate.h"
 @interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *userNameField;
@@ -671,12 +672,35 @@
                [self setuploading];
                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                NSString *cid = [defaults1 objectForKey:@"cid"];
+            
+//                      //cid为空
+//                    if([self isBlankString:cid])
+//                    {
+//                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//
+//
+//
+//
+//                    });
+//
+//
+//
+//
+//
+//
+//                    }
+//                    else
+//                    {
+//
+//
+//
+//
+//                    }
+////
                 
-
                 if([self valiMobile:_userNameField.text])
                 {
-                    
-                    
                    NSDictionary *paras = @{
                        @"userName": _userNameField.text,
                        @"userPassword": [_passWordField.text md5String],
@@ -760,15 +784,15 @@
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                             
-                         
-                            
                         } else {
-
-                            hud.label.text = [dic objectForKey:@"msg"];
-                            [hud hideAnimated:YES afterDelay:1];
+                            
+                            [hud hideAnimated:YES];
+//                            hud.label.text = [dic objectForKey:@"msg"];
+//                            [hud hideAnimated:YES afterDelay:1];
                         }
                     } failure:^(NSInteger code) {
-                        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+//                        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+                        hud.label.text = NSLocalizedString(@"网络异常", nil);
                         [hud hideAnimated:YES afterDelay:1];
                     }];
                     

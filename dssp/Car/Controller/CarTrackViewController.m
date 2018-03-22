@@ -158,7 +158,7 @@
         
     }else
     {
-        _whiteV1.hidden = YES;
+//        _whiteV1.hidden = YES;
         _rightImg.image = [UIImage imageNamed:@"盗车提醒背景-安全"];
         _rightImg1.image = [UIImage imageNamed:@"盗车提醒-安全_icon"];
         _msgLabel.text = NSLocalizedString(@"安全保护中，请保持",nil);
@@ -215,7 +215,7 @@
 //    whiteV.layer.shadowOpacity = 0.5;
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(CGSizeMake(343 * WidthCoefficient, 100 * HeightCoefficient));
+        make.size.equalTo(CGSizeMake(343 * WidthCoefficient, 120 * HeightCoefficient));
         make.top.equalTo(20 * HeightCoefficient);
         make.centerX.equalTo(0);
     }];
@@ -228,7 +228,7 @@
     [whiteV addSubview:_rightImg];
     [_rightImg makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
-        make.height.equalTo(100*HeightCoefficient);
+        make.height.equalTo(120*HeightCoefficient);
         make.left.equalTo(0);
         make.right.equalTo(0);
     }];
@@ -268,7 +268,7 @@
     [whiteV addSubview:_msgLabel];
     [_msgLabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_titleLabel.bottom).offset(5 * HeightCoefficient);
-        make.width.equalTo(214 * WidthCoefficient);
+        make.width.equalTo(224 * WidthCoefficient);
         make.left.equalTo(10 * WidthCoefficient);
        
     }];
