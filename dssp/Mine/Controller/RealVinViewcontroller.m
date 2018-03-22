@@ -125,11 +125,17 @@
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
                                 };
+        
+        
+        
+        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+        
+        
         [CUHTTPRequest POST:checkCerStatusByVin parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                
+                   [hud hideAnimated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
                 if ([str isEqualToString:@"0"]) {
                     ///未实名
@@ -140,16 +146,18 @@
                 }
                 else if ([str isEqualToString:@"1"])
                 {
+                       [hud hideAnimated:YES];
                     ///已实名
                     [MBProgressHUD showText:NSLocalizedString(@"已实名认证", nil)];
                 }
                 
             } else {
-                
+                [hud hideAnimated:YES];
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
+            [hud hideAnimated:YES];
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         

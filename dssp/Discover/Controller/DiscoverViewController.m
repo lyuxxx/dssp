@@ -147,7 +147,38 @@
         }
         else if ([CuvhlTStatus isEqualToString:@"1"])
         {
-            //T车辆
+            //                    是否实名
+            if([KcertificationStatus isEqualToString:@"1"])
+            {
+                //T车辆
+                //                CarflowViewController *carflow = [[CarflowViewController alloc] init];
+                //                carflow.hidesBottomBarWhenPushed = YES;
+                //                [self.navigationController pushViewController:carflow animated:YES];
+                
+            }
+            else
+            {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+                [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                //            InputalertView.delegate = self;
+                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                [keywindow addSubview: popupView];
+                
+                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+                    if (btn.tag == 100) {//左边按钮
+                        
+                        
+                        
+                    }
+                    
+                };
+                
+            }
+            
             
         }
         

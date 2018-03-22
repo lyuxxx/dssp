@@ -126,25 +126,26 @@
         NSDictionary *paras = @{
                                 @"vin": _vinField.text
                                 };
+        MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+        
         [CUHTTPRequest POST:queryBindAndRNRStatus parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                
+                [hud hideAnimated:YES];
 //                QueryModel *queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
                 QueryViewController *queryVC =[[QueryViewController alloc] init];
                 queryVC.vin = _vinField.text;
                 [self.navigationController pushViewController:queryVC animated:YES];
 //                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
                 
-                
             } else {
-                
+                [hud hideAnimated:YES];
                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                 
             }
         } failure:^(NSInteger code) {
-            
+            [hud hideAnimated:YES];
             [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         }];
         

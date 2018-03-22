@@ -132,8 +132,7 @@
 }
 
 - (void)nextBtnClick:(UIButton *)sender {
-    
-    
+
     if (_vinField.text.length !=17) {
        
          [MBProgressHUD showText:NSLocalizedString(@"请输入17位VIN号", nil)];
@@ -145,9 +144,6 @@
     }
     else if (_vinField.text.length == 17 &&_enginenNumber.text.length ==7)
     {
-        
-      
-        
         
                 NSDictionary *paras = @{
                                         @"vin": _vinField.text,

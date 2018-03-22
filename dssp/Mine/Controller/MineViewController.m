@@ -119,10 +119,9 @@
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             NSString *userName = [defaults objectForKey:@"userName"];
            
-            
             NSDictionary *dic1 = dic[@"data"];
             UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
-            [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
+            [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@""]];
         
             _namelabel.text=NSLocalizedString(userModel.nickName?userModel.nickName:userName, nil);
             CGSize size = [_namelabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:17],NSFontAttributeName,nil]];

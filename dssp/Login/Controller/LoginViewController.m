@@ -668,17 +668,20 @@
 //            }
             else
             {
-                [self setuploading];
+               [self setuploading];
                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                NSString *cid = [defaults1 objectForKey:@"cid"];
+                
+                
                 if([self valiMobile:_userNameField.text])
                 {
-                       NSDictionary *paras = @{
+                    
+                   NSDictionary *paras = @{
                        @"userName": _userNameField.text,
                        @"userPassword": [_passWordField.text md5String],
                        @"phoneToken":cid
 //                       @"phoneToken":@"617bfe77ed32e58134937d019153b677"
-                 };
+                     };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
                         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -784,12 +787,12 @@
 
         NSString *userName = @"18911568274";
         NSString *password = @"ye123456";;
-        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-        NSString *cid = [defaults1 objectForKey:@"cid"];
+//        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//        NSString *cid = [defaults1 objectForKey:@"cid"];
         NSDictionary *paras = @{
                                 @"userName": userName,
                                 @"userPassword": [password md5String],
-                                @"phoneToken":cid
+                                @"phoneToken":@"0"
                                 };
         MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
         [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
