@@ -42,8 +42,8 @@
             [hud hideAnimated:YES];
             NSDictionary *dic1 = dic[@"data"];
             self.userModel = [UserModel yy_modelWithDictionary:dic1];
-            NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
-            _phoneField.text = _userModel.nickName?_userModel.nickName:name;
+//            NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickName"];
+            _phoneField.text = _userModel.nickName;
 //            [self.tableView reloadData];
             
         } else {

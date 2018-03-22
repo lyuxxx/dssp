@@ -96,13 +96,13 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 
 //sit环境
-#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
+//#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 ///生产环境
 //#define baseUrl @"https://dssp.dstsp.com:443/dssp/v1/core/"
 ///预生产环境
 //#define baseUrl @"https://sit-dssp.dstsp.com/dssp/v1/core/"
 //外网50
-//#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
+#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //内网50
 //#define baseUrl @"http:172.23.102.50:10095/"
 //#define baseUrl @"http:172.23.105.40:10095/"

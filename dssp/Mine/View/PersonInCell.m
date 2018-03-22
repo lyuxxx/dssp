@@ -75,7 +75,7 @@
         UIImageView *img = [[UIImageView alloc] init];
         [self.contentView addSubview:img];
         img.clipsToBounds=YES;
-        img.layer.cornerRadius=32 * WidthCoefficient/2;
+        img.layer.cornerRadius=4;
 
         [img setContentMode:UIViewContentModeScaleAspectFit];
         //    _img.image=[UIImage imageNamed:data[0]];
