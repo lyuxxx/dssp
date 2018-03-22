@@ -31,6 +31,7 @@ typedef void(^CheckCarLocationOver)(void);
 @property (nonatomic, copy) FavoriteCallBack favoriteCallBack;
 @property (nonatomic, strong) CarAnnotation *carAnnotation;
 @property (nonatomic, copy) CheckCarLocationOver checkCarLocationOver;
+@property (nonatomic, copy) NSString *carCity;
 
 - (instancetype)initWithType:(PoiType)type;
 

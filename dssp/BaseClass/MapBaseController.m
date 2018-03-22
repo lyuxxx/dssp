@@ -333,6 +333,7 @@ static dispatch_once_t mapBaseOnceToken;
                 _carAnnotation.coordinate = location;
                 _carAnnotation.title = NSLocalizedString(@"车辆位置", nil);
                 _carAnnotation.subtitle = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
+                self.carCity = regeoInfo.city;
                 [self.mapView addAnnotation:_carAnnotation];
                 [self.mapView setCenterCoordinate:location];
                 [hud hideAnimated:YES];

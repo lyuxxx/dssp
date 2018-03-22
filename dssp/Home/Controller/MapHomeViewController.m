@@ -299,7 +299,7 @@ static dispatch_once_t mapHomeOnceToken;
     if (sender.tag >= 1000) {//上方按钮
         _searchField.text = sender.titleLabel.text;
         weakifySelf
-        [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
+        [[MapSearchManager sharedManager] keyWordsAround:_searchField.text location:self.carAnnotation?self.carAnnotation.coordinate:self.mapView.userLocation.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
@@ -325,7 +325,7 @@ static dispatch_once_t mapHomeOnceToken;
     if (sender == _searchBtn) {
         [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
         weakifySelf
-        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
+        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.carCity?self.carCity:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];
@@ -739,7 +739,7 @@ static dispatch_once_t mapHomeOnceToken;
 - (void)textFieldEditChanged:(UITextField *)textField {
     [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
     weakifySelf
-    [[MapSearchManager sharedManager] inputTipsSearch:textField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
+    [[MapSearchManager sharedManager] inputTipsSearch:textField.text city:self.carCity?self.carCity:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
         strongifySelf
         [self.annotations removeAllObjects];
         for (MapPoiInfo *tip in tips) {
@@ -756,7 +756,7 @@ static dispatch_once_t mapHomeOnceToken;
     if (textField == _searchField) {
         [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
         weakifySelf
-        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
+        [[MapSearchManager sharedManager] keyWordsSearch:_searchField.text city:self.carCity?self.carCity:self.city returnBlock:^(NSArray<__kindof MapPoiInfo *> *pointAnnotations) {
             strongifySelf
             [self.annotations removeAllObjects];
             [self.annotations addObjectsFromArray:pointAnnotations];

@@ -690,7 +690,7 @@
 - (void)textFieldEditChanged:(UITextField *)field {
     [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiSearch"];
     weakifySelf
-    [[MapSearchManager sharedManager] inputTipsSearch:field.text city:self.city location:self.currentPoi.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
+    [[MapSearchManager sharedManager] inputTipsSearch:field.text city:self.carCity?self.carCity:self.city location:self.currentPoi.coordinate returnBlock:^(NSArray<__kindof MapPoiInfo *> *tips) {
         strongifySelf
         [self.annotations removeAllObjects];
         for (MapPoiInfo *tip in tips) {

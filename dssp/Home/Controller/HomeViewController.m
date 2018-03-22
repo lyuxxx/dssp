@@ -255,7 +255,7 @@ typedef void(^PullWeatherFinished)(void);
 
 - (void)checkAppV {
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    [CUHTTPRequest POST:checkVersionUpdate parameters:@{@"systemVersion":@"ios",@"versionCode":[NSNumber numberWithString:currentVersion]} success:^(id responseData) {
+    [CUHTTPRequest POST:checkVersionUpdate parameters:@{@"systemVersion":@"iOS",@"versionCode":[NSNumber numberWithString:currentVersion]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             VersionObject *version = [VersionObject yy_modelWithJSON:dic[@"data"]];

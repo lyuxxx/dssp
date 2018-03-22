@@ -39,11 +39,9 @@
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
     formatter0.dateFormat = @"yyyyMMdd'T'HHmmss'Z'";
-    formatter0.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+8"];
     
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     formatter1.dateFormat = @"HH:mm:ss";
-    formatter1.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+8"];
     
     NSString *startTime = dic[@"startTime"];
     NSDate *date0 = [formatter0 dateFromString:startTime];
@@ -102,11 +100,9 @@
     
     NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
     formatter0.dateFormat = @"yyyy-MM-dd";
-    formatter0.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     formatter1.dateFormat = @"yyyy/MM/dd";
-    formatter1.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     
     NSDate *date = [formatter0 dateFromString:dateStr];
     _date = [formatter1 stringFromDate:date];
