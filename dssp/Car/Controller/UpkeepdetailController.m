@@ -13,6 +13,9 @@
 @end
 
 @implementation UpkeepdetailController
+- (BOOL)needGradientBg {
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
