@@ -5,7 +5,7 @@
 //  Created by yxliu on 2017/9/20.
 //
 
-#define kThemeColor [UIColor colorWithRed:196.0/255.0 green:183.0/255.0 blue:166.0/255.0 alpha:1]
+#define kThemeColor [UIColor colorWithRed:161.0/255.0 green:142.0/255.0 blue:121.0/255.0 alpha:1]
 
 #import "MBProgressHUD+CU.h"
 

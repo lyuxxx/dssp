@@ -32,7 +32,7 @@ PODS:
   - CUPayTool (0.1.0):
     - Alipay-SDK
     - XXWeChatSDK
-  - CUProgressHUD (0.1.7):
+  - CUProgressHUD (0.1.8):
     - MBProgressHUD (~> 1.1.0)
   - DZNEmptyDataSet (1.8.1)
   - FLAnimatedImage (1.0.12)
@@ -127,7 +127,7 @@ SPEC CHECKSUMS:
   CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
   CUHTTPRequest: 284236443a0725646a6609b17aff7ff9ddd41e6c
   CUPayTool: 9d280be743b9667e21fe29132c8be8860d9ea6cc
-  CUProgressHUD: 4f595470398cecc3d19bb2f6e74be89f1a323657
+  CUProgressHUD: eb444f165b7de275b475b9c6911e5e90329be641
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa

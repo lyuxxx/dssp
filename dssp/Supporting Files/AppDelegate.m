@@ -119,6 +119,9 @@
 }
 
 - (void)config {
+    
+    [[UIActivityIndicatorView appearanceWhenContainedIn:NSClassFromString(@"MJRefreshComponent"), nil] setColor:[UIColor colorWithHexString:@"#5a5a5a"]];
+    
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].keyboardDistanceFromTextField = 70 * HeightCoefficient;
     [IQKeyboardManager sharedManager].canAdjustAdditionalSafeAreaInsets = YES;
