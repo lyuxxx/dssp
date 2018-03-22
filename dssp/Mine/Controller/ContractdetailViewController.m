@@ -96,7 +96,7 @@
     }];
 
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,265*HeightCoefficient)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,225*HeightCoefficient)];
     _headerView.backgroundColor=[UIColor clearColor];
     _tableView.tableHeaderView=_headerView;
     
@@ -114,7 +114,7 @@
     [_headerView addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(190 * HeightCoefficient);
+        make.height.equalTo(150 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(20 * HeightCoefficient);
     }];
@@ -164,7 +164,7 @@
     self.typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
     _typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    NSString *packType = [NSString stringWithFormat:@"类型：%@",_contractData.packType];
+    NSString *packType = [NSString stringWithFormat:@"类型：%@",_contractData.packType?_contractData.packType:@""];
 //                         stringByAppendingString:@"条新消息通知"]
     _typeLabel.text = NSLocalizedString(packType, nil);
     _typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
@@ -176,30 +176,30 @@
         make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
     }];
     
-    self.timeLabel = [[UILabel alloc] init];
-    _timeLabel.textAlignment = NSTextAlignmentLeft;
-    _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-//    NSString *a = _contractData.createTime?_contractData.createTime:@"";
+//    self.timeLabel = [[UILabel alloc] init];
+//    _timeLabel.textAlignment = NSTextAlignmentLeft;
+//    _timeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+////    NSString *a = _contractData.createTime?_contractData.createTime:@"";
+////
+////    NSLog(@"555%@",a);
+////    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
+////    NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
+////    NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
+//     NSString *a = _contractData.createTime?_contractData.createTime:@"";
+//     NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
+//    if ([self isBlankString:a]||[self isBlankString:a1]) {
+//        NSLog(@"555%@",a);
+//        _timeLabel.text = NSLocalizedString(@"有效时间：", nil);
+//    }
+//    else
+//    {
+//        NSString *b = [a substringWithRange:NSMakeRange(0,10)];
+//        NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
+//        NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",b] stringByAppendingString:b1];
+//        _timeLabel.text = NSLocalizedString(time, nil);
 //
-//    NSLog(@"555%@",a);
-//    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
-//    NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
-//    NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
-     NSString *a = _contractData.createTime?_contractData.createTime:@"";
-     NSString *a1 = _contractData.lastUpdateTime?_contractData.lastUpdateTime:@"";
-    if ([self isBlankString:a]||[self isBlankString:a1]) {
-        NSLog(@"555%@",a);
-        _timeLabel.text = NSLocalizedString(@"有效时间：", nil);
-    }
-    else
-    {
-        NSString *b = [a substringWithRange:NSMakeRange(0,10)];
-        NSString *b1= [a1 substringWithRange:NSMakeRange(0,10)];
-        NSString *time = [[NSString stringWithFormat:@"有效时间：%@至",b] stringByAppendingString:b1];
-        _timeLabel.text = NSLocalizedString(time, nil);
-       
-    
-    }
+//
+//    }
 
 //    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
     _timeLabel.numberOfLines = 0;
@@ -217,7 +217,7 @@
     self.describeLabel = [[UILabel alloc] init];
     _describeLabel.textAlignment = NSTextAlignmentLeft;
     _describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    NSString *descript = [NSString stringWithFormat:@"描述：%@",_contractData.descript];
+    NSString *descript = [NSString stringWithFormat:@"描述：%@",_contractData.descript?_contractData.descript:@""];
     _describeLabel.text = NSLocalizedString(descript, nil);
     _describeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
     [whiteV addSubview:_describeLabel];
@@ -226,7 +226,7 @@
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
         make.right.equalTo(-10 * HeightCoefficient);
-        make.top.equalTo(_timeLabel.bottom).offset(10 * HeightCoefficient);
+        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
     }];
     
     
