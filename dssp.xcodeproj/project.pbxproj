@@ -65,6 +65,7 @@
 		3189EED42058D1B10009B742 /* server_pre.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server_pre.cer */; };
 		318B685B202AE4B300962F2A /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
 		318B685E202AEBF500962F2A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
+		319096CA20636EAF0032BC43 /* HomeCarLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 319096C920636EAF0032BC43 /* HomeCarLocationCell.m */; };
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
 		319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58B720441EFB006837DC /* OrderDetailViewController.m */; };
 		319A58BB20443604006837DC /* PayCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BA20443604006837DC /* PayCompleteViewController.m */; };
@@ -109,6 +110,8 @@
 		31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */; };
 		31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
 		31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
+		31C504A820624D6F000CFB8F /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504A720624D6F000CFB8F /* BaseWebViewController.m */; };
+		31C504AB2062748A000CFB8F /* CheckVersionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504AA2062748A000CFB8F /* CheckVersionView.m */; };
 		31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
 		31CB2B99200763350085FBA1 /* SendPoiProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CB2B98200763350085FBA1 /* SendPoiProgressView.m */; };
 		31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31CB2B9A200766DF0085FBA1 /* waiting.gif */; };
@@ -120,7 +123,6 @@
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		31E7B9522057A092003844E0 /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
-		31E7B9562057A2A0003844E0 /* HomeCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9552057A2A0003844E0 /* HomeCarCell.m */; };
 		31E7B9592057A2C4003844E0 /* HomeCarStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */; };
 		31E7B9682057A419003844E0 /* HomeBtnsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9672057A419003844E0 /* HomeBtnsHeader.m */; };
 		31E7B96B2057B78F003844E0 /* HomeCarReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B96A2057B78F003844E0 /* HomeCarReportCell.m */; };
@@ -337,6 +339,8 @@
 		318B685A202AE4B300962F2A /* OrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
 		318B685C202AEBF500962F2A /* OrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		318B685D202AEBF500962F2A /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		319096C820636EAF0032BC43 /* HomeCarLocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCarLocationCell.h; sourceTree = "<group>"; };
+		319096C920636EAF0032BC43 /* HomeCarLocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCarLocationCell.m; sourceTree = "<group>"; };
 		3196AB901FDF717F009B9189 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		3196AB911FDF717F009B9189 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		319A58B620441EFB006837DC /* OrderDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
@@ -418,6 +422,10 @@
 		31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
 		31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewLayout.swift; sourceTree = "<group>"; };
 		31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
+		31C504A620624D6F000CFB8F /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
+		31C504A720624D6F000CFB8F /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
+		31C504A92062748A000CFB8F /* CheckVersionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckVersionView.h; sourceTree = "<group>"; };
+		31C504AA2062748A000CFB8F /* CheckVersionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckVersionView.m; sourceTree = "<group>"; };
 		31CA75F81FE75DEE007BDC97 /* RemindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindViewController.h; sourceTree = "<group>"; };
 		31CA75F91FE75DEE007BDC97 /* RemindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindViewController.m; sourceTree = "<group>"; };
 		31CB2B97200763350085FBA1 /* SendPoiProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendPoiProgressView.h; sourceTree = "<group>"; };
@@ -439,8 +447,6 @@
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		31E7B9502057A092003844E0 /* HomeBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeBtn.h; sourceTree = "<group>"; };
 		31E7B9512057A092003844E0 /* HomeBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeBtn.m; sourceTree = "<group>"; };
-		31E7B9542057A2A0003844E0 /* HomeCarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCarCell.h; sourceTree = "<group>"; };
-		31E7B9552057A2A0003844E0 /* HomeCarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCarCell.m; sourceTree = "<group>"; };
 		31E7B9572057A2C4003844E0 /* HomeCarStateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCarStateCell.h; sourceTree = "<group>"; };
 		31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCarStateCell.m; sourceTree = "<group>"; };
 		31E7B9662057A419003844E0 /* HomeBtnsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeBtnsHeader.h; sourceTree = "<group>"; };
@@ -762,6 +768,8 @@
 				31F235D62041722C002807D2 /* MapUtility.m */,
 				31ADB3BC205F8C3B002F79CE /* CatchCrash.h */,
 				31ADB3BD205F8C3B002F79CE /* CatchCrash.m */,
+				31C504A92062748A000CFB8F /* CheckVersionView.h */,
+				31C504AA2062748A000CFB8F /* CheckVersionView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -865,6 +873,8 @@
 				31699EB91FA87CE300C8FDF8 /* NavigationController.m */,
 				31699EBB1FA87D0900C8FDF8 /* TabBarController.h */,
 				31699EBC1FA87D0900C8FDF8 /* TabBarController.m */,
+				31C504A620624D6F000CFB8F /* BaseWebViewController.h */,
+				31C504A720624D6F000CFB8F /* BaseWebViewController.m */,
 				4570EFEB1FFE4B0700FA6355 /* UITabBar+badge.h */,
 				4570EFEC1FFE4B0700FA6355 /* UITabBar+badge.m */,
 			);
@@ -1149,14 +1159,14 @@
 		31E7B9532057A279003844E0 /* HomeCells */ = {
 			isa = PBXGroup;
 			children = (
-				31E7B9542057A2A0003844E0 /* HomeCarCell.h */,
-				31E7B9552057A2A0003844E0 /* HomeCarCell.m */,
+				31129244205D07620049A647 /* HomeBannerCell.h */,
+				31129245205D07620049A647 /* HomeBannerCell.m */,
+				319096C820636EAF0032BC43 /* HomeCarLocationCell.h */,
+				319096C920636EAF0032BC43 /* HomeCarLocationCell.m */,
 				31E7B9572057A2C4003844E0 /* HomeCarStateCell.h */,
 				31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */,
 				31E7B9662057A419003844E0 /* HomeBtnsHeader.h */,
 				31E7B9672057A419003844E0 /* HomeBtnsHeader.m */,
-				31129244205D07620049A647 /* HomeBannerCell.h */,
-				31129245205D07620049A647 /* HomeBannerCell.m */,
 				31E7B9692057B78F003844E0 /* HomeCarReportCell.h */,
 				31E7B96A2057B78F003844E0 /* HomeCarReportCell.m */,
 			);
@@ -1765,14 +1775,16 @@
 				4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
 				31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */,
+				319096CA20636EAF0032BC43 /* HomeCarLocationCell.m in Sources */,
 				45765273204E7BBE006585BA /* QDataSaver.m in Sources */,
 				31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */,
+				31C504AB2062748A000CFB8F /* CheckVersionView.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */,
-				31E7B9562057A2A0003844E0 /* HomeCarCell.m in Sources */,
 				4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */,
 				3172B581202BF1BE006D3749 /* UITextView+Placeholder.m in Sources */,
 				31F235D72041722C002807D2 /* MapUtility.m in Sources */,
+				31C504A820624D6F000CFB8F /* BaseWebViewController.m in Sources */,
 				31A469F31FF1E78B00C8236E /* MapView.m in Sources */,
 				454C7448201823F600108F1E /* LllegadetailController.m in Sources */,
 				31B38BB3202D36990086EDC8 /* CommodityCommentsViewController.m in Sources */,

@@ -27,24 +27,22 @@
 #import "UpkeepViewController.h"
 #import "TrafficReportModel.h"
 
-#import "HomeCarCell.h"
+#import "HomeBannerCell.h"
+#import "HomeCarLocationCell.h"
 #import "HomeCarStateCell.h"
 #import "HomeBtnsHeader.h"
-#import "HomeBannerCell.h"
 #import "HomeCarReportCell.h"
 #import <MJRefresh.h>
+#import "BaseWebViewController.h"
+#import "CheckVersionView.h"
 typedef void(^PullWeatherFinished)(void);
-@interface HomeViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, FSPagerViewDelegate, FSPagerViewDataSource,InputAlertviewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController () <CLLocationManagerDelegate,InputAlertviewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *robotBtn;
-@property (nonatomic, strong) HomeTopView *topView;
-@property (nonatomic, strong) UIScrollView *scroll;
-@property (nonatomic, strong) FSPagerView *banner;
-@property (nonatomic, strong) FSPageControl *pageControl;
-@property (nonatomic, strong) NSMutableArray<NSString *> *imgTitles;
 @property (nonatomic, strong) CLLocationManager *mgr;
-@property (nonatomic, strong) TrafficReporData *trafficReporData;
 @property (nonatomic, copy) NSString *locationStr;
+@property (nonatomic, strong) TrafficReporData *trafficReporData;
+@property (nonatomic, strong) NSArray<CarouselObject *> *carousel;
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
@@ -75,13 +73,11 @@ typedef void(^PullWeatherFinished)(void);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
     
     [self postCustByMobile];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self checkAppV];
+    });
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
-//    [self.mgr startUpdatingLocation];
-//    self.imgTitles = [NSMutableArray arrayWithArray:@[
-//                                                      @"广告",
-//                                                      @"广告",
-//                                                      @"广告"
-//                                                      ]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -92,6 +88,7 @@ typedef void(^PullWeatherFinished)(void);
 
 - (void)pullData {
     //清空数据
+    self.carousel = nil;
     self.locationStr = nil;
     self.trafficReporData = nil;
     // 创建信号量
@@ -141,8 +138,8 @@ typedef void(^PullWeatherFinished)(void);
                 //            [hud hideAnimated:YES];
                 self.trafficReporData = [TrafficReporData yy_modelWithDictionary:dic[@"data"]];
                 //忽略其他数据
-//                self.trafficReporData.totalMileage = @"";
-//                self.trafficReporData.levelFuel = @"";
+                self.trafficReporData.totalMileage = @"";
+                self.trafficReporData.levelFuel = @"";
             }
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
@@ -152,27 +149,49 @@ typedef void(^PullWeatherFinished)(void);
         }];
     });
     
-//    dispatch_group_enter(group);
-//    dispatch_group_async(group, queue, ^{
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
         //请求车辆数据
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//        [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getVinInfoService,kVin] parameters:@{} success:^(id responseData) {
-//            NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//                self.trafficReporData.totalMileage = dic[@"data"][@"totalMileage"];
-//                self.trafficReporData.levelFuel = dic[@"data"][@"fuelOfLeft"];
-//            }
-//            dispatch_group_leave(group);
-//            dispatch_semaphore_signal(semaphore);
-//        } failure:^(NSInteger code) {
-//            dispatch_group_leave(group);
-//            dispatch_semaphore_signal(semaphore);
-//        }];
-//    });
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@",getVinInfoService,kVin] parameters:@{} success:^(id responseData) {
+            NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                self.trafficReporData.totalMileage = dic[@"data"][@"totalMileage"];
+                self.trafficReporData.levelFuel = dic[@"data"][@"fuelOfLeft"];
+            }
+            dispatch_group_leave(group);
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(NSInteger code) {
+            self.trafficReporData.totalMileage = @"0";
+            self.trafficReporData.levelFuel = @"0";
+            dispatch_group_leave(group);
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        //请求轮播图
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        [CUHTTPRequest POST:homeCarousel parameters:@{} success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                CarouselData *data = [CarouselData yy_modelWithJSON:dic[@"data"]];
+                self.carousel = data.images;
+            } else {
+                
+            }
+            dispatch_group_leave(group);
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(NSInteger code) {
+            dispatch_group_leave(group);
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
     
     dispatch_group_notify(group, queue, ^{
         
-        //三次请求完成
+        //多次请求完成
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
@@ -232,6 +251,27 @@ typedef void(^PullWeatherFinished)(void);
             
         }
     }
+}
+
+- (void)checkAppV {
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    [CUHTTPRequest POST:checkVersionUpdate parameters:@{@"systemVersion":@"ios"} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        if ([dic[@"code"] isEqualToString:@"200"]) {
+            VersionObject *version = [VersionObject yy_modelWithJSON:dic[@"data"]];
+            NSString *state = version.isCompulsoryEscalation;
+            if ([state isEqualToString:@"2"]) {//不弹窗
+                
+            } else {
+                NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+                if (currentVersion.integerValue < version.versionCode) {
+                    [CheckVersionView showWithVersion:version];
+                }
+            }
+        }
+    } failure:^(NSInteger code) {
+        
+    }];
 }
 
 - (void)setupUI {
@@ -1528,37 +1568,6 @@ typedef void(^PullWeatherFinished)(void);
     }];
 }
 
-
-#pragma mark - FSPagerViewDataSource
-
-- (NSInteger)numberOfItemsInPagerView:(FSPagerView *)pagerView {
-    return self.imgTitles.count;
-}
-
-- (FSPagerViewCell *)pagerView:(FSPagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
-    FSPagerViewCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"FSPagerViewCell" atIndex:index];
-    cell.contentView.layer.shadowRadius = 0;
-    cell.imageView.userInteractionEnabled = YES;
-    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    cell.imageView.image = [UIImage imageNamed:self.imgTitles[index]];
-    return cell;
-}
-
-#pragma mark - FSPagerViewDelegate
-
-- (void)pagerViewDidScroll:(FSPagerView *)pagerView {
-    if (self.pageControl.currentPage != pagerView.currentIndex) {
-        self.pageControl.currentPage = pagerView.currentIndex;
-    }
-}
-
-- (void)pagerView:(FSPagerView *)pagerView didSelectItemAtIndex:(NSInteger)index {
-    [pagerView deselectItemAtIndex:index animated:YES];
-    [pagerView scrollToItemAtIndex:index animated:YES];
-    self.pageControl.currentPage = index;
-    NSLog(@"%ld",index);
-}
-
 #pragma mark - UITableViewDelegate -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -1567,7 +1576,7 @@ typedef void(^PullWeatherFinished)(void);
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
+        return 3;
     } else if (section == 1) {
         return 3;
     }
@@ -1580,7 +1589,18 @@ typedef void(^PullWeatherFinished)(void);
         switch (indexPath.row) {
             case 0:
             {
-                HomeCarCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCarCellIdentifier];
+                HomeBannerCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeBannerCellIdentifier];
+                [cell configWithCarousel:self.carousel block:^(NSString *url) {
+                    BaseWebViewController *vc = [[BaseWebViewController alloc] initWithURL:url];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }];
+                return cell;
+            }
+                break;
+            case 1:
+            {
+                HomeCarLocationCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCarLocationCellIdentifier];
                 [cell configWithLocation:self.locationStr withLocationClick:^(YYLabel *label) {
                     if ([label.text isEqualToString:@"\U0000fffc未获取到车辆位置"]) {
                         strongifySelf;
@@ -1599,7 +1619,7 @@ typedef void(^PullWeatherFinished)(void);
                 return cell;
             }
                 break;
-            case 1:
+            case 2:
             {
                 HomeCarStateCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCarStateCellIdentifier];
                 [cell configWithData:self.trafficReporData];
@@ -1610,11 +1630,6 @@ typedef void(^PullWeatherFinished)(void);
                 break;
         }
     } else if (indexPath.section == 1) {
-//        if (indexPath.row == 0) {
-//            HomeBannerCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeBannerCellIdentifier];
-//            [cell configWithURLs:@[@"广告",@"广告",@"广告"]];
-//            return cell;
-//        } else {
             NSArray *titles = @[NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为周报", nil),NSLocalizedString(@"行车日志", nil)];
             HomeCarReportCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCarReportCellIdentifier];
             [cell configWithTitle:titles[indexPath.row] clickEvent:^(ReportType type) {
@@ -1697,25 +1712,21 @@ typedef void(^PullWeatherFinished)(void);
                 
             }];
             return cell;
-//        }
-    }
+        }
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return [HomeCarCell cellHeight];
+            return [HomeBannerCell cellHeight];
         } else if (indexPath.row == 1) {
+            return [HomeCarLocationCell cellHeightWithLocation:self.locationStr];
+        } else if (indexPath.row == 2) {
             return [HomeCarStateCell cellHeight];
         }
     } else if (indexPath.section == 1) {
         return [HomeCarReportCell cellHeight];
-        if (indexPath.row == 0) {
-            return [HomeBannerCell cellHeight];
-        } else {
-            return [HomeCarReportCell cellHeight];
-        }
     }
     return CGFLOAT_MIN;
 }
@@ -1759,11 +1770,10 @@ typedef void(^PullWeatherFinished)(void);
             // Fallback on earlier versions
         }
         
-        
-        [_tableView registerClass:[HomeCarCell class] forCellReuseIdentifier:HomeCarCellIdentifier];
+        [_tableView registerClass:[HomeBannerCell class] forCellReuseIdentifier:HomeBannerCellIdentifier];
+        [_tableView registerClass:[HomeCarLocationCell class] forCellReuseIdentifier:HomeCarLocationCellIdentifier];
         [_tableView registerClass:[HomeCarStateCell class] forCellReuseIdentifier:HomeCarStateCellIdentifier];
         [_tableView registerClass:[HomeBtnsHeader class] forHeaderFooterViewReuseIdentifier:HomeBtnsHeaderIdentifier];
-        [_tableView registerClass:[HomeBannerCell class] forCellReuseIdentifier:HomeBannerCellIdentifier];
         [_tableView registerClass:[HomeCarReportCell class] forCellReuseIdentifier:HomeCarReportCellIdentifier];
         
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullData)];
@@ -1789,12 +1799,6 @@ typedef void(^PullWeatherFinished)(void);
         }
     }
     return _mgr;
-}
-
-- (void)setImgTitles:(NSMutableArray<NSString *> *)imgTitles {
-    _imgTitles = imgTitles;
-    [self.banner reloadData];
-    self.pageControl.numberOfPages = imgTitles.count;
 }
 
 - (TrafficReporData *)trafficReporData {

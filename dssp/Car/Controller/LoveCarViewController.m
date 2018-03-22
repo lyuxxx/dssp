@@ -292,7 +292,7 @@
     [btnContainer makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(kScreenWidth);
         make.height.equalTo(243 * WidthCoefficient);
-        make.top.equalTo(line.bottom).offset(20 * WidthCoefficient);
+        make.top.equalTo(line.bottom).offset(10 * WidthCoefficient);
         make.centerX.equalTo(content);
     }];
     

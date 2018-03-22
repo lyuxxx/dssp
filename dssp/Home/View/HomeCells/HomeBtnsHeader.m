@@ -37,7 +37,7 @@ typedef void(^BtnClick)(UIButton *);
     btnContainer.layer.shadowRadius = 7;
     [self.contentView addSubview:btnContainer];
     [btnContainer makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 16 * WidthCoefficient, 10 * WidthCoefficient, 16 * WidthCoefficient));
+        make.edges.equalTo(UIEdgeInsetsMake(11 * WidthCoefficient, 16 * WidthCoefficient, 10 * WidthCoefficient, 16 * WidthCoefficient));
     }];
     
     NSArray *btnImgTitles = @[
@@ -78,7 +78,7 @@ typedef void(^BtnClick)(UIButton *);
         make.width.equalTo(kScreenWidth);
         make.height.equalTo(1 * WidthCoefficient);
         make.centerX.equalTo(0);
-        make.bottom.equalTo(btnContainer.top);
+        make.bottom.equalTo(btnContainer.top).offset(-9 * WidthCoefficient);
     }];
 }
 
@@ -87,7 +87,7 @@ typedef void(^BtnClick)(UIButton *);
 }
 
 + (CGFloat)HeaderHeight {
-    return 94 * WidthCoefficient;
+    return 100 * WidthCoefficient;
 }
 
 - (void)configWithBtnClick:(void (^)(UIButton *))btnClick {

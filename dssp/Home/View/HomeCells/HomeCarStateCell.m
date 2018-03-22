@@ -69,7 +69,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
 }
 
 + (CGFloat)cellHeight {
-    return 80 * WidthCoefficient;
+    return 75 * WidthCoefficient;
 }
 
 - (void)configWithData:(TrafficReporData *)trafficReporData {

@@ -73,7 +73,6 @@
         NSDictionary *paras = @{@"appErrorInfoList": arr};
         [CUHTTPRequest POST:addAppErrorInfo parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"%@",dic);
             if ([dic[@"code"] isEqualToString:@"200"] && ((NSNumber *)dic[@"data"]).integerValue > 0) {//成功
                 //成功后删除文件
                 NSError *error;

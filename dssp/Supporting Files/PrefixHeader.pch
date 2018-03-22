@@ -130,6 +130,10 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //#define userNameLogins @"http://172.23.105.209:10095/login/userName"
 //#define telephoneLogins @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/login/telephone"
 //#define userNameLogins @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/login/userName"
+//检测版本更新
+#define checkVersionUpdate [NSString stringWithFormat:@"%@AppRelease/Information/NoOne",baseUrl]
+//首页轮播图
+#define homeCarousel [NSString stringWithFormat:@"%@queryImgStore/index",baseUrl]
 //查询车辆销售信息和套餐信息接口
 #define getBasicInfo [NSString stringWithFormat:@"%@getBasicInfo",baseUrl]
 //绑定客户-车辆信息
@@ -255,8 +259,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 ///添加发票
 #define addOrderInvoiceURL [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
 ///获取支付签名参数
-#define appCreatePay @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/appCreatePay"
-#define payOrderQuery @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/orderQuery"
+#define appCreatePay @"https://dssp.dstsp.com:443/dssp/v1/payment/v1/appCreatePay"
+#define payOrderQuery @"https://dssp.dstsp.com:443/dssp/v1/payment/v1/orderQuery"
 
 
 //修改昵称
@@ -291,5 +295,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define uploading @"http://sit-dssp.dstsp.com:50005/dssp/v1/message/monitoring/uploading"
 //保养图片
 #define queryImgStore [NSString stringWithFormat:@"%@queryImgStore",baseUrl]
-
+//崩溃日志上传
+#define addAppErrorInfo [NSString stringWithFormat:@"%@addAppErrorInfo",baseUrl]
 #endif /* PrefixHeader_pch */

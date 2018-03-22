@@ -546,8 +546,8 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             });
             
         } else {
-            hud.label.text = dic[@"msg"];
-            [hud hideAnimated:YES afterDelay:1];
+//            hud.label.text = dic[@"msg"];
+//            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
         hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
