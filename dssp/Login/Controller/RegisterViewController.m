@@ -209,14 +209,14 @@
             self.confirmPasswordField = field;
 //            self.confirmPasswordField.secureTextEntry = YES;
             
-            self.checkImgV = [[UIImageView alloc] init];
-            _checkImgV.image = [UIImage imageNamed:@"check grey"];
-            [self.view addSubview:_checkImgV];
-            [_checkImgV makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.equalTo(12 * WidthCoefficient);
-                make.centerY.equalTo(field);
-                make.right.equalTo(line);
-            }];
+//            self.checkImgV = [[UIImageView alloc] init];
+//            _checkImgV.image = [UIImage imageNamed:@"check grey"];
+//            [self.view addSubview:_checkImgV];
+//            [_checkImgV makeConstraints:^(MASConstraintMaker *make) {
+//                make.width.height.equalTo(12 * WidthCoefficient);
+//                make.centerY.equalTo(field);
+//                make.right.equalTo(line);
+//            }];
         }
     }
     
@@ -381,9 +381,14 @@
         {
          [MBProgressHUD showText:NSLocalizedString(@"密码格式有误", nil)];
         }
-         else if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
-             [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];
-         }
+        else if(![_passwordField.text isEqualToString:_confirmPasswordField.text] )
+        {
+            [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];
+            
+        }
+//        else if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
+//             [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];
+//         }
          else if (_agreeBtn.selected == NO) {
             [MBProgressHUD showText:NSLocalizedString(@"请同意用户协议", nil)];
          }
