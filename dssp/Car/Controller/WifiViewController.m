@@ -88,7 +88,7 @@
 //    _available.textColor = [UIColor whiteColor];
     _available.textAlignment = NSTextAlignmentCenter;
     _available.font = [UIFont fontWithName:FontName size:12];
-    _available.text = @"未知";
+    _available.text = @"";
     [bgImgV addSubview:_available];
     [_available makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bgImgV);
@@ -276,14 +276,24 @@
                 
                 if([available isEqualToString:@"1"])
                 {
-                    _available.textColor = [UIColor colorWithHexString:@"#999999"];
-                    _available.text = @"可用";
+//                    _available.textColor = [UIColor colorWithHexString:@"#999999"];
+//                    _available.text = @"可用";
+                    
+              [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.equalTo(0);
+                        make.centerY.equalTo(0);
+                    }];
+                    
+//            [_available updateConstraints:^(MASConstraintMaker *make) {
+//                    make.centerX.equalTo(0);
+//                    make.centerY.equalTo(0);
+//                          }];
                     
                 }
                 else
                 {
                     _available.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                    _available.text = @"不可用";
+                    _available.text = @"当前wifi不可用";
                     
                 }
                 

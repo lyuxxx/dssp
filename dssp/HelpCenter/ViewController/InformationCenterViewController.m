@@ -16,6 +16,7 @@
 #import "VINBindingViewController.h"
 #import "DKSTextView.h"
 #import "DKSKeyboardView.h"
+#import <IQKeyboardManager.h>
 @interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource,DKSKeyboardDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DKSKeyboardView *keyView;
@@ -81,6 +82,9 @@
 //    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
 //    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
     
+    // 注册键盘的通知hide or show
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
     //给UITableView添加手势
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
@@ -88,7 +92,7 @@
     [self.tableView addGestureRecognizer:tapGesture];
     
     //添加输入框
-    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50, kScreenWidth, 50)];
+    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50)];
     self.keyView.backgroundColor = [UIColor colorWithHexString:@"#232120"];
     
     [self.keyView.moreBtn addTarget:self action:@selector(clickSengMsg:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,9 +101,60 @@
     [self.view addSubview:_keyView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
+}
+
+// 监听键盘弹出
+- (void)keyBoardShow:(NSNotification *)noti
+{
+  
+    // 咱们取自己需要的就好了
+    CGRect rec = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSLog(@"%@",NSStringFromCGRect(rec));
+    // 小于，说明覆盖了输入框
+    if ([UIScreen mainScreen].bounds.size.height - rec.size.height < self.inputView.frame.origin.y + self.inputView.frame.size.height)
+    {
+        // 把我们整体的View往上移动
+        CGRect tempRec = self.view.frame;
+        tempRec.origin.y = - (rec.size.height);
+        self.view.frame = tempRec;
+    }
+    // 由于可见的界面缩小了，TableView也要跟着变化Frame
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50- rec.size.height);
+    if (self.dataSource.count != 0)
+    {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
+    
+}
+// 监听键盘隐藏
+- (void)keyboardHide:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.view.frame = CGRectMake(0,kNaviHeight, kScreenWidth, kScreenHeight);
+        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50);
+        
+        self.keyView.frame = CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50);
+
+    });
+}
+
+
 - (void)clickSengMsg:(UIButton *)btn
 {
     
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
+    
+   
     
     if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
        
@@ -110,6 +165,16 @@
             [self sendMessage:messageMe];
             
 //        });
+        
+      
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.dataSource.count != 0)
+            {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
+        });
+  
+        
         
         
         NSDictionary *result = CONF_GET(@"resultId");
@@ -162,13 +227,22 @@
 - (void)textViewContentText:(NSString *)textStr {
     
     if (textStr.length>1 ||textStr.length == 1) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             InfoMessage *messageMe = [[InfoMessage alloc] init];
             messageMe.text = textStr;
             messageMe.type = InfoMessageTypeMe;
             [self sendMessage:messageMe];
             
+//        });
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.dataSource.count != 0)
+            {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
         });
+        
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
@@ -210,11 +284,40 @@
         }];
         
     }
-    
-    
-   
-    
 }
+
+#pragma mark ====== 点击UITableView ======
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    //收回键盘
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
+    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
+}
+
+////keyboard的frame改变
+//- (void)keyboardChangeFrameWithMinY:(CGFloat)minY {
+////    [self scrollToBottom];
+//    // 获取对应cell的rect值（其值针对于UITableView而言）
+//    NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+//    CGRect rect = [self.tableView rectForRowAtIndexPath:lastIndex];
+//    CGFloat lastMaxY = rect.origin.y + rect.size.height;
+//    //如果最后一个cell的最大Y值大于tableView的高度
+//    if (lastMaxY <= self.tableView.frame.size.height) {
+////        if (lastMaxY > = minY) {
+//////           self.tableVi
+////         self.tableView.frame.origin.y = minY - lastMaxY;
+////        } else {
+////        self.tableView.frame.origin.y = 0;
+////        }
+////    } else {
+////        self.tableView.y += minY -  self.tableView.frame.origin.y+self.tableView.frame.size.height;
+//
+////        self.tableView.frame.origin.y+self.tableView.frame.size.height
+//    }
+//}
 
 
 - (void)pullData {
