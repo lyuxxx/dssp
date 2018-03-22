@@ -100,6 +100,7 @@
 		31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC3202D8B930086EDC8 /* InvoiceEnterpriseViewController.m */; };
 		31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */; };
 		31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
+		31B967182063D150008AD664 /* UIButton+NoRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B967172063D150008AD664 /* UIButton+NoRepeat.m */; };
 		31B9DC91205A71DB00C8B840 /* UIFont+FontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */; };
 		31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
 		31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
@@ -409,6 +410,8 @@
 		31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitViewController.m; sourceTree = "<group>"; };
 		31B38BC8202D8F970086EDC8 /* OrderSubmitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderSubmitCell.h; sourceTree = "<group>"; };
 		31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitCell.m; sourceTree = "<group>"; };
+		31B967162063D150008AD664 /* UIButton+NoRepeat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+NoRepeat.h"; sourceTree = "<group>"; };
+		31B967172063D150008AD664 /* UIButton+NoRepeat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NoRepeat.m"; sourceTree = "<group>"; };
 		31B9DC8F205A71DB00C8B840 /* UIFont+FontSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontSize.h"; sourceTree = "<group>"; };
 		31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontSize.m"; sourceTree = "<group>"; };
 		31C1125E2047E1AC0094B157 /* TrackSingleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackSingleCell.h; sourceTree = "<group>"; };
@@ -764,6 +767,8 @@
 				3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */,
 				31B9DC8F205A71DB00C8B840 /* UIFont+FontSize.h */,
 				31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */,
+				31B967162063D150008AD664 /* UIButton+NoRepeat.h */,
+				31B967172063D150008AD664 /* UIButton+NoRepeat.m */,
 				31F235D52041722B002807D2 /* MapUtility.h */,
 				31F235D62041722C002807D2 /* MapUtility.m */,
 				31ADB3BC205F8C3B002F79CE /* CatchCrash.h */,
@@ -1708,6 +1713,7 @@
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				31158926201B0DC100A4AEFB /* MapUpdateViewController.m in Sources */,
+				31B967182063D150008AD664 /* UIButton+NoRepeat.m in Sources */,
 				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				4570EFE51FFCDC0E00FA6355 /* CarUnbindModel.m in Sources */,
