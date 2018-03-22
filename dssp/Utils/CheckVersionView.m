@@ -216,7 +216,9 @@
         [[self class] dismiss];
     }
     if (sender == _updateBtn) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.version.marketDownloadUrl]];
+        if ([self.version.marketDownloadUrl containsString:@"itunes.apple.com"]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.version.marketDownloadUrl]];
+        }
     }
 }
 

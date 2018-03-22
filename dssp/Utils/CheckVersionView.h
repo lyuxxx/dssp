@@ -11,6 +11,7 @@
 @interface VersionObject : NSObject <YYModel>
 @property (nonatomic, copy) NSString *versionName;
 @property (nonatomic, assign) NSInteger versionCode;
+@property (nonatomic, assign) NSInteger minimumCompatibleVersion;
 @property (nonatomic, copy) NSString *updateDesc;
 @property (nonatomic, copy) NSString *updateTime;
 @property (nonatomic, copy) NSString *marketDownloadUrl;

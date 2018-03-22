@@ -16,6 +16,7 @@
 - (void)setBadgeNumber:(NSInteger)number;
 - (void)decreaseBadgeNumber;
 - (void)increaseBadgeNumber;
+- (void)restartGetui;
 
 @end
 

@@ -255,7 +255,7 @@ typedef void(^PullWeatherFinished)(void);
 
 - (void)checkAppV {
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    [CUHTTPRequest POST:checkVersionUpdate parameters:@{@"systemVersion":@"ios"} success:^(id responseData) {
+    [CUHTTPRequest POST:checkVersionUpdate parameters:@{@"systemVersion":@"ios",@"versionCode":[NSNumber numberWithString:currentVersion]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             VersionObject *version = [VersionObject yy_modelWithJSON:dic[@"data"]];
@@ -263,10 +263,7 @@ typedef void(^PullWeatherFinished)(void);
             if ([state isEqualToString:@"2"]) {//不弹窗
                 
             } else {
-                NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-                if (currentVersion.integerValue < version.versionCode) {
-                    [CheckVersionView showWithVersion:version];
-                }
+                [CheckVersionView showWithVersion:version];
             }
         }
     } failure:^(NSInteger code) {

@@ -253,6 +253,13 @@
 
 #pragma mark - 个推推送相关 -
 
+- (void)restartGetui {
+    [GeTuiSdk destroy];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [GeTuiSdk resume];
+    });
+}
+
 - (void)registerLocalNotificationWithInfo:(NSDictionary *)info {
     if (@available(iOS 10.0, *)) {
         // 使用 UNUserNotificationCenter 来管理通知
