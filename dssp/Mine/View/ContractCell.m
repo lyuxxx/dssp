@@ -240,9 +240,15 @@
 
 -(void)setContractModel:(ContractModel *)contractModel
 {
-     _serialNumber.text = NSLocalizedString(contractModel.contractCode, nil);
-    _startLabel.text = NSLocalizedString(contractModel.contractBeginTime, nil);
-    _endLabel.text = NSLocalizedString(contractModel.contractEndTime, nil);
+    NSString *a = contractModel.contractBeginTime?contractModel.contractBeginTime:@"";
+    NSString *b = [a substringWithRange:NSMakeRange(0,10)];
+    
+    NSString *a1 = contractModel.contractEndTime?contractModel.contractEndTime:@"";
+    NSString *b1 = [a1 substringWithRange:NSMakeRange(0,10)];
+    
+    _serialNumber.text = NSLocalizedString(contractModel.contractCode, nil);
+    _startLabel.text = NSLocalizedString(b, nil);
+    _endLabel.text = NSLocalizedString(b1, nil);
     _modeLabel.text = NSLocalizedString(contractModel.payDate, nil);
     _paymentLabel.text = NSLocalizedString(contractModel.payDate, nil);[contractModel valueForKey:@"payDate"];
     _moneyLabel.text = NSLocalizedString(contractModel.contractMoney, nil);

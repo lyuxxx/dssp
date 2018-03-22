@@ -74,7 +74,7 @@
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
     self.isViewVisable = YES;
     [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-//    [self postCustByMobile];
+    [self postCustByMobile];
     if (self.currentVC == self.noticeVC) {
         [self requestData];
     }
@@ -163,7 +163,7 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];

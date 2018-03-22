@@ -158,7 +158,7 @@
         
     }else
     {
-        _whiteV1.hidden = YES;
+//        _whiteV1.hidden = YES;
         _rightImg.image = [UIImage imageNamed:@"盗车提醒背景-安全"];
         _rightImg1.image = [UIImage imageNamed:@"盗车提醒-安全_icon"];
         _msgLabel.text = NSLocalizedString(@"安全保护中，请保持",nil);

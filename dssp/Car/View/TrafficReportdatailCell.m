@@ -189,8 +189,8 @@
     }
     
     
-    NSString *alertCount = [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"];
-    self.rightlab.text = alertCount?alertCount:@"0次";
+//    NSString *alertCount = [[NSString stringWithFormat:@"%@",recordItem.alertCount] stringByAppendingString:@"次"];
+//    self.rightlab.text = alertCount?alertCount:@"0次";
 }
 
 -(CGFloat)setcellHight:(NSString *)cellModel
@@ -198,9 +198,7 @@
     CGRect tmpRect= [cellModel boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0]} context:nil];
 
     CGFloat contentH = tmpRect.size.height + 28*HeightCoefficient;
-    NSLog(@"显示高度:%f",contentH);
-
-
+//    NSLog(@"显示高度:%f",contentH);
     return contentH;
 }
 

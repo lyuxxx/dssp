@@ -271,8 +271,8 @@
             if (wifiSsid) {
                 self.originPassword = wifiPassword;
                 _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
-                _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
-                
+//                _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
+                _passwordField.text = self.originPassword;
                 
                 if([available isEqualToString:@"1"])
                 {
