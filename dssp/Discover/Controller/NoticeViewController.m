@@ -127,7 +127,7 @@
             else
             {
                 [self.tableView.mj_header endRefreshing];
-                [self blankUI];
+//                [self blankUI];
                
             }
         } else {
