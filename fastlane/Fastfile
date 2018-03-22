@@ -114,7 +114,8 @@ platform :ios do
 
     pilot(
     	distribute_external: true,
-    	notify_external_testers: true
+    	notify_external_testers: true,
+    	groups: "cusc"
     	)
 
     # sh "your_script.sh"
