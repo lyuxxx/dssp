@@ -52,10 +52,11 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-            [self setupUI];
-           _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
-           _dataArray =_contractData.serviceItemProfiles;
+           
+            _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
+            _dataArray =_contractData.serviceItemProfiles;
             [_tableView reloadData];
+            [self setupUI];
         
             //响应事件
         } else {
