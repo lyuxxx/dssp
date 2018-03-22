@@ -8,7 +8,7 @@
 
 #import "UIButton+NoRepeat.h"
 #import <objc/runtime.h>
-#define defaultInterval 2// 默认时间间隔
+#define defaultInterval 1// 默认时间间隔
 @interface UIButton ()
 /**
  *  bool YES 忽略点击事件   NO 允许点击事件
