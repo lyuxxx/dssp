@@ -672,9 +672,10 @@
                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                NSString *cid = [defaults1 objectForKey:@"cid"];
                 
-                
+
                 if([self valiMobile:_userNameField.text])
                 {
+                    
                     
                    NSDictionary *paras = @{
                        @"userName": _userNameField.text,
