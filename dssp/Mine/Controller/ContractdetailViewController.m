@@ -52,7 +52,7 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-           
+    
             _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
             _dataArray =_contractData.serviceItemProfiles;
             [_tableView reloadData];
@@ -100,13 +100,10 @@
     _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,225*HeightCoefficient)];
     _headerView.backgroundColor=[UIColor clearColor];
     _tableView.tableHeaderView=_headerView;
-    
 }
-
 
 -(void)setupUI
 {
-
     self.navigationItem.title = NSLocalizedString(@"合同详细", nil);
 
     UIView *whiteV = [[UIView alloc] init];
@@ -202,18 +199,34 @@
 //
 //    }
 
+
 //    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
-    _timeLabel.numberOfLines = 0;
-   
-    _timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:_timeLabel];
-    [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(170 * WidthCoefficient);
-        make.height.equalTo(40 * HeightCoefficient);
-        make.left.equalTo(10 * HeightCoefficient);
-        make.right.equalTo(-10 * HeightCoefficient);
-        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
-    }];
+//    _timeLabel.numberOfLines = 0;
+//
+//    _timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+//    [whiteV addSubview:_timeLabel];
+//    [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
+////        make.width.equalTo(170 * WidthCoefficient);
+//        make.height.equalTo(40 * HeightCoefficient);
+//        make.left.equalTo(10 * HeightCoefficient);
+//        make.right.equalTo(-10 * HeightCoefficient);
+//        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
+//    }];
+
+//
+////    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
+//    _timeLabel.numberOfLines = 0;
+//
+//    _timeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+//    [whiteV addSubview:_timeLabel];
+//    [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
+////        make.width.equalTo(170 * WidthCoefficient);
+//        make.height.equalTo(40 * HeightCoefficient);
+//        make.left.equalTo(10 * HeightCoefficient);
+//        make.right.equalTo(-10 * HeightCoefficient);
+//        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
+//    }];
+
     
     self.describeLabel = [[UILabel alloc] init];
     _describeLabel.textAlignment = NSTextAlignmentLeft;

@@ -340,7 +340,7 @@
                     [btn setTitle:pageArr[j] forState:UIControlStateNormal];
                     [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
-                     btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
+                    btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                     btn.layer.cornerRadius = 4;
                     [v addSubview:btn];
                     [btns addObject:btn];
@@ -368,8 +368,6 @@
                 {
                     [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
                 }
-                
-                
                 
             }
             [lastView makeConstraints:^(MASConstraintMaker *make) {

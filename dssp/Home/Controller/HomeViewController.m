@@ -75,7 +75,7 @@ typedef void(^PullWeatherFinished)(void);
     [self postCustByMobile];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self checkAppV];
+//        [self checkAppV];
     });
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
 }

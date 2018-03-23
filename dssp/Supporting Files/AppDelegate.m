@@ -438,11 +438,14 @@
 }
 
 #pragma mark - GeTuiSdkDelegate
-
+//cid获取成功
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     NSLog(@"[GTSdk cid]%@",clientId);
     [[NSUserDefaults standardUserDefaults] setObject:clientId forKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:nil];
+    
 }
 
 - (void)GeTuiSdkDidOccurError:(NSError *)error {

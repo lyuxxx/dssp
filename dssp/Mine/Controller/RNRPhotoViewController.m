@@ -264,16 +264,20 @@
 //        _imagePickerVC.allowsEditing = YES;
 
         if (buttonIndex == 0) {
-             self.imagePickerVC = [[UIImagePickerController alloc] init];
-            _imagePickerVC.modalPresentationStyle = UIModalPresentationCurrentContext;
-            _imagePickerVC.delegate = self;
-            _imagePickerVC.allowsEditing = YES;
-
-            _imagePickerVC.modalPresentationStyle = UIModalPresentationFullScreen;
-            _imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-            _imagePickerVC.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-            _imagePickerVC.showsCameraControls = YES;
-             [self presentViewController:_imagePickerVC animated:YES completion:nil];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+             
+                self.imagePickerVC = [[UIImagePickerController alloc] init];
+                _imagePickerVC.modalPresentationStyle = UIModalPresentationCurrentContext;
+                _imagePickerVC.delegate = self;
+                _imagePickerVC.allowsEditing = YES;
+                
+                _imagePickerVC.modalPresentationStyle = UIModalPresentationFullScreen;
+                _imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+                _imagePickerVC.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+                _imagePickerVC.showsCameraControls = YES;
+                [self presentViewController:_imagePickerVC animated:YES completion:nil];
+            });
             
         } else if (buttonIndex == 1) {
             TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self];
@@ -331,9 +335,9 @@
 //        _selectedImgV.image = info[UIImagePickerControllerOriginalImage];
 //        [_selectedImgV removeAllSubviews];
 //    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [picker dismissViewControllerAnimated:YES completion:nil];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [picker dismissViewControllerAnimated:YES completion:nil];
+//    });
     
 
 }

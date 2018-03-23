@@ -154,8 +154,6 @@
     
      [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
     
-   
-    
     if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
        
 //        dispatch_async(dispatch_get_main_queue(), ^{

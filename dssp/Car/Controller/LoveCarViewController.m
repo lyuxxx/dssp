@@ -45,7 +45,7 @@
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"LoveCarViewController"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
-//    [self postCustByMobile];
+    [self postCustByMobile];
 }
 
 

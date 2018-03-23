@@ -62,7 +62,6 @@
     }
 }
 
-
 -(void)DidReceiveloadMsg
 {
     [self requestData];

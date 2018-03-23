@@ -110,7 +110,7 @@
 {
     NSDictionary *paras = @{
                             
-                            };
+                           };
     [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
