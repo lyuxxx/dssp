@@ -292,7 +292,7 @@
     UILabel *phone = [[UILabel alloc] init];
     phone.font=[UIFont fontWithName:FontName size:16];
     phone.textColor=[UIColor colorWithHexString:@"#ffffff"];
-    phone.text=NSLocalizedString(@"400-800-888", nil);
+    phone.text=NSLocalizedString(@"400-650-5556", nil);
     phone.textAlignment = NSTextAlignmentLeft;
     [bottomView addSubview:phone];
     [phone makeConstraints:^(MASConstraintMaker *make) {

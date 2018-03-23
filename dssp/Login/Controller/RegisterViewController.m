@@ -138,7 +138,6 @@
         
         if (i == 0) {
             self.phoneField = field;
-            
             self.attentionImgV = [[UIImageView alloc] init];
             _attentionImgV.image = [UIImage imageNamed:@"attention"];
             [self.view addSubview:_attentionImgV];

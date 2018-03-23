@@ -48,7 +48,7 @@
             NSDictionary *dic1 = dic[@"data"];
             self.userModel = [UserModel yy_modelWithDictionary:dic1];
             
-            [self.avatar sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"用户头像"]];
+            [self.avatar sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"默认头像"]];
 //            dispatch_async(dispatch_get_main_queue(), ^{
 //                [self.avatar downloadImage:_userModel.headPortrait placeholder:nil success:^(CUImageCacheType cacheType, UIImage *image) {
 //

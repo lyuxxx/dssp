@@ -547,9 +547,13 @@
                 {
                     NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                     NSString *cid = [defaults1 objectForKey:@"cid"];
+                    
+                     NSString *telephone = [_phoneField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                     NSString *randomCode = [_phoneCodeField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
                     NSDictionary *paras = @{
-                                @"telephone":_phoneField.text,
-                                @"randomCode":_phoneCodeField.text,
+                                @"telephone":telephone,
+                                @"randomCode":randomCode,
                                 @"phoneToken":cid
                                             };
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -647,6 +651,7 @@
 //               NSString *cid = [defaults1 objectForKey:@"cid"];
                 __block NSString *cid;
           
+
             NSString *userName = [_userNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                if([self valiMobile:userName])
 

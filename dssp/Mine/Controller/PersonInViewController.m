@@ -132,7 +132,7 @@
 
        if (indexPath.row==0) {
 
-            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@""]];
+            [cell.img sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"默认头像"]];
             cell.arrowImg.image=[UIImage imageNamed:@"箭头_icon"];
            
         }
