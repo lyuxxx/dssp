@@ -36,11 +36,7 @@
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, copy) NSString *phoneCode;
 @property (nonatomic, strong) UILabel *topLabel;
-<<<<<<< HEAD
 //@property (nonatomic, copy) NSString *cid;
-=======
-@property (nonatomic, copy) NSString *Refreshcid;
->>>>>>> 弹框修改
 @end
 
 @implementation LoginViewController
@@ -60,11 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-<<<<<<< HEAD
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cidnotification:) name:@"Refreshcid" object:nil];
-=======
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cidnotification) name:@"Refreshcid" object:nil];
->>>>>>> 弹框修改
     
     self.navigationItem.title = NSLocalizedString(@"", nil);
     self.navigationController.navigationBarHidden = YES;
@@ -83,7 +75,6 @@
     [self setupUI];
 }
 
-<<<<<<< HEAD
 //- (void)dealloc {
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"Refreshcid" object:nil];
 //}
@@ -91,50 +82,6 @@
 //- (void)cidnotification:(NSNotification *)notification {
 //    self.cid = notification.userInfo[@"cid"];
 //}
-=======
--(void)cidnotification
-{
-    self.Refreshcid = @"成功";
-}
-
--(void)network{
-
-    [CUHTTPRequest netWorkDuplicates:YES status:^(CUHTTPNetworkType type) {
-
-        switch (type) {
-            case NetworkType_Unknown:
-               
-                break;
-            case NetworkType_NO:
-            [MBProgressHUD showText:NSLocalizedString(@"网络不可用", nil)];
-          
-                break;
-            case NetworkType_WiFi:
-              
-                break;
-            case NetworkType_WWAN:
-              
-                break;
-
-            default:
-                break;
-        }
-        
-//        if(type ==NetworkType_WWAN || type == NetworkType_WiFi)
-//        {
-//            NSLog(@"有网");
-//        }else
-//        {
-//            NSLog(@"没有网");
-//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"网络失去连接" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-//            alert.delegate = self;
-//            [alert show];
-//        }
-
-    }];
-
-}
->>>>>>> 弹框修改
 
 //- (void)viewWillDisappear:(BOOL)animated
 //{
@@ -699,7 +646,6 @@
             {
                 
                [self setuploading];
-<<<<<<< HEAD
 
 //               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //               NSString *cid = [defaults1 objectForKey:@"cid"];
@@ -832,76 +778,8 @@
                                     
                                     
                                 });
-=======
-               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-               NSString *cid = [defaults1 objectForKey:@"cid"];
-                
-
-               if([self valiMobile:_userNameField.text])
-                {
-                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-//                    __block NSInteger time = 10;
-//                    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//                    cidTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-//                    dispatch_source_set_timer(cidTimer,dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);
-//                    dispatch_source_set_event_handler(cidTimer, ^{
-//                        if (time == 0) {//超时
-//                            dispatch_source_cancel(cidTimer);
-//                        } else {
-//                            if (cid) {
-//
-//
-//
-//                            }
-//                        }
-////                        time -= 1;
-//                        time--;
-//                    });
-//                    dispatch_resume(cidTimer);
-                    
-                    NSDictionary *paras = @{
-                                            @"userName": _userNameField.text,
-                                            @"userPassword": [_passWordField.text md5String],
-                                            @"phoneToken":cid
-                                            
-                                            };
-                    
-                    [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
-                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                        
-                        LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
-                        if ([result.code isEqualToString:@"200"]) {
-                            [hud hideAnimated:YES];
-                            [self.tabBarController.tabBar showBadgeOnItemIndex:1];
-                            NSDictionary *dic1 =dic[@"data"];
-                            
-                            LoginResultData *loginResult = [LoginResultData yy_modelWithDictionary:dic1];
-                            
-                            
-                            NSString *userName = loginResult.userName;
-                            NSString *vin = loginResult.vin;
-                            NSString *vhlTStatus=loginResult.vhlTStatus;
-                            NSString *certificationStatus = loginResult.certificationStatus;
-                            
-                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                            [defaults setObject:userName forKey:@"userName"];
-                            [defaults synchronize];
-                            
-                            
-                            if ([self isBlankString:vin]) {
-                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-                                [defaults1 setObject:@"" forKey:@"vin"];
-                                [defaults1 synchronize];
-                            }
-                            else
-                            {
-                                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-                                [defaults1 setObject:vin forKey:@"vin"];
-                                [defaults1 synchronize];
->>>>>>> 弹框修改
                                 
                                 
-<<<<<<< HEAD
                                 
 
                             }
@@ -913,55 +791,6 @@
                     
                     }
 
-=======
-                            }
-                            
-                            if ([self isBlankString:certificationStatus]) {
-                                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
-                                [defaults3 setObject:@"" forKey:@"certificationStatus"];
-                                [defaults3 synchronize];
-                            }
-                            else
-                            {
-                                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
-                                [defaults3 setObject:certificationStatus forKey:@"certificationStatus"];
-                                [defaults3 synchronize];
-                            }
-                            
-                            //缓存
-                            NSMutableDictionary *result = [NSMutableDictionary new];
-                            [result setObject:_userNameField.text forKey:@"userName"];
-                            [result setObject:_passWordField.text forKey:@"passWord"];
-                            CONF_SET(@"user",result);
-                            
-                            
-                            
-                            TabBarController *tabVC = [[TabBarController alloc] init];
-                            [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
-                            
-                        } else {
-                            
-                            //                                        [hud hideAnimated:YES];
-                            hud.label.text = [dic objectForKey:@"msg"];
-                            [hud hideAnimated:YES afterDelay:1];
-                        }
-                    } failure:^(NSInteger code) {
-                        //                        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-                        hud.label.text = NSLocalizedString(@"网络异常", nil);
-                        [hud hideAnimated:YES afterDelay:1];
-                    }];
-                    
-                    
-                    
-                    
-                    
-                 
-                        
-                        
-                    }
-
-                
->>>>>>> 弹框修改
               else{
                     [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
                 }

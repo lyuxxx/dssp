@@ -52,20 +52,13 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-<<<<<<< HEAD
     
             _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
             _dataArray =_contractData.serviceItemProfiles;
             [_tableView reloadData];
             [self setupUI];
         
-=======
-           
-           _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
-           _dataArray =_contractData.serviceItemProfiles;
-            [_tableView reloadData];
-            [self setupUI];
->>>>>>> 弹框修改
+
             //响应事件
         } else {
             [hud hideAnimated:YES];
@@ -167,7 +160,7 @@
     }];
     
     
-<<<<<<< HEAD
+
 //    self.typeLabel = [[UILabel alloc] init];
 //    _typeLabel.textAlignment = NSTextAlignmentLeft;
 //    _typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
@@ -182,22 +175,7 @@
 //        make.left.equalTo(10 * HeightCoefficient);
 //        make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
 //    }];
-=======
-    self.typeLabel = [[UILabel alloc] init];
-    _typeLabel.textAlignment = NSTextAlignmentLeft;
-    _typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    NSString *packType = [NSString stringWithFormat:@"类型：%@",_contractData.packType?_contractData.packType:@""];
-//                         stringByAppendingString:@"条新消息通知"]
-    _typeLabel.text = NSLocalizedString(packType, nil);
-    _typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:_typeLabel];
-    [_typeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(141.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.left.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
-    }];
->>>>>>> 弹框修改
+
     
 //    self.timeLabel = [[UILabel alloc] init];
 //    _timeLabel.textAlignment = NSTextAlignmentLeft;
@@ -223,7 +201,7 @@
 //
 //
 //    }
-<<<<<<< HEAD
+
 
 
 //    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
@@ -239,9 +217,7 @@
 //        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
 //    }];
 
-=======
->>>>>>> 弹框修改
-//
+
 ////    NSString *createTime = [NSString stringWithFormat:@"有效时间:%@",b];
 //    _timeLabel.numberOfLines = 0;
 //
@@ -254,10 +230,7 @@
 //        make.right.equalTo(-10 * HeightCoefficient);
 //        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
 //    }];
-<<<<<<< HEAD
 
-=======
->>>>>>> 弹框修改
     
     self.describeLabel = [[UILabel alloc] init];
     _describeLabel.textAlignment = NSTextAlignmentLeft;
@@ -271,13 +244,9 @@
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
         make.right.equalTo(-10 * HeightCoefficient);
-<<<<<<< HEAD
         make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
-=======
-        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
->>>>>>> 弹框修改
+
     }];
-    
     
 
 }

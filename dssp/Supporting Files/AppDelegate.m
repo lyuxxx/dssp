@@ -468,12 +468,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:clientId forKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-<<<<<<< HEAD
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:@{@"cid":clientId}];
-=======
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:nil];
-    
->>>>>>> 弹框修改
 }
 
 - (void)GeTuiSdkDidOccurError:(NSError *)error {

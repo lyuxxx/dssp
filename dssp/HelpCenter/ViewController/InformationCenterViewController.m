@@ -165,14 +165,11 @@
 
 - (void)clickSengMsg:(UIButton *)btn
 {
-<<<<<<< HEAD
+
 
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
-=======
-    
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
->>>>>>> 弹框修改
+
     
     if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
        
