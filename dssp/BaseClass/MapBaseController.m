@@ -62,6 +62,10 @@ static dispatch_once_t mapBaseOnceToken;
 }
 
 - (void)addPoiWithName:(NSString *)name address:(NSString *)address location:(CLLocationCoordinate2D)location tel:(NSString *)tel cpid:(NSString *)cpid type:(PoiType)type inResult:(void (^)(BOOL,NSString *))result {
+    if ([KuserName isEqualToString:@"18911568274"]) {
+        [MBProgressHUD showText:@"当前为游客模式，无此操作权限"];
+        return;
+    }
     [Statistics staticsstayTimeDataWithType:@"3" WithController:@"ClickEventPoiCollect"];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     NSString *typeStr = @"";
@@ -299,6 +303,10 @@ static dispatch_once_t mapBaseOnceToken;
 
 - (void)click:(UIButton *)sender {
     if (sender == _favoriteBtn) {//收藏夹按钮
+        if ([KuserName isEqualToString:@"18911568274"]) {
+            [MBProgressHUD showText:@"当前为游客模式，无此操作权限"];
+            return;
+        }
         [self favoritesClick:sender];
     }
     if (sender == _locationBtn) {//定位按钮

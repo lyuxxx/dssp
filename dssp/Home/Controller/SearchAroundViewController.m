@@ -347,6 +347,10 @@
         
     }
     if ([sender isKindOfClass:[POISendBtn class]]) {
+        if ([KuserName isEqualToString:@"18911568274"]) {
+            [MBProgressHUD showText:@"当前为游客模式，无此操作权限"];
+            return;
+        }
         NSString *name = self.currentPoi.name;
         NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"是否确定将\"%@\"位置发送到车",name] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
         NSRange range = [[NSString stringWithFormat:@"是否确定将\"%@\"位置发送到车",name] rangeOfString:name];

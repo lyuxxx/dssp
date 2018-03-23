@@ -500,6 +500,10 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 110) {
+        if ([KuserName isEqualToString:@"18911568274"]) {
+            [MBProgressHUD showText:@"当前为游客模式，无此操作权限"];
+            return;
+        }
         UIViewController *vc = [[NSClassFromString(@"MapUpdateViewController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
