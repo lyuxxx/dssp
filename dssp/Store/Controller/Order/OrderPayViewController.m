@@ -325,7 +325,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
     message.tradeType = @"APP";
     message.payType = @"ALIPAY";
     message.channel = @"APP";
-    message.timeOut = @"90";
+    message.timeOut = @"120";
     message.vin = [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"];
     
     PayRequest *request = [[PayRequest alloc] init];
