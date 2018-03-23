@@ -216,13 +216,13 @@ typedef void(^PullWeatherFinished)(void);
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: popupView];
         
         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-          
+            
             if(btn.tag ==100)
             {
                 //响应事件
@@ -239,7 +239,7 @@ typedef void(^PullWeatherFinished)(void);
         //非T车
         if([CuvhlTStatus isEqualToString:@"0"])
         {
-           
+            
             
             
             
@@ -247,8 +247,6 @@ typedef void(^PullWeatherFinished)(void);
         else if ([CuvhlTStatus isEqualToString:@"1"])
         {
             //T车辆
-            
-            
             
             
         }
@@ -950,7 +948,7 @@ typedef void(^PullWeatherFinished)(void);
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
@@ -962,7 +960,7 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
+                        //                        [self.navigationController pushViewController:vc animated:YES];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.navigationController pushViewController:vc animated:YES];
                         });
@@ -972,31 +970,6 @@ typedef void(^PullWeatherFinished)(void);
                 
                 
                 
-                //                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                //                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                //                //            InputalertView.delegate = self;
-                //                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                //                [keywindow addSubview: popupView];
-                //
-                //                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                //                    if (btn.tag == 100) {//左边按钮
-                //                        //右边按钮
-                //                        //响应事件
-                //                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                //                        vc.hidesBottomBarWhenPushed = YES;
-                //                        [self.navigationController pushViewController:vc animated:YES];
-                //                    }
-                //                    if(btn.tag ==101)
-                //                    {
-                //                        //右边按钮
-                //                        //响应事件
-                //                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                //                        vc.hidesBottomBarWhenPushed = YES;
-                //                        [self.navigationController pushViewController:vc animated:YES];
-                //
-                //                    }
-                //
-                //                };
             }
             else
             {
@@ -1008,7 +981,7 @@ typedef void(^PullWeatherFinished)(void);
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -1033,7 +1006,7 @@ typedef void(^PullWeatherFinished)(void);
                         //出行
                         MapHomeViewController *mapVC = [[MapHomeViewController alloc] initWithType:PoiTypeAll];
                         mapVC.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:mapVC animated:YES];
+                        //                        [self.navigationController pushViewController:mapVC animated:YES];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.navigationController pushViewController:mapVC animated:YES];
@@ -1046,7 +1019,7 @@ typedef void(^PullWeatherFinished)(void);
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                         //            InputalertView.delegate = self;
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: popupView];
@@ -1067,6 +1040,7 @@ typedef void(^PullWeatherFinished)(void);
             }
             
             
+            
         }
         if (btn.tag == 1000 ) {//实现流量
             
@@ -1076,7 +1050,7 @@ typedef void(^PullWeatherFinished)(void);
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
@@ -1088,7 +1062,7 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
+                        //                        [self.navigationController pushViewController:vc animated:YES];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.navigationController pushViewController:vc animated:YES];
                         });
@@ -1107,7 +1081,7 @@ typedef void(^PullWeatherFinished)(void);
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -1131,7 +1105,7 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         CarflowViewController *carflow = [[CarflowViewController alloc] init];
                         carflow.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:carflow animated:YES];
+                        //                        [self.navigationController pushViewController:carflow animated:YES];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.navigationController pushViewController:carflow animated:YES];
                         });
@@ -1144,7 +1118,7 @@ typedef void(^PullWeatherFinished)(void);
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                         //            InputalertView.delegate = self;
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: popupView];
@@ -1178,7 +1152,7 @@ typedef void(^PullWeatherFinished)(void);
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
@@ -1190,7 +1164,7 @@ typedef void(^PullWeatherFinished)(void);
                         //响应事件
                         VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
+                        //                        [self.navigationController pushViewController:vc animated:YES];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.navigationController pushViewController:vc animated:YES];
                         });
@@ -1209,7 +1183,7 @@ typedef void(^PullWeatherFinished)(void);
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -1233,7 +1207,7 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
                         storeTab.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:storeTab animated:YES];
+                        //                        [self.navigationController pushViewController:storeTab animated:YES];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.navigationController pushViewController:storeTab animated:YES];
@@ -1246,7 +1220,7 @@ typedef void(^PullWeatherFinished)(void);
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                         //            InputalertView.delegate = self;
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: popupView];
@@ -1269,6 +1243,7 @@ typedef void(^PullWeatherFinished)(void);
             }
             
             
+            
         }
         if (btn.tag == 1000 + 3) {//违章查询
             
@@ -1278,7 +1253,7 @@ typedef void(^PullWeatherFinished)(void);
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
@@ -1309,7 +1284,7 @@ typedef void(^PullWeatherFinished)(void);
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -1347,7 +1322,7 @@ typedef void(^PullWeatherFinished)(void);
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                         //            InputalertView.delegate = self;
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: popupView];
@@ -1380,7 +1355,7 @@ typedef void(^PullWeatherFinished)(void);
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
@@ -1411,7 +1386,7 @@ typedef void(^PullWeatherFinished)(void);
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -1445,7 +1420,7 @@ typedef void(^PullWeatherFinished)(void);
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                         //            InputalertView.delegate = self;
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: popupView];

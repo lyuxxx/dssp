@@ -276,22 +276,8 @@
     if (sender == self.modifyBtn) {
         
         if ([KuserName isEqualToString:@"18911568274"]) {
-            InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-            [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-            //            InputalertView.delegate = self;
-            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-            [keywindow addSubview: popupView];
             
-            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                
-                if(btn.tag ==100)
-                {
-                    
-                    
-                }
-                
-            };
-            
+            [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
             
         }
         else

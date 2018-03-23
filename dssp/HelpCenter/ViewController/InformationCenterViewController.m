@@ -165,9 +165,14 @@
 
 - (void)clickSengMsg:(UIButton *)btn
 {
+<<<<<<< HEAD
 
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
+=======
+    
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
+>>>>>>> 弹框修改
     
     if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
        
@@ -554,7 +559,7 @@
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                    [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -582,7 +587,7 @@
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                        [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                         //            InputalertView.delegate = self;
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: popupView];
@@ -613,7 +618,7 @@
                             [[NSUserDefaults standardUserDefaults] synchronize];
                             
                             PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                            [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                            [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                             //            InputalertView.delegate = self;
                             UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                             [keywindow addSubview: popupView];

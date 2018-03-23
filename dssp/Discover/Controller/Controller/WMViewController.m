@@ -84,17 +84,17 @@
             [self.tableView.mj_header endRefreshing];
             [_tableView reloadData];
             if (self.channelArray.count == 0) {
-                [self blankUI];
+//                [self blankUI];
             }
             //响应事件
          
         } else {
-            [self blankUI];
+//            [self blankUI];
             [self.tableView.mj_header endRefreshing];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        [self blankUI];
+//        [self blankUI];
         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
         

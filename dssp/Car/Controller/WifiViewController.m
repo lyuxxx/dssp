@@ -18,6 +18,8 @@
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UIButton *secureBtn;
 @property (nonatomic, copy) NSString *originPassword;
+@property (nonatomic, strong) UIImageView *wifiImg;
+@property (nonatomic, strong) UIImageView *bgImgV;
 @end
 
 @implementation WifiViewController
@@ -63,10 +65,10 @@
     
     
     
-    UIImageView *bgImgV = [[UIImageView alloc] init];
-    bgImgV.image = [UIImage imageNamed:@"wifi背景"];
-    [bgV addSubview:bgImgV];
-    [bgImgV makeConstraints:^(MASConstraintMaker *make) {
+    self.bgImgV = [[UIImageView alloc] init];
+    _bgImgV.image = [UIImage imageNamed:@"wifi背景"];
+    [bgV addSubview:_bgImgV];
+    [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.bottom.equalTo(0*HeightCoefficient);
         
     }];
@@ -76,22 +78,33 @@
      _wifiLabel.textAlignment = NSTextAlignmentCenter;
     _wifiLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     _wifiLabel.text = @"WIFI名:未知";
-    [bgImgV addSubview:_wifiLabel];
+    [_bgImgV addSubview:_wifiLabel];
     [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(bgImgV);
+        make.centerX.equalTo(_bgImgV);
          make.top.equalTo(18*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
     
+    
+    self.wifiImg = [[UIImageView alloc] init];
+    _wifiImg.image = [UIImage imageNamed:@"wifitag"];
+    //    wifiImg.backgroundColor=[UIColor redColor];
+    [_bgImgV addSubview:_wifiImg];
+    [_wifiImg makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_bgImgV);
+        make.bottom.equalTo(0*HeightCoefficient);
+        make.height.equalTo(17 * HeightCoefficient);
+        make.width.equalTo(90.5 * HeightCoefficient);
+    }];
     
     self.available = [[UILabel alloc] init];
 //    _available.textColor = [UIColor whiteColor];
     _available.textAlignment = NSTextAlignmentCenter;
     _available.font = [UIFont fontWithName:FontName size:12];
     _available.text = @"";
-    [bgImgV addSubview:_available];
+    [_bgImgV addSubview:_available];
     [_available makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(bgImgV);
+        make.centerX.equalTo(_bgImgV);
         make.top.equalTo(_wifiLabel.bottom).offset(3*HeightCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
     }];
@@ -111,7 +124,7 @@
         make.width.equalTo(343 * WidthCoefficient);
         make.height.equalTo(80 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(bgImgV.bottom).offset(55*HeightCoefficient);
+        make.top.equalTo(_bgImgV.bottom).offset(55*HeightCoefficient);
     }];
     
     
@@ -123,7 +136,7 @@
         make.width.equalTo(3 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(16*WidthCoefficient);
-        make.top.equalTo(bgImgV.bottom).offset(22.5*HeightCoefficient);
+        make.top.equalTo(_bgImgV.bottom).offset(22.5*HeightCoefficient);
     }];
     
     
@@ -137,7 +150,7 @@
         make.width.equalTo(60 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(redV.right).offset(5*WidthCoefficient);
-        make.top.equalTo(bgImgV.bottom).offset(22.5*HeightCoefficient);
+        make.top.equalTo(_bgImgV.bottom).offset(22.5*HeightCoefficient);
     }];
     
     self.passwordField = [[UITextField alloc] init];
@@ -227,23 +240,7 @@
 - (void)modifyBtnClick:(UIButton *)sender {
     
     if ([KuserName isEqualToString:@"18911568274"]) {
-        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"当前您为游客账户，不能做此操作" img:@"未绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-        //            InputalertView.delegate = self;
-        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-        [keywindow addSubview: popupView];
-        
-        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-            
-            if(btn.tag ==100)
-            {
-                
-                
-            }
-            
-        };
-        
-        
+         [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
     }
     else
     {
@@ -259,7 +256,13 @@
 }
 
 - (void)getWifiInfo {
-    [CUHTTPRequest POST:getWifi parameters:@{} success:^(id responseData) {
+    
+    NSDictionary *dic =@{
+                         @"vin":kVin
+                         
+                         };
+
+    [CUHTTPRequest POST:getWifi parameters:dic success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@",dic);
         NSLog(@"123%@", [dic objectForKey:@"msg"]);
@@ -267,7 +270,7 @@
         if ([dic[@"code"] isEqualToString:@"200"]) {
             NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
             NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
-            NSString *available = dic[@"data"][@"available"];
+            NSString *available = dic[@"data"][@"actived"];
             if (wifiSsid) {
                 self.originPassword = wifiPassword;
                 _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
@@ -276,27 +279,16 @@
                 
                 if([available isEqualToString:@"1"])
                 {
-//                    _available.textColor = [UIColor colorWithHexString:@"#999999"];
-//                    _available.text = @"可用";
-                    
-              [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
-                        make.centerX.equalTo(0);
-                        make.centerY.equalTo(0);
-                    }];
-                    
-//            [_available updateConstraints:^(MASConstraintMaker *make) {
-//                    make.centerX.equalTo(0);
-//                    make.centerY.equalTo(0);
-//                          }];
+                   self.wifiImg.hidden = YES;
+                    _bgImgV.image = [UIImage imageNamed:@"wifi背景"];
                     
                 }
                 else
                 {
-                    _available.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                    _available.text = @"当前wifi不可用";
+                    self.wifiImg.hidden = NO;
+                    _bgImgV.image = [UIImage imageNamed:@"wifi不可用背景"];
                     
                 }
-                
                 
             }
         } else {
