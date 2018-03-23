@@ -184,8 +184,7 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
     
-       
-      
+    
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.dataSource.count != 0)
             {
@@ -193,16 +192,50 @@
             }
         });
   
-        
-        
+    
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
+        NSDictionary *result2 = CONF_GET(@"appServiceNum");
         
         NSString *str3 =[result objectForKey:self.keyView.textView.text];
         
         NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
+        NSString *str5 =[result2 objectForKey:self.keyView.textView.text];
         
+        NSDictionary * dic3 = @{ @"10010":@"MapHomeViewController",
+                                 @"10012":@"RefuelViewController",
+                                 @"10001":@"WifiViewController",
+                                 @"10002":@"UpkeepViewController",
+                                 @"10003":@"CarflowViewController",
+                                 @"10004":@"CarTrackViewController",
+                                 @"10005":@"TrafficReportController",
+                                 @"10006":@"DrivingWeekReportViewController",
+                                 @"10007":@"LllegalViewController",
+                                 @"10013":@"RealVinViewcontroller",
+                                 @"10009":@"MapUpdateViewController",
+                                 @"10008":@"TrackListViewController",
+                                 @"10014":@"StorePageController",
+                                 @"10015":@"OrderPageController",
+                                 @"10011":@"ParkingViewController"
+                                 
+                                 };
+        
+        if([dic3 objectForKey:str5])
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                InfoMessage *message = [[InfoMessage alloc] init];
+                message.type = InfoMessageTypeTwo;
+                message.choices = @[@"确定",@"关闭"];
+                message.serviceDetails = @"没有查询到问题，是否继续使用dssp知识库服务?";
+                [self sendMessage:message];
+                
+            });
+            
+        }
+        
+        else
+        {
         NSString *sourceData = nil;
         if ([self isBlankString:str4] ) {
             sourceData = @"0";
@@ -228,10 +261,7 @@
                 message.type = InfoMessageTypeOther;
                 [self sendMessage:message];
                 
-            
-                
             } else {
-                
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     InfoMessage *message = [[InfoMessage alloc] init];
@@ -251,6 +281,7 @@
             
         }];
     }
+ }
       
 }
 
@@ -280,10 +311,44 @@
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
+        NSDictionary *result2 = CONF_GET(@"appServiceNum");
         
         NSString *str3 =[result objectForKey:self.keyView.textView.text];
-        
         NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
+        NSString *str5 =[result2 objectForKey:self.keyView.textView.text];
+        NSDictionary * dic3 = @{ @"10010":@"MapHomeViewController",
+                                 @"10012":@"RefuelViewController",
+                                 @"10001":@"WifiViewController",
+                                 @"10002":@"UpkeepViewController",
+                                 @"10003":@"CarflowViewController",
+                                 @"10004":@"CarTrackViewController",
+                                 @"10005":@"TrafficReportController",
+                                 @"10006":@"DrivingWeekReportViewController",
+                                 @"10007":@"LllegalViewController",
+                                 @"10013":@"RealVinViewcontroller",
+                                 @"10009":@"MapUpdateViewController",
+                                 @"10008":@"TrackListViewController",
+                                 @"10014":@"StorePageController",
+                                 @"10015":@"OrderPageController",
+                                 @"10011":@"ParkingViewController"
+                                 
+                                 };
+        
+        if([dic3 objectForKey:str5])
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                InfoMessage *message = [[InfoMessage alloc] init];
+                message.type = InfoMessageTypeTwo;
+                message.choices = @[@"确定",@"关闭"];
+                message.serviceDetails = @"没有查询到问题，是否继续使用dssp知识库服务?";
+                [self sendMessage:message];
+                
+            });
+            
+        }
+        
+        else
+        {
         
         NSString *sourceData = nil;
         if ([self isBlankString:str4] ) {
@@ -325,8 +390,8 @@
             
             
         }];
-        
     }
+  }
 }
 
 #pragma mark ====== 点击UITableView ======
@@ -549,7 +614,7 @@
             }
             else if ([dic2 objectForKey:str4])
             {
-
+                
                 if ([kVin isEqualToString:@""]) {
                     
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];

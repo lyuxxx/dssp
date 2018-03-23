@@ -80,6 +80,7 @@
     
     CONF_SET(@"resultId",self.result);
     CONF_SET(@"resultsourceData",self.result1);
+    CONF_SET(@"appServiceNum",self.result2);
     
     NSString *Idstr = [_result objectForKey:message.serviceName];
     NSLog(@"555%@",Idstr);
@@ -187,7 +188,7 @@
                 for (NSInteger j = 0; j < pageArr.count; j++) {
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    
+                    btn.needNoRepeat = YES;
                     btn.titleLabel.numberOfLines = 0;
                     [btn setTitle:pageArr[j] forState:UIControlStateNormal];
                     
