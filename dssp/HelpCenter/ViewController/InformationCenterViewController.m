@@ -39,6 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHides) name:@"keyboardHides" object:nil];
     // Do any additional setup after loading the view.
     self.navigationItem.title = NSLocalizedString(@"智能管家", nil);
     [self createTableView];
@@ -116,7 +118,6 @@
 // 监听键盘弹出
 - (void)keyBoardShow:(NSNotification *)noti
 {
-  
     // 咱们取自己需要的就好了
     CGRect rec = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSLog(@"%@",NSStringFromCGRect(rec));
@@ -136,6 +137,19 @@
     }
     
 }
+
+-(void)keyboardHides
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.view.frame = CGRectMake(0,kNaviHeight, kScreenWidth, kScreenHeight);
+        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50);
+        
+        self.keyView.frame = CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50);
+        
+    });
+    
+}
+
 // 监听键盘隐藏
 - (void)keyboardHide:(NSNotification *)noti
 {
@@ -151,8 +165,9 @@
 
 - (void)clickSengMsg:(UIButton *)btn
 {
-    
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
+
+    //通知键盘消失
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
     
     if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
        
@@ -164,6 +179,10 @@
             
 //        });
         
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
+    
+       
       
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.dataSource.count != 0)
@@ -235,6 +254,9 @@
 
 //发送的文zi
 - (void)textViewContentText:(NSString *)textStr {
+
+    //通知键盘消失
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
     
     if (textStr.length>1 ||textStr.length == 1) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
@@ -244,7 +266,7 @@
             [self sendMessage:messageMe];
             
 //        });
-        
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.dataSource.count != 0)
@@ -306,36 +328,14 @@
 }
 
 #pragma mark ====== 点击UITableView ======
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     //收回键盘
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
-    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-        return NO;
-    }
-    return YES;
-}
-
-////keyboard的frame改变
-//- (void)keyboardChangeFrameWithMinY:(CGFloat)minY {
-////    [self scrollToBottom];
-//    // 获取对应cell的rect值（其值针对于UITableView而言）
-//    NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
-//    CGRect rect = [self.tableView rectForRowAtIndexPath:lastIndex];
-//    CGFloat lastMaxY = rect.origin.y + rect.size.height;
-//    //如果最后一个cell的最大Y值大于tableView的高度
-//    if (lastMaxY <= self.tableView.frame.size.height) {
-////        if (lastMaxY > = minY) {
-//////           self.tableVi
-////         self.tableView.frame.origin.y = minY - lastMaxY;
-////        } else {
-////        self.tableView.frame.origin.y = 0;
-////        }
-////    } else {
-////        self.tableView.y += minY -  self.tableView.frame.origin.y+self.tableView.frame.size.height;
-//
-////        self.tableView.frame.origin.y+self.tableView.frame.size.height
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
+//    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+//    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+//        return NO;
 //    }
+//    return YES;
 //}
 
 

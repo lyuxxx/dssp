@@ -356,6 +356,7 @@
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
                     btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                     btn.layer.cornerRadius = 4;
+                    btn.needNoRepeat = YES;
                     [v addSubview:btn];
                     [btn makeConstraints:^(MASConstraintMaker *make) {
                         make.top.equalTo(10 * WidthCoefficient);
