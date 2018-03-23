@@ -44,8 +44,8 @@
 
     //清空cid
 
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cid"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [CUPayTool wechatRegisterAppWithAppId:WXAppId];
     
@@ -468,7 +468,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:clientId forKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:@{@"cid":clientId}];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:@{@"cid":clientId}];
 }
 
 - (void)GeTuiSdkDidOccurError:(NSError *)error {

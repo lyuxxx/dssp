@@ -36,7 +36,7 @@
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, copy) NSString *phoneCode;
 @property (nonatomic, strong) UILabel *topLabel;
-@property (nonatomic, copy) NSString *cid;
+//@property (nonatomic, copy) NSString *cid;
 @end
 
 @implementation LoginViewController
@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cidnotification:) name:@"Refreshcid" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cidnotification:) name:@"Refreshcid" object:nil];
     
     self.navigationItem.title = NSLocalizedString(@"", nil);
     self.navigationController.navigationBarHidden = YES;
@@ -75,13 +75,13 @@
     [self setupUI];
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"Refreshcid" object:nil];
-}
-
-- (void)cidnotification:(NSNotification *)notification {
-    self.cid = notification.userInfo[@"cid"];
-}
+//- (void)dealloc {
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"Refreshcid" object:nil];
+//}
+//
+//- (void)cidnotification:(NSNotification *)notification {
+//    self.cid = notification.userInfo[@"cid"];
+//}
 
 //- (void)viewWillDisappear:(BOOL)animated
 //{
@@ -649,7 +649,6 @@
 
 //               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //               NSString *cid = [defaults1 objectForKey:@"cid"];
-                __block NSString *cid;
           
 
             NSString *userName = [_userNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -677,7 +676,7 @@
                         } else {
                             NSLog(@"cid执行");
                             cid = [[NSUserDefaults standardUserDefaults] objectForKey:@"cid"];
-                            if (self.cid && cid) {
+                            if (cid) {
                                 NSLog(@"cid成功");
                                 dispatch_source_cancel(cidTimer);
                                 dispatch_async(dispatch_get_main_queue(), ^{
