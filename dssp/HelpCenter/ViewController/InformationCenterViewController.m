@@ -165,8 +165,6 @@
 
 - (void)clickSengMsg:(UIButton *)btn
 {
-
-
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
 
@@ -181,8 +179,7 @@
             
 //        });
         
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
+    
     
     
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -192,7 +189,11 @@
             }
         });
   
+        
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
     
+        self.keyView.textView.text = @"";
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
@@ -221,6 +222,7 @@
                                  
                                  };
         
+      
         if([dic3 objectForKey:str5])
         {
             dispatch_async(dispatch_get_main_queue(), ^{
