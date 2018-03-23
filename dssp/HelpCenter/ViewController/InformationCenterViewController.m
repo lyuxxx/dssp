@@ -180,8 +180,6 @@
 //        });
         
     
-    
-    
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.dataSource.count != 0)
             {
@@ -193,7 +191,7 @@
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
     
-        self.keyView.textView.text = @"";
+       
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
@@ -225,14 +223,15 @@
       
         if([dic3 objectForKey:str5])
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
                 InfoMessage *message = [[InfoMessage alloc] init];
                 message.type = InfoMessageTypeTwo;
                 message.choices = @[@"确定",@"关闭"];
                 message.serviceDetails = @"没有查询到问题，是否继续使用dssp知识库服务?";
                 [self sendMessage:message];
-                
-            });
+              
+//            });
+              self.keyView.textView.text = @"";
             
         }
         
