@@ -121,6 +121,7 @@
 		31D5C8DF202FE9EF00A44C5C /* OrderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5C8DE202FE9EF00A44C5C /* OrderObject.m */; };
 		31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
+		31DFA7E720649F0E009C0D90 /* UIButton+NoRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DFA7E520649F0D009C0D90 /* UIButton+NoRepeat.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
 		31E7B9522057A092003844E0 /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
 		31E7B9592057A2C4003844E0 /* HomeCarStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */; };
@@ -443,6 +444,8 @@
 		31DDD2501FBABA0000D37DED /* LoveCarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoveCarViewController.m; sourceTree = "<group>"; };
 		31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sudoku.h"; sourceTree = "<group>"; };
 		31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
+		31DFA7E520649F0D009C0D90 /* UIButton+NoRepeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NoRepeat.m"; sourceTree = "<group>"; };
+		31DFA7E620649F0E009C0D90 /* UIButton+NoRepeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NoRepeat.h"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
 		31E7B9502057A092003844E0 /* HomeBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeBtn.h; sourceTree = "<group>"; };
@@ -764,6 +767,8 @@
 				3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */,
 				31B9DC8F205A71DB00C8B840 /* UIFont+FontSize.h */,
 				31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */,
+				31DFA7E620649F0E009C0D90 /* UIButton+NoRepeat.h */,
+				31DFA7E520649F0D009C0D90 /* UIButton+NoRepeat.m */,
 				31F235D52041722B002807D2 /* MapUtility.h */,
 				31F235D62041722C002807D2 /* MapUtility.m */,
 				31ADB3BC205F8C3B002F79CE /* CatchCrash.h */,
@@ -1708,6 +1713,7 @@
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
 				310A07E01FA96BF800DC9529 /* MineViewController.m in Sources */,
 				31158926201B0DC100A4AEFB /* MapUpdateViewController.m in Sources */,
+				31DFA7E720649F0E009C0D90 /* UIButton+NoRepeat.m in Sources */,
 				31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */,
 				310C75091FC7B5C300B3A7D0 /* MapSearchHistory.m in Sources */,
 				4570EFE51FFCDC0E00FA6355 /* CarUnbindModel.m in Sources */,
@@ -1945,7 +1951,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2003,7 +2009,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2031,7 +2037,7 @@
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TTHP924WDZ;
@@ -2063,7 +2069,7 @@
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TTHP924WDZ;

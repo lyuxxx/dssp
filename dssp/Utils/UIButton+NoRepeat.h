@@ -12,5 +12,6 @@
 /**
  *  为按钮添加点击间隔 eventTimeInterval秒
  */
+@property (nonatomic, assign) BOOL needNoRepeat;
 @property (nonatomic, assign) NSTimeInterval eventTimeInterval;
 @end

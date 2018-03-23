@@ -20,11 +20,12 @@
 
 static const char *UIControl_eventTimeInterval = "UIControl_eventTimeInterval";
 static const char *UIControl_enventIsIgnoreEvent = "UIControl_enventIsIgnoreEvent";
+static const char *UIControl_needNoRepeat = "UIControl_needNoRepeat";
 
 // runtime 动态绑定 属性
 - (void)setIsIgnoreEvent:(BOOL)isIgnoreEvent
 {
-    objc_setAssociatedObject(self, UIControl_enventIsIgnoreEvent, @(isIgnoreEvent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, UIControl_enventIsIgnoreEvent, @(isIgnoreEvent), OBJC_ASSOCIATION_ASSIGN);
 }
 - (BOOL)isIgnoreEvent{
     return [objc_getAssociatedObject(self, UIControl_enventIsIgnoreEvent) boolValue];
@@ -37,7 +38,15 @@ static const char *UIControl_enventIsIgnoreEvent = "UIControl_enventIsIgnoreEven
 
 - (void)setEventTimeInterval:(NSTimeInterval)eventTimeInterval
 {
-    objc_setAssociatedObject(self, UIControl_eventTimeInterval, @(eventTimeInterval), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, UIControl_eventTimeInterval, @(eventTimeInterval), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (BOOL)needNoRepeat {
+    return [objc_getAssociatedObject(self, UIControl_needNoRepeat) boolValue];
+}
+
+- (void)setNeedNoRepeat:(BOOL)needNoRepeat {
+    objc_setAssociatedObject(self, UIControl_needNoRepeat, @(needNoRepeat), OBJC_ASSOCIATION_ASSIGN);
 }
 
 + (void)load
@@ -63,6 +72,9 @@ static const char *UIControl_enventIsIgnoreEvent = "UIControl_enventIsIgnoreEven
 
 - (void)_cu_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
 {
+    if (!self.needNoRepeat) {
+        return [self _cu_sendAction:action to:target forEvent:event];
+    }
     self.eventTimeInterval = self.eventTimeInterval == 0 ? defaultInterval : self.eventTimeInterval;
     if (self.isIgnoreEvent){
         return;
