@@ -132,11 +132,11 @@ static float viewHeight = 40.0f; //按钮视图高度
     //收起键盘
     [self.textView resignFirstResponder];
     [self removeBottomViewFromSupview];
-    [UIView animateWithDuration:0.25 animations:^{
-        //设置self的frame到最底部
-        self.frame = CGRectMake(0, K_Height - StatusNav_Height - self.backView.frame.size.height, K_Width, self.backView.frame.size.height);
-        [self changeTableViewFrame];
-    }];
+//    [UIView animateWithDuration:0.25 animations:^{
+//        //设置self的frame到最底部
+//        self.frame = CGRectMake(0, K_Height - StatusNav_Height - self.backView.frame.size.height, K_Width, self.backView.frame.size.height);
+//        [self changeTableViewFrame];
+//    }];
 }
 
 #pragma mark ====== 键盘将要出现 ======

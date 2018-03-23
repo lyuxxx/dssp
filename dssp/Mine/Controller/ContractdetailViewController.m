@@ -133,7 +133,7 @@
     UILabel *service = [[UILabel alloc] init];
     service.textAlignment = NSTextAlignmentLeft;
     service.textColor=[UIColor colorWithHexString:@"#ffffff"];
-    service.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    service.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
     service.text = NSLocalizedString(@"可用服务", nil);
     [_headerView addSubview:service];
     [service makeConstraints:^(MASConstraintMaker *make) {
@@ -159,20 +159,20 @@
     }];
     
     
-    self.typeLabel = [[UILabel alloc] init];
-    _typeLabel.textAlignment = NSTextAlignmentLeft;
-    _typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-    NSString *packType = [NSString stringWithFormat:@"类型：%@",_contractData.packType?_contractData.packType:@""];
-//                         stringByAppendingString:@"条新消息通知"]
-    _typeLabel.text = NSLocalizedString(packType, nil);
-    _typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:_typeLabel];
-    [_typeLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(141.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
-        make.left.equalTo(10 * HeightCoefficient);
-        make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
-    }];
+//    self.typeLabel = [[UILabel alloc] init];
+//    _typeLabel.textAlignment = NSTextAlignmentLeft;
+//    _typeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+//    NSString *packType = [NSString stringWithFormat:@"类型：%@",_contractData.packType?_contractData.packType:@""];
+////                         stringByAppendingString:@"条新消息通知"]
+//    _typeLabel.text = NSLocalizedString(packType, nil);
+//    _typeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+//    [whiteV addSubview:_typeLabel];
+//    [_typeLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(141.5 * WidthCoefficient);
+//        make.height.equalTo(22.5 * HeightCoefficient);
+//        make.left.equalTo(10 * HeightCoefficient);
+//        make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
+//    }];
     
 //    self.timeLabel = [[UILabel alloc] init];
 //    _timeLabel.textAlignment = NSTextAlignmentLeft;
@@ -240,7 +240,7 @@
         make.height.equalTo(22.5 * HeightCoefficient);
         make.left.equalTo(10 * HeightCoefficient);
         make.right.equalTo(-10 * HeightCoefficient);
-        make.top.equalTo(_typeLabel.bottom).offset(10 * HeightCoefficient);
+        make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
     }];
     
     

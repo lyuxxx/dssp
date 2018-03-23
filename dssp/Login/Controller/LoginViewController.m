@@ -638,19 +638,18 @@
             [MBProgressHUD showText:NSLocalizedString(@"手机号或密码不能为空", nil)];
                  [self setuploading];
             }
-//            else if (_passWordField.text.length !=8 || ![self checkPassWord:_passWordField.text])
-//            {
-//            [MBProgressHUD showText:NSLocalizedString(@"请输入八位字母,数字组合的密码", nil)];
-//            }
             else
             {
                 
                [self setuploading];
+
 //               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //               NSString *cid = [defaults1 objectForKey:@"cid"];
                 __block NSString *cid;
+          
+            NSString *userName = [_userNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+               if([self valiMobile:userName])
 
-               if([self valiMobile:_userNameField.text])
                 {
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                     __block NSInteger time = 20;
@@ -658,6 +657,9 @@
                     cidTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
                     dispatch_source_set_timer(cidTimer,dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);
                     dispatch_source_set_event_handler(cidTimer, ^{
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        NSString *cid = [defaults1 objectForKey:@"cid"];
+                       
                         if (time == 0) {//超时
                             [(AppDelegate *)[UIApplication sharedApplication].delegate restartGetui];
                             NSLog(@"cid超时");
@@ -675,12 +677,18 @@
                                 dispatch_source_cancel(cidTimer);
                                 dispatch_async(dispatch_get_main_queue(), ^{
 //                                    [hud hideAnimated:YES];
+                                 
+//                           去掉字符串头尾空格
+                            NSString *userName = [_userNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                            NSString *userPassword = [_passWordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                    
+                                    
                                     NSDictionary *paras = @{
-                                                            @"userName": _userNameField.text,
-                                                            @"userPassword": [_passWordField.text md5String],
-                                                            @"phoneToken":cid
+                                        @"userName": userName,
+                                        @"userPassword": [userPassword md5String],
+                                        @"phoneToken":cid
                                                             
-                                                            };
+                                                    };
                                     
                                     [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
                                         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -749,8 +757,6 @@
                                             [result setObject:_passWordField.text forKey:@"passWord"];
                                             CONF_SET(@"user",result);
                                             
-                                            
-                                            
                                             TabBarController *tabVC = [[TabBarController alloc] init];
                                             [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                                             
@@ -779,11 +785,8 @@
                     });
                     dispatch_resume(cidTimer);
                     
-                  
-                        
                     }
 
-                
               else{
                     [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
                 }

@@ -158,7 +158,7 @@
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                 [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [btn setTitle:pageArr[j] forState:UIControlStateNormal];
-                
+                btn.needNoRepeat = YES;
                 btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
                 
                 if (j==0) {
