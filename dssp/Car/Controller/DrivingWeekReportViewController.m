@@ -550,7 +550,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 //            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
     }];
 }

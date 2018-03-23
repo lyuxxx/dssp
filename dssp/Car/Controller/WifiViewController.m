@@ -304,7 +304,7 @@
             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
         }
     } failure:^(NSInteger code) {
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code]];
+        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
     }];
 }
 
@@ -326,7 +326,7 @@
             [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
     }];
 }

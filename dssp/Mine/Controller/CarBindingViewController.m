@@ -110,7 +110,7 @@
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
         //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
         //        [hud hideAnimated:YES afterDelay:1];
     }];
@@ -148,7 +148,7 @@
             }
         } failure:^(NSInteger code) {
             [hud hideAnimated:YES];
-            [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+            [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
         }];
 }
 
@@ -839,7 +839,7 @@
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
     }];
 }
 

@@ -36,7 +36,7 @@
 @property (nonatomic, strong) UIButton *authBtn;
 @property (nonatomic, copy) NSString *phoneCode;
 @property (nonatomic, strong) UILabel *topLabel;
-@property (nonatomic, copy) NSString *Refreshcid;
+@property (nonatomic, copy) NSString *cid;
 @end
 
 @implementation LoginViewController
@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cidnotification) name:@"Refreshcid" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cidnotification:) name:@"Refreshcid" object:nil];
     
     self.navigationItem.title = NSLocalizedString(@"", nil);
     self.navigationController.navigationBarHidden = YES;
@@ -73,46 +73,14 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
     // Do any additional setup after loading the view.
     [self setupUI];
-    [self network];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"Refreshcid" object:nil];
+}
 
--(void)network{
-
-    [CUHTTPRequest netWorkDuplicates:YES status:^(CUHTTPNetworkType type) {
-
-        switch (type) {
-            case NetworkType_Unknown:
-               
-                break;
-            case NetworkType_NO:
-            [MBProgressHUD showText:NSLocalizedString(@"网络不可用", nil)];
-          
-                break;
-            case NetworkType_WiFi:
-              
-                break;
-            case NetworkType_WWAN:
-              
-                break;
-
-            default:
-                break;
-        }
-        
-//        if(type ==NetworkType_WWAN || type == NetworkType_WiFi)
-//        {
-//            NSLog(@"有网");
-//        }else
-//        {
-//            NSLog(@"没有网");
-//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"网络失去连接" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-//            alert.delegate = self;
-//            [alert show];
-//        }
-
-    }];
-
+- (void)cidnotification:(NSNotification *)notification {
+    self.cid = notification.userInfo[@"cid"];
 }
 
 //- (void)viewWillDisappear:(BOOL)animated
@@ -483,7 +451,7 @@
                     }
                 } failure:^(NSInteger code) {
                     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"获取验证码失败", nil),code];
+                    hud.label.text = NSLocalizedString(@"获取验证码失败", nil);
                     [hud hideAnimated:YES afterDelay:1];
                 }];
                 
@@ -658,7 +626,7 @@
                         }
                     } failure:^(NSInteger code) {
                         [hud hideAnimated:YES];
-                        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+                        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
                       
                     }];
                 }
@@ -678,9 +646,9 @@
             {
                 
                [self setuploading];
-               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
-               NSString *cid = [defaults1 objectForKey:@"cid"];
-                
+//               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+//               NSString *cid = [defaults1 objectForKey:@"cid"];
+                __block NSString *cid;
 
                if([self valiMobile:_userNameField.text])
                 {
@@ -691,16 +659,19 @@
                     dispatch_source_set_timer(cidTimer,dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);
                     dispatch_source_set_event_handler(cidTimer, ^{
                         if (time == 0) {//超时
-                            NSLog(@"超时");
+                            [(AppDelegate *)[UIApplication sharedApplication].delegate restartGetui];
+                            NSLog(@"cid超时");
                             dispatch_source_cancel(cidTimer);
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                [hud hideAnimated:YES];
+                                hud.label.text = NSLocalizedString(@"登录失败", nil);
+                                [hud hideAnimated:YES afterDelay:1];
                             });
                             
                         } else {
-                            NSLog(@"执行");
-                            if (cid) {
-                                NSLog(@"成功");
+                            NSLog(@"cid执行");
+                            cid = [[NSUserDefaults standardUserDefaults] objectForKey:@"cid"];
+                            if (self.cid && cid) {
+                                NSLog(@"cid成功");
                                 dispatch_source_cancel(cidTimer);
                                 dispatch_async(dispatch_get_main_queue(), ^{
 //                                    [hud hideAnimated:YES];

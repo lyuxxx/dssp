@@ -117,10 +117,12 @@ typedef void(^PullWeatherFinished)(void);
                     dispatch_semaphore_signal(semaphore);
                 }];
             } else {
+                [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
                 dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             }
         } failure:^(NSInteger code) {
+            [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
         }];

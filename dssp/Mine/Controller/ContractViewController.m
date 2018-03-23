@@ -192,7 +192,7 @@
     } failure:^(NSInteger code) {
         [_tableView.mj_footer endRefreshing];
         
-         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+         [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];

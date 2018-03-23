@@ -147,6 +147,7 @@
     [[WBAFNetworkingLogger sharedLogger] setLevel:WBLoggerLevelDebug];
     
     [self setupGeTui];
+    [self network];
 }
 
 - (void)startupView {
@@ -202,6 +203,33 @@
     **/
 }
 
+-(void)network{
+    
+    [CUHTTPRequest netWorkDuplicates:YES status:^(CUHTTPNetworkType type) {
+        
+        switch (type) {
+            case NetworkType_Unknown:
+                [MBProgressHUD showText:NSLocalizedString(@"当前网络不可用", nil)];
+                break;
+            case NetworkType_NO:
+                [MBProgressHUD showText:NSLocalizedString(@"当前网络不可用", nil)];
+                
+                break;
+            case NetworkType_WiFi:
+                
+                break;
+            case NetworkType_WWAN:
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+}
+
 #pragma mark -BadgeNumber相关-
 
 - (void)setBadgeNumber:(NSInteger)number {
@@ -254,11 +282,7 @@
 #pragma mark - 个推推送相关 -
 
 - (void)restartGetui {
-    [GeTuiSdk destroy];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [GeTuiSdk startSdkWithAppId:@"qNaVHr6IvHAWOlhxsr52p4" appKey:@"mgJCFoCvAD6EkXzU3WS1SA" appSecret:@"7LaratXCRAAeRUgMAT7BK7" delegate:self];
-        [GeTuiSdk resume];
-    });
+    [GeTuiSdk startSdkWithAppId:@"qNaVHr6IvHAWOlhxsr52p4" appKey:@"mgJCFoCvAD6EkXzU3WS1SA" appSecret:@"7LaratXCRAAeRUgMAT7BK7" delegate:self];
 }
 
 - (void)registerLocalNotificationWithInfo:(NSDictionary *)info {
@@ -334,7 +358,7 @@
                     }
                 } failure:^(NSInteger code) {
                     
-                     [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
+                     [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
                 
                 }];
             }
@@ -444,8 +468,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:clientId forKey:@"cid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:nil];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Refreshcid" object:nil userInfo:@{@"cid":clientId}];
 }
 
 - (void)GeTuiSdkDidOccurError:(NSError *)error {

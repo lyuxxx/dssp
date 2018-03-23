@@ -231,7 +231,7 @@
         }
     } failure:^(NSInteger code) {
           [hud hideAnimated:YES];
-        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"连接失败", nil),code]];
+        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
     }];
     
 }

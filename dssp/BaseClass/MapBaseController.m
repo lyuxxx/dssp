@@ -110,7 +110,7 @@ static dispatch_once_t mapBaseOnceToken;
             result(NO,nil);
         }
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
         result(NO,nil);
     }];
@@ -133,7 +133,7 @@ static dispatch_once_t mapBaseOnceToken;
             result(NO);
         }
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
         result(NO);
     }];
@@ -348,7 +348,7 @@ static dispatch_once_t mapBaseOnceToken;
             }
         });
     } failure:^(NSInteger code) {
-        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",code];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (self.checkCarLocationOver) {

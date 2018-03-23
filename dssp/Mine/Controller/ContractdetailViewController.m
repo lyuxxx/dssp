@@ -65,7 +65,7 @@
         }
     } failure:^(NSInteger code) {
         [hud hideAnimated:YES];
-        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
     }];
 }

@@ -91,8 +91,11 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
         _healthLabel.text = @"未知";
         
     }
-    _mileageLabel.text = trafficReporData.totalMileage?totalMileage:@"0km";
-    //    _oilLeftLabel.text = trafficReporData.levelFuel?levelOil:@"0%";
+    if ([self isBlankString:trafficReporData.totalMileage]) {
+        _mileageLabel.text = @"0km";
+    } else {
+        _mileageLabel.text = trafficReporData.totalMileage;
+    }
     
     if(![self isBlankString:trafficReporData.levelFuel])
     {
@@ -120,7 +123,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     }
 }
 
--  (BOOL) isBlankString:(NSString *)string {
+-  (BOOL)isBlankString:(NSString *)string {
     
     if (string == nil || string == NULL) {
         return YES;
