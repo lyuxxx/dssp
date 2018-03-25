@@ -13,7 +13,8 @@
 #import "SubscribeModel.h"
 #import "SubscribedatailController.h"
 #import <MJRefresh.h>
-@interface WMViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import <UIScrollView+EmptyDataSet.h>
+@interface WMViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 //@property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSMutableArray  *channelArray;
@@ -77,6 +78,9 @@
             NSArray *dataArray = dic[@"data"][@"result"];
 //            NSMutableArray *array=[NSMutableArray array];
             self.channelArray =[NSMutableArray array];
+            
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
             for (NSDictionary *dic in dataArray) {
                 ChannelModel *channel = [ChannelModel yy_modelWithDictionary:dic];
                 [self.channelArray addObject:channel];
@@ -85,20 +89,47 @@
             [_tableView reloadData];
             if (self.channelArray.count == 0) {
 //                [self blankUI];
+                _tableView.emptyDataSetSource = self;
+                _tableView.emptyDataSetDelegate = self;
+                [self.tableView.mj_header endRefreshing];
+                [_tableView reloadData];
             }
             //响应事件
          
         } else {
-//            [self blankUI];
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
             [self.tableView.mj_header endRefreshing];
-            [MBProgressHUD showText:dic[@"msg"]];
+            [_tableView reloadData];
+//            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
 //        [self blankUI];
+        
+        _tableView.emptyDataSetSource = self;
+        _tableView.emptyDataSetDelegate = self;
         [self.tableView.mj_header endRefreshing];
-        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
+        [_tableView reloadData];
+//        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
         
     }];
+}
+
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"暂无内容"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    scrollView.contentOffset = CGPointZero;
 }
 
 -(void)blankUI{

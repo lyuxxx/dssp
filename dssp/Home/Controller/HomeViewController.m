@@ -101,31 +101,39 @@ typedef void(^PullWeatherFinished)(void);
     dispatch_group_async(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         //请求车辆位置
-        [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getLastPositionService,kVin] parameters:@{} success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([dic[@"code"] isEqualToString:@"200"]) {
-                CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
-                CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
-                CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
-                [self saveCarLocationWithCoordinate:location];
-                weakifySelf
-                [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
-                    strongifySelf
-                    //                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
-                    self.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
-                    dispatch_group_leave(group);
-                    dispatch_semaphore_signal(semaphore);
-                }];
-            } else {
-                [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
-                dispatch_group_leave(group);
-                dispatch_semaphore_signal(semaphore);
-            }
-        } failure:^(NSInteger code) {
+        if (![KcertificationStatus isEqualToString:@"1"]) {
             [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
-        }];
+        } else {
+            
+            [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getLastPositionService,kVin] parameters:@{} success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([dic[@"code"] isEqualToString:@"200"]) {
+                    CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
+                    CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
+                    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
+                    [self saveCarLocationWithCoordinate:location];
+                    weakifySelf
+                    [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
+                        strongifySelf
+                        //                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
+                        self.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
+                        dispatch_group_leave(group);
+                        dispatch_semaphore_signal(semaphore);
+                    }];
+                } else {
+                    [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
+                    dispatch_group_leave(group);
+                    dispatch_semaphore_signal(semaphore);
+                }
+            } failure:^(NSInteger code) {
+                [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
+                dispatch_group_leave(group);
+                dispatch_semaphore_signal(semaphore);
+            }];
+            
+        }
     });
     
     dispatch_group_enter(group);
@@ -932,105 +940,111 @@ typedef void(^PullWeatherFinished)(void);
 
 - (void)btnClick:(UIButton *)sender {
     
-    
-    if ([kVin isEqualToString:@""]) {
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-        //            InputalertView.delegate = self;
-        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-        [keywindow addSubview: popupView];
-        
-        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-            
-            if(btn.tag ==100)
-            {
-                //响应事件
-                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                //                        [self.navigationController pushViewController:vc animated:YES];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.navigationController pushViewController:vc animated:YES];
-                });
-            }
-            
-        };
-        
-        
-        
-    }
-    else
-    {
-        //非T车
-        if([CuvhlTStatus isEqualToString:@"0"])
-        {
-            
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-            [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-            //            InputalertView.delegate = self;
-            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-            [keywindow addSubview: popupView];
-            
-            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                if (btn.tag == 100) {//左边按钮
-                    
-                    
-                }
-                
-                
-            };
-            
-        }
-        else if ([CuvhlTStatus isEqualToString:@"1"])
-        {
-            //T车辆
-            
-            if([KcertificationStatus isEqualToString:@"1"])
-            {
-                UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.navigationController pushViewController:vc animated:YES];
-                });
-            }
-            else
-            {
-                
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                //            InputalertView.delegate = self;
-                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                [keywindow addSubview: popupView];
-                
-                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                        
-                        
-                    }
-                    
-                };
-                
-            }
-            
-        }
-        
-    }
-    
-    
-    
+//    chatbox
+//    if ([kVin isEqualToString:@""]) {
+//
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//        InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//        [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//        //            InputalertView.delegate = self;
+//        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//        [keywindow addSubview: popupView];
+//
+//        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//
+//            if(btn.tag ==100)
+//            {
+//                //响应事件
+//                VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                vc.hidesBottomBarWhenPushed = YES;
+//                //                        [self.navigationController pushViewController:vc animated:YES];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                });
+//            }
+//
+//        };
+//
+//
+//
+//    }
+//    else
+//    {
+//        //非T车
+//        if([CuvhlTStatus isEqualToString:@"0"])
+//        {
+//
+//            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//            PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+//            [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//            //            InputalertView.delegate = self;
+//            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//            [keywindow addSubview: popupView];
+//
+//            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                if (btn.tag == 100) {//左边按钮
+//
+//
+//                }
+//
+//
+//            };
+//
+//        }
+//        else if ([CuvhlTStatus isEqualToString:@"1"])
+//        {
+//            //T车辆
+//
+//            if([KcertificationStatus isEqualToString:@"1"])
+//            {
+//                UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+//                vc.hidesBottomBarWhenPushed = YES;
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                });
+//            }
+//            else
+//            {
+//
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+//                [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//                //            InputalertView.delegate = self;
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: popupView];
+//
+//                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
+//
+//
+//
+//                    }
+//
+//                };
+//
+//            }
+//
+//        }
+//
+//    }
     
    
+    
+    
+    
+    UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.navigationController pushViewController:vc animated:YES];
+    });
+
 }
 
 - (void)dealWithCellBtnClick:(UIButton *)btn {

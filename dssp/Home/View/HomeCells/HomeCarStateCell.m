@@ -77,8 +77,12 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     
     NSString *levelOil = [[NSString stringWithFormat:@"%@",trafficReporData.levelFuel] stringByAppendingString:@"%"];
     
-    
-    if([trafficReporData.alertPriority isEqualToString:@"high"]) {
+    if([trafficReporData.alertPriority isEqualToString:@"health"]) {
+        
+        _healthLabel.text = @"健康";
+        
+    }
+    else if([trafficReporData.alertPriority isEqualToString:@"high"]) {
         
         _healthLabel.text = @"需维修";
         

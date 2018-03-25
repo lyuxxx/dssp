@@ -18,7 +18,8 @@
 #import "NoticeModel.h"
 #import "RemindViewController.h"
 #import "UITabBar+badge.h"
-@interface NoticeViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
+#import <UIScrollView+EmptyDataSet.h>
+@interface NoticeViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectedDatas;
@@ -113,11 +114,19 @@
             NSArray *dataArray = dic[@"data"];
             _noticeDatas =[NSMutableArray new];
             
+          
+            
         if (dataArray != nil && ![dataArray isKindOfClass:[NSNull class]] &&  dataArray.count != 0){
+            
+            
                    for (NSDictionary *dic in dataArray) {
                        self.notice = [NoticeModel yy_modelWithDictionary:dic];
                        [self.noticeDatas addObject:_notice];
                    }
+            
+            
+                  _tableView.emptyDataSetSource = self;
+                  _tableView.emptyDataSetDelegate = self;
                    self.dataSource = _noticeDatas;
                    //            [self.dataSource addObjectsFromArray:resultArr];
                    //            [self.dataSource addObjectsFromArray:_noticeDatas];
@@ -126,22 +135,46 @@
             }
             else
             {
+                _tableView.emptyDataSetSource = self;
+                _tableView.emptyDataSetDelegate = self;
                 [self.tableView.mj_header endRefreshing];
+                [_tableView reloadData];
 //                [self blankUI];
                
             }
         } else {
-          
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
             [self.tableView.mj_header endRefreshing];
-            [self blankUI];
-            [MBProgressHUD showText:dic[@"msg"]];
+             [_tableView reloadData];
+//            [self blankUI];
+//            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
+        _tableView.emptyDataSetSource = self;
+        _tableView.emptyDataSetDelegate = self;
         [self.tableView.mj_header endRefreshing];
-        [self blankUI];
+        [_tableView reloadData];
+//        [self blankUI];
 //        [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
        
     }];
+}
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"暂无内容"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    scrollView.contentOffset = CGPointZero;
 }
 
 -(void)blankUI{

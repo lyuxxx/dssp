@@ -149,12 +149,12 @@
         field.delegate = self;
         field.secureTextEntry = true;
         field.textColor = [UIColor colorWithHexString:@"#ffffff"];
-        field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+        field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
         field.font = [UIFont fontWithName:FontName size:15];
         [whiteV addSubview:field];
         [field makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(label.right).offset(30*WidthCoefficient);
-            make.width.equalTo(150 * WidthCoefficient);
+            make.left.equalTo(label.right).offset(15*WidthCoefficient);
+            make.right.equalTo(-30 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
             make.top.equalTo(15 + 49 * HeightCoefficient * i);
         }];

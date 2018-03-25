@@ -253,7 +253,7 @@
     Lastlabel.layer.cornerRadius = 20 * HeightCoefficient/2;
     Lastlabel.clipsToBounds = YES;
     Lastlabel.textColor=[UIColor colorWithHexString:@"#999999"];
-    Lastlabel.text=NSLocalizedString(@"本数据均为前一天统计数", nil);
+    Lastlabel.text=NSLocalizedString(@"数据统计截止到昨天", nil);
     Lastlabel.textAlignment = NSTextAlignmentCenter;
     [bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
