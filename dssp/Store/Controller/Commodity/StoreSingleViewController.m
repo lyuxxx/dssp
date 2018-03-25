@@ -204,6 +204,10 @@
             });
         }
     } failure:^(NSInteger code) {
+        
+        _collectionView.emptyDataSetSource = self;
+        _collectionView.emptyDataSetDelegate = self;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView.mj_header endRefreshing];
         });

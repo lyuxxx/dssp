@@ -466,7 +466,13 @@
         
         if (self.dataSource.count != 0)
         {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            if (@available(iOS 11.0, *)) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            } else {
+                if (self.tableView.contentSize.height > self.tableView.bounds.size.height) {
+                    [self.tableView scrollToBottomAnimated:NO];
+                }
+            }
         }
 
     });
@@ -477,9 +483,14 @@
  * 返回每一行的估计高度
  * 只要返回了估计高度，那么就会先调用tableView:cellForRowAtIndexPath:方法创建cell，再调   用tableView:heightForRowAtIndexPath:方法获取cell的真实高度
  */
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 380 * WidthCoefficient;//不要设置的太小
-//}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+
+#else
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 380 * WidthCoefficient;//不要设置的太小
+}
+#endif
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;

@@ -145,6 +145,7 @@
         [botV addSubview:field];
         [field makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(label.right).offset(30 * WidthCoefficient);
+            make.right.equalTo(-15 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
             make.top.equalTo(label.top);
         }];

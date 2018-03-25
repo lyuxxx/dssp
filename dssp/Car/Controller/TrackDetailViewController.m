@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) UILabel *harshBrakeLabel;
 @property (nonatomic, strong) UILabel *harshAccLabel;
-@property (nonatomic, strong) UILabel *harshTurnLabel;
+//@property (nonatomic, strong) UILabel *harshTurnLabel;
 @property (nonatomic, strong) UILabel *autoBrakeLabel;
 @property (nonatomic, strong) YYLabel *startAddressLabel;
 @property (nonatomic, strong) YYLabel *endAddressLabel;
@@ -139,7 +139,6 @@
 - (void)showStatisWithTrackInfo:(TrackInfo *)trackInfo {
     self.harshBrakeLabel.text = trackInfo.properties.harshDecelerationTimes;
     self.harshAccLabel.text = trackInfo.properties.harshAccelerationTimes;
-    self.harshTurnLabel.text = trackInfo.properties.harshTurnTimes;
     self.autoBrakeLabel.text = trackInfo.properties.autoBrakeTimes;
     self.startAddressLabel.text = trackInfo.geometry.afterCoordinates[0].address;
     self.endAddressLabel.text = trackInfo.geometry.afterCoordinates[1].address;
@@ -192,7 +191,7 @@
         make.centerX.equalTo(self.view);
     }];
     
-    NSArray *topTitles = @[NSLocalizedString(@"急刹车", nil),NSLocalizedString(@"急加速", nil),NSLocalizedString(@"急转弯", nil),NSLocalizedString(@"自动刹车", nil)];
+    NSArray *topTitles = @[NSLocalizedString(@"急刹车", nil),NSLocalizedString(@"急加速", nil),NSLocalizedString(@"自动刹车", nil)];
     for (NSInteger i = 0; i < topTitles.count; i++) {
         UILabel *label0 = [[UILabel alloc] init];
         label0.font = [UIFont fontWithName:FontName size:13];
@@ -201,10 +200,10 @@
         label0.text = topTitles[i];
         [topV addSubview:label0];
         [label0 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(78.25 * WidthCoefficient);
+            make.width.equalTo(114 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
             make.top.equalTo(20 * HeightCoefficient);
-            make.left.equalTo((16 + 88.5 * i) * WidthCoefficient);
+            make.left.equalTo((16 + 114 * i) * WidthCoefficient);
         }];
         
         UILabel *label1 = [[UILabel alloc] init];
@@ -224,8 +223,6 @@
         } else if (i == 1) {
             self.harshAccLabel = label1;
         } else if (i == 2) {
-            self.harshTurnLabel = label1;
-        } else if (i == 3) {
             self.autoBrakeLabel = label1;
         }
     }

@@ -128,7 +128,7 @@
         make.top.equalTo(imgV.bottom).offset(17 * WidthCoefficient);
     }];
     
-    NSArray *imgNames = @[@"速度_icon",@"里程_icon",@"油耗_icon"];
+    NSArray *imgNames = @[@"里程_icon",@"速度_icon",@"油耗_icon"];
     for (NSInteger i = 0; i < imgNames.count; i++) {
         UIImageView *imgV0 = [[UIImageView alloc] init];
         imgV0.image = [UIImage imageNamed:imgNames[i]];
@@ -150,9 +150,9 @@
         }];
         
         if (i == 0) {
-            self.speedLabel = label0;
-        } else if (i == 1) {
             self.mileageLabel = label0;
+        } else if (i == 1) {
+            self.speedLabel = label0;
         } else if (i == 2) {
             self.fuelLabel = label0;
         }

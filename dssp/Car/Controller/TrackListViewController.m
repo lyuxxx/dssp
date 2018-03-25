@@ -363,9 +363,9 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 }
 
 - (void)pullDefaultData {
-    //默认拉取3个月数据
+    //默认拉取1个月数据
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setMonth:-3];
+    [offsetComponents setMonth:-1];
     NSDate *startDate = [self.gregorian dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

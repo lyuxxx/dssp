@@ -98,6 +98,10 @@
            [self.tableView.mj_header endRefreshing];
         }
     } failure:^(NSInteger code) {
+        
+        _tableView.emptyDataSetSource = self;
+        _tableView.emptyDataSetDelegate = self;
+        
         [self.tableView.mj_header endRefreshing];
     }];
 }
