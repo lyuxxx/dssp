@@ -101,31 +101,39 @@ typedef void(^PullWeatherFinished)(void);
     dispatch_group_async(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         //请求车辆位置
-        [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getLastPositionService,kVin] parameters:@{} success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([dic[@"code"] isEqualToString:@"200"]) {
-                CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
-                CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
-                CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
-                [self saveCarLocationWithCoordinate:location];
-                weakifySelf
-                [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
-                    strongifySelf
-                    //                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
-                    self.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
-                    dispatch_group_leave(group);
-                    dispatch_semaphore_signal(semaphore);
-                }];
-            } else {
-                [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
-                dispatch_group_leave(group);
-                dispatch_semaphore_signal(semaphore);
-            }
-        } failure:^(NSInteger code) {
+        if (![KcertificationStatus isEqualToString:@"1"]) {
             [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
-        }];
+        } else {
+            
+            [CUHTTPRequest POST:[NSString stringWithFormat:@"%@/%@",getLastPositionService,kVin] parameters:@{} success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([dic[@"code"] isEqualToString:@"200"]) {
+                    CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
+                    CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
+                    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
+                    [self saveCarLocationWithCoordinate:location];
+                    weakifySelf
+                    [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
+                        strongifySelf
+                        //                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
+                        self.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
+                        dispatch_group_leave(group);
+                        dispatch_semaphore_signal(semaphore);
+                    }];
+                } else {
+                    [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
+                    dispatch_group_leave(group);
+                    dispatch_semaphore_signal(semaphore);
+                }
+            } failure:^(NSInteger code) {
+                [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
+                dispatch_group_leave(group);
+                dispatch_semaphore_signal(semaphore);
+            }];
+            
+        }
     });
     
     dispatch_group_enter(group);
