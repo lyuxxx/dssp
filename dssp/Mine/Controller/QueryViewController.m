@@ -221,8 +221,16 @@
             
            if ([_queryModel.certificationStatus isEqualToString:@"2"]&&[_queryModel.vhlActivate isEqualToString:@"1"]&&[_queryModel.serviceStatus isEqualToString:@"1"])
             {
+                
+                
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                  logo.image = [UIImage imageNamed:@"认证成功_icon"];
+                
+                NSString *certificationStatus = @"1";
+                NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                [defaults3 setObject:certificationStatus forKey:@"certificationStatus"];
+                [defaults3 synchronize];
+                
             }
             else
             {

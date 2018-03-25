@@ -63,7 +63,7 @@
         [label makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(10 * WidthCoefficient);
             make.height.equalTo(10 * HeightCoefficient);
-            make.width.equalTo(80 * WidthCoefficient);
+            make.width.equalTo(70 * WidthCoefficient);
             make.top.equalTo((10 + 30 * i) * HeightCoefficient);
         }];
         
@@ -134,7 +134,7 @@
         [label makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(15 * WidthCoefficient);
             make.height.equalTo(21 * HeightCoefficient);
-            make.width.equalTo(60 * WidthCoefficient);
+            make.width.equalTo(70 * WidthCoefficient);
             make.top.equalTo((15 + 50 * i) * HeightCoefficient);
         }];
         
@@ -144,10 +144,10 @@
         field.textColor = [UIColor colorWithHexString:@"#ffffff"];
         [botV addSubview:field];
         [field makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(label.right).offset(30 * WidthCoefficient);
+            make.left.equalTo(label.right).offset(10 * WidthCoefficient);
             make.right.equalTo(-15 * WidthCoefficient);
-            make.height.equalTo(20 * HeightCoefficient);
-            make.top.equalTo(label.top);
+            make.height.equalTo(30 * HeightCoefficient);
+            make.centerY.equalTo(label);
         }];
         
         UIView *line = [[UIView alloc] init];
