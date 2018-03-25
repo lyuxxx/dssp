@@ -73,6 +73,7 @@
     [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
      [self.tableView registerClass:[InfoMessageLeftCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageLeftCell class])];
     [self.view addSubview:self.tableView];
+    
 //    [self.tableView makeConstraints:^(MASConstraintMaker *make) {
 //        make.edges.equalTo(self.view);
 //    }];
@@ -467,6 +468,7 @@
         if (self.dataSource.count != 0)
         {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+
         }
 
     });

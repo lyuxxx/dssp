@@ -627,137 +627,113 @@
     
     if (sender == self.setBtn) {
         
+//
+//        if ([kVin isEqualToString:@""]) {
+//
+//            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//            InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//            [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//            //            InputalertView.delegate = self;
+//            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//            [keywindow addSubview: popupView];
+//
+//            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//
+//                if(btn.tag ==100)
+//                {
+//                    //响应事件
+//                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                    vc.hidesBottomBarWhenPushed = YES;
+//                    //                        [self.navigationController pushViewController:vc animated:YES];
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    });
+//                }
+//
+//            };
+//
+//
+//
+//        }
+//        else
+//        {
+//            //非T车
+//            if([CuvhlTStatus isEqualToString:@"0"])
+//            {
+//
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+//                [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//                //            InputalertView.delegate = self;
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: popupView];
+//
+//                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
+//
+//
+//                    }
+//
+//
+//                };
+//
+//            }
+//            else if ([CuvhlTStatus isEqualToString:@"1"])
+//            {
+//                //T车辆
+//
+//                if([KcertificationStatus isEqualToString:@"1"])
+//                {
+//                    UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+//                    vc.hidesBottomBarWhenPushed = YES;
+//
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    });
+//                }
+//                else
+//                {
+//
+//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+//                    [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+//                    [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+//                    //            InputalertView.delegate = self;
+//                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                    [keywindow addSubview: popupView];
+//
+//                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                        if (btn.tag == 100) {//左边按钮
+//
+//
+//
+//                        }
+//
+//                    };
+//
+//                }
+//
+//            }
+//
+//        }
         
-        if ([kVin isEqualToString:@""]) {
-            
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-            [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-            //            InputalertView.delegate = self;
-            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-            [keywindow addSubview: popupView];
-            
-            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                
-                if(btn.tag ==100)
-                {
-                    //响应事件
-                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    //                        [self.navigationController pushViewController:vc animated:YES];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                }
-                
-            };
-            
-            
-            
-        }
-        else
-        {
-            //非T车
-            if([CuvhlTStatus isEqualToString:@"0"])
-            {
-                
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                //            InputalertView.delegate = self;
-                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                [keywindow addSubview: popupView];
-                
-                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
-                        
-                    }
-                    
-                    
-                };
-                
-            }
-            else if ([CuvhlTStatus isEqualToString:@"1"])
-            {
-                //T车辆
-                
-                if([KcertificationStatus isEqualToString:@"1"])
-                {
-                    UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                }
-                else
-                {
-                    
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前还未完成实名制认证无法使用服务!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                    //            InputalertView.delegate = self;
-                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                    [keywindow addSubview: popupView];
-                    
-                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                        if (btn.tag == 100) {//左边按钮
-                            
-                            
-                            
-                        }
-                        
-                    };
-                    
-                }
-                
-            }
-            
-        }
+        
+        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController pushViewController:vc animated:YES];
+        });
+        
+        
 
     }
-    if (sender ==self.photoBtn) {
-        
-        PersonInViewController *vc=[[PersonInViewController alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择照片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            NSLog(@"点击取消");
-//            
-//        }]];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"照相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-//            imagePicker.delegate = self;
-//            imagePicker.allowsEditing = YES;
-//            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//            [self presentViewController:imagePicker animated:YES completion:nil];
-//            
-//        }]];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-//            imagePicker.delegate = self;
-//            imagePicker.allowsEditing = YES;
-//            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//            [self presentViewController:imagePicker animated:YES completion:nil];
-//            
-//        }]];
-//        
-//        [self presentViewController:alertController animated:YES completion:nil];
-    }
+   
     if (sender==self.bindingBtn) {
         
     }

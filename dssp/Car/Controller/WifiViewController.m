@@ -220,7 +220,7 @@
 - (void)secureBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     _passwordField.secureTextEntry = !sender.selected;
-    [self setupPlaceHoler];
+//    [self setupPlaceHoler];
 }
 
 - (void)setupPlaceHoler {
