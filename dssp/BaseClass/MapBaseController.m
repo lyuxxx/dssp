@@ -291,7 +291,12 @@ static dispatch_once_t mapBaseOnceToken;
 }
 
 - (NSString *)distanceFromUsr:(CLLocationCoordinate2D)location {
-    MAMapPoint userPoint = MAMapPointForCoordinate(self.mapView.userLocation.coordinate);
+    MAMapPoint userPoint;
+    if (self.carAnnotation) {//有车的位置
+        userPoint = MAMapPointForCoordinate(self.carAnnotation.coordinate);
+    } else {
+        userPoint = MAMapPointForCoordinate(self.mapView.userLocation.coordinate);
+    }
     MAMapPoint point = MAMapPointForCoordinate(location);
     CLLocationDistance distance = MAMetersBetweenMapPoints(userPoint, point);
     NSString *str = [NSString stringWithFormat:@"%.0fm",distance];
