@@ -152,8 +152,8 @@ typedef void(^PullWeatherFinished)(void);
                     //            [hud hideAnimated:YES];
                     self.trafficReporData = [TrafficReporData yy_modelWithDictionary:dic[@"data"]];
                     //忽略其他数据
-                    self.trafficReporData.totalMileage = @"";
-                    self.trafficReporData.levelFuel = @"";
+                    self.trafficReporData.totalMileage = nil;
+                    self.trafficReporData.levelFuel = nil;
                 }
                 dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
@@ -181,8 +181,8 @@ typedef void(^PullWeatherFinished)(void);
                 dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             } failure:^(NSInteger code) {
-                self.trafficReporData.totalMileage = @"0";
-                self.trafficReporData.levelFuel = @"0";
+                self.trafficReporData.totalMileage = nil;
+                self.trafficReporData.levelFuel = nil;
                 dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             }];
