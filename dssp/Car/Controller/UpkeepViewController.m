@@ -461,10 +461,14 @@
 
 -(void)clickImage
 {
-    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",Phone];
-    UIWebView *callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self.view addSubview:callWebview];
+
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"]];
+    
+//    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-650-5556"];
+//    UIWebView *callWebview = [[UIWebView alloc] init];
+//    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+//    [self.view addSubview:callWebview];
+
     
 }
 

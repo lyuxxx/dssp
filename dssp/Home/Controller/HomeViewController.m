@@ -140,43 +140,53 @@ typedef void(^PullWeatherFinished)(void);
     dispatch_group_async(group, queue, ^{
         //请求车辆健康状态
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,kVin];
-        //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-        [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
-            NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                //            [hud hideAnimated:YES];
-                self.trafficReporData = [TrafficReporData yy_modelWithDictionary:dic[@"data"]];
-                //忽略其他数据
-                self.trafficReporData.totalMileage = @"";
-                self.trafficReporData.levelFuel = @"";
-            }
+        if (![KcertificationStatus isEqualToString:@"1"]) {
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
-        } failure:^(NSInteger code) {
-            dispatch_group_leave(group);
-            dispatch_semaphore_signal(semaphore);
-        }];
+        } else {
+            NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,kVin];
+            //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+            [CUHTTPRequest POST:numberByVin parameters:@{} success:^(id responseData) {
+                NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    //            [hud hideAnimated:YES];
+                    self.trafficReporData = [TrafficReporData yy_modelWithDictionary:dic[@"data"]];
+                    //忽略其他数据
+                    self.trafficReporData.totalMileage = @"";
+                    self.trafficReporData.levelFuel = @"";
+                }
+                dispatch_group_leave(group);
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSInteger code) {
+                dispatch_group_leave(group);
+                dispatch_semaphore_signal(semaphore);
+            }];
+        }
     });
     
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         //请求车辆数据
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@",getVinInfoService,kVin] parameters:@{} success:^(id responseData) {
-            NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                self.trafficReporData.totalMileage = dic[@"data"][@"totalMileage"];
-                self.trafficReporData.levelFuel = dic[@"data"][@"fuelOfLeft"];
-            }
+        if (![KcertificationStatus isEqualToString:@"1"]) {
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
-        } failure:^(NSInteger code) {
-            self.trafficReporData.totalMileage = @"0";
-            self.trafficReporData.levelFuel = @"0";
-            dispatch_group_leave(group);
-            dispatch_semaphore_signal(semaphore);
-        }];
+        } else {
+            [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@",getVinInfoService,kVin] parameters:@{} success:^(id responseData) {
+                NSDictionary  *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    self.trafficReporData.totalMileage = dic[@"data"][@"totalMileage"];
+                    self.trafficReporData.levelFuel = dic[@"data"][@"fuelOfLeft"];
+                }
+                dispatch_group_leave(group);
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSInteger code) {
+                self.trafficReporData.totalMileage = @"0";
+                self.trafficReporData.levelFuel = @"0";
+                dispatch_group_leave(group);
+                dispatch_semaphore_signal(semaphore);
+            }];
+        }
     });
     
     dispatch_group_enter(group);
@@ -205,7 +215,7 @@ typedef void(^PullWeatherFinished)(void);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
-            
+            //请求天气
             [self.mgr startUpdatingLocation];
         });
     });

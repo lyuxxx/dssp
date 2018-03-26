@@ -62,8 +62,11 @@
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"背景"]];
     self.tableView.backgroundView = imageView;
     
-    // cellForRowAtIndexPath
-    
+    if (@available(iOS 11.0, *)) {
+//        _tableView.estimatedRowHeight = 0;
+    } else {
+        _tableView.estimatedRowHeight = 380 * WidthCoefficient;
+    }
 //    cell.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -134,7 +137,13 @@
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50- rec.size.height);
     if (self.dataSource.count != 0)
     {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        if (@available(iOS 11.0, *)) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        } else {
+            if (self.tableView.contentSize.height > self.tableView.bounds.size.height) {
+                [self.tableView scrollToBottomAnimated:NO];
+            }
+        }
     }
     
 }
@@ -485,13 +494,13 @@
  * 只要返回了估计高度，那么就会先调用tableView:cellForRowAtIndexPath:方法创建cell，再调   用tableView:heightForRowAtIndexPath:方法获取cell的真实高度
  */
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
-
-#else
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 380 * WidthCoefficient;//不要设置的太小
-}
-#endif
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+//
+//#else
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 380 * WidthCoefficient;//不要设置的太小
+//}
+//#endif
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
@@ -506,11 +515,6 @@
     
     if (message.type == InfoMessageTypeOther) {
         InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3,NSString *str4) {
-            
-//            cell.backgroundColor=[UIColor clearColor];
-            NSLog(@"click:%@",sender.titleLabel.text);
-            NSLog(@"click:%@",self.dataArray);
-            NSLog(@"%@888",message.serviceParentId);
             
             NSDictionary * dic2 = @{ @"10010":@"MapHomeViewController",
                                      @"10012":@"RefuelViewController",
@@ -714,14 +718,11 @@
             }
             else
             {
-                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    InfoMessage *messageMe = [[InfoMessage alloc] init];
-                    messageMe.text = sender.titleLabel.text;
-                    messageMe.type = InfoMessageTypeMe;
-                    [self sendMessage:messageMe];
-                    
-                });
+                InfoMessage *messageMe = [[InfoMessage alloc] init];
+                messageMe.text = sender.titleLabel.text;
+                messageMe.type = InfoMessageTypeMe;
+                [self sendMessage:messageMe];
                 
                 NSString *sourceData = nil;
                 if ([self isBlankString:str3] ) {
@@ -815,10 +816,13 @@
               }
               else if([sender.titleLabel.text isEqualToString:@"咨询客服"])
               {
-                  NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",Phone];
-                  UIWebView *callWebview = [[UIWebView alloc] init];
-                  [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-                  [self.view addSubview:callWebview];
+
+//                  NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-650-5556"];
+//                  UIWebView *callWebview = [[UIWebView alloc] init];
+//                  [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+//                  [self.view addSubview:callWebview];
+                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"]];
+
                  
               }
               else if([sender.titleLabel.text isEqualToString:@"关闭"])
@@ -833,11 +837,6 @@
     }
     
     return nil;
-}
-
-- (void)scrollTableToFoot:(BOOL)animated
-{
-    
 }
 
 - (BOOL)isBlankString:(NSString *)string {
