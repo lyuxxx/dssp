@@ -256,6 +256,127 @@
                 make.top.equalTo(297 * HeightCoefficient);
             }];
     
+    
+   
+    
+    
+    NSArray *title = @[
+                        NSLocalizedString(@"审核成功", nil),
+                        NSLocalizedString(@"审核失败", nil),
+                        NSLocalizedString(@"待审核/审核中", nil),
+                      
+                        ];
+    
+    for (NSInteger i = 0 ; i < title.count; i++) {
+        
+        UIImageView *logoImg =[[UIImageView alloc] init];
+        logoImg.image =[UIImage imageNamed:@"Rectangle"];
+        [self.view addSubview:logoImg];
+        [logoImg makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(-(30*HeightCoefficient+kBottomHeight));
+            make.width.equalTo (343*WidthCoefficient);
+            make.height.equalTo (153*HeightCoefficient);
+            make.centerX.equalTo(0);
+        }];
+        
+        
+        UILabel *lab = [[UILabel alloc] init];
+        lab.textAlignment = NSTextAlignmentLeft;
+        lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
+        lab.font = [UIFont fontWithName:FontName size:13];
+        lab.text = NSLocalizedString(@"审核状态说明", nil);
+        [logoImg addSubview:lab];
+        [lab makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(180 * WidthCoefficient);
+            make.height.equalTo(20 * HeightCoefficient);
+            
+            make.left.equalTo(10*WidthCoefficient);
+            make.top.equalTo(10*WidthCoefficient);
+            
+        }];
+        
+        
+        
+        
+        UIView *view1 = [[UIView alloc] init];
+        view1.backgroundColor = [UIColor clearColor];
+        [logoImg addSubview:view1];
+        
+        UIImageView *logo = [[UIImageView alloc] init];
+        //        logo.image = [UIImage imageNamed:@"selected"];
+        [view1 addSubview:logo];
+        [logo makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(18 * WidthCoefficient);
+            make.height.equalTo(18 * WidthCoefficient);
+            make.centerY.equalTo(0);
+            make.left.equalTo(10 *WidthCoefficient);
+        }];
+        
+        
+        UILabel *lab1 = [[UILabel alloc] init];
+        lab1.textAlignment = NSTextAlignmentLeft;
+        //        lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+        lab1.font = [UIFont fontWithName:FontName size:13];
+        lab1.text = titles[i];
+        [view1 addSubview:lab1];
+        [lab1 makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(150 * WidthCoefficient);
+            make.height.equalTo(22.5 * HeightCoefficient);
+            make.centerY.equalTo(0);
+            make.left.equalTo(logo.right).offset(10*WidthCoefficient);
+            
+        }];
+        
+        
+        if (i==0) {
+            
+            [view1 makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(0 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.top.equalTo(47 * HeightCoefficient);
+            }];
+            
+        }
+        else
+        {
+            [view1 makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(0 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.top.equalTo(lastView.bottom).offset(12 * HeightCoefficient);
+            }];
+            
+           
+        }
+        lastView = view1;
+        
+        if (i==0) {
+            
+            
+            lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
+            logo.image = [UIImage imageNamed:@"认证成功_icon"];
+           
+            
+        }
+        if (i==1) {
+            
+            
+            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            logo.image = [UIImage imageNamed:@"失败_icon"];
+            
+           
+        }
+        if (i==2) {
+            
+            
+            lab1.textColor = [UIColor colorWithHexString:@"#999999"];
+            logo.image = [UIImage imageNamed:@"认证中_icon"];
+           
+        }
+        
+    }
+     
  }
 
 -(void)nextBtnClick

@@ -15,8 +15,9 @@
 #import "ContractModel.h"
 #import "ContractdetailViewController.h"
 #import "MJRefresh.h"
+#import <UIScrollView+EmptyDataSet.h>
 @interface ContractViewController ()
-<UITableViewDataSource,UITableViewDelegate>
+<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     ContractModel *contract;
     
@@ -111,30 +112,59 @@
             }
             self.latestNewsFrame = contractData;
             if (self.latestNewsFrame.count == 0) {
+                _tableView.emptyDataSetSource = self;
+                _tableView.emptyDataSetDelegate = self;
+                [self.tableView.mj_header endRefreshing];
+                [_tableView reloadData];
                 self.tableView.mj_footer.hidden =YES;
-                 [self blankUI];
+               
             }
 
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
+          
             [_tableView reloadData];
             // 结束刷新状态
             [_tableView.mj_header endRefreshing];
            
         } else {
-            [self blankUI];
-             self.tableView.mj_footer.hidden =YES;
-             [_tableView.mj_header endRefreshing];
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
+            [self.tableView.mj_header endRefreshing];
+            [_tableView reloadData];
+            self.tableView.mj_footer.hidden =YES;
+          
 //            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
-         [self blankUI];
+        _tableView.emptyDataSetSource = self;
+        _tableView.emptyDataSetDelegate = self;
+        [self.tableView.mj_header endRefreshing];
+        [_tableView reloadData];
          self.tableView.mj_footer.hidden =YES;
-         [_tableView.mj_header endRefreshing];
+        
 //         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
 //        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"暂无内容"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    scrollView.contentOffset = CGPointZero;
+}
 
 -(void)blankUI{
     
