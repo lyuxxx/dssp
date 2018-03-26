@@ -57,7 +57,7 @@
     bgV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:bgV];
     [bgV makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(20*HeightCoefficient);
+        make.top.equalTo(20*HeightCoefficient);
         make.height.equalTo(70 * HeightCoefficient);
         make.left.equalTo(16*WidthCoefficient);
         make.right.equalTo(-16*WidthCoefficient);

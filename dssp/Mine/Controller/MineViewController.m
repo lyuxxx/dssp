@@ -32,6 +32,7 @@
 #import "CarUnbindingViewController.h"
 #import "UserModel.h"
 #import "ManualViewController.h"
+#import "AboutmeViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -76,7 +77,7 @@
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"]],
+    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"],@[@"关于我们_icon",@"关于我们"]],
   @[@[@"signout",@"退出登录"]]];
     
 //    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
@@ -267,7 +268,7 @@
 //    _tableView.backgroundColor=[UIColor colorWithHexString:@"#F9F8F8"];
     [self.view addSubview:_tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, kTabbarHeight, 0));
+        make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
 }
 
@@ -532,6 +533,12 @@
         else if (indexPath.row == 5)
         {
             ManualViewController *vc=[[ManualViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else if (indexPath.row == 6)
+        {
+            AboutmeViewController *vc=[[AboutmeViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

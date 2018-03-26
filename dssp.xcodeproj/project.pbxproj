@@ -157,6 +157,7 @@
 		4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
 		454858102005EA6500170D85 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		454858122005EE6D00170D85 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
+		454A23EF2068A1C100CA3ED0 /* AboutmeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A23EE2068A1C100CA3ED0 /* AboutmeViewController.m */; };
 		454B78BE2061F05100FABD60 /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
 		454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
 		454B78C22062018700FABD60 /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C12062018700FABD60 /* AgreementViewController.m */; };
@@ -514,6 +515,8 @@
 		4548580D2005B53200170D85 /* PrivacypolicyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacypolicyController.m; sourceTree = "<group>"; };
 		4548580F2005EA6500170D85 /* application.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
 		454858112005EE6C00170D85 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		454A23ED2068A1C100CA3ED0 /* AboutmeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutmeViewController.h; sourceTree = "<group>"; };
+		454A23EE2068A1C100CA3ED0 /* AboutmeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutmeViewController.m; sourceTree = "<group>"; };
 		454B78BA2061F05100FABD60 /* DKSKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSKeyboardView.h; sourceTree = "<group>"; };
 		454B78BB2061F05100FABD60 /* DKSKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSKeyboardView.m; sourceTree = "<group>"; };
 		454B78BC2061F05100FABD60 /* DKSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSTextView.h; sourceTree = "<group>"; };
@@ -1252,6 +1255,8 @@
 				455F36911FF4CCF400D09A63 /* QueryViewController.m */,
 				454B78C3206272C000FABD60 /* ManualViewController.h */,
 				454B78C4206272C000FABD60 /* ManualViewController.m */,
+				454A23ED2068A1C100CA3ED0 /* AboutmeViewController.h */,
+				454A23EE2068A1C100CA3ED0 /* AboutmeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1877,6 +1882,7 @@
 				45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */,
 				454CE6E2204698E6003221F3 /* GFAddressPicker.m in Sources */,
 				310FC5651FFF489A00F18312 /* CarAnnotation.m in Sources */,
+				454A23EF2068A1C100CA3ED0 /* AboutmeViewController.m in Sources */,
 				31F235DA204177C4002807D2 /* CommodityDescriptionTitleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
