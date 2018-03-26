@@ -83,11 +83,14 @@
 //    self.cid = notification.userInfo[@"cid"];
 //}
 
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    self.navigationController.navigationBarHidden = YES;
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSDictionary *user = CONF_GET(@"user");
+    _userNameField.text =[user objectForKey:@"userName"];
+    _passWordField.text = [user objectForKey:@"passWord"];
+  
+}
 
 - (void)setupUI {
     
@@ -205,9 +208,9 @@
     }];
     
     
-     NSDictionary *user = CONF_GET(@"user");
-    _userNameField.text =[user objectForKey:@"userName"];
-    _passWordField.text = [user objectForKey:@"passWord"];
+//     NSDictionary *user = CONF_GET(@"user");
+//    _userNameField.text =[user objectForKey:@"userName"];
+//    _passWordField.text = [user objectForKey:@"passWord"];
 //     _passWordField.text = @"lu123456";
 //    _passWordField.text = @"1234567q";
 
@@ -618,6 +621,12 @@
                                 
                             }
                             
+                    
+                            //缓存
+                            NSMutableDictionary *result = [NSMutableDictionary new];
+                            [result setObject:@"" forKey:@"userName"];
+                            [result setObject:@"" forKey:@"passWord"];
+                            CONF_SET(@"user",result);
                             
                             [hud hideAnimated:YES];
                             TabBarController *tabVC = [[TabBarController alloc] init];

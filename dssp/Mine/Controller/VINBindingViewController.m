@@ -193,7 +193,7 @@
                         }
                         else
                         {
-                             [hud hideAnimated:YES];
+                          
                             ///非T跳车辆绑定填写页面
                             CarBindingViewController *vc = [[CarBindingViewController alloc] init];
                             vc.bingVin = _vinField.text;

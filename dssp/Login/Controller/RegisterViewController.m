@@ -573,6 +573,13 @@
     
     __block NSInteger time = 3;
     
+    //缓存
+    NSMutableDictionary *result = [NSMutableDictionary new];
+    [result setObject:@"" forKey:@"userName"];
+    [result setObject:@"" forKey:@"passWord"];
+    CONF_SET(@"user",result);
+    
+    
     UIImageView *container = [[UIImageView alloc] init];
     container.image = [UIImage imageNamed:@"launch"];
     [self.view addSubview:container];

@@ -202,6 +202,12 @@
                 if ([dic[@"code"] isEqualToString:@"200"]) {
                     
                     [hud hideAnimated:YES];
+                    //改
+                    NSMutableDictionary *result = [NSMutableDictionary new];
+                    [result setObject:@"" forKey:@"userName"];
+                    [result setObject:@"" forKey:@"passWord"];
+                    CONF_SET(@"user",result);
+                
                     InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
                     [InputalertView initWithTitle:@"重置密码成功，是否重新登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
                     //            InputalertView.delegate = self;
@@ -210,12 +216,17 @@
                     
                     InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
-                          
+                           
                         [self.navigationController popToRootViewControllerAnimated:YES];
                           
                         }
                         if(btn.tag ==101)
                         {
+                            //改
+                            NSMutableDictionary *result = [NSMutableDictionary new];
+                            [result setObject:@"" forKey:@"userName"];
+                            [result setObject:@"" forKey:@"passWord"];
+                            CONF_SET(@"user",result);
                             //右边按钮
                             NSLog(@"666%@",str);
  

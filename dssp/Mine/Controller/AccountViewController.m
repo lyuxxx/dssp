@@ -318,6 +318,12 @@
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                     [hud hideAnimated:YES];
                     
+                    //改
+                    NSMutableDictionary *result = [NSMutableDictionary new];
+                    [result setObject:@"" forKey:@"userName"];
+                    [result setObject:@"" forKey:@"passWord"];
+                    CONF_SET(@"user",result);
+                    
                     InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
                     [InputalertView initWithTitle:@"密码修改成功,是否退出重新登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
                     //            InputalertView.delegate = self;
