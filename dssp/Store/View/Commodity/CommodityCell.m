@@ -123,7 +123,7 @@
     } else {
         _promotion.hidden = NO;
     }
-    [self.imgV downloadImage:commodity.picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.imgV downloadImage:commodity.thumbnail placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
         _imgV.image = [UIImage imageNamed:@"加载失败小"];
