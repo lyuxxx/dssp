@@ -101,6 +101,7 @@
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.layer.cornerRadius = 2;
+    nextBtn.needNoRepeat = YES;
     [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];

@@ -118,6 +118,7 @@
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     nextBtn.layer.cornerRadius = 2;
+    nextBtn.needNoRepeat = YES;
     [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
@@ -149,6 +150,7 @@
                                         @"vin": _vinField.text,
                                         @"doptCode":_enginenNumber.text
                                         };
+                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
                 [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
@@ -159,6 +161,7 @@
 //                    }
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                          [hud hideAnimated:YES];
                         if (_carbind.isExist) {
                             
                             if([_carbind.vhlTStatus isEqualToString:@"1"])
@@ -177,6 +180,7 @@
                             }
                             else
                             {
+                                
                                 ///非T跳车辆绑定填写页面
                                 CarBindingViewController *vc = [[CarBindingViewController alloc] init];
                                 vc.bingVin = _vinField.text;
@@ -189,6 +193,7 @@
                         }
                         else
                         {
+                             [hud hideAnimated:YES];
                             ///非T跳车辆绑定填写页面
                             CarBindingViewController *vc = [[CarBindingViewController alloc] init];
                             vc.bingVin = _vinField.text;
@@ -198,9 +203,11 @@
                         }
         
                     } else {
+                          [hud hideAnimated:YES];
                         [MBProgressHUD showText:[dic objectForKey:@"msg"]];
                     }
                 } failure:^(NSInteger code) {
+                      [hud hideAnimated:YES];
                     [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
                 }];
         

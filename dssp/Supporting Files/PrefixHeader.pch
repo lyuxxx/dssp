@@ -87,6 +87,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 #define WXAppId @"wx0b2741cdbf3f22f2"
 #define AmapKey @"e3aed20c93efeea15495d8bf27a87fac"
+//正式坏境预约保养电话
+#define Phone @"400-650-5556"
 
 #define kVin [[NSUserDefaults standardUserDefaults] objectForKey:@"vin"]
 #define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
