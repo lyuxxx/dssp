@@ -317,9 +317,9 @@ static NSString *const cellID = @"cell";
     NSString *mileageBeforeMaintenance = [[NSString stringWithFormat:@"%@",_trafficReporData.mileageBeforeMaintenance] stringByAppendingString:@"km"];
 //    NSString *levelFuel = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
     
-    [_DataArray addObject:_trafficReporData.totalMileage?totalMileage:@"0km"];
-    [_DataArray addObject:_trafficReporData.mileageBeforeMaintenance?mileageBeforeMaintenance:@"0km"];
-    [_DataArray addObject:_trafficReporData.levelFuel?_trafficReporData.levelFuel:@"0"];
+    [_DataArray addObject:_trafficReporData.totalMileage?totalMileage:@"-"];
+    [_DataArray addObject:_trafficReporData.mileageBeforeMaintenance?mileageBeforeMaintenance:@"-"];
+    [_DataArray addObject:_trafficReporData.levelFuel?_trafficReporData.levelFuel:@"12"];
     
     
      NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:titles.count];
@@ -399,21 +399,48 @@ static NSString *const cellID = @"cell";
         }
         else
         {
-            NSString *stringInt = _DataArray[2];
-            int ivalue = [stringInt intValue];
-            NSString *levelFuel = [[NSString stringWithFormat:@"%@",_DataArray[2]] stringByAppendingString:@"%"];
-            if (ivalue<10 || ivalue==10) {
+            
+            if(![self isBlankString:_trafficReporData.levelFuel])
+            {
                 
-              
-                bottomlabel.text=NSLocalizedString(levelFuel, nil);
-                bottomlabel.textColor = [UIColor redColor];
+                NSString *stringInt = _trafficReporData.levelFuel;
+                NSInteger ivalue = [stringInt integerValue];
+                NSString *levelFuel = [[NSString stringWithFormat:@"%@",_trafficReporData.levelFuel] stringByAppendingString:@"%"];
+                if (ivalue<10 || ivalue==10) {
+                    
+                    bottomlabel.text=NSLocalizedString(levelFuel, nil);
+                    bottomlabel.textColor = [UIColor redColor];
+                }
+                else
+                {
+                    bottomlabel.text=NSLocalizedString(levelFuel, nil);
+                    bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+                    
+                }
             }
             else
             {
-                bottomlabel.text=NSLocalizedString(levelFuel, nil);
+                bottomlabel.text= @"-";
                 bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
                 
             }
+      
+            
+            
+//            NSString *stringInt = _DataArray[2];
+//            NSInteger ivalue = [stringInt intValue];
+//            NSString *levelFuel = [[NSString stringWithFormat:@"%@",_DataArray[2]] stringByAppendingString:@"%"];
+//            
+//            if (ivalue<10 || ivalue==10) {
+//                bottomlabel.text=NSLocalizedString(levelFuel, nil);
+//                bottomlabel.textColor = [UIColor redColor];
+//            }
+//            else
+//            {
+//                bottomlabel.text=NSLocalizedString(@"-", nil);
+//                bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+//                
+//            }
             
         }
        
@@ -430,6 +457,20 @@ static NSString *const cellID = @"cell";
 
      [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:161 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
     
+}
+
+-  (BOOL)isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
 }
 
 -(void)initTableView
@@ -498,7 +539,7 @@ static NSString *const cellID = @"cell";
         _bgImgV.image = [UIImage imageNamed:@"健康背景"];
 //        _bgImgV1.image = [UIImage imageNamed:@"健康车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
-        _titlelabel.text=NSLocalizedString(@"未知", nil);
+        _titlelabel.text=NSLocalizedString(@"-", nil);
     }
     
 }

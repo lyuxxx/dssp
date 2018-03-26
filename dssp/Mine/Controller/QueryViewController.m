@@ -257,13 +257,10 @@
             }];
     
     
-   
-    
-    
     NSArray *title = @[
                         NSLocalizedString(@"审核成功", nil),
-                        NSLocalizedString(@"审核失败", nil),
-                        NSLocalizedString(@"待审核/审核中", nil),
+                        NSLocalizedString(@"失败或执行中", nil),
+                        NSLocalizedString(@"未执行", nil),
                       
                         ];
     
@@ -317,7 +314,7 @@
         lab1.textAlignment = NSTextAlignmentLeft;
         //        lab1.textColor = [UIColor colorWithHexString:@"#666666"];
         lab1.font = [UIFont fontWithName:FontName size:13];
-        lab1.text = titles[i];
+        lab1.text = title[i];
         [view1 addSubview:lab1];
         [lab1 makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(150 * WidthCoefficient);
