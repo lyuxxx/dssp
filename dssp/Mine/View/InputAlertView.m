@@ -194,7 +194,7 @@
 - (void)creatViewInAlert
 {
     UIImageView *locationImg = [[UIImageView alloc] init];
-//    locationImg.contentMode = UIViewContentModeScaleAspectFit;
+    locationImg.contentMode = UIViewContentModeScaleAspectFit;
     locationImg.image = [UIImage imageNamed:_imgStr];
     [self.alertview  addSubview:locationImg];
     [locationImg makeConstraints:^(MASConstraintMaker *make) {

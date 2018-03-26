@@ -469,6 +469,9 @@
 //          cell.whiteView.hidden=YES;
         }
         if (indexPath.row==5) {
+//            cell.whiteView.hidden=YES;
+        }
+        if (indexPath.row==6) {
             cell.whiteView.hidden=YES;
         }
     }
