@@ -46,6 +46,7 @@
 @property (nonatomic, strong) NSDate *createTime;
 @property (nonatomic, strong) NSDate *updateTime;
 @property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *thumbnail;
 @property (nonatomic, strong) NSArray<NSString *> *picImages;
 @end
 

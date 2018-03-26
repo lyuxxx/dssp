@@ -47,6 +47,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
         }];
         
         UILabel *label1 = [[UILabel alloc] init];
+        label1.text = @"-";
         label1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         label1.textAlignment = NSTextAlignmentCenter;
         label1.textColor = [UIColor whiteColor];
@@ -92,11 +93,11 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     }
     else
     {
-        _healthLabel.text = @"未知";
+        _healthLabel.text = @"-";
         
     }
     if ([self isBlankString:trafficReporData.totalMileage]) {
-        _mileageLabel.text = @"0km";
+        _mileageLabel.text = @"-";
     } else {
         _mileageLabel.text = trafficReporData.totalMileage;
     }
@@ -121,7 +122,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     }
     else
     {
-        _oilLeftLabel.text= @"0%";
+        _oilLeftLabel.text= @"-";
         _oilLeftLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
         
     }

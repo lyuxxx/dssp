@@ -262,13 +262,13 @@ static dispatch_once_t mapHomeOnceToken;
                                @"park",
                                @"oil",
                                @"food",
-                               @"life"
+                               @"scenic"
                                ];
         NSArray *titles = @[
                             NSLocalizedString(@"停车", nil),
                             NSLocalizedString(@"加油", nil),
                             NSLocalizedString(@"餐饮", nil),
-                            NSLocalizedString(@"生活", nil)
+                            NSLocalizedString(@"景点", nil)
                             ];
         
         NSMutableArray<LeftImgButton *> *btns = [NSMutableArray arrayWithCapacity:imgTitles.count];
