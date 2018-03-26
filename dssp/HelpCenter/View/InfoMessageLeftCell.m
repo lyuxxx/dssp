@@ -74,7 +74,7 @@
         self.ID = @"";
         
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
-        dataArray1 = message.choices;
+        dataArray1 = [NSMutableArray arrayWithArray:message.choices];
 //        [dataArray1 addObject:@"确定"];
 //        [dataArray1 addObject:@"关闭"];
         _timeLabel.text = [self stringFromDate:message.time];
@@ -94,10 +94,7 @@
         [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(size.height);
         }];
-        
-        [self layoutIfNeeded];
-        
-        NSLog(@"%@665556",_contentLabel.text);
+
         if (dataArray1.count > 2) {//显示线
             [_line updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(1 * WidthCoefficient);
@@ -140,13 +137,7 @@
                 } else {
                     make.left.equalTo(lastView.right);
                 }
-                if (i == page - 1) {//最后一页
-                    NSInteger pageRows = ceil(pageArr.count / 2.0f);
-                    CGFloat pageHeight = pageRows * 31.5 * WidthCoefficient + (pageRows + 1) * 10 * WidthCoefficient;
-                    make.height.equalTo(pageHeight);
-                } else {
-                    make.height.equalTo(_scroll);
-                }
+                make.height.equalTo(_scrollContentView);
             }];
             lastView = v;
             
@@ -292,6 +283,7 @@
     }];
     
     self.scroll = [[UIScrollView alloc] init];
+    _scroll.scrollEnabled = NO;
     _scroll.delegate = self;
     _scroll.pagingEnabled = YES;
     _scroll.showsHorizontalScrollIndicator = NO;

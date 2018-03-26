@@ -95,7 +95,11 @@
                 self.currentPage++;
             }
         } else {
+            _tableView.emptyDataSetSource = self;
+            _tableView.emptyDataSetDelegate = self;
+            
            [self.tableView.mj_header endRefreshing];
+            [self.tableView reloadData];
         }
     } failure:^(NSInteger code) {
         
@@ -103,6 +107,7 @@
         _tableView.emptyDataSetDelegate = self;
         
         [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
     }];
 }
 

@@ -56,8 +56,8 @@ __strong __typeof(&*weakSelf)self = weakSelf;
 #define kSensorHeight (Is_Iphone_X ? 32 : 0)
 #define kTabbarHeight (Is_Iphone_X ? 83 : 49)
 #define kBottomHeight (Is_Iphone_X ? 34 : 0)
-#define WidthCoefficient ([NSString stringWithFormat:@"%.4f",(kScreenWidth / 375.0f)].floatValue)
-#define HeightCoefficient ([NSString stringWithFormat:@"%.4f",(kScreenHeight / 667.0f)].floatValue)
+#define WidthCoefficient ([NSString stringWithFormat:@"%.2f",(kScreenWidth / 375.0f)].floatValue)
+#define HeightCoefficient ([NSString stringWithFormat:@"%.2f",(kScreenHeight / 667.0f)].floatValue)
 
 #define FontName @"PingFangSC-Regular"
 #define GeneralColorString @"#a18e79"

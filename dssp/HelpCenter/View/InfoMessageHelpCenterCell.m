@@ -83,23 +83,20 @@
     CONF_SET(@"appServiceNum",self.result2);
     
     NSString *Idstr = [_result objectForKey:message.serviceName];
-    NSLog(@"555%@",Idstr);
     
     if (message.type == InfoMessageTypeMe) {
         return;
     }
     else if (message.type == InfoMessageTypeOther)
     {
+        _scroll.scrollEnabled = NO;
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
         [dataArray1 addObject:@"是"];
         [dataArray1 addObject:@"否"];
         
-        NSLog(@"ffff%ld",array.count);
-        
-      if (array.count == 0) {
-          
+        if (array.count == 0) {
             self.ID = message.serviceParentId;
-         NSLog(@"54455%@", self.ID);
+            
             _timeLabel.text = [self stringFromDate:message.time];
             [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
                 if (message.showTime) {
@@ -108,36 +105,26 @@
                     make.height.equalTo(0 * WidthCoefficient);
                 }
             }];
-          
-
-//            NSString *string = [NSString stringWithFormat:@"%@ 该服务对您是否有帮助?", message.serviceDetails];
+            
+            
+            //            NSString *string = [NSString stringWithFormat:@"%@ 该服务对您是否有帮助?", message.serviceDetails];
             _contentLabel.text = message.serviceDetails;
             CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
             //_contentLabel.backgroundColor =[UIColor redColor];
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
             }];
-          
-          _contentLabel1.text = @"该提示对您是否有帮助?";
-          CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-          //_contentLabel.backgroundColor =[UIColor redColor];
-          [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
-              make.height.equalTo(size1.height);
-          }];
-
-          [self layoutIfNeeded];
-          
             
-            NSLog(@"%@665556",_contentLabel.text);
-            if (dataArray1.count > 2) {//显示线
-                [_line updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(1 * WidthCoefficient);
-                }];
-            } else {//不显示线
-                [_line updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(0);
-                }];
-            }
+            _contentLabel1.text = @"该提示对您是否有帮助?";
+            CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+            [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(size1.height);
+            }];
+            
+            //不显示线
+            [_line updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(0);
+            }];
             
             NSInteger row = 0;
             row = ceil(dataArray1.count / 2.0f);
@@ -171,18 +158,18 @@
                     } else {
                         make.left.equalTo(lastView.right);
                     }
-                    if (i == page - 1) {//最后一页
-                        NSInteger pageRows = ceil(pageArr.count / 2.0f);
-                        CGFloat pageHeight = pageRows * 31.5 * WidthCoefficient + (pageRows + 1) * 10 * WidthCoefficient;
-                        make.height.equalTo(pageHeight);
-                    } else {
+//                    if (i == page - 1) {//最后一页
+//                        NSInteger pageRows = ceil(pageArr.count / 2.0f);
+//                        CGFloat pageHeight = pageRows * 31.5 * WidthCoefficient + (pageRows + 1) * 10 * WidthCoefficient;
+//                        make.height.equalTo(pageHeight);
+//                    } else {
                         make.height.equalTo(_scroll);
-                    }
+//                    }
                 }];
                 lastView = v;
                 
                 
-    
+                
                 ///添加button
                 NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
                 for (NSInteger j = 0; j < pageArr.count; j++) {
@@ -211,54 +198,30 @@
                     [v addSubview:btn];
                     [btns addObject:btn];
                 }
-                
-                [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:20 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];    
+                [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
             }
             [lastView makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(_scrollContentView.right);
             }];
             
-            if (page > 1) {
-                
-                [_bubble updateConstraints:^(MASConstraintMaker *make) {
-                    make.bottom.equalTo(_scroll).offset(15 * WidthCoefficient);
-                }];
-                
-            } else {
-                
-                [_bubble updateConstraints:^(MASConstraintMaker *make) {
-                    make.bottom.equalTo(_scroll).offset(15 * WidthCoefficient);
-                }];
-            }
+            
+            [_bubble updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
+            }];
             
             [self layoutIfNeeded];
             
-            if (page > 1) {
-                
-                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 5 * WidthCoefficient);
-            } else {
-                
-                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
-            }
+            _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
             _pageControl.currentColor = [UIColor colorWithHexString:GeneralColorString];
             _pageControl.otherColor = [UIColor colorWithHexString:@"#e6e6e6"];
-            if (page==1) {
-                
-            }
-            else
-            {
-              _pageControl.numberOfPages = page;
-            }
-           
-            _pageControl.controlSize = 6;
-            _pageControl.controlSpacing = 6;
+            
             
             self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
         }
-
+        
         else
         {
-            
+            _scroll.scrollEnabled = YES;
             _timeLabel.text = [self stringFromDate:message.time];
             [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
                 if (message.showTime) {
@@ -270,13 +233,15 @@
             
             
             _contentLabel.text = message.serviceName;
-            NSLog(@"%@666",_contentLabel.text);
             CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
             }];
             
             _contentLabel1.text = @"";
+            [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(0);
+            }];
             
             if (dataArray.count > 2) {//显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
@@ -338,6 +303,7 @@
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     btn.titleLabel.numberOfLines = 0;
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    btn.needNoRepeat = YES;
                     [btn setTitle:pageArr[j] forState:UIControlStateNormal];
                     [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
@@ -351,7 +317,7 @@
                     
                     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                     btn.titleLabel.numberOfLines = 0;
+                    btn.titleLabel.numberOfLines = 0;
                     [btn setTitle:pageArr[0] forState:UIControlStateNormal];
                     [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                     btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
@@ -420,7 +386,6 @@
 
 - (void)setupUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
     self.contentView.backgroundColor = [UIColor clearColor];
     
     self.timeLabel = [[UILabel alloc] init];
@@ -471,26 +436,25 @@
     self.contentLabel1 = [[UILabel alloc] init];
     _contentLabel1.preferredMaxLayoutWidth = 220 * WidthCoefficient;
     _contentLabel1.numberOfLines = 0;
-//    _contentLabel1.lineBreakMode = NSLineBreakByWordWrapping;
+    _contentLabel1.lineBreakMode = NSLineBreakByWordWrapping;
     _contentLabel1.font = [UIFont fontWithName:FontName size:15];
     _contentLabel1.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.contentView addSubview:_contentLabel1];
     [_contentLabel1 makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_contentLabel).offset(0 * WidthCoefficient);
-        make.top.equalTo(_contentLabel.bottom).offset(0 * WidthCoefficient);
-        make.width.equalTo(220 * WidthCoefficient);
-        make.height.equalTo(67 * WidthCoefficient);
+        make.left.equalTo(_contentLabel);
+        make.top.equalTo(_contentLabel.bottom);
+        make.width.equalTo(_contentLabel);
+        make.height.equalTo(0);
     }];
-    
     
     self.line = [[UIView alloc] init];
     _line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dashLine"]];
     [self.contentView addSubview:_line];
     [_line makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_contentLabel);
-        make.width.equalTo(_contentLabel).offset(10 * WidthCoefficient);
+        make.centerX.equalTo(_contentLabel1);
+        make.width.equalTo(_contentLabel1).offset(10 * WidthCoefficient);
         make.height.equalTo(1 * WidthCoefficient);
-        make.top.equalTo(_contentLabel.bottom).offset(10 * WidthCoefficient);
+        make.top.equalTo(_contentLabel1.bottom).offset(10 * WidthCoefficient);
     }];
     
     self.scroll = [[UIScrollView alloc] init];
@@ -500,8 +464,8 @@
     [self.contentView addSubview:_scroll];
     [_scroll makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_line.bottom);
-        make.centerX.equalTo(_contentLabel);
-        make.width.equalTo(_contentLabel).offset(10 * WidthCoefficient);
+        make.centerX.equalTo(_contentLabel1);
+        make.width.equalTo(_contentLabel1).offset(10 * WidthCoefficient);
         make.height.equalTo(176 * WidthCoefficient);
     }];
     
