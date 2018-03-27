@@ -118,7 +118,7 @@
         [RealNamelab makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.height.equalTo(18 * HeightCoefficient);
-            make.width.equalTo(90 * WidthCoefficient);
+            make.width.equalTo(190 * WidthCoefficient);
             make.right.equalTo(_arrowImg.left).offset(-10.5*WidthCoefficient);
         }];
         RealNamelab;

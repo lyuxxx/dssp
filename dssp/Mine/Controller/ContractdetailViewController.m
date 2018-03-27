@@ -41,7 +41,6 @@
 
 -(void)requestData
 {
-    
     NSDictionary *paras = @{
 //                            @"contractCode": _contractCode?_contractCode:@"VF7CAPSA000000002"
                             };
@@ -52,13 +51,10 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
-    
             _contractData = [ContractData yy_modelWithDictionary:dic[@"data"]];
             _dataArray =_contractData.serviceItemProfiles;
             [_tableView reloadData];
             [self setupUI];
-        
-
             //响应事件
         } else {
             [hud hideAnimated:YES];

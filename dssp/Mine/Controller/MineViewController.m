@@ -95,6 +95,7 @@
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"MineViewController"];
     [self.mgr startUpdatingLocation];
     [self pullData];
+    [self.tableView reloadData];
      [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
     
      [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
@@ -133,6 +134,8 @@
             [_namelabel updateConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(nameW+1);
             }];
+            
+            [self.tableView reloadData];
         } else {
             
             [MBProgressHUD showText:dic[@"msg"]];

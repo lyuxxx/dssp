@@ -82,6 +82,8 @@
     _phoneField.backgroundColor =  [UIColor colorWithHexString:@"#120F0E"];
     _phoneField.font = [UIFont fontWithName:FontName size:15];
     _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"昵称", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:GeneralColorString]}];
+    
+    [_phoneField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:_phoneField];
     [_phoneField makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(20* HeightCoefficient );
@@ -94,7 +96,15 @@
 
 -(void)BtnClick
 {
-        NSDictionary *paras = @{
+    
+    if (_phoneField.text.length==0) {
+         [MBProgressHUD showText:@"昵称不能为空"];
+    }
+   
+    else
+    {
+    
+    NSDictionary *paras = @{
                                @"nickName":_phoneField.text
                                 };
         [CUHTTPRequest POST:updateNickNameByUserName parameters:paras success:^(id responseData) {
@@ -120,6 +130,76 @@
             
             [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
         }];
+    }
+}
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    
+    //最大长度
+    NSInteger kMaxLength = 10;
+    
+    if (textField == self.phoneField) {
+        kMaxLength = 10;
+    }else{
+        kMaxLength = 11;
+    }
+    
+    
+    NSString *toBeString = textField.text;
+    
+    NSString *lang = [[UIApplication sharedApplication]textInputMode].primaryLanguage; //ios7之前使用[UITextInputMode currentInputMode].primaryLanguage
+    
+    if ([lang isEqualToString:@"zh-Hans"]) { //中文输入
+        
+        UITextRange *selectedRange = [textField markedTextRange];
+        
+        //获取高亮部分
+        
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        
+        if (!position) {// 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+            
+            if (toBeString.length > kMaxLength) {
+                
+                textField.text = [toBeString substringToIndex:kMaxLength];
+                [textField resignFirstResponder];
+                
+            }
+            
+        }
+        
+        else{//有高亮选择的字符串，则暂不对文字进行统计和限制
+            
+        }
+        
+    }else{//中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        
+        if (toBeString.length > kMaxLength) {
+            
+            textField.text = [toBeString substringToIndex:kMaxLength];
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+//    if (textField == self.phoneField) {
+//        if (_phoneField.text.length > 10) {
+//        UITextRange *markedRange = [textField markedTextRange];
+//        if (markedRange) {
+//                　　 return;
+//                　　　 }
+//            //Emoji占2个字符，如果是超出了半个Emoji，用15位置来截取会出现Emoji截为2半
+//            //超出最大长度的那个字符序列(Emoji算一个字符序列)的range
+//            NSRange range = [textField.text rangeOfComposedCharacterSequenceAtIndex:15];
+//            textField.text = [textField.text substringToIndex:range.location];
+//        }
+//    }
 }
 
 

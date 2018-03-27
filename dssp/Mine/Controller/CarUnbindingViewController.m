@@ -511,7 +511,7 @@
                         //响应事件
 
                         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                        [InputalertView initWithTitle:@"车辆解绑成功,返回个人中心" img:@"解绑汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                        [InputalertView initWithTitle:@"车辆解绑成功,返回个人中心" img:@"解绑汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
                         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                         [keywindow addSubview: InputalertView];
 
