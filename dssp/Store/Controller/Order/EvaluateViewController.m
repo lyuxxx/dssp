@@ -66,7 +66,7 @@
     
     self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10 * WidthCoefficient, 86 * WidthCoefficient, 40 * WidthCoefficient, 40 * WidthCoefficient)];
     [top addSubview:_imgV];
-    [_imgV downloadImage:self.order.items[0].picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [_imgV downloadImage:self.order.items[0].thumbnail?self.order.items[0].thumbnail:self.order.items[0].picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
         _imgV.image = [UIImage imageNamed:@"加载失败小"];
