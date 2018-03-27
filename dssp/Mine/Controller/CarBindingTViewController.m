@@ -298,14 +298,25 @@
 {
     
     if (_carbind.isExist) {
-        _vhlTStatustr =@"1";
-        _isExiststr = @"true";
+        if([_carbind.vhlTStatus isEqualToString:@"1"])
+        {
+//            T车
+//            _vhlTStatustr =@"1";
+            _isExiststr = @"true";
+        }
+        else
+        {
+//            _vhlTStatustr =@"0";
+            _isExiststr = @"false";
+        }
     }
     else
     {
-        _vhlTStatustr =@"0";
+//        _vhlTStatustr =@"0";
         _isExiststr = @"false";
+        
     }
+    
     NSDictionary *paras = @{
                             @"vin": _carbind.vin,
                             @"doptCode":_carbind.doptCode,
@@ -317,7 +328,7 @@
                             @"vhlTypeName": _carbind.vhlTypeName,
                             @"vhlColorName": _carbind.vhlColorName,
                             @"vhlColorId":@"",
-                            @"isExist":_isExiststr,
+                            @"isExist":@"true",
                             @"userName": _carbind.userName,
                             @"sex": _carbind.sex,
                             @"mobilePhone": _carbind.mobilePhone,

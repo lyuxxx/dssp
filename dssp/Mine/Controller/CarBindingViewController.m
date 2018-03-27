@@ -84,7 +84,6 @@
 
 -(void)requestData
 {
-
     //颜色
     NSDictionary *paras = @{
                             
@@ -746,16 +745,35 @@
     
 //      rnrInfo.gender = [_mfid objectAtIndex:[self.genders indexOfObject:self.genderField.text]];
 
-    
     if (_carbind.isExist) {
-        _vhlTStatustr =@"1";
-        _isExiststr = @"true";
+        if([_carbind.vhlTStatus isEqualToString:@"1"])
+        {
+            _vhlTStatustr =@"1";
+            _isExiststr = @"true";
+        }
+        else
+        {
+            _vhlTStatustr =@"0";
+            _isExiststr = @"false";
+        }
     }
     else
     {
         _vhlTStatustr =@"0";
         _isExiststr = @"false";
+        
     }
+    
+    
+//    if (_carbind.isExist) {
+//        _vhlTStatustr =@"1";
+//        _isExiststr = @"true";
+//    }
+//    else
+//    {
+//        _vhlTStatustr =@"0";
+//        _isExiststr = @"false";
+//    }
     
     NSDictionary *paras = @{
                             @"vin": _bingVin,
@@ -769,11 +787,11 @@
 
                             @"vhlColorName": _vhlColorName.text,
                             @"vhlColorId":self.bindingInput.colorId ,
-                            @"isExist": _isExiststr,
+                            @"isExist": @"false",
                             @"userName": _userName.text,
                             @"sex": self.bindingInput.sex,
                             @"mobilePhone": _mobilePhone.text,
-                            @"vhlTStatus":_vhlTStatustr
+                            @"vhlTStatus":@"0"
                            
                             };
     [CUHTTPRequest POST:bindVhlWithUser parameters:paras success:^(id responseData) {
