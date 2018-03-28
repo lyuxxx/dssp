@@ -154,11 +154,7 @@
                 [CUHTTPRequest POST:checkBindByVin parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     _carbind = [CarbindModel yy_modelWithDictionary:dic[@"data"]];
-//                    _carbind.doptCode =!_enginenNumber.text;
-//                    if (![_carbind.doptCode isEqualToString:_enginenNumber.text]) {
-//                        [MBProgressHUD showText:@"发动机号有误"];
-//                        return ;
-//                    }
+
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                           [hud hideAnimated:YES];
@@ -174,9 +170,7 @@
                                     CarBindingTViewController *vc = [[CarBindingTViewController alloc] init];
                                     vc.carbind = _carbind;
                                     [self.navigationController pushViewController:vc animated:YES];
-                                    
                                 }
-                                
                             }
                             else
                             {

@@ -296,27 +296,25 @@
 
 -(void)confirmBtnClick:(UIButton *)btn
 {
-    
     if (_carbind.isExist) {
         if([_carbind.vhlTStatus isEqualToString:@"1"])
         {
 //            T车
-//            _vhlTStatustr =@"1";
+            _vhlTStatustr = @"1";
             _isExiststr = @"true";
         }
         else
         {
-//            _vhlTStatustr =@"0";
+            _vhlTStatustr = @"0";
             _isExiststr = @"false";
         }
     }
     else
     {
-//        _vhlTStatustr =@"0";
+        _vhlTStatustr = @"0";
         _isExiststr = @"false";
         
     }
-    
     NSDictionary *paras = @{
                             @"vin": _carbind.vin,
                             @"doptCode":_carbind.doptCode,
@@ -328,11 +326,11 @@
                             @"vhlTypeName": _carbind.vhlTypeName,
                             @"vhlColorName": _carbind.vhlColorName,
                             @"vhlColorId":@"",
-                            @"isExist":@"true",
+                            @"isExist":_isExiststr,
                             @"userName": _carbind.userName,
                             @"sex": _carbind.sex,
                             @"mobilePhone": _carbind.mobilePhone,
-                            @"vhlTStatus":_carbind.vhlTStatus
+                            @"vhlTStatus":_vhlTStatustr
                             
                             };
     [CUHTTPRequest POST:bindVhlWithUser parameters:paras success:^(id responseData) {
@@ -345,10 +343,16 @@
             NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
             NSString *isPush = [defaults objectForKey:@"isPush"];
             
+//            缓存vin
             NSString *vin = _carbind.vin;
             NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
             [defaults1 setObject:vin forKey:@"vin"];
             [defaults1 synchronize];
+            
+//            缓存T状态
+            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+            [defaults2 setObject:_vhlTStatustr forKey:@"vhlTStatus"];
+            [defaults2 synchronize];
             
             if (isPush) {
                 
@@ -359,6 +363,13 @@
                 
                 InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
                     if (btn.tag == 100) {//左边按钮
+                        
+                        
+                        NSString *vin = _carbind.vin;
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:vin forKey:@"vin"];
+                        [defaults1 synchronize];
+                        
                         
                         RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
                         vc.vin=_carbind.vin;

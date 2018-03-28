@@ -150,7 +150,7 @@
                 make.width.equalTo(80 * WidthCoefficient);
                 make.height.equalTo(22.5 * HeightCoefficient);
                 make.centerY.equalTo(0);
-                make.left.equalTo(lab1.right).offset(0*WidthCoefficient);
+            make.left.equalTo(lab1.right).offset(0*WidthCoefficient);
                 
             }];
             
@@ -221,7 +221,6 @@
             
            if ([_queryModel.certificationStatus isEqualToString:@"2"]&&[_queryModel.vhlActivate isEqualToString:@"1"]&&[_queryModel.serviceStatus isEqualToString:@"1"])
             {
-                
                 
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                  logo.image = [UIImage imageNamed:@"认证成功_icon"];

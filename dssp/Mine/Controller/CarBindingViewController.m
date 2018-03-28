@@ -787,11 +787,11 @@
 
                             @"vhlColorName": _vhlColorName.text,
                             @"vhlColorId":self.bindingInput.colorId ,
-                            @"isExist": @"false",
+                            @"isExist": _isExiststr,
                             @"userName": _userName.text,
                             @"sex": self.bindingInput.sex,
                             @"mobilePhone": _mobilePhone.text,
-                            @"vhlTStatus":@"0"
+                            @"vhlTStatus":_vhlTStatustr
                            
                             };
     [CUHTTPRequest POST:bindVhlWithUser parameters:paras success:^(id responseData) {
@@ -809,6 +809,9 @@
             [defaults1 setObject:vin forKey:@"vin"];
             [defaults1 synchronize];
             
+            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+            [defaults2 setObject:_vhlTStatustr forKey:@"vhlTStatus"];
+            [defaults2 synchronize];
           
             if (isPush) {
                 
@@ -819,6 +822,12 @@
                 
                 InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
                     if (btn.tag == 100) {//左边按钮
+                        
+                        NSString *vin = _bingVin;
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:vin forKey:@"vin"];
+                        [defaults1 synchronize];
+                        
                         
                     [self.navigationController popToRootViewControllerAnimated:YES];
 //                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
