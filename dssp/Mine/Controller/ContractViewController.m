@@ -47,9 +47,9 @@
     
     [self.tableView.mj_footer beginRefreshing];
     // 下拉加载最新数据
-    [self pullDownToRefreshLatestNews];
+//    [self pullDownToRefreshLatestNews];
     // 上拉加载更多数据
-    [self pullUpToLoadMoreNews];
+//    [self pullUpToLoadMoreNews];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,23 +68,38 @@
 /**
  *  下拉加载最新数据
  */
-- (void)pullDownToRefreshLatestNews {
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
-    // 设置header
-    [_tableView.mj_header beginRefreshing];
-}
+//- (void)pullDownToRefreshLatestNews {
+//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+//    // 设置header
+//    [_tableView.mj_header beginRefreshing];
+//}
+
+//- (void)pullDownToRefreshLatestNews {
+//    //    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
+//    //    // 设置header
+//    ////    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
+//    //    [_tableView.mj_header beginRefreshing];
+//
+//    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+//    self.tableView.mj_header = header;
+    // 隐藏时间
+    //      header.lastUpdatedTimeLabel.hidden = YES;
+    //      // 隐藏状态
+    //      header.stateLabel.hidden = YES;
+    
+//}
 
 /**
  *  上拉加载更多数据
  */
-- (void)pullUpToLoadMoreNews {
-    __weak __typeof(self) weakSelf = self;
-    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-
-    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf requestMoreNews];
-    }];
-}
+//- (void)pullUpToLoadMoreNews {
+//    __weak __typeof(self) weakSelf = self;
+//    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+//
+//    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        [weakSelf requestMoreNews];
+//    }];
+//}
 
 
 
@@ -125,23 +140,23 @@
           
             [_tableView reloadData];
             // 结束刷新状态
-            [_tableView.mj_header endRefreshing];
+//            [_tableView.mj_header endRefreshing];
            
         } else {
             _tableView.emptyDataSetSource = self;
             _tableView.emptyDataSetDelegate = self;
-            [self.tableView.mj_header endRefreshing];
+//            [self.tableView.mj_header endRefreshing];
             [_tableView reloadData];
-            self.tableView.mj_footer.hidden =YES;
+//            self.tableView.mj_footer.hidden =YES;
           
 //            [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
         _tableView.emptyDataSetSource = self;
         _tableView.emptyDataSetDelegate = self;
-        [self.tableView.mj_header endRefreshing];
+//        [self.tableView.mj_header endRefreshing];
         [_tableView reloadData];
-         self.tableView.mj_footer.hidden =YES;
+//        self.tableView.mj_footer.hidden =YES;
         
 //         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
 //        hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];

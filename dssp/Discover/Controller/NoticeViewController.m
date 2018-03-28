@@ -82,7 +82,6 @@
 ////    _tableView.mj_header.lastUpdatedTimeLabel.hidden = YES;
 //    [_tableView.mj_header beginRefreshing];
     
-     
       MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestNoticeData)];
       self.tableView.mj_header = header;
       // 隐藏时间
