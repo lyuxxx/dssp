@@ -100,10 +100,11 @@
     if (_phoneField.text.length==0) {
          [MBProgressHUD showText:@"昵称不能为空"];
     }
-   
+    else if (_phoneField.text.length>10) {
+        [MBProgressHUD showText:@"昵称最多为10个字符"];
+    }
     else
     {
-    
     NSDictionary *paras = @{
                                @"nickName":_phoneField.text
                                 };
