@@ -25,6 +25,7 @@
 #import <MBProgressHUD+CU.h>
 #import <CUPayTool.h>
 #import "CatchCrash.h"
+#import "PopupView.h"
 
 @interface AppDelegate () <GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
 
@@ -335,7 +336,7 @@
 - (void)showLogout {
     if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
         //todo 被登出弹窗
-        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        PopupView *InputalertView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         [InputalertView initWithTitle:@"您的账号已经在另外一台设备上登录，您已经被迫下线" img:@"账号警告" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"重新登录", nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];

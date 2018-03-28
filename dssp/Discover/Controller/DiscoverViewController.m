@@ -507,10 +507,19 @@
         }
         else if (self.robotBtn == sender)
         {
+            
+            if ([KuserName isEqualToString:@"18911568274"]) {
+                
+                [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
+                
+            }
+            else
+            {
+            
             UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-            
+            }
         }
         
     }

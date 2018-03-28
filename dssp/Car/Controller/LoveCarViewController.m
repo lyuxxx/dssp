@@ -67,7 +67,6 @@
 
 - (void)postCustByMobile
 {
-    
     //    非车
     if ([kVin isEqualToString:@""]) {
         
@@ -440,9 +439,23 @@
 
 - (void)btnClick:(UIButton *)sender {
     if (sender.tag == 1111) {
-        UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        if ([KuserName isEqualToString:@"18911568274"]) {
+            
+            [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
+            
+        }
+        else
+        {
+            
+            UIViewController *vc = [[NSClassFromString(@"InformationCenterViewController") alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    
+        
+    
     }
     if (sender.tag == 100) {
         MapHomeViewController *vc = [[MapHomeViewController alloc] initWithType:PoiTypeAll];

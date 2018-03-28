@@ -63,6 +63,18 @@
     [super layoutSubviews];
     
     switch (_type) {
+        case 9:
+            //上面是图片，下面是文字
+            [self.alertview makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(270 * WidthCoefficient);
+                make.height.equalTo(210 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.centerY.equalTo(0);
+            }];
+
+            [self creatViewInAlert9];
+//            [self createBtnTitle:_btnTitleArr];
+            break;
         case 10:
             
             
@@ -122,6 +134,77 @@
     //    [self createBtnTitle:_btnTitleArr];
 }
 
+
+-(void)creatViewInAlert9
+{
+    UIImageView *locationImg = [[UIImageView alloc] init];
+    locationImg.contentMode = UIViewContentModeScaleAspectFit;
+    locationImg.image = [UIImage imageNamed:_imgStr];
+    [self.alertview  addSubview:locationImg];
+    [locationImg makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(24 * HeightCoefficient);
+        make.width.equalTo(82.5 * WidthCoefficient);
+        make.height.equalTo(43 * HeightCoefficient);
+        make.centerX.equalTo(0);
+    }];
+    
+    _tipLable = [[UILabel alloc] init];
+    _tipLable.textAlignment = NSTextAlignmentCenter;
+    //    [_tipLable setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]];
+    //    _tipLable.backgroundColor=[UIColor blackColor];
+    
+    [_tipLable setFont:[UIFont fontWithName:FontName size:16]];
+    //    [_tipLable setFont:[UIFont systemFontOfSize:16]];
+    [_tipLable setNumberOfLines:0];
+    [_tipLable setTextColor:[UIColor colorWithHexString:@"#333333"]];
+    [locationImg addSubview:_tipLable];
+    if (_title) {
+        _tipLable.attributedText =_title;
+    }
+    else
+    {
+        _tipLable.text = _titleStr;
+    }
+    [_tipLable makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(200 * WidthCoefficient);
+        make.height.equalTo(80 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(33 * HeightCoefficient);
+    }];
+    
+    CGFloat m = self.alertview.frame.size.width;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:_btnTitleArr[0] forState:UIControlStateNormal];
+    btn.tag = 100;
+    //        btn.layer.cornerRadius = 4;
+    //        btn.clipsToBounds = YES;
+    [btn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    btn.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
+    [btn setTitleColor:[UIColor colorWithHexString:@"#AC0042"] forState:UIControlStateNormal];
+    
+    [self.alertview addSubview:btn];
+    
+    
+    [btn makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(48*HeightCoefficient);
+        make.width.equalTo(m);
+        make.left.equalTo(0);
+        make.right.equalTo(0);
+        make.bottom.equalTo(0*HeightCoefficient);
+    }];
+    
+    UIView *whiteView = [[UIView alloc] init];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+    [self.alertview addSubview:whiteView];
+    [whiteView makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(1*HeightCoefficient);
+        make.left.right.equalTo(0);
+        make.bottom.equalTo(-48*HeightCoefficient);
+    }];
+    
+}
+
 - (void)creatViewInAlert
 {
     UIImageView *locationImg = [[UIImageView alloc] init];
@@ -154,9 +237,9 @@
     }
     [_tipLable makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);
-        make.height.equalTo(60 * HeightCoefficient);
+        make.height.equalTo(80 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(33 * HeightCoefficient);
+        make.top.equalTo(25 * HeightCoefficient);
     }];
     
     

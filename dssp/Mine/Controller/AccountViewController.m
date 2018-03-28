@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UITextField * originalField;
 @property (nonatomic, strong) UITextField * newsPasswordField;
 @property (nonatomic, strong) UITextField * confirmField;
+@property (nonatomic, strong)UITextField *field;
 @property (nonatomic, strong) UIButton *eyeBtn;
 @property (nonatomic, strong) UIButton *eyeBtn1;
 @property (nonatomic, strong) UIButton *modifyBtn;
@@ -145,14 +146,14 @@
             
         }];
         
-        UITextField *field = [[UITextField alloc] init];
-        field.delegate = self;
-        field.secureTextEntry = true;
-        field.textColor = [UIColor colorWithHexString:@"#ffffff"];
-        field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
-        field.font = [UIFont fontWithName:FontName size:15];
-        [whiteV addSubview:field];
-        [field makeConstraints:^(MASConstraintMaker *make) {
+        self.field = [[UITextField alloc] init];
+        _field.delegate = self;
+        _field.secureTextEntry = true;
+        _field.textColor = [UIColor colorWithHexString:@"#ffffff"];
+        _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolders[i] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+        _field.font = [UIFont fontWithName:FontName size:15];
+        [whiteV addSubview:_field];
+        [_field makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(label.right).offset(15*WidthCoefficient);
             make.right.equalTo(-30 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
@@ -160,13 +161,13 @@
         }];
         if (i == 0) {
             
-            self.originalField = field;
-             field.textColor = [UIColor colorWithHexString:@"#999999"];
+            self.originalField = _field;
+             _field.textColor = [UIColor colorWithHexString:@"#999999"];
             //  self.originalField.secureTextEntry = YES;
             
         } else if (i == 1){
             
-            self.newsPasswordField = field;
+            self.newsPasswordField = _field;
             
             self.eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [_eyeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -198,7 +199,7 @@
         {
             
             line.hidden = YES;
-            self.confirmField = field;
+            self.confirmField = _field;
 //            self.confirmField.secureTextEntry = true;
 //            self.confirmField.enabled = NO;
             self.eyeBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -265,6 +266,8 @@
 
 
 - (void)btnClick:(UIButton *)sender {
+    
+    [self.view endEditing:YES];
     if (sender == self.eyeView) {
         _eyeBtn.selected = !_eyeBtn.selected;
         self.newsPasswordField.secureTextEntry = !_eyeBtn.selected;
@@ -324,11 +327,19 @@
                     [result setObject:@"" forKey:@"passWord"];
                     CONF_SET(@"user",result);
                     
-                    InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                    [InputalertView initWithTitle:@"密码修改成功,是否退出重新登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                    
+                    PopupView *InputalertView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                    [InputalertView initWithTitle:@"密码修改成功,请重新登录" img:@"账号警告" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"重新登录", nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                    [keywindow addSubview:InputalertView];
+                    [keywindow addSubview: InputalertView];
+                    
+                    
+//                    InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//                    [InputalertView initWithTitle:@"密码修改成功,是否退出重新登录?" img:@"警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+//                    //            InputalertView.delegate = self;
+//                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                    [keywindow addSubview:InputalertView];
                     
                     InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
@@ -341,6 +352,9 @@
                         }
                         if(btn.tag ==101)
                         {
+                            
+                            UIViewController *viewCtl = self.navigationController.viewControllers[0];
+                            [self.navigationController popToViewController:viewCtl animated:YES];
                             //右边按钮
                             NSLog(@"666%@",str);
                             
