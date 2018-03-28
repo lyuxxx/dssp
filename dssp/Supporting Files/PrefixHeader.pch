@@ -101,9 +101,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //sit环境
 //#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 ///生产环境
-#define baseUrl @"https://dssp.dstsp.com:443/dssp/v1/core/"
+//#define baseUrl @"https://dssp.dstsp.com:443/dssp/v1/core/"
 ///预生产环境
-//#define baseUrl @"https://sit-dssp.dstsp.com/dssp/v1/core/"
+#define baseUrl @"https://sit-dssp.dstsp.com/dssp/v1/core/"
 //外网50
 //#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 //内网50
@@ -117,6 +117,13 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //#define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 //正式生产73
 //#define baseUrl @"https://dssp.dstsp.com/dssp/v1/core/"
+
+///获取支付签名参数
+#define appCreatePay @"https://sit-dssp.dstsp.com/dssp/v1/payment/v1/appCreatePay"
+#define payOrderQuery @"https://sit-dssp.dstsp.com/dssp/v1/payment/v1/orderQuery"
+
+///统计
+#define uploading @"https://sit-dssp.dstsp.com/dssp/v1/message/monitoring/uploading"
 
 //用户注册
 #define registerUrl [NSString stringWithFormat:@"%@register",baseUrl]
@@ -261,9 +268,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define addItemcommentURL [NSString stringWithFormat:@"%@itemcomment/addItemcomment",baseUrl]
 ///添加发票
 #define addOrderInvoiceURL [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
-///获取支付签名参数
-#define appCreatePay @"https://dssp.dstsp.com:443/dssp/v1/payment/v1/appCreatePay"
-#define payOrderQuery @"https://dssp.dstsp.com:443/dssp/v1/payment/v1/orderQuery"
 
 
 //修改昵称
@@ -294,8 +298,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 ///添加发票
 #define orderinvoice [NSString stringWithFormat:@"%@orderinvoice/add",baseUrl]
 
-///统计
-#define uploading @"https://dssp.dstsp.com:443/dssp/v1/message/monitoring/uploading"
 //保养图片
 #define queryImgStore [NSString stringWithFormat:@"%@queryImgStore",baseUrl]
 //崩溃日志上传
