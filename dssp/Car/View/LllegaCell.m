@@ -54,7 +54,7 @@
     
     self.topLabel = [[UILabel alloc] init];
     _topLabel.textAlignment = NSTextAlignmentLeft;
-    _topLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    _topLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
     _topLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
 //    _topLabel.text = NSLocalizedString(@"创红的", nil);
     [_white addSubview:_topLabel];

@@ -381,7 +381,7 @@
                     
                     _behaviorLabel =_rightLabel;
                     _rightLabel.text = _lllegaModel.violationType;
-                    _rightLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                    _rightLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
                     
                 }
                 else if (i == 7) {

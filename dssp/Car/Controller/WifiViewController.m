@@ -271,24 +271,25 @@
             NSString *wifiSsid = dic[@"data"][@"wifiSsid"];
             NSString *wifiPassword = dic[@"data"][@"wifiPassword"];
             NSString *available = dic[@"data"][@"actived"];
+            
+            if([available isEqualToString:@"1"])
+            {
+                self.wifiImg.hidden = YES;
+                _bgImgV.image = [UIImage imageNamed:@"wifi背景"];
+                
+            }
+            else
+            {
+                self.wifiImg.hidden = NO;
+                _bgImgV.image = [UIImage imageNamed:@"wifi不可用背景"];
+                
+            }
+            
             if (wifiSsid) {
                 self.originPassword = wifiPassword;
                 _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
 //                _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
                 _passwordField.text = self.originPassword;
-                
-                if([available isEqualToString:@"1"])
-                {
-                   self.wifiImg.hidden = YES;
-                    _bgImgV.image = [UIImage imageNamed:@"wifi背景"];
-                    
-                }
-                else
-                {
-                    self.wifiImg.hidden = NO;
-                    _bgImgV.image = [UIImage imageNamed:@"wifi不可用背景"];
-                    
-                }
                 
             }
         } else {
