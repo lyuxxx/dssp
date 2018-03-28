@@ -42,9 +42,9 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
 
 @implementation FavoritesViewController
 
-- (BOOL)needGradientBg {
-    return YES;
-}
+//- (BOOL)needGradientBg {
+//    return YES;
+//}
 
 - (instancetype)initWithType:(PoiType)type checkPoi:(NSString *)serviceId block:(void (^)(BOOL))block {
     self = [super init];
@@ -127,7 +127,7 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
     }];
     
     UIView *botView = [[UIView alloc] init];
-    botView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+//    botView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
     [self.view addSubview:botView];
     [botView makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
@@ -136,20 +136,22 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
     }];
     
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#2f2726"];
+    line.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
     [botView addSubview:line];
     [line makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(botView);
-        make.bottom.equalTo(botView.top);
+//        make.left.right.equalTo(botView);
+//        make.bottom.equalTo(botView.top);
+        make.top.left.right.equalTo(botView);
         make.height.equalTo(0.5 * WidthCoefficient);
     }];
     
     [botView addSubview:self.deleteBtn];
     [_deleteBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(botView);
+//        make.top.equalTo(botView);
+        make.top.equalTo(line.bottom);
         make.right.equalTo(botView);
         make.width.equalTo(100 * WidthCoefficient);
-        make.height.equalTo(60 * WidthCoefficient);
+        make.height.equalTo(59.5 * WidthCoefficient);
     }];
     
     self.allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -160,7 +162,7 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
     [_allBtn setTitle:NSLocalizedString(@"取消全选", nil) forState:UIControlStateSelected];
     [_allBtn setImage:[UIImage imageNamed:@"selected_empty"] forState:UIControlStateNormal];
     [_allBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
-    [_allBtn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+    [_allBtn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
     [_allBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [botView addSubview:self.allBtn];
     [self.allBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -566,7 +568,7 @@ typedef void(^CheckPoiIsFavorite)(BOOL);
         }
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.backgroundColor = [UIColor clearColor];
+//        _tableView.backgroundColor = [UIColor clearColor];
 //        _tableView.tableFooterView = [UIView new];
 //        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 0;

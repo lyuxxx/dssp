@@ -29,16 +29,16 @@
         
         self.white = ({
             UIView *whiteV = [[UIView alloc] init];
-            whiteV.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+            whiteV.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
             whiteV.layer.cornerRadius = 4;
-            whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
+            whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
             whiteV.layer.shadowOffset = CGSizeMake(0, 5);
             whiteV.layer.shadowRadius = 7;
             whiteV.layer.shadowOpacity = 0.5;
             [self.contentView addSubview:whiteV];
             [whiteV makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 16 * WidthCoefficient, 5 * WidthCoefficient, 16 * WidthCoefficient));
-                make.height.equalTo(75 * WidthCoefficient);
+                make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 8 * WidthCoefficient, 5 * WidthCoefficient, 8 * WidthCoefficient));
+                make.height.equalTo(60 * WidthCoefficient);
             }];
             
             whiteV;
@@ -48,19 +48,19 @@
         _icon.image = [UIImage imageNamed:@"favlocation_icon"];
         [_white addSubview:_icon];
         [_icon makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.equalTo(24 * WidthCoefficient);
+            make.width.height.equalTo(32 * WidthCoefficient);
             make.centerY.equalTo(0);
-            make.left.equalTo(10 * WidthCoefficient);
+            make.left.equalTo(15 * WidthCoefficient);
         }];
         
         self.name = [[UILabel alloc] init];
         _name.font = [UIFont fontWithName:FontName size:16];
-        _name.textColor = [UIColor colorWithHexString:GeneralColorString];
+        _name.textColor = [UIColor colorWithHexString:@"#040000"];
         [_white addSubview:_name];
         [_name makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(20 * WidthCoefficient);
-            make.left.equalTo(_icon.right).offset(15 * WidthCoefficient);
-            make.top.equalTo(15 * WidthCoefficient);
+            make.height.equalTo(22 * WidthCoefficient);
+            make.left.equalTo(_icon.right).offset(10 * WidthCoefficient);
+            make.top.equalTo(11 * WidthCoefficient);
         }];
         
         self.address = [[UILabel alloc] init];
@@ -69,17 +69,17 @@
         [_white addSubview:_address];
         [_address makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_name.left);
-            make.top.equalTo(_name.bottom).offset(5 * WidthCoefficient);
-            make.height.equalTo(20 * WidthCoefficient);
+            make.top.equalTo(_name.bottom);
+            make.height.equalTo(16 * WidthCoefficient);
         }];
         
         UIImageView *arrow = [[UIImageView alloc] init];
-        arrow.image = [UIImage imageNamed:@"箭头1_icon"];
+        arrow.image = [UIImage imageNamed:@"arrownext"];
         [_white addSubview:arrow];
         [arrow makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.equalTo(15 * WidthCoefficient);
+            make.width.height.equalTo(14.15 * WidthCoefficient);
             make.centerY.equalTo(0);
-            make.right.equalTo(-8 * WidthCoefficient);
+            make.right.equalTo(-15.35 * WidthCoefficient);
         }];
         
     }
@@ -87,7 +87,7 @@
 }
 
 + (CGFloat)cellHeight {
-    return 85 * WidthCoefficient;
+    return 70 * WidthCoefficient;
 }
 
 - (void)configWithModel:(ResultItem *)item {
@@ -106,7 +106,7 @@
 //}
 
 - (void)resetColor {
-    self.white.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    self.white.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
     
    
 }
