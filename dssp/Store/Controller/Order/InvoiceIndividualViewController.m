@@ -49,7 +49,7 @@
     [self.view addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(330 * HeightCoefficient);
+        make.height.equalTo(368 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(10 * WidthCoefficient);
     }];
@@ -57,8 +57,8 @@
     NSArray *titles = nil;
     NSArray *righttitles = nil;
     
-    titles = @[@"税号",@"发票抬头",@"收货人姓名",@"移动电话",@"所在地区",@"详细地址"];
-    righttitles = @[@"请填写税号",@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"",@"请填写详细地址"];
+    titles = @[@"税号",@"发票抬头",@"收货人姓名",@"移动电话",@"邮政编码",@"所在地区",@"详细地址"];
+    righttitles = @[@"请填写税号",@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"请填写六位邮政编码",@"",@"请填写详细地址"];
     
     
     self.sc = ({
@@ -168,7 +168,7 @@
                 
             }];
             
-            
+//           titles = @[@"税号",@"发票抬头",@"收货人姓名",@"移动电话",@"邮政编码",@"所在地区",@"详细地址"];
             if (i == 0) {
                 _field.text = @"";
                 self.taxNoField = _field;
@@ -190,8 +190,14 @@
                 self.receiverMobileField = _field;
                 
             }
+            else if (i==4)
+            {
+                _field.text = @"";
+                self.receiverZipField =_field;
+                
+            }
 
-            else if (i == 4) {
+            else if (i == 5) {
                 
                 self.regionField = [UIButton buttonWithType:UIButtonTypeCustom];
              
@@ -209,7 +215,7 @@
                     make.top.equalTo(0);
                 }];
             }
-            else if (i == 5) {
+            else if (i == 6) {
                 
                 _field.text = @"";
                 self.AddressField = _field;
@@ -272,10 +278,15 @@
     else if (!_receiverNameField.text || [_receiverNameField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写收货人姓名", nil)];
         return;
-    } else if (!_receiverMobileField.text || [_receiverMobileField.text isEqualToString:@""]) {
-        [MBProgressHUD showText:NSLocalizedString(@"请填写移动电话", nil)];
+    } else if (!_receiverMobileField.text || [_receiverMobileField.text isEqualToString:@""]||![self valiMobile:_receiverMobileField.text]) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写正确的移动电话", nil)];
         return;
     }
+    else if (!self.receiverZipField.text || [self.receiverZipField.text isEqualToString:@""]||self.receiverZipField.text.length>6) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写六位邮政编码", nil)];
+        return;
+    }
+    
     else if (!_province || [_province isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请选择省市区", nil)];
         return;
@@ -293,7 +304,7 @@
                             @"orderId":_companyID,
                             @"invoiceClient":self.invoiceClient.text,
                             @"invoiceType":@"1",
-                            @"receiverName":self.receiverNameField.text,
+                        @"receiverZip":self.receiverZipField.text, @"receiverName":self.receiverNameField.text,
                             @"receiverMobile":self.receiverMobileField.text,
                             @"receiverState":_province,
                             @"receiverCity":_city,
@@ -341,6 +352,41 @@
     _city = city;
     _area = area;
     [_regionField setTitle:[NSString stringWithFormat:@"%@ %@ %@",province,city,area] forState:UIControlStateNormal];
+}
+
+//判断手机号码格式是否正确
+- (BOOL)valiMobile:(NSString *)mobile
+{
+    //    mobile = [mobile stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (mobile.length != 11)
+    {
+        return NO;
+    }else{
+        /**
+         * 移动号段正则表达式
+         */
+        NSString *CM_NUM = @"^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$";
+        /**
+         * 联通号段正则表达式
+         */
+        NSString *CU_NUM = @"^((13[0-2])|(145)|(15[5-6])|(176)|(18[5,6]))\\d{8}|(1709)\\d{7}$";
+        /**
+         * 电信号段正则表达式
+         */
+        NSString *CT_NUM = @"^((133)|(153)|(177)|(18[0,1,9]))\\d{8}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
+        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
+        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
+        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
+        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
+        
+        if (isMatch1 || isMatch2 || isMatch3) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
 }
 
 @end
