@@ -15,18 +15,26 @@ fastlane_version "2.85.0"
 
 default_platform :ios
 
-scheme = "dssp"
+scheme = ""
+
+changelog = ""
 
 # fir_token = "f831e571d4da65e5dafe5b75838b7132"
 
 def prepare_version(options)
-    increment_version_number(
-        version_number: options[:version]
+	scheme = options[:scheme]
+
+    increment_version_number_in_plist(
+        version_number: options[:version],
+        target: scheme
     )
 
-    increment_build_number(
-        build_number: options[:build]
+    increment_build_number_in_plist(
+        build_number: options[:build],
+        target: scheme
     )
+
+    changelog = options[:changelog]
 end
 
 platform :ios do
@@ -73,7 +81,7 @@ platform :ios do
             }
     })
 
-    pgyer(api_key: "a4652be9ee876e77e6fe971451f6ee78", user_key: "2532883c9c55b42f4a1f0a5abff9dad3")
+    pgyer(api_key: "a4652be9ee876e77e6fe971451f6ee78", user_key: "2532883c9c55b42f4a1f0a5abff9dad3", update_description："#{changelog}")
     # sh "fir publish './build/fir/#{scheme}_#{full_version}.ipa' -T #{fir_token}"
     # You can also use other beta testing services here (run `fastlane actions`)
     
@@ -115,7 +123,8 @@ platform :ios do
     pilot(
     	distribute_external: true,
     	notify_external_testers: true,
-    	groups: "cusc"
+    	groups: "cusc",
+    	changelog: "#{changelog}"
     	)
 
     # sh "your_script.sh"

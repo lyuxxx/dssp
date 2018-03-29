@@ -3,7 +3,6 @@ platform :ios, '8.0'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'http://172.23.105.201:4080/cusc-ios-base-component/CUSpecs.git'
 
-target 'dssp' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
@@ -36,9 +35,6 @@ target 'dssp' do
   pod 'CUAlertController'
   pod 'CUPayTool'
 
-  target 'dsspUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
+  target 'dssp'
+  target 'dssp-pre'
+  target 'dssp-sit'

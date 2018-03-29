@@ -39,13 +39,13 @@
     
     [self setupCrash];
     
-    NSString *cerName = [NSString string];
-    if ([baseUrl isEqualToString:@"https://dssp.dstsp.com:443/dssp/v1/core/"]) {//生产环境
-        cerName = @"server_formal";
-    } else {//预生产环境
-        cerName = @"server_pre";
-    }
-    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:cerName ofType:@"cer"]];
+#if DEVELOPMENT == 2
+    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server_formal" ofType:@"cer"]];
+#elif DEVELOPMENT == 1
+    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server_pre" ofType:@"cer"]];
+#else
+
+#endif
     
 //    [self setuploading];
 
