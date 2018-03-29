@@ -478,6 +478,12 @@
 		319A58BE20450A19006837DC /* MapUpdateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BD20450A19006837DC /* MapUpdateObject.m */; };
 		319A58C420452E22006837DC /* TrackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C320452E22006837DC /* TrackObject.m */; };
 		319A58C720454EEA006837DC /* TrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C620454EEA006837DC /* TrackListViewController.m */; };
+		31A2291E206CA223002326AD /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
+		31A2291F206CA223002326AD /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
+		31A22920206CA223002326AD /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
+		31A22921206CA223002326AD /* dssp-sit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291D206CA223002326AD /* dssp-sit.plist */; };
+		31A22922206CA223002326AD /* dssp-sit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291D206CA223002326AD /* dssp-sit.plist */; };
+		31A22923206CA223002326AD /* dssp-sit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291D206CA223002326AD /* dssp-sit.plist */; };
 		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
 		31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
 		31A469F31FF1E78B00C8236E /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F11FF1E78B00C8236E /* MapView.m */; };
@@ -697,9 +703,7 @@
 		315EE1051FBD34E800067FC6 /* RNRInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRInput.h; sourceTree = "<group>"; };
 		315EE1061FBD34E800067FC6 /* RNRInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRInput.m; sourceTree = "<group>"; };
 		3161DE79206C8AB500D40EE3 /* dssp-pre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dssp-pre.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3161DE7A206C8AB500D40EE3 /* dssp-pre.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "dssp-pre.plist"; path = "/Users/liuyuxuan/Documents/dssp/dssp/dssp-pre.plist"; sourceTree = "<absolute>"; };
 		3161DF51206C8ABC00D40EE3 /* dssp-sit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dssp-sit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3161DF52206C8ABD00D40EE3 /* dssp-sit.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "dssp-sit.plist"; path = "/Users/liuyuxuan/Documents/dssp/dssp/dssp-sit.plist"; sourceTree = "<absolute>"; };
 		31699EB51FA87CC100C8FDF8 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		31699EB61FA87CC100C8FDF8 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		31699EB81FA87CE300C8FDF8 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -765,6 +769,8 @@
 		319A58C320452E22006837DC /* TrackObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackObject.m; sourceTree = "<group>"; };
 		319A58C520454EEA006837DC /* TrackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackListViewController.h; sourceTree = "<group>"; };
 		319A58C620454EEA006837DC /* TrackListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackListViewController.m; sourceTree = "<group>"; };
+		31A2291C206CA223002326AD /* dssp-pre.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "dssp-pre.plist"; sourceTree = "<group>"; };
+		31A2291D206CA223002326AD /* dssp-sit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "dssp-sit.plist"; sourceTree = "<group>"; };
 		31A3B9141FDE184700B8FBD3 /* POISendBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POISendBtn.h; sourceTree = "<group>"; };
 		31A3B9151FDE184700B8FBD3 /* POISendBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POISendBtn.m; sourceTree = "<group>"; };
 		31A469EE1FF1E75100C8236E /* MapBaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapBaseController.h; sourceTree = "<group>"; };
@@ -1373,8 +1379,8 @@
 				316CA4671F9F3475009F541E /* Assets.xcassets */,
 				316CA4691F9F3475009F541E /* LaunchScreen.storyboard */,
 				316CA46C1F9F3475009F541E /* Info.plist */,
-				3161DE7A206C8AB500D40EE3 /* dssp-pre.plist */,
-				3161DF52206C8ABD00D40EE3 /* dssp-sit.plist */,
+				31A2291C206CA223002326AD /* dssp-pre.plist */,
+				31A2291D206CA223002326AD /* dssp-sit.plist */,
 			);
 			path = dssp;
 			sourceTree = "<group>";
@@ -2030,6 +2036,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31A2291F206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DE6A206C8AB500D40EE3 /* waiting.gif in Resources */,
 				3161DE6B206C8AB500D40EE3 /* server_pre.cer in Resources */,
 				3161DE6C206C8AB500D40EE3 /* client.p12 in Resources */,
@@ -2038,6 +2045,7 @@
 				3161DE6F206C8AB500D40EE3 /* Localizable.strings in Resources */,
 				3161DE70206C8AB500D40EE3 /* Address.plist in Resources */,
 				3161DE71206C8AB500D40EE3 /* Assets.xcassets in Resources */,
+				31A22922206CA223002326AD /* dssp-sit.plist in Resources */,
 				3161DE72206C8AB500D40EE3 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2046,6 +2054,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31A22920206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DF42206C8ABC00D40EE3 /* waiting.gif in Resources */,
 				3161DF43206C8ABC00D40EE3 /* server_pre.cer in Resources */,
 				3161DF44206C8ABC00D40EE3 /* client.p12 in Resources */,
@@ -2054,6 +2063,7 @@
 				3161DF47206C8ABC00D40EE3 /* Localizable.strings in Resources */,
 				3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */,
 				3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */,
+				31A22923206CA223002326AD /* dssp-sit.plist in Resources */,
 				3161DF4A206C8ABC00D40EE3 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2062,6 +2072,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31A2291E206CA223002326AD /* dssp-pre.plist in Resources */,
 				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
 				3189EED42058D1B10009B742 /* server_pre.cer in Resources */,
 				3189EED22058D1AA0009B742 /* client.p12 in Resources */,
@@ -2070,6 +2081,7 @@
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
+				31A22921206CA223002326AD /* dssp-sit.plist in Resources */,
 				454858102005EA6500170D85 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
