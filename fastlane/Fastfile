@@ -15,26 +15,18 @@ fastlane_version "2.85.0"
 
 default_platform :ios
 
-scheme = ""
-
-changelog = ""
-
-# fir_token = "f831e571d4da65e5dafe5b75838b7132"
-
 def prepare_version(options)
-	scheme = options[:scheme]
 
     increment_version_number_in_plist(
         version_number: options[:version],
-        target: scheme
+        target: options[:scheme]
     )
 
     increment_build_number_in_plist(
         build_number: options[:build],
-        target: scheme
+        target: options[:scheme]
     )
 
-    changelog = options[:changelog]
 end
 
 platform :ios do
@@ -58,6 +50,10 @@ platform :ios do
 
     full_version = options[:version] + '_' + options[:build]
 
+    scheme = options[:scheme]
+	changelog = options[:changelog]
+	date = Time.new.strftime("%Y%m%d-%H%M")
+
     gym({
       scheme: "#{scheme}",
       #隐藏没有必要的文件
@@ -71,7 +67,7 @@ platform :ios do
       # 指定输出文件夹
       output_directory:"./fastlane/build/pgyer",
       #指定输出名称
-      output_name: "#{scheme}_#{full_version}.ipa",
+      output_name: "#{scheme}_#{full_version}_#{date}.ipa",
       # Xcode9将不会允许你访问钥匙串里的内容，除非设置allowProvisioningUpdates
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
@@ -81,7 +77,7 @@ platform :ios do
             }
     })
 
-    pgyer(api_key: "a4652be9ee876e77e6fe971451f6ee78", user_key: "2532883c9c55b42f4a1f0a5abff9dad3", update_description："#{changelog}")
+    pgyer(api_key: "a4652be9ee876e77e6fe971451f6ee78", user_key: "2532883c9c55b42f4a1f0a5abff9dad3", update_description: "#{changelog}")
     # sh "fir publish './build/fir/#{scheme}_#{full_version}.ipa' -T #{fir_token}"
     # You can also use other beta testing services here (run `fastlane actions`)
     
@@ -97,6 +93,10 @@ platform :ios do
 
     full_version = options[:version] + '_' + options[:build]
 
+    scheme = options[:scheme]
+	changelog = options[:changelog]
+	date = Time.new.strftime("%Y%m%d-%H%M")
+
     gym({
       scheme: "#{scheme}",
       #隐藏没有必要的文件
@@ -110,7 +110,7 @@ platform :ios do
       # 指定输出文件夹
       output_directory:"./fastlane/build/testflight",
       #指定输出名称
-      output_name: "#{scheme}_#{full_version}.ipa",
+      output_name: "#{scheme}_#{full_version}_#{date}.ipa",
       # Xcode9将不会允许你访问钥匙串里的内容，除非设置allowProvisioningUpdates
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
@@ -132,9 +132,10 @@ platform :ios do
   end
 
   desc "Deploy a new version to the App Store"
-  lane :release do
+  lane :release do |options|
     # match(type: "appstore")
     # snapshot
+    scheme = options[:scheme]
     gym({
       scheme: "#{scheme}",
       #隐藏没有必要的文件
