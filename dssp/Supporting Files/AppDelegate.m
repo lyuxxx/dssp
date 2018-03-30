@@ -33,6 +33,11 @@
 
 @implementation AppDelegate
 
+//info.plist决定启动页支持的方向,该方法决定启动后window支持的方向
+//https://developer.apple.com/library/content/technotes/tn2244/_index.html#//apple_ref/doc/uid/DTS40009012-CH1-ALLOWING_YOUR_APP_TO_ROTATE_INTO_PORTRAIT_ORIENTATION_AFTER_LAUNCH
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

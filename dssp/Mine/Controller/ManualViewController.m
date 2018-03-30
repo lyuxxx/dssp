@@ -19,9 +19,31 @@
     return NO;
 }
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
     self.navigationItem.title = NSLocalizedString(@"用户手册", nil);
+    self.rt_disableInteractivePop = YES;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"arrow_back"] forState:UIControlStateNormal];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [btn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(24 * WidthCoefficient);
+    }];
+    self.navigationItem.leftBarButtonItem = left;
     self.webView = [[WKWebView alloc] init];
     [self.view addSubview:_webView];
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -38,19 +60,13 @@
 //    http://mozilla.github.io/pdf.js/web/viewer.html
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)back:(UIButton *)sender {
+    UIInterfaceOrientation current = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(current)) {
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationPortrait] forKey:@"orientation"];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
