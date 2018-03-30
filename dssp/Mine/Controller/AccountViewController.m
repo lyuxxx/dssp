@@ -248,6 +248,7 @@
     
     self.modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _modifyBtn.layer.cornerRadius = 2;
+    _modifyBtn.needNoRepeat = YES;
     [_modifyBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_modifyBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
     [_modifyBtn setTitle:NSLocalizedString(@"确认修改", nil) forState:UIControlStateNormal];

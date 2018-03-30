@@ -281,6 +281,7 @@
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [confirmBtn addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     confirmBtn.layer.cornerRadius = 2;
+    confirmBtn.needNoRepeat = YES;
     [confirmBtn setTitle:NSLocalizedString(@"确认并绑定", nil) forState:UIControlStateNormal];
     [confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     confirmBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];

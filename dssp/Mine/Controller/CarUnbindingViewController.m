@@ -463,6 +463,7 @@
         self.unbindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_unbindBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _unbindBtn.layer.cornerRadius = 2;
+        _unbindBtn.needNoRepeat = YES;
         [_unbindBtn setTitle:NSLocalizedString(@"解绑车辆", nil) forState:UIControlStateNormal];
         [_unbindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _unbindBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];

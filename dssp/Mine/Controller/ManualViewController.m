@@ -34,7 +34,7 @@
     _webView.navigationDelegate = self;
 //    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dssp.dstsp.com/ow/#/UserManual"]]];
     
-     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mozilla.github.io/pdf.js/web/viewer.html"]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://doctype.gitee.io/pdf/pdf/compressed.pdf"]]];
 //    http://mozilla.github.io/pdf.js/web/viewer.html
 }
 

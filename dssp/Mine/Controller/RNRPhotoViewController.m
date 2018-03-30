@@ -164,6 +164,7 @@
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [submitBtn addTarget:self action:@selector(sumitBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     submitBtn.layer.cornerRadius = 2;
+    submitBtn.needNoRepeat = YES;
     [submitBtn setTitle:NSLocalizedString(@"提交", nil) forState:UIControlStateNormal];
     [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     submitBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
