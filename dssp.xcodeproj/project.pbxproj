@@ -55,11 +55,9 @@
 		3161DDB3206C8AB500D40EE3 /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
 		3161DDB4206C8AB500D40EE3 /* InfoMessageHelpCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45302022F0080044A62C /* InfoMessageHelpCenterCell.m */; };
 		3161DDB5206C8AB500D40EE3 /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
-		3161DDB6206C8AB500D40EE3 /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
 		3161DDB7206C8AB500D40EE3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
 		3161DDB8206C8AB500D40EE3 /* CommodityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1CE202A9BE100B7AE48 /* CommodityHeaderView.m */; };
 		3161DDB9206C8AB500D40EE3 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
-		3161DDBA206C8AB500D40EE3 /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
 		3161DDBB206C8AB500D40EE3 /* CommodityDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */; };
 		3161DDBC206C8AB500D40EE3 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
 		3161DDBD206C8AB500D40EE3 /* QGLocationTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DF20032C8F0099D7AC /* QGLocationTransform.m */; };
@@ -91,7 +89,6 @@
 		3161DDD7206C8AB500D40EE3 /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
 		3161DDD8206C8AB500D40EE3 /* SearchAroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */; };
 		3161DDD9206C8AB500D40EE3 /* RnunbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */; };
-		3161DDDA206C8AB500D40EE3 /* FSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */; };
 		3161DDDB206C8AB500D40EE3 /* InformationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45272022E8DD0044A62C /* InformationCenterViewController.m */; };
 		3161DDDC206C8AB500D40EE3 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
 		3161DDDD206C8AB500D40EE3 /* ModifyPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */; };
@@ -105,11 +102,9 @@
 		3161DDE5206C8AB500D40EE3 /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D3204171E4002807D2 /* TrackDetailViewController.m */; };
 		3161DDE6206C8AB500D40EE3 /* RNRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF51FB99F4A008A6094 /* RNRViewController.m */; };
 		3161DDE7206C8AB500D40EE3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
-		3161DDE8206C8AB500D40EE3 /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */; };
 		3161DDE9206C8AB500D40EE3 /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
 		3161DDEA206C8AB500D40EE3 /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
 		3161DDEB206C8AB500D40EE3 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
-		3161DDEC206C8AB500D40EE3 /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
 		3161DDED206C8AB500D40EE3 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
 		3161DDEE206C8AB500D40EE3 /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
 		3161DDEF206C8AB500D40EE3 /* CommodityCommentFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BAB202C38BF0086EDC8 /* CommodityCommentFooterCell.m */; };
@@ -158,9 +153,7 @@
 		3161DE1A206C8AB500D40EE3 /* InvoicePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BBD202D8A8F0086EDC8 /* InvoicePageController.m */; };
 		3161DE1B206C8AB500D40EE3 /* CarStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */; };
 		3161DE1C206C8AB500D40EE3 /* CommodityCommentsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BB7202D4B0B0086EDC8 /* CommodityCommentsListCell.m */; };
-		3161DE1D206C8AB500D40EE3 /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
 		3161DE1E206C8AB500D40EE3 /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
-		3161DE1F206C8AB500D40EE3 /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
 		3161DE20206C8AB500D40EE3 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
 		3161DE21206C8AB500D40EE3 /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
 		3161DE22206C8AB500D40EE3 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
@@ -258,11 +251,9 @@
 		3161DE8B206C8ABC00D40EE3 /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
 		3161DE8C206C8ABC00D40EE3 /* InfoMessageHelpCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45302022F0080044A62C /* InfoMessageHelpCenterCell.m */; };
 		3161DE8D206C8ABC00D40EE3 /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
-		3161DE8E206C8ABC00D40EE3 /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
 		3161DE8F206C8ABC00D40EE3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
 		3161DE90206C8ABC00D40EE3 /* CommodityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1CE202A9BE100B7AE48 /* CommodityHeaderView.m */; };
 		3161DE91206C8ABC00D40EE3 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
-		3161DE92206C8ABC00D40EE3 /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
 		3161DE93206C8ABC00D40EE3 /* CommodityDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */; };
 		3161DE94206C8ABC00D40EE3 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
 		3161DE95206C8ABC00D40EE3 /* QGLocationTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DF20032C8F0099D7AC /* QGLocationTransform.m */; };
@@ -294,7 +285,6 @@
 		3161DEAF206C8ABC00D40EE3 /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
 		3161DEB0206C8ABC00D40EE3 /* SearchAroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */; };
 		3161DEB1206C8ABC00D40EE3 /* RnunbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */; };
-		3161DEB2206C8ABC00D40EE3 /* FSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */; };
 		3161DEB3206C8ABC00D40EE3 /* InformationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45272022E8DD0044A62C /* InformationCenterViewController.m */; };
 		3161DEB4206C8ABC00D40EE3 /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
 		3161DEB5206C8ABC00D40EE3 /* ModifyPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */; };
@@ -308,11 +298,9 @@
 		3161DEBD206C8ABC00D40EE3 /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D3204171E4002807D2 /* TrackDetailViewController.m */; };
 		3161DEBE206C8ABC00D40EE3 /* RNRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF51FB99F4A008A6094 /* RNRViewController.m */; };
 		3161DEBF206C8ABC00D40EE3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
-		3161DEC0206C8ABC00D40EE3 /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */; };
 		3161DEC1206C8ABC00D40EE3 /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
 		3161DEC2206C8ABC00D40EE3 /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
 		3161DEC3206C8ABC00D40EE3 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
-		3161DEC4206C8ABC00D40EE3 /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
 		3161DEC5206C8ABC00D40EE3 /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
 		3161DEC6206C8ABC00D40EE3 /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
 		3161DEC7206C8ABC00D40EE3 /* CommodityCommentFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BAB202C38BF0086EDC8 /* CommodityCommentFooterCell.m */; };
@@ -361,9 +349,7 @@
 		3161DEF2206C8ABC00D40EE3 /* InvoicePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BBD202D8A8F0086EDC8 /* InvoicePageController.m */; };
 		3161DEF3206C8ABC00D40EE3 /* CarStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */; };
 		3161DEF4206C8ABC00D40EE3 /* CommodityCommentsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BB7202D4B0B0086EDC8 /* CommodityCommentsListCell.m */; };
-		3161DEF5206C8ABC00D40EE3 /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
 		3161DEF6206C8ABC00D40EE3 /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
-		3161DEF7206C8ABC00D40EE3 /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
 		3161DEF8206C8ABC00D40EE3 /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
 		3161DEF9206C8ABC00D40EE3 /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
 		3161DEFA206C8ABC00D40EE3 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
@@ -515,13 +501,6 @@
 		31B9DC91205A71DB00C8B840 /* UIFont+FontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */; };
 		31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
 		31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
-		31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EB1FD5444A006E4AEA /* FSPageControl.swift */; };
-		31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */; };
-		31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176ED1FD5444A006E4AEA /* FSPagerView.swift */; };
-		31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */; };
-		31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */; };
-		31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */; };
-		31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */; };
 		31C504A820624D6F000CFB8F /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504A720624D6F000CFB8F /* BaseWebViewController.m */; };
 		31C504AB2062748A000CFB8F /* CheckVersionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504AA2062748A000CFB8F /* CheckVersionView.m */; };
 		31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
@@ -833,13 +812,6 @@
 		31C1125F2047E1AC0094B157 /* TrackSingleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackSingleCell.m; sourceTree = "<group>"; };
 		31C112612047EB9C0094B157 /* TrackListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackListHeaderView.h; sourceTree = "<group>"; };
 		31C112622047EB9C0094B157 /* TrackListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackListHeaderView.m; sourceTree = "<group>"; };
-		31C176EB1FD5444A006E4AEA /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
-		31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
-		31C176ED1FD5444A006E4AEA /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
-		31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewCell.swift; sourceTree = "<group>"; };
-		31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
-		31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewLayout.swift; sourceTree = "<group>"; };
-		31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
 		31C504A620624D6F000CFB8F /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
 		31C504A720624D6F000CFB8F /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		31C504A92062748A000CFB8F /* CheckVersionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckVersionView.h; sourceTree = "<group>"; };
@@ -1199,7 +1171,6 @@
 			children = (
 				454CE6D22046909C003221F3 /* AddressPickerView */,
 				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
-				31C176EA1FD5444A006E4AEA /* FSPagerView */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
 				313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */,
 				31DDD2541FBABB7900D37DED /* NSArray+Sudoku.h */,
@@ -1573,20 +1544,6 @@
 				31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */,
 			);
 			path = Order;
-			sourceTree = "<group>";
-		};
-		31C176EA1FD5444A006E4AEA /* FSPagerView */ = {
-			isa = PBXGroup;
-			children = (
-				31C176EB1FD5444A006E4AEA /* FSPageControl.swift */,
-				31C176EC1FD5444A006E4AEA /* FSPagerCollectionView.swift */,
-				31C176ED1FD5444A006E4AEA /* FSPagerView.swift */,
-				31C176EE1FD5444A006E4AEA /* FSPagerViewCell.swift */,
-				31C176EF1FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift */,
-				31C176F01FD5444A006E4AEA /* FSPageViewLayout.swift */,
-				31C176F11FD5444A006E4AEA /* FSPageViewTransformer.swift */,
-			);
-			path = FSPagerView;
 			sourceTree = "<group>";
 		};
 		31D5C8D9202FE9C100A44C5C /* Model */ = {
@@ -2341,11 +2298,9 @@
 				3161DDB3206C8AB500D40EE3 /* DKSTextView.m in Sources */,
 				3161DDB4206C8AB500D40EE3 /* InfoMessageHelpCenterCell.m in Sources */,
 				3161DDB5206C8AB500D40EE3 /* HomeBtn.m in Sources */,
-				3161DDB6206C8AB500D40EE3 /* FSPageViewTransformer.swift in Sources */,
 				3161DDB7206C8AB500D40EE3 /* BaseViewController.m in Sources */,
 				3161DDB8206C8AB500D40EE3 /* CommodityHeaderView.m in Sources */,
 				3161DDB9206C8AB500D40EE3 /* VhlModel.m in Sources */,
-				3161DDBA206C8AB500D40EE3 /* FSPageControl.swift in Sources */,
 				3161DDBB206C8AB500D40EE3 /* CommodityDescriptionCell.m in Sources */,
 				3161DDBC206C8AB500D40EE3 /* TrafficReportCell.m in Sources */,
 				3161DDBD206C8AB500D40EE3 /* QGLocationTransform.m in Sources */,
@@ -2377,7 +2332,6 @@
 				3161DDD7206C8AB500D40EE3 /* OrderSubmitCell.m in Sources */,
 				3161DDD8206C8AB500D40EE3 /* SearchAroundViewController.m in Sources */,
 				3161DDD9206C8AB500D40EE3 /* RnunbindViewController.m in Sources */,
-				3161DDDA206C8AB500D40EE3 /* FSPagerViewCell.swift in Sources */,
 				3161DDDB206C8AB500D40EE3 /* InformationCenterViewController.m in Sources */,
 				3161DDDC206C8AB500D40EE3 /* RNRFinishedViewController.m in Sources */,
 				3161DDDD206C8AB500D40EE3 /* ModifyPhoneController.m in Sources */,
@@ -2391,11 +2345,9 @@
 				3161DDE5206C8AB500D40EE3 /* TrackDetailViewController.m in Sources */,
 				3161DDE6206C8AB500D40EE3 /* RNRViewController.m in Sources */,
 				3161DDE7206C8AB500D40EE3 /* HomeViewController.m in Sources */,
-				3161DDE8206C8AB500D40EE3 /* FSPagerViewLayoutAttributes.swift in Sources */,
 				3161DDE9206C8AB500D40EE3 /* ActivationCodeListCell.m in Sources */,
 				3161DDEA206C8AB500D40EE3 /* DKSKeyboardView.m in Sources */,
 				3161DDEB206C8AB500D40EE3 /* PersonInViewController.m in Sources */,
-				3161DDEC206C8AB500D40EE3 /* FSPagerCollectionView.swift in Sources */,
 				3161DDED206C8AB500D40EE3 /* UIImagePickerController+StatusBar.m in Sources */,
 				3161DDEE206C8AB500D40EE3 /* NoticeModel.m in Sources */,
 				3161DDEF206C8AB500D40EE3 /* CommodityCommentFooterCell.m in Sources */,
@@ -2444,9 +2396,7 @@
 				3161DE1A206C8AB500D40EE3 /* InvoicePageController.m in Sources */,
 				3161DE1B206C8AB500D40EE3 /* CarStatisticsViewController.m in Sources */,
 				3161DE1C206C8AB500D40EE3 /* CommodityCommentsListCell.m in Sources */,
-				3161DE1D206C8AB500D40EE3 /* FSPagerView.swift in Sources */,
 				3161DE1E206C8AB500D40EE3 /* LeftImgButton.m in Sources */,
-				3161DE1F206C8AB500D40EE3 /* FSPageViewLayout.swift in Sources */,
 				3161DE20206C8AB500D40EE3 /* WMViewController.m in Sources */,
 				3161DE21206C8AB500D40EE3 /* NoticeCell.m in Sources */,
 				3161DE22206C8AB500D40EE3 /* LoginResult.m in Sources */,
@@ -2540,11 +2490,9 @@
 				3161DE8B206C8ABC00D40EE3 /* DKSTextView.m in Sources */,
 				3161DE8C206C8ABC00D40EE3 /* InfoMessageHelpCenterCell.m in Sources */,
 				3161DE8D206C8ABC00D40EE3 /* HomeBtn.m in Sources */,
-				3161DE8E206C8ABC00D40EE3 /* FSPageViewTransformer.swift in Sources */,
 				3161DE8F206C8ABC00D40EE3 /* BaseViewController.m in Sources */,
 				3161DE90206C8ABC00D40EE3 /* CommodityHeaderView.m in Sources */,
 				3161DE91206C8ABC00D40EE3 /* VhlModel.m in Sources */,
-				3161DE92206C8ABC00D40EE3 /* FSPageControl.swift in Sources */,
 				3161DE93206C8ABC00D40EE3 /* CommodityDescriptionCell.m in Sources */,
 				3161DE94206C8ABC00D40EE3 /* TrafficReportCell.m in Sources */,
 				3161DE95206C8ABC00D40EE3 /* QGLocationTransform.m in Sources */,
@@ -2576,7 +2524,6 @@
 				3161DEAF206C8ABC00D40EE3 /* OrderSubmitCell.m in Sources */,
 				3161DEB0206C8ABC00D40EE3 /* SearchAroundViewController.m in Sources */,
 				3161DEB1206C8ABC00D40EE3 /* RnunbindViewController.m in Sources */,
-				3161DEB2206C8ABC00D40EE3 /* FSPagerViewCell.swift in Sources */,
 				3161DEB3206C8ABC00D40EE3 /* InformationCenterViewController.m in Sources */,
 				3161DEB4206C8ABC00D40EE3 /* RNRFinishedViewController.m in Sources */,
 				3161DEB5206C8ABC00D40EE3 /* ModifyPhoneController.m in Sources */,
@@ -2590,11 +2537,9 @@
 				3161DEBD206C8ABC00D40EE3 /* TrackDetailViewController.m in Sources */,
 				3161DEBE206C8ABC00D40EE3 /* RNRViewController.m in Sources */,
 				3161DEBF206C8ABC00D40EE3 /* HomeViewController.m in Sources */,
-				3161DEC0206C8ABC00D40EE3 /* FSPagerViewLayoutAttributes.swift in Sources */,
 				3161DEC1206C8ABC00D40EE3 /* ActivationCodeListCell.m in Sources */,
 				3161DEC2206C8ABC00D40EE3 /* DKSKeyboardView.m in Sources */,
 				3161DEC3206C8ABC00D40EE3 /* PersonInViewController.m in Sources */,
-				3161DEC4206C8ABC00D40EE3 /* FSPagerCollectionView.swift in Sources */,
 				3161DEC5206C8ABC00D40EE3 /* UIImagePickerController+StatusBar.m in Sources */,
 				3161DEC6206C8ABC00D40EE3 /* NoticeModel.m in Sources */,
 				3161DEC7206C8ABC00D40EE3 /* CommodityCommentFooterCell.m in Sources */,
@@ -2643,9 +2588,7 @@
 				3161DEF2206C8ABC00D40EE3 /* InvoicePageController.m in Sources */,
 				3161DEF3206C8ABC00D40EE3 /* CarStatisticsViewController.m in Sources */,
 				3161DEF4206C8ABC00D40EE3 /* CommodityCommentsListCell.m in Sources */,
-				3161DEF5206C8ABC00D40EE3 /* FSPagerView.swift in Sources */,
 				3161DEF6206C8ABC00D40EE3 /* LeftImgButton.m in Sources */,
-				3161DEF7206C8ABC00D40EE3 /* FSPageViewLayout.swift in Sources */,
 				3161DEF8206C8ABC00D40EE3 /* WMViewController.m in Sources */,
 				3161DEF9206C8ABC00D40EE3 /* NoticeCell.m in Sources */,
 				3161DEFA206C8ABC00D40EE3 /* LoginResult.m in Sources */,
@@ -2739,11 +2682,9 @@
 				454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */,
 				31AC45312022F0080044A62C /* InfoMessageHelpCenterCell.m in Sources */,
 				31E7B9522057A092003844E0 /* HomeBtn.m in Sources */,
-				31C176F81FD5444A006E4AEA /* FSPageViewTransformer.swift in Sources */,
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				312FE1CF202A9BE100B7AE48 /* CommodityHeaderView.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
-				31C176F21FD5444A006E4AEA /* FSPageControl.swift in Sources */,
 				31F235DD204177ED002807D2 /* CommodityDescriptionCell.m in Sources */,
 				45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */,
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,
@@ -2775,7 +2716,6 @@
 				31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */,
 				31A469F61FF1EC5E00C8236E /* SearchAroundViewController.m in Sources */,
 				4505B9AD1FECF6CE00A1E47E /* RnunbindViewController.m in Sources */,
-				31C176F51FD5444A006E4AEA /* FSPagerViewCell.swift in Sources */,
 				31AC45282022E8DD0044A62C /* InformationCenterViewController.m in Sources */,
 				313070CF1FBA924000A0DE71 /* RNRFinishedViewController.m in Sources */,
 				4599C9BC1FF1F00900B23713 /* ModifyPhoneController.m in Sources */,
@@ -2789,11 +2729,9 @@
 				31F235D4204171E5002807D2 /* TrackDetailViewController.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
-				31C176F61FD5444A006E4AEA /* FSPagerViewLayoutAttributes.swift in Sources */,
 				3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */,
 				454B78BE2061F05100FABD60 /* DKSKeyboardView.m in Sources */,
 				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
-				31C176F31FD5444A006E4AEA /* FSPagerCollectionView.swift in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */,
 				31B38BAC202C38BF0086EDC8 /* CommodityCommentFooterCell.m in Sources */,
@@ -2842,9 +2780,7 @@
 				31B38BBE202D8A8F0086EDC8 /* InvoicePageController.m in Sources */,
 				4550360C1FE255AA0088DAE0 /* CarStatisticsViewController.m in Sources */,
 				31B38BB8202D4B0B0086EDC8 /* CommodityCommentsListCell.m in Sources */,
-				31C176F41FD5444A006E4AEA /* FSPagerView.swift in Sources */,
 				316CCCB41FC57CCC00AFF915 /* LeftImgButton.m in Sources */,
-				31C176F71FD5444A006E4AEA /* FSPageViewLayout.swift in Sources */,
 				451744F41FEB99A4008CC890 /* WMViewController.m in Sources */,
 				455974681FE8EAB400D7910A /* NoticeCell.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
@@ -3303,7 +3239,6 @@
 		316CA4801F9F3475009F541E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;
@@ -3320,7 +3255,6 @@
 		316CA4811F9F3475009F541E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B6Q5RKSB5N;

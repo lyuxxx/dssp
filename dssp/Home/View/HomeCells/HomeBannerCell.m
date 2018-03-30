@@ -7,15 +7,9 @@
 //
 
 #import "HomeBannerCell.h"
-#if DEVELOPMENT == 2
-#import "dssp-Swift.h"
-#elif DEVELOPMENT == 1
-#import "dssp_pre-Swift.h"
-#else
-#import "dssp_sit-Swift.h"
-#endif
 #import "EllipsePageControl.h"
 #import <UIImageView+SDWebImage.h>
+#import <SDCycleScrollView.h>
 
 NSString * const HomeBannerCellIdentifier = @"HomeBannerCellIdentifier";
 
@@ -31,8 +25,8 @@ NSString * const HomeBannerCellIdentifier = @"HomeBannerCellIdentifier";
 }
 @end
 
-@interface HomeBannerCell () <FSPagerViewDelegate, FSPagerViewDataSource>
-@property (nonatomic, strong) FSPagerView *banner;
+@interface HomeBannerCell () <SDCycleScrollViewDelegate>
+@property (nonatomic, strong) SDCycleScrollView *banner;
 @property (nonatomic, strong) EllipsePageControl *pageControl;
 @property (nonatomic, strong) NSArray<CarouselObject *> *objs;
 @property (nonatomic, copy) CarouselBlock carouselBlock;
@@ -53,19 +47,16 @@ NSString * const HomeBannerCellIdentifier = @"HomeBannerCellIdentifier";
     self.contentView.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.banner = [[FSPagerView alloc] init];
+    self.banner = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:[UIImage imageNamed:@"home_banner_placeholder"]];
     _banner.layer.masksToBounds = YES;
     _banner.layer.cornerRadius = 4;
     _banner.layer.shadowColor = [UIColor colorWithHexString:@"000000"].CGColor;
     _banner.layer.shadowOffset = CGSizeMake(0, 6);
     _banner.layer.shadowRadius = 7;
     _banner.layer.shadowOpacity = 0.5;
-    _banner.automaticSlidingInterval = 5.0;
-    _banner.isInfinite = YES;
-    _banner.delegate = self;
-    _banner.dataSource = self;
-    _banner.itemSize = CGSizeZero;
-    [_banner registerClass:[FSPagerViewCell class] forCellWithReuseIdentifier:@"FSPagerViewCell"];
+    _banner.autoScrollTimeInterval = 5.0;
+    _banner.infiniteLoop = YES;
+    _banner.showPageControl = NO;
     [self.contentView addSubview:_banner];
     [_banner makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(375 * WidthCoefficient);
@@ -92,51 +83,30 @@ NSString * const HomeBannerCellIdentifier = @"HomeBannerCellIdentifier";
     self.objs = objs;
     _pageControl.numberOfPages = objs.count;
     if (objs.count == 1) {
-        _banner.isInfinite = NO;
+        _banner.infiniteLoop = NO;
         _pageControl.hidden = YES;
     } else {
-        _banner.isInfinite = YES;
+        _banner.infiniteLoop = YES;
         _pageControl.hidden = NO;
     }
-    [self.banner reloadData];
+    if (objs.count == 1 && objs[0].local == YES) {
+        self.banner.localizationImageNamesGroup = @[@"home_banner_car"];
+    } else {
+        NSMutableArray *imgURLs = [NSMutableArray array];
+        for (NSInteger i = 0; i < objs.count; i++) {
+            [imgURLs addObject:self.objs[i].imgUrl];
+        }
+        self.banner.imageURLStringsGroup = imgURLs;
+    }
 }
 
 + (CGFloat)cellHeight {
     return 200 * WidthCoefficient;
 }
 
-#pragma mark - FSPagerViewDataSource
+#pragma mark - SDCycleScrollViewDelegate -
 
-- (NSInteger)numberOfItemsInPagerView:(FSPagerView *)pagerView {
-    return self.objs.count;
-}
-
-- (FSPagerViewCell *)pagerView:(FSPagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
-    FSPagerViewCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"FSPagerViewCell" atIndex:index];
-    cell.contentView.layer.shadowRadius = 0;
-    cell.imageView.userInteractionEnabled = YES;
-    cell.imageView.contentMode = UIViewContentModeScaleToFill;
-    if (self.objs[index].local) {
-        cell.imageView.image = [UIImage imageNamed:@"home_banner_car"];
-    } else {
-        [cell.imageView downloadImage:self.objs[index].imgUrl placeholder:[UIImage imageNamed:@"home_banner_placeholder"]];
-    }
-    return cell;
-}
-
-#pragma mark - FSPagerViewDelegate
-
-- (void)pagerViewDidScroll:(FSPagerView *)pagerView {
-    if (self.pageControl.currentPage != pagerView.currentIndex) {
-        self.pageControl.currentPage = pagerView.currentIndex;
-    }
-}
-
-- (void)pagerView:(FSPagerView *)pagerView didSelectItemAtIndex:(NSInteger)index {
-    [pagerView deselectItemAtIndex:index animated:YES];
-    [pagerView scrollToItemAtIndex:index animated:YES];
-    self.pageControl.currentPage = index;
-    
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     NSString *url = self.objs[index].href;
     
     if (self.carouselBlock && url && ![url isEqualToString:@""]) {
@@ -144,14 +114,9 @@ NSString * const HomeBannerCellIdentifier = @"HomeBannerCellIdentifier";
     }
 }
 
-- (BOOL)pagerView:(FSPagerView *)pagerView shouldHighlightItemAtIndex:(NSInteger)index {
-    NSString *url = self.objs[index].href;
-    return url && ![url isEqualToString:@""];
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index {
+    if (self.pageControl.currentPage != index) {
+        self.pageControl.currentPage = index;
+    }
 }
-
-- (BOOL)pagerView:(FSPagerView *)pagerView shouldSelectItemAtIndex:(NSInteger)index {
-    NSString *url = self.objs[index].href;
-    return url && ![url isEqualToString:@""];
-}
-
 @end
