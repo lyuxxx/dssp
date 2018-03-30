@@ -120,7 +120,7 @@
     _versionLabel.layer.cornerRadius = 2;
     _versionLabel.font = [UIFont fontWithName:FontName size:13];
     _versionLabel.textColor = [UIColor whiteColor];
-    _versionLabel.text = [NSString stringWithFormat:@"V%@",self.version.versionName];
+    _versionLabel.text = self.version.versionName;
     [bg addSubview:_versionLabel];
     [_versionLabel makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(-70 * WidthCoefficient);
