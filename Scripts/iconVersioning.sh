@@ -1,53 +1,26 @@
 #!/bin/sh
 export PATH=/opt/local/bin/:/opt/local/sbin:$PATH:/usr/local/bin:
 
+#!/bin/sh
+# Based on Krzysztof Zablocki Boostrap library - https://github.com/krzysztofzablocki/Bootstrap
+
+if [ $CONFIGURATION = "Release" ]; then
+  exit -1;
+fi
+
 convertPath=`which convert`
-gsPath=`which gs`
-
+echo ${convertPath}
 if [[ ! -f ${convertPath} || -z ${convertPath} ]]; then
-  convertValidation=true;
-else
-  convertValidation=false;
+  echo "warning: Skipping Icon versioning, you need to install ImageMagick and ghostscript (fonts) first, you can use brew to simplify process:
+  brew install imagemagick
+  brew install ghostscript"
+  exit -1;
 fi
 
-if [[ ! -f ${gsPath} || -z ${gsPath} ]]; then
-  gsValidation=true;
-else
-  gsValidation=false;
-fi
-
-if [[ "$convertValidation" = true || "$gsValidation" = true ]]; then
-  echo "WARNING: Skipping Icon versioning, you need to install ImageMagick and ghostscript (fonts) first, you can use brew to simplify process:"
-
-  if [[ "$convertValidation" = true ]]; then
-    echo "brew install imagemagick"
-  fi
-  if [[ "$gsValidation" = true ]]; then
-    echo "brew install ghostscript"
-  fi
-exit 0;
-fi
-
+commit=`git rev-parse --short HEAD`
+branch=`git rev-parse --abbrev-ref HEAD`
 version=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"`
 build_num=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"`
-
-# Check if we are under a Git or Hg repo
-if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
-    commit=`git rev-parse --short HEAD`
-    branch=`git rev-parse --abbrev-ref HEAD`
-else
-    commit=`hg identify -i`
-    branch=`hg identify -b`
-fi;
-
-#SRCROOT=..
-#CONFIGURATION_BUILD_DIR=.
-#UNLOCALIZED_RESOURCES_FOLDER_PATH=.
-
-#commit="3783bab"
-#branch="master"
-#version="3.4"
-#build_num="9999"
 
 shopt -s extglob
 build_num="${build_num##*( )}"
@@ -59,110 +32,97 @@ function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l 
 
 function processIcon() {
     base_file=$1
+    temp_path=$2
+    dest_path=$3
 
-    cd "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
-    base_path=`find . -name ${base_file}`
-
-    real_path=$( abspath "${base_path}" )
-    echo "base path ${real_path}"
-
-    if [[ ! -f ${base_path} || -z ${base_path} ]]; then
-      return;
+    if [[ ! -e $base_file ]]; then
+        echo "error: file does not exist: ${base_file}"
+        exit -1;
     fi
 
-    # TODO: if they are the same we need to fix it by introducing temp
-    target_file=`basename $base_path`
-    target_path="${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${target_file}"
-
-    base_tmp_normalizedFileName="${base_file%.*}-normalized.${base_file##*.}"
-    base_tmp_path=`dirname $base_path`
-    base_tmp_normalizedFilePath="${base_tmp_path}/${base_tmp_normalizedFileName}"
-
-    stored_original_file="${base_tmp_normalizedFilePath}-tmp"
-    if [[ -f ${stored_original_file} ]]; then
-      echo "found previous file at path ${stored_original_file}, using it as base"
-      mv "${stored_original_file}" "${base_path}"
+    if [[ -z $temp_path ]]; then
+        echo "error: temp_path does not exist: ${temp_path}"
+        exit -1;
     fi
 
-    if [ $CONFIGURATION = "Release" ]; then
-      cp "${base_path}" "$target_path"
-      return 0;
+    if [[ -z $dest_path ]]; then
+        echo "error: dest_path does not exist: ${dest_path}"
+        exit -1;
     fi
 
-    echo "Reverting optimized PNG to normal"
+    file_name=$(basename "$base_file")
+    final_file_path="${dest_path}/${file_name}"
+    
+    base_tmp_normalizedFileName="${file_name%.*}-normalized.${file_name##*.}"
+    base_tmp_normalizedFilePath="${temp_path}/${base_tmp_normalizedFileName}"
+    
     # Normalize
-    echo "xcrun -sdk iphoneos pngcrush -revert-iphone-optimizations -q ${base_path} ${base_tmp_normalizedFilePath}"
-    xcrun -sdk iphoneos pngcrush -revert-iphone-optimizations -q "${base_path}" "${base_tmp_normalizedFilePath}"
+    echo "Reverting optimized PNG to normal"
+    echo "xcrun -sdk iphoneos pngcrush -revert-iphone-optimizations -q '${base_file}' '${base_tmp_normalizedFilePath}'"
+    xcrun -sdk iphoneos pngcrush -revert-iphone-optimizations -q "${base_file}" "${base_tmp_normalizedFilePath}"
+    
+    width=`identify -format %w "${base_tmp_normalizedFilePath}"`
+    height=`identify -format %h "${base_tmp_normalizedFilePath}"`
 
-    # move original pngcrush png to tmp file
-    echo "moving pngcrushed png file at ${base_path} to ${stored_original_file}"
-    #rm "$base_path"
-    mv "$base_path" "${stored_original_file}"
-
-    # Rename normalized png's filename to original one
-    echo "Moving normalized png file to original one ${base_tmp_normalizedFilePath} to ${base_path}"
-    mv "${base_tmp_normalizedFilePath}" "${base_path}"
-
-    width=`identify -format %w ${base_path}`
-    height=`identify -format %h ${base_path}`
     band_height=$((($height * 47) / 100))
     band_position=$(($height - $band_height))
     text_position=$(($band_position - 3))
     point_size=$(((13 * $width) / 100))
-
+    
     echo "Image dimensions ($width x $height) - band height $band_height @ $band_position - point size $point_size"
-
+    
     #
     # blur band and text
     #
-    convert ${base_path} -blur 10x8 /tmp/blurred.png
+    convert "${base_tmp_normalizedFilePath}" -blur 10x8 /tmp/blurred.png
     convert /tmp/blurred.png -gamma 0 -fill white -draw "rectangle 0,$band_position,$width,$height" /tmp/mask.png
     convert -size ${width}x${band_height} xc:none -fill 'rgba(0,0,0,0.2)' -draw "rectangle 0,0,$width,$band_height" /tmp/labels-base.png
     convert -background none -size ${width}x${band_height} -pointsize $point_size -fill white -gravity center -gravity South caption:"$caption" /tmp/labels.png
-
-    convert ${base_path} /tmp/blurred.png /tmp/mask.png -composite /tmp/temp.png
-
+    
+    convert "${base_tmp_normalizedFilePath}" /tmp/blurred.png /tmp/mask.png -composite /tmp/temp.png
+    
     rm /tmp/blurred.png
     rm /tmp/mask.png
-
+    
     #
     # compose final image
     #
-    filename=New${base_file}
-    convert /tmp/temp.png /tmp/labels-base.png -geometry +0+$band_position -composite /tmp/labels.png -geometry +0+$text_position -geometry +${w}-${h} -composite "${target_path}"
-
+    filename=New"${base_file}"
+    convert /tmp/temp.png /tmp/labels-base.png -geometry +0+$band_position -composite /tmp/labels.png -geometry +0+$text_position -geometry +${w}-${h} -composite -alpha remove "${final_file_path}"
+    
+    
     # clean up
     rm /tmp/temp.png
     rm /tmp/labels-base.png
     rm /tmp/labels.png
-
-    echo "Overlayed ${target_path}"
+    rm "${base_tmp_normalizedFilePath}"
+    
+    echo "Overlayed ${final_file_path}"
 }
 
-icon_count=`/usr/libexec/PlistBuddy -c "Print CFBundleIcons~ipad:CFBundlePrimaryIcon:CFBundleIconFiles" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}" | wc -l`
-last_icon_index=$((${icon_count} - 2))
+# Process all app icons and create the corresponding internal icons
+# icons_dir="${SRCROOT}/Images.xcassets/AppIcon.appiconset"
+icons_path="${PROJECT_DIR}/dssp/Assets.xcassets/AppIcon.appiconset"
+icons_dest_path="${PROJECT_DIR}/dssp/Assets.xcassets/AppIcon-Versioned.appiconset"
+icons_set=`basename "${icons_path}"`
+tmp_path="${TEMP_DIR}/IconVersioning"
 
-i=0
-while [  $i -lt $last_icon_index ]; do
-  icon=`/usr/libexec/PlistBuddy -c "Print CFBundleIcons~ipad:CFBundlePrimaryIcon:CFBundleIconFiles:$i" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"`
+echo "icons_path: ${icons_path}"
+echo "icons_dest_path: ${icons_dest_path}"
 
-  if [[ $icon == *.png ]] || [[ $icon == *.PNG ]]
-  then
-    processIcon $icon
-  else
-    processIcon "${icon}.png"
-    processIcon "${icon}@2x.png"
-    processIcon "${icon}@3x.png"
+mkdir -p "${tmp_path}"
 
-    processIcon "${icon}~ipad.png"
-    processIcon "${icon}@2x~ipad.png"
-  fi
-  let i=i+1
+if [[ $icons_dest_path == "\\" ]]; then
+    echo "error: destination file path can't be the root directory"
+    exit -1;
+fi
+
+rm -rf "${icons_dest_path}"
+cp -rf "${icons_path}" "${icons_dest_path}"
+
+# Reference: https://askubuntu.com/a/343753
+find "${icons_path}" -type f -name "*.png" -print0 | 
+while IFS= read -r -d '' file; do
+    echo "$file"
+    processIcon "${file}" "${tmp_path}" "${icons_dest_path}"
 done
-
-# Workaround to fix issue#16 to use wildcard * to actually find the file
-# Only 72x72 and 76x76 that we need for ipad app icons
-#processIcon "AppIcon72x72~ipad*"
-#processIcon "AppIcon72x72@2x~ipad*"
-#processIcon "AppIcon76x76~ipad*"
-#processIcon "AppIcon76x76@2x~ipad*"
