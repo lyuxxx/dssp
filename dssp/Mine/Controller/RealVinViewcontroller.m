@@ -138,18 +138,18 @@
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                    [hud hideAnimated:YES];
                 NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-                if ([str isEqualToString:@"0"]) {
+                if ([str isEqualToString:@"true"]) {
                     ///未实名
                     RNRViewController *vc = [[RNRViewController alloc] init];
                     vc.bingVin = _vin?_vin:_vinField.text;
                     [self.navigationController pushViewController:vc animated:YES];
                     
                 }
-                else if ([str isEqualToString:@"1"])
+                else if ([str isEqualToString:@"false"])
                 {
-                       [hud hideAnimated:YES];
+                    [hud hideAnimated:YES];
                     ///已实名
-                    [MBProgressHUD showText:NSLocalizedString(@"已实名认证", nil)];
+                    [MBProgressHUD showText:NSLocalizedString(@"实名认证信息已提交，请勿重复提交", nil)];
                 }
                 
             } else {
