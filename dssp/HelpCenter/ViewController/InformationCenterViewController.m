@@ -190,13 +190,6 @@
 //        });
         
     
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.dataSource.count != 0)
-            {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            }
-        });
-  
         
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
@@ -312,13 +305,7 @@
 //        });
          [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.dataSource.count != 0)
-            {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            }
-        });
-        
+     
         
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
