@@ -19,7 +19,6 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 #import "TabBarController.h"
-#import "NavigationController.h"
 #import "RTRootNavigationController.h"
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
@@ -36,6 +35,11 @@
 //info.plist决定启动页支持的方向,该方法决定启动后window支持的方向
 //https://developer.apple.com/library/content/technotes/tn2244/_index.html#//apple_ref/doc/uid/DTS40009012-CH1-ALLOWING_YOUR_APP_TO_ROTATE_INTO_PORTRAIT_ORIENTATION_AFTER_LAUNCH
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (self.isForceLandscape) {
+        return UIInterfaceOrientationMaskLandscape;
+    } else if (self.isForcePortrait) {
+        return UIInterfaceOrientationMaskPortrait;
+    }
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 

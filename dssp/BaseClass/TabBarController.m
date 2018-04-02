@@ -7,7 +7,6 @@
 //
 
 #import "TabBarController.h"
-#import "NavigationController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import <RTRootNavigationController/RTRootNavigationController.h>
 #import "UITabBar+badge.h"

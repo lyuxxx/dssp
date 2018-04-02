@@ -11,6 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, assign) BOOL isForceLandscape;
+@property (nonatomic, assign) BOOL isForcePortrait;
 
 //ApplicationBadgeNumber相关
 - (void)setBadgeNumber:(NSInteger)number;

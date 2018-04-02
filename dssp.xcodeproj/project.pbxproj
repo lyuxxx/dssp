@@ -70,7 +70,6 @@
 		3161DDC4206C8AB500D40EE3 /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		3161DDC5206C8AB500D40EE3 /* SearchresultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */; };
 		3161DDC6206C8AB500D40EE3 /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
-		3161DDC7206C8AB500D40EE3 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB91FA87CE300C8FDF8 /* NavigationController.m */; };
 		3161DDC8206C8AB500D40EE3 /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
 		3161DDC9206C8AB500D40EE3 /* CommodityPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA2202C38410086EDC8 /* CommodityPriceCell.m */; };
 		3161DDCA206C8AB500D40EE3 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
@@ -266,7 +265,6 @@
 		3161DE9C206C8ABC00D40EE3 /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
 		3161DE9D206C8ABC00D40EE3 /* SearchresultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */; };
 		3161DE9E206C8ABC00D40EE3 /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
-		3161DE9F206C8ABC00D40EE3 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB91FA87CE300C8FDF8 /* NavigationController.m */; };
 		3161DEA0206C8ABC00D40EE3 /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
 		3161DEA1206C8ABC00D40EE3 /* CommodityPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA2202C38410086EDC8 /* CommodityPriceCell.m */; };
 		3161DEA2206C8ABC00D40EE3 /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
@@ -432,7 +430,6 @@
 		3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4671F9F3475009F541E /* Assets.xcassets */; };
 		3161DF4A206C8ABC00D40EE3 /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
-		31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB91FA87CE300C8FDF8 /* NavigationController.m */; };
 		31699EBD1FA87D0900C8FDF8 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EBC1FA87D0900C8FDF8 /* TabBarController.m */; };
 		31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC01FA87E6900C8FDF8 /* LoginViewController.m */; };
 		31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
@@ -685,8 +682,6 @@
 		3161DF51206C8ABC00D40EE3 /* dssp-sit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dssp-sit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31699EB51FA87CC100C8FDF8 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		31699EB61FA87CC100C8FDF8 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		31699EB81FA87CE300C8FDF8 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		31699EB91FA87CE300C8FDF8 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		31699EBB1FA87D0900C8FDF8 /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		31699EBC1FA87D0900C8FDF8 /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		31699EBF1FA87E6900C8FDF8 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1290,8 +1285,6 @@
 				31091650203EA53300C50D0E /* StoreBaseViewController.m */,
 				31A469EE1FF1E75100C8236E /* MapBaseController.h */,
 				31A469EF1FF1E75100C8236E /* MapBaseController.m */,
-				31699EB81FA87CE300C8FDF8 /* NavigationController.h */,
-				31699EB91FA87CE300C8FDF8 /* NavigationController.m */,
 				31699EBB1FA87D0900C8FDF8 /* TabBarController.h */,
 				31699EBC1FA87D0900C8FDF8 /* TabBarController.m */,
 				31C504A620624D6F000CFB8F /* BaseWebViewController.h */,
@@ -2313,7 +2306,6 @@
 				3161DDC4206C8AB500D40EE3 /* StoreBaseViewController.m in Sources */,
 				3161DDC5206C8AB500D40EE3 /* SearchresultViewController.m in Sources */,
 				3161DDC6206C8AB500D40EE3 /* ContractdetailCell.m in Sources */,
-				3161DDC7206C8AB500D40EE3 /* NavigationController.m in Sources */,
 				3161DDC8206C8AB500D40EE3 /* LocationAnnotationView.m in Sources */,
 				3161DDC9206C8AB500D40EE3 /* CommodityPriceCell.m in Sources */,
 				3161DDCA206C8AB500D40EE3 /* VINBindingViewController.m in Sources */,
@@ -2505,7 +2497,6 @@
 				3161DE9C206C8ABC00D40EE3 /* StoreBaseViewController.m in Sources */,
 				3161DE9D206C8ABC00D40EE3 /* SearchresultViewController.m in Sources */,
 				3161DE9E206C8ABC00D40EE3 /* ContractdetailCell.m in Sources */,
-				3161DE9F206C8ABC00D40EE3 /* NavigationController.m in Sources */,
 				3161DEA0206C8ABC00D40EE3 /* LocationAnnotationView.m in Sources */,
 				3161DEA1206C8ABC00D40EE3 /* CommodityPriceCell.m in Sources */,
 				3161DEA2206C8ABC00D40EE3 /* VINBindingViewController.m in Sources */,
@@ -2697,7 +2688,6 @@
 				31091651203EA53300C50D0E /* StoreBaseViewController.m in Sources */,
 				4505B9AA1FECF3CE00A1E47E /* SearchresultViewController.m in Sources */,
 				4570EFDF1FFC788D00FA6355 /* ContractdetailCell.m in Sources */,
-				31699EBA1FA87CE300C8FDF8 /* NavigationController.m in Sources */,
 				313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */,
 				31B38BA3202C38410086EDC8 /* CommodityPriceCell.m in Sources */,
 				313070D21FBA9BD900A0DE71 /* VINBindingViewController.m in Sources */,

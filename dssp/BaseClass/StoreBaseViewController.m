@@ -38,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [UIViewController attemptRotationToDeviceOrientation];
     [self config];
     [self setNavBar];
     [self createGradientBg];
