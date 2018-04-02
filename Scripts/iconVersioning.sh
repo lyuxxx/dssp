@@ -17,10 +17,32 @@ if [[ ! -f ${convertPath} || -z ${convertPath} ]]; then
   exit -1;
 fi
 
+# plistPath="${PROJECT_DIR}/dssp/info.plist"
+# current=${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}
+# sit="dssp-sit"
+# pre="dssp-pre"
+# pro="dssp.app"
+# if [[ $current =~ $sit ]]; then
+# plistPath="${PROJECT_DIR}/dssp/dssp-sit.plist"
+# fi
+
+# if [[ $current =~ $pre ]]; then
+# plistPath="${PROJECT_DIR}/dssp/dssp-pre.plist"
+# fi
+
+# if [[ $current =~ $pro ]]; then
+# plistPath="${PROJECT_DIR}/dssp/Info.plist"
+# fi
+
+# version=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "${plistPath}"`
+# build_num=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${plistPath}"`
+
 commit=`git rev-parse --short HEAD`
 branch=`git rev-parse --abbrev-ref HEAD`
 version=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"`
 build_num=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"`
+#version=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "${INFOPLIST_FILE}"`
+#build_num=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${INFOPLIST_FILE}"`
 
 shopt -s extglob
 build_num="${build_num##*( )}"
