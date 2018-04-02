@@ -58,14 +58,15 @@ typedef void(^PullWeatherFinished)(void);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     //    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self setupUI];
     [self pullData];
+
     //延迟1秒检测版本升级,让权限框先弹
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self checkAppV];
     });
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

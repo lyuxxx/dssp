@@ -17,4 +17,7 @@
 @property (nonatomic , copy) NSString              * serviceStatus;
 @property (nonatomic , copy) NSString              * finalStatus;
 @property (nonatomic , copy) NSString              * certificationStatus;
+@property (nonatomic , copy) NSString              * rnrStatus;
+@property (nonatomic , copy) NSString              * rcStatus;
+@property (nonatomic , copy) NSString              * simStatus;
 @end
