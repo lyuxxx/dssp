@@ -685,9 +685,29 @@
                         if([KcertificationStatus isEqualToString:@"1"])
                         {
                             //T车辆
+                            if ([KuserName isEqualToString:@"18911568274"]) {
+            
+                                if([str4 isEqualToString:@"10013"])
+                                {
+                                    [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
+                                    
+                                }
+                                else
+                                {
+                                    
+                                    UIViewController *vc = [[NSClassFromString([dic2 objectForKey:str4]) alloc] init];
+                                    vc.hidesBottomBarWhenPushed = YES;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                }
+                                
+                            }
+                            else
+                            {
+                          
                             UIViewController *vc = [[NSClassFromString([dic2 objectForKey:str4]) alloc] init];
                             vc.hidesBottomBarWhenPushed = YES;
                             [self.navigationController pushViewController:vc animated:YES];
+                            }
                             
                         }
                         else

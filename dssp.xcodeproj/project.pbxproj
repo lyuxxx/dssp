@@ -1309,7 +1309,6 @@
 			children = (
 				316CA45D1F9F3475009F541E /* dssp */,
 				316CA4761F9F3475009F541E /* dsspUITests */,
-				316CA45C1F9F3475009F541E /* Products */,
 				970D93E9BFE3ED1AE5671BF8 /* Pods */,
 				036B73DB65D5CBC6DAD8E4EF /* Frameworks */,
 			);
@@ -1324,6 +1323,7 @@
 				3161DF51206C8ABC00D40EE3 /* dssp-sit.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		316CA45D1F9F3475009F541E /* dssp */ = {
@@ -1352,6 +1352,7 @@
 		316CA4761F9F3475009F541E /* dsspUITests */ = {
 			isa = PBXGroup;
 			children = (
+				316CA45C1F9F3475009F541E /* Products */,
 				316CA4771F9F3475009F541E /* dsspUITests.m */,
 				316CA4791F9F3475009F541E /* Info.plist */,
 			);

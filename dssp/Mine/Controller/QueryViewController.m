@@ -30,9 +30,8 @@
 -(void)requestData
 {
     NSDictionary *paras = @{
-//                            @"vin": [kVin isEqualToString:@""]?_vin:kVin
                              @"vin": _vin
-                            };
+                           };
     [CUHTTPRequest POST:queryBindAndRNRStatus parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
@@ -85,11 +84,17 @@
         UILabel *lab1 = [[UILabel alloc] init];
         lab1.textAlignment = NSTextAlignmentLeft;
 //        lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+         lab1.text = titles[i];
+        CGSize size = [lab1.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:16],NSFontAttributeName,nil]];
+        // 名字的H
+        //    CGFloat nameH = size.height;
+        // 名字的W
+        CGFloat nameW = size.width;
         lab1.font = [UIFont fontWithName:FontName size:16];
-        lab1.text = titles[i];
+       
         [view1 addSubview:lab1];
         [lab1 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(150 * WidthCoefficient);
+            make.width.equalTo(nameW+1);
             make.height.equalTo(22.5 * HeightCoefficient);
             make.centerY.equalTo(0);
             make.left.equalTo(logo.right).offset(18*WidthCoefficient);
@@ -138,19 +143,39 @@
         
         if (i==0) {
     
-//            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            
+            
+            UIView *lineview1 = [[UIView alloc] init];
+            lineview1.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+            lineview1.hidden = YES;
+            [view1 addSubview:lineview1];
+            [lineview1 makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(49 * WidthCoefficient);
+                make.height.equalTo(1 * HeightCoefficient);
+                make.centerY.equalTo(0);
+                make.left.equalTo(lab1.right).offset(10 * WidthCoefficient);
+            }];
+            
+            
+            
             UILabel *lab = [[UILabel alloc] init];
             lab.textAlignment = NSTextAlignmentLeft;
             lab.textColor = [UIColor colorWithHexString:@"#666666"];
-            lab.font = [UIFont fontWithName:FontName size:16];
             lab.hidden = YES;
             lab.text = NSLocalizedString(@"人工审核中", nil);
+            CGSize size = [lab.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:16],NSFontAttributeName,nil]];
+            // 名字的H
+            //    CGFloat nameH = size.height;
+            // 名字的W
+            CGFloat nameW1 = size.width;
+            lab.font = [UIFont fontWithName:FontName size:16];
+        
             [view1 addSubview:lab];
             [lab makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(80 * WidthCoefficient);
+                make.width.equalTo(nameW1+1);
                 make.height.equalTo(22.5 * HeightCoefficient);
                 make.centerY.equalTo(0);
-            make.left.equalTo(lab1.right).offset(0*WidthCoefficient);
+           make.left.equalTo(lineview1.right).offset(10*WidthCoefficient);
                 
             }];
             
@@ -165,6 +190,7 @@
                 logo.image = [UIImage imageNamed:@"失败_icon"];
                 lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab.hidden = NO;
+                lineview1.hidden = NO;
             }
             else if ([_queryModel.rnrStatus isEqualToString:@"2"])
             {
@@ -174,7 +200,7 @@
             else if ([_queryModel.rnrStatus isEqualToString:@"4"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                lab1.text = @"实名制认证失败";
+                lab1.text = @"实名制认证失败,请重新提交";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
             }
             else
