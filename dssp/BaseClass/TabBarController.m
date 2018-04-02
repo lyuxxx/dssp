@@ -7,7 +7,6 @@
 //
 
 #import "TabBarController.h"
-#import "NavigationController.h"
 #import <YYCategoriesSub/YYCategories.h>
 #import <RTRootNavigationController/RTRootNavigationController.h>
 #import "UITabBar+badge.h"
@@ -33,6 +32,13 @@
     return self.selectedViewController.preferredStatusBarStyle;
 }
 
+- (BOOL)shouldAutorotate {
+    return [self.selectedViewController shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return [self.selectedViewController supportedInterfaceOrientations];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

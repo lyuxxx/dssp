@@ -15,7 +15,6 @@
 #import <YYModel/YYModel.h>
 #import <MBProgressHUD+CU.h>
 #import "ForgotViewController.h"
-#import "NavigationController.h"
 #import "NewPasswordViewController.h"
 #import "UITabBar+badge.h"
 #import <MapSearchManager.h>
