@@ -354,8 +354,13 @@
         return;
     } else if (!self.ownercertidField.text || [self.ownercertidField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写证件号码", nil)];
+            return;
+    }
+    else if (self.ownercertidField.text.length != 18) {
+        [MBProgressHUD showText:NSLocalizedString(@"请填写正确的身份证号码", nil)];
         return;
-    } else if (!self.servnumberField.text || [self.servnumberField.text isEqualToString:@""]) {
+    }
+    else if (!self.servnumberField.text || [self.servnumberField.text isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请填写电话码", nil)];
         return;
     } else if (!self.ownercertaddrField.text || [self.ownercertaddrField.text isEqualToString:@""]) {
