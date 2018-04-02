@@ -59,9 +59,9 @@
 - (void)setupUI {
     self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
     NSArray *titles = @[
-                        NSLocalizedString(@"实名制认证成功", nil),
-                        NSLocalizedString(@"车辆激活成功", nil),
-                        NSLocalizedString(@"T服务套餐开通成功", nil),
+                        NSLocalizedString(@"实名制认证", nil),
+                        NSLocalizedString(@"车辆激活", nil),
+                        NSLocalizedString(@"T服务套餐开通", nil),
                         NSLocalizedString(@"完成", nil)
                         ];
     
@@ -155,23 +155,28 @@
             }];
             
             
-             if ([_queryModel.certificationStatus isEqualToString:@"0"])
+             if ([_queryModel.rnrStatus isEqualToString:@"0"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
-            else if ([_queryModel.certificationStatus isEqualToString:@"1"]) {
+            else if ([_queryModel.rnrStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 logo.image = [UIImage imageNamed:@"失败_icon"];
                 lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab.hidden = NO;
             }
-            else if ([_queryModel.certificationStatus isEqualToString:@"2"])
+            else if ([_queryModel.rnrStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
             }
-            
+            else if ([_queryModel.rnrStatus isEqualToString:@"4"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab1.text = @"实名制认证失败";
+                logo.image = [UIImage imageNamed:@"失败_icon"];
+            }
             else
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
@@ -181,15 +186,30 @@
         }
         if (i==1) {
             
-            if ([_queryModel.vhlActivate isEqualToString:@"0"])
+            if ([_queryModel.rcStatus isEqualToString:@"0"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
-            else if ([_queryModel.vhlActivate isEqualToString:@"1"])
+            else if ([_queryModel.rcStatus isEqualToString:@"1"])
+            {
+                
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab1.text = @"车辆配置中";
+                logo.image = [UIImage imageNamed:@"失败_icon"];
+               
+            }
+            else if ([_queryModel.rcStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
+                lab1.text = @"车辆激活成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+            }
+            else if ([_queryModel.rcStatus isEqualToString:@"3"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab1.text = @"车辆激活失败";
+                logo.image = [UIImage imageNamed:@"失败_icon"];
             }
             else
             {
@@ -200,14 +220,20 @@
         }
         if (i==2) {
             
-            if ([_queryModel.serviceStatus isEqualToString:@"0"]) {
+            if ([_queryModel.simStatus isEqualToString:@"0"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
-            else if ([_queryModel.serviceStatus isEqualToString:@"1"])
+            else if ([_queryModel.simStatus isEqualToString:@"1"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+            }
+            else if ([_queryModel.simStatus isEqualToString:@"2"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab1.text = @"T服务开通失败";
+                logo.image = [UIImage imageNamed:@"失败_icon"];
             }
             else
             {
@@ -219,7 +245,7 @@
         }
         if (i==3) {
             
-           if ([_queryModel.certificationStatus isEqualToString:@"2"]&&[_queryModel.vhlActivate isEqualToString:@"1"]&&[_queryModel.serviceStatus isEqualToString:@"1"])
+           if ([_queryModel.rnrStatus isEqualToString:@"2"]&&[_queryModel.rcStatus isEqualToString:@"2"]&&[_queryModel.simStatus isEqualToString:@"1"])
             {
                 
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
