@@ -183,6 +183,7 @@
              if ([_queryModel.rnrStatus isEqualToString:@"0"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
+                lab1.text = @"未提交实名认证";
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
             else if ([_queryModel.rnrStatus isEqualToString:@"1"]) {
@@ -196,6 +197,13 @@
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+            }
+            else if ([_queryModel.rnrStatus isEqualToString:@"3"])
+            {
+                lab1.textColor = [UIColor colorWithHexString:@"#999999"];
+                lab1.text = @"未提交实名认证";
+                logo.image = [UIImage imageNamed:@"认证中_icon"];
+                
             }
             else if ([_queryModel.rnrStatus isEqualToString:@"4"])
             {
@@ -253,6 +261,7 @@
             else if ([_queryModel.simStatus isEqualToString:@"1"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
+                  lab1.text = @"T服务开通成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
             }
             else if ([_queryModel.simStatus isEqualToString:@"2"])
@@ -267,7 +276,6 @@
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
             
-        
         }
         if (i==3) {
             
