@@ -9,7 +9,7 @@
 #import "HomeBannerCell.h"
 #import "EllipsePageControl.h"
 #import <UIImageView+SDWebImage.h>
-#import <SDCycleScrollView.h>
+#import "SDCycleScrollView.h"
 
 NSString * const HomeBannerCellIdentifier = @"HomeBannerCellIdentifier";
 

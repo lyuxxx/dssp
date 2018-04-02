@@ -25,6 +25,27 @@
 		31158929201B198C00A4AEFB /* GetActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */; };
 		3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
 		3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */; };
+		312F70FB2071FFBD0072C824 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */; };
+		312F70FC2071FFBD0072C824 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */; };
+		312F70FD2071FFBD0072C824 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */; };
+		312F70FE2071FFBD0072C824 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */; };
+		312F70FF2071FFBD0072C824 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */; };
+		312F71002071FFBD0072C824 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */; };
+		312F71012071FFBD0072C824 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F22071FFBD0072C824 /* TADotView.m */; };
+		312F71022071FFBD0072C824 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F22071FFBD0072C824 /* TADotView.m */; };
+		312F71032071FFBD0072C824 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F22071FFBD0072C824 /* TADotView.m */; };
+		312F71042071FFBD0072C824 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F42071FFBD0072C824 /* TAPageControl.m */; };
+		312F71052071FFBD0072C824 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F42071FFBD0072C824 /* TAPageControl.m */; };
+		312F71062071FFBD0072C824 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F42071FFBD0072C824 /* TAPageControl.m */; };
+		312F71072071FFBD0072C824 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */; };
+		312F71082071FFBD0072C824 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */; };
+		312F71092071FFBD0072C824 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */; };
+		312F710A2071FFBD0072C824 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F82071FFBD0072C824 /* SDCycleScrollView.m */; };
+		312F710B2071FFBD0072C824 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F82071FFBD0072C824 /* SDCycleScrollView.m */; };
+		312F710C2071FFBD0072C824 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F82071FFBD0072C824 /* SDCycleScrollView.m */; };
+		312F710D2071FFBD0072C824 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */; };
+		312F710E2071FFBD0072C824 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */; };
+		312F710F2071FFBD0072C824 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */; };
 		312FE1B82029883200B7AE48 /* StoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1B72029883200B7AE48 /* StoreTabViewController.m */; };
 		312FE1BB2029884700B7AE48 /* StoreSingleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BA2029884700B7AE48 /* StoreSingleViewController.m */; };
 		312FE1BE2029885200B7AE48 /* OrderPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BD2029885200B7AE48 /* OrderPageController.m */; };
@@ -651,6 +672,20 @@
 		3118E4851FDA37D300F9E11A /* dssp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dssp.entitlements; sourceTree = "<group>"; };
 		3125E9DD201F0F6D009F6650 /* MapUpdateHelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapUpdateHelpViewController.h; sourceTree = "<group>"; };
 		3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapUpdateHelpViewController.m; sourceTree = "<group>"; };
+		312F70ED2071FFBD0072C824 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		312F70EF2071FFBD0072C824 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		312F70F12071FFBD0072C824 /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		312F70F22071FFBD0072C824 /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		312F70F32071FFBD0072C824 /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		312F70F42071FFBD0072C824 /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		312F70F52071FFBD0072C824 /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		312F70F72071FFBD0072C824 /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		312F70F82071FFBD0072C824 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		312F70F92071FFBD0072C824 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		312FE1B62029883200B7AE48 /* StoreTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreTabViewController.h; sourceTree = "<group>"; };
 		312FE1B72029883200B7AE48 /* StoreTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreTabViewController.m; sourceTree = "<group>"; };
 		312FE1B92029884700B7AE48 /* StoreSingleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreSingleViewController.h; sourceTree = "<group>"; };
@@ -1141,6 +1176,35 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		312F70EB2071FFBD0072C824 /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				312F70EC2071FFBD0072C824 /* PageControl */,
+				312F70F52071FFBD0072C824 /* SDCollectionViewCell.h */,
+				312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */,
+				312F70F72071FFBD0072C824 /* SDCycleScrollView.h */,
+				312F70F82071FFBD0072C824 /* SDCycleScrollView.m */,
+				312F70F92071FFBD0072C824 /* UIView+SDExtension.h */,
+				312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		312F70EC2071FFBD0072C824 /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				312F70ED2071FFBD0072C824 /* TAAbstractDotView.h */,
+				312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */,
+				312F70EF2071FFBD0072C824 /* TAAnimatedDotView.h */,
+				312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */,
+				312F70F12071FFBD0072C824 /* TADotView.h */,
+				312F70F22071FFBD0072C824 /* TADotView.m */,
+				312F70F32071FFBD0072C824 /* TAPageControl.h */,
+				312F70F42071FFBD0072C824 /* TAPageControl.m */,
+			);
+			path = PageControl;
+			sourceTree = "<group>";
+		};
 		312FE1AF20297EF700B7AE48 /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -1164,6 +1228,7 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				312F70EB2071FFBD0072C824 /* SDCycleScrollView */,
 				454CE6D22046909C003221F3 /* AddressPickerView */,
 				318148051FD6964300F00A4D /* WBAFNetworkingLogger */,
 				313070C41FBA888000A0DE71 /* UIImagePickerController+StatusBar.h */,
@@ -2341,6 +2406,7 @@
 				3161DDE9206C8AB500D40EE3 /* ActivationCodeListCell.m in Sources */,
 				3161DDEA206C8AB500D40EE3 /* DKSKeyboardView.m in Sources */,
 				3161DDEB206C8AB500D40EE3 /* PersonInViewController.m in Sources */,
+				312F71052071FFBD0072C824 /* TAPageControl.m in Sources */,
 				3161DDED206C8AB500D40EE3 /* UIImagePickerController+StatusBar.m in Sources */,
 				3161DDEE206C8AB500D40EE3 /* NoticeModel.m in Sources */,
 				3161DDEF206C8AB500D40EE3 /* CommodityCommentFooterCell.m in Sources */,
@@ -2356,6 +2422,7 @@
 				3161DDF9206C8AB500D40EE3 /* DiscoverViewController.m in Sources */,
 				3161DDFA206C8AB500D40EE3 /* CommodityBannerCell.m in Sources */,
 				3161DDFB206C8AB500D40EE3 /* TrackSingleCell.m in Sources */,
+				312F70FF2071FFBD0072C824 /* TAAnimatedDotView.m in Sources */,
 				3161DDFC206C8AB500D40EE3 /* ActivationCodeListViewController.m in Sources */,
 				3161DDFD206C8AB500D40EE3 /* InfoMessage.m in Sources */,
 				3161DDFE206C8AB500D40EE3 /* MapBaseController.m in Sources */,
@@ -2397,6 +2464,7 @@
 				3161DE24206C8AB500D40EE3 /* DrivingWeekReportViewController.m in Sources */,
 				3161DE25206C8AB500D40EE3 /* ManualViewController.m in Sources */,
 				3161DE26206C8AB500D40EE3 /* PersonInCell.m in Sources */,
+				312F70FC2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
 				3161DE27206C8AB500D40EE3 /* SubscribeModel.m in Sources */,
 				3161DE28206C8AB500D40EE3 /* CarflowModel.m in Sources */,
 				3161DE29206C8AB500D40EE3 /* StoreObject.m in Sources */,
@@ -2416,6 +2484,7 @@
 				3161DE37206C8AB500D40EE3 /* UpkeepViewController.m in Sources */,
 				3161DE38206C8AB500D40EE3 /* MaintainViewController.m in Sources */,
 				3161DE39206C8AB500D40EE3 /* SubscribeViewController.m in Sources */,
+				312F710E2071FFBD0072C824 /* UIView+SDExtension.m in Sources */,
 				3161DE3A206C8AB500D40EE3 /* NewPasswordViewController.m in Sources */,
 				3161DE3B206C8AB500D40EE3 /* BlankView.m in Sources */,
 				3161DE3C206C8AB500D40EE3 /* OrderDetailViewController.m in Sources */,
@@ -2425,12 +2494,14 @@
 				3161DE40206C8AB500D40EE3 /* OrderViewController.m in Sources */,
 				3161DE41206C8AB500D40EE3 /* MineCell.m in Sources */,
 				3161DE42206C8AB500D40EE3 /* DrivingReportWeekCell.m in Sources */,
+				312F71022071FFBD0072C824 /* TADotView.m in Sources */,
 				3161DE43206C8AB500D40EE3 /* CarTrackModel.m in Sources */,
 				3161DE44206C8AB500D40EE3 /* RNRInput.m in Sources */,
 				3161DE45206C8AB500D40EE3 /* AppDelegate.m in Sources */,
 				3161DE46206C8AB500D40EE3 /* CarflowViewController.m in Sources */,
 				3161DE47206C8AB500D40EE3 /* HomeBannerCell.m in Sources */,
 				3161DE48206C8AB500D40EE3 /* CatchCrash.m in Sources */,
+				312F710B2071FFBD0072C824 /* SDCycleScrollView.m in Sources */,
 				3161DE49206C8AB500D40EE3 /* RangePickerCell.m in Sources */,
 				3161DE4A206C8AB500D40EE3 /* MapUpdateHelpViewController.m in Sources */,
 				3161DE4B206C8AB500D40EE3 /* CarInfoViewController.m in Sources */,
@@ -2442,6 +2513,7 @@
 				3161DE51206C8AB500D40EE3 /* FindByAllModel.m in Sources */,
 				3161DE52206C8AB500D40EE3 /* PayCompleteViewController.m in Sources */,
 				3161DE53206C8AB500D40EE3 /* CommodityCommentCell.m in Sources */,
+				312F71082071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
 				3161DE54206C8AB500D40EE3 /* CommodityNameCell.m in Sources */,
 				3161DE55206C8AB500D40EE3 /* QueryViewController.m in Sources */,
 				3161DE56206C8AB500D40EE3 /* LoveCarViewController.m in Sources */,
@@ -2532,6 +2604,7 @@
 				3161DEC1206C8ABC00D40EE3 /* ActivationCodeListCell.m in Sources */,
 				3161DEC2206C8ABC00D40EE3 /* DKSKeyboardView.m in Sources */,
 				3161DEC3206C8ABC00D40EE3 /* PersonInViewController.m in Sources */,
+				312F71062071FFBD0072C824 /* TAPageControl.m in Sources */,
 				3161DEC5206C8ABC00D40EE3 /* UIImagePickerController+StatusBar.m in Sources */,
 				3161DEC6206C8ABC00D40EE3 /* NoticeModel.m in Sources */,
 				3161DEC7206C8ABC00D40EE3 /* CommodityCommentFooterCell.m in Sources */,
@@ -2547,6 +2620,7 @@
 				3161DED1206C8ABC00D40EE3 /* DiscoverViewController.m in Sources */,
 				3161DED2206C8ABC00D40EE3 /* CommodityBannerCell.m in Sources */,
 				3161DED3206C8ABC00D40EE3 /* TrackSingleCell.m in Sources */,
+				312F71002071FFBD0072C824 /* TAAnimatedDotView.m in Sources */,
 				3161DED4206C8ABC00D40EE3 /* ActivationCodeListViewController.m in Sources */,
 				3161DED5206C8ABC00D40EE3 /* InfoMessage.m in Sources */,
 				3161DED6206C8ABC00D40EE3 /* MapBaseController.m in Sources */,
@@ -2588,6 +2662,7 @@
 				3161DEFC206C8ABC00D40EE3 /* DrivingWeekReportViewController.m in Sources */,
 				3161DEFD206C8ABC00D40EE3 /* ManualViewController.m in Sources */,
 				3161DEFE206C8ABC00D40EE3 /* PersonInCell.m in Sources */,
+				312F70FD2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
 				3161DEFF206C8ABC00D40EE3 /* SubscribeModel.m in Sources */,
 				3161DF00206C8ABC00D40EE3 /* CarflowModel.m in Sources */,
 				3161DF01206C8ABC00D40EE3 /* StoreObject.m in Sources */,
@@ -2607,6 +2682,7 @@
 				3161DF0F206C8ABC00D40EE3 /* UpkeepViewController.m in Sources */,
 				3161DF10206C8ABC00D40EE3 /* MaintainViewController.m in Sources */,
 				3161DF11206C8ABC00D40EE3 /* SubscribeViewController.m in Sources */,
+				312F710F2071FFBD0072C824 /* UIView+SDExtension.m in Sources */,
 				3161DF12206C8ABC00D40EE3 /* NewPasswordViewController.m in Sources */,
 				3161DF13206C8ABC00D40EE3 /* BlankView.m in Sources */,
 				3161DF14206C8ABC00D40EE3 /* OrderDetailViewController.m in Sources */,
@@ -2616,12 +2692,14 @@
 				3161DF18206C8ABC00D40EE3 /* OrderViewController.m in Sources */,
 				3161DF19206C8ABC00D40EE3 /* MineCell.m in Sources */,
 				3161DF1A206C8ABC00D40EE3 /* DrivingReportWeekCell.m in Sources */,
+				312F71032071FFBD0072C824 /* TADotView.m in Sources */,
 				3161DF1B206C8ABC00D40EE3 /* CarTrackModel.m in Sources */,
 				3161DF1C206C8ABC00D40EE3 /* RNRInput.m in Sources */,
 				3161DF1D206C8ABC00D40EE3 /* AppDelegate.m in Sources */,
 				3161DF1E206C8ABC00D40EE3 /* CarflowViewController.m in Sources */,
 				3161DF1F206C8ABC00D40EE3 /* HomeBannerCell.m in Sources */,
 				3161DF20206C8ABC00D40EE3 /* CatchCrash.m in Sources */,
+				312F710C2071FFBD0072C824 /* SDCycleScrollView.m in Sources */,
 				3161DF21206C8ABC00D40EE3 /* RangePickerCell.m in Sources */,
 				3161DF22206C8ABC00D40EE3 /* MapUpdateHelpViewController.m in Sources */,
 				3161DF23206C8ABC00D40EE3 /* CarInfoViewController.m in Sources */,
@@ -2633,6 +2711,7 @@
 				3161DF29206C8ABC00D40EE3 /* FindByAllModel.m in Sources */,
 				3161DF2A206C8ABC00D40EE3 /* PayCompleteViewController.m in Sources */,
 				3161DF2B206C8ABC00D40EE3 /* CommodityCommentCell.m in Sources */,
+				312F71092071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
 				3161DF2C206C8ABC00D40EE3 /* CommodityNameCell.m in Sources */,
 				3161DF2D206C8ABC00D40EE3 /* QueryViewController.m in Sources */,
 				3161DF2E206C8ABC00D40EE3 /* LoveCarViewController.m in Sources */,
@@ -2723,6 +2802,7 @@
 				3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */,
 				454B78BE2061F05100FABD60 /* DKSKeyboardView.m in Sources */,
 				450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */,
+				312F71042071FFBD0072C824 /* TAPageControl.m in Sources */,
 				313070C61FBA888000A0DE71 /* UIImagePickerController+StatusBar.m in Sources */,
 				455F36881FF3A4A500D09A63 /* NoticeModel.m in Sources */,
 				31B38BAC202C38BF0086EDC8 /* CommodityCommentFooterCell.m in Sources */,
@@ -2738,6 +2818,7 @@
 				316CCCC01FC68C6000AFF915 /* DiscoverViewController.m in Sources */,
 				31B38B9D202C38060086EDC8 /* CommodityBannerCell.m in Sources */,
 				31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */,
+				312F70FE2071FFBD0072C824 /* TAAnimatedDotView.m in Sources */,
 				31F235D1204170B5002807D2 /* ActivationCodeListViewController.m in Sources */,
 				31AC452B2022E9250044A62C /* InfoMessage.m in Sources */,
 				31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */,
@@ -2779,6 +2860,7 @@
 				310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */,
 				454B78C5206272C000FABD60 /* ManualViewController.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
+				312F70FB2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
 				455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */,
 				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,
 				31D5C8DC202FE9DE00A44C5C /* StoreObject.m in Sources */,
@@ -2798,6 +2880,7 @@
 				4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */,
 				450B0215204FF9DA0038EC9C /* MaintainViewController.m in Sources */,
 				455974561FE7AA7A00D7910A /* SubscribeViewController.m in Sources */,
+				312F710D2071FFBD0072C824 /* UIView+SDExtension.m in Sources */,
 				459679961FE0CAA4008A0C67 /* NewPasswordViewController.m in Sources */,
 				45765260204E2B5E006585BA /* BlankView.m in Sources */,
 				319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */,
@@ -2807,12 +2890,14 @@
 				318B685E202AEBF500962F2A /* OrderViewController.m in Sources */,
 				459F22591FBC118300BA13CB /* MineCell.m in Sources */,
 				310368F82046C8C700A9083E /* DrivingReportWeekCell.m in Sources */,
+				312F71012071FFBD0072C824 /* TADotView.m in Sources */,
 				4570EFF01FFF292B00FA6355 /* CarTrackModel.m in Sources */,
 				315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */,
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
 				31129246205D07620049A647 /* HomeBannerCell.m in Sources */,
 				31ADB3BE205F8C3B002F79CE /* CatchCrash.m in Sources */,
+				312F710A2071FFBD0072C824 /* SDCycleScrollView.m in Sources */,
 				310368EC2045682300A9083E /* RangePickerCell.m in Sources */,
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
@@ -2824,6 +2909,7 @@
 				4596798E1FDFDCCD008A0C67 /* FindByAllModel.m in Sources */,
 				319A58BB20443604006837DC /* PayCompleteViewController.m in Sources */,
 				31B38BA9202C389C0086EDC8 /* CommodityCommentCell.m in Sources */,
+				312F71072071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
 				31B38BA0202C382A0086EDC8 /* CommodityNameCell.m in Sources */,
 				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,

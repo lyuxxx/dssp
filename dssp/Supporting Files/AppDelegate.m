@@ -51,7 +51,7 @@
 #if DEVELOPMENT == 2
     [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server_formal" ofType:@"cer"]];
 #elif DEVELOPMENT == 1
-    [CUHTTPRequest customSecurityPolicyWithCerPath:[[NSBundle mainBundle] pathForResource:@"server_pre" ofType:@"cer"]];
+    
 #else
 
 #endif
