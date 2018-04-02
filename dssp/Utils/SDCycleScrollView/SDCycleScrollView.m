@@ -433,7 +433,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
 {
     if (0 == _totalItemsCount) return;
     int currentIndex = [self currentIndex];
-    int targetIndex = currentIndex + 1;
+    int currentIndexReset = _totalItemsCount * 0.5 + currentIndex % self.imagePathsGroup.count;
+    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:currentIndexReset inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    int targetIndex = currentIndexReset + 1;
     [self scrollToIndex:targetIndex];
 }
 

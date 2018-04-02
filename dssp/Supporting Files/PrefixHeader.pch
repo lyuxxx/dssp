@@ -111,13 +111,13 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 #elif DEVELOPMENT == 1 //预生产
 
-#define baseUrl @"https://sit-dssp.dstsp.com/dssp/v1/core/"
+#define baseUrl @"http://sit-dssp.dstsp.com:50005/dssp/v1/core/"
 ///获取支付签名参数
-#define appCreatePay @"https://sit-dssp.dstsp.com/dssp/v1/payment/v1/appCreatePay"
-#define payOrderQuery @"https://sit-dssp.dstsp.com/dssp/v1/payment/v1/orderQuery"
+#define appCreatePay @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/appCreatePay"
+#define payOrderQuery @"http://sit-dssp.dstsp.com:50005/dssp/v1/payment/v1/orderQuery"
 
 ///统计
-#define uploading @"https://sit-dssp.dstsp.com/dssp/v1/message/monitoring/uploading"
+#define uploading @"http://sit-dssp.dstsp.com:50005/dssp/v1/message/monitoring/uploading"
 
 #else                 //SIT
 

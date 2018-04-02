@@ -59,8 +59,6 @@ PODS:
   - RTRootNavigationController (0.6.6):
     - RTRootNavigationController/Core (= 0.6.6)
   - RTRootNavigationController/Core (0.6.6)
-  - SDCycleScrollView (1.75):
-    - SDWebImage (>= 4.0.0)
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
   - SDWebImage/Core (4.2.3)
@@ -100,7 +98,6 @@ DEPENDENCIES:
   - MGSwipeTableCell
   - MJRefresh
   - RTRootNavigationController
-  - SDCycleScrollView
   - SDWebImage/GIF
   - TBActionSheet
   - TZImagePickerController
@@ -145,7 +142,6 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   RTRootNavigationController: 1429554f853e8319a383849befed73d5dc58a108
-  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
   TBActionSheet: d3c23727ee2d5c573245eef51b9980bb801e8bef
@@ -157,6 +153,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 3b63b0a85b8036b881dd1147542f56103baf8fd9
+PODFILE CHECKSUM: 01a71406ed593c1a950ca44ecbe3025a39ebde87
 
 COCOAPODS: 1.4.0
