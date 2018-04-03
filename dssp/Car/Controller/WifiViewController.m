@@ -89,6 +89,7 @@
     self.wifiImg = [[UIImageView alloc] init];
     _wifiImg.image = [UIImage imageNamed:@"wifitag"];
     //    wifiImg.backgroundColor=[UIColor redColor];
+    _wifiImg.hidden = YES;
     [_bgImgV addSubview:_wifiImg];
     [_wifiImg makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_bgImgV);
@@ -273,7 +274,7 @@
             
             if([available isEqualToString:@"1"])
             {
-                self.wifiImg.hidden = YES;
+//                self.wifiImg.hidden = YES;
                 _bgImgV.image = [UIImage imageNamed:@"wifi背景"];
                 
             }

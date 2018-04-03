@@ -94,6 +94,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define kVins [[NSUserDefaults standardUserDefaults] objectForKey:@"vins"]
 #define CuvhlTStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"vhlTStatus"]
 #define KcertificationStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"certificationStatus"]
+#define KcontractStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"contractStatus"]
+
 
 #define KuserName [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]
 

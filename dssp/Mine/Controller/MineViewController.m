@@ -699,7 +699,7 @@
             {
                 //T车辆
 
-                if([KcertificationStatus isEqualToString:@"1"])
+                if([KcontractStatus isEqualToString:@"1"])
                 {
                     
 //                    if ([KuserName isEqualToString:@"18911568274"]) {

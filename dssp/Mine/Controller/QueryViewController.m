@@ -9,8 +9,10 @@
 #import "QueryViewController.h"
 #import "MineViewController.h"
 #import "QueryModel.h"
+#import "ContractModel.h"
 @interface QueryViewController ()
 @property (nonatomic,strong)QueryModel *queryModel;
+@property (nonatomic,strong)ContractModel *contract;
 @end
 
 @implementation QueryViewController
@@ -143,8 +145,6 @@
         
         if (i==0) {
     
-            
-            
             UIView *lineview1 = [[UIView alloc] init];
             lineview1.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
             lineview1.hidden = YES;
@@ -318,7 +318,45 @@
             {
                 
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
-                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+                logo.image = [UIImage imageNamed:@"认证成功_icon"];
+                
+                NSDictionary *paras = @{
+                                        @"vin": kVin,
+                                        @"currentPage":@"1",
+                                        @"pageSize":@"5"
+                                        };
+                [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
+                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                        NSArray *dataArray =dic[@"data"][@"result"];
+                        
+                        for (NSDictionary *dic in dataArray) {
+                            _contract = [ContractModel yy_modelWithDictionary:dic];
+                        }
+                        
+                        if ([_contract.contractStatus isEqualToString:@"1"]) {
+                            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                            [defaults1 setObject:_contract.contractStatus forKey:@"contractStatus"];
+                            [defaults1 synchronize];
+                        }
+                        else
+                        {
+                            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                            [defaults1 setObject:@"" forKey:@"contractStatus"];
+                            [defaults1 synchronize];
+                            
+                        }
+                        
+                        NSLog(@"5543%@",_contract.contractStatus);
+                        
+                    } else {
+                        
+                        
+                    }
+                } failure:^(NSInteger code) {
+                    
+                }];
+                
                 
                 NSString *certificationStatus = @"1";
                 NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
@@ -469,6 +507,20 @@
     }
      
  }
+
+-  (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 
 -(void)nextBtnClick
 {

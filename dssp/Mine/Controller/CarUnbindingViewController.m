@@ -526,17 +526,17 @@
                         };
 
 
-//                        [MBProgressHUD showText:NSLocalizedString(@"车辆解绑成功", nil)];
 
-//                         //车辆解绑成功，保存的vin置为空字符串
-//                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//                        [defaults setObject:@"" forKey:@"vins"];
-//                        [defaults synchronize];
-//
                         //车辆解绑成功，登录保存的vin置为空字符串
                         NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                         [defaults1 setObject:@"" forKey:@"vin"];
                         [defaults1 synchronize];
+                        
+                        //车辆解绑成功，和同为空
+                        NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                        [defaults2 setObject:@"" forKey:@"contractStatus"];
+                        [defaults2 synchronize];
+                        
 
 
                     } else {

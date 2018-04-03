@@ -100,13 +100,18 @@
             
             
             PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-            [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景1" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"",nil] ];
+            [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
             //            InputalertView.delegate = self;
             UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
             [keywindow addSubview: popupView];
             
             popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                
+                if (btn.tag == 100) {//左边按钮
+                    
+                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                }
                 
             };
             
@@ -115,7 +120,7 @@
         else if ([CuvhlTStatus isEqualToString:@"1"])
         {
             //                    是否实名
-            if([KcertificationStatus isEqualToString:@"1"])
+            if([KcontractStatus isEqualToString:@"1"])
             {
                 //T车辆
                 //                CarflowViewController *carflow = [[CarflowViewController alloc] init];

@@ -113,7 +113,6 @@
                             @"currentPage":string,
                             @"pageSize":@"5"
                             };
-
 //    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -163,7 +162,6 @@
 //        [hud hideAnimated:YES afterDelay:1];
     }];
 }
-
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
     return [UIImage imageNamed:@"暂无内容"];

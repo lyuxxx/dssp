@@ -9,6 +9,7 @@
 #import "CarBindingTViewController.h"
 #import "RealVinViewcontroller.h"
 #import "InputAlertView.h"
+#import "ContractModel.h"
 @interface CarBindingTViewController ()
 @property (nonatomic, strong) UITextField *customerNameField;
 @property (nonatomic, strong) UITextField *vinField;
@@ -31,6 +32,8 @@
 
 @property (nonatomic, copy) NSString *vhlTStatustr;
 @property (nonatomic, copy) NSString *isExiststr;
+
+@property (nonatomic, strong) ContractModel *contract;
 
 @end
 
@@ -350,6 +353,43 @@
             [defaults1 setObject:vin forKey:@"vin"];
             [defaults1 synchronize];
             
+            NSDictionary *paras = @{
+                                    @"vin": kVin,
+                                    @"currentPage":@"1",
+                                    @"pageSize":@"5"
+                                    };
+            [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    NSArray *dataArray =dic[@"data"][@"result"];
+                    
+                    for (NSDictionary *dic in dataArray) {
+                        _contract = [ContractModel yy_modelWithDictionary:dic];
+                    }
+                    
+                    if ([_contract.contractStatus isEqualToString:@"1"]) {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:_contract.contractStatus forKey:@"contractStatus"];
+                        [defaults1 synchronize];
+                    }
+                    else
+                    {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:@"" forKey:@"contractStatus"];
+                        [defaults1 synchronize];
+                        
+                    }
+                    
+                    NSLog(@"5543%@",_contract.contractStatus);
+                    
+                } else {
+                    
+                    
+                }
+            } failure:^(NSInteger code) {
+                
+            }];
+        
 //            缓存T状态
             NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
             [defaults2 setObject:_vhlTStatustr forKey:@"vhlTStatus"];
@@ -439,6 +479,21 @@
     
 //     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+-  (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 
 -(void)textFieldDidChange:(UITextField *)textField
 {

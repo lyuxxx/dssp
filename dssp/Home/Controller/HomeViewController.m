@@ -35,6 +35,7 @@
 #import "BaseWebViewController.h"
 #import "CheckVersionView.h"
 #import "RealVinViewcontroller.h"
+#import "ContractModel.h"
 typedef void(^PullWeatherFinished)(void);
 @interface HomeViewController () <CLLocationManagerDelegate,InputAlertviewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -44,6 +45,7 @@ typedef void(^PullWeatherFinished)(void);
 @property (nonatomic, strong) TrafficReporData *trafficReporData;
 @property (nonatomic, strong) NSArray<CarouselObject *> *carousel;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) ContractModel *contract;
 @end
 
 @implementation HomeViewController
@@ -101,7 +103,7 @@ typedef void(^PullWeatherFinished)(void);
     dispatch_group_async(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         //请求车辆位置
-        if (![KcertificationStatus isEqualToString:@"1"]) {
+        if (![KcontractStatus isEqualToString:@"1"]) {
             [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
@@ -140,7 +142,7 @@ typedef void(^PullWeatherFinished)(void);
     dispatch_group_async(group, queue, ^{
         //请求车辆健康状态
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        if (![KcertificationStatus isEqualToString:@"1"]) {
+        if (![KcontractStatus isEqualToString:@"1"]) {
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
         } else {
@@ -168,7 +170,7 @@ typedef void(^PullWeatherFinished)(void);
     dispatch_group_async(group, queue, ^{
         //请求车辆数据
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        if (![KcertificationStatus isEqualToString:@"1"]) {
+        if (![KcontractStatus isEqualToString:@"1"]) {
             dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
         } else {
@@ -249,7 +251,6 @@ typedef void(^PullWeatherFinished)(void);
                 [self.navigationController pushViewController:vc animated:YES];
                 
             }
-            
         };
     }
     else
@@ -265,10 +266,61 @@ typedef void(^PullWeatherFinished)(void);
         else if ([CuvhlTStatus isEqualToString:@"1"])
         {
             //T车辆
+            NSDictionary *paras = @{
+                                    @"vin": kVin,
+                                    @"currentPage":@"1",
+                                    @"pageSize":@"5"
+                                    };
+            [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    NSArray *dataArray =dic[@"data"][@"result"];
+                   
+                    for (NSDictionary *dic in dataArray) {
+                       _contract = [ContractModel yy_modelWithDictionary:dic];
+                    }
+                    
+                    if ([_contract.contractStatus isEqualToString:@"1"]) {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:_contract.contractStatus forKey:@"contractStatus"];
+                        [defaults1 synchronize];
+                    }
+                    else
+                    {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:@"" forKey:@"contractStatus"];
+                        [defaults1 synchronize];
+                        
+                    }
+                    
+                    NSLog(@"5543%@",_contract.contractStatus);
+
+                } else {
+                   
+                   
+                }
+            } failure:^(NSInteger code) {
+              
+            }];
+            
             
             
         }
     }
+}
+
+-  (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)checkAppV {
@@ -530,7 +582,7 @@ typedef void(^PullWeatherFinished)(void);
                 {
                     //T车辆
                     
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         //出行
@@ -623,7 +675,7 @@ typedef void(^PullWeatherFinished)(void);
                 {
                     
                     //                    是否实名
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         CarflowViewController *carflow = [[CarflowViewController alloc] init];
@@ -719,7 +771,7 @@ typedef void(^PullWeatherFinished)(void);
                 else if ([CuvhlTStatus isEqualToString:@"1"])
                 {
                     //                    是否实名
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
@@ -814,7 +866,7 @@ typedef void(^PullWeatherFinished)(void);
                     //T车辆
                     //出行
                     //                    是否实名
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
@@ -906,7 +958,7 @@ typedef void(^PullWeatherFinished)(void);
                 else if ([CuvhlTStatus isEqualToString:@"1"])
                 {
                     
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];
@@ -985,7 +1037,6 @@ typedef void(^PullWeatherFinished)(void);
         //非T车
         if([CuvhlTStatus isEqualToString:@"0"])
         {
-
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
             [[NSUserDefaults standardUserDefaults] synchronize];
 
@@ -994,14 +1045,15 @@ typedef void(^PullWeatherFinished)(void);
             //            InputalertView.delegate = self;
             UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
             [keywindow addSubview: popupView];
-
+            
             popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                 if (btn.tag == 100) {//左边按钮
-
-
+                    
+                    RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
                 }
-
-
+                
             };
 
         }
@@ -1009,7 +1061,7 @@ typedef void(^PullWeatherFinished)(void);
         {
             //T车辆
 
-            if([KcertificationStatus isEqualToString:@"1"])
+            if([KcontractStatus isEqualToString:@"1"])
             {
 //
 //                if ([KuserName isEqualToString:@"18911568274"]) {
@@ -1115,9 +1167,10 @@ typedef void(^PullWeatherFinished)(void);
                     popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
                             
+                            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
                             
                         }
-                        
                         
                     };
                     
@@ -1126,7 +1179,7 @@ typedef void(^PullWeatherFinished)(void);
                 {
                     //T车辆
                     
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         //出行
@@ -1216,18 +1269,18 @@ typedef void(^PullWeatherFinished)(void);
                     popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
                             
-                            
+                            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
                         }
-                        
-                        
                     };
                     
                 }
+                
                 else if ([CuvhlTStatus isEqualToString:@"1"])
                 {
                     
                     //                    是否实名
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         CarflowViewController *carflow = [[CarflowViewController alloc] init];
@@ -1319,9 +1372,10 @@ typedef void(^PullWeatherFinished)(void);
                     popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
                             
+                            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
                             
                         }
-                        
                         
                     };
                     
@@ -1330,7 +1384,7 @@ typedef void(^PullWeatherFinished)(void);
                 else if ([CuvhlTStatus isEqualToString:@"1"])
                 {
                     //                    是否实名
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
@@ -1413,7 +1467,7 @@ typedef void(^PullWeatherFinished)(void);
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+                    [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
                     UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                     [keywindow addSubview: popupView];
@@ -1421,9 +1475,10 @@ typedef void(^PullWeatherFinished)(void);
                     popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
                             
+                            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
                             
                         }
-                        
                         
                     };
                     
@@ -1433,7 +1488,7 @@ typedef void(^PullWeatherFinished)(void);
                     //T车辆
                     //出行
                     //                    是否实名
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         UIViewController *vc = [[NSClassFromString(@"LllegalViewController") alloc] init];
@@ -1514,7 +1569,6 @@ typedef void(^PullWeatherFinished)(void);
                     
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                    
                     PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
                     [popupView initWithTitle:@"您当前不是T用户无法使用服务，若想使用服务，请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
                     //            InputalertView.delegate = self;
@@ -1524,15 +1578,18 @@ typedef void(^PullWeatherFinished)(void);
                     popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                         if (btn.tag == 100) {//左边按钮
                             
+                            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
                             
                         }
                         
                     };
+                   
                 }
                 else if ([CuvhlTStatus isEqualToString:@"1"])
                 {
                     
-                    if([KcertificationStatus isEqualToString:@"1"])
+                    if([KcontractStatus isEqualToString:@"1"])
                     {
                         //T车辆
                         UpkeepViewController *upkeep = [[UpkeepViewController alloc] init];
@@ -1797,7 +1854,7 @@ typedef void(^PullWeatherFinished)(void);
                         //T车辆
                         //出行
                         //                    是否实名
-                        if([KcertificationStatus isEqualToString:@"1"])
+                        if([KcontractStatus isEqualToString:@"1"])
                         {
                             //T车辆
                             NSArray *csS = @[@"TrafficReportController",@"DrivingWeekReportViewController",@"TrackListViewController"];
