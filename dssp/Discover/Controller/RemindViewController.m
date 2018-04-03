@@ -173,7 +173,7 @@
     }
     else
     {
-        _content.textAlignment = NSTextAlignmentCenter;
+        _content.textAlignment = NSTextAlignmentLeft;
     }
    
     [whiteV addSubview:_content];
@@ -187,7 +187,7 @@
     
     if ([notice.businType isEqualToString:@"maintenance_notice"]) {
 
-         topLabel.text = NSLocalizedString(@"预约保养?", nil);
+         topLabel.text = NSLocalizedString(@"保养提醒", nil);
 //         _imgV.image = [UIImage imageNamed:@"详细_预约保养_icon"];
     }
     if ([notice.businType isEqualToString:@"CaTtheft"]) {

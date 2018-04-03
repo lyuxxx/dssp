@@ -710,9 +710,7 @@
                                             [hud hideAnimated:YES];
                                             [self.tabBarController.tabBar showBadgeOnItemIndex:1];
                                             NSDictionary *dic1 =dic[@"data"];
-                                            
                                             LoginResultData *loginResult = [LoginResultData yy_modelWithDictionary:dic1];
-                                            
                                             
                                             NSString *userName = loginResult.userName;
                                             NSString *vin = loginResult.vin;
