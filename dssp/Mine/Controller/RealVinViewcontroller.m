@@ -137,11 +137,8 @@
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                    [hud hideAnimated:YES];
-//                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-//                BOOL str = dic[@"data"];
-               bool str = [[dic objectForKey:@"data"] boolValue];
-               
-                if (str) {
+               BOOL result = [[dic objectForKey:@"data"] boolValue];
+                if (result) {
                     ///未实名
                     RNRViewController *vc = [[RNRViewController alloc] init];
                     vc.bingVin = _vin?_vin:_vinField.text;
