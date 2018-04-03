@@ -19,6 +19,7 @@
 #import <IQUIView+IQKeyboardToolbar.h>
 #import "CarBindingInput.h"
 #import "InputAlertView.h"
+#import "ContractModel.h"
 @interface CarBindingViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) CarBindingInput *bindingInput;
@@ -51,6 +52,8 @@
 @property (nonatomic, strong) NSMutableArray *carmodelId;
 //@property (nonatomic, strong) NSMutableArray *carmodelId;
 @property (nonatomic, strong) UITextField *selectedField;
+
+@property (nonatomic, strong) ContractModel *contract;
 @end
 
 @implementation CarBindingViewController
@@ -809,6 +812,44 @@
             NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
             [defaults1 setObject:vin forKey:@"vin"];
             [defaults1 synchronize];
+            
+            NSDictionary *paras = @{
+                                    @"vin": kVin,
+                                    @"currentPage":@"1",
+                                    @"pageSize":@"5"
+                                    };
+            [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    NSArray *dataArray =dic[@"data"][@"result"];
+                    
+                    for (NSDictionary *dic in dataArray) {
+                        _contract = [ContractModel yy_modelWithDictionary:dic];
+                    }
+                    
+                    if ([_contract.contractStatus isEqualToString:@"1"]) {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:_contract.contractStatus forKey:@"contractStatus"];
+                        [defaults1 synchronize];
+                    }
+                    else
+                    {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:@"" forKey:@"contractStatus"];
+                        [defaults1 synchronize];
+                        
+                    }
+                    
+                    NSLog(@"5543%@",_contract.contractStatus);
+                    
+                } else {
+                    
+                    
+                }
+            } failure:^(NSInteger code) {
+                
+            }];
+            
             
             NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
             [defaults2 setObject:_vhlTStatustr forKey:@"vhlTStatus"];

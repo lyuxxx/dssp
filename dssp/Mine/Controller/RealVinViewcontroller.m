@@ -33,14 +33,14 @@
 
 - (void)setupUI {
     
-    if(_isSuccess)
-    {
-        self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
-    }
-    else
-    {
-        
-    }
+//    if(_isSuccess)
+//    {
+//        self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
+//    }
+//    else
+//    {
+//
+//    }
     self.navigationItem.title = NSLocalizedString(@"实名制认证", nil);
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 2;

@@ -186,6 +186,9 @@
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                                 [defaults1 setObject:@"" forKey:@"contractStatus"];
                                 [defaults1 synchronize];
+                                
+                              
+                                
                             } else {
                                 
                                 [MBProgressHUD showText:[dic objectForKey:@"msg"]];
