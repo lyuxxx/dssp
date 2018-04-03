@@ -325,7 +325,7 @@
     self.photoBtn = [[UIImageView alloc] init];
     _photoBtn.userInteractionEnabled = YES;
     _photoBtn.clipsToBounds=YES;
-    _photoBtn.layer.cornerRadius=4;
+    _photoBtn.layer.cornerRadius=60 * HeightCoefficient/2;
     [whiteView addSubview:_photoBtn];
     [_photoBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(30 * HeightCoefficient);
