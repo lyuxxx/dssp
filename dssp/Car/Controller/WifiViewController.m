@@ -259,7 +259,6 @@
     
     NSDictionary *dic =@{
                          @"vin":kVin
-                         
                          };
 
     [CUHTTPRequest POST:getWifi parameters:dic success:^(id responseData) {

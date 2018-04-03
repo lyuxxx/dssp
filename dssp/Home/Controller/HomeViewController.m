@@ -34,6 +34,7 @@
 #import <MJRefresh.h>
 #import "BaseWebViewController.h"
 #import "CheckVersionView.h"
+#import "RealVinViewcontroller.h"
 typedef void(^PullWeatherFinished)(void);
 @interface HomeViewController () <CLLocationManagerDelegate,InputAlertviewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -1038,16 +1039,17 @@ typedef void(^PullWeatherFinished)(void);
                 //            InputalertView.delegate = self;
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: popupView];
-
+                
                 popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                     if (btn.tag == 100) {//左边按钮
-
-
-
+                        
+                        RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
                     }
-
+                    
                 };
-
+               
             }
 
         }
@@ -1151,7 +1153,8 @@ typedef void(^PullWeatherFinished)(void);
                         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                             if (btn.tag == 100) {//左边按钮
                                 
-                                
+                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                                [self.navigationController pushViewController:vc animated:YES];
                                 
                             }
                             
@@ -1250,7 +1253,8 @@ typedef void(^PullWeatherFinished)(void);
                         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                             if (btn.tag == 100) {//左边按钮
                                 
-                                
+                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                                [self.navigationController pushViewController:vc animated:YES];
                                 
                             }
                             
@@ -1352,7 +1356,8 @@ typedef void(^PullWeatherFinished)(void);
                         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                             if (btn.tag == 100) {//左边按钮
                                 
-                                
+                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                                [self.navigationController pushViewController:vc animated:YES];
                                 
                             }
                             
@@ -1453,7 +1458,8 @@ typedef void(^PullWeatherFinished)(void);
                         
                         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                             if (btn.tag == 100) {//左边按钮
-                                
+                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                                [self.navigationController pushViewController:vc animated:YES];
                                 
                                 
                             }
@@ -1551,7 +1557,8 @@ typedef void(^PullWeatherFinished)(void);
                         
                         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                             if (btn.tag == 100) {//左边按钮
-                                
+                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                                [self.navigationController pushViewController:vc animated:YES];
                                 
                                 
                             }

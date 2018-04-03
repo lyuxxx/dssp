@@ -185,6 +185,9 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 lab1.text = @"未提交实名认证";
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+                }];
             }
             else if ([_queryModel.rnrStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
@@ -196,7 +199,13 @@
             else if ([_queryModel.rnrStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
+                lab1.text = @"实名制认证成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+                    
+                    
+                }];
             }
             else if ([_queryModel.rnrStatus isEqualToString:@"3"])
             {
@@ -210,6 +219,11 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"实名制认证失败,请重新提交";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(280*WidthCoefficient);
+                    
+                    
+                }];
             }
             else
             {
@@ -231,6 +245,10 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"车辆配置中";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+   
+                }];
                
             }
             else if ([_queryModel.rcStatus isEqualToString:@"2"])
@@ -238,12 +256,21 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"车辆激活成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+                   
+                    
+                }];
             }
             else if ([_queryModel.rcStatus isEqualToString:@"3"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"车辆激活失败";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+                    
+                }];
             }
             else
             {
@@ -261,14 +288,22 @@
             else if ([_queryModel.simStatus isEqualToString:@"1"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
-                  lab1.text = @"T服务开通成功";
+                lab1.text = @"T服务开通成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+                }];
             }
             else if ([_queryModel.simStatus isEqualToString:@"2"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"T服务开通失败";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
+                [lab1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(180*WidthCoefficient);
+                    
+                    
+                }];
             }
             else
             {

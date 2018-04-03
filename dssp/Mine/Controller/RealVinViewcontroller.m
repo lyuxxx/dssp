@@ -137,15 +137,18 @@
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                    [hud hideAnimated:YES];
-                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
-                if ([str isEqualToString:@"true"]) {
+//                NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
+//                BOOL str = dic[@"data"];
+               bool str = [[dic objectForKey:@"data"] boolValue];
+               
+                if (str) {
                     ///未实名
                     RNRViewController *vc = [[RNRViewController alloc] init];
                     vc.bingVin = _vin?_vin:_vinField.text;
                     [self.navigationController pushViewController:vc animated:YES];
-                    
+
                 }
-                else if ([str isEqualToString:@"false"])
+                else 
                 {
                     [hud hideAnimated:YES];
                     ///已实名
@@ -162,7 +165,6 @@
             [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
         }];
         
-       
     }
         
 
