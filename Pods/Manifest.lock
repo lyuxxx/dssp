@@ -27,7 +27,7 @@ PODS:
   - CocoaLumberjack/Extensions (3.4.1):
     - CocoaLumberjack/Default
   - CUAlertController (0.1.1)
-  - CUHTTPRequest (0.1.12):
+  - CUHTTPRequest (0.1.13):
     - AFNetworking (~> 3.1.0)
   - CUPayTool (0.1.0):
     - Alipay-SDK
@@ -71,7 +71,7 @@ PODS:
   - SQLCipher/standard (3.4.2):
     - SQLCipher/common
   - TBActionSheet (1.5.6)
-  - TZImagePickerController (2.0.0.9)
+  - TZImagePickerController (2.0.1)
   - UIImageViewSDWebImage (0.1.4):
     - SDWebImage (~> 4.2.2)
   - WMPageController (2.5.2)
@@ -125,7 +125,7 @@ SPEC CHECKSUMS:
   AMapSearch: dc9958acfb61b58dcbce79736bf14a39dde7506f
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   CUAlertController: 17d5848995f6bcf70d963f504669ceb5f5454722
-  CUHTTPRequest: 284236443a0725646a6609b17aff7ff9ddd41e6c
+  CUHTTPRequest: 31de4bf5f4e066cccb1f3bbd5d6e8cbc0826f78d
   CUPayTool: 9d280be743b9667e21fe29132c8be8860d9ea6cc
   CUProgressHUD: eb444f165b7de275b475b9c6911e5e90329be641
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -145,7 +145,7 @@ SPEC CHECKSUMS:
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
   TBActionSheet: d3c23727ee2d5c573245eef51b9980bb801e8bef
-  TZImagePickerController: 9bf89512bb6de53e87897f2e17e607c126a199d6
+  TZImagePickerController: 34ecb53af8c349964394407e42b6e54e22589ebe
   UIImageViewSDWebImage: ec096894e98f08dd8b4bc3750a41966bee6fb521
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
   XXWeChatSDK: cbe4716bf3b87db7881ae82fbc5e88fa8a226e38
