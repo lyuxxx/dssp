@@ -59,6 +59,7 @@
 		313AC7DF1FAC5ABD00A3662E /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
 		314B98621FD7F24C00ABB638 /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
+		3151F5AB207362CA0009998D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316CA46C1F9F3475009F541E /* Info.plist */; };
 		315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
 		3161DDA6206C8AB500D40EE3 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		3161DDA7206C8AB500D40EE3 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* Statistics.m */; };
@@ -248,9 +249,7 @@
 		3161DE68206C8AB500D40EE3 /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		3161DE6A206C8AB500D40EE3 /* waiting.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31CB2B9A200766DF0085FBA1 /* waiting.gif */; };
 		3161DE6B206C8AB500D40EE3 /* server_pre.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server_pre.cer */; };
-		3161DE6C206C8AB500D40EE3 /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED12058D1A90009B742 /* client.p12 */; };
 		3161DE6D206C8AB500D40EE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
-		3161DE6E206C8AB500D40EE3 /* server_formal.cer in Resources */ = {isa = PBXBuildFile; fileRef = 31129249205D23900049A647 /* server_formal.cer */; };
 		3161DE6F206C8AB500D40EE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
 		3161DE70206C8AB500D40EE3 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454CE6DE204698E5003221F3 /* Address.plist */; };
 		3161DE71206C8AB500D40EE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4671F9F3475009F541E /* Assets.xcassets */; };
@@ -442,10 +441,7 @@
 		3161DF3F206C8ABC00D40EE3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
 		3161DF40206C8ABC00D40EE3 /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		3161DF42206C8ABC00D40EE3 /* waiting.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31CB2B9A200766DF0085FBA1 /* waiting.gif */; };
-		3161DF43206C8ABC00D40EE3 /* server_pre.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server_pre.cer */; };
-		3161DF44206C8ABC00D40EE3 /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED12058D1A90009B742 /* client.p12 */; };
 		3161DF45206C8ABC00D40EE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
-		3161DF46206C8ABC00D40EE3 /* server_formal.cer in Resources */ = {isa = PBXBuildFile; fileRef = 31129249205D23900049A647 /* server_formal.cer */; };
 		3161DF47206C8ABC00D40EE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
 		3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454CE6DE204698E5003221F3 /* Address.plist */; };
 		3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4671F9F3475009F541E /* Assets.xcassets */; };
@@ -472,7 +468,6 @@
 		3172B581202BF1BE006D3749 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */; };
 		318148081FD6964300F00A4D /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
 		3189EED22058D1AA0009B742 /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED12058D1A90009B742 /* client.p12 */; };
-		3189EED42058D1B10009B742 /* server_pre.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server_pre.cer */; };
 		318B685B202AE4B300962F2A /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
 		318B685E202AEBF500962F2A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
 		319096CA20636EAF0032BC43 /* HomeCarLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 319096C920636EAF0032BC43 /* HomeCarLocationCell.m */; };
@@ -482,11 +477,7 @@
 		319A58BE20450A19006837DC /* MapUpdateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BD20450A19006837DC /* MapUpdateObject.m */; };
 		319A58C420452E22006837DC /* TrackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C320452E22006837DC /* TrackObject.m */; };
 		319A58C720454EEA006837DC /* TrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C620454EEA006837DC /* TrackListViewController.m */; };
-		31A2291E206CA223002326AD /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
 		31A2291F206CA223002326AD /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
-		31A22920206CA223002326AD /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
-		31A22921206CA223002326AD /* dssp-sit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291D206CA223002326AD /* dssp-sit.plist */; };
-		31A22922206CA223002326AD /* dssp-sit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291D206CA223002326AD /* dssp-sit.plist */; };
 		31A22923206CA223002326AD /* dssp-sit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291D206CA223002326AD /* dssp-sit.plist */; };
 		31A3B9161FDE184700B8FBD3 /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
 		31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
@@ -1316,6 +1307,40 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		3151F5A720735D6E0009998D /* config */ = {
+			isa = PBXGroup;
+			children = (
+				3151F5A820735D8B0009998D /* pro */,
+				3151F5A920735DA50009998D /* pre */,
+				3151F5AA20735DAA0009998D /* sit */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		3151F5A820735D8B0009998D /* pro */ = {
+			isa = PBXGroup;
+			children = (
+				316CA46C1F9F3475009F541E /* Info.plist */,
+			);
+			path = pro;
+			sourceTree = "<group>";
+		};
+		3151F5A920735DA50009998D /* pre */ = {
+			isa = PBXGroup;
+			children = (
+				31A2291C206CA223002326AD /* dssp-pre.plist */,
+			);
+			path = pre;
+			sourceTree = "<group>";
+		};
+		3151F5AA20735DAA0009998D /* sit */ = {
+			isa = PBXGroup;
+			children = (
+				31A2291D206CA223002326AD /* dssp-sit.plist */,
+			);
+			path = sit;
+			sourceTree = "<group>";
+		};
 		315EE1041FBD34CC00067FC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1405,11 +1430,9 @@
 				310A07D71FA96B8D00DC9529 /* Mine */,
 				31699EB41FA87C7E00C8FDF8 /* BaseClass */,
 				31EEDDDE1FBBC9520012BA92 /* Supporting Files */,
+				3151F5A720735D6E0009998D /* config */,
 				316CA4671F9F3475009F541E /* Assets.xcassets */,
 				316CA4691F9F3475009F541E /* LaunchScreen.storyboard */,
-				316CA46C1F9F3475009F541E /* Info.plist */,
-				31A2291C206CA223002326AD /* dssp-pre.plist */,
-				31A2291D206CA223002326AD /* dssp-sit.plist */,
 			);
 			path = dssp;
 			sourceTree = "<group>";
@@ -2055,13 +2078,10 @@
 				31A2291F206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DE6A206C8AB500D40EE3 /* waiting.gif in Resources */,
 				3161DE6B206C8AB500D40EE3 /* server_pre.cer in Resources */,
-				3161DE6C206C8AB500D40EE3 /* client.p12 in Resources */,
 				3161DE6D206C8AB500D40EE3 /* LaunchScreen.storyboard in Resources */,
-				3161DE6E206C8AB500D40EE3 /* server_formal.cer in Resources */,
 				3161DE6F206C8AB500D40EE3 /* Localizable.strings in Resources */,
 				3161DE70206C8AB500D40EE3 /* Address.plist in Resources */,
 				3161DE71206C8AB500D40EE3 /* Assets.xcassets in Resources */,
-				31A22922206CA223002326AD /* dssp-sit.plist in Resources */,
 				3161DE72206C8AB500D40EE3 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2070,12 +2090,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31A22920206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DF42206C8ABC00D40EE3 /* waiting.gif in Resources */,
-				3161DF43206C8ABC00D40EE3 /* server_pre.cer in Resources */,
-				3161DF44206C8ABC00D40EE3 /* client.p12 in Resources */,
 				3161DF45206C8ABC00D40EE3 /* LaunchScreen.storyboard in Resources */,
-				3161DF46206C8ABC00D40EE3 /* server_formal.cer in Resources */,
 				3161DF47206C8ABC00D40EE3 /* Localizable.strings in Resources */,
 				3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */,
 				3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */,
@@ -2088,16 +2104,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31A2291E206CA223002326AD /* dssp-pre.plist in Resources */,
 				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
-				3189EED42058D1B10009B742 /* server_pre.cer in Resources */,
 				3189EED22058D1AA0009B742 /* client.p12 in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				3112924A205D23900049A647 /* server_formal.cer in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
-				31A22921206CA223002326AD /* dssp-sit.plist in Resources */,
+				3151F5AB207362CA0009998D /* Info.plist in Resources */,
 				454858102005EA6500170D85 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2990,7 +3004,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DEVELOPMENT=1",
 				);
-				INFOPLIST_FILE = "dssp/dssp-pre.plist";
+				INFOPLIST_FILE = "dssp/config/pre/dssp-pre.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3029,7 +3043,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DEVELOPMENT=1",
 				);
-				INFOPLIST_FILE = "dssp/dssp-pre.plist";
+				INFOPLIST_FILE = "dssp/config/pre/dssp-pre.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3068,7 +3082,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DEVELOPMENT=0",
 				);
-				INFOPLIST_FILE = "dssp/dssp-sit.plist";
+				INFOPLIST_FILE = "dssp/config/sit/dssp-sit.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3107,7 +3121,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DEVELOPMENT=0",
 				);
-				INFOPLIST_FILE = "dssp/dssp-sit.plist";
+				INFOPLIST_FILE = "dssp/config/sit/dssp-sit.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3256,7 +3270,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DEVELOPMENT=2",
 				);
-				INFOPLIST_FILE = dssp/Info.plist;
+				INFOPLIST_FILE = dssp/config/pro/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3295,7 +3309,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DEVELOPMENT=2",
 				);
-				INFOPLIST_FILE = dssp/Info.plist;
+				INFOPLIST_FILE = dssp/config/pro/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
