@@ -168,9 +168,16 @@ static dispatch_once_t oilOnceToken;
 
 - (void)pullData {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    CLLocationDegrees longitude = self.mapView.userLocation.coordinate.longitude;
-    CLLocationDegrees latitude = self.mapView.userLocation.coordinate.latitude;
-    [CUHTTPRequest POST:queryNearbyGasCooperateAction parameters:@{@"coordinatex": [NSString stringWithFormat:@"%f",longitude],@"coordinatey": [NSString stringWithFormat:@"%f",latitude]} success:^(id responseData) {
+    CLLocationDegrees longitude;
+    CLLocationDegrees latitude;
+    if (self.carAnnotation) {
+        longitude = self.carAnnotation.coordinate.longitude;
+        latitude = self.carAnnotation.coordinate.latitude;
+    } else {
+        longitude = self.mapView.userLocation.coordinate.longitude;
+        latitude = self.mapView.userLocation.coordinate.latitude;
+    }
+    [CUHTTPRequest POST:queryNearbyGasCooperateAction parameters:@{@"coordinatex": [NSString stringWithFormat:@"%f",longitude],@"coordinatey": [NSString stringWithFormat:@"%f",latitude],@"distancebig":[NSNumber numberWithInteger:10]} success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             OilListResponse *response = [OilListResponse yy_modelWithDictionary:dic];
