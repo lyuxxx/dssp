@@ -342,6 +342,7 @@ static dispatch_once_t mapBaseOnceToken;
                     [self.mapView removeAnnotation:self.carAnnotation];
                     self.carAnnotation = nil;
                 }
+                [self saveCarLocationWithCoordinate:location];
                 self.carAnnotation = [[CarAnnotation alloc] init];
                 _carAnnotation.coordinate = location;
                 _carAnnotation.title = NSLocalizedString(@"车辆位置", nil);
@@ -352,6 +353,7 @@ static dispatch_once_t mapBaseOnceToken;
                 [hud hideAnimated:YES];
             }];
         } else {
+            [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
         }
@@ -361,6 +363,7 @@ static dispatch_once_t mapBaseOnceToken;
             }
         });
     } failure:^(NSInteger code) {
+        [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
         hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -369,6 +372,16 @@ static dispatch_once_t mapBaseOnceToken;
             }
         });
     }];
+}
+
+///存储车辆位置，地图使用
+- (void)saveCarLocationWithCoordinate:(CLLocationCoordinate2D)location {
+    NSDictionary *dic = @{
+                          @"longitude":[NSNumber numberWithDouble:location.longitude],
+                          @"latitude":[NSNumber numberWithDouble:location.latitude]
+                          };
+    [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"carLocation"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (CLLocationCoordinate2D)getCarLocation {
