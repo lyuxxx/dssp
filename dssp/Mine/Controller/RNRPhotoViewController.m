@@ -191,9 +191,9 @@
         return;
     }
     
-    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    self.rnrInfo.pic1 = [UIImageJPEGRepresentation(self.pic1ImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+    self.rnrInfo.pic2 = [UIImageJPEGRepresentation(self.pic2ImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+    self.rnrInfo.facepic = [UIImageJPEGRepresentation(self.facepicImgV.image, 0.2) base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
 
 
     NSDictionary *dic1 = [self.rnrInfo yy_modelToJSONObject];
