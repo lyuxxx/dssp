@@ -175,8 +175,15 @@ static dispatch_once_t oilOnceToken;
         if ([dic[@"code"] isEqualToString:@"200"]) {
             OilListResponse *response = [OilListResponse yy_modelWithDictionary:dic];
             self.stations = [NSMutableArray arrayWithArray:response.data.stations];
-            [self layoutAnnotations];
-            [hud hideAnimated:YES];
+            if (self.stations.count) {
+                [self layoutAnnotations];
+                [hud hideAnimated:YES];
+            } else {
+                [hud hideAnimated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showText:@"附近未找到加油站"];
+                });
+            }
         } else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
