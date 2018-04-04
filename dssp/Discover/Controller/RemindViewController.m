@@ -147,7 +147,7 @@
     UILabel *topLabel = [[UILabel alloc] init];
    
     topLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    topLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+    topLabel.textColor = [UIColor colorWithHexString:@"#A18E79"];
     //    botLabel.backgroundColor =[UIColor redColor];
     [whiteV addSubview:topLabel];
     [topLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -161,7 +161,7 @@
     
     _content = [[UILabel alloc] init];
 //    _content.frame = CGRectMake(17, 30, self.view.frame.size.width-34, 120);
-    _content.textColor = [UIColor colorWithHexString:@"#999999"];
+    _content.textColor = [UIColor colorWithHexString:@"#ffffff"];
 //        _content.backgroundColor = [UIColor redColor];
     _content.clipsToBounds = YES;
     _content.clipsToBounds = YES;

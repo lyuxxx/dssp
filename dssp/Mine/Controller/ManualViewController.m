@@ -58,7 +58,7 @@
     _webView.navigationDelegate = self;
 //    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dssp.dstsp.com/ow/#/UserManual"]]];
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://sit-dssp.dstsp.com:50001/static/manual/usermanual.pdf"]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dssp.dstsp.com/ow/static/manual/usermanual.pdf"]]];
 //    http://mozilla.github.io/pdf.js/web/viewer.html
 }
 
