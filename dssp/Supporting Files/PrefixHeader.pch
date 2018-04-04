@@ -110,6 +110,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 ///统计
 #define uploading @"https://dssp.dstsp.com:443/dssp/v1/message/monitoring/uploading"
+#define telephones @"tel:010-82208148"
 
 #elif DEVELOPMENT == 1 //预生产
 
@@ -120,6 +121,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 ///统计
 #define uploading @"http://sit-dssp.dstsp.com:50005/dssp/v1/message/monitoring/uploading"
+
+#define telephones @"tel:010-82208136"
 
 #else                 //SIT
 
