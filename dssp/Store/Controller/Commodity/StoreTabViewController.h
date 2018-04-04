@@ -8,8 +8,10 @@
 
 #import "StoreBaseViewController.h"
 
+@class OrderPageController;
+
 @interface StoreTabViewController : StoreBaseViewController
 
-- (void)gotoOrderPageController;
+- (OrderPageController *)gotoOrderPageController;
 
 @end

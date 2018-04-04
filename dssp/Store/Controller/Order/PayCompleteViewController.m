@@ -10,6 +10,7 @@
 #import <UIViewController+RTRootNavigationController.h>
 #import "OrderObject.h"
 #import "StoreTabViewController.h"
+#import "OrderPageController.h"
 
 typedef NS_ENUM(NSUInteger, PayState) {
     PayStateOK,
@@ -304,7 +305,10 @@ typedef NS_ENUM(NSUInteger, PayState) {
         UIViewController *vc = self.navigationController.viewControllers[i];
         if ([vc isKindOfClass:NSClassFromString(@"StoreTabViewController")]) {
             StoreTabViewController *tabVC = (StoreTabViewController *)vc;
-            [tabVC gotoOrderPageController];
+            OrderPageController *pageController = [tabVC gotoOrderPageController];
+            if (pageController.selectIndex != 0) {
+                [pageController.menuView selectItemAtIndex:0];
+            }
             [self.navigationController popToViewController:vc animated:YES];
         }
     }
