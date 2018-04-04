@@ -422,6 +422,8 @@ static dispatch_once_t mapBaseOnceToken;
             [self.mapView removeAnnotation:self.carAnnotation];
             self.carAnnotation = nil;
         }
+        [self checkCarLocation];
+        /**
         CLLocationCoordinate2D location = [self getCarLocation];
         if (location.latitude != 0 && location.longitude != 0) {//存储过车辆位置
             self.carAnnotation = [[CarAnnotation alloc] init];
@@ -433,6 +435,7 @@ static dispatch_once_t mapBaseOnceToken;
         } else {
             [self checkCarLocation];
         }
+         **/
     });
 }
 
