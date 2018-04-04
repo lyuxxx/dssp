@@ -48,7 +48,7 @@ typedef void(^BtnClick)(UIButton *);
                               @"预约保养_icon"
                               ];
     NSArray *btnTitles = @[
-                           @"实时流量",
+                           @"车载流量",
                            @"智慧出行",
                            @"DS商城",
                            @"违章查询",
