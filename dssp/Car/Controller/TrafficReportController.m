@@ -386,7 +386,7 @@ static NSString *const cellID = @"cell";
         
         
         UILabel *bottomlabel = [[UILabel alloc] init];
-        bottomlabel.font=[UIFont fontWithName:@"PingFangSC-Regular" size:15];
+        bottomlabel.font=[UIFont fontWithName:@"PingFangSC-Regular" size:13];
         bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
 
         if (i==0) {

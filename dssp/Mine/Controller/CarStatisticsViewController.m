@@ -29,9 +29,7 @@
 @property (nonatomic, strong) UITextField *vhlBrandField;
 @property (nonatomic, strong) UITextField *vhlTStatusField;
 @property (nonatomic, strong) UITextField *seriesNameField;
-@property (nonatomic, strong) UITextField *typeNameField;
-
-@property (nonatomic, strong) UITextField *field;
+@property (nonatomic, strong) UILabel *typeNameLabel;
 
 @property (nonatomic, strong) UIImageView *modifyImg;
 @property (nonatomic, strong) UIImageView *modifyImg1;
@@ -95,7 +93,18 @@
                 //            self.vhlBrandField.text = _vhl.brandName;
                 //            self.vhlTStatusField.text = _vhl.vhlTStatus;
                 self.seriesNameField.text = _vhl.vhlSeriesName;
-                self.typeNameField.text = _vhl.vhlTypeName;
+                
+                CGSize typeSize = [_vhl.vhlTypeName boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.typeNameLabel.font} context:nil].size;
+                [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(typeSize.height);
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.view setNeedsUpdateConstraints];
+                    [self.view updateConstraintsIfNeeded];
+                    [self.view layoutIfNeeded];
+                    _typeNameLabel.text = _vhl.vhlTypeName;
+                });
             }
             else
             {
@@ -109,7 +118,7 @@
                 //            self.vhlBrandField.text = _vhl.brandName;
                 //            self.vhlTStatusField.text = _vhl.vhlTStatus;
                 //                self.seriesNameField.text = _vhl.vhlSeriesName;
-                //                self.typeNameField.text = _vhl.vhlTypeName;
+                //                self.typeNameLabel.text = _vhl.vhlTypeName;
                 
                 
             }
@@ -125,7 +134,7 @@
 //                //            self.vhlBrandField.text = _vhl.brandName;
 //                //            self.vhlTStatusField.text = _vhl.vhlTStatus;
 //                self.seriesNameField.text = _vhl.vhlSeriesName;
-//                self.typeNameField.text = _vhl.vhlTypeName;
+//                self.typeNameLabel.text = _vhl.vhlTypeName;
 //            }
 //            else
 //            {
@@ -139,7 +148,7 @@
 //                //            self.vhlBrandField.text = _vhl.brandName;
 //                //            self.vhlTStatusField.text = _vhl.vhlTStatus;
 ////                self.seriesNameField.text = _vhl.vhlSeriesName;
-////                self.typeNameField.text = _vhl.vhlTypeName;
+////                self.typeNameLabel.text = _vhl.vhlTypeName;
 //
 //
 //            }
@@ -191,7 +200,7 @@
 //        //            self.vhlBrandField.text = _vhl.brandName;
 //        //            self.vhlTStatusField.text = _vhl.vhlTStatus;
 //        self.seriesNameField.text = vhl.vhlSeriesName;
-//        self.typeNameField.text = vhl.vhlTypeName;
+//        self.typeNameLabel.text = vhl.vhlTypeName;
 //    }
 //    else if([vhl.vhlTStatus isEqualToString:@"0"])
 //    {
@@ -204,7 +213,7 @@
 //        //            self.vhlBrandField.text = _vhl.brandName;
 //        //            self.vhlTStatusField.text = _vhl.vhlTStatus;
 //        //                self.seriesNameField.text = _vhl.vhlSeriesName;
-//        //                self.typeNameField.text = _vhl.vhlTypeName;
+//        //                self.typeNameLabel.text = _vhl.vhlTypeName;
 //
 //
 //    }
@@ -343,6 +352,7 @@
     
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 2;
+    whiteV.layer.masksToBounds = YES;
 //    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
 //    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
 //    whiteV.layer.shadowRadius = 7;
@@ -351,11 +361,8 @@
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 *WidthCoefficient);
-        make.height.equalTo(405 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(55 * HeightCoefficient);
-        make.bottom.equalTo(self.view.bottom).offset(-77 * HeightCoefficient - kBottomHeight);
-        
     }];
     
 //    UILabel *query = [[UILabel alloc] init];
@@ -370,239 +377,205 @@
 //        make.top.equalTo(20 * HeightCoefficient);
 //    }];
     
-   
-   
+    UILabel *lastLabel;
     
-    self.sc = ({
-        UIScrollView *scroll = [[UIScrollView alloc] init];
-        scroll.showsVerticalScrollIndicator = NO;
-        if (@available(iOS 11.0, *)) {
-            scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            // Fallback on earlier versions
-        }
-        [whiteV addSubview:scroll];
-        [scroll makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(whiteV).offset(UIEdgeInsetsMake(15 * HeightCoefficient, 0, 15 * HeightCoefficient, 0));
-        }];
+    for (NSInteger i = 0 ; i < _titles.count; i++) {
+        UILabel *label = [[UILabel alloc] init];
+        label.text = _titles[i];
+        label.textColor = [UIColor colorWithHexString:@"#A18E79"];
+        label.font = [UIFont fontWithName:FontName size:15];
+        [whiteV addSubview:label];
         
-        UIView *contentView = [[UIView alloc] init];
-        [scroll addSubview:contentView];
-        [contentView makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(scroll);
-            make.width.equalTo(whiteV.width);
-        }];
+        UIView *line = [[UIView alloc] init];
+        line.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
+        [whiteV addSubview:line];
         
-        UILabel *lastLabel = nil;
-        UIView *lastView = nil;
-        
-        for (NSInteger i = 0 ; i < _titles.count; i++) {
-            UILabel *label = [[UILabel alloc] init];
-            label.text = _titles[i];
-            label.textColor = [UIColor colorWithHexString:@"#A18E79"];
-            label.font = [UIFont fontWithName:FontName size:15];
-            [contentView addSubview:label];
-            
-            
-            UIView *whiteV = [[UIView alloc] init];
-//            whiteV.backgroundColor = [UIColor redColor];
-            [contentView addSubview:whiteV];
-            
-            UIView *whiteView = [[UIView alloc] init];
-            whiteView.backgroundColor = [UIColor colorWithHexString:@"#1E1918"];
-            [contentView addSubview:whiteView];
-            
-           
-            if (i == 0) {
-                [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
-                    make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(15*WidthCoefficient);
-                    make.top.equalTo(0);
-                    
-                }];
+        if (i == 0) {
+            [label makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(80 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.left.equalTo(15*WidthCoefficient);
+                make.top.equalTo(15 * HeightCoefficient);
                 
+            }];
+            
+            [line makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(label.bottom).offset(15 * HeightCoefficient);
+                make.height.equalTo(1 * HeightCoefficient);
+                make.left.equalTo(15 * WidthCoefficient);
+                make.right.equalTo(-15 * WidthCoefficient);
                 
-                [whiteV makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(0);
-                    make.height.equalTo(20 * HeightCoefficient);
-                make.left.equalTo(label.right).offset(20*WidthCoefficient);
-                    make.top.equalTo(0);
-                }];
-                
-                
-                [whiteView makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(34 * HeightCoefficient);
-                    make.height.equalTo(1);
+            }];
+            
+        } else{
+            [label makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(80 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.left.equalTo(15*WidthCoefficient);
+                make.top.equalTo(lastLabel.bottom).offset(31 * HeightCoefficient);
+            }];
+            
+            if (i != 7) {
+                [line makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(label.bottom).offset(15 * HeightCoefficient);
+                    make.height.equalTo(1 * HeightCoefficient);
                     make.left.equalTo(15 * WidthCoefficient);
                     make.right.equalTo(-15 * WidthCoefficient);
                     
                 }];
-                
-            } else{
-                [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
-                    make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(15*WidthCoefficient);
-                    make.top.equalTo(lastLabel.bottom).offset(29 * HeightCoefficient);
-                }];
-                
-
-                [whiteV makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(0);
-                    make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(label.right).offset(20*WidthCoefficient);
-                    make.top.equalTo(lastLabel.bottom).offset(29*HeightCoefficient);
-                }];
-                
-                [whiteView makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(lastView.bottom).offset(48 * HeightCoefficient);
-                    make.height.equalTo(1);
-                    make.left.equalTo(15 * WidthCoefficient);
-                    make.right.equalTo(-15 * WidthCoefficient);
-                    
-                }];
-                
             }
-            lastLabel = label;
-            lastView =whiteView;
             
+        }
+        lastLabel = label;
+        
+        if (i != 1 && i !=2) {
             
-            if (i != 1 && i !=2) {
+            if (i == 7) {
+                self.typeNameLabel = [[UILabel alloc] init];
+                _typeNameLabel.numberOfLines = 0;
+                _typeNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                _typeNameLabel.font = [UIFont fontWithName:FontName size:15];
+                _typeNameLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+                [whiteV addSubview:_typeNameLabel];
+                [_typeNameLabel makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(223 * WidthCoefficient);
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(label.right).offset(10 * WidthCoefficient);
+                    make.top.equalTo(label);
+                }];
                 
-                self.field = [[UITextField alloc] init];
-                _field.font = [UIFont fontWithName:FontName size:15];
-                _field.textColor = [UIColor colorWithHexString:@"#ffffff"];
-                _field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
-                _field.userInteractionEnabled=NO;
+                [line makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(_typeNameLabel.bottom).offset(15 * HeightCoefficient);
+                    make.height.equalTo(1 * HeightCoefficient);
+                    make.left.equalTo(15 * WidthCoefficient);
+                    make.right.equalTo(-15 * WidthCoefficient);
+                    
+                }];
+                
+                [whiteV makeConstraints:^(MASConstraintMaker *make) {
+                    make.bottom.equalTo(line.top);
+                }];
+            } else {
+                UITextField *field = [[UITextField alloc] init];
+                field.font = [UIFont fontWithName:FontName size:15];
+                field.textColor = [UIColor colorWithHexString:@"#ffffff"];
+                field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+                field.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 
-                [whiteV addSubview:_field];
-                [_field makeConstraints:^(MASConstraintMaker *make) {
-                    
-                    make.width.equalTo(180 * WidthCoefficient);
+                [whiteV addSubview:field];
+                [field makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(223 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(0 * WidthCoefficient);
-                    make.top.equalTo(0);
-                  
+                    make.left.equalTo(label.right).offset(10 * WidthCoefficient);
+                    make.centerY.equalTo(label);
+                    
                 }];
                 
-              
+                
                 if (i == 0) {
-                    self.vinField = _field;
+                    self.vinField = field;
                     self.vinField.text = _vhl.vin;
-                  
+                    
                 } else if (i == 3) {
-                    self.colorField = _field;
+                    self.colorField = field;
                     
                 } else if (i == 4) {
-                   
-                    self.vhlStatusField = _field;
+                    
+                    self.vhlStatusField = field;
                     
                 }
-//                else if (i == 5) {
-//
-//                    self.isTestField = _field;
-//
-//                }
-//                else if (i == 6) {
-//
-//                    self.vhlBrandField = _field;
-//
-//                }
-                 else if (i == 5) {
-                  
-                    self.isTestField = _field;
+                //                else if (i == 5) {
+                //
+                //                    self.isTestField = _field;
+                //
+                //                }
+                //                else if (i == 6) {
+                //
+                //                    self.vhlBrandField = _field;
+                //
+                //                }
+                else if (i == 5) {
+                    
+                    self.isTestField = field;
                     
                 } else if (i == 6) {
-                 
-                    self.seriesNameField = _field;
                     
-                } else if (i == 7) {
-                  
-                    self.typeNameField = _field;
+                    self.seriesNameField = field;
                     
                 }
-                
-               
             }
-            else if (i==1)
-            {
-                
-                self.doptCodeField = [[UITextField alloc] init];
-                _doptCodeField.font = [UIFont fontWithName:FontName size:15];
-//                 _doptCodeField.text = @"999";
-                _doptCodeField.keyboardType = UIKeyboardTypePhonePad;
-                _doptCodeField.textColor = [UIColor colorWithHexString:@"#ffffff"];
-                _doptCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
-                _doptCodeField.userInteractionEnabled=NO;
-                //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-                
-                [whiteV addSubview:_doptCodeField];
-                [_doptCodeField makeConstraints:^(MASConstraintMaker *make) {
-                    
-                    make.width.equalTo(85 * WidthCoefficient);
-                    make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(0 * WidthCoefficient);
-                    make.top.equalTo(0);
-                    
-                }];
-                
-                
-                self.modifyImg = [[UIImageView alloc] init];
-                _modifyImg.hidden = YES;
-                _modifyImg.image = [UIImage imageNamed:@"修改_icon"];
-                [whiteV addSubview:_modifyImg];
-                [_modifyImg makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(2*HeightCoefficient);
-                    make.right.equalTo(-16 * WidthCoefficient);
-                    make.width.height.equalTo(16 * WidthCoefficient);
-                }];
-    
             
-            }
-            else if (i==2)
-            {
-                self.vhlLisenceField = [[UITextField alloc] init];
-                _vhlLisenceField.font = [UIFont fontWithName:FontName size:15];
-//                _vhlLisenceField.text = @"999";
-                _vhlLisenceField.textColor = [UIColor colorWithHexString:@"#ffffff"];
-                _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
-                _vhlLisenceField.userInteractionEnabled=NO;
-                //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        }
+        else if (i==1)
+        {
+            
+            self.doptCodeField = [[UITextField alloc] init];
+            _doptCodeField.font = [UIFont fontWithName:FontName size:15];
+            //                 _doptCodeField.text = @"999";
+            _doptCodeField.keyboardType = UIKeyboardTypePhonePad;
+            _doptCodeField.textColor = [UIColor colorWithHexString:@"#ffffff"];
+            _doptCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+            _doptCodeField.userInteractionEnabled=NO;
+            //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+            
+            [whiteV addSubview:_doptCodeField];
+            [_doptCodeField makeConstraints:^(MASConstraintMaker *make) {
                 
-                [whiteV addSubview:_vhlLisenceField];
-                [_vhlLisenceField makeConstraints:^(MASConstraintMaker *make) {
-                    
-                    make.width.equalTo(85 * WidthCoefficient);
-                    make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(0 * WidthCoefficient);
-                    make.top.equalTo(0);
-                    
-                }];
+                make.width.equalTo(85 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.left.equalTo(label.right).offset(10 * WidthCoefficient);
+                make.centerY.equalTo(label);
                 
-                self.modifyImg1 = [[UIImageView alloc] init];
-                _modifyImg1.hidden = YES;
-                _modifyImg1.image = [UIImage imageNamed:@"修改_icon"];
-                [whiteV addSubview:_modifyImg1];
-                [_modifyImg1 makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(2*HeightCoefficient);
-                    make.right.equalTo(-16 * WidthCoefficient);
-                    make.width.height.equalTo(16 * WidthCoefficient);
-                }];
-                
-            }
+            }];
+            
+            
+            self.modifyImg = [[UIImageView alloc] init];
+            _modifyImg.hidden = YES;
+            _modifyImg.image = [UIImage imageNamed:@"修改_icon"];
+            [whiteV addSubview:_modifyImg];
+            [_modifyImg makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(label);
+                make.right.equalTo(-15 * WidthCoefficient);
+                make.width.height.equalTo(16 * WidthCoefficient);
+            }];
             
             
         }
-        
-        [contentView makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(lastLabel.bottom).offset(0);
+        else if (i==2)
+        {
+            self.vhlLisenceField = [[UITextField alloc] init];
+            _vhlLisenceField.font = [UIFont fontWithName:FontName size:15];
+            //                _vhlLisenceField.text = @"999";
+            _vhlLisenceField.textColor = [UIColor colorWithHexString:@"#ffffff"];
+            _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
+            _vhlLisenceField.userInteractionEnabled=NO;
+            //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
             
-        }];
+            [whiteV addSubview:_vhlLisenceField];
+            [_vhlLisenceField makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.width.equalTo(85 * WidthCoefficient);
+                make.height.equalTo(20 * HeightCoefficient);
+                make.left.equalTo(label.right).offset(10 * WidthCoefficient);
+                make.centerY.equalTo(label);
+                
+            }];
+            
+            self.modifyImg1 = [[UIImageView alloc] init];
+            _modifyImg1.hidden = YES;
+            _modifyImg1.image = [UIImage imageNamed:@"修改_icon"];
+            [whiteV addSubview:_modifyImg1];
+            [_modifyImg1 makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(label);
+                make.right.equalTo(-15 * WidthCoefficient);
+                make.width.height.equalTo(16 * WidthCoefficient);
+            }];
+            
+        }
         
-        scroll;
-    });
+        
+    }
     
     
 //    self.unbindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
