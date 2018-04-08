@@ -163,7 +163,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     self.harshBrakeLabel.text = @"-";
     self.harshAccLabel.text = @"-";
-    self.harshTurnLabel.text = @"-";
+//    self.harshTurnLabel.text = @"-";
     self.mileageLabel.text = @"-";
     self.fuelTotalLabel.text = @"-";
     self.fuelAverageLabel.text = @"-";
@@ -282,20 +282,21 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     NSArray *harshTitles = @[
                              @"急刹车",
                              @"急加速",
-                             @"急转弯"
+//                             @"急转弯"
                              ];
     for (NSInteger i = 0; i < harshTitles.count; i++) {
         UILabel *label0 = [[UILabel alloc] init];
         label0.textAlignment = NSTextAlignmentCenter;
         label0.font = [UIFont fontWithName:FontName size:13];
         label0.textColor = [UIColor colorWithHexString:@"#999999"];
+//        label0.backgroundColor = [UIColor redColor];
         label0.text = harshTitles[i];
         [midV addSubview:label0];
         [label0 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(107.5 * WidthCoefficient);
+            make.width.equalTo(375 * WidthCoefficient/2);
             make.height.equalTo(20 * WidthCoefficient);
             make.top.equalTo(20 * WidthCoefficient);
-            make.left.equalTo((16 + 118 * i) * WidthCoefficient);
+            make.left.equalTo((0 + 375*WidthCoefficient/2 * i));
         }];
         
         UILabel *label1 = [[UILabel alloc] init];
@@ -314,9 +315,10 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             self.harshBrakeLabel = label1;
         } else if (i == 1) {
             self.harshAccLabel = label1;
-        } else if (i == 2) {
-            self.harshTurnLabel = label1;
         }
+//        else if (i == 2) {
+//            self.harshTurnLabel = label1;
+//        }
     }
     
     UIView *line0 = [[UIView alloc] init];
@@ -435,7 +437,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)configWithReport:(DrivingReportWeek *)report {
     self.harshBrakeLabel.text = report.harshDecelerationTimes;
     self.harshAccLabel.text = report.harshAccelerationTimes;
-    self.harshTurnLabel.text = report.harshTurnTimes;
+//    self.harshTurnLabel.text = report.harshTurnTimes;
     
     self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.mileage];
     self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@L",report.totalFuelConsumed];
@@ -511,7 +513,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     self.harshBrakeLabel.text = @"-";
     self.harshAccLabel.text = @"-";
-    self.harshTurnLabel.text = @"-";
+//    self.harshTurnLabel.text = @"-";
     self.mileageLabel.text = @"-";
     self.fuelTotalLabel.text = @"-";
     self.fuelAverageLabel.text = @"-";
@@ -546,6 +548,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             });
             
         } else {
+             [hud hideAnimated:YES];
 //            hud.label.text = dic[@"msg"];
 //            [hud hideAnimated:YES afterDelay:1];
         }

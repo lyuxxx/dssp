@@ -10,11 +10,11 @@
 
 @interface CarflowModel : NSObject
 @property (nonatomic , copy) NSString *useFlow;
-@property (nonatomic , copy) NSString *wifi;
+@property (nonatomic , assign) double wifi;
 @property (nonatomic , copy) NSString *totalFlow;
-@property (nonatomic , copy) NSString *music;
+@property (nonatomic , assign) double music;
 @property (nonatomic , copy)   NSString *thresholdVal;
 @property (nonatomic , copy) NSString *remainFlow;
-@property (nonatomic , copy) NSString *fm;
+@property (nonatomic , assign) double fm;
 @property (nonatomic , copy) NSString *ota;
 @end

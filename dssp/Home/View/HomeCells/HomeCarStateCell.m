@@ -99,7 +99,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     if ([self isBlankString:trafficReporData.totalMileage]) {
         _mileageLabel.text = @"-";
     } else {
-        _mileageLabel.text = trafficReporData.totalMileage;
+        _mileageLabel.text = totalMileage;
     }
     
     if(![self isBlankString:trafficReporData.levelFuel])

@@ -148,9 +148,10 @@ static dispatch_once_t mapHomeOnceToken;
     self.checkCarLocationOver = ^{
         dispatch_once(&mapHomeOnceToken, ^{
             strongifySelf
-            if (self.carAnnotation) {
+            if (self.carAnnotation && self.mapView.userLocation) {
                 [self.mapView showAnnotations:@[self.carAnnotation,self.mapView.userLocation] edgePadding:UIEdgeInsetsMake(90 * HeightCoefficient + kStatusBarHeight, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
             }
+           
         });
     };
 }

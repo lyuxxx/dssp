@@ -300,10 +300,12 @@
     
     _DataArray = [NSMutableArray new];
     
-    NSString *music = [[NSString stringWithFormat:@"%@",_carflow.music] stringByAppendingString:@"M"];
-    NSString *fm = [[NSString stringWithFormat:@"%@",_carflow.fm] stringByAppendingString:@"M"];
+    
+    
+    NSString *music = [[NSString stringWithFormat:@"%.2f",_carflow.music] stringByAppendingString:@"M"];
+    NSString *fm = [[NSString stringWithFormat:@"%.2f",_carflow.fm] stringByAppendingString:@"M"];
 //    NSString *ota = [[NSString stringWithFormat:@"%@",_carflow.ota] stringByAppendingString:@"M"];
-    NSString *wifi = [[NSString stringWithFormat:@"%@",_carflow.wifi] stringByAppendingString:@"M"];
+    NSString *wifi = [[NSString stringWithFormat:@"%.2f",_carflow.wifi] stringByAppendingString:@"M"];
     
     [_DataArray addObject:_carflow.music?music:@"0M"];
     [_DataArray addObject:_carflow.fm?fm:@"0M"];

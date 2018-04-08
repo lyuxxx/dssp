@@ -139,7 +139,7 @@
 - (void)showStatisWithTrackInfo:(TrackInfo *)trackInfo {
     self.harshBrakeLabel.text = trackInfo.properties.harshDecelerationTimes;
     self.harshAccLabel.text = trackInfo.properties.harshAccelerationTimes;
-    self.autoBrakeLabel.text = trackInfo.properties.autoBrakeTimes;
+//    self.autoBrakeLabel.text = trackInfo.properties.autoBrakeTimes;
     self.startAddressLabel.text = trackInfo.geometry.afterCoordinates[0].address;
     self.endAddressLabel.text = trackInfo.geometry.afterCoordinates[1].address;
     self.startTimeLabel.text = trackInfo.properties.startTime;
@@ -191,7 +191,8 @@
         make.centerX.equalTo(self.view);
     }];
     
-    NSArray *topTitles = @[NSLocalizedString(@"急刹车", nil),NSLocalizedString(@"急加速", nil),NSLocalizedString(@"自动刹车", nil)];
+//    NSArray *topTitles = @[NSLocalizedString(@"急刹车", nil),NSLocalizedString(@"急加速", nil),NSLocalizedString(@"自动刹车", nil)];
+    NSArray *topTitles = @[NSLocalizedString(@"急刹车", nil),NSLocalizedString(@"急加速", nil)];
     for (NSInteger i = 0; i < topTitles.count; i++) {
         UILabel *label0 = [[UILabel alloc] init];
         label0.font = [UIFont fontWithName:FontName size:13];
@@ -200,10 +201,10 @@
         label0.text = topTitles[i];
         [topV addSubview:label0];
         [label0 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(114 * WidthCoefficient);
+            make.width.equalTo(375 * WidthCoefficient/2);
             make.height.equalTo(20 * HeightCoefficient);
             make.top.equalTo(20 * HeightCoefficient);
-            make.left.equalTo((16 + 114 * i) * WidthCoefficient);
+            make.left.equalTo((0 + 375 * WidthCoefficient/2 * i));
         }];
         
         UILabel *label1 = [[UILabel alloc] init];
@@ -222,9 +223,10 @@
             self.harshBrakeLabel = label1;
         } else if (i == 1) {
             self.harshAccLabel = label1;
-        } else if (i == 2) {
-            self.autoBrakeLabel = label1;
         }
+//        else if (i == 2) {
+//            self.autoBrakeLabel = label1;
+//        }
     }
     
     UIView *line = [[UIView alloc] init];
