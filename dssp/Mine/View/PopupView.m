@@ -235,9 +235,15 @@
     {
         _tipLable.text = _titleStr;
     }
+    
+    CGRect tmpRect= [_tipLable.text boundingRectWithSize:CGSizeMake(200 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0]} context:nil];
+    
+    CGFloat contentH = tmpRect.size.height+10*HeightCoefficient;
+    NSLog(@"显示高度:%f",contentH);
+    
     [_tipLable makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);
-        make.height.equalTo(100 * HeightCoefficient);
+        make.height.equalTo(contentH);
         make.centerX.equalTo(0);
         make.top.equalTo(25 * HeightCoefficient);
     }];
