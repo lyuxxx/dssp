@@ -237,7 +237,7 @@
     }
     [_tipLable makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(200 * WidthCoefficient);
-        make.height.equalTo(80 * HeightCoefficient);
+        make.height.equalTo(100 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(25 * HeightCoefficient);
     }];
