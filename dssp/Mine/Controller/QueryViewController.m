@@ -10,6 +10,7 @@
 #import "MineViewController.h"
 #import "QueryModel.h"
 #import "ContractModel.h"
+#import "NSArray+Sudoku.h"
 @interface QueryViewController ()
 @property (nonatomic,strong)QueryModel *queryModel;
 @property (nonatomic,strong)ContractModel *contract;
@@ -146,7 +147,7 @@
         if (i==0) {
     
             UIView *lineview1 = [[UIView alloc] init];
-            lineview1.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+            lineview1.backgroundColor = [UIColor colorWithHexString:@"#E2CD8D"];
             lineview1.hidden = YES;
             [view1 addSubview:lineview1];
             [lineview1 makeConstraints:^(MASConstraintMaker *make) {
@@ -190,9 +191,9 @@
                 }];
             }
             else if ([_queryModel.rnrStatus isEqualToString:@"1"]) {
-                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-                logo.image = [UIImage imageNamed:@"失败_icon"];
-                lab.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
+                logo.image = [UIImage imageNamed:@"审核中_icon"];
+                lab.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
                 lab.hidden = NO;
                 lineview1.hidden = NO;
             }
@@ -227,6 +228,8 @@
             }
             else
             {
+            
+
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
@@ -242,9 +245,9 @@
             else if ([_queryModel.rcStatus isEqualToString:@"1"])
             {
                 
-                lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+                lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
                 lab1.text = @"车辆配置中";
-                logo.image = [UIImage imageNamed:@"失败_icon"];
+                logo.image = [UIImage imageNamed:@"审核中_icon"];
                 [lab1 updateConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(180*WidthCoefficient);
    
@@ -274,6 +277,8 @@
             }
             else
             {
+                
+               
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
@@ -389,25 +394,28 @@
             }];
     
     
+    UIImageView *logoImg =[[UIImageView alloc] init];
+    logoImg.image =[UIImage imageNamed:@"Rectangle"];
+    [self.view addSubview:logoImg];
+    [logoImg makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(-(30*HeightCoefficient+kBottomHeight));
+        make.width.equalTo (343*WidthCoefficient);
+        make.height.equalTo (111*HeightCoefficient);
+        make.centerX.equalTo(0);
+    }];
+    
+    
     NSArray *title = @[
                         NSLocalizedString(@"审核成功", nil),
-                        NSLocalizedString(@"失败或执行中", nil),
-                        NSLocalizedString(@"未执行", nil),
+                        NSLocalizedString(@"审核中", nil),
+                        NSLocalizedString(@"审核失败", nil),
+                        NSLocalizedString(@"待审核", nil)
                       
                         ];
     
+    NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:title.count];
+    
     for (NSInteger i = 0 ; i < title.count; i++) {
-        
-        UIImageView *logoImg =[[UIImageView alloc] init];
-        logoImg.image =[UIImage imageNamed:@"Rectangle"];
-        [self.view addSubview:logoImg];
-        [logoImg makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(-(30*HeightCoefficient+kBottomHeight));
-            make.width.equalTo (343*WidthCoefficient);
-            make.height.equalTo (153*HeightCoefficient);
-            make.centerX.equalTo(0);
-        }];
-        
         
         UILabel *lab = [[UILabel alloc] init];
         lab.textAlignment = NSTextAlignmentLeft;
@@ -425,86 +433,56 @@
         }];
         
         
+        UIView *views = [[UIView alloc] init];
+        [logoImg addSubview:views];
+        [viewArray addObject:views];
         
-        
-        UIView *view1 = [[UIView alloc] init];
-        view1.backgroundColor = [UIColor clearColor];
-        [logoImg addSubview:view1];
-        
+
         UIImageView *logo = [[UIImageView alloc] init];
-        //        logo.image = [UIImage imageNamed:@"selected"];
-        [view1 addSubview:logo];
+
+        [views addSubview:logo];
         [logo makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(18 * WidthCoefficient);
             make.height.equalTo(18 * WidthCoefficient);
             make.centerY.equalTo(0);
-            make.left.equalTo(10 *WidthCoefficient);
+            make.left.equalTo(0 *WidthCoefficient);
         }];
-        
-        
+
+
         UILabel *lab1 = [[UILabel alloc] init];
         lab1.textAlignment = NSTextAlignmentLeft;
-        //        lab1.textColor = [UIColor colorWithHexString:@"#666666"];
+     
         lab1.font = [UIFont fontWithName:FontName size:13];
         lab1.text = title[i];
-        [view1 addSubview:lab1];
+        [views addSubview:lab1];
         [lab1 makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(150 * WidthCoefficient);
             make.height.equalTo(22.5 * HeightCoefficient);
             make.centerY.equalTo(0);
             make.left.equalTo(logo.right).offset(10*WidthCoefficient);
-            
+
         }];
-        
-        
+
         if (i==0) {
-            
-            [view1 makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(0 * WidthCoefficient);
-                make.height.equalTo(20 * HeightCoefficient);
-                make.centerX.equalTo(0);
-                make.top.equalTo(47 * HeightCoefficient);
-            }];
-            
-        }
-        else
-        {
-            [view1 makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(0 * WidthCoefficient);
-                make.height.equalTo(20 * HeightCoefficient);
-                make.centerX.equalTo(0);
-                make.top.equalTo(lastView.bottom).offset(12 * HeightCoefficient);
-            }];
-            
-           
-        }
-        lastView = view1;
-        
-        if (i==0) {
-            
-            
             lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
             logo.image = [UIImage imageNamed:@"认证成功_icon"];
-           
-            
         }
         if (i==1) {
-            
-            
-            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-            logo.image = [UIImage imageNamed:@"失败_icon"];
-            
-           
+
+            lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
+            logo.image = [UIImage imageNamed:@"审核中_icon"];
         }
         if (i==2) {
-            
-            
+            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            logo.image = [UIImage imageNamed:@"失败_icon"];
+        }
+        if (i==3) {
             lab1.textColor = [UIColor colorWithHexString:@"#999999"];
             logo.image = [UIImage imageNamed:@"认证中_icon"];
-           
         }
         
     }
+     [viewArray mas_distributeSudokuViewsWithFixedItemWidth:100*WidthCoefficient fixedItemHeight:20* HeightCoefficient warpCount:2 topSpacing:47 * HeightCoefficient bottomSpacing:12 * HeightCoefficient leadSpacing:10 * WidthCoefficient tailSpacing:100 * WidthCoefficient];
      
  }
 
