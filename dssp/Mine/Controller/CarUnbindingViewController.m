@@ -133,7 +133,6 @@
     
     self.navigationItem.title = NSLocalizedString(@"车辆解绑", nil);
     
-  
     UIView *V = [[UIView alloc] init];
     V.layer.cornerRadius = 2;
     V.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
@@ -159,13 +158,9 @@
     }];
     
     
-    
+
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 2;
-//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-//    whiteV.layer.shadowRadius = 7;
-//    whiteV.layer.shadowOpacity = 0.5;
     whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {
@@ -173,8 +168,6 @@
         make.height.equalTo(405 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(55 * HeightCoefficient);
-     
-        
     }];
     
    
@@ -186,7 +179,6 @@
                     NSLocalizedString(@"发动机号", nil),
                     NSLocalizedString(@"车牌号", nil),
                     NSLocalizedString(@"颜色", nil),
-                    
                     NSLocalizedString(@"品牌", nil),
                     NSLocalizedString(@"车辆T状态", nil),
                     NSLocalizedString(@"车系", nil),
@@ -194,10 +186,7 @@
                     ];
         
         [whiteV updateConstraints:^(MASConstraintMaker *make) {
-        
-            make.height.equalTo(350 * HeightCoefficient);
-          
-            
+            make.height.equalTo(405 * HeightCoefficient);
         }];
  
     }
