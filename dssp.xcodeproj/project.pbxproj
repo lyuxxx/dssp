@@ -60,6 +60,7 @@
 		314B98621FD7F24C00ABB638 /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
 		314E05D41FB582D6000550C7 /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
 		3151F5AB207362CA0009998D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316CA46C1F9F3475009F541E /* Info.plist */; };
+		3159476C207F2F4700635781 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
 		315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
 		3161DDA6206C8AB500D40EE3 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		3161DDA7206C8AB500D40EE3 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* Statistics.m */; };
@@ -2593,6 +2594,7 @@
 				3161DEA7206C8ABC00D40EE3 /* UpkeepModel.m in Sources */,
 				3161DEA8206C8ABC00D40EE3 /* QueryModel.m in Sources */,
 				3161DEA9206C8ABC00D40EE3 /* HomeTopView.m in Sources */,
+				3159476C207F2F4700635781 /* QueryViewController.m in Sources */,
 				3161DEAA206C8ABC00D40EE3 /* ForgotViewController.m in Sources */,
 				3161DEAB206C8ABC00D40EE3 /* NSArray+Sudoku.m in Sources */,
 				3161DEAC206C8ABC00D40EE3 /* CarSeriesViewController.m in Sources */,
