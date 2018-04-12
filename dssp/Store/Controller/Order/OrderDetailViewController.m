@@ -135,6 +135,8 @@
     }];
     
     self.avatar = [[UIImageView alloc] init];
+    _avatar.layer.cornerRadius = 4;
+    _avatar.layer.masksToBounds = YES;
     [midV addSubview:_avatar];
     [_avatar makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(80 * WidthCoefficient);
@@ -142,7 +144,7 @@
     }];
     
     self.stateImgV = [[UIImageView alloc] init];
-    [midV addSubview:_stateImgV];
+    [_avatar addSubview:_stateImgV];
     [_stateImgV makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(_avatar);
     }];
@@ -333,8 +335,8 @@
         self.stateLabel.textColor = [UIColor colorWithHexString:@"#969696"];
         self.stateLabel.text = NSLocalizedString(@"已付款", nil);
     } else if (order.status == 2) {
-        self.stateLabel.textColor = [UIColor colorWithHexString:@"#ac0042"];
-        self.stateLabel.text = NSLocalizedString(@"待评价", nil);
+        self.stateLabel.textColor = [UIColor colorWithHexString:@"#969696"];
+        self.stateLabel.text = NSLocalizedString(@"已完成", nil);
     } else if (order.status == 3) {
         self.stateLabel.textColor = [UIColor colorWithHexString:@"#969696"];
         self.stateLabel.text = NSLocalizedString(@"已取消", nil);
