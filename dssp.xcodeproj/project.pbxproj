@@ -421,7 +421,6 @@
 		3161DF2A206C8ABC00D40EE3 /* PayCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BA20443604006837DC /* PayCompleteViewController.m */; };
 		3161DF2B206C8ABC00D40EE3 /* CommodityCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA8202C389C0086EDC8 /* CommodityCommentCell.m */; };
 		3161DF2C206C8ABC00D40EE3 /* CommodityNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B9F202C382A0086EDC8 /* CommodityNameCell.m */; };
-		3161DF2D206C8ABC00D40EE3 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
 		3161DF2E206C8ABC00D40EE3 /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
 		3161DF2F206C8ABC00D40EE3 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
 		3161DF30206C8ABC00D40EE3 /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
@@ -2727,7 +2726,6 @@
 				3161DF2B206C8ABC00D40EE3 /* CommodityCommentCell.m in Sources */,
 				312F71092071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
 				3161DF2C206C8ABC00D40EE3 /* CommodityNameCell.m in Sources */,
-				3161DF2D206C8ABC00D40EE3 /* QueryViewController.m in Sources */,
 				3161DF2E206C8ABC00D40EE3 /* LoveCarViewController.m in Sources */,
 				3161DF2F206C8ABC00D40EE3 /* RegisterViewController.m in Sources */,
 				3161DF30206C8ABC00D40EE3 /* NicknameViewController.m in Sources */,

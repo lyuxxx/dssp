@@ -398,7 +398,7 @@
     logoImg.image =[UIImage imageNamed:@"Rectangle"];
     [self.view addSubview:logoImg];
     [logoImg makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(-(30*HeightCoefficient+kBottomHeight));
+        make.bottom.equalTo(-(60*HeightCoefficient+kBottomHeight));
         make.width.equalTo (343*WidthCoefficient);
         make.height.equalTo (111*HeightCoefficient);
         make.centerX.equalTo(0);
@@ -483,6 +483,25 @@
         
     }
      [viewArray mas_distributeSudokuViewsWithFixedItemWidth:100*WidthCoefficient fixedItemHeight:20* HeightCoefficient warpCount:2 topSpacing:47 * HeightCoefficient bottomSpacing:12 * HeightCoefficient leadSpacing:10 * WidthCoefficient tailSpacing:100 * WidthCoefficient];
+    
+    
+    
+    UILabel *lab2 = [[UILabel alloc] init];
+    lab2.textAlignment = NSTextAlignmentLeft;
+    [lab2 setNumberOfLines:0];
+    lab2.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    lab2.text = @"*如果超过半小时车辆还未激活成功，请联系人工客服处理";
+    CGRect tmpRect= [lab2.text boundingRectWithSize:CGSizeMake(343*WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:13]} context:nil];
+  
+    CGFloat contentH = tmpRect.size.height;
+    lab2.font = [UIFont fontWithName:FontName size:13];
+    [self.view addSubview:lab2];
+    [lab2 makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(contentH+1);
+        make.top.equalTo(logoImg.bottom).offset(10*HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.right.equalTo(-16*WidthCoefficient);
+    }];
      
  }
 
