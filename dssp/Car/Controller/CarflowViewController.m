@@ -130,11 +130,12 @@
 
 -(void)setCarflow:(CarflowModel *)carflow
 {
-    NSInteger k = [_carflow.remainFlow integerValue];
-    if (k < 0) {
-        _flowlabel.text = @"0M";
-    }
-    else if([_carflow.remainFlow rangeOfString:@"."].length>0)
+//    NSInteger k = [_carflow.remainFlow integerValue];
+//    if (k < 0) {
+//        _flowlabel.text = @"0M";
+//    }
+    
+    if([_carflow.remainFlow rangeOfString:@"."].length>0)
     {
         
         double aNumber = [_carflow.remainFlow doubleValue];
