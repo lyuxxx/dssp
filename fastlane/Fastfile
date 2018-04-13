@@ -123,7 +123,7 @@ platform :ios do
     pilot(
     	distribute_external: true,
     	notify_external_testers: true,
-    	#groups: "cusc",
+    	groups: "cusc",
     	changelog: "#{changelog}"
     	)
 
