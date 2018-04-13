@@ -93,11 +93,24 @@
                 //            self.vhlBrandField.text = _vhl.brandName;
                 //            self.vhlTStatusField.text = _vhl.vhlTStatus;
                 self.seriesNameField.text = _vhl.vhlSeriesName;
-                
+              
                 CGSize typeSize = [_vhl.vhlTypeName boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.typeNameLabel.font} context:nil].size;
-                [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(typeSize.height);
-                }];
+                
+                if(_vhl.vhlTypeName)
+                {
+                    [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.equalTo(typeSize.height);
+                          }];
+                }
+                else
+                {
+                    [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.equalTo(20*HeightCoefficient);
+                    }];
+                    
+                }
+                
+               
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.view setNeedsUpdateConstraints];
@@ -121,9 +134,19 @@
                 //                self.typeNameLabel.text = _vhl.vhlTypeName;
                 
                 CGSize typeSize = [_vhl.vhlTypeName boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.typeNameLabel.font} context:nil].size;
-                [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(typeSize.height);
-                }];
+                if(_vhl.vhlTypeName)
+                {
+                    [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.equalTo(typeSize.height);
+                    }];
+                }
+                else
+                {
+                    [_typeNameLabel updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.equalTo(20*HeightCoefficient);
+                    }];
+                    
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.view setNeedsUpdateConstraints];
