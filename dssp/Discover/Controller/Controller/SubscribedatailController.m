@@ -20,37 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self requestData];
-    [self setupUI];
-}
-
--(void)setupUI
-{
-//        _webView = [[UIWebView alloc] init]; // 初始化浏览器控件UIWebView
-//        _webView.delegate=self;
-//        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
-//
-//       _webView.scalesPageToFit = YES;
-//
-//        [self.view addSubview:self.webView];
-////         [self.webView loadHTMLString:htmlString baseURL:url];
-//        [_webView makeConstraints:^(MASConstraintMaker *make) {
-////                    make.right.equalTo(0 * WidthCoefficient);
-//                    make.bottom.equalTo(0 * HeightCoefficient);
-////                    make.left.equalTo(0 * WidthCoefficient);
-//                    make.width.equalTo(375 * WidthCoefficient);
-//                    make.top.equalTo(0 * HeightCoefficient);;
-//                }];
-    
-    self.navigationItem.title = NSLocalizedString(_channels.title, nil);
-    self.contentlabel =[[UITextView alloc] init];
-    _contentlabel.editable = NO;
-    [self.view addSubview:_contentlabel];
-    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(0 * WidthCoefficient);
-        make.bottom.equalTo(0 * HeightCoefficient);
-        make.left.equalTo(0 * WidthCoefficient);
-        make.top.equalTo(0 * HeightCoefficient);
-    }];
+  
 }
 
 
@@ -65,17 +35,14 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
+          
            _subscribedatail = [SubscribedatailModel yy_modelWithDictionary:dic[@"data"]];
-            NSString *htmlString= _subscribedatail.content;
-
-            NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
-            
-            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-            _contentlabel.attributedText = attributedString;
-            NSLog(@"666%@",attributedString);
+           
+            [self setupUI];
             //响应事件
             
         } else {
+            [hud hideAnimated:YES];
             [MBProgressHUD showText:dic[@"msg"]];
         }
     } failure:^(NSInteger code) {
@@ -85,9 +52,42 @@
     
 }
 
-
-
-
+-(void)setupUI
+{
+    //        _webView = [[UIWebView alloc] init]; // 初始化浏览器控件UIWebView
+    //        _webView.delegate=self;
+    //        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
+    //
+    //       _webView.scalesPageToFit = YES;
+    //
+    //        [self.view addSubview:self.webView];
+    ////         [self.webView loadHTMLString:htmlString baseURL:url];
+    //        [_webView makeConstraints:^(MASConstraintMaker *make) {
+    ////                    make.right.equalTo(0 * WidthCoefficient);
+    //                    make.bottom.equalTo(0 * HeightCoefficient);
+    ////                    make.left.equalTo(0 * WidthCoefficient);
+    //                    make.width.equalTo(375 * WidthCoefficient);
+    //                    make.top.equalTo(0 * HeightCoefficient);;
+    //                }];
+    
+    self.navigationItem.title = NSLocalizedString(_channels.title, nil);
+    self.contentlabel =[[UITextView alloc] init];
+    _contentlabel.editable = NO;
+    NSString *htmlString= _subscribedatail.content;
+    
+    NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    _contentlabel.attributedText = attributedString;
+    NSLog(@"666%@",attributedString);
+    [self.view addSubview:_contentlabel];
+    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(0 * WidthCoefficient);
+        make.bottom.equalTo(0 * HeightCoefficient);
+        make.left.equalTo(0 * WidthCoefficient);
+        make.top.equalTo(0 * HeightCoefficient);
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

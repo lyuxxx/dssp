@@ -8,7 +8,9 @@
 
 #import "InvoiceIndividualViewController.h"
 #import "GFAddressPicker.h"
-@interface InvoiceIndividualViewController ()<GFAddressPickerDelegate>
+#import "DKSKeyboardView.h"
+@interface InvoiceIndividualViewController ()<GFAddressPickerDelegate,DKSKeyboardDelegate,UITextViewDelegate>
+@property (nonatomic, strong) DKSKeyboardView *keyView;
 @property (nonatomic, strong) GFAddressPicker *pickerView;
 @property (nonatomic ,strong) NSString *province;
 @property (nonatomic ,strong) NSString *city;
@@ -24,7 +26,8 @@
 @property (nonatomic, strong) UITextField *receiverZipField;
 @property (nonatomic, strong) UIButton *regionField;
 @property (nonatomic, strong) UITextField *AddressField;
-
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UILabel *label;
 
 @end
 
@@ -49,7 +52,7 @@
     [self.view addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(368 * HeightCoefficient);
+        make.height.equalTo(378 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.top.equalTo(10 * WidthCoefficient);
     }];
@@ -58,7 +61,7 @@
     NSArray *righttitles = nil;
     
     titles = @[@"税号",@"发票抬头",@"收货人姓名",@"移动电话",@"邮政编码",@"所在地区",@"详细地址"];
-    righttitles = @[@"请填写税号",@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"请填写六位邮政编码",@"",@"请填写详细地址"];
+    righttitles = @[@"请填写税号",@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"请填写六位邮政编码",@"",@""];
     
     
     self.sc = ({
@@ -91,7 +94,7 @@
             [contentView addSubview:label];
             
             UIView *whiteV = [[UIView alloc] init];
-            //            whiteV.backgroundColor = [UIColor grayColor];
+//                        whiteV.backgroundColor = [UIColor grayColor];
             [contentView addSubview:whiteV];
             
             
@@ -161,14 +164,13 @@
             
             [whiteV addSubview:_field];
             [_field makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(180 * WidthCoefficient);
                 make.height.equalTo(20 * HeightCoefficient);
                 make.left.equalTo(0 * WidthCoefficient);
+                make.right.equalTo(0 * WidthCoefficient);
                 make.top.equalTo(0);
                 
             }];
-            
-//           titles = @[@"税号",@"发票抬头",@"收货人姓名",@"移动电话",@"邮政编码",@"所在地区",@"详细地址"];
+
             if (i == 0) {
                 _field.text = @"";
                 self.taxNoField = _field;
@@ -217,9 +219,44 @@
             }
             else if (i == 6) {
                 
-                _field.text = @"";
-                self.AddressField = _field;
+//                _field.text = @"";
+//                self.AddressField = _field;
+//
                 
+                [whiteV updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(40 * HeightCoefficient);
+                }];
+                
+                self.textView = [[UITextView alloc] init];
+                self.textView.backgroundColor = [UIColor clearColor];
+                _textView.textColor = [UIColor colorWithHexString:@"#ffffff"];
+                self.textView.font = [UIFont fontWithName:FontName size:15];
+                self.textView.textAlignment = NSTextAlignmentLeft;
+                self.textView.delegate = self;
+//                self.textView.scrollEnabled = NO;
+                self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+                [whiteV addSubview:self.textView];
+                [_textView makeConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(20 * HeightCoefficient);
+                    make.left.equalTo(0 * WidthCoefficient);
+                    make.right.equalTo(0 * WidthCoefficient);
+                    make.top.equalTo(0);
+                }];
+                
+                self.label = [[UILabel alloc] init];
+                _label.text = NSLocalizedString(@"请填写详细地址", nil);
+                _label.font = [UIFont fontWithName:FontName size:15];
+                _label.textColor = [UIColor colorWithHexString:@"#999999"];
+                //    botLabel.backgroundColor =[UIColor redColor];
+                [self.textView addSubview:_label];
+                [_label makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(0 * WidthCoefficient);
+                    make.top.equalTo(0 * HeightCoefficient);
+                    make.width.equalTo(150);
+                    make.height.equalTo(20 * HeightCoefficient);
+                }];
+            
+ 
             }
     
         }
@@ -252,10 +289,76 @@
     //    [_regionField.keyboardToolbar.doneBarButton setTarget:self action:@selector(genderDoneAction:)];
 }
 
+/**
+ 开始编辑
+ @param textView textView
+ */
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+    _label.hidden =YES;
+    
+    
+    CGRect tmpRect= [textView.text boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil];
+    
+    CGFloat contentH = tmpRect.size.height;
+    NSLog(@"调整后的显示宽,显示高度:%f",contentH);
+    if (contentH>30) {
+        [_textView updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(40* HeightCoefficient);
+            make.left.equalTo(0 * WidthCoefficient);
+            make.right.equalTo(0 * WidthCoefficient);
+            make.top.equalTo(0);
+        }];
+    }
+}
+
+/**
+ 将要结束编辑
+ 
+ @param textView textView
+ 
+ @return BOOL
+ */
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    
+    return YES;
+    
+}
+
+/**
+ 结束编辑
+ 
+ @param textView textView
+ */
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+
+    if (textView.text.length <1) {
+         _label.hidden =NO;
+    }
+    
+    CGRect tmpRect= [textView.text boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil];
+
+    CGFloat contentH = tmpRect.size.height;
+    NSLog(@"调整后的显示宽,显示高度:%f",contentH);
+    if (contentH>30) {
+        [_textView updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(40 * HeightCoefficient);
+            make.left.equalTo(0 * WidthCoefficient);
+            make.right.equalTo(0 * WidthCoefficient);
+            make.top.equalTo(0);
+        }];
+    }
+
+}
+
+
 -(void)regionbtnClick:(UIButton *)btn
 {
     self.pickerView = [[GFAddressPicker alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    [self.pickerView updateAddressAtProvince:@"河南省" city:@"郑州市" town:@"金水区"];
+    [self.pickerView updateAddressAtProvince:@"湖北省" city:@"武汉市" town:@"洪山区"];
     self.pickerView.delegate = self;
     self.pickerView.font = [UIFont boldSystemFontOfSize:16];
     //    [self.view addSubview:self.pickerView];
@@ -291,7 +394,7 @@
         [MBProgressHUD showText:NSLocalizedString(@"请选择省市区", nil)];
         return;
     }
-    else if (!_AddressField.text||[_AddressField.text isEqualToString:@""])
+    else if (!self.textView.text||[self.textView.text isEqualToString:@""]||self.textView.text.length <1)
     {
         
         [MBProgressHUD showText:NSLocalizedString(@"请填写详细地址", nil)];
@@ -309,7 +412,7 @@
                             @"receiverState":_province,
                             @"receiverCity":_city,
                             @"receiverDistrict":_area,
-                            @"receiverAddress":self.AddressField.text,
+                            @"receiverAddress":self.textView.text,
                             };
     [CUHTTPRequest POST:orderinvoice parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];

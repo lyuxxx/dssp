@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UITextField *vhlBrandField;
 @property (nonatomic, strong) UITextField *vhlTStatusField;
 @property (nonatomic, strong) UITextField *seriesNameField;
-@property (nonatomic, strong) UITextField *typeNameField;
+@property (nonatomic, strong) UILabel *typeNameField;
 
 @property (nonatomic, strong) UITextField *field;
 
@@ -93,7 +93,9 @@
                 //            self.vhlBrandField.text = _vhl.brandName;
                 //            self.vhlTStatusField.text = _vhl.vhlTStatus;
                 self.seriesNameField.text = _vhl.vhlSeriesName;
-                self.typeNameField.text = _vhl.vhlTypeName;
+//                self.typeNameField.text = _vhl.vhlTypeName;
+//                self.typeNameField.text =@"sfdsdfjslkfjsdlfjsdklfjsdklfjsdkfjsdkfjsdkfjsdkfjsd";
+                
             }
             else
             {
@@ -186,7 +188,7 @@
                     ];
         
         [whiteV updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(405 * HeightCoefficient);
+            make.height.equalTo(415 * HeightCoefficient);
         }];
  
     }
@@ -206,7 +208,7 @@
         
         [whiteV updateConstraints:^(MASConstraintMaker *make) {
             
-            make.height.equalTo(305 * HeightCoefficient);
+            make.height.equalTo(315 * HeightCoefficient);
             
             
         }];
@@ -215,8 +217,7 @@
     }
     
     
-    
-   
+
     self.sc = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
         scroll.showsVerticalScrollIndicator = NO;
@@ -270,7 +271,7 @@
                 [whiteV makeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(0);
                     make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(label.right).offset(20*WidthCoefficient);
+                    make.left.equalTo(label.right).offset(10*WidthCoefficient);
                     make.top.equalTo(15*HeightCoefficient);
                 }];
                 
@@ -295,7 +296,7 @@
                 [whiteV makeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(0);
                     make.height.equalTo(20 * HeightCoefficient);
-                    make.left.equalTo(label.right).offset(20*WidthCoefficient);
+                    make.left.equalTo(label.right).offset(10*WidthCoefficient);
                     make.top.equalTo(lastLabel.bottom).offset(31*HeightCoefficient);
                 }];
                 
@@ -323,10 +324,10 @@
                 
                 [whiteV addSubview:_field];
                 [_field makeConstraints:^(MASConstraintMaker *make) {
-                    
-                    make.width.equalTo(180 * WidthCoefficient);
+            
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(0 * WidthCoefficient);
+                     make.right.equalTo(0 * WidthCoefficient);
                     make.top.equalTo(0);
                     
                 }];
@@ -364,12 +365,32 @@
                 }
                     else if (i == 7) {
                   
-                    self.typeNameField = _field;
-                    
+//                    self.typeNameField = _field;
+                        
+                        whiteView.hidden = YES;
+                        [whiteV updateConstraints:^(MASConstraintMaker *make) {
+                            make.height.equalTo(60 * HeightCoefficient);
+                            
+                        }];
+                        
+                        UILabel *lab2 = [[UILabel alloc] init];
+                        lab2.textAlignment = NSTextAlignmentLeft;
+                        [lab2 setNumberOfLines:0];
+                        lab2.textColor = [UIColor colorWithHexString:@"#ffffff"];
+                        lab2.text = _vhl.vhlTypeName?_vhl.vhlTypeName:@"";
+                        CGRect tmpRect= [lab2.text boundingRectWithSize:CGSizeMake(343*WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:15]} context:nil];
+                        
+                        CGFloat contentH = tmpRect.size.height;
+                        lab2.font = [UIFont fontWithName:FontName size:15];
+                        [whiteV addSubview:lab2];
+                        [lab2 makeConstraints:^(MASConstraintMaker *make) {
+                            make.height.equalTo(contentH+1);
+                            make.top.equalTo(0*HeightCoefficient);
+                            make.left.equalTo(0*WidthCoefficient);
+                            make.right.equalTo(0*WidthCoefficient);
+                        }];
+                      
                 }
-                
-              
-                
                 
             }
             else if (i==1)
