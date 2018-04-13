@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.mobile.capsa.dssp</string>
+			<string>com.capsa.dssp.dssp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>dssp</string>
@@ -34,7 +34,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.mobile.capsa.wx0b2741cdbf3f22f2</string>
+			<string>com.capsa.dssp.wx0b2741cdbf3f22f2</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx0b2741cdbf3f22f2</string>
