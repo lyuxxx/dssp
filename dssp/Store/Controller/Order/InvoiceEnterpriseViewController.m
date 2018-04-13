@@ -59,7 +59,7 @@
     NSArray *righttitles = nil;
 
         titles = @[@"发票抬头",@"收货人姓名",@"移动电话",@"邮政编码",@"所在地区",@"详细地址"];
-        righttitles = @[@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"请填写六位邮政编码",@"",@"请填写详细地址"];
+        righttitles = @[@"请填写发票抬头",@"请填写收货人姓名",@"请填写移动电话",@"请填写六位邮政编码",@"",@""];
 
     
     self.sc = ({
@@ -242,7 +242,7 @@
                     _label.font = [UIFont fontWithName:FontName size:15];
                     _label.textColor = [UIColor colorWithHexString:@"#999999"];
                     //    botLabel.backgroundColor =[UIColor redColor];
-                    [self.textView addSubview:_label];
+                    [whiteV addSubview:_label];
                     [_label makeConstraints:^(MASConstraintMaker *make) {
                         make.left.equalTo(0 * WidthCoefficient);
                         make.top.equalTo(0 * HeightCoefficient);
@@ -292,8 +292,7 @@
 {
     
     _label.hidden =YES;
-    
-    
+
     CGRect tmpRect= [textView.text boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil];
     
     CGFloat contentH = tmpRect.size.height;
@@ -317,7 +316,9 @@
  */
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-    
+    if (textView.text.length <1) {
+        _label.hidden =NO;
+    }
     return YES;
     
 }

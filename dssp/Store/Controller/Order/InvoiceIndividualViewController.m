@@ -248,7 +248,7 @@
                 _label.font = [UIFont fontWithName:FontName size:15];
                 _label.textColor = [UIColor colorWithHexString:@"#999999"];
                 //    botLabel.backgroundColor =[UIColor redColor];
-                [self.textView addSubview:_label];
+                [whiteV addSubview:_label];
                 [_label makeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(0 * WidthCoefficient);
                     make.top.equalTo(0 * HeightCoefficient);
@@ -322,7 +322,9 @@
  */
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-    
+    if (textView.text.length <1) {
+        _label.hidden =NO;
+    }
     return YES;
     
 }
@@ -389,14 +391,12 @@
         [MBProgressHUD showText:NSLocalizedString(@"请填写六位邮政编码", nil)];
         return;
     }
-    
     else if (!_province || [_province isEqualToString:@""]) {
         [MBProgressHUD showText:NSLocalizedString(@"请选择省市区", nil)];
         return;
     }
     else if (!self.textView.text||[self.textView.text isEqualToString:@""]||self.textView.text.length <1)
     {
-        
         [MBProgressHUD showText:NSLocalizedString(@"请填写详细地址", nil)];
         return;
         
@@ -435,9 +435,6 @@
         hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"提交失败", nil),code];
         [hud hideAnimated:YES afterDelay:1];
     }];
-    
-    
-    
 }
 
 

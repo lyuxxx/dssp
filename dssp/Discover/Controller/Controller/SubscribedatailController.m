@@ -8,10 +8,13 @@
 
 #import "SubscribedatailController.h"
 #import "SubscribeModel.h"
-@interface SubscribedatailController ()<UIWebViewDelegate>
+#import <WebKit/WebKit.h>
+@interface SubscribedatailController ()<UIWebViewDelegate,WKNavigationDelegate, WKUIDelegate>
+
+@property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,strong) SubscribedatailModel *subscribedatail;
 @property (nonatomic,strong) UITextView *contentlabel;
-@property (nonatomic,strong) UIWebView *webView;
+//@property (nonatomic,strong) UIWebView *webView;
 @end
 
 @implementation SubscribedatailController
@@ -54,27 +57,11 @@
 
 -(void)setupUI
 {
-    //        _webView = [[UIWebView alloc] init]; // 初始化浏览器控件UIWebView
-    //        _webView.delegate=self;
-    //        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
-    //
-    //       _webView.scalesPageToFit = YES;
-    //
-    //        [self.view addSubview:self.webView];
-    ////         [self.webView loadHTMLString:htmlString baseURL:url];
-    //        [_webView makeConstraints:^(MASConstraintMaker *make) {
-    ////                    make.right.equalTo(0 * WidthCoefficient);
-    //                    make.bottom.equalTo(0 * HeightCoefficient);
-    ////                    make.left.equalTo(0 * WidthCoefficient);
-    //                    make.width.equalTo(375 * WidthCoefficient);
-    //                    make.top.equalTo(0 * HeightCoefficient);;
-    //                }];
-    
+   
     self.navigationItem.title = NSLocalizedString(_channels.title, nil);
     self.contentlabel =[[UITextView alloc] init];
     _contentlabel.editable = NO;
     NSString *htmlString= _subscribedatail.content;
-    
     NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
     
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
@@ -87,6 +74,23 @@
         make.left.equalTo(0 * WidthCoefficient);
         make.top.equalTo(0 * HeightCoefficient);
     }];
+    
+    
+    
+//    self.webView = [[WKWebView alloc] init];
+//    [self.view addSubview:_webView];
+//    [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.view);
+//        make.right.equalTo(self.view);
+//        make.top.equalTo(self.view);
+//        make.bottom.equalTo(self.view);
+//    }];
+//
+//    _webView.UIDelegate = self;
+//    _webView.navigationDelegate = self;
+//    //    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://dssp.dstsp.com/ow/#/UserManual"]]];
+//
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: _subscribedatail.content]]];
 }
 
 - (void)didReceiveMemoryWarning {
