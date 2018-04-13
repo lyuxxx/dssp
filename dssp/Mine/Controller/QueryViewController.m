@@ -409,7 +409,7 @@
                         NSLocalizedString(@"审核成功", nil),
                         NSLocalizedString(@"审核中", nil),
                         NSLocalizedString(@"审核失败", nil),
-                        NSLocalizedString(@"待审核", nil)
+                        NSLocalizedString(@"未执行", nil)
                       
                         ];
     
