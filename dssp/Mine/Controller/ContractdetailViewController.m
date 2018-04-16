@@ -141,7 +141,6 @@
     }];
 
     
-    
     self.vipLabel = [[UILabel alloc] init];
     _vipLabel.textAlignment = NSTextAlignmentLeft;
     _vipLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
@@ -149,12 +148,11 @@
     _vipLabel.textColor=[UIColor colorWithHexString:@"#A18E79"];
     [whiteV addSubview:_vipLabel];
     [_vipLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(141.5 * WidthCoefficient);
         make.height.equalTo(22.5 * HeightCoefficient);
-        make.left.equalTo(10 * HeightCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.right.equalTo(-10 * WidthCoefficient);
         make.top.equalTo(10 * HeightCoefficient);
     }];
-    
     
 
 //    self.typeLabel = [[UILabel alloc] init];
@@ -230,14 +228,20 @@
     
     self.describeLabel = [[UILabel alloc] init];
     _describeLabel.textAlignment = NSTextAlignmentLeft;
-    _describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    [_describeLabel setNumberOfLines:0];
+    _describeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+//    _describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     NSString *descript = [NSString stringWithFormat:@"描述：%@",_contractData.descript?_contractData.descript:@""];
     _describeLabel.text = NSLocalizedString(descript, nil);
-    _describeLabel.textColor=[UIColor colorWithHexString:@"#999999"];
+   
+    CGRect tmpRect= [_describeLabel.text boundingRectWithSize:CGSizeMake(323*WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:14]} context:nil];
+    CGFloat contentH = tmpRect.size.height;
+    _describeLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+  
     [whiteV addSubview:_describeLabel];
     [_describeLabel makeConstraints:^(MASConstraintMaker *make) {
 //        make.width.equalTo(41.5 * WidthCoefficient);
-        make.height.equalTo(22.5 * HeightCoefficient);
+        make.height.equalTo(contentH+1);
         make.left.equalTo(10 * HeightCoefficient);
         make.right.equalTo(-10 * HeightCoefficient);
         make.top.equalTo(_vipLabel.bottom).offset(10 * HeightCoefficient);
