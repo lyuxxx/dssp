@@ -268,7 +268,7 @@ static NSString *const cellID = @"cell";
     UILabel *Lastlabel = [[UILabel alloc] init];
     Lastlabel.font=[UIFont fontWithName:FontName size:12];
     Lastlabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    Lastlabel.text=NSLocalizedString(@"该报告为近一周的统计数据", nil);
+    Lastlabel.text=NSLocalizedString(@"本数据为最新数据", nil);
     Lastlabel.textAlignment = NSTextAlignmentCenter;
     [_bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
