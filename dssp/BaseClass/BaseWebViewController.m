@@ -9,6 +9,7 @@
 #import "BaseWebViewController.h"
 #import <WebKit/WebKit.h>
 #import <MJRefresh.h>
+#import "AppDelegate.h"
 
 @interface BaseWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
 @property (nonatomic, strong) WKWebView *wkWebView;
@@ -19,6 +20,10 @@
 @end
 
 @implementation BaseWebViewController
+
+- (BOOL)prefersStatusBarHidden {
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
+}
 
 - (BOOL)needGradientBg {
     return YES;
@@ -35,15 +40,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
+    [self addObserver];
     [self loadRequest];
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIWindowDidBecomeVisibleNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIWindowDidBecomeHiddenNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     [_wkWebView removeObserver:self forKeyPath:@"estimatedProgress"];
     [_wkWebView stopLoading];
-//    _wkWebView.UIDelegate = nil;
+    //    _wkWebView.UIDelegate = nil;
     _wkWebView.navigationDelegate = nil;
 }
+
 
 - (void)setupUI {
     [self showLeftBarButtonItem];
@@ -56,6 +66,12 @@
         make.top.left.right.equalTo(self.view);
         make.height.equalTo(2 * WidthCoefficient);
     }];
+}
+
+- (void)addObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];//进入全屏
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];//退出全屏
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoDidRotate) name:UIDeviceOrientationDidChangeNotification object:nil];//设备旋转
 }
 
 - (void)loadRequest {
@@ -87,6 +103,37 @@
 
 - (void)wkWebViewReload {
     [self.wkWebView reload];
+}
+
+// 进入全屏
+-(void)begainFullScreen
+{
+    //允许三方向旋转
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.isForceLandscape = NO;
+    appDelegate.isForcePortrait = NO;
+    [appDelegate application:[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:self.view.window];
+    //刷新
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+
+// 退出全屏
+-(void)endFullScreen
+{
+    //强制旋转至竖屏
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.isForceLandscape = NO;
+    appDelegate.isForcePortrait = YES;
+    [appDelegate application:[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:self.view.window];
+    //设置屏幕的转向为竖屏
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationPortrait] forKey:@"orientation"];
+    //刷新
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+
+//更新状态栏
+- (void)videoDidRotate {
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark - 导航按钮 -
