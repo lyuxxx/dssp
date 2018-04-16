@@ -120,11 +120,11 @@
     [CUHTTPRequest POST:getTrackDetailURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            [hud hideAnimated:YES];
             TrackDetailResponse *response = [TrackDetailResponse yy_modelWithJSON:dic];
             self.coordinates = response.data.record;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showTrackWithCoordinates:self.coordinates];
+                [hud hideAnimated:YES];
             });
         } else {
             hud.label.text = dic[@"msg"];
@@ -415,6 +415,27 @@
 }
 
 - (void)showTrackWithCoordinates:(NSArray<TrackDetailRecordItem *> *)coordinates {
+    
+    if (!coordinates.count) {
+        return;
+    }
+    
+    //判断路线是否是一个静止的点
+    BOOL isPoint = YES;
+    
+    TrackDetailRecordItem *itemStart = coordinates[0];
+    for (NSInteger i = 0; i < coordinates.count; i++) {
+        TrackDetailRecordItem *item = coordinates[i];
+        if (itemStart.lat != item.lat || itemStart.lon != item.lon) {
+            isPoint = NO;
+            break;
+        }
+    }
+    
+    if (isPoint) {
+        [self.mapView setZoomLevel:15];
+    }
+    
     //构造折线数据对象
     
     CLLocationCoordinate2D commonPolylineCoords[coordinates.count];
@@ -484,8 +505,11 @@
     
     [_mapView addAnnotations:@[_startAnnotation,_endAnnotation]];
     
-    [self.mapView setVisibleMapRect:[MapUtility mapRectForOverlays:@[commonPolyline]] edgePadding:UIEdgeInsetsMake(100, 100, 100, 100) animated:NO];
-//    [_mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
+//    [self.mapView setVisibleMapRect:[MapUtility mapRectForOverlays:@[commonPolyline]] edgePadding:UIEdgeInsetsMake(100, 100, 100, 100) animated:NO];
+    
+//    [_mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(100, 100, 100, 100) animated:YES];
+    
+    [self.mapView showOverlays:@[commonPolyline] edgePadding:UIEdgeInsetsMake(100, 100, 100, 100) animated:NO];
     
 }
 
