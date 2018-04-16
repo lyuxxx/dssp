@@ -210,7 +210,9 @@ static dispatch_once_t oilOnceToken;
         annotation.subtitle = station.address;
         [arr addObject:annotation];
     }
-    [arr addObject:self.mapView.userLocation];
+    if (self.mapView.userLocation) {
+       [arr addObject:self.mapView.userLocation];
+    }
     [self.mapView addAnnotations:arr];
     [self.mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
 }
