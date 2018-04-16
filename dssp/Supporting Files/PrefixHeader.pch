@@ -95,6 +95,8 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define CuvhlTStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"vhlTStatus"]
 #define KcertificationStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"certificationStatus"]
 #define KcontractStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"contractStatus"]
+#define kphonenumber [[NSUserDefaults standardUserDefaults] objectForKey:@"phonenumber"]
+
 
 
 #define KuserName [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]
@@ -270,6 +272,9 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define violationsForApp [NSString stringWithFormat:@"%@violationsForApp",baseUrl]
 ///服务知识库查询
 #define sendToServiceKnowledgeProfileValue [NSString stringWithFormat:@"%@sendToServiceKnowledgeProfileValue",baseUrl]
+//电话号码
+#define getDefaultTelephoneNumber [NSString stringWithFormat:@"%@getDefaultTelephoneNumber",baseUrl]
+
 
 //服务知识库查询_记录帮助或为帮助数量
 #define dynamicUpdateServiceKnowledgeProfileById [NSString stringWithFormat:@"%@dynamicUpdateServiceKnowledgeProfileById",baseUrl]

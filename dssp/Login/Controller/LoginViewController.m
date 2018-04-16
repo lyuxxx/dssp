@@ -528,6 +528,8 @@
     }
     if (sender == self.loginBtn) {
         [self.view endEditing:YES];
+        
+      
         if(self.switchBtn.selected)
         {
             if (_phoneField.text.length == 0 || _phoneCodeField.text.length == 0) {
@@ -628,6 +630,7 @@
                             CONF_SET(@"user",result);
                             
                             [hud hideAnimated:YES];
+                            [self pullData1];
                             TabBarController *tabVC = [[TabBarController alloc] init];
                             [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                         }
@@ -654,6 +657,7 @@
             {
                 
                [self setuploading];
+             
 
 //               NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
 //               NSString *cid = [defaults1 objectForKey:@"cid"];
@@ -767,6 +771,7 @@
                                             [result setObject:_passWordField.text forKey:@"passWord"];
                                             CONF_SET(@"user",result);
                                             
+                                            [self pullData1];
                                             TabBarController *tabVC = [[TabBarController alloc] init];
                                             [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
                                             
@@ -786,8 +791,7 @@
                                 });
                                 
                                 
-                                
-
+        
                             }
                         }
 //                        time -= 1;
@@ -881,7 +885,6 @@
                     [defaults3 synchronize];
                     
                 }
-                
                 [hud hideAnimated:YES];
                 TabBarController *tabVC = [[TabBarController alloc] init];
                 [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
@@ -900,6 +903,37 @@
     }
 
 }
+
+- (void)pullData1 {
+    
+    [CUHTTPRequest GET:getDefaultTelephoneNumber parameters:@{} success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSString *string = dic[@"data"];
+            if ([self isBlankString:string]) {
+                NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                [defaults2 setObject:@"000-000-0000" forKey:@"phonenumber"];
+                [defaults2 synchronize];
+            }
+            else
+            {
+                NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                [defaults2 setObject:string forKey:@"phonenumber"];
+                [defaults2 synchronize];
+                
+            }
+        } else {
+//            [MBProgressHUD showText:dic[@"msg"]];
+        }
+        
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+    
+}
+
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     // 当输入框获得焦点时，执行该方法 （光标出现时）。
