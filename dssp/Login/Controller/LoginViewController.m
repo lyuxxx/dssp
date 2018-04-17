@@ -885,6 +885,8 @@
                     [defaults3 synchronize];
                     
                 }
+                
+                [self pullData1];
                 [hud hideAnimated:YES];
                 TabBarController *tabVC = [[TabBarController alloc] init];
                 [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
