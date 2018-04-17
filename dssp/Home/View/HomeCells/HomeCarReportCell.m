@@ -118,8 +118,8 @@ typedef void(^ReportBlock)(ReportType);
         _descriptionLabel.text = NSLocalizedString(@"最新车况报告", nil);
         _bgV.tag = ReportTypeCarCondition;
     }
-    if ([title isEqualToString:NSLocalizedString(@"驾驶行为周报", nil)]) {
-        _descriptionLabel.text = NSLocalizedString(@"驾驶行为周报", nil);
+    if ([title isEqualToString:NSLocalizedString(@"驾驶行为报告", nil)]) {
+        _descriptionLabel.text = NSLocalizedString(@"驾驶行为报告", nil);
         _bgV.tag = ReportTypeWeekReport;
     }
     if ([title isEqualToString:NSLocalizedString(@"行车日志", nil)]) {

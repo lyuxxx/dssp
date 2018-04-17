@@ -1792,7 +1792,7 @@ typedef void(^PullWeatherFinished)(void);
                 break;
         }
     } else if (indexPath.section == 1) {
-            NSArray *titles = @[NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为周报", nil),NSLocalizedString(@"行车日志", nil)];
+            NSArray *titles = @[NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为报告", nil),NSLocalizedString(@"行车日志", nil)];
             HomeCarReportCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCarReportCellIdentifier];
             [cell configWithTitle:titles[indexPath.row] clickEvent:^(ReportType type) {
                 strongifySelf;
