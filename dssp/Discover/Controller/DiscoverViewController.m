@@ -17,6 +17,9 @@
 #import "AppDelegate.h"
 #import "VINBindingViewController.h"
 #import "RealVinViewcontroller.h"
+#import "LeftButton.h"
+#import "NSArray+Sudoku.h"
+#import "LeftImgButton.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate,UITabBarControllerDelegate>
 
 @property(nonatomic,strong) UIButton *robotBtn;
@@ -44,14 +47,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(executeNotification) name:@"DidReceivePayloadMsg" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoverVCneedRefresh) name:@"DiscoverVCneedRefresh" object:nil];
     
     //删除消息通知刷新消息条数
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DidReceiveloadMsg) name:@"DidReceiveloadMsg" object:nil];
     [self requestData];
     [self setupUI];
-    
-    NSLog(@"ggg%@",self.btnMutableArray);
     
 }
 
@@ -62,19 +66,19 @@
         //        [self setupUI];
         //说明是当前页面，做些请求数据，更新页面的操作
         [self.tabBarController.tabBar hideBadgeOnItemIndex:1];
-        //        _noticeBtn2.selected =NO;
-        //        _noticeBtn1.selected =YES;
-        //        _imgV.image = [UIImage imageNamed:@"通知选中_icon"];
-        //        _imgV1.image = [UIImage imageNamed:@"订阅_icon"];
-        
+        //        默认点击button
         [(UIButton *)self.btnMutableArray[0] sendActionsForControlEvents:UIControlEventTouchUpInside];
-        
-        [self.noticeBtn1 sendActionsForControlEvents:UIControlEventTouchUpInside];
-        
     }
     else{
         //不是的话可能不需要做任何事情
     }
+}
+
+
+-(void)discoverVCneedRefresh
+{
+//    在别的页面，点击消息弹框，默认选中通知
+    [(UIButton *)self.btnMutableArray[0] sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)DidReceiveloadMsg
@@ -84,6 +88,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DiscoverViewController"];
     self.isViewVisable = YES;
@@ -145,6 +150,7 @@
             
             popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                 if (btn.tag == 100) {//左边按钮
+                    
                     RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
                     [self.navigationController pushViewController:vc animated:YES];
                     
@@ -188,28 +194,8 @@
                     
                 };
                 
-                
-                
-                
-                
-                
-                //                PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                //                [popupView initWithTitle:@"您当前不是T用户无法使用服务,若想使用服务,请升级为T用户!" img:@"首页弹窗背景1" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"",nil] ];
-                //                //            InputalertView.delegate = self;
-                //                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                //                [keywindow addSubview: popupView];
-                //
-                //                popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                //                    if (btn.tag == 100) {//左边按钮
-                //
-                //
-                //
-                //                    }
-                //
-                //                };
-                
-            }
             
+            }
             
         }
         
@@ -262,32 +248,7 @@
 }
 
 
--(void)setUnreadstr:(NSString *)unreadstr
-{
-    
-    if([self isNull:unreadstr])
-    {
-        if([unreadstr isEqualToString:@"0"])
-        {
-            NSString *unreads = [[NSString stringWithFormat:@"%@",@""] stringByAppendingString:@"无未读消息"];
-            _bottomLabel.text = unreads;
-            
-        }else
-        {
-            NSString *unreads = [[NSString stringWithFormat:@"%@",unreadstr] stringByAppendingString:@"条未读消息"];
-            _bottomLabel.text = unreads;
-            
-        }
-        
-    }
-    else
-    {
-        NSString *unreads = [[NSString stringWithFormat:@"%@",@""] stringByAppendingString:@"无未读消息"];
-        _bottomLabel.text = unreads;
-        
-    }
-    
-}
+
 
 -(BOOL)isNull:(id)object
 
@@ -339,7 +300,7 @@
     
     UIImageView *bgImgV = [[UIImageView alloc] init];
     bgImgV.image = [UIImage imageNamed:@"发现背景"];
-    //    bgImgV.backgroundColor =[UIColor redColor];
+    bgImgV.userInteractionEnabled = YES;
     [self.view addSubview:bgImgV];
     [bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -361,148 +322,39 @@
                           
                           ];
     
+    NSArray *imgArrays = @[
+                           NSLocalizedString(@"通知选中_icon", nil),
+                           NSLocalizedString(@"订阅选中_icon", nil),
+                           
+                           ];
     
     
-    UIButton *lastBtn = nil;
-    UIImageView *lastimg = nil;
-    UILabel *lastLabel = nil;
-    //    UILabel *lastLabels = nil;
-    //    [lastBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+    
     self.btnMutableArray = [[NSMutableArray alloc] init]; //将button放到数组里面
+    NSMutableArray<LeftButton *> *btns = [NSMutableArray new];
     for(int i = 0;i < placeHolders.count;i++)
     {
-        self.noticeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        //    [noticeBtn setImage:[UIImage imageNamed:@"robot"] forState:UIControlStateNormal];
-        
-        //        _noticeBtn.backgroundColor=[UIColor redColor];
-        
-        _noticeBtn.tag = 100+i;
-        [_noticeBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_noticeBtn];
-        [self.btnMutableArray addObject:_noticeBtn];
-        
-        
-        
-        UILabel *label = [[UILabel alloc] init];
-        label.text = placeHolders[i];
-        label.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        label.font = [UIFont fontWithName:FontName size:16];
-        [_noticeBtn addSubview:label];
-        
+        LeftButton *btn = [LeftButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = 100 + i;
+        [btn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [btn setTitle:placeHolders[i] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:imgArray[i]] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:imgArrays[i]] forState:UIControlStateSelected];
+        btn.adjustsImageWhenHighlighted = NO;
+        btn.needNoRepeat = YES;
+        [bgImgV addSubview:btn];
+        [btns addObject:btn];
+        [self.btnMutableArray addObject:btn];
         
         if (i==0) {
-            
-            
-            self.noticeBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-            [_noticeBtn1 setImage:[UIImage imageNamed:@"通知_icon"] forState:UIControlStateNormal];
-            [_noticeBtn1 setImage:[UIImage imageNamed:@"通知选中_icon"] forState:UIControlStateSelected];
-            //        _noticeBtn.backgroundColor=[UIColor redColor];
-            
-            _noticeBtn1.selected =YES;
-            _noticeBtn1.tag = 100;
-            [_noticeBtn1 addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_noticeBtn addSubview:_noticeBtn1];
-            [_noticeBtn1 makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(36 * HeightCoefficient);
-                make.height.equalTo(36 * HeightCoefficient);
-                make.left.equalTo(32 * WidthCoefficient);
-                make.centerY.equalTo(0);
-            }];
-            
-            
-            
-            
-            //            self.imgV = [[UIImageView alloc] init];
-            //            _imgV.image = [UIImage imageNamed:@"通知选中_icon"];
-            //            [_noticeBtn addSubview:_imgV];
-            //            [_imgV makeConstraints:^(MASConstraintMaker *make) {
-            //                make.width.equalTo(36 * HeightCoefficient);
-            //                make.height.equalTo(36 * HeightCoefficient);
-            //                make.left.equalTo(32 * WidthCoefficient);
-            //                make.centerY.equalTo(0);
-            //            }];
-            
+            btn.selected = YES;
         }
-        else
-        {
-            
-            self.noticeBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-            [_noticeBtn2 setImage:[UIImage imageNamed:@"订阅_icon"] forState:UIControlStateNormal];
-            [_noticeBtn2 setImage:[UIImage imageNamed:@"订阅选中_icon"] forState:UIControlStateSelected];
-            //        _noticeBtn.backgroundColor=[UIColor redColor];
-            
-            _noticeBtn2.tag = 101;
-            _noticeBtn2.selected =NO;
-            [_noticeBtn2 addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_noticeBtn addSubview:_noticeBtn2];
-            [_noticeBtn2 makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(36 * HeightCoefficient);
-                make.height.equalTo(36 * HeightCoefficient);
-                make.left.equalTo(32 * WidthCoefficient);
-                make.centerY.equalTo(0);
-            }];
-            
-            
-            
-            //            self.imgV1 = [[UIImageView alloc] init];
-            //            _imgV1.image = [UIImage imageNamed:@"订阅_icon"];
-            //            [_noticeBtn addSubview:_imgV1];
-            //            [_imgV1 makeConstraints:^(MASConstraintMaker *make) {
-            //                make.width.equalTo(36 * HeightCoefficient);
-            //                make.height.equalTo(36 * HeightCoefficient);
-            //           make.left.equalTo(32 * WidthCoefficient);
-            //                make.centerY.equalTo(0);
-            //            }];
-            
-            
-        }
-        
-        
-        
-        
-        if (i == 0) {
-            [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(0);
-                make.top.equalTo(0);
-                make.height.equalTo(70*HeightCoefficient);
-                make.width.equalTo(374.5*WidthCoefficient/2);
-            }];
-            
-            
-            
-            [label makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(65 * WidthCoefficient);
-                make.height.equalTo(22.5 * WidthCoefficient);
-                make.left.equalTo(_noticeBtn1.right).offset(10*WidthCoefficient);
-                make.centerY.equalTo(0);
-            }];
-            
-            
-        } else {
-            
-            [_noticeBtn makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(lastBtn.right).offset(1*WidthCoefficient);
-                make.top.equalTo(0);
-                make.height.equalTo(70 * HeightCoefficient);
-                make.width.equalTo(374.5 * WidthCoefficient/2);
-            }];
-            
-            
-            [label makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(65 * WidthCoefficient);
-                make.height.equalTo(22.5 * WidthCoefficient);
-                make.left.equalTo(_noticeBtn2.right).offset(10*WidthCoefficient);
-                make.centerY.equalTo(0);
-            }];
-            
-        }
-        lastBtn = _noticeBtn;
-        lastimg =_imgV;
-        lastLabel = label;
-        //        lastLabels = bottomLabel;
     }
     
-    //    ((UIButton *)[self.btnMutableArray objectAtIndex:0]).selected=YES;
+    [btns mas_distributeSudokuViewsWithFixedItemWidth:80 * WidthCoefficient fixedItemHeight:36 * WidthCoefficient warpCount:2 topSpacing:17 * HeightCoefficient bottomSpacing:17 * HeightCoefficient leadSpacing:53.75 * WidthCoefficient tailSpacing:53.75 * WidthCoefficient];
     
     CGFloat height = kScreenHeight -(70 * HeightCoefficient);
     self.noticeVC = [[NoticeViewController alloc] init];
@@ -521,64 +373,35 @@
 }
 
 
-//scrollView
-- (UIScrollView *)scrollView{
-    if (_scrollView == nil) {
-        _scrollView = [[UIScrollView alloc] init];
-        
-        _scrollView = [[UIScrollView alloc] init];
-        //        _scrollView.backgroundColor=[UIColor redColor];
-        _scrollView.showsVerticalScrollIndicator = NO;
-        if (@available(iOS 11.0, *)) {
-            _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            // Fallback on earlier versions
-        }
-        CGFloat height = kScreenHeight -(74 * HeightCoefficient+kStatusBarHeight)-kNaviHeight-kTabbarHeight;
-        _scrollView.frame = CGRectMake(0, 74 * HeightCoefficient+kStatusBarHeight, kScreenWidth,height);
-        //        _scrollView.backgroundColor=[UIColor yellowColor];
-        _scrollView.contentSize = CGSizeMake(kScreenWidth *2, height);
-        
-        _scrollView.delegate = self;
-        //        _scrollView.showsHorizontalScrollIndicator = false;
-        _scrollView.pagingEnabled = true;
-    }
-    return _scrollView;
-}
-
-
 -(void)BtnClick:(UIButton *)sender
 {
     
     if ((self.currentVC == self.noticeVC && sender.tag == 100)||(self.currentVC == self.subscribeVC && sender.tag == 101)) {
+        
         return;
     }else{
+        
+        
+        for (int i = 0; i < 2; i++) {
+            UIButton *btn = (UIButton *)[[sender superview]viewWithTag:100 + i];
+            [btn setSelected:NO];
+        }
+        UIButton *button = (UIButton *)sender;
+        [button setSelected:YES];
+        
         if(sender.tag==100)
         {
             
-            _noticeBtn2.selected =NO;
-            _noticeBtn1.selected =YES;
-            
-            //            _imgV.image = [UIImage imageNamed:@"通知选中_icon"];
-            //            _imgV1.image = [UIImage imageNamed:@"订阅_icon"];
+            sender.highlighted = NO;
             [self replaceController:self.currentVC newController:self.noticeVC];
-            [_line1 updateConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(0);
-            }];
+            
         }
         else if(sender.tag==101)
         {
             
-            _noticeBtn2.selected =YES;
-            _noticeBtn1.selected =NO;
-            
-            //             _imgV1.image = [UIImage imageNamed:@"订阅选中_icon"];
-            //             _imgV.image = [UIImage imageNamed:@"通知_icon"];
+            sender.highlighted = NO;
             [self replaceController:self.currentVC newController:self.subscribeVC];
-            [_line1 updateConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(375 *WidthCoefficient/2);
-            }];
-            [self.view layoutIfNeeded];
+            
         }
         else if (self.robotBtn == sender)
         {
@@ -632,42 +455,6 @@
 }
 
 
-
-//-(void)loadNoticeVC
-//{
-//    _noticeVC = [[NoticeViewController alloc] init];
-//    [self.view addSubview:self.noticeVC.view];
-//    [self addChildViewController:self.noticeVC];
-//    [_subscribeVC.view removeFromSuperview];
-//    [self.noticeVC.view makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(_noticeBtn.bottom).offset(0);
-//            make.width.equalTo(kScreenWidth);
-//            make.bottom.equalTo(-kTabbarHeight);
-//           }];
-//}
-//
-//-(void)loadSubscribeVC
-//{
-//    _subscribeVC = [[SubscribeViewController alloc] init];
-//    [self.view addSubview:self.subscribeVC.view];
-//    [self addChildViewController:self.subscribeVC];
-//    [_noticeVC.view removeFromSuperview];
-//    [self.subscribeVC.view makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_noticeBtn.bottom).offset(0);
-//        make.width.equalTo(kScreenWidth);
-//        make.bottom.equalTo(-kTabbarHeight);
-//    }];
-//
-//}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    [_line1 updateConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scrollView.contentOffset.x/2);
-        
-    }];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -684,4 +471,3 @@
  */
 
 @end
-

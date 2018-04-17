@@ -53,7 +53,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.tableView = [[UITableView alloc] init];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight) style:UITableViewStylePlain];
     
 //     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
 //    self.tableView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
@@ -89,23 +89,25 @@
 //    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
 //    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
     
-    // 注册键盘的通知hide or show
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    //给UITableView添加手势
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
-    tapGesture.delegate = self;
-    [self.tableView addGestureRecognizer:tapGesture];
     
-    //添加输入框
-    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50)];
-    self.keyView.backgroundColor = [UIColor colorWithHexString:@"#232120"];
-    
-    [self.keyView.moreBtn addTarget:self action:@selector(clickSengMsg:) forControlEvents:UIControlEventTouchUpInside];
-    //设置代理方法
-    self.keyView.delegate = self;
-    [self.view addSubview:_keyView];
+//    // 注册键盘的通知hide or show
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+//
+//    //给UITableView添加手势
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+//    tapGesture.delegate = self;
+//    [self.tableView addGestureRecognizer:tapGesture];
+//
+//    //添加输入框
+//    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50)];
+//    self.keyView.backgroundColor = [UIColor colorWithHexString:@"#232120"];
+//
+//    [self.keyView.moreBtn addTarget:self action:@selector(clickSengMsg:) forControlEvents:UIControlEventTouchUpInside];
+//    //设置代理方法
+//    self.keyView.delegate = self;
+//    [self.view addSubview:_keyView];
 }
 
 - (void)viewWillAppear:(BOOL)animated

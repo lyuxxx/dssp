@@ -546,6 +546,9 @@
 		450AF1741FEB502900E48445 /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
 		450B0215204FF9DA0038EC9C /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B0214204FF9DA0038EC9C /* MaintainViewController.m */; };
 		450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
+		45147D542085EE6F00FABEA7 /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
+		45147D552085EE6F00FABEA7 /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
+		45147D562085EE6F00FABEA7 /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
 		45153F892041130800C41E10 /* TrafficReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F882041130800C41E10 /* TrafficReportModel.m */; };
 		45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
 		45153F8F2041391700C41E10 /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
@@ -904,6 +907,8 @@
 		450B0214204FF9DA0038EC9C /* MaintainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaintainViewController.m; sourceTree = "<group>"; };
 		450C7A261FDE3FA700E4652F /* ForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastModel.h; sourceTree = "<group>"; };
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
+		45147D522085EE6F00FABEA7 /* LeftButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftButton.h; sourceTree = "<group>"; };
+		45147D532085EE6F00FABEA7 /* LeftButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftButton.m; sourceTree = "<group>"; };
 		45153F872041130800C41E10 /* TrafficReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportModel.h; sourceTree = "<group>"; };
 		45153F882041130800C41E10 /* TrafficReportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportModel.m; sourceTree = "<group>"; };
 		45153F8A204113C800C41E10 /* TrafficReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportCell.h; sourceTree = "<group>"; };
@@ -1880,6 +1885,8 @@
 				455974671FE8EAB300D7910A /* NoticeCell.m */,
 				450AF16D1FE9F9B900E48445 /* SubscriCell.h */,
 				450AF16E1FE9F9B900E48445 /* SubscriCell.m */,
+				45147D522085EE6F00FABEA7 /* LeftButton.h */,
+				45147D532085EE6F00FABEA7 /* LeftButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2529,6 +2536,7 @@
 				3161DE53206C8AB500D40EE3 /* CommodityCommentCell.m in Sources */,
 				312F71082071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
 				3161DE54206C8AB500D40EE3 /* CommodityNameCell.m in Sources */,
+				45147D552085EE6F00FABEA7 /* LeftButton.m in Sources */,
 				3161DE55206C8AB500D40EE3 /* QueryViewController.m in Sources */,
 				3161DE56206C8AB500D40EE3 /* LoveCarViewController.m in Sources */,
 				3161DE57206C8AB500D40EE3 /* RegisterViewController.m in Sources */,
@@ -2727,6 +2735,7 @@
 				3161DF2A206C8ABC00D40EE3 /* PayCompleteViewController.m in Sources */,
 				3161DF2B206C8ABC00D40EE3 /* CommodityCommentCell.m in Sources */,
 				312F71092071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
+				45147D562085EE6F00FABEA7 /* LeftButton.m in Sources */,
 				3161DF2C206C8ABC00D40EE3 /* CommodityNameCell.m in Sources */,
 				3161DF2E206C8ABC00D40EE3 /* LoveCarViewController.m in Sources */,
 				3161DF2F206C8ABC00D40EE3 /* RegisterViewController.m in Sources */,
@@ -2925,6 +2934,7 @@
 				31B38BA9202C389C0086EDC8 /* CommodityCommentCell.m in Sources */,
 				312F71072071FFBD0072C824 /* SDCollectionViewCell.m in Sources */,
 				31B38BA0202C382A0086EDC8 /* CommodityNameCell.m in Sources */,
+				45147D542085EE6F00FABEA7 /* LeftButton.m in Sources */,
 				455F36921FF4CCF400D09A63 /* QueryViewController.m in Sources */,
 				31DDD2511FBABA0000D37DED /* LoveCarViewController.m in Sources */,
 				31699EC41FA87E8400C8FDF8 /* RegisterViewController.m in Sources */,
