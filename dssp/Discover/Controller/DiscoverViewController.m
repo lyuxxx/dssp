@@ -344,7 +344,7 @@
         [btn setImage:[UIImage imageNamed:imgArray[i]] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:imgArrays[i]] forState:UIControlStateSelected];
         btn.adjustsImageWhenHighlighted = NO;
-        btn.needNoRepeat = YES;
+//        btn.needNoRepeat = YES;
         [bgImgV addSubview:btn];
         [btns addObject:btn];
         [self.btnMutableArray addObject:btn];

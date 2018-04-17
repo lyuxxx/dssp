@@ -331,7 +331,7 @@
         make.centerX.equalTo(content);
     }];
     
-    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"油价查询", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil),NSLocalizedString(@"呼叫中心", nil)];
+    NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"油价查询", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil),NSLocalizedString(@"一键呼叫", nil)];
     NSArray *imgTitles = @[@"智慧出行_icon",@"智慧加油_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon",@"呼叫中心_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
@@ -527,7 +527,30 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 111) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",Phone]]];
+        
+        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        [InputalertView initWithTitle:@"拨打电话至DS客服中心?" img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"确定",@"取消", nil] ];
+        //            InputalertView.delegate = self;
+        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+        [keywindow addSubview: InputalertView];
+        
+        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+            if (btn.tag == 100) {//左边按钮
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",Phone]]];
+                });
+
+            }
+            if(btn.tag ==101)
+            {
+                //右边按钮
+                NSLog(@"666%@",str);
+            }
+            
+        };
+        
+        
+       
     }
 }
 

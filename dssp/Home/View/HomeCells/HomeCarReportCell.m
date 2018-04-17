@@ -115,7 +115,7 @@ typedef void(^ReportBlock)(ReportType);
     _titleLabel.text = title;
     _bgV.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@背景图",title]];
     if ([title isEqualToString:NSLocalizedString(@"车况报告", nil)]) {
-        _descriptionLabel.text = NSLocalizedString(@"车况报告", nil);
+        _descriptionLabel.text = NSLocalizedString(@"最新车况报告", nil);
         _bgV.tag = ReportTypeCarCondition;
     }
     if ([title isEqualToString:NSLocalizedString(@"驾驶行为周报", nil)]) {

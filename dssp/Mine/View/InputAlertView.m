@@ -260,7 +260,7 @@
         make.width.equalTo(200 * WidthCoefficient);
         make.height.equalTo(60 * HeightCoefficient);
         make.centerX.equalTo(0);
-        make.top.equalTo(33 * HeightCoefficient);
+        make.top.equalTo(25 * HeightCoefficient);
     }];
     
 }

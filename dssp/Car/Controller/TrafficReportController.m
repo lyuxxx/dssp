@@ -229,7 +229,7 @@ static NSString *const cellID = @"cell";
 {
     self.bgImgV = [[UIImageView alloc] init];
     _bgImgV.image = [UIImage imageNamed:@"健康背景"];
-    _bgImgV.backgroundColor =[UIColor redColor];
+//    _bgImgV.backgroundColor =[UIColor redColor];
     [_headerView addSubview:_bgImgV];
     [_bgImgV makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(0);
@@ -512,7 +512,7 @@ static NSString *const cellID = @"cell";
 
     if([trafficReporData.alertPriority isEqualToString:@"high"]) {
       
-        _bgImgV.image = [UIImage imageNamed:@"需维修背景"];
+        _bgImgV.image = [UIImage imageNamed:@"需维修"];
 //        _bgImgV1.image = [UIImage imageNamed:@"需维修车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#CE004F"];
         _titlelabel.text=NSLocalizedString(@"需维修", nil);
@@ -520,7 +520,7 @@ static NSString *const cellID = @"cell";
     }
     else if([trafficReporData.alertPriority isEqualToString:@"low"]) {
       
-        _bgImgV.image = [UIImage imageNamed:@"需检查背景"];
+        _bgImgV.image = [UIImage imageNamed:@"需检查"];
 //        _bgImgV1.image = [UIImage imageNamed:@"需检查车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#FFC3A5"];
         _titlelabel.text=NSLocalizedString(@"需检查", nil);
@@ -528,15 +528,15 @@ static NSString *const cellID = @"cell";
     else if([trafficReporData.alertPriority isEqualToString:@"health"])
     {
         
-        _bgImgV.image = [UIImage imageNamed:@"健康背景"];
-        _bgImgV1.image = [UIImage imageNamed:@"健康车"];
+        _bgImgV.image = [UIImage imageNamed:@"健康车"];
+//        _bgImgV1.image = [UIImage imageNamed:@"健康"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#A5FFD2"];
-        _titlelabel.text=NSLocalizedString(@"健康", nil);
+        _titlelabel.text=NSLocalizedString(@"正常", nil);
     }
     else
     {
        
-        _bgImgV.image = [UIImage imageNamed:@"健康背景"];
+        _bgImgV.image = [UIImage imageNamed:@"健康车"];
 //        _bgImgV1.image = [UIImage imageNamed:@"健康车"];
         _titlelabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
         _titlelabel.text=NSLocalizedString(@"-", nil);
