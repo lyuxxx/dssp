@@ -549,6 +549,9 @@
 		45147D542085EE6F00FABEA7 /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
 		45147D552085EE6F00FABEA7 /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
 		45147D562085EE6F00FABEA7 /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
+		45147D642086279A00FABEA7 /* ds_service_protocols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 45147D632086279A00FABEA7 /* ds_service_protocols.txt */; };
+		45147D652086279A00FABEA7 /* ds_service_protocols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 45147D632086279A00FABEA7 /* ds_service_protocols.txt */; };
+		45147D662086279A00FABEA7 /* ds_service_protocols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 45147D632086279A00FABEA7 /* ds_service_protocols.txt */; };
 		45153F892041130800C41E10 /* TrafficReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F882041130800C41E10 /* TrafficReportModel.m */; };
 		45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
 		45153F8F2041391700C41E10 /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
@@ -909,6 +912,7 @@
 		450C7A271FDE3FA700E4652F /* ForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastModel.m; sourceTree = "<group>"; };
 		45147D522085EE6F00FABEA7 /* LeftButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftButton.h; sourceTree = "<group>"; };
 		45147D532085EE6F00FABEA7 /* LeftButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftButton.m; sourceTree = "<group>"; };
+		45147D632086279A00FABEA7 /* ds_service_protocols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ds_service_protocols.txt; sourceTree = "<group>"; };
 		45153F872041130800C41E10 /* TrafficReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportModel.h; sourceTree = "<group>"; };
 		45153F882041130800C41E10 /* TrafficReportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrafficReportModel.m; sourceTree = "<group>"; };
 		45153F8A204113C800C41E10 /* TrafficReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrafficReportCell.h; sourceTree = "<group>"; };
@@ -1674,6 +1678,7 @@
 		31EEDDDE1FBBC9520012BA92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45147D632086279A00FABEA7 /* ds_service_protocols.txt */,
 				31129249205D23900049A647 /* server_formal.cer */,
 				3189EED12058D1A90009B742 /* client.p12 */,
 				3189EED32058D1B10009B742 /* server_pre.cer */,
@@ -2082,6 +2087,7 @@
 				31A2291F206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DE6A206C8AB500D40EE3 /* waiting.gif in Resources */,
 				3161DE6B206C8AB500D40EE3 /* server_pre.cer in Resources */,
+				45147D652086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
 				3161DE6D206C8AB500D40EE3 /* LaunchScreen.storyboard in Resources */,
 				3161DE6F206C8AB500D40EE3 /* Localizable.strings in Resources */,
 				3161DE70206C8AB500D40EE3 /* Address.plist in Resources */,
@@ -2095,6 +2101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3161DF42206C8ABC00D40EE3 /* waiting.gif in Resources */,
+				45147D662086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
 				3161DF45206C8ABC00D40EE3 /* LaunchScreen.storyboard in Resources */,
 				3161DF47206C8ABC00D40EE3 /* Localizable.strings in Resources */,
 				3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */,
@@ -2113,6 +2120,7 @@
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				3112924A205D23900049A647 /* server_formal.cer in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
+				45147D642086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
 				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
 				3151F5AB207362CA0009998D /* Info.plist in Resources */,

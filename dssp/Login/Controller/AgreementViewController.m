@@ -84,6 +84,15 @@
         make.height.equalTo(20 * HeightCoefficient);
     }];
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ds_service_protocols" ofType:@"txt"];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    
+    
+    
+    NSLog(@"srt=%@",content);
+
+    
     
     self.contentlabel =[[UITextView alloc] init];
     NSString *cssStr = @"<style type='text/css'>body{color:#ffffff;background:#120f0e !important;}p{background: #120f0e1 !important;color: #FFFFFF;font size:20px;line-height: 24px!important;}p span{background: #120f0e !important;color: #FFFFFF !important;}p img{max-width: 100%!important;}</style>";
@@ -99,7 +108,8 @@
         _contentlabel.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     
         _contentlabel.editable = NO;
-        _contentlabel.attributedText = attributedString;
+//        _contentlabel.attributedText = attributedString;
+        _contentlabel.text= content;
         [line addSubview:_contentlabel];
         [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(0 * WidthCoefficient);
