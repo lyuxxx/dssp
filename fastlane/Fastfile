@@ -61,9 +61,9 @@ platform :ios do
       # 编译前执行 clean，可减少 ipa 文件大小
       clean: true,
       # 指定打包方式，Release 或者 Debug
-      configuration: "Debug",
+      configuration: "AdHoc",
       # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
-      export_method: "development",
+      export_method: "ad-hoc",
       # 指定输出文件夹
       output_directory:"./fastlane/build/pgyer",
       #指定输出名称
@@ -72,7 +72,7 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
                 provisioningProfiles: {
-                    "com.mobile.capsa" => "dsspdevelop",
+                    "com.mobile.capsa" => "dsspAdHoc",
                 }
             }
     })
