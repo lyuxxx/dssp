@@ -107,6 +107,43 @@ DEPENDENCIES:
   - YYModel
   - YYText
 
+SPEC REPOS:
+  http://172.23.105.201:4080/cusc-ios-base-component/CUSpecs.git:
+    - CUAlertController
+    - CUHTTPRequest
+    - CUPayTool
+    - CUProgressHUD
+    - UIImageViewSDWebImage
+    - YYCategoriesSub
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - Alipay-SDK
+    - AMap3DMap
+    - AMapFoundation
+    - AMapSearch
+    - CocoaLumberjack
+    - DZNEmptyDataSet
+    - FLAnimatedImage
+    - FMDB
+    - FSCalendar
+    - GTSDK
+    - IQKeyboardManager
+    - KVOController
+    - LKDBHelper
+    - Masonry
+    - MBProgressHUD
+    - MGSwipeTableCell
+    - MJRefresh
+    - RTRootNavigationController
+    - SDWebImage
+    - SQLCipher
+    - TBActionSheet
+    - TZImagePickerController
+    - WMPageController
+    - XXWeChatSDK
+    - YYModel
+    - YYText
+
 EXTERNAL SOURCES:
   MapManager:
     :git: http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git
@@ -155,4 +192,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 01a71406ed593c1a950ca44ecbe3025a39ebde87
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
