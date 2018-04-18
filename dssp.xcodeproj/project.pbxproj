@@ -3391,7 +3391,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3BF3BD5A7D333AA69A6F38CC /* Pods-dssp.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -3430,7 +3430,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 280DE9284EE6BAC9FD1D9690 /* Pods-dssp-pre.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -3469,7 +3469,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EF89099FC4552B97B6AB51B8 /* Pods-dssp-sit.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
