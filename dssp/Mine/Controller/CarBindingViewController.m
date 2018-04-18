@@ -209,7 +209,7 @@
     NSArray<NSString *> *titles = @[
                                     
                                     NSLocalizedString(@"VIN", nil),
-                                    NSLocalizedString(@"发动机号", nil),
+                                    NSLocalizedString(@"发动机号后七位", nil),
                                     NSLocalizedString(@"车型", nil),
 //                                    NSLocalizedString(@"车系", nil),
                                     NSLocalizedString(@"颜色", nil),
@@ -221,7 +221,7 @@
     NSArray<NSString *> *placeHolders = @[
                                           
                                           NSLocalizedString(@"请填写VIN号", nil),
-                                          NSLocalizedString(@"请填写发动机号", nil),
+                                          NSLocalizedString(@"请填写发动机号后七位", nil),
 //                                          NSLocalizedString(@"", nil),
                                           NSLocalizedString(@"请选择车型", nil),
                                           NSLocalizedString(@"请选择车辆颜色", nil),
@@ -432,7 +432,7 @@
     
     
     
-//    NSArray<NSString *> *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"请填写VIN号", nil),NSLocalizedString(@"请填写发动机号", nil),NSLocalizedString(@"", nil),NSLocalizedString(@"请填写车牌号", nil)];
+//    NSArray<NSString *> *placeHolders = @[NSLocalizedString(@"请填写姓名", nil),NSLocalizedString(@"请填写VIN号", nil),NSLocalizedString(@"请填写发动机号后七位", nil),NSLocalizedString(@"", nil),NSLocalizedString(@"请填写车牌号", nil)];
 //    for (NSInteger i = 0; i < titles.count; i++) {
 //
 //        UILabel *label = [[UILabel alloc] init];

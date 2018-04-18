@@ -7,7 +7,7 @@
 @property (nonatomic , copy) NSString *vin;
 //车主编码
 @property (nonatomic , copy) NSString *customerId;
-//发动机号
+//发动机号后七位
 @property (nonatomic , copy) NSString *doptCode;
 //车牌号
 @property (nonatomic , copy) NSString *vhlLicence;

@@ -32,7 +32,7 @@
 @property (nonatomic, copy) NSString *vhlLicence;
 ///备注
 @property (nonatomic, copy) NSString *remark;
-///发动机号
+///发动机号后七位
 @property (nonatomic, copy) NSString *doptCode;
 ///颜色
 @property (nonatomic, copy) NSString *colorId;

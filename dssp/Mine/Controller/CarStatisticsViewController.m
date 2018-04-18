@@ -260,7 +260,7 @@
 ////
 ////        _titles = @[
 ////                    NSLocalizedString(@"车架号", nil),
-////                    NSLocalizedString(@"发动机号", nil),
+////                    NSLocalizedString(@"发动机号后七位", nil),
 ////                    NSLocalizedString(@"车牌号", nil),
 ////                    NSLocalizedString(@"颜色", nil),
 ////
@@ -276,7 +276,7 @@
 ////    {
 ////        _titles = @[
 ////                    NSLocalizedString(@"车架号", nil),
-////                    NSLocalizedString(@"发动机号", nil),
+////                    NSLocalizedString(@"发动机号后七位", nil),
 ////                    NSLocalizedString(@"车牌号", nil),
 ////                    NSLocalizedString(@"颜色", nil),
 ////
@@ -301,7 +301,7 @@
         
                 _titles = @[
                             NSLocalizedString(@"车架号", nil),
-                            NSLocalizedString(@"发动机号", nil),
+                            NSLocalizedString(@"发动机号后七位", nil),
                             NSLocalizedString(@"车牌号", nil),
                             NSLocalizedString(@"颜色", nil),
         
@@ -317,7 +317,7 @@
             {
                 _titles = @[
                             NSLocalizedString(@"车架号", nil),
-                            NSLocalizedString(@"发动机号", nil),
+                            NSLocalizedString(@"发动机号后七位", nil),
                             NSLocalizedString(@"车牌号", nil),
                             NSLocalizedString(@"颜色", nil),
         
@@ -434,7 +434,7 @@
             
             if (i == 0) {
                 [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(80 * WidthCoefficient);
+                    make.width.equalTo(110 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
                     make.top.equalTo(15 * HeightCoefficient);
@@ -451,7 +451,7 @@
                 
             } else{
                 [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(80 * WidthCoefficient);
+                    make.width.equalTo(110 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
                     make.top.equalTo(lastLabel.bottom).offset(31 * HeightCoefficient);
@@ -849,7 +849,7 @@
  
             if (_doptCodeField.text.length !=7) {
                 
-                [MBProgressHUD showText:NSLocalizedString(@"请输入7位发动机号", nil)];
+                [MBProgressHUD showText:NSLocalizedString(@"请输入发动机号后七位", nil)];
                 
             }
             else if (_vhlLisenceField.text.length !=7) {

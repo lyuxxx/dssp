@@ -108,7 +108,7 @@
     
     NSArray<NSString *> *titles = @[
                                     NSLocalizedString(@"VIN", nil),
-                                    NSLocalizedString(@"发动机号", nil),
+                                    NSLocalizedString(@"发动机号后七位", nil),
                                     NSLocalizedString(@"车型", nil),
                                     NSLocalizedString(@"车系", nil),
                                     NSLocalizedString(@"颜色", nil),
@@ -120,7 +120,7 @@
     NSArray<NSString *> *placeHolders = @[
                                           
                                           NSLocalizedString(@"VIN", nil),
-                                          NSLocalizedString(@"发动机号", nil),
+                                          NSLocalizedString(@"发动机号后七位", nil),
                                           NSLocalizedString(@"车型", nil),
                                           NSLocalizedString(@"车系", nil),
                                           NSLocalizedString(@"颜色", nil),

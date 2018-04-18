@@ -178,7 +178,7 @@
     {
         _titles = @[
                     NSLocalizedString(@"车架号", nil),
-                    NSLocalizedString(@"发动机号", nil),
+                    NSLocalizedString(@"发动机号后七位", nil),
                     NSLocalizedString(@"车牌号", nil),
                     NSLocalizedString(@"颜色", nil),
                     NSLocalizedString(@"品牌", nil),
@@ -196,7 +196,7 @@
     {
         _titles = @[
                     NSLocalizedString(@"车架号", nil),
-                    NSLocalizedString(@"发动机号", nil),
+                    NSLocalizedString(@"发动机号后七位", nil),
                     NSLocalizedString(@"车牌号", nil),
                     NSLocalizedString(@"颜色", nil),
                     
@@ -260,7 +260,7 @@
             
             if (i == 0) {
                 [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(110 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
                     make.top.equalTo(15*HeightCoefficient);
@@ -286,7 +286,7 @@
                 
             } else{
                 [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(110 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
                     make.top.equalTo(lastLabel.bottom).offset(31 * HeightCoefficient);
