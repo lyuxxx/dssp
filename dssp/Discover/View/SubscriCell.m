@@ -133,7 +133,10 @@
     _contentLabel.text = NSLocalizedString(channelModel.content, nil);
 //    _bottomLabel.text = NSLocalizedString(channelModel.channelName, nil);
     _timeLabel.text = [self setWithTimeString:channelModel.createTime];
-    [self.bgImgV sd_setImageWithURL:[NSURL URLWithString:channelModel.picture2] placeholderImage:[UIImage imageNamed:@""]];
+    
+     NSString *string = [channelModel.picture2 stringByReplacingOccurrencesOfString:@"tp=webp" withString:@""];
+    
+    [self.bgImgV sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:[UIImage imageNamed:@""]];
 
 
 }

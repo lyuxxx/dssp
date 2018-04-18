@@ -272,7 +272,7 @@
             
             if (i == 0) {
                 [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(110 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
                     make.top.equalTo(0);
@@ -297,7 +297,7 @@
                 
             } else{
                 [label makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(85 * WidthCoefficient);
+                    make.width.equalTo(110 * WidthCoefficient);
                     make.height.equalTo(20 * HeightCoefficient);
                     make.left.equalTo(15*WidthCoefficient);
                     make.top.equalTo(lastLabel.bottom).offset(31 * HeightCoefficient);
@@ -857,7 +857,7 @@
           
             if (isPush) {
                 
-                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                 PopupView  *InputalertView = [[PopupView  alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
                 [InputalertView initWithTitle:@"车辆绑定成功,返回个人中心" img:@"绑定汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
                 UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                 [keywindow addSubview: InputalertView];
