@@ -25,7 +25,6 @@ source 'http://172.23.105.201:4080/cusc-ios-base-component/CUSpecs.git'
   pod 'TZImagePickerController'
   pod 'FSCalendar'
   pod 'DZNEmptyDataSet'
-  pod 'TFHpple'
   
   # internal pod
   pod 'CUHTTPRequest'

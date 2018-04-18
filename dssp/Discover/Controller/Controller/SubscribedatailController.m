@@ -9,7 +9,6 @@
 #import "SubscribedatailController.h"
 #import "SubscribeModel.h"
 #import <WebKit/WebKit.h>
-#import "TFHpple.h"
 @interface SubscribedatailController ()<UIWebViewDelegate,WKNavigationDelegate, WKUIDelegate>
 
 @property (nonatomic,strong) WKWebView *webView;
