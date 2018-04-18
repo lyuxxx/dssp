@@ -80,7 +80,7 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     
     if([trafficReporData.alertPriority isEqualToString:@"health"]) {
         
-        _healthLabel.text = @"健康";
+        _healthLabel.text = @"正常";
         
     }
     else if([trafficReporData.alertPriority isEqualToString:@"high"]) {
