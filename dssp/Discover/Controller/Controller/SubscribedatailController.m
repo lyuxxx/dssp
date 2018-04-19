@@ -61,65 +61,60 @@
      self.navigationItem.title = NSLocalizedString(_channels.title, nil);
 //    将str转换成标准的html数据
 //    NSString  * str = [self htmlEntityDecode:_subscribedatail.content];
-    NSLog(@"666%@",_subscribedatail.content);
-    NSString *string = [_subscribedatail.content stringByReplacingOccurrencesOfString:@"tp=webp" withString:@""];
-   
-    NSString *newString = [string stringByReplacingOccurrencesOfString:@"<p" withString:[NSString stringWithFormat:@"<p style='font-size:30px;'"]];
-    NSString *htmlString = [NSString stringWithFormat:@"<html> \n"
-                            "<head> \n"
-                            "<style type=\"text/css\"> \n"
-                            "body {font-size:30px;}\n"
-                            "</style> \n"
-                            "</head> \n"
-                            "<body>"
-                            "<script type='text/javascript'>"
-                            "window.onload = function(){\n"
-                            "var $img = document.getElementsByTagName('img');\n"
-                            "for(var p in  $img){\n"
-                            "$img[p].style.width = '100%%';\n"
-                            "$img[p].style.height ='auto'\n"
-                            "}\n"
-                            "}"
-                            "</script>%@"
-                            "</body>"
-                            "</html>",newString];
-
-
-   
-//    self.contentlabel =[[UITextView alloc] init];
-//    _contentlabel.editable = NO;
-////    NSString *htmlString= _subscribedatail.content;
-////    NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
+//    NSLog(@"666%@",_subscribedatail.content);
+//    NSString *string = [_subscribedatail.content stringByReplacingOccurrencesOfString:@"tp=webp" withString:@""];
 //
-//    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[_subscribedatail.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-//    _contentlabel.attributedText = attributedString;
-//    NSLog(@"666%@",attributedString);
-//    [self.view addSubview:_contentlabel];
-//    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(0 * WidthCoefficient);
-//        make.bottom.equalTo(0 * HeightCoefficient);
-//        make.left.equalTo(0 * WidthCoefficient);
-//        make.top.equalTo(0 * HeightCoefficient);
-//    }];
+//    NSString *newString = [string stringByReplacingOccurrencesOfString:@"<p" withString:[NSString stringWithFormat:@"<p style='font-size:30px;'"]];
+//    NSString *htmlString = [NSString stringWithFormat:@"<html> \n"
+//                            "<head> \n"
+//                            "<style type=\"text/css\"> \n"
+//                            "body {font-size:30px;}\n"
+//                            "</style> \n"
+//                            "</head> \n"
+//                            "<body>"
+//                            "<script type='text/javascript'>"
+//                            "window.onload = function(){\n"
+//                            "var $img = document.getElementsByTagName('img');\n"
+//                            "for(var p in  $img){\n"
+//                            "$img[p].style.width = '100%%';\n"
+//                            "$img[p].style.height ='auto'\n"
+//                            "}\n"
+//                            "}"
+//                            "</script>%@"
+//                            "</body>"
+//                            "</html>",newString];
     
-//    NSString *newString = [_subscribedatail.content stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
-    
-    
+    //    self.webView = [[WKWebView alloc] init];
+    //    [self.view addSubview:_webView];
+    //    [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.left.equalTo(self.view);
+    //        make.right.equalTo(self.view);
+    //        make.top.equalTo(self.view);
+    //        make.bottom.equalTo(self.view);
+    //    }];
+    //
+    //    _webView.UIDelegate = self;
+    //    _webView.navigationDelegate = self;
+    //    [self.webView loadHTMLString:htmlString baseURL:nil];
 
 
-    self.webView = [[WKWebView alloc] init];
-    [self.view addSubview:_webView];
-    [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.top.equalTo(self.view);
-        make.bottom.equalTo(self.view);
+   
+    self.contentlabel =[[UITextView alloc] init];
+    _contentlabel.editable = NO;
+    NSString *htmlString = [_subscribedatail.content stringByReplacingOccurrencesOfString:@"tp=webp" withString:@""];
+    NSString *newString = [htmlString stringByReplacingOccurrencesOfString:@"<img" withString:[NSString stringWithFormat:@"<img width=\"%f\"",kScreenWidth - 10]];
+
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    _contentlabel.attributedText = attributedString;
+    NSLog(@"666%@",attributedString);
+    [self.view addSubview:_contentlabel];
+    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(0 * WidthCoefficient);
+        make.bottom.equalTo(0 * HeightCoefficient);
+        make.left.equalTo(0 * WidthCoefficient);
+        make.top.equalTo(0 * HeightCoefficient);
     }];
-
-    _webView.UIDelegate = self;
-    _webView.navigationDelegate = self;
-    [self.webView loadHTMLString:htmlString baseURL:nil];
-
+    
 }
 
 - (NSString *)filterHtmlString:(NSString *)htmlString{
