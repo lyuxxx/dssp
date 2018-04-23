@@ -10,8 +10,10 @@
 #import <WebKit/WebKit.h>
 #import <MJRefresh.h>
 #import "AppDelegate.h"
+#import <MarqueeLabel.h>
 
 @interface BaseWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
+@property (nonatomic, strong) MarqueeLabel *marqueeLabel;
 @property (nonatomic, strong) WKWebView *wkWebView;
 @property (nonatomic, strong) UIProgressView *progress;
 
@@ -65,6 +67,11 @@
     [self.progress makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.equalTo(2 * WidthCoefficient);
+    }];
+    self.navigationItem.titleView = self.marqueeLabel;
+    [self.marqueeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(260 * WidthCoefficient);
+        make.height.equalTo(24);
     }];
 }
 
@@ -177,7 +184,8 @@
 
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
     [webView evaluateJavaScript:@"document.title" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        self.navigationItem.title = result;
+//        self.navigationItem.title = result;
+        self.marqueeLabel.text = result;
     }];
     
     [self showLeftBarButtonItem];
@@ -232,6 +240,23 @@
 }
 
 #pragma mark - lazy load -
+
+- (MarqueeLabel *)marqueeLabel {
+    if (!_marqueeLabel) {
+        _marqueeLabel = [[MarqueeLabel alloc] init];
+        _marqueeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _marqueeLabel.textColor = [UIColor colorWithHexString:GeneralColorString];
+        _marqueeLabel.textAlignment = NSTextAlignmentCenter;
+        _marqueeLabel.marqueeType = MLContinuous;
+        _marqueeLabel.rate = 50.0;
+        _marqueeLabel.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+        _marqueeLabel.animationDelay = 2.0f;
+        _marqueeLabel.fadeLength = 5.0f;
+        _marqueeLabel.trailingBuffer = 20.0f;
+        _marqueeLabel.leadingBuffer = 0.0f;
+    }
+    return _marqueeLabel;
+}
 
 - (WKWebView *)wkWebView {
     if (!_wkWebView) {
