@@ -52,6 +52,7 @@ PODS:
   - MapManager (2.0.4):
     - AMap3DMap (~> 5.6.0)
     - AMapSearch (~> 5.5.0)
+  - MarqueeLabel/ObjC (3.1.4)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MGSwipeTableCell (1.6.6)
@@ -94,6 +95,7 @@ DEPENDENCIES:
   - KVOController
   - LKDBHelper
   - MapManager (from `http://172.23.105.201:4080/cusc-ios-base-component/MapManager.git`, tag `2.0.4`)
+  - MarqueeLabel/ObjC
   - Masonry
   - MGSwipeTableCell
   - MJRefresh
@@ -130,6 +132,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - KVOController
     - LKDBHelper
+    - MarqueeLabel
     - Masonry
     - MBProgressHUD
     - MGSwipeTableCell
@@ -174,6 +177,7 @@ SPEC CHECKSUMS:
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   LKDBHelper: 9a276ba51f2e16263d46a9517e16cc9b03472664
   MapManager: 9f64943e48827b7ff8e13b777983ff6cab466aee
+  MarqueeLabel: bf768455fe88d427f71476ebb23f9092b660f40b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
@@ -190,6 +194,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 01a71406ed593c1a950ca44ecbe3025a39ebde87
+PODFILE CHECKSUM: 9ec35b21c3a14d4385419c486d2b2ad22b2fe649
 
 COCOAPODS: 1.5.0
