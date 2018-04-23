@@ -529,7 +529,7 @@
     if (sender.tag == 111) {
         
         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [InputalertView initWithTitle:@"拨打电话至DS客服中心?" img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"确定",@"取消", nil] ];
+        [InputalertView initWithTitle:@"拨打电话至DS客服中心?" img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
         //            InputalertView.delegate = self;
         UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
         [keywindow addSubview: InputalertView];

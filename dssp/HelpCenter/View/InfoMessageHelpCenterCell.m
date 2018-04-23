@@ -15,7 +15,8 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *contentLabel;
+//@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) UITextView *contentLabel;
 @property (nonatomic, strong) UILabel *contentLabel1;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIScrollView *scroll;
@@ -419,19 +420,44 @@
         make.height.equalTo(20 * WidthCoefficient);
     }];
     
-    self.contentLabel = [[UILabel alloc] init];
-    _contentLabel.preferredMaxLayoutWidth = 220 * WidthCoefficient;
-    _contentLabel.numberOfLines = 0;
-    _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _contentLabel.font = [UIFont fontWithName:FontName size:15];
-    _contentLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
-    [self.contentView addSubview:_contentLabel];
+    
+    
+    self.contentLabel = [[UITextView alloc] init];
+    //系统会为其默认设置距UITextView上、下边缘各8的页边距
+    _contentLabel.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    //textContainer中的文段的上、下、左、右又会被填充5的空白
+    _contentLabel.textContainer.lineFragmentPadding = 0;
+    _contentLabel.backgroundColor = [UIColor clearColor];
+    _contentLabel.font = [UIFont systemFontOfSize:14];
+    //    textView.text=label.text;
+    _contentLabel.textColor =[UIColor whiteColor];
+    //禁止编辑
+    _contentLabel.editable = NO;
+    //设置需要识别的类型，这设置的是全部
+    _contentLabel.dataDetectorTypes = UIDataDetectorTypeAll;
+     [self.contentView addSubview:_contentLabel];
     [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_nameLabel).offset(10 * WidthCoefficient);
         make.top.equalTo(_nameLabel.bottom).offset(10 * WidthCoefficient);
         make.width.equalTo(220 * WidthCoefficient);
         make.height.equalTo(67 * WidthCoefficient);
     }];
+    
+    
+    
+//    self.contentLabel = [[UILabel alloc] init];
+//    _contentLabel.preferredMaxLayoutWidth = 220 * WidthCoefficient;
+//    _contentLabel.numberOfLines = 0;
+//    _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+//    _contentLabel.font = [UIFont fontWithName:FontName size:15];
+//    _contentLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+//    [self.contentView addSubview:_contentLabel];
+//    [_contentLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_nameLabel).offset(10 * WidthCoefficient);
+//        make.top.equalTo(_nameLabel.bottom).offset(10 * WidthCoefficient);
+//        make.width.equalTo(220 * WidthCoefficient);
+//        make.height.equalTo(67 * WidthCoefficient);
+//    }];
     
     self.contentLabel1 = [[UILabel alloc] init];
     _contentLabel1.preferredMaxLayoutWidth = 220 * WidthCoefficient;

@@ -70,7 +70,7 @@
     intro.textAlignment = NSTextAlignmentCenter;
     intro.textColor = [UIColor whiteColor];
     intro.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    intro.text = NSLocalizedString(@"输入车辆VIN号和发动机号后七位", nil);
+    intro.text = NSLocalizedString(@"输入车辆VIN号和发动机号", nil);
     [whiteV addSubview:intro];
     [intro makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);
@@ -102,7 +102,7 @@
     _enginenNumber.leftViewMode = UITextFieldViewModeAlways;
     _enginenNumber.textColor = [UIColor colorWithHexString:@"#040000"];
     _enginenNumber.font = [UIFont fontWithName:FontName size:16];
-    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入7位发动机号后七位" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
+    _enginenNumber.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入发动机号后七位" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:16]}];
     _enginenNumber.layer.cornerRadius = 2;
     _enginenNumber.backgroundColor = [UIColor colorWithHexString:@"#eae9e9"];
     [whiteV addSubview:_enginenNumber];
