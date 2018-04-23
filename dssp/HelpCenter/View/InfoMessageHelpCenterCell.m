@@ -428,7 +428,8 @@
     //textContainer中的文段的上、下、左、右又会被填充5的空白
     _contentLabel.textContainer.lineFragmentPadding = 0;
     _contentLabel.backgroundColor = [UIColor clearColor];
-    _contentLabel.font = [UIFont systemFontOfSize:14];
+//    _contentLabel.font = [UIFont systemFontOfSize:14];
+    _contentLabel.font = [UIFont fontWithName:FontName size:15];
     //    textView.text=label.text;
     _contentLabel.textColor =[UIColor whiteColor];
     //禁止编辑
