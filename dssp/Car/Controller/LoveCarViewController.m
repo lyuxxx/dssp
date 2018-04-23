@@ -536,15 +536,15 @@
         
         InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
             if (btn.tag == 100) {//左边按钮
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
-                });
+               
 
             }
             if(btn.tag ==101)
             {
-                //右边按钮
-                NSLog(@"666%@",str);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
+                });
+               
             }
             
         };
