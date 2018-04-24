@@ -9,8 +9,9 @@
 #import "SubscribedatailController.h"
 #import "SubscribeModel.h"
 #import <WebKit/WebKit.h>
+#import "marqueeLabel.h"
 @interface SubscribedatailController ()<UIWebViewDelegate,WKNavigationDelegate, WKUIDelegate>
-
+@property (nonatomic, strong) MarqueeLabel *marqueeLabel;
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,strong) SubscribedatailModel *subscribedatail;
 @property (nonatomic,strong) UITextView *contentlabel;
@@ -61,7 +62,13 @@
 -(void)setupUI
 {
     
-     self.navigationItem.title = NSLocalizedString(_channels.title, nil);
+//     self.navigationItem.title = NSLocalizedString(_channels.title, nil);
+    self.navigationItem.titleView = self.marqueeLabel;
+    self.marqueeLabel.text = _channels.title;
+    [self.marqueeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(260 * WidthCoefficient);
+        make.height.equalTo(24);
+    }];
 //    将str转换成标准的html数据
 //    NSString  * str = [self htmlEntityDecode:_subscribedatail.content];
     NSLog(@"666%@",_subscribedatail.content);
@@ -120,6 +127,23 @@
 //        make.top.equalTo(0 * HeightCoefficient);
 //    }];
     
+}
+
+- (MarqueeLabel *)marqueeLabel {
+    if (!_marqueeLabel) {
+        _marqueeLabel = [[MarqueeLabel alloc] init];
+        _marqueeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _marqueeLabel.textColor = [UIColor colorWithHexString:GeneralColorString];
+        _marqueeLabel.textAlignment = NSTextAlignmentCenter;
+        _marqueeLabel.marqueeType = MLContinuous;
+        _marqueeLabel.rate = 50.0;
+        _marqueeLabel.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+        _marqueeLabel.animationDelay = 2.0f;
+        _marqueeLabel.fadeLength = 5.0f;
+        _marqueeLabel.trailingBuffer = 20.0f;
+        _marqueeLabel.leadingBuffer = 0.0f;
+    }
+    return _marqueeLabel;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
