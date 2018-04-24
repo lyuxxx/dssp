@@ -145,7 +145,7 @@
                 
                 NSArray *pageArr = [NSArray array];
                 if (i == page -1) {
-                    pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, dataArray1.count % 8)];
+                    pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, (dataArray1.count % 8 == 0) ? 8 : dataArray1.count % 8)];
                 } else {
                     pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, 8)];
                 }
@@ -272,7 +272,7 @@
                 
                 NSArray *pageArr = [NSArray array];
                 if (i == page -1) {
-                    pageArr = [dataArray subarrayWithRange:NSMakeRange(8 * i, dataArray.count % 8)];
+                    pageArr = [dataArray subarrayWithRange:NSMakeRange(8 * i, (dataArray.count % 8 == 0) ? 8 : dataArray.count % 8)];
                 } else {
                     pageArr = [dataArray subarrayWithRange:NSMakeRange(8 * i, 8)];
                 }

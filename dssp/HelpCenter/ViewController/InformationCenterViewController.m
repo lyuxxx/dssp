@@ -814,8 +814,6 @@
                               
                           });
                           
-                        
-
                       } else {
 
                           [MBProgressHUD showText:dic[@"msg"]];
