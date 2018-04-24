@@ -17,7 +17,7 @@
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
-    return CGRectMake(0, 0, contentRect.size.width * 36 / 80, contentRect.size.height);
+    return CGRectMake(0, 0, contentRect.size.width * 36 / 80, contentRect.size.width * 36 / 80);
 }
 
 
