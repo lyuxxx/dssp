@@ -342,7 +342,7 @@
         self.stateLabel.text = NSLocalizedString(@"已取消", nil);
     }
     
-    [self.avatar downloadImage:order.items[0].thumbnail?order.items[0].thumbnail:order.items[0].picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.avatar downloadImage:[order.items[0].thumbnail isNotBlank]?order.items[0].thumbnail:order.items[0].picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
         _avatar.image = [UIImage imageNamed:@"加载失败小"];

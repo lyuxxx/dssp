@@ -98,7 +98,7 @@
 }
 
 - (void)configWithCommodity:(StoreCommodity *)commodity {
-    [self.imgV downloadImage:commodity.image placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.imgV downloadImage:[commodity.thumbnail isNotBlank] ? commodity.thumbnail:commodity.picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
         _imgV.image = [UIImage imageNamed:@"加载失败小"];

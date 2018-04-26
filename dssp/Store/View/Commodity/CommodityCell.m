@@ -57,7 +57,6 @@
     }];
     
     self.imgV = [[UIImageView alloc] init];
-    _imgV.contentMode = UIViewContentModeScaleAspectFill;
     _imgV.layer.masksToBounds = YES;
     [bg addSubview:_imgV];
     [_imgV makeConstraints:^(MASConstraintMaker *make) {
@@ -123,7 +122,7 @@
     } else {
         _promotion.hidden = NO;
     }
-    [self.imgV downloadImage:commodity.thumbnail?commodity.thumbnail:commodity.picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
+    [self.imgV downloadImage:[commodity.thumbnail isNotBlank] ? commodity.thumbnail:commodity.picImages[0] placeholder:[UIImage imageNamed:@"加载中小"] success:^(CUImageCacheType cacheType, UIImage *image) {
         
     } failure:^(NSError *error) {
         _imgV.image = [UIImage imageNamed:@"加载失败小"];
