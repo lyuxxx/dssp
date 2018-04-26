@@ -50,7 +50,7 @@ typedef void(^BtnClick)(UIButton *);
     NSArray *btnTitles = @[
                            @"车载流量",
                            @"智慧出行",
-                           @"DS商城",
+                           @"商城",
                            @"违章查询",
                            @"预约保养"
                            ];
