@@ -539,7 +539,7 @@
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
                         message.choices = @[@"确定",@"关闭"];
-                        message.serviceDetails = @"是否继续使用dssp知识库服务?";
+                        message.serviceDetails = @"是否继续使用智能客服服务?";
                         [self sendMessage:message];
                         
                     } else {
