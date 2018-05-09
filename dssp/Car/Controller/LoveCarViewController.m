@@ -332,7 +332,7 @@
     }];
     
     NSArray *titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"油价查询", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"地图升级", nil),NSLocalizedString(@"一键呼叫", nil)];
-    NSArray *imgTitles = @[@"智慧出行_icon",@"智慧加油_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon",@"呼叫中心_icon"];
+    NSArray *imgTitles = @[@"智慧出行_icon",@"油价查询_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon",@"呼叫中心_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
     for (NSInteger i = 0; i < titles.count; i++) {
@@ -340,10 +340,12 @@
         btn.tag = 100 + i;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitleColor:[UIColor colorWithHexString:@"#777777"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#555555"] forState:UIControlStateDisabled];
         btn.titleLabel.font = [UIFont fontWithName:FontName size:13];
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [btn setTitle:titles[i] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled",imgTitles[i]]] forState:UIControlStateDisabled];
         [btnContainer addSubview:btn];
         [btns addObject:btn];
     }

@@ -43,7 +43,7 @@ typedef void(^BtnClick)(UIButton *);
     NSArray *btnImgTitles = @[
                               @"流量查询_icon",
                               @"智慧出行_icon",
-                              @"商城",
+                              @"商城_icon",
                               @"违章查询_icon",
                               @"预约保养_icon"
                               ];
@@ -61,8 +61,10 @@ typedef void(^BtnClick)(UIButton *);
         btn.tag = 1000 + i;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn setImage:[UIImage imageNamed:btnImgTitles[i]] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_disabled",btnImgTitles[i]]] forState:UIControlStateDisabled];
         [btn setTitle:btnTitles[i] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#555555"] forState:UIControlStateDisabled];
         [btn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
         [btn.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [btnContainer addSubview:btn];
