@@ -590,7 +590,9 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 }
 
 - (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
-    scrollView.contentOffset = CGPointZero;
+    [UIView animateWithDuration:0.25 animations:^{
+        scrollView.contentOffset = CGPointZero;
+    }];
 }
 
 #pragma mark - FSCalendarDataSource

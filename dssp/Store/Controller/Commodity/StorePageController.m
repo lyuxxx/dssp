@@ -62,10 +62,10 @@
 }
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
+    self.progressHeight = 3 * WidthCoefficient;
+    self.progressViewCornerRadius = 1.5;
     self.menuViewStyle = WMMenuViewStyleLine;
     return self.categories.count;
-    
-    
 }
 
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
@@ -82,15 +82,13 @@
     return self.categories[index].name;
 }
 
-- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
-    return width +20;
-}
+//- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
+//    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
+//    return width +20;
+//}
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     self.scrollEnable = YES;
-    self.progressHeight = 3 * WidthCoefficient;
-    self.progressViewCornerRadius = 1.5;
     return CGRectMake(0, 0, kScreenWidth, 44 * WidthCoefficient);
 }
 

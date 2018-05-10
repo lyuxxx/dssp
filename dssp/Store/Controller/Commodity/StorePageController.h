@@ -13,5 +13,5 @@ typedef NS_ENUM(NSUInteger, WMMenuViewPosition) {
 };
 
 @interface StorePageController : WMPageController
-@property (nonatomic, assign) WMMenuViewPosition menuViewPosition;
+
 @end

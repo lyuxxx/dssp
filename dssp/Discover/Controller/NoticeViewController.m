@@ -173,7 +173,9 @@
 }
 
 - (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
-    scrollView.contentOffset = CGPointZero;
+    [UIView animateWithDuration:0.25 animations:^{
+        scrollView.contentOffset = CGPointZero;
+    }];
 }
 
 -(void)blankUI{
