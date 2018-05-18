@@ -580,7 +580,7 @@
                             [defaults synchronize];
                             
                             
-                            if ([self isBlankString:vin]) {
+                            if ([NSString isBlankString:vin]) {
                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                                 [defaults1 setObject:@"" forKey:@"vin"];
                                 [defaults1 synchronize];
@@ -594,7 +594,7 @@
                             }
                             
                             
-                            if ([self isBlankString:vhlTStatus]) {
+                            if ([NSString isBlankString:vhlTStatus]) {
                                 NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
                                 [defaults2 setObject:@"" forKey:@"vhlTStatus"];
                                 [defaults2 synchronize];
@@ -606,10 +606,9 @@
                                 [defaults2 synchronize];
                                 
                             }
-                            
-                            
-                            
-                            if ([self isBlankString:certificationStatus]) {
+                          
+                           
+                            if ([NSString isBlankString:certificationStatus]) {
                                 NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
                                 [defaults3 setObject:@"" forKey:@"certificationStatus"];
                                 [defaults3 synchronize];
@@ -726,7 +725,7 @@
                                             [defaults synchronize];
                                             
                                             
-                                            if ([self isBlankString:vin]) {
+                                            if ([NSString isBlankString:vin]) {
                                                 NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                                                 [defaults1 setObject:@"" forKey:@"vin"];
                                                 [defaults1 synchronize];
@@ -740,7 +739,7 @@
                                             }
                                             
                                             
-                                            if ([self isBlankString:vhlTStatus]) {
+                                            if ([NSString isBlankString:vhlTStatus]) {
                                                 NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
                                                 [defaults2 setObject:@"" forKey:@"vhlTStatus"];
                                                 [defaults2 synchronize];
@@ -753,7 +752,7 @@
                                                 
                                             }
                                             
-                                            if ([self isBlankString:certificationStatus]) {
+                                            if ([NSString isBlankString:certificationStatus]) {
                                                 NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
                                                 [defaults3 setObject:@"" forKey:@"certificationStatus"];
                                                 [defaults3 synchronize];
@@ -844,7 +843,7 @@
                 [defaults synchronize];
                 
                 
-                if ([self isBlankString:vin]) {
+                if ([NSString isBlankString:vin]) {
                     NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                     [defaults1 setObject:@"" forKey:@"vin"];
                     [defaults1 synchronize];
@@ -858,7 +857,7 @@
                 }
                 
                 
-                if ([self isBlankString:vhlTStatus]) {
+                if ([NSString isBlankString:vhlTStatus]) {
                     NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
                     [defaults2 setObject:@"" forKey:@"vhlTStatus"];
                     [defaults2 synchronize];
@@ -873,7 +872,7 @@
                 
                 
                 
-                if ([self isBlankString:certificationStatus]) {
+                if ([NSString isBlankString:certificationStatus]) {
                     NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
                     [defaults3 setObject:@"" forKey:@"certificationStatus"];
                     [defaults3 synchronize];
@@ -913,7 +912,7 @@
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             NSString *string = dic[@"data"];
-            if ([self isBlankString:string]) {
+            if ([NSString isBlankString:string]) {
                 NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
                 [defaults2 setObject:@"000-000-0000" forKey:@"phonenumber"];
                 [defaults2 synchronize];
@@ -1062,18 +1061,5 @@
 }
 
 
--  (BOOL) isBlankString:(NSString *)string {
-    
-    if (string == nil || string == NULL) {
-                return YES;
-            }
-        if ([string isKindOfClass:[NSNull class]]) {
-                 return YES;
-            }
-         if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-              return YES;
-            }
-         return NO;
- }
 
 @end

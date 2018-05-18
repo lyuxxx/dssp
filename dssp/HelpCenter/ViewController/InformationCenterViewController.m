@@ -244,7 +244,7 @@
         else
         {
         NSString *sourceData = nil;
-        if ([self isBlankString:str4] ) {
+        if ([NSString isBlankString:str4] ) {
             sourceData = @"0";
         }
         else
@@ -352,7 +352,7 @@
         {
         
         NSString *sourceData = nil;
-        if ([self isBlankString:str4] ) {
+        if ([NSString isBlankString:str4] ) {
             sourceData = @"0";
         }
         else
@@ -539,7 +539,7 @@
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
                         message.choices = @[@"确定",@"关闭"];
-                        message.serviceDetails = @"是否继续使用智能客服服务?";
+                        message.serviceDetails = @"欢迎使用智能客服服务?";
                         [self sendMessage:message];
                         
                     } else {
@@ -737,7 +737,7 @@
                 [self sendMessage:messageMe];
                 
                 NSString *sourceData = nil;
-                if ([self isBlankString:str3] ) {
+                if ([NSString isBlankString:str3] ) {
                     sourceData = @"0";
                 }
                 else
@@ -852,22 +852,6 @@
     return nil;
 }
 
-- (BOOL)isBlankString:(NSString *)string {
-    
-         if (string == nil || string == NULL) {
-                 return YES;
-            }
-        if ([string isKindOfClass:[NSNull class]]) {
-        
-                return YES;
-            }
-        if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-       
-                return YES;
-             }
-    
-        return NO;
-}
 
 
 - (NSMutableArray<InfoMessage *> *)dataSource {

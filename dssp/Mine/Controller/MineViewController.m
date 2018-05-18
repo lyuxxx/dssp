@@ -33,6 +33,10 @@
 #import "UserModel.h"
 #import "ManualViewController.h"
 #import "AboutmeViewController.h"
+
+#import "QGLocationTransform.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapSearchManager.h>
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -48,6 +52,9 @@
 @property(nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) UIButton *bindingBtn;
 @property (nonatomic, strong) UILabel *namelabel;
+
+@property(nonatomic, copy) NSString *latitudeString;
+@property(nonatomic, copy) NSString *longitudeString;
 @end
 
 @interface MineViewController ()
@@ -79,26 +86,23 @@
     
     _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"],@[@"关于我们_icon",@"关于我们"]],
   @[@[@"signout",@"退出登录"]]];
-    
-//    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"]],
-//                 @[@[@"signout",@"退出登录"]]];
-    
+
+    [self.mgr startUpdatingLocation];
     [self initTableView];
     [self setupUI];
-  
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"MineViewController"];
-    [self.mgr startUpdatingLocation];
     [self pullData];
+//    [self.mgr startUpdatingLocation];
+  
     [self.tableView reloadData];
-     [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
+    [_bindingBtn setTitle:[kVin isEqualToString:@""]?NSLocalizedString(@"未绑定", nil) : NSLocalizedString(@"已绑定", nil) forState:UIControlStateNormal];
     
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -124,8 +128,16 @@
             NSDictionary *dic1 = dic[@"data"];
             UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
             [self.photoBtn sd_setImageWithURL:[NSURL URLWithString:userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"默认头像"]];
+            
+            if([NSString isBlankString:userModel.nickName])
+            {
+                _namelabel.text=NSLocalizedString(userName, nil);
+                
+            }else
+            {
+                _namelabel.text=NSLocalizedString(userModel.nickName, nil);
+            }
         
-            _namelabel.text=NSLocalizedString(userModel.nickName?userModel.nickName:userName, nil);
             CGSize size = [_namelabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:17],NSFontAttributeName,nil]];
             // 名字的H
             //    CGFloat nameH = size.height;
@@ -180,13 +192,15 @@
     
     CLLocation *newLocation = locations[0];
     NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",newLocation.coordinate.latitude, newLocation.coordinate.longitude]);
+
     
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark * placemark in placemarks) {
             NSDictionary *test = [placemark addressDictionary];
-            _locationName=[[test objectForKey:@"State"] stringByAppendingString:[test objectForKey:@"City"]];
-             self.locationStr = _locationName;
+           
+            _locationName=[[test objectForKey:@"State"]?[test objectForKey:@"State"]:@"" stringByAppendingString:[test objectForKey:@"City"]?[test objectForKey:@"City"]:@""];
+             self.locationStr = _locationName;                                                                                                                                                                                                                                                                                                                                
         }
     }];
 }
@@ -873,6 +887,8 @@
     [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

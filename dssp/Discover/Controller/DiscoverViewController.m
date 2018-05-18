@@ -247,39 +247,6 @@
     }];
 }
 
-
-
-
--(BOOL)isNull:(id)object
-
-{
-    // 判断是否为空串
-    
-    if ([object isEqual:[NSNull null]]) {
-        
-        return NO;
-        
-    }
-    
-    else if ([object isKindOfClass:[NSNull class]])
-        
-    {
-        
-        return NO;
-        
-    }
-    
-    else if (object==nil){
-        
-        return NO;
-        
-    }
-    
-    return YES;
-    
-}
-
-
 -(void)setupUI
 {
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(16 * WidthCoefficient, kNaviHeight - kStatusBarHeight - 37 * WidthCoefficient, 79.5 * WidthCoefficient, 30 * WidthCoefficient)];

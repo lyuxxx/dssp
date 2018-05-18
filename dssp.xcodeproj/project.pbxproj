@@ -575,6 +575,9 @@
 		454CE6E2204698E6003221F3 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 454CE6E0204698E6003221F3 /* GFAddressPicker.m */; };
 		455036091FE246FC0088DAE0 /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
 		4550360C1FE255AA0088DAE0 /* CarStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */; };
+		4551380820AE660100697A8C /* NSString+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 4551380720AE660100697A8C /* NSString+XY.m */; };
+		4551380920AE660100697A8C /* NSString+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 4551380720AE660100697A8C /* NSString+XY.m */; };
+		4551380A20AE660100697A8C /* NSString+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 4551380720AE660100697A8C /* NSString+XY.m */; };
 		4555CFC420313EC70029598E /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
 		455974501FE77B1F00D7910A /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
 		455974531FE7AA5A00D7910A /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
@@ -958,6 +961,8 @@
 		455036081FE246FC0088DAE0 /* ContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractCell.m; sourceTree = "<group>"; };
 		4550360A1FE255AA0088DAE0 /* CarStatisticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarStatisticsViewController.h; sourceTree = "<group>"; };
 		4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarStatisticsViewController.m; sourceTree = "<group>"; };
+		4551380620AE660100697A8C /* NSString+XY.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+XY.h"; sourceTree = "<group>"; };
+		4551380720AE660100697A8C /* NSString+XY.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+XY.m"; sourceTree = "<group>"; };
 		4555CFC220313EC70029598E /* NicknameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NicknameViewController.h; sourceTree = "<group>"; };
 		4555CFC320313EC70029598E /* NicknameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NicknameViewController.m; sourceTree = "<group>"; };
 		4559744E1FE77B1F00D7910A /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -1254,6 +1259,8 @@
 				31ADB3BD205F8C3B002F79CE /* CatchCrash.m */,
 				31C504A92062748A000CFB8F /* CheckVersionView.h */,
 				31C504AA2062748A000CFB8F /* CheckVersionView.m */,
+				4551380620AE660100697A8C /* NSString+XY.h */,
+				4551380720AE660100697A8C /* NSString+XY.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2328,6 +2335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4551380920AE660100697A8C /* NSString+XY.m in Sources */,
 				3161DDA6206C8AB500D40EE3 /* CarBindingInput.m in Sources */,
 				3161DDA7206C8AB500D40EE3 /* Statistics.m in Sources */,
 				3161DDA8206C8AB500D40EE3 /* TrafficReportController.m in Sources */,
@@ -2527,6 +2535,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4551380A20AE660100697A8C /* NSString+XY.m in Sources */,
 				3161DE7E206C8ABC00D40EE3 /* CarBindingInput.m in Sources */,
 				3161DE7F206C8ABC00D40EE3 /* Statistics.m in Sources */,
 				3161DE80206C8ABC00D40EE3 /* TrafficReportController.m in Sources */,
@@ -2726,6 +2735,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4551380820AE660100697A8C /* NSString+XY.m in Sources */,
 				31CFB26D1FC2733C00130C52 /* CarBindingInput.m in Sources */,
 				45765270204E7BB5006585BA /* Statistics.m in Sources */,
 				45153F8F2041391700C41E10 /* TrafficReportController.m in Sources */,

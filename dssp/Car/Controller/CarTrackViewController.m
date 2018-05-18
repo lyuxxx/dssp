@@ -315,7 +315,7 @@
     UILabel *title1 = [[UILabel alloc] init];
     title1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title1.textColor = [UIColor colorWithHexString:@"#A18E79"];
-    title1.text = NSLocalizedString(@"拨打110",nil);
+    title1.text = NSLocalizedString(@"1.拨打110",nil);
     [_whiteV1 addSubview:title1];
     [title1 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(centerLabel.bottom).offset(20 * HeightCoefficient);
@@ -342,7 +342,7 @@
     UILabel *title2 = [[UILabel alloc] init];
     title2.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title2.textColor = [UIColor colorWithHexString:@"#A18E79"];
-    title2.text = NSLocalizedString(@"拨打呼叫中心",nil);
+    title2.text = NSLocalizedString(@"2.拨打呼叫中心",nil);
     [_whiteV1 addSubview:title2];
     [title2 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel1.bottom).offset(20 * HeightCoefficient);
@@ -369,7 +369,7 @@
     UILabel *title3 = [[UILabel alloc] init];
     title3.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title3.textColor = [UIColor colorWithHexString:@"#A18E79"];
-    title3.text = NSLocalizedString(@"开启车辆追踪",nil);
+    title3.text = NSLocalizedString(@"3.开启车辆追踪",nil);
     [_whiteV1 addSubview:title3];
     [title3 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel2.bottom).offset(20 * HeightCoefficient);
@@ -398,7 +398,7 @@
     UILabel *title4 = [[UILabel alloc] init];
     title4.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
     title4.textColor = [UIColor colorWithHexString:@"#A18E79"];
-    title4.text = NSLocalizedString(@"车辆找回",nil);
+    title4.text = NSLocalizedString(@"4.车辆找回",nil);
     [_whiteV1 addSubview:title4];
     [title4 makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(msgLabel3.bottom).offset(20 * HeightCoefficient);

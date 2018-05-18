@@ -96,13 +96,13 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
         _healthLabel.text = @"-";
         
     }
-    if ([self isBlankString:trafficReporData.totalMileage]) {
+    if ([NSString isBlankString:trafficReporData.totalMileage]) {
         _mileageLabel.text = @"-";
     } else {
         _mileageLabel.text = totalMileage;
     }
     
-    if(![self isBlankString:trafficReporData.levelFuel])
+    if(![NSString isBlankString:trafficReporData.levelFuel])
     {
         
         NSString *stringInt = trafficReporData.levelFuel;
@@ -128,18 +128,5 @@ NSString * const HomeCarStateCellIdentifier = @"HomeCarStateCellIdentifier";
     }
 }
 
--  (BOOL)isBlankString:(NSString *)string {
-    
-    if (string == nil || string == NULL) {
-        return YES;
-    }
-    if ([string isKindOfClass:[NSNull class]]) {
-        return YES;
-    }
-    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-        return YES;
-    }
-    return NO;
-}
 
 @end

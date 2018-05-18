@@ -114,18 +114,32 @@
 
 -(void)setLllegaModel:(LllegaModel *)lllegaModel
 {
-      NSString *address = [@"位置：" stringByAppendingString:[NSString stringWithFormat:@"%@",lllegaModel.address]];
     
-     NSString *time = [@"时间：" stringByAppendingString:[NSString stringWithFormat:@"%@",lllegaModel.time]];
+    NSString *address = @"";
+    NSString *time = @"";
+    if ([NSString isBlankString:lllegaModel.address]) {
+      
+        address = [@"位置：" stringByAppendingString:[NSString stringWithFormat:@"%@",@""]];
+    }
+    else
+    {
+        address = [@"位置：" stringByAppendingString:[NSString stringWithFormat:@"%@",lllegaModel.address]];
+        
+    }
     
+    if ([NSString isBlankString:lllegaModel.time]) {
+       time = [@"时间：" stringByAppendingString:[NSString stringWithFormat:@"%@",@""]];
+    }
+    else
+    {
+      time = [@"时间：" stringByAppendingString:[NSString stringWithFormat:@"%@",lllegaModel.time]];
+        
+    }
     
      _topLabel.text = NSLocalizedString(lllegaModel.violationType, nil);
-    _centerLabel.text = NSLocalizedString(address, nil);
+     _centerLabel.text = NSLocalizedString(address, nil);
      _bottomLabel.text = NSLocalizedString(time, nil);
-    
 }
-
-
 
 
 

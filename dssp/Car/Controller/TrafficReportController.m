@@ -400,7 +400,7 @@ static NSString *const cellID = @"cell";
         else
         {
             
-            if(![self isBlankString:_trafficReporData.levelFuel])
+            if(![NSString isBlankString:_trafficReporData.levelFuel])
             {
                 
                 NSString *stringInt = _trafficReporData.levelFuel;
@@ -459,19 +459,6 @@ static NSString *const cellID = @"cell";
     
 }
 
--  (BOOL)isBlankString:(NSString *)string {
-    
-    if (string == nil || string == NULL) {
-        return YES;
-    }
-    if ([string isKindOfClass:[NSNull class]]) {
-        return YES;
-    }
-    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-        return YES;
-    }
-    return NO;
-}
 
 -(void)initTableView
 {

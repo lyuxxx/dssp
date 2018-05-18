@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = NSLocalizedString(@"DS预约保养规则", nil);
+    self.navigationItem.title = NSLocalizedString(@"DS保养计划", nil);
     [self setupUI];
     [self requestData];
 }
