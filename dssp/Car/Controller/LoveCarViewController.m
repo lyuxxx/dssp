@@ -219,52 +219,52 @@
     }];
     
     UIImageView *previewImgV = [[UIImageView alloc] init];
-    previewImgV.image = [UIImage imageNamed:@"home_bg"];
+    previewImgV.image = [UIImage imageNamed:@"home_banner_car"];
     [content addSubview:previewImgV];
     [previewImgV makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(content);
         make.width.equalTo(kScreenWidth);
-        make.height.equalTo(225 * WidthCoefficient);
+        make.height.equalTo(200 * WidthCoefficient);
         make.top.equalTo(content);
     }];
     
-    UILabel *ds = [[UILabel alloc] init];
-    ds.textAlignment = NSTextAlignmentCenter;
-    ds.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:55];
-    ds.textColor = [UIColor colorWithHexString:@"#443938"];
-    ds.text = @"DS 7";
-    [previewImgV addSubview:ds];
-    [ds makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(0);
-        make.top.equalTo(40 * WidthCoefficient);
-        make.height.equalTo(55.5 * WidthCoefficient);
-        make.width.equalTo(kScreenWidth);
-    }];
-    
-    self.plateLabel = [[UILabel alloc] init];
-    _plateLabel.hidden = YES;
-    _plateLabel.textAlignment = NSTextAlignmentCenter;
-    _plateLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
-    _plateLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
-    _plateLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
-    [previewImgV addSubview:_plateLabel];
-    [_plateLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(98 * WidthCoefficient);
-        make.height.equalTo(22 * WidthCoefficient);
-        make.left.equalTo(0);
-        make.top.equalTo(30 * WidthCoefficient);
-    }];
-    
-    
-    self.carImgV = [[UIImageView alloc] init];
-    _carImgV.image = [UIImage imageNamed:@"DS 7"];
-    [previewImgV addSubview:_carImgV];
-    [_carImgV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(251.7 * WidthCoefficient);
-        make.height.equalTo(133.5 * WidthCoefficient);
-        make.left.equalTo(62 * WidthCoefficient);
-        make.top.equalTo(68.5 * WidthCoefficient);
-    }];
+//    UILabel *ds = [[UILabel alloc] init];
+//    ds.textAlignment = NSTextAlignmentCenter;
+//    ds.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:55];
+//    ds.textColor = [UIColor colorWithHexString:@"#443938"];
+//    ds.text = @"DS 7";
+//    [previewImgV addSubview:ds];
+//    [ds makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(0);
+//        make.top.equalTo(40 * WidthCoefficient);
+//        make.height.equalTo(55.5 * WidthCoefficient);
+//        make.width.equalTo(kScreenWidth);
+//    }];
+//    
+//    self.plateLabel = [[UILabel alloc] init];
+//    _plateLabel.hidden = YES;
+//    _plateLabel.textAlignment = NSTextAlignmentCenter;
+//    _plateLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+//    _plateLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+//    _plateLabel.backgroundColor = [UIColor colorWithHexString:GeneralColorString];
+//    [previewImgV addSubview:_plateLabel];
+//    [_plateLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(98 * WidthCoefficient);
+//        make.height.equalTo(22 * WidthCoefficient);
+//        make.left.equalTo(0);
+//        make.top.equalTo(30 * WidthCoefficient);
+//    }];
+//    
+//    
+//    self.carImgV = [[UIImageView alloc] init];
+//    _carImgV.image = [UIImage imageNamed:@"DS 7"];
+//    [previewImgV addSubview:_carImgV];
+//    [_carImgV makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(251.7 * WidthCoefficient);
+//        make.height.equalTo(133.5 * WidthCoefficient);
+//        make.left.equalTo(62 * WidthCoefficient);
+//        make.top.equalTo(68.5 * WidthCoefficient);
+//    }];
     /**
     UIView *dataContainer = [[UIView alloc] init];
     [content addSubview:dataContainer];
