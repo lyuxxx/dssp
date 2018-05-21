@@ -288,7 +288,7 @@ static NSString *const cellID = @"cell";
     [_headerView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(132 * HeightCoefficient/2);
+        make.height.equalTo(126 * HeightCoefficient/2);
         make.centerX.equalTo(0);
         make.top.equalTo(Lastlabel.bottom).offset(20*HeightCoefficient);
     }];
@@ -457,7 +457,7 @@ static NSString *const cellID = @"cell";
         }];
     }
 
-     [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:132 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
+     [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:126 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
     
 }
 
@@ -488,7 +488,7 @@ static NSString *const cellID = @"cell";
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,370*HeightCoefficient)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,368*HeightCoefficient)];
 //     _headerView.backgroundColor=[UIColor redColor];
     _headerView.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     _tableView.tableHeaderView=_headerView;
@@ -626,17 +626,17 @@ static NSString *const cellID = @"cell";
     
     UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
    
-    UIView *view1=[[UIView alloc]initWithFrame:CGRectMake(40*WidthCoefficient, 10*HeightCoefficient, 319*WidthCoefficient, 40*HeightCoefficient)];
+    UIView *view1=[[UIView alloc]initWithFrame:CGRectMake(62*WidthCoefficient, 10*HeightCoefficient, 297*WidthCoefficient, 40*HeightCoefficient)];
     view1.backgroundColor=[UIColor colorWithHexString:@"#120F0E"];
 //     view1.backgroundColor=[UIColor grayColor];
     [view addSubview:view1];
     
-    UIView *view2=[[UIView alloc]initWithFrame:CGRectMake(0, 10*HeightCoefficient, 40*WidthCoefficient, 40*HeightCoefficient)];
+    UIView *view2=[[UIView alloc]initWithFrame:CGRectMake(0, 10*HeightCoefficient, 62*WidthCoefficient, 40*HeightCoefficient)];
     view2.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     //     view1.backgroundColor=[UIColor grayColor];
     [view addSubview:view2];
     
-    self.view3=[[UIView alloc]initWithFrame:CGRectMake(0, 39*HeightCoefficient,319*WidthCoefficient, 1*HeightCoefficient)];
+    self.view3=[[UIView alloc]initWithFrame:CGRectMake(0, 39*HeightCoefficient,297*WidthCoefficient, 1*HeightCoefficient)];
     _view3.hidden = YES;
     _view3.backgroundColor=[UIColor colorWithHexString:@"#1E1918"];
 //    view3.backgroundColor=[UIColor grayColor];
@@ -654,11 +654,10 @@ static NSString *const cellID = @"cell";
     leftimageView.image=[UIImage imageNamed:[self.imgArray objectAtIndex:section]];
     [view2 addSubview:leftimageView];
     [leftimageView makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(24*WidthCoefficient);
-        make.width.equalTo(24*WidthCoefficient);
+        make.height.equalTo(36*WidthCoefficient);
+        make.width.equalTo(36*WidthCoefficient);
         make.left.equalTo(16 * WidthCoefficient);
         make.centerY.equalTo(view2).offset(0);
-
     }];
     
     self.rightimageView=[[UIImageView alloc] init];
@@ -698,7 +697,7 @@ static NSString *const cellID = @"cell";
     //添加一个button 用来监听点击分组，实现分组的展开关闭。
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
 //    btn.backgroundColor=[UIColor redColor];
-    btn.frame=CGRectMake(40*WidthCoefficient, 0, 319*HeightCoefficient, 40*HeightCoefficient);
+    btn.frame=CGRectMake(62*WidthCoefficient, 0, 297*HeightCoefficient, 40*HeightCoefficient);
     btn.tag=666+section;
     [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btn];
