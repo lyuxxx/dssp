@@ -288,7 +288,7 @@ static NSString *const cellID = @"cell";
     [_headerView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(161 * HeightCoefficient/2);
+        make.height.equalTo(132 * HeightCoefficient/2);
         make.centerX.equalTo(0);
         make.top.equalTo(Lastlabel.bottom).offset(20*HeightCoefficient);
     }];
@@ -305,7 +305,7 @@ static NSString *const cellID = @"cell";
         make.height.equalTo(15 * HeightCoefficient);
         make.centerX.equalTo(0);
         make.width.equalTo(240 * WidthCoefficient);
-        make.top.equalTo(bg.bottom).offset(30*HeightCoefficient);
+        make.top.equalTo(bg.bottom).offset(24*HeightCoefficient);
     }];
     
     NSArray *titles = @[NSLocalizedString(@"总里程", nil),NSLocalizedString(@"保养里程", nil),NSLocalizedString(@"车辆油量", nil)];
@@ -377,11 +377,12 @@ static NSString *const cellID = @"cell";
         toplabel.textAlignment = NSTextAlignmentLeft;
         [views addSubview:toplabel];
         [toplabel makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(20 *HeightCoefficient);
+            //make.top.equalTo(20 *HeightCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
             make.left.equalTo(ImgV.right).offset(10*WidthCoefficient);
 //            make.centerX.equalTo(_bgImgV1);
             make.width.equalTo(99 * WidthCoefficient);
+            make.bottom.equalTo(ImgV.centerY);
         }];
         
         
@@ -447,7 +448,8 @@ static NSString *const cellID = @"cell";
         bottomlabel.textAlignment = NSTextAlignmentLeft;
         [views addSubview:bottomlabel];
         [bottomlabel makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(toplabel.bottom).offset(0);
+//            make.top.equalTo(toplabel.bottom).offset(0);
+            make.top.equalTo(ImgV.centerY);
             make.height.equalTo(20 * HeightCoefficient);
             make.left.equalTo(ImgV.right).offset(10*WidthCoefficient);
             //            make.centerX.equalTo(_bgImgV1);
@@ -455,7 +457,7 @@ static NSString *const cellID = @"cell";
         }];
     }
 
-     [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:161 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
+     [viewArray mas_distributeSudokuViewsWithFixedItemWidth:343 * WidthCoefficient/3-1 fixedItemHeight:132 * HeightCoefficient/2-1 warpCount:3 topSpacing:0 * WidthCoefficient bottomSpacing:0 * WidthCoefficient leadSpacing:0 * WidthCoefficient tailSpacing:0 * WidthCoefficient];
     
 }
 
@@ -486,7 +488,7 @@ static NSString *const cellID = @"cell";
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,385*HeightCoefficient)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,370*HeightCoefficient)];
 //     _headerView.backgroundColor=[UIColor redColor];
     _headerView.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     _tableView.tableHeaderView=_headerView;
