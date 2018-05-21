@@ -91,7 +91,7 @@ static dispatch_once_t oilOnceToken;
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [backBtn addTarget:self action:@selector(pop) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"oil_back"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [backBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(24 * WidthCoefficient);
@@ -642,6 +642,14 @@ static dispatch_once_t oilOnceToken;
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
     if ([annotation isKindOfClass:[MAUserLocation class]]) {
+//        static NSString *userLocationStyleReuseIndetifier = @"userLocationStyleReuseIndetifier";
+//        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:userLocationStyleReuseIndetifier];
+//        if (annotationView == nil) {
+//            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:userLocationStyleReuseIndetifier];
+//        }
+//        annotationView.tintColor = [UIColor redColor];
+//        return annotationView;
+        
         return nil;
     }
     if ([annotation isKindOfClass:[CarAnnotation class]]) {
