@@ -626,17 +626,17 @@ static NSString *const cellID = @"cell";
     
     UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
    
-    UIView *view1=[[UIView alloc]initWithFrame:CGRectMake(62*WidthCoefficient, 10*HeightCoefficient, 297*WidthCoefficient, 40*HeightCoefficient)];
+    UIView *view1=[[UIView alloc]initWithFrame:CGRectMake(40*WidthCoefficient, 10*HeightCoefficient, 319*WidthCoefficient, 40*HeightCoefficient)];
     view1.backgroundColor=[UIColor colorWithHexString:@"#120F0E"];
 //     view1.backgroundColor=[UIColor grayColor];
     [view addSubview:view1];
     
-    UIView *view2=[[UIView alloc]initWithFrame:CGRectMake(0, 10*HeightCoefficient, 62*WidthCoefficient, 40*HeightCoefficient)];
+    UIView *view2=[[UIView alloc]initWithFrame:CGRectMake(0, 10*HeightCoefficient, 40*WidthCoefficient, 40*HeightCoefficient)];
     view2.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     //     view1.backgroundColor=[UIColor grayColor];
     [view addSubview:view2];
     
-    self.view3=[[UIView alloc]initWithFrame:CGRectMake(0, 39*HeightCoefficient, 297*WidthCoefficient, 1*HeightCoefficient)];
+    self.view3=[[UIView alloc]initWithFrame:CGRectMake(0, 39*HeightCoefficient,319*WidthCoefficient, 1*HeightCoefficient)];
     _view3.hidden = YES;
     _view3.backgroundColor=[UIColor colorWithHexString:@"#1E1918"];
 //    view3.backgroundColor=[UIColor grayColor];
@@ -656,8 +656,9 @@ static NSString *const cellID = @"cell";
     [leftimageView makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(24*WidthCoefficient);
         make.width.equalTo(24*WidthCoefficient);
-        make.left.equalTo(23.5 * WidthCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
         make.centerY.equalTo(view2).offset(0);
+
     }];
     
     self.rightimageView=[[UIImageView alloc] init];
@@ -697,7 +698,7 @@ static NSString *const cellID = @"cell";
     //添加一个button 用来监听点击分组，实现分组的展开关闭。
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
 //    btn.backgroundColor=[UIColor redColor];
-    btn.frame=CGRectMake(62*WidthCoefficient, 0, 297*HeightCoefficient, 40*HeightCoefficient);
+    btn.frame=CGRectMake(40*WidthCoefficient, 0, 319*HeightCoefficient, 40*HeightCoefficient);
     btn.tag=666+section;
     [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btn];
