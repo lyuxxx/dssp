@@ -8,30 +8,184 @@
 
 #import "FeedbackController.h"
 
+#define kActivityQuestion 100
+#define kCarQuestion 101
+#define kAppQuestion 102
+#define kOtherQuestion 103
+#define kFeedbackButtonWidth 100 * WidthCoefficient
+#define kFeedbackButtonHeight 33 * HeightCoefficient
+
 @interface FeedbackController ()
+/** 激活问题按钮*/
+@property (nonatomic, strong) UIButton *activityQuestionButton;
+/** 车辆问题按钮*/
+@property (nonatomic, strong) UIButton *carQuestionButton;
+/** app问题按钮*/
+@property (nonatomic, strong) UIButton *appQuestionButton;
+/** 其他问题按钮*/
+@property (nonatomic, strong) UIButton *otherQuestionButton;
+/** 按钮数组*/
+@property (nonatomic, strong) NSMutableArray<UIButton *> *buttons;
+/** 提交按钮*/
+@property (nonatomic, strong) UIButton *commintButton;
 
 @end
 
 @implementation FeedbackController
 
+#pragma mark- 方法重写
+- (BOOL)needGradientBg {
+    return YES;
+}
+
+#pragma mark- viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setUpUI];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark- 搭建界面
+- (void)setUpUI {
+    self.navigationItem.title = NSLocalizedString(@"意见反馈", nil);
+    
+    CGFloat margin = (kScreenWidth - 4 * kFeedbackButtonWidth) / 4;
+    
+    [self.view addSubview:self.activityQuestionButton];
+    [self.buttons addObject:self.activityQuestionButton];
+    [self.activityQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.view).offset(margin);
+        make.width.mas_equalTo(kFeedbackButtonWidth);
+        make.height.mas_equalTo(kFeedbackButtonHeight);
+        make.top.mas_equalTo(self.view).offset(20 * HeightCoefficient);
+    }];
+    
+    [self.view addSubview:self.carQuestionButton];
+    [self.buttons addObject:self.carQuestionButton];
+    [self.carQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.activityQuestionButton.mas_trailing).offset(margin);
+        make.width.mas_equalTo(kFeedbackButtonWidth);
+        make.height.mas_equalTo(kFeedbackButtonHeight);
+        make.top.mas_equalTo(self.activityQuestionButton);
+    }];
+    
+    [self.view addSubview:self.appQuestionButton];
+    [self.buttons addObject:self.appQuestionButton];
+    [self.appQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.carQuestionButton.mas_trailing).offset(margin);
+        make.width.mas_equalTo(kFeedbackButtonWidth);
+        make.height.mas_equalTo(kFeedbackButtonHeight);
+        make.top.mas_equalTo(self.activityQuestionButton);
+    }];
+    
+    [self.view addSubview:self.otherQuestionButton];
+    [self.buttons addObject:self.otherQuestionButton];
+    [self.otherQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.appQuestionButton.mas_trailing).offset(margin);
+        make.width.mas_equalTo(kFeedbackButtonWidth);
+        make.height.mas_equalTo(kFeedbackButtonHeight);
+        make.top.mas_equalTo(self.activityQuestionButton);
+    }];
+    
+    [self.view addSubview:self.commintButton];
+    [self.commintButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view).offset(kBottomHeight);
+        make.height.mas_equalTo(44);
+    }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark- 按钮的点击事件
+- (void)buttonAction:(UIButton *) button {
+    NSLog("点击了反馈按钮");
+    
+    //  如果已经被选中,那么返回
+    if (button.selected) { return; }
+    
+    //  否则进行遍历
+    for (UIButton *feedbackButton in self.buttons) {
+        if (feedbackButton == button) {
+            button.selected = YES;
+        }else {
+            feedbackButton.selected = NO;
+        }
+    }
 }
-*/
+
+- (void)commitButtonAction:(UIButton *) button {
+    NSLog("点击了提交按钮")
+}
+
+#pragma mark- 懒加载
+- (UIButton *)activityQuestionButton {
+    if (!_activityQuestionButton) {
+        _activityQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [_activityQuestionButton setTitle:NSLocalizedString(@"激活问题", nil) forState:UIControlStateNormal];
+        [_activityQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
+        [_activityQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        _activityQuestionButton.tag = kActivityQuestion;
+        [_activityQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _activityQuestionButton;
+}
+
+- (UIButton *)carQuestionButton {
+    if (!_carQuestionButton) {
+        _carQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [_carQuestionButton setTitle:NSLocalizedString(@"车辆问题", nil) forState:UIControlStateNormal];
+        [_carQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
+        [_carQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        _carQuestionButton.tag = kCarQuestion;
+        [_carQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _carQuestionButton;
+}
+
+
+- (UIButton *)appQuestionButton {
+    if (!_appQuestionButton) {
+        _appQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [_appQuestionButton setTitle:NSLocalizedString(@"App问题", nil) forState:UIControlStateNormal];
+        [_appQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
+        [_appQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        _appQuestionButton.tag = kAppQuestion;
+        [_appQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _appQuestionButton;
+}
+
+- (UIButton *)otherQuestionButton {
+    if (!_otherQuestionButton) {
+        _otherQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [_otherQuestionButton setTitle:NSLocalizedString(@"其他问题", nil) forState:UIControlStateNormal];
+        [_otherQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
+        [_otherQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        _otherQuestionButton.tag = kOtherQuestion;
+        [_otherQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _otherQuestionButton;
+}
+
+- (NSMutableArray<UIButton *> *)buttons {
+    if (!_buttons) {
+        _buttons = [NSMutableArray array];
+    }
+    return _buttons;
+}
+
+- (UIButton *)commintButton {
+    if (!_commintButton) {
+        _commintButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [_commintButton setTitle:NSLocalizedString(@"提交", nil) forState:UIControlStateNormal];
+        [_commintButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
+        [_commintButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        [_commintButton addTarget:self action:@selector(commitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _commintButton;
+}
 
 @end
