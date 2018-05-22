@@ -642,14 +642,6 @@ static dispatch_once_t oilOnceToken;
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
     if ([annotation isKindOfClass:[MAUserLocation class]]) {
-//        static NSString *userLocationStyleReuseIndetifier = @"userLocationStyleReuseIndetifier";
-//        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:userLocationStyleReuseIndetifier];
-//        if (annotationView == nil) {
-//            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:userLocationStyleReuseIndetifier];
-//        }
-//        annotationView.tintColor = [UIColor redColor];
-//        return annotationView;
-        
         return nil;
     }
     if ([annotation isKindOfClass:[CarAnnotation class]]) {

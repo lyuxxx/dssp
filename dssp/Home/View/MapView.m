@@ -37,7 +37,10 @@ static dispatch_once_t onceToken;
         //    representation.enablePulseAnnimation = false;
         //    representation.locationDotBgColor = [UIColor greenColor];
         //    representation.locationDotFillColor = [UIColor grayColor];
-        //    representation.image = [UIImage imageNamed:@"userPosition"];
+        
+        //  使用自定义的图片
+            representation.image = [UIImage imageNamed:@"user_location"];
+        
         //    representation.image = nil;
         [mapView updateUserLocationRepresentation:representation];
     });
