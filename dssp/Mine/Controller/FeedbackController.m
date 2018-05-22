@@ -7,6 +7,7 @@
 //
 
 #import "FeedbackController.h"
+#import "PlaceholderTextView.h"
 
 #define kActivityQuestion 100
 #define kCarQuestion 101
@@ -14,8 +15,9 @@
 #define kOtherQuestion 103
 #define kFeedbackButtonWidth 100 * WidthCoefficient
 #define kFeedbackButtonHeight 33 * HeightCoefficient
+#define kMaxInputCount 150
 
-@interface FeedbackController ()
+@interface FeedbackController () <UITextViewDelegate>
 /** 激活问题按钮*/
 @property (nonatomic, strong) UIButton *activityQuestionButton;
 /** 车辆问题按钮*/
@@ -26,6 +28,12 @@
 @property (nonatomic, strong) UIButton *otherQuestionButton;
 /** 按钮数组*/
 @property (nonatomic, strong) NSMutableArray<UIButton *> *buttons;
+/** 意见反馈文字说明*/
+@property (nonatomic, strong) UILabel *feedbackLabel ;
+/** 意见反馈输入框*/
+@property (nonatomic, strong) PlaceholderTextView *textView;
+/** 输入文字字数展示*/
+@property (nonatomic, strong) UILabel *inputCountLabel;
 /** 提交按钮*/
 @property (nonatomic, strong) UIButton *commintButton;
 
@@ -86,6 +94,21 @@
         make.top.mas_equalTo(self.activityQuestionButton);
     }];
     
+    [self.view addSubview:self.textView];
+    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.view).offset(15 * WidthCoefficient);
+        make.trailing.mas_equalTo(self.view).offset(-15 * WidthCoefficient);
+        make.top.mas_equalTo(self.activityQuestionButton.mas_bottom).offset(20 * HeightCoefficient);
+        make.height.mas_equalTo(200 * HeightCoefficient);
+    }];
+    
+    [self.view addSubview:self.inputCountLabel];
+    [self.inputCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.mas_equalTo(self.textView);
+        make.top.mas_equalTo(self.textView.mas_bottom);
+        make.width.mas_equalTo(100 * WidthCoefficient);
+    }];
+    
     [self.view addSubview:self.commintButton];
     [self.commintButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.mas_equalTo(self.view);
@@ -113,6 +136,19 @@
 
 - (void)commitButtonAction:(UIButton *) button {
     NSLog("点击了提交按钮")
+}
+
+#pragma mark- UITextView的代理
+- (void)textViewDidChange:(UITextView *)textView {
+    NSInteger count = textView.text.length;
+    if (count <= kMaxInputCount) {
+        self.inputCountLabel.text = [NSString stringWithFormat:@"%d/%d", count,kMaxInputCount];
+    }else {
+        self.inputCountLabel.text = @"150/150";
+        textView.text = [textView.text substringWithRange:NSMakeRange(0, kMaxInputCount)];
+        [MBProgressHUD showText:@"至多输入150个字符"];
+    }
+    
 }
 
 #pragma mark- 懒加载
@@ -186,6 +222,25 @@
         
     }
     return _commintButton;
+}
+
+- (PlaceholderTextView *)textView {
+    if (!_textView) {
+        _textView = [PlaceholderTextView new];
+        _textView.delegate = self;
+        _textView.textContainerInset = UIEdgeInsetsMake(6, 0, 0, 0);
+        _textView.font = [UIFont systemFontOfSize:15];
+    }
+    return _textView;
+}
+
+- (UILabel *)inputCountLabel {
+    if (!_inputCountLabel) {
+        _inputCountLabel = [UILabel new];
+        _inputCountLabel.text = [NSString stringWithFormat:@"0/%d", kMaxInputCount];
+        _inputCountLabel.backgroundColor = [UIColor whiteColor];
+    }
+    return _inputCountLabel;
 }
 
 @end

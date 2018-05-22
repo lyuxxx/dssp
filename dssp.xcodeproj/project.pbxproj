@@ -10,6 +10,9 @@
 		00525DA820B3F5650064B546 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
 		00525DA920B3F5650064B546 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
 		00525DAA20B3F5650064B546 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
+		00525DAD20B40BBB0064B546 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
+		00525DAE20B40BBB0064B546 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
+		00525DAF20B40BBB0064B546 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
 		310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
@@ -640,6 +643,8 @@
 /* Begin PBXFileReference section */
 		00525DA620B3F5650064B546 /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
 		00525DA720B3F5650064B546 /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
+		00525DAB20B40BBB0064B546 /* PlaceholderTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
+		00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
 		027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-sit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		280DE9284EE6BAC9FD1D9690 /* Pods-dssp-pre.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.adhoc.xcconfig"; sourceTree = "<group>"; };
 		310368EA2045682300A9083E /* RangePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangePickerCell.h; sourceTree = "<group>"; };
@@ -1943,6 +1948,8 @@
 				4599C9B81FF1E70800B23713 /* PersonInCell.m */,
 				4570EFDD1FFC788D00FA6355 /* ContractdetailCell.h */,
 				4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */,
+				00525DAB20B40BBB0064B546 /* PlaceholderTextView.h */,
+				00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2404,6 +2411,7 @@
 				3161DDE3206C8AB500D40EE3 /* OrderCell.m in Sources */,
 				3161DDE4206C8AB500D40EE3 /* InputAlertView.m in Sources */,
 				3161DDE5206C8AB500D40EE3 /* TrackDetailViewController.m in Sources */,
+				00525DAE20B40BBB0064B546 /* PlaceholderTextView.m in Sources */,
 				3161DDE6206C8AB500D40EE3 /* RNRViewController.m in Sources */,
 				3161DDE7206C8AB500D40EE3 /* HomeViewController.m in Sources */,
 				3161DDE9206C8AB500D40EE3 /* ActivationCodeListCell.m in Sources */,
@@ -2605,6 +2613,7 @@
 				3161DEBA206C8ABC00D40EE3 /* NSString+Size.m in Sources */,
 				3161DEBB206C8ABC00D40EE3 /* OrderCell.m in Sources */,
 				3161DEBC206C8ABC00D40EE3 /* InputAlertView.m in Sources */,
+				00525DAF20B40BBB0064B546 /* PlaceholderTextView.m in Sources */,
 				3161DEBD206C8ABC00D40EE3 /* TrackDetailViewController.m in Sources */,
 				3161DEBE206C8ABC00D40EE3 /* RNRViewController.m in Sources */,
 				3161DEBF206C8ABC00D40EE3 /* HomeViewController.m in Sources */,
@@ -2806,6 +2815,7 @@
 				318B685B202AE4B300962F2A /* OrderCell.m in Sources */,
 				456454A11FF09E2700B30401 /* InputAlertView.m in Sources */,
 				31F235D4204171E5002807D2 /* TrackDetailViewController.m in Sources */,
+				00525DAD20B40BBB0064B546 /* PlaceholderTextView.m in Sources */,
 				316B6CF61FB99F4A008A6094 /* RNRViewController.m in Sources */,
 				310A07D41FA96AD500DC9529 /* HomeViewController.m in Sources */,
 				3115892F201B21F900A4AEFB /* ActivationCodeListCell.m in Sources */,
