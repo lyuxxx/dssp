@@ -37,6 +37,7 @@
 #import "QGLocationTransform.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapSearchManager.h>
+#import "FeedbackController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -84,8 +85,21 @@
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    _dataArray=@[@[@[@"coin",@"绑定车辆 / 解绑车辆"],@[@"汽车信息",@"车辆信息"],@[@"身份证",@"实名制与T服务"],@[@"合同信息",@"服务合同信息"],@[@"密码",@"账户密码管理"],@[@"用户手册_icon",@"用户手册"],@[@"关于我们_icon",@"关于我们"]],
-  @[@[@"signout",@"退出登录"]]];
+    _dataArray=@[
+                 @[
+                     @[@"coin",@"绑定车辆 / 解绑车辆"],
+                     @[@"汽车信息",@"车辆信息"],
+                     @[@"身份证",@"实名制与T服务"],
+                     @[@"合同信息",@"服务合同信息"],
+                     @[@"密码",@"账户密码管理"],
+                     @[@"用户手册_icon",@"用户手册"],
+                     @[@"关于我们_icon",@"关于我们"],
+                     @[@"feedback", @"意见反馈"]
+                    ],
+                 @[
+                     @[@"signout",@"退出登录"]
+                    ]
+                 ];
 
     [self.mgr startUpdatingLocation];
     [self initTableView];
@@ -561,6 +575,11 @@
             AboutmeViewController *vc=[[AboutmeViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+        }
+        else if (indexPath.row == 7) {
+            FeedbackController *feedbackController = [FeedbackController new];
+            feedbackController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:feedbackController animated:YES];
         }
         
     }
