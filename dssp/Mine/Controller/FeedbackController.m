@@ -8,6 +8,7 @@
 
 #import "FeedbackController.h"
 #import "PlaceholderTextView.h"
+#import "FeedbackPicView.h"
 
 #define kActivityQuestion 100
 #define kCarQuestion 101
@@ -34,6 +35,8 @@
 @property (nonatomic, strong) PlaceholderTextView *textView;
 /** 输入文字字数展示*/
 @property (nonatomic, strong) UILabel *inputCountLabel;
+/** 图片区域*/
+@property (nonatomic, strong) FeedbackPicView *picView;
 /** 提交按钮*/
 @property (nonatomic, strong) UIButton *commintButton;
 
@@ -107,6 +110,13 @@
         make.trailing.mas_equalTo(self.textView);
         make.top.mas_equalTo(self.textView.mas_bottom);
         make.width.mas_equalTo(100 * WidthCoefficient);
+    }];
+    
+    [self.view addSubview:self.picView];
+    [self.picView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.inputCountLabel.mas_bottom).offset(20 * HeightCoefficient);
+        make.leading.trailing.mas_equalTo(self.textView);
+        make.height.mas_equalTo(66);
     }];
     
     [self.view addSubview:self.commintButton];
@@ -241,6 +251,13 @@
         _inputCountLabel.backgroundColor = [UIColor whiteColor];
     }
     return _inputCountLabel;
+}
+
+- (FeedbackPicView *)picView {
+    if (!_picView) {
+        _picView = [FeedbackPicView new];
+    }
+    return  _picView;
 }
 
 @end

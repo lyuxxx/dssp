@@ -13,6 +13,9 @@
 		00525DAD20B40BBB0064B546 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
 		00525DAE20B40BBB0064B546 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
 		00525DAF20B40BBB0064B546 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
+		00525DB220B41B310064B546 /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
+		00525DB320B41B310064B546 /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
+		00525DB420B41B310064B546 /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
 		310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
@@ -645,6 +648,8 @@
 		00525DA720B3F5650064B546 /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
 		00525DAB20B40BBB0064B546 /* PlaceholderTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
 		00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
+		00525DB020B41B310064B546 /* FeedbackPicView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackPicView.h; sourceTree = "<group>"; };
+		00525DB120B41B310064B546 /* FeedbackPicView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackPicView.m; sourceTree = "<group>"; };
 		027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-sit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		280DE9284EE6BAC9FD1D9690 /* Pods-dssp-pre.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.adhoc.xcconfig"; sourceTree = "<group>"; };
 		310368EA2045682300A9083E /* RangePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangePickerCell.h; sourceTree = "<group>"; };
@@ -1950,6 +1955,8 @@
 				4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */,
 				00525DAB20B40BBB0064B546 /* PlaceholderTextView.h */,
 				00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */,
+				00525DB020B41B310064B546 /* FeedbackPicView.h */,
+				00525DB120B41B310064B546 /* FeedbackPicView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2441,6 +2448,7 @@
 				3161DE00206C8AB500D40EE3 /* TrackListViewController.m in Sources */,
 				3161DE01206C8AB500D40EE3 /* CarTrackViewController.m in Sources */,
 				3161DE02206C8AB500D40EE3 /* ContractdetailViewController.m in Sources */,
+				00525DB320B41B310064B546 /* FeedbackPicView.m in Sources */,
 				3161DE03206C8AB500D40EE3 /* InfoMessageUserCell.m in Sources */,
 				3161DE04206C8AB500D40EE3 /* HomeCarLocationCell.m in Sources */,
 				3161DE05206C8AB500D40EE3 /* QDataSaver.m in Sources */,
@@ -2643,6 +2651,7 @@
 				3161DED7206C8ABC00D40EE3 /* POI.m in Sources */,
 				3161DED8206C8ABC00D40EE3 /* TrackListViewController.m in Sources */,
 				3161DED9206C8ABC00D40EE3 /* CarTrackViewController.m in Sources */,
+				00525DB420B41B310064B546 /* FeedbackPicView.m in Sources */,
 				3161DEDA206C8ABC00D40EE3 /* ContractdetailViewController.m in Sources */,
 				3161DEDB206C8ABC00D40EE3 /* InfoMessageUserCell.m in Sources */,
 				3161DEDC206C8ABC00D40EE3 /* HomeCarLocationCell.m in Sources */,
@@ -2845,6 +2854,7 @@
 				319A58C720454EEA006837DC /* TrackListViewController.m in Sources */,
 				4570EFE21FFC7D6C00FA6355 /* CarTrackViewController.m in Sources */,
 				4596799C1FE1417C008A0C67 /* ContractdetailViewController.m in Sources */,
+				00525DB220B41B310064B546 /* FeedbackPicView.m in Sources */,
 				31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */,
 				319096CA20636EAF0032BC43 /* HomeCarLocationCell.m in Sources */,
 				45765273204E7BBE006585BA /* QDataSaver.m in Sources */,
