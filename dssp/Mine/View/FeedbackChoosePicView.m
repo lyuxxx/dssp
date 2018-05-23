@@ -119,8 +119,8 @@
         TZImagePickerController *picker = [weakSelf getTZImagePickerControllerWithMaxImagesCount:5 - self.imageArray.count
                                                                                         delegate:weakSelf
                                                                                     barTintColor:[UIColor redColor]
-                                                                                       tintColor:[UIColor whiteColor]
-                                                                                  titleTextColor:[UIColor whiteColor]];
+                                                                                       tintColor:[UIColor colorWithHexString:GeneralColorString]
+                                                                                  titleTextColor:[UIColor colorWithHexString:GeneralColorString]];
         
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -143,6 +143,12 @@
     
     /** 再将数组中的图片重新排列出来*/
     [self setImage];
+    
+    /** 重新加载的时候 回调图片个数*/
+    if ([self.imageArray count] > 0) {
+        NSString *imageCount = [NSString stringWithFormat:@"%lu", [self.imageArray count] - 1];
+        self.imageCountCallback(imageCount);
+    }
 }
 
 /** 移除某一张照片*/
@@ -197,11 +203,14 @@
     picker.navigationBar.barTintColor = barTintColor;
     //  设置导航栏的左右按钮的文字与附件颜色
     picker.navigationBar.tintColor = tintColor;
+    picker.barItemTextColor = tintColor;
     //  设置返回按钮不显示文字
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-60, 0) forBarMetrics:UIBarMetricsDefault];
+    
     //  设置导航栏中间文字title的文字颜色
     [picker.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleTextColor,NSForegroundColorAttributeName, nil]];
-    
+    //  一直保持有右上角的勾选框
+    picker.showSelectBtn = YES;
     return picker;
     
 }

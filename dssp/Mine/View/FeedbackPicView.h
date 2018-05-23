@@ -12,8 +12,9 @@
  意见反馈图片区域
  */
 @interface FeedbackPicView : UIView
-/** 提示Label*/
-@property (nonatomic, weak) UILabel *promptLabel;
-/** 图片数量Label*/
-@property (nonatomic, weak) UILabel *imageCountLabel;
+
+- (void)setPromptText:(NSString *)promptText;
+
+- (void)setImageCount:(NSString *)imageCount;
+
 @end

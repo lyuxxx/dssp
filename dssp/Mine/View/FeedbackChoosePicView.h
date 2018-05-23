@@ -11,6 +11,8 @@
 
 typedef void(^PickerCallback)(TZImagePickerController *picker);
 
+typedef void(^imageCountCallback)(NSString *imageCount);
+
 /**
  *  选择图片
  */
@@ -21,5 +23,7 @@ typedef void(^PickerCallback)(TZImagePickerController *picker);
 
 /** picker闭包 */
 @property (nonatomic, copy) PickerCallback pickerCallback;
+
+@property (nonatomic, copy) imageCountCallback imageCountCallback;
 
 @end

@@ -131,7 +131,11 @@
     
     __weak typeof(self)weakSelf = self;
     self.choosePicView.pickerCallback = ^(TZImagePickerController *picker){
-        [weakSelf presentViewController:(UIViewController *)picker animated:YES completion:nil];
+        [weakSelf presentViewController:picker animated:YES completion:nil];
+    };
+    
+    self.choosePicView.imageCountCallback = ^(NSString *imageCount) {
+        [weakSelf.picView setImageCount:imageCount];
     };
     
     [self.view addSubview:self.commintButton];

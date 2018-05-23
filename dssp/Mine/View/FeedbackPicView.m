@@ -10,6 +10,15 @@
 
 #define kMaxImageCount 4
 
+@interface FeedbackPicView()
+
+/** 提示Label*/
+@property (nonatomic, weak) UILabel *promptLabel;
+/** 图片数量Label*/
+@property (nonatomic, weak) UILabel *imageCountLabel;
+
+@end
+
 @implementation FeedbackPicView
 
 #pragma mark - 初始化
@@ -46,6 +55,15 @@
     [imageCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.trailing.mas_equalTo(self);
     }];
+}
+
+#pragma mark- 对外方法
+-(void)setPromptText:(NSString *)promptText {
+    self.promptLabel.text = promptText;
+}
+
+- (void)setImageCount:(NSString *)imageCount {
+    self.imageCountLabel.text = [NSString stringWithFormat:@"%@/%d", imageCount, kMaxImageCount];
 }
 
 @end
