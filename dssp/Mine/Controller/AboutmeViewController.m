@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-     self.navigationItem.title = NSLocalizedString(@"关于我们", nil);
+     self.navigationItem.title = NSLocalizedString(@"版本信息", nil);
     [self setupUI];
 }
 

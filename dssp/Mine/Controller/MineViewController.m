@@ -38,6 +38,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapSearchManager.h>
 #import "FeedbackController.h"
+#import "UserprotocolViewController.h"
 @interface MineViewController() <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
@@ -64,9 +65,9 @@
 
 @implementation MineViewController
 
-- (BOOL)needGradientBg {
-    return YES;
-}
+//- (BOOL)needGradientBg {
+//    return YES;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,14 +93,21 @@
                      @[@"身份证",@"实名制与T服务"],
                      @[@"合同信息",@"服务合同信息"],
                      @[@"密码",@"账户密码管理"],
-                     @[@"用户手册_icon",@"用户手册"],
-                     @[@"关于我们_icon",@"关于我们"],
-                     @[@"feedback", @"意见反馈"]
+                     @[@"用户手册_icon",@"用户手册"]
+//                     @[@"关于我们_icon",@"关于我们"],
+//                     @[@"feedback", @"意见反馈"]
                     ],
                  @[
+                     @[@"关于我们_icon",@"版本信息"],
+                     @[@"用户协议_icon", @"用户协议"],
+                     @[@"反馈中心_icon", @"反馈中心"]
+                     
+                  ]
+                 ,
+                 @[        
                      @[@"signout",@"退出登录"]
-                    ]
-                 ];
+                  ]
+                ];
 
     [self.mgr startUpdatingLocation];
     [self initTableView];
@@ -508,6 +516,11 @@
     }
     
     if (indexPath.section==1) {
+        if (indexPath.row==2) {
+            cell.whiteView.hidden=YES;
+        }
+    }
+    if (indexPath.section==2) {
         if (indexPath.row==0) {
             cell.whiteView.hidden=YES;
         }
@@ -570,20 +583,32 @@
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
-        else if (indexPath.row == 6)
+        
+        
+    }
+    else if (indexPath.section == 1)
+    {
+      if (indexPath.row == 0)
         {
             AboutmeViewController *vc=[[AboutmeViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
-        else if (indexPath.row == 7) {
-            FeedbackController *feedbackController = [FeedbackController new];
-            feedbackController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:feedbackController animated:YES];
-        }
+      else if (indexPath.row == 1) {
+          
+          UserprotocolViewController *UserprotocolVC = [UserprotocolViewController new];
+          UserprotocolVC.hidesBottomBarWhenPushed = YES;
+          [self.navigationController pushViewController:UserprotocolVC animated:YES];
+      }
+      else if (indexPath.row == 2) {
+          FeedbackController *feedbackController = [FeedbackController new];
+          feedbackController.hidesBottomBarWhenPushed = YES;
+          [self.navigationController pushViewController:feedbackController animated:YES];
+      }
         
     }
-    else if (indexPath.section == 1)
+    
+    else if (indexPath.section == 2)
     {
         if (indexPath.row==0) {
             
@@ -628,41 +653,7 @@
                 }
                 
             };
-            
-//            NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否退出登录?" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1]}];
-//
-//            CUAlertController *alert = [CUAlertController alertWithImage:[UIImage imageNamed:@"警告"] attributedMessage:message];
-//            [alert addButtonWithTitle:@"是" type:CUButtonTypeCancel clicked:^{
-//
-//
-//                NSDictionary *paras = @{
-//
-//                                        };
-//
-//                MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-//                [CUHTTPRequest POST:loginout parameters:paras success:^(id responseData) {
-//                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//                        [hud hideAnimated:YES];
-//                        //响应事件
-//                        LoginViewController *vc=[[LoginViewController alloc] init];
-//                        vc.hidesBottomBarWhenPushed = YES;
-//                        [self.navigationController pushViewController:vc animated:YES];
-//                    } else {
-//                        [MBProgressHUD showText:dic[@"msg"]];
-//                    }
-//                } failure:^(NSInteger code) {
-//                    hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-//                    [hud hideAnimated:YES afterDelay:1];
-//                }];
-//
-//
-//            }];
-//            [alert addButtonWithTitle:@"否" type:CUButtonTypeNormal clicked:^{
-//
-//            }];
-//            [self presentViewController:alert animated:YES completion:nil];
-            
+        
         }
         
     }
