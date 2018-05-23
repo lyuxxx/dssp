@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MGSwipeTableCell.h>
 
 @class TrackInfo;
 
-@interface TrackSingleCell : UITableViewCell
+@interface TrackSingleCell : MGSwipeTableCell
 
 - (void)configWithTrackInfo:(TrackInfo *)info;
 

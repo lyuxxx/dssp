@@ -17,6 +17,7 @@
 #import <MJRefresh.h>
 #import <NSObject+FBKVOController.h>
 #import <UIScrollView+EmptyDataSet.h>
+#import <MGSwipeTableCell.h>
 
 #define CalendarContainerHeight (kScreenHeight - kNaviHeight - 80 * WidthCoefficient)
 
@@ -25,7 +26,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     ButtonTagOK,
 };
 
-@interface TrackListViewController () <FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
+@interface TrackListViewController () <FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, MGSwipeTableCellDelegate>
 
 @property (weak, nonatomic) UIView *calendarContainer;
 @property (weak, nonatomic) FSCalendar *calendar;
@@ -44,12 +45,19 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 ///
 
 @property (nonatomic, strong) NSMutableArray<TrackListSection *> *sections;
+@property (nonatomic, strong) NSMutableArray<TrackInfo *> *selectedDatas;
 
 @property (nonatomic, assign) NSInteger currentPage;
 
+@property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UILabel *filterStartLabel;
 @property (nonatomic, strong) UILabel *filterEndLabel;
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIButton *allBtn;
+@property (nonatomic, strong) UIButton *editBtn;
+
+@property (nonatomic, strong) UIButton *deleteBtn;
 
 @property (nonatomic, copy) NSString *startTimeStamp;
 @property (nonatomic, copy) NSString *endTimeStamp;
@@ -162,6 +170,8 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     [self createTop];
     [self createTableView];
+    [self setupFooter];
+    [self createBtns];
     [self pullDefaultData];
 }
 
@@ -185,6 +195,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 - (void)createTop {
     UIView *topV = [[UIView alloc] init];
+    self.topView = topV;
     topV.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
     topV.layer.shadowColor = [UIColor colorWithHexString:@"000000"].CGColor;
     topV.layer.shadowOffset = CGSizeMake(0, 6);
@@ -263,38 +274,36 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 }
 
 - (void)createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _tableView.estimatedRowHeight = 0;
-    _tableView.estimatedSectionFooterHeight = 0;
-    _tableView.estimatedSectionHeaderHeight = 0;
-    _tableView.tableFooterView = [UIView new];
-    _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
     [_tableView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(UIEdgeInsetsMake(80 * WidthCoefficient, 0, 0, 0));
     }];
     
-    [_tableView registerClass:[TrackSingleCell class] forCellReuseIdentifier:@"TrackSingleCell"];
-    [_tableView registerClass:[TrackListHeaderView class] forHeaderFooterViewReuseIdentifier:@"TrackListHeaderView"];
+    [self setupFooter];
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullData)];
+}
+
+- (void)setupFooter {
+    
+    if (!self.tableView.mj_header) {
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullData)];
+    }
     
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(appendListData)];
     footer.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
     footer.hidden = YES;
-    if (@available(iOS 11.0, *)) {
-        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
-            footer.maskView = [[UIView alloc] init];
-            footer.maskView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
-        }
-    }
+//    if (@available(iOS 11.0, *)) {
+//        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
+//            footer.maskView = [[UIView alloc] init];
+//            footer.maskView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+//        }
+//    }
     footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
-//    footer.stateLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    self.tableView.mj_footer = footer;
-    
+    //    footer.stateLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+    if (!self.tableView.mj_footer) {
+        self.tableView.mj_footer = footer;
+    }
+    /**
     //处理iphoneX显示footer问题
     [self.KVOController observe:self.tableView keyPath:@"contentOffset" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         if (@available(iOS 11.0, *)) {
@@ -314,7 +323,70 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             }
         }
     }];
+    **/
+}
+
+- (void)createBtns {
+    self.editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_editBtn setTitle:NSLocalizedString(@"编辑", nil) forState:UIControlStateNormal];
+    [_editBtn setTitle:NSLocalizedString(@"完成", nil) forState:UIControlStateSelected];
+    [_editBtn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+    [_editBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [_editBtn addTarget:self action:@selector(btnsClick:) forControlEvents:UIControlEventTouchUpInside];
+    _editBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
+    [_editBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(50 * WidthCoefficient);
+        make.height.equalTo(22 * WidthCoefficient);
+    }];
+    _editBtn.enabled = NO;
     
+    UIView *botView = [[UIView alloc] init];
+    //    botView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+    [self.view addSubview:botView];
+    [botView makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.tableView.bottom);
+        make.height.equalTo(60 * WidthCoefficient + kBottomHeight);
+    }];
+    
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#2f2726"];
+    [botView addSubview:line];
+    [line makeConstraints:^(MASConstraintMaker *make) {
+        //        make.left.right.equalTo(botView);
+        //        make.bottom.equalTo(botView.top);
+        make.top.left.right.equalTo(botView);
+        make.height.equalTo(0.5 * WidthCoefficient);
+    }];
+    
+    [botView addSubview:self.deleteBtn];
+    [_deleteBtn makeConstraints:^(MASConstraintMaker *make) {
+        //        make.top.equalTo(botView);
+        make.top.equalTo(line.bottom);
+        make.right.equalTo(botView);
+        make.width.equalTo(100 * WidthCoefficient);
+        make.height.equalTo(59.5 * WidthCoefficient);
+    }];
+    
+    self.allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _allBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _allBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _allBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [_allBtn setTitle:NSLocalizedString(@"全选", nil) forState:UIControlStateNormal];
+    [_allBtn setTitle:NSLocalizedString(@"取消全选", nil) forState:UIControlStateSelected];
+    [_allBtn setImage:[UIImage imageNamed:@"selected_empty"] forState:UIControlStateNormal];
+    [_allBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
+    [_allBtn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
+    [_allBtn addTarget:self action:@selector(btnsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [botView addSubview:self.allBtn];
+    [self.allBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(botView).offset(18 * WidthCoefficient);
+        make.height.equalTo(24 * WidthCoefficient);
+        make.left.equalTo(10 * WidthCoefficient);
+        make.width.equalTo(130 * WidthCoefficient);
+    }];
+    _allBtn.titleEdgeInsets = UIEdgeInsetsMake(10 * WidthCoefficient, 10 * WidthCoefficient, 10 * WidthCoefficient, 0);
 }
 
 - (void)showCalendar {
@@ -330,6 +402,226 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
         completion(finished);
     }];
 }
+
+#pragma mark - 显示和隐藏 删除按钮
+- (void)showDeleteButton
+{
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).with.offset(-60 * WidthCoefficient - kBottomHeight);
+    }];
+    
+    // 更新约束
+    [self updateConstraints];
+}
+
+- (void)hideDeleteButton
+{
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.bottom);
+    }];
+    
+    // 更新约束
+    [self updateConstraints];
+}
+
+// 更新布局
+- (void)updateConstraints
+{
+    // tell constraints they need updating
+    [self.view setNeedsUpdateConstraints];
+    
+    // update constraints now so we can animate the change
+    [self.view updateConstraintsIfNeeded];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+#pragma mark - 删除功能相关事件 -
+//删除相关按钮事件
+- (void)btnsClick:(UIButton *)sender {
+    if (sender == _editBtn) {
+        sender.selected = !sender.selected;
+        if (sender.isSelected) {//编辑
+            
+            self.tableView.mj_header = nil;
+            self.tableView.mj_footer = nil;
+            self.topView.userInteractionEnabled = NO;
+            
+            // 这个是fix掉:当你左滑删除的时候，再点击右上角编辑按钮， cell上的删除按钮不会消失掉的bug。且必须放在 设置tableView.editing = YES;的前面。
+            [self.tableView reloadData];
+            
+            [self.tableView setEditing:YES animated:YES];
+            
+            _allBtn.selected = NO;
+            
+            [self showDeleteButton];
+            
+            if (Is_Iphone_X) {
+                _tableView.contentInset = UIEdgeInsetsZero;
+                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+            }
+            
+        } else {//完成
+            self.topView.userInteractionEnabled = YES;
+            
+            if (Is_Iphone_X) {
+                _tableView.contentInset = UIEdgeInsetsMake(0, 0, kBottomHeight, 0);
+                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+            }
+            
+            [self.selectedDatas removeAllObjects];
+            
+            [self.tableView setEditing:NO animated:YES];
+            
+            [self hideDeleteButton];
+            
+            [self setupFooter];
+            
+        }
+    }
+    if (sender == _allBtn) {
+        sender.selected = !sender.selected;
+        if (sender.selected) {
+            // 全选
+            for (NSInteger i = 0 ; i < self.sections.count; i++)
+            {
+                TrackListSection *section = self.sections[i];
+                for (NSInteger j = 0; j < section.list.count; j++) {
+                    TrackInfo *item = section.list[j];
+                    if (![self.selectedDatas containsObject:item]) {
+                        [self.selectedDatas addObject:item];
+                    }
+                    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i] animated:YES scrollPosition:UITableViewScrollPositionNone];
+                }
+            }
+        } else {
+            // 取消全选
+            for (NSInteger i = 0 ; i < self.sections.count; i++)
+            {
+                TrackListSection *section = self.sections[i];
+                for (NSInteger j = 0; j < section.list.count; j++) {
+                    TrackInfo *item = section.list[j];
+                    if ([self.selectedDatas containsObject:item]) {
+                        [self.selectedDatas removeObject:item];
+                    }
+                    [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i] animated:YES];
+                }
+            }
+        }
+        
+        [self indexPathsForSelectedRowsCountDidChange:self.tableView.indexPathsForSelectedRows];
+    }
+    if (sender == _deleteBtn) {
+        [self deleteSelectIndexPaths:self.tableView.indexPathsForSelectedRows];
+    }
+}
+
+// delete
+- (void)deleteSelectIndexPaths:(NSArray *)indexPaths
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    //修改message的内容，字号，颜色。使用的key值是“attributedMessage"
+    NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"是否要删除这些轨迹记录?"];
+    [message addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, [[message string] length])];
+    [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#040000"] range:NSMakeRange(0, [[message string] length])];
+    [alertController setValue:message forKey:@"attributedMessage"];
+    
+    //修改按钮的颜色，同上可以使用同样的方法修改内容，样式
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *idStr = @"";
+        NSMutableArray *idArr = [NSMutableArray arrayWithCapacity:self.selectedDatas.count];
+        for (TrackInfo *item in self.selectedDatas) {
+            [idArr addObject:item.properties.tripId];
+        }
+        idStr = [idArr componentsJoinedByString:@","];
+        
+        [CUHTTPRequest POST:deletePoiFavoritesService parameters:@{@"id":idStr} success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            NSString *code = dic[@"code"];
+            if ([code isEqualToString:@"200"]) {
+                // 删除数据源
+                for (NSInteger i = 0; i < self.sections.count; i++) {
+                    TrackListSection *section = self.sections[i];
+                    [section.list removeObjectsInArray:self.selectedDatas];
+                }
+                [self.selectedDatas removeAllObjects];
+                
+                //    [UIView setAnimationsEnabled:NO];
+                // 删除选中项
+                //    [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+                //    [self.tableView endUpdates];
+                //    [UIView setAnimationsEnabled:YES];
+                
+                // 验证数据源
+                [self indexPathsForSelectedRowsCountDidChange:self.tableView.indexPathsForSelectedRows];
+                
+                // 验证
+                // 没有
+                if ([self trackInfoAllCount] == 0)
+                {
+                    //没有收藏数据
+                    
+                    if(self.editBtn.selected)
+                    {
+                        // 编辑状态 -- 取消编辑状态
+                        [self btnsClick:self.editBtn];
+                    }
+                    
+                    self.editBtn.enabled = NO;
+                    
+                }
+                
+                [self setupFooter];
+            }
+        } failure:^(NSInteger code) {
+            
+        }];
+    }];
+    [defaultAction setValue:[UIColor colorWithHexString:@"#ac0042"] forKey:@"titleTextColor"];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [cancelAction setValue:[UIColor colorWithHexString:@"#040000"] forKey:@"titleTextColor"];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:defaultAction];
+    
+    //修改背景色
+    UIView *subview = alertController.view.subviews.firstObject;
+    UIView *alertContentView = subview.subviews.firstObject;
+    alertContentView.backgroundColor = [UIColor whiteColor];
+    alertContentView.layer.cornerRadius = 15;
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+//更新删除按钮
+- (void)indexPathsForSelectedRowsCountDidChange:(NSArray *)selectedRows
+{
+    NSInteger currentCount = [selectedRows count];
+    NSInteger allCount = [self trackInfoAllCount];
+    self.allBtn.selected = (currentCount == allCount);
+    NSString *title = (currentCount > 0) ? [NSString stringWithFormat:@"删除(%zd)",currentCount] : @"删除";
+    [self.deleteBtn setTitle:title forState:UIControlStateNormal];
+    self.deleteBtn.enabled = currentCount > 0;
+}
+
+- (NSInteger)trackInfoAllCount {
+    NSInteger count = 0;
+    for (NSInteger i = 0; i < self.sections.count; i++) {
+        TrackListSection *section = self.sections[i];
+        count += section.list.count;
+    }
+    return count;
+}
+
+#pragma mark - 非删除功能相关事件 -
 
 - (void)btnClick:(UIButton *)sender {
     
@@ -416,6 +708,12 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
             });
+            
+            if (self.sections.count) {
+                self.editBtn.enabled = YES;
+            } else {
+                self.editBtn.enabled = NO;
+            }
         } else {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
@@ -540,6 +838,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TrackSingleCell *cell = (TrackSingleCell *)[tableView dequeueReusableCellWithIdentifier:@"TrackSingleCell"];
     [cell configWithTrackInfo:self.sections[indexPath.section].list[indexPath.row]];
+    cell.delegate = self;
     return cell;
 }
 
@@ -554,14 +853,83 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TrackInfo *info = self.sections[indexPath.section].list[indexPath.row];
-    TrackDetailViewController *vc = [[TrackDetailViewController alloc] initWithTrackInfo:info];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (tableView.isEditing) {
+        TrackInfo *item = self.sections[indexPath.section].list[indexPath.row];
+        if (![self.selectedDatas containsObject:item]) {
+            [self.selectedDatas addObject:item];
+        }
+        [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
+        return;
+    } else {
+        TrackInfo *info = self.sections[indexPath.section].list[indexPath.row];
+        TrackDetailViewController *vc = [[TrackDetailViewController alloc] initWithTrackInfo:info];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    {
+        if (tableView.isEditing) {
+            TrackInfo *item = self.sections[indexPath.section].list[indexPath.row];
+            if ([self.selectedDatas containsObject:item]) {
+                [self.selectedDatas removeObject:item];
+            }
+            
+            [self indexPathsForSelectedRowsCountDidChange:tableView.indexPathsForSelectedRows];
+        }
+        
+    }
 }
 
 //- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
 //    view.tintColor = [UIColor colorWithHexString:@"040000"];
 //}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.isEditing) {
+        // 多选
+        return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+    }else{
+        // 删除
+        return UITableViewCellEditingStyleNone;
+    }
+}
+//
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //只要实现这个方法，就实现了默认滑动删除！！！！！
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        TrackInfo *item = self.sections[indexPath.section].list[indexPath.row];
+        if (![self.selectedDatas containsObject:item]) {
+            [self.selectedDatas addObject:item];
+        }
+        [self deleteSelectIndexPaths:@[indexPath]];
+    }
+}
+
+#pragma mark - MGSwipeTableCellDelegate
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+    NSIndexPath *tmp = [self.tableView indexPathForCell:cell];
+    TrackInfo *item = self.sections[tmp.section].list[tmp.row];
+    if (![self.selectedDatas containsObject:item]) {
+        [self.selectedDatas addObject:item];
+    }
+    [self deleteSelectIndexPaths:@[[self.tableView indexPathForCell:cell]]];
+    return YES;
+}
+
+- (NSArray<UIView *> *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings {
+    if (direction == MGSwipeDirectionRightToLeft) {
+        swipeSettings.transition = MGSwipeTransitionClipCenter;
+        //            expansionSettings.buttonIndex = 0;
+        //            expansionSettings.fillOnTrigger = YES;
+        return @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"delete_icon"] backgroundColor:[UIColor clearColor] insets:UIEdgeInsetsMake(0, 16 * WidthCoefficient, 0, 25 * WidthCoefficient)]];
+    } else {
+        return nil;
+    }
+}
 
 #pragma mark - DZNEmptyDataSetSource -
 
@@ -725,11 +1093,66 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     rangeCell.selectionLayer.hidden = !isSelected;
 }
 
+#pragma mark - lazy load -
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        if (@available(iOS 11.0, *)) {
+            if (Is_Iphone_X) {
+                _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                _tableView.contentInset = UIEdgeInsetsMake(0, 0, kBottomHeight, 0);
+                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.tableFooterView = [UIView new];
+        //        _tableView.rowHeight = UITableViewAutomaticDimension;
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        //        _tableView.allowsMultipleSelection = YES;
+        //        _tableView.allowsSelectionDuringEditing = YES;
+        //        _tableView.allowsMultipleSelectionDuringEditing = YES;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        [_tableView registerClass:[TrackSingleCell class] forCellReuseIdentifier:@"TrackSingleCell"];
+        [_tableView registerClass:[TrackListHeaderView class] forHeaderFooterViewReuseIdentifier:@"TrackListHeaderView"];
+    }
+    return _tableView;
+}
+
 - (NSMutableArray<TrackListSection *> *)sections {
     if (!_sections) {
         _sections = [NSMutableArray array];
     }
     return _sections;
+}
+
+- (NSMutableArray<TrackInfo *> *)selectedDatas {
+    if (!_selectedDatas) {
+        _selectedDatas = [[NSMutableArray alloc] init];
+    }
+    return _selectedDatas;
+}
+
+- (UIButton *)deleteBtn {
+    if (_deleteBtn == nil) {
+        _deleteBtn = [[UIButton alloc] init];
+        [_deleteBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#ac0042"]] forState:UIControlStateNormal];
+        [_deleteBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
+        [_deleteBtn setTitle:NSLocalizedString(@"删除", nil) forState:UIControlStateNormal];
+        [_deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _deleteBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        [_deleteBtn addTarget:self action:@selector(btnsClick:) forControlEvents:UIControlEventTouchUpInside];
+        _deleteBtn.enabled = NO;
+        
+    }
+    return _deleteBtn;
 }
 
 @end
