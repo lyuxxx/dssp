@@ -16,6 +16,15 @@
 		00525DB220B41B310064B546 /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
 		00525DB320B41B310064B546 /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
 		00525DB420B41B310064B546 /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
+		008DC4C820B5022E003EB24F /* FeedbackChoosePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */; };
+		008DC4C920B5022E003EB24F /* FeedbackChoosePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */; };
+		008DC4CA20B5022E003EB24F /* FeedbackChoosePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */; };
+		008DC4CE20B5022E003EB24F /* FeedbackTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C620B5022D003EB24F /* FeedbackTap.m */; };
+		008DC4CF20B5022E003EB24F /* FeedbackTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C620B5022D003EB24F /* FeedbackTap.m */; };
+		008DC4D020B5022E003EB24F /* FeedbackTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C620B5022D003EB24F /* FeedbackTap.m */; };
+		008DC4D320B5044B003EB24F /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
+		008DC4D420B5044B003EB24F /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
+		008DC4D520B5044B003EB24F /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
 		310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
@@ -650,6 +659,12 @@
 		00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
 		00525DB020B41B310064B546 /* FeedbackPicView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackPicView.h; sourceTree = "<group>"; };
 		00525DB120B41B310064B546 /* FeedbackPicView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackPicView.m; sourceTree = "<group>"; };
+		008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackChoosePicView.m; sourceTree = "<group>"; };
+		008DC4C520B5022D003EB24F /* FeedbackTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackTap.h; sourceTree = "<group>"; };
+		008DC4C620B5022D003EB24F /* FeedbackTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackTap.m; sourceTree = "<group>"; };
+		008DC4C720B5022E003EB24F /* FeedbackChoosePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackChoosePicView.h; sourceTree = "<group>"; };
+		008DC4D120B5044B003EB24F /* FeedbackShowImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackShowImageView.h; sourceTree = "<group>"; };
+		008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackShowImageView.m; sourceTree = "<group>"; };
 		027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-sit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		280DE9284EE6BAC9FD1D9690 /* Pods-dssp-pre.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.adhoc.xcconfig"; sourceTree = "<group>"; };
 		310368EA2045682300A9083E /* RangePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangePickerCell.h; sourceTree = "<group>"; };
@@ -1957,6 +1972,12 @@
 				00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */,
 				00525DB020B41B310064B546 /* FeedbackPicView.h */,
 				00525DB120B41B310064B546 /* FeedbackPicView.m */,
+				008DC4C720B5022E003EB24F /* FeedbackChoosePicView.h */,
+				008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */,
+				008DC4D120B5044B003EB24F /* FeedbackShowImageView.h */,
+				008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */,
+				008DC4C520B5022D003EB24F /* FeedbackTap.h */,
+				008DC4C620B5022D003EB24F /* FeedbackTap.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2414,6 +2435,7 @@
 				3161DDDF206C8AB500D40EE3 /* MapSearchCell.m in Sources */,
 				3161DDE0206C8AB500D40EE3 /* TrafficReportdatailCell.m in Sources */,
 				3161DDE1206C8AB500D40EE3 /* ForecastModel.m in Sources */,
+				008DC4D420B5044B003EB24F /* FeedbackShowImageView.m in Sources */,
 				3161DDE2206C8AB500D40EE3 /* NSString+Size.m in Sources */,
 				3161DDE3206C8AB500D40EE3 /* OrderCell.m in Sources */,
 				3161DDE4206C8AB500D40EE3 /* InputAlertView.m in Sources */,
@@ -2454,10 +2476,12 @@
 				3161DE05206C8AB500D40EE3 /* QDataSaver.m in Sources */,
 				3161DE06206C8AB500D40EE3 /* TrackListHeaderView.m in Sources */,
 				3161DE07206C8AB500D40EE3 /* CheckVersionView.m in Sources */,
+				008DC4C920B5022E003EB24F /* FeedbackChoosePicView.m in Sources */,
 				3161DE08206C8AB500D40EE3 /* WifiViewController.m in Sources */,
 				3161DE09206C8AB500D40EE3 /* OrderSubmitViewController.m in Sources */,
 				3161DE0A206C8AB500D40EE3 /* UITabBar+badge.m in Sources */,
 				3161DE0B206C8AB500D40EE3 /* UITextView+Placeholder.m in Sources */,
+				008DC4CF20B5022E003EB24F /* FeedbackTap.m in Sources */,
 				3161DE0C206C8AB500D40EE3 /* MapUtility.m in Sources */,
 				3161DE0D206C8AB500D40EE3 /* BaseWebViewController.m in Sources */,
 				3161DE0E206C8AB500D40EE3 /* MapView.m in Sources */,
@@ -2617,6 +2641,7 @@
 				3161DEB6206C8ABC00D40EE3 /* CarflowCell.m in Sources */,
 				3161DEB7206C8ABC00D40EE3 /* MapSearchCell.m in Sources */,
 				3161DEB8206C8ABC00D40EE3 /* TrafficReportdatailCell.m in Sources */,
+				008DC4D520B5044B003EB24F /* FeedbackShowImageView.m in Sources */,
 				3161DEB9206C8ABC00D40EE3 /* ForecastModel.m in Sources */,
 				3161DEBA206C8ABC00D40EE3 /* NSString+Size.m in Sources */,
 				3161DEBB206C8ABC00D40EE3 /* OrderCell.m in Sources */,
@@ -2657,10 +2682,12 @@
 				3161DEDC206C8ABC00D40EE3 /* HomeCarLocationCell.m in Sources */,
 				3161DEDD206C8ABC00D40EE3 /* QDataSaver.m in Sources */,
 				3161DEDE206C8ABC00D40EE3 /* TrackListHeaderView.m in Sources */,
+				008DC4CA20B5022E003EB24F /* FeedbackChoosePicView.m in Sources */,
 				3161DEDF206C8ABC00D40EE3 /* CheckVersionView.m in Sources */,
 				3161DEE0206C8ABC00D40EE3 /* WifiViewController.m in Sources */,
 				3161DEE1206C8ABC00D40EE3 /* OrderSubmitViewController.m in Sources */,
 				3161DEE2206C8ABC00D40EE3 /* UITabBar+badge.m in Sources */,
+				008DC4D020B5022E003EB24F /* FeedbackTap.m in Sources */,
 				3161DEE3206C8ABC00D40EE3 /* UITextView+Placeholder.m in Sources */,
 				3161DEE4206C8ABC00D40EE3 /* MapUtility.m in Sources */,
 				3161DEE5206C8ABC00D40EE3 /* BaseWebViewController.m in Sources */,
@@ -2820,6 +2847,7 @@
 				316CCCBD1FC66E6800AFF915 /* MapSearchCell.m in Sources */,
 				45153F922041461400C41E10 /* TrafficReportdatailCell.m in Sources */,
 				450C7A281FDE3FA700E4652F /* ForecastModel.m in Sources */,
+				008DC4D320B5044B003EB24F /* FeedbackShowImageView.m in Sources */,
 				31AC452E2022EDB10044A62C /* NSString+Size.m in Sources */,
 				318B685B202AE4B300962F2A /* OrderCell.m in Sources */,
 				456454A11FF09E2700B30401 /* InputAlertView.m in Sources */,
@@ -2860,10 +2888,12 @@
 				45765273204E7BBE006585BA /* QDataSaver.m in Sources */,
 				31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */,
 				31C504AB2062748A000CFB8F /* CheckVersionView.m in Sources */,
+				008DC4C820B5022E003EB24F /* FeedbackChoosePicView.m in Sources */,
 				316B6CE61FB94A35008A6094 /* WifiViewController.m in Sources */,
 				31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */,
 				4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */,
 				3172B581202BF1BE006D3749 /* UITextView+Placeholder.m in Sources */,
+				008DC4CE20B5022E003EB24F /* FeedbackTap.m in Sources */,
 				31F235D72041722C002807D2 /* MapUtility.m in Sources */,
 				31C504A820624D6F000CFB8F /* BaseWebViewController.m in Sources */,
 				31A469F31FF1E78B00C8236E /* MapView.m in Sources */,

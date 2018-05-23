@@ -9,6 +9,7 @@
 #import "FeedbackController.h"
 #import "PlaceholderTextView.h"
 #import "FeedbackPicView.h"
+#import "FeedbackChoosePicView.h"
 
 #define kActivityQuestion 100
 #define kCarQuestion 101
@@ -37,6 +38,8 @@
 @property (nonatomic, strong) UILabel *inputCountLabel;
 /** 图片区域*/
 @property (nonatomic, strong) FeedbackPicView *picView;
+/** 图片选择区域*/
+@property (nonatomic, strong) FeedbackChoosePicView *choosePicView;
 /** 提交按钮*/
 @property (nonatomic, strong) UIButton *commintButton;
 
@@ -118,6 +121,18 @@
         make.leading.trailing.mas_equalTo(self.textView);
         make.height.mas_equalTo(66);
     }];
+    
+    [self.picView addSubview:self.choosePicView];
+    [self.choosePicView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.bottom.mas_equalTo(self.picView);
+        make.top.mas_equalTo(self.picView).offset(17);
+    }];
+    self.choosePicView.backgroundColor = [UIColor yellowColor];
+    
+    __weak typeof(self)weakSelf = self;
+    self.choosePicView.pickerCallback = ^(TZImagePickerController *picker){
+        [weakSelf presentViewController:(UIViewController *)picker animated:YES completion:nil];
+    };
     
     [self.view addSubview:self.commintButton];
     [self.commintButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -258,6 +273,13 @@
         _picView = [FeedbackPicView new];
     }
     return  _picView;
+}
+
+- (FeedbackChoosePicView *)choosePicView {
+    if (!_choosePicView) {
+        _choosePicView = [FeedbackChoosePicView new];
+    }
+    return _choosePicView;
 }
 
 @end
