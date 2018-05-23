@@ -48,7 +48,10 @@
     }
     
     self.isRemovePic = NO;
-    
+    NSInteger count = [self.imageArray count];
+//    if (count == 5) {
+//        [self.imageArray removeLastObject];
+//    }
     for (NSInteger i = 0; i < [self.imageArray count]; i++) {
         // 4张正方形图片,5个间距
         CGFloat letterWidth = (kScreenWidth - 30 * WidthCoefficient - 5 * kMarginN) / 4;
@@ -59,9 +62,14 @@
         imageView.tag = kImageTag + i;
         /** 因为最后一个一定是添加的图片，所以给最后一个添加一个点击添加手势*/
         if (i == [self.imageArray count] - 1) {
+            if (i == 4) {
+                imageView.image = nil;
+                imageView.hidden = YES;
+            }
             UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openPhoto)];
             [imageView addGestureRecognizer:tapGes];
-        } else {    /** 为图片添加一个右上角的删除按钮并且添加一个点击显示大图的手势*/
+        } else {
+            /** 为图片添加一个右上角的删除按钮并且添加一个点击显示大图的手势*/
             UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             CGFloat removeX = letterWidth * 4 / 5;
             CGFloat removeW = letterWidth / 5;
@@ -70,6 +78,7 @@
             [removeBtn addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
             removeBtn.tag = i;
             [imageView addSubview:removeBtn];
+            
             
             FeedbackTap *tapGes = [[FeedbackTap alloc] initWithTarget:self action:@selector(tapImage:)];
             tapGes.imageArray = self.imageArray;

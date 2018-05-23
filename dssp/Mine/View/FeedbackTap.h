@@ -11,7 +11,7 @@
 /**
  反馈点击图片的手势
  */
-@interface FeedbackTap : UIGestureRecognizer
+@interface FeedbackTap : UITapGestureRecognizer
 
 @property (nonatomic,strong) NSArray *imageArray;
 
