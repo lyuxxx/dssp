@@ -15,11 +15,15 @@
 #define kCarQuestion 101
 #define kAppQuestion 102
 #define kOtherQuestion 103
-#define kFeedbackButtonWidth 100 * WidthCoefficient
-#define kFeedbackButtonHeight 33 * HeightCoefficient
-#define kMaxInputCount 150
+#define kFeedbackButtonWidth 82 * WidthCoefficient
+#define kFeedbackButtonHeight 24 * HeightCoefficient
+#define kMaxInputCount 200
 
 @interface FeedbackController () <UITextViewDelegate>
+/** 第一个竖线*/
+@property (nonatomic, strong) UIView *firstLine;
+/** 发生场景的说明文字*/
+@property (nonatomic, strong) UILabel *happenLabel;
 /** 激活问题按钮*/
 @property (nonatomic, strong) UIButton *activityQuestionButton;
 /** 车辆问题按钮*/
@@ -30,12 +34,20 @@
 @property (nonatomic, strong) UIButton *otherQuestionButton;
 /** 按钮数组*/
 @property (nonatomic, strong) NSMutableArray<UIButton *> *buttons;
-/** 意见反馈文字说明*/
-@property (nonatomic, strong) UILabel *feedbackLabel ;
+/** 第二根线*/
+@property (nonatomic, strong) UIView *secondLine;
+/** 意见反馈区域*/
+@property (nonatomic, strong) UIView *feedbackArea;
+/** 意见和反馈*/
+@property (nonatomic, strong) UILabel *feedbackLabel;
 /** 意见反馈输入框*/
 @property (nonatomic, strong) PlaceholderTextView *textView;
 /** 输入文字字数展示*/
 @property (nonatomic, strong) UILabel *inputCountLabel;
+/** 意见反馈的警告图片*/
+@property (nonatomic, strong) UIImageView *feedbackWarnIcon;
+/** 意见反馈的警告文字*/
+@property (nonatomic, strong) UILabel *feedbackWarnLabel;
 /** 图片区域*/
 @property (nonatomic, strong) FeedbackPicView *picView;
 /** 图片选择区域*/
@@ -62,15 +74,29 @@
 - (void)setUpUI {
     self.navigationItem.title = NSLocalizedString(@"意见反馈", nil);
     
-    CGFloat margin = (kScreenWidth - 4 * kFeedbackButtonWidth) / 4;
+    CGFloat margin = (kScreenWidth - 16 * 2 - 4 * kFeedbackButtonWidth) / 3;
+    
+    [self.view addSubview:self.firstLine];
+    [self.firstLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(3 * WidthCoefficient);
+        make.height.mas_equalTo(15 * HeightCoefficient);
+        make.top.mas_equalTo(self.view).offset(20 * HeightCoefficient);
+        make.leading.mas_equalTo(self.view).offset(16 * WidthCoefficient);
+    }];
+    
+    [self.view addSubview:self.happenLabel];
+    [self.happenLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.firstLine.mas_trailing).offset(5 * WidthCoefficient);
+        make.centerY.mas_equalTo(self.firstLine);
+    }];
     
     [self.view addSubview:self.activityQuestionButton];
     [self.buttons addObject:self.activityQuestionButton];
     [self.activityQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(self.view).offset(margin);
+        make.leading.mas_equalTo(self.firstLine);
         make.width.mas_equalTo(kFeedbackButtonWidth);
         make.height.mas_equalTo(kFeedbackButtonHeight);
-        make.top.mas_equalTo(self.view).offset(20 * HeightCoefficient);
+        make.top.mas_equalTo(self.happenLabel.mas_bottom).offset(15 * HeightCoefficient);
     }];
     
     [self.view addSubview:self.carQuestionButton];
@@ -100,34 +126,68 @@
         make.top.mas_equalTo(self.activityQuestionButton);
     }];
     
-    [self.view addSubview:self.textView];
-    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(self.view).offset(15 * WidthCoefficient);
-        make.trailing.mas_equalTo(self.view).offset(-15 * WidthCoefficient);
+    [self.view addSubview:self.secondLine];
+    [self.secondLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(3 * WidthCoefficient);
+        make.height.mas_equalTo(15 * HeightCoefficient);
         make.top.mas_equalTo(self.activityQuestionButton.mas_bottom).offset(20 * HeightCoefficient);
-        make.height.mas_equalTo(200 * HeightCoefficient);
+        make.leading.mas_equalTo(self.view).offset(16 * WidthCoefficient);
     }];
     
-    [self.view addSubview:self.inputCountLabel];
+    [self.view addSubview:self.feedbackLabel];
+    [self.feedbackLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.secondLine.mas_trailing).offset(5 * WidthCoefficient);
+        make.centerY.mas_equalTo(self.secondLine);
+    }];
+    
+    [self.view addSubview:self.feedbackArea];
+    [self.feedbackArea mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.view).offset(16 * WidthCoefficient);
+        make.trailing.mas_equalTo(self.view).offset(-16 * WidthCoefficient);
+        make.top.mas_equalTo(self.feedbackLabel.mas_bottom).offset(15 * HeightCoefficient);
+        make.height.mas_equalTo(140 * HeightCoefficient);
+    }];
+    
+    [self.feedbackArea addSubview:self.textView];
+    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.leading.trailing.mas_equalTo(self.feedbackArea);
+        make.height.mas_equalTo(116 * HeightCoefficient);
+    }];
+    
+    [self.feedbackArea addSubview:self.inputCountLabel];
     [self.inputCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.mas_equalTo(self.textView);
-        make.top.mas_equalTo(self.textView.mas_bottom);
+        make.trailing.mas_equalTo(self.feedbackArea).offset(-10 * WidthCoefficient);
+        make.bottom.mas_equalTo(self.feedbackArea).offset(-10 * HeightCoefficient);;
         make.width.mas_equalTo(100 * WidthCoefficient);
+    }];
+    
+    [self.view addSubview:self.feedbackWarnIcon];
+    [self.feedbackWarnIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(16 * WidthCoefficient);
+        make.leading.mas_equalTo(self.feedbackArea);
+        make.top.mas_equalTo(self.feedbackArea.mas_bottom).offset(10 * HeightCoefficient);
+    }];
+    
+    [self.view addSubview:self.feedbackWarnLabel];
+    [self.feedbackWarnLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.feedbackWarnIcon);
+        make.leading.mas_equalTo(self.feedbackWarnIcon.mas_trailing).offset(5 * WidthCoefficient);
     }];
     
     [self.view addSubview:self.picView];
     [self.picView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.inputCountLabel.mas_bottom).offset(20 * HeightCoefficient);
-        make.leading.trailing.mas_equalTo(self.textView);
-        make.height.mas_equalTo(66);
+        make.top.mas_equalTo(self.feedbackWarnLabel.mas_bottom).offset(15 * HeightCoefficient);
+        make.leading.trailing.mas_equalTo(self.feedbackArea);
+        make.height.mas_equalTo(114 * HeightCoefficient);
     }];
     
     [self.picView addSubview:self.choosePicView];
     [self.choosePicView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.bottom.mas_equalTo(self.picView);
-        make.top.mas_equalTo(self.picView).offset(17);
+        make.leading.mas_equalTo(self.picView).offset(10 * WidthCoefficient);
+        make.trailing.bottom.mas_equalTo(self.picView).offset(-10 * WidthCoefficient);
+        make.bottom.mas_equalTo(self.picView);
+        make.top.mas_equalTo(self.picView).offset(40 * HeightCoefficient);
     }];
-    self.choosePicView.backgroundColor = [UIColor yellowColor];
     
     __weak typeof(self)weakSelf = self;
     self.choosePicView.pickerCallback = ^(TZImagePickerController *picker){
@@ -140,8 +200,9 @@
     
     [self.view addSubview:self.commintButton];
     [self.commintButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view).offset(kBottomHeight);
+        make.leading.mas_equalTo(self.view).offset(52 * WidthCoefficient);
+        make.trailing.mas_equalTo(self.view).offset(-52 * WidthCoefficient);
+        make.top.mas_equalTo(self.picView.mas_bottom).offset(30 * HeightCoefficient);
         make.height.mas_equalTo(44);
     }];
 }
@@ -157,10 +218,17 @@
     for (UIButton *feedbackButton in self.buttons) {
         if (feedbackButton == button) {
             button.selected = YES;
+            [self setButtonBackgroundColor:button];
         }else {
             feedbackButton.selected = NO;
+            [self setButtonBackgroundColor:feedbackButton];
         }
     }
+}
+
+#pragma mark- 设置按钮在选择与非选择的情况下的样式
+- (void)setButtonBackgroundColor:(UIButton *)button {
+    button.backgroundColor = button.isSelected ? [UIColor colorWithHexString:@"AC0042"] : [UIColor colorWithHexString:@"#353535"];
 }
 
 - (void)commitButtonAction:(UIButton *) button {
@@ -173,20 +241,64 @@
     if (count <= kMaxInputCount) {
         self.inputCountLabel.text = [NSString stringWithFormat:@"%d/%d", count,kMaxInputCount];
     }else {
-        self.inputCountLabel.text = @"150/150";
+        self.inputCountLabel.text = @"200/200";
         textView.text = [textView.text substringWithRange:NSMakeRange(0, kMaxInputCount)];
-        [MBProgressHUD showText:@"至多输入150个字符"];
+        [MBProgressHUD showText:@"至多输入200个字符"];
     }
     
 }
 
 #pragma mark- 懒加载
+- (UIView *)firstLine {
+    if (!_firstLine) {
+        _firstLine = [UIView new];
+        _firstLine.backgroundColor = [UIColor colorWithHexString:@"#AC0042 "];
+        _firstLine.layer.cornerRadius = 1.5;
+        _firstLine.layer.masksToBounds = YES;
+    }
+    return _firstLine;
+}
+
+- (UILabel *)happenLabel {
+    if (!_happenLabel) {
+        _happenLabel = [UILabel new];
+        _happenLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        _happenLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        _happenLabel.text = @"请选择问题发生的场景";
+    }
+    return _happenLabel;
+}
+
+- (UIView *)secondLine {
+    if (!_secondLine) {
+        _secondLine = [UIView new];
+        _secondLine.backgroundColor = [UIColor colorWithHexString:@"#AC0042 "];
+        _secondLine.layer.cornerRadius = 1.5;
+        _secondLine.layer.masksToBounds = YES;
+    }
+    return _secondLine;
+}
+
+- (UILabel *)feedbackLabel {
+    if (!_feedbackLabel) {
+        _feedbackLabel = [UILabel new];
+        _feedbackLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
+        _feedbackLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        _feedbackLabel.text = @"意见和反馈";
+    }
+    return _feedbackLabel;
+}
+
 - (UIButton *)activityQuestionButton {
     if (!_activityQuestionButton) {
         _activityQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_activityQuestionButton setTitle:NSLocalizedString(@"激活问题", nil) forState:UIControlStateNormal];
-        [_activityQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
-        [_activityQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        [_activityQuestionButton setTitleColor: [UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [_activityQuestionButton setTitleColor: [UIColor colorWithHexString:@"#FFFFFF"] forState:UIControlStateSelected];
+        _activityQuestionButton.layer.cornerRadius = 4;
+        _activityQuestionButton.layer.masksToBounds = YES;
+        _activityQuestionButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _activityQuestionButton.backgroundColor = [UIColor colorWithHexString:@"#353535"];
         _activityQuestionButton.tag = kActivityQuestion;
         [_activityQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -198,8 +310,12 @@
     if (!_carQuestionButton) {
         _carQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_carQuestionButton setTitle:NSLocalizedString(@"车辆问题", nil) forState:UIControlStateNormal];
-        [_carQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
-        [_carQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        [_carQuestionButton setTitleColor: [UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [_carQuestionButton setTitleColor: [UIColor colorWithHexString:@"#FFFFFF"] forState:UIControlStateSelected];
+        _carQuestionButton.layer.cornerRadius = 4;
+        _carQuestionButton.layer.masksToBounds = YES;
+        _carQuestionButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _carQuestionButton.backgroundColor = [UIColor colorWithHexString:@"#353535"];
         _carQuestionButton.tag = kCarQuestion;
         [_carQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -212,8 +328,12 @@
     if (!_appQuestionButton) {
         _appQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_appQuestionButton setTitle:NSLocalizedString(@"App问题", nil) forState:UIControlStateNormal];
-        [_appQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
-        [_appQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        [_appQuestionButton setTitleColor: [UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [_appQuestionButton setTitleColor: [UIColor colorWithHexString:@"#FFFFFF"] forState:UIControlStateSelected];
+        _appQuestionButton.layer.cornerRadius = 4;
+        _appQuestionButton.layer.masksToBounds = YES;
+        _appQuestionButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _appQuestionButton.backgroundColor = [UIColor colorWithHexString:@"#353535"];
         _appQuestionButton.tag = kAppQuestion;
         [_appQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -225,8 +345,12 @@
     if (!_otherQuestionButton) {
         _otherQuestionButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_otherQuestionButton setTitle:NSLocalizedString(@"其他问题", nil) forState:UIControlStateNormal];
-        [_otherQuestionButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
-        [_otherQuestionButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        [_otherQuestionButton setTitleColor: [UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        [_otherQuestionButton setTitleColor: [UIColor colorWithHexString:@"#FFFFFF"] forState:UIControlStateSelected];
+        _otherQuestionButton.layer.cornerRadius = 4;
+        _otherQuestionButton.layer.masksToBounds = YES;
+        _otherQuestionButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _otherQuestionButton.backgroundColor = [UIColor colorWithHexString:@"#353535"];
         _otherQuestionButton.tag = kOtherQuestion;
         [_otherQuestionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -245,20 +369,38 @@
     if (!_commintButton) {
         _commintButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_commintButton setTitle:NSLocalizedString(@"提交", nil) forState:UIControlStateNormal];
-        [_commintButton setTitleColor: [UIColor blackColor] forState:UIControlStateSelected];
-        [_commintButton setTitleColor: [UIColor redColor] forState:UIControlStateSelected];
+        [_commintButton setTitleColor: [UIColor whiteColor] forState:UIControlStateSelected];
+        [_commintButton setTitleColor: [UIColor whiteColor] forState:UIControlStateHighlighted];
+        _commintButton.backgroundColor = [UIColor colorWithHexString:@"#AC0042"];
+        _commintButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         [_commintButton addTarget:self action:@selector(commitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        _commintButton.layer.cornerRadius = 4;
+        _commintButton.layer.masksToBounds = YES;
         
     }
     return _commintButton;
 }
 
+- (UIView *)feedbackArea {
+    if (!_feedbackArea) {
+        _feedbackArea = [UIView new];
+        _feedbackArea.layer.cornerRadius = 4;
+        _feedbackArea.layer.masksToBounds = YES;
+        _feedbackArea.backgroundColor = [UIColor whiteColor];
+    }
+    return _feedbackArea;
+}
+
 - (PlaceholderTextView *)textView {
     if (!_textView) {
         _textView = [PlaceholderTextView new];
+        _textView.placeHolderLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _textView.placeHolderLabel.textColor = [UIColor colorWithHexString:@"#999999"];
         _textView.delegate = self;
-        _textView.textContainerInset = UIEdgeInsetsMake(6, 0, 0, 0);
-        _textView.font = [UIFont systemFontOfSize:15];
+        _textView.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 0);
+        _textView.font = [UIFont systemFontOfSize:14];
+        _textView.layer.cornerRadius = 4;
+        _textView.layer.masksToBounds = YES;
     }
     return _textView;
 }
@@ -267,9 +409,30 @@
     if (!_inputCountLabel) {
         _inputCountLabel = [UILabel new];
         _inputCountLabel.text = [NSString stringWithFormat:@"0/%d", kMaxInputCount];
+        _inputCountLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _inputCountLabel.textColor = [UIColor colorWithHexString:@"#999999"];
         _inputCountLabel.backgroundColor = [UIColor whiteColor];
+        _inputCountLabel.textAlignment = NSTextAlignmentRight;
     }
     return _inputCountLabel;
+}
+
+- (UIImageView *)feedbackWarnIcon {
+    if (!_feedbackWarnIcon) {
+        _feedbackWarnIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"feedback_attention"]];
+    }
+    
+    return _feedbackWarnIcon;
+}
+
+- (UILabel *)feedbackWarnLabel {
+    if (!_feedbackWarnLabel) {
+        _feedbackWarnLabel = [UILabel new];
+        _feedbackWarnLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _feedbackWarnLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
+        _feedbackWarnLabel.text = @"请填写不低于5个字的问题描述";
+    }
+    return  _feedbackWarnLabel;
 }
 
 - (FeedbackPicView *)picView {

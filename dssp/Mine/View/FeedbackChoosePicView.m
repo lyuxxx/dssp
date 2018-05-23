@@ -16,7 +16,8 @@
 #define kImageTag 9999
 
 //  意见反馈选择图片
-#define kMarginN 10 * WidthCoefficient //  choosePicView的通用间距
+#define kMargin 10 * WidthCoefficient //  choosePicView的通用间距
+#define kImageViewWH 60 * WidthCoefficient
 
 @interface FeedbackChoosePicView()<TZImagePickerControllerDelegate>
 
@@ -41,22 +42,19 @@
 - (void)setImage {
     /** 如果是通过删除照片的方法进到加载照片就不添加加号图片进去*/
     if (!self.isRemovePic) {
-        UIImage *addImage = [UIImage imageNamed:@"check"];
+        UIImage *addImage = [UIImage imageNamed:@"feedback_addPic"];
         if (addImage) {
             [self.imageArray addObject:addImage];
         }
     }
     
     self.isRemovePic = NO;
-    NSInteger count = [self.imageArray count];
-//    if (count == 5) {
-//        [self.imageArray removeLastObject];
-//    }
+
     for (NSInteger i = 0; i < [self.imageArray count]; i++) {
         // 4张正方形图片,5个间距
-        CGFloat letterWidth = (kScreenWidth - 30 * WidthCoefficient - 5 * kMarginN) / 4;
-        CGFloat imageViewX = i * (letterWidth + kMarginN) + kMarginN;
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, 0, letterWidth, letterWidth)];
+        CGFloat margin = (kScreenWidth - 52 * WidthCoefficient - 4 * kImageViewWH) / 3;
+        CGFloat imageViewX = i * (kImageViewWH + margin);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, 0, kImageViewWH, kImageViewWH)];
         imageView.userInteractionEnabled = YES;
         imageView.image = self.imageArray[i];
         imageView.tag = kImageTag + i;
@@ -71,8 +69,8 @@
         } else {
             /** 为图片添加一个右上角的删除按钮并且添加一个点击显示大图的手势*/
             UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            CGFloat removeX = letterWidth * 4 / 5;
-            CGFloat removeW = letterWidth / 5;
+            CGFloat removeX = kImageViewWH * 4 / 5;
+            CGFloat removeW = kImageViewWH / 5;
             removeBtn.frame = CGRectMake(removeX, 0, removeW, removeW);
             [removeBtn setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
             [removeBtn addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];

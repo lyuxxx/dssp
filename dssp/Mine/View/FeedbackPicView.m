@@ -37,23 +37,25 @@
     self.backgroundColor = [UIColor whiteColor];
     
     UILabel *promptLabel = [UILabel new];
-    promptLabel.textColor = [UIColor lightGrayColor];
-    promptLabel.font = [UIFont systemFontOfSize:14];
-    promptLabel.text = NSLocalizedString(@"图片 (选填,提供问题截图)", nil);
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    promptLabel.textColor = [UIColor colorWithHexString:@"#040000"];
+    promptLabel.text = NSLocalizedString(@"图片(选填,提供问题截图)", nil);
     [self addSubview:promptLabel];
     _promptLabel = promptLabel;
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.leading.mas_equalTo(self);
+        make.top.mas_equalTo(self).offset(15 * HeightCoefficient);
+        make.leading.mas_equalTo(self).offset(10 * HeightCoefficient);
     }];
     
     UILabel *imageCountLabel = [UILabel new];
-    imageCountLabel.textColor = [UIColor lightGrayColor];
-    imageCountLabel.font = [UIFont systemFontOfSize:14];
+    imageCountLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    imageCountLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     imageCountLabel.text = [NSString stringWithFormat:@"0/%d", kMaxImageCount];
     [self addSubview:imageCountLabel];
     _imageCountLabel = imageCountLabel;
     [imageCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.trailing.mas_equalTo(self);
+        make.top.mas_equalTo(promptLabel);
+        make.trailing.mas_equalTo(self).offset(-10 * WidthCoefficient);
     }];
 }
 
