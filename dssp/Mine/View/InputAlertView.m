@@ -187,8 +187,15 @@
     }];
     
     
-    
-    
+    UIView *whiteView = [[UIView alloc] init];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
+    [self.alertview addSubview:whiteView];
+    [whiteView makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(1*HeightCoefficient);
+        make.left.right.equalTo(0);
+        make.bottom.equalTo(-48*HeightCoefficient);
+    }];
+   
 }
 
 - (void)creatViewInAlert
