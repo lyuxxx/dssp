@@ -134,24 +134,7 @@
         make.top.equalTo(explain2.bottom).offset(10*HeightCoefficient);
     }];
     
-    
-//    self.contentlabel =[[UITextView alloc] init];
-//
-//    NSString *htmlString = @"<p>服务协议</p><p>根据国家工业和信息化部《电话用户真实身份信息登记规定》（工业和信息化部令第25号）要求，开通车内上网业务需进行实名制登记。 此门户只针对持有中华人民共和国合法身份证、港澳居民来往内地通行证、台湾居民来往大陆通行证、外国人护照、军官证、警官证， 或其他有效身份证件的车主提供实名制登记服务。如果您没有上述有效证件，请发邮件到shimingzhi@cu-sc.com以完成实名制登记。</p><!--<br/>--><p>In accordance to [Regulations on Real-Name-Registration of Telecom Service Subscribers] (MIIT Doc. #25), real-name-registration must be completed before activating in-car telecommunication services. Currently only the following ID types are supported: PRC Citizen ID, Mainland Travel Permit for Hong Kong and Macao residents, Mainland Travel Permit for Taiwan Residents, foreign passport, military ID, military officer ID. If you cannot provide aforementioned IDs, please contact shimingzhi@cu-sc.com.</p>";
-//    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil] ;
-//
-//
-//    _contentlabel.textColor = [UIColor blackColor];
-//    _contentlabel.editable = NO;
-//    _contentlabel.attributedText = attributedString;
-//    [whiteV addSubview:_contentlabel];
-//    [_contentlabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(-15 * WidthCoefficient);
-//        make.bottom.equalTo(0 * HeightCoefficient);
-//        make.left.equalTo(15 * WidthCoefficient);
-//        make.top.equalTo(62.5 * HeightCoefficient);
-//    }];
-//
+ 
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
