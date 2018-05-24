@@ -10,6 +10,7 @@
 #import "TrackObject.h"
 
 @interface TrackSingleCell ()
+@property (nonatomic, strong) UIView *bg;
 @property (nonatomic, strong) UILabel *startAddressLabel;
 @property (nonatomic, strong) UILabel *endAddressLabel;
 @property (nonatomic, strong) UILabel *startTimeLabel;
@@ -32,9 +33,13 @@
 - (void)setupUI {
     self.backgroundColor = [UIColor clearColor];
     self.contentView.backgroundColor = [UIColor clearColor];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.frame];
+    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+    self.multipleSelectionBackgroundView = [UIView new];
     
     UIView *bg = [[UIView alloc] init];
+    self.bg = bg;
     bg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
     bg.layer.cornerRadius = 4;
     bg.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
@@ -43,7 +48,12 @@
     bg.layer.shadowRadius = 7;
     [self.contentView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 16 * WidthCoefficient, 5 * WidthCoefficient, 16 * WidthCoefficient));
+        //edit模式不能有右边约束,不然不好看
+//        make.edges.equalTo(UIEdgeInsetsMake(5 * WidthCoefficient, 16 * WidthCoefficient, 5 * WidthCoefficient, 16 * WidthCoefficient));
+        make.top.equalTo(5 * WidthCoefficient);
+        make.bottom.equalTo(-5 * WidthCoefficient);
+        make.left.equalTo(16 * WidthCoefficient);
+        make.width.equalTo(343 * WidthCoefficient);
     }];
     
     UIImageView *imgV = [[UIImageView alloc] init];
@@ -105,8 +115,9 @@
         [label2 makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(60 * WidthCoefficient);
             make.height.equalTo(20 * WidthCoefficient);
-            make.right.equalTo(-10 * WidthCoefficient);
+//            make.right.equalTo(-10 * WidthCoefficient);
             make.top.equalTo(label1);
+            make.left.equalTo(label1.right).offset(10 * WidthCoefficient);
         }];
         
         if (i == 0) {
@@ -168,6 +179,75 @@
     self.speedLabel.text = [NSString stringWithFormat:@"%@km/h",info.properties.averageSpeed];
     self.mileageLabel.text = [NSString stringWithFormat:@"%@km",info.properties.mileage];
     self.fuelLabel.text = [NSString stringWithFormat:@"%@L",info.properties.fuelConsumed];
+}
+
+//- (void)layoutSubviews {
+//    [self changeCellSelectedImage];
+//    [super layoutSubviews];
+//}
+//
+//- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+//    [super setEditing:editing animated:animated];
+//    [self changeCellSelectedImage];
+//}
+
+- (void)resetColor {
+    self.bg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+    
+    
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    [self resetColor];
+    // Configure the view for the selected state
+    if (!self.isEditing) {
+        return;
+    }
+    if (selected) {
+        [self changeCellSelectedImage];
+    }
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    [self resetColor];
+    if (!self.isEditing) {
+        return;
+    }
+    if (highlighted) {
+        [self changeCellSelectedImage];
+    }
+}
+
+- (void)changeCellSelectedImage {
+    //    for (UIView *view in self.subviews) {
+    //
+    //        if ([view isKindOfClass:[UIControl class]])
+    //        {
+    //            for (UIView *subview in view.subviews) {
+    //                if ([subview isKindOfClass:[UIImageView class]]) {
+    //                    [subview setValue:[UIColor colorWithHexString:@"#ac0042"] forKey:@"tintColor"];
+    //                }
+    //            }
+    //        }
+    //    }
+    for (UIControl *control in self.subviews) {
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellEditControl")]) {
+            for (UIView *v in control.subviews) {
+                if ([v isKindOfClass:[UIImageView class]]) {
+                    UIImageView *imgV = (UIImageView *)v;
+                    [imgV setValue:[UIColor colorWithHexString:@"#ac0042"] forKey:@"tintColor"];
+                    //                    //iOS11图片大小不对，舍弃
+                    //                    if (self.selected) {
+                    //                        imgV.image = [UIImage imageNamed:@"selected"];
+                    //                    } else {
+                    //                        imgV.image = [UIImage imageNamed:@"selected_empty"];
+                    //                    }
+                }
+            }
+        }
+    }
 }
 
 @end
