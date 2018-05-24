@@ -235,10 +235,14 @@
                                                   contentMode:PHImageContentModeDefault
                                                       options:options
                                                 resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                                                    [weakSelf.imageArray removeLastObject];
-                                                    [weakSelf.imageArray addObject:result];
-                                                    /** 刷新*/
-                                                    [weakSelf reload];
+                                                    
+                                                    //  非空才进行操作 注意_Nullable,Swift中即为nil,注意判断
+                                                    if (result) {
+                                                        [weakSelf.imageArray removeLastObject];
+                                                        [weakSelf.imageArray addObject:result];
+                                                        /** 刷新*/
+                                                        [weakSelf reload];
+                                                    }
                                                 }];
     }
 }

@@ -68,6 +68,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpUI];
+    [self onInitEvent];
 }
 
 #pragma mark- 搭建界面
@@ -189,6 +190,17 @@
         make.top.mas_equalTo(self.picView).offset(40 * HeightCoefficient);
     }];
     
+    [self.view addSubview:self.commintButton];
+    [self.commintButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.view).offset(52 * WidthCoefficient);
+        make.trailing.mas_equalTo(self.view).offset(-52 * WidthCoefficient);
+        make.top.mas_equalTo(self.picView.mas_bottom).offset(30 * HeightCoefficient);
+        make.height.mas_equalTo(44);
+    }];
+}
+
+#pragma mark- 回调事件
+- (void)onInitEvent {
     __weak typeof(self)weakSelf = self;
     self.choosePicView.pickerCallback = ^(TZImagePickerController *picker){
         [weakSelf presentViewController:picker animated:YES completion:nil];
@@ -197,14 +209,6 @@
     self.choosePicView.imageCountCallback = ^(NSString *imageCount) {
         [weakSelf.picView setImageCount:imageCount];
     };
-    
-    [self.view addSubview:self.commintButton];
-    [self.commintButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(self.view).offset(52 * WidthCoefficient);
-        make.trailing.mas_equalTo(self.view).offset(-52 * WidthCoefficient);
-        make.top.mas_equalTo(self.picView.mas_bottom).offset(30 * HeightCoefficient);
-        make.height.mas_equalTo(44);
-    }];
 }
 
 #pragma mark- 按钮的点击事件
@@ -226,13 +230,13 @@
     }
 }
 
+- (void)commitButtonAction:(UIButton *) button {
+    NSLog("点击了提交按钮")
+}
+
 #pragma mark- 设置按钮在选择与非选择的情况下的样式
 - (void)setButtonBackgroundColor:(UIButton *)button {
     button.backgroundColor = button.isSelected ? [UIColor colorWithHexString:@"AC0042"] : [UIColor colorWithHexString:@"#353535"];
-}
-
-- (void)commitButtonAction:(UIButton *) button {
-    NSLog("点击了提交按钮")
 }
 
 #pragma mark- UITextView的代理
@@ -264,7 +268,7 @@
         _happenLabel = [UILabel new];
         _happenLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         _happenLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        _happenLabel.text = @"请选择问题发生的场景";
+        _happenLabel.text = NSLocalizedString(@"请选择问题发生的场景", nil);
     }
     return _happenLabel;
 }
@@ -284,7 +288,7 @@
         _feedbackLabel = [UILabel new];
         _feedbackLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         _feedbackLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        _feedbackLabel.text = @"意见和反馈";
+        _feedbackLabel.text = NSLocalizedString(@"意见和反馈", nil);
     }
     return _feedbackLabel;
 }
@@ -430,7 +434,7 @@
         _feedbackWarnLabel = [UILabel new];
         _feedbackWarnLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
         _feedbackWarnLabel.textColor = [UIColor colorWithHexString:@"#AC0042"];
-        _feedbackWarnLabel.text = @"请填写不低于5个字的问题描述";
+        _feedbackWarnLabel.text = NSLocalizedString(@"请填写不低于5个字的问题描述", nil);
     }
     return  _feedbackWarnLabel;
 }
