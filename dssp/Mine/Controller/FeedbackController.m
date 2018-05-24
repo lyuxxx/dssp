@@ -232,11 +232,24 @@
 
 - (void)commitButtonAction:(UIButton *) button {
     NSLog("点击了提交按钮")
+    [self showSuccessHub];
 }
 
 #pragma mark- 设置按钮在选择与非选择的情况下的样式
 - (void)setButtonBackgroundColor:(UIButton *)button {
     button.backgroundColor = button.isSelected ? [UIColor colorWithHexString:@"AC0042"] : [UIColor colorWithHexString:@"#353535"];
+}
+
+#pragma mark- 提交成功的Hub
+- (void)showSuccessHub {
+    InputAlertView *inputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    [inputalertView initWithTitle:@"提交成功,谢谢您的反馈" img:@"feedback_success" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"关闭",nil] ];
+    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    [keywindow addSubview: inputalertView];
+    
+    inputalertView.clickBlock = ^(UIButton *btn, NSString *str) {
+        
+    };
 }
 
 #pragma mark- UITextView的代理
