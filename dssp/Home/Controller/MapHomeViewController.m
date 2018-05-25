@@ -18,12 +18,13 @@
 #import "POISendBtn.h"
 #import <CUAlertController.h>
 #import "SearchAroundViewController.h"
+#import "PoiOptionBtn.h"
 
 @interface MapHomeViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) LocationAnnotationView *locationAnnotationView;
 
-@property (nonatomic, strong) UIView *shade;
+@property (nonatomic, strong) UIVisualEffectView *shade;
 
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UITextField *tmpField;
@@ -41,9 +42,9 @@
 @property (nonatomic, strong) UIButton *showBackBtn;
 @property (nonatomic, strong) UIButton *showClearBtn;
 @property (nonatomic, strong) UIView *infoView;
-@property (nonatomic, strong) LeftImgButton *infoFavoriteBtn;
-@property (nonatomic, strong) LeftImgButton *infoAroundBtn;
-@property (nonatomic, strong) LeftImgButton *infoFenceBtn;
+@property (nonatomic, strong) PoiOptionBtn *infoFavoriteBtn;
+@property (nonatomic, strong) PoiOptionBtn *infoAroundBtn;
+@property (nonatomic, strong) PoiOptionBtn *infoFenceBtn;
 
 @property (nonatomic, copy) NSString *city;
 
@@ -119,13 +120,13 @@ static dispatch_once_t mapHomeOnceToken;
     _tmpField.backgroundColor = [UIColor whiteColor];
     _tmpField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"你想要去哪儿?", nil) attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
     _tmpField.layer.cornerRadius = 2;
-    _tmpField.layer.shadowOffset = CGSizeMake(0, 5);
+    _tmpField.layer.shadowOffset = CGSizeMake(0, 2.5);
     _tmpField.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-    _tmpField.layer.shadowRadius = 15;
+    _tmpField.layer.shadowRadius = 6;
     _tmpField.layer.shadowOpacity = 0.5;
     [self.view addSubview:_tmpField];
     [_tmpField makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(360 * WidthCoefficient);
+        make.width.equalTo(359 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(self.view);
         make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
@@ -174,7 +175,7 @@ static dispatch_once_t mapHomeOnceToken;
         [_topBar makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(359 * WidthCoefficient);
             make.height.equalTo(44 * HeightCoefficient);
-//            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+//            make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
             make.top.equalTo(self.view).offset(-50 * HeightCoefficient);
             make.left.equalTo(8 * WidthCoefficient);
         }];
@@ -204,7 +205,7 @@ static dispatch_once_t mapHomeOnceToken;
         _searchField.leftView = self.topBackBtn;
         _searchField.leftViewMode = UITextFieldViewModeAlways;
         [_topBackBtn makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(53 * WidthCoefficient);
+            make.width.equalTo(43 * WidthCoefficient);
             make.height.equalTo(23 * WidthCoefficient);
         }];
         
@@ -244,13 +245,18 @@ static dispatch_once_t mapHomeOnceToken;
         [self.view addSubview:self.resultTable];
         [_resultTable makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(359 * WidthCoefficient);
-            make.height.equalTo(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient);
+            make.height.equalTo(kScreenHeight - kStatusBarHeight - 49 * HeightCoefficient);
             make.left.equalTo(8 * WidthCoefficient);
 //            make.bottom.equalTo(self.view);
-            make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
+            make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 49 * HeightCoefficient + 10 * HeightCoefficient);
         }];
         
         UIView *btnContainer = [[UIView alloc] init];
+        btnContainer.layer.cornerRadius = 2;
+        btnContainer.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+        btnContainer.layer.shadowOffset = CGSizeMake(0, 2.5);
+        btnContainer.layer.shadowRadius = 6;
+        btnContainer.layer.shadowOpacity = 0.5;
         btnContainer.backgroundColor = [UIColor whiteColor];
         [self.tableHeader addSubview:btnContainer];
         [btnContainer makeConstraints:^(MASConstraintMaker *make) {
@@ -436,8 +442,15 @@ static dispatch_once_t mapHomeOnceToken;
 
 - (void)showShade {
     if (!_shade) {
-        _shade = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _shade.backgroundColor = [UIColor colorWithWhite:1 alpha:0.7];
+//        _shade = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//        _shade.backgroundColor = [UIColor colorWithWhite:1 alpha:0.7];
+//        [self.view addSubview:_shade];
+//        [self.view insertSubview:_shade atIndex:4];
+        UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        
+        _shade = [[UIVisualEffectView alloc] initWithEffect:blur];
+        
+        _shade.frame = [UIScreen mainScreen].bounds;
         [self.view addSubview:_shade];
         [self.view insertSubview:_shade atIndex:4];
     }
@@ -460,7 +473,7 @@ static dispatch_once_t mapHomeOnceToken;
     _tmpField.hidden = YES;
     if (fromLeft) {
         [_topBar updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
             make.left.equalTo(-kScreenWidth);
         }];
         [_resultTable updateConstraints:^(MASConstraintMaker *make) {
@@ -476,14 +489,14 @@ static dispatch_once_t mapHomeOnceToken;
         [_resultTable updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(8 * WidthCoefficient);
             //            make.bottom.equalTo(self.view);
-            make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
+            make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 49 * HeightCoefficient + 10 * HeightCoefficient);
         }];
         [self.view layoutIfNeeded];
     }
     if (animated) {
         [UIView animateWithDuration:0.5 animations:^{
             [_topBar updateConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+                make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
                 make.left.equalTo(8 * WidthCoefficient);
             }];
             [_resultTable updateConstraints:^(MASConstraintMaker *make) {
@@ -498,7 +511,7 @@ static dispatch_once_t mapHomeOnceToken;
         }];
     } else {
         [_topBar updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
             make.left.equalTo(8 * WidthCoefficient);
         }];
         [_resultTable updateConstraints:^(MASConstraintMaker *make) {
@@ -524,7 +537,7 @@ static dispatch_once_t mapHomeOnceToken;
         make.top.equalTo(self.view).offset(-50 * HeightCoefficient);
     }];
     [_resultTable updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 54 * HeightCoefficient + 10 * HeightCoefficient);
+        make.bottom.equalTo(self.view).offset(kScreenHeight - kStatusBarHeight - 49 * HeightCoefficient + 10 * HeightCoefficient);
     }];
     [self.view layoutIfNeeded];
     if (_isHome) {
@@ -566,22 +579,22 @@ static dispatch_once_t mapHomeOnceToken;
         _showField.textColor = [UIColor colorWithHexString:@"#040000"];
         _showField.font = [UIFont fontWithName:FontName size:16];
         _showField.layer.cornerRadius = 2;
-        _showField.layer.shadowOffset = CGSizeMake(0, 5);
+        _showField.layer.shadowOffset = CGSizeMake(0, 2.5);
         _showField.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-        _showField.layer.shadowRadius = 15;
+        _showField.layer.shadowRadius = 6;
         _showField.layer.shadowOpacity = 0.5;
         [self.view addSubview:_showField];
         [_showField makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(359 * WidthCoefficient);
             make.height.equalTo(44 * HeightCoefficient);
-            make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+            make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
             make.centerX.equalTo(0);
         }];
         
         _showField.leftView = self.showBackBtn;
         _showField.leftViewMode = UITextFieldViewModeAlways;
         [_showBackBtn makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(53 * WidthCoefficient);
+            make.width.equalTo(43 * WidthCoefficient);
             make.height.equalTo(23 * WidthCoefficient);
         }];
         
@@ -682,12 +695,12 @@ static dispatch_once_t mapHomeOnceToken;
                                ];
         
         for (NSInteger i = 0; i < arr.count; i++) {
-            LeftImgButton *btn = [LeftImgButton buttonWithType:UIButtonTypeCustom];
+            PoiOptionBtn *btn = [PoiOptionBtn buttonWithType:UIButtonTypeCustom];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [btn setTitle:arr[i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:imgTitles[i]] forState:UIControlStateNormal];
-            [btn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+            [btn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
             btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
             [infoBot addSubview:btn];
             [botBtns addObject:btn];
@@ -706,10 +719,10 @@ static dispatch_once_t mapHomeOnceToken;
         
         self.infoFavoriteBtn.selected = isFavorite;
         
-        [botBtns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:36 * WidthCoefficient leadSpacing:20 * WidthCoefficient tailSpacing:20 * WidthCoefficient];
+        [botBtns mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedItemLength:73 * WidthCoefficient leadSpacing:15 * WidthCoefficient tailSpacing:15 * WidthCoefficient];
         [botBtns makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(13 * WidthCoefficient);
-            make.bottom.equalTo(-13 * WidthCoefficient);
+            make.top.equalTo(14 * WidthCoefficient);
+            make.bottom.equalTo(-14 * WidthCoefficient);
         }];
     }];
 }
@@ -926,9 +939,9 @@ static dispatch_once_t mapHomeOnceToken;
         _topBar = [[UIView alloc] init];
         _topBar.backgroundColor = [UIColor whiteColor];
         _topBar.layer.cornerRadius = 2;
-        _topBar.layer.shadowColor = [UIColor colorWithHexString:@"#e7e7e7"].CGColor;
-        _topBar.layer.shadowOffset = CGSizeMake(0, -1.5);
-        _topBar.layer.shadowRadius = 15;
+        _topBar.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+        _topBar.layer.shadowOffset = CGSizeMake(0, 2.5);
+        _topBar.layer.shadowRadius = 6;
         _topBar.layer.shadowOpacity = 0.5;
     }
     return _topBar;
@@ -948,6 +961,7 @@ static dispatch_once_t mapHomeOnceToken;
         _resultTable.backgroundColor = [UIColor clearColor];
         _resultTable.showsVerticalScrollIndicator = NO;
         _resultTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
     }
     return _resultTable;
 }

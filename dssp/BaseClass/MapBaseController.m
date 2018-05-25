@@ -236,12 +236,11 @@ static dispatch_once_t mapBaseOnceToken;
         make.top.equalTo(356 * HeightCoefficient + kStatusBarHeight);
     }];
     
-    _favoriteBtn.layer.masksToBounds = YES;
     _favoriteBtn.layer.cornerRadius = 2;
     _favoriteBtn.layer.shadowOffset = CGSizeMake(0, 2);
     _favoriteBtn.layer.shadowColor = [UIColor colorWithHexString:@"#bbbbbb"].CGColor;
-    _favoriteBtn.layer.shadowRadius = 7.5;
-    _favoriteBtn.layer.shadowOpacity = 0.5;
+    _favoriteBtn.layer.shadowRadius = 3;
+    _favoriteBtn.layer.shadowOpacity = 0.8;
     
     self.carLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_carLocationBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -252,12 +251,11 @@ static dispatch_once_t mapBaseOnceToken;
         make.top.equalTo(_favoriteBtn.bottom).offset(10 * HeightCoefficient);
     }];
     
-    _carLocationBtn.layer.masksToBounds = YES;
     _carLocationBtn.layer.cornerRadius = 2;
     _carLocationBtn.layer.shadowOffset = CGSizeMake(0, 2);
     _carLocationBtn.layer.shadowColor = [UIColor colorWithHexString:@"#bbbbbb"].CGColor;
-    _carLocationBtn.layer.shadowRadius = 7.5;
-    _carLocationBtn.layer.shadowOpacity = 0.5;
+    _carLocationBtn.layer.shadowRadius = 3;
+    _carLocationBtn.layer.shadowOpacity = 0.8;
     
     self.locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_locationBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -268,12 +266,11 @@ static dispatch_once_t mapBaseOnceToken;
         make.top.equalTo(_carLocationBtn.bottom).offset(10 * HeightCoefficient);
     }];
     
-    _locationBtn.layer.masksToBounds = YES;
     _locationBtn.layer.cornerRadius = 2;
     _locationBtn.layer.shadowOffset = CGSizeMake(0, 2);
     _locationBtn.layer.shadowColor = [UIColor colorWithHexString:@"#bbbbbb"].CGColor;
-    _locationBtn.layer.shadowRadius = 7.5;
-    _locationBtn.layer.shadowOpacity = 0.5;
+    _locationBtn.layer.shadowRadius = 3;
+    _locationBtn.layer.shadowOpacity = 0.8;
     
 }
 

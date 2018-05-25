@@ -533,6 +533,9 @@
 		318FF87F20B79DDA008B0CBD /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85420B79DDA008B0CBD /* UIView+Layout.m */; };
 		318FF88020B79DDA008B0CBD /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85420B79DDA008B0CBD /* UIView+Layout.m */; };
 		318FF88120B79DDA008B0CBD /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85420B79DDA008B0CBD /* UIView+Layout.m */; };
+		318FF88420B7B610008B0CBD /* PoiOptionBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF88320B7B610008B0CBD /* PoiOptionBtn.m */; };
+		318FF88520B7B610008B0CBD /* PoiOptionBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF88320B7B610008B0CBD /* PoiOptionBtn.m */; };
+		318FF88620B7B610008B0CBD /* PoiOptionBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF88320B7B610008B0CBD /* PoiOptionBtn.m */; };
 		319096CA20636EAF0032BC43 /* HomeCarLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 319096C920636EAF0032BC43 /* HomeCarLocationCell.m */; };
 		3196AB921FDF717F009B9189 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
 		319A58B820441EFB006837DC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58B720441EFB006837DC /* OrderDetailViewController.m */; };
@@ -872,6 +875,8 @@
 		318FF85220B79DDA008B0CBD /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		318FF85320B79DDA008B0CBD /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		318FF85420B79DDA008B0CBD /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		318FF88220B7B610008B0CBD /* PoiOptionBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoiOptionBtn.h; sourceTree = "<group>"; };
+		318FF88320B7B610008B0CBD /* PoiOptionBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PoiOptionBtn.m; sourceTree = "<group>"; };
 		319096C820636EAF0032BC43 /* HomeCarLocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCarLocationCell.h; sourceTree = "<group>"; };
 		319096C920636EAF0032BC43 /* HomeCarLocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCarLocationCell.m; sourceTree = "<group>"; };
 		3196AB901FDF717F009B9189 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
@@ -1403,6 +1408,8 @@
 				314E05D31FB582D6000550C7 /* TopImgButton.m */,
 				316CCCB21FC57CCC00AFF915 /* LeftImgButton.h */,
 				316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */,
+				318FF88220B7B610008B0CBD /* PoiOptionBtn.h */,
+				318FF88320B7B610008B0CBD /* PoiOptionBtn.m */,
 				31E4E6161FB9295D00BF954E /* HomeTopView.h */,
 				31E4E6171FB9295D00BF954E /* HomeTopView.m */,
 				313AC7DD1FAC5ABD00A3662E /* LocationAnnotationView.h */,
@@ -2583,6 +2590,7 @@
 				3161DDFA206C8AB500D40EE3 /* CommodityBannerCell.m in Sources */,
 				3161DDFB206C8AB500D40EE3 /* TrackSingleCell.m in Sources */,
 				312F70FF2071FFBD0072C824 /* TAAnimatedDotView.m in Sources */,
+				318FF88520B7B610008B0CBD /* PoiOptionBtn.m in Sources */,
 				3161DDFC206C8AB500D40EE3 /* ActivationCodeListViewController.m in Sources */,
 				3161DDFD206C8AB500D40EE3 /* InfoMessage.m in Sources */,
 				3161DDFE206C8AB500D40EE3 /* MapBaseController.m in Sources */,
@@ -2804,6 +2812,7 @@
 				3161DED1206C8ABC00D40EE3 /* DiscoverViewController.m in Sources */,
 				3161DED2206C8ABC00D40EE3 /* CommodityBannerCell.m in Sources */,
 				3161DED3206C8ABC00D40EE3 /* TrackSingleCell.m in Sources */,
+				318FF88620B7B610008B0CBD /* PoiOptionBtn.m in Sources */,
 				312F71002071FFBD0072C824 /* TAAnimatedDotView.m in Sources */,
 				3161DED4206C8ABC00D40EE3 /* ActivationCodeListViewController.m in Sources */,
 				3161DED5206C8ABC00D40EE3 /* InfoMessage.m in Sources */,
@@ -3025,6 +3034,7 @@
 				31B38B9D202C38060086EDC8 /* CommodityBannerCell.m in Sources */,
 				31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */,
 				312F70FE2071FFBD0072C824 /* TAAnimatedDotView.m in Sources */,
+				318FF88420B7B610008B0CBD /* PoiOptionBtn.m in Sources */,
 				31F235D1204170B5002807D2 /* ActivationCodeListViewController.m in Sources */,
 				31AC452B2022E9250044A62C /* InfoMessage.m in Sources */,
 				31A469F01FF1E75100C8236E /* MapBaseController.m in Sources */,
