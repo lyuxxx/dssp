@@ -16,7 +16,6 @@
 #import "StoreObject.h"
 @interface SubscribeViewController ()<WMPageControllerDelegate,WMPageControllerDataSource>
 {
-    
     NSArray *dataArray;
 }
 @property(nonatomic,strong) WMPageController *createPages;
@@ -73,9 +72,7 @@
     [self.view.layer addSublayer:gradient];
     [self.view.layer insertSublayer:gradient atIndex:0];
 
-
-     [self doAskTitleArray];
-
+    [self doAskTitleArray];
 }
 
 -(void)executeNotification
@@ -90,13 +87,9 @@
 //     [self doAskTitleArray];
 }
 
-
 -(void)doAskTitleArray
 {
-    
     NSDictionary *paras = @{
-                            
-                    
                           };
      NSString *channelInfoList = [NSString stringWithFormat:@"%@/0",findAppPushChannelInfoList];
     
@@ -162,7 +155,6 @@
 //    return controller;
 
     self.scrollView.backgroundColor = [UIColor clearColor];
-    
     WMViewController *wmView = [[WMViewController alloc] init];
     NSString *ids =self.idData[index];
     wmView.indexs = ids;
@@ -170,24 +162,17 @@
     return wmView;
 }
 
-
-- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
-    return width + 16;
-}
+//- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
+//    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
+//    return width + 16;
+//}
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
    
     self.progressHeight = 3 * WidthCoefficient;
     self.progressViewCornerRadius = 1.5;
     return CGRectMake(0, 0, kScreenWidth, 44 * WidthCoefficient);
-
 }
-
-
-//- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-//    return CGRectMake(0, 44 * WidthCoefficient, kScreenWidth, kScreenHeight - kNaviHeight - kTabbarHeight -1 - 44 * WidthCoefficient);
-//}
 
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
