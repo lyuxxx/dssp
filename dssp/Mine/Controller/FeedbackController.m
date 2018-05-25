@@ -10,6 +10,7 @@
 #import "PlaceholderTextView.h"
 #import "FeedbackPicView.h"
 #import "FeedbackChoosePicView.h"
+#import "CUHTTPRequestCallback.h"
 
 #define kActivityQuestion 100
 #define kCarQuestion 101
@@ -232,7 +233,84 @@
 
 - (void)commitButtonAction:(UIButton *) button {
     NSLog("点击了提交按钮")
-    [self showSuccessHub];
+    
+    if (self.textView.text.length == 0) {
+        [MBProgressHUD showText:@"输入内容不能为空!"];
+        return;
+    }
+    
+    if (self.textView.text.length < 5) {
+        [MBProgressHUD showText:@"输入内容不能少于5个字!"];
+        return;
+    }
+    
+    CUHTTPRequestCallback * callback = [CUHTTPRequestCallback new];
+    
+    callback.success = ^(id value) {
+        [self showSuccessHub];
+    };
+    
+    callback.failure = ^(NSInteger code) {
+        
+    };
+    
+    [self feedbackRequest:callback];
+}
+
+#pragma mark- 多图上传的网络请求
+- (void)feedbackRequest:(CUHTTPRequestCallback *)callback {
+    //  userId
+    NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    
+    //  vin
+    NSString *vin = kVin;
+    
+    //  question
+    NSString *question = self.textView.text;
+    
+    //  scene
+    NSString * scene = nil;
+    for (UIButton *feedbackButton in self.buttons) {
+        if (feedbackButton.selected) {
+            scene = [feedbackButton titleForState:UIControlStateSelected];
+        }
+    }
+    
+    //  imageDatas
+    NSMutableArray<NSData *> *imageDatas = [NSMutableArray array];
+    if ([self.choosePicView.imageArray count] > 1) {
+        
+        NSArray<UIImage *> *images = self.choosePicView.imageArray;
+        
+        for (UIImage *image in images) {
+            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            if (data) {
+                [imageDatas addObject:data];
+            }
+        }
+        
+        [imageDatas removeLastObject];
+    }
+    
+    NSDictionary *paras = @{
+                            @"vin": vin,
+                            @"userId": userId,
+                            @"question": question,
+                            @"scene": scene
+                            };
+                       
+    [CUHTTPRequest POSTUpload:feedback parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            callback.success(dic[@"msg"]);
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+    } failure:^(NSInteger code) {
+        callback.failure(code);
+    }];
+
 }
 
 #pragma mark- 设置按钮在选择与非选择的情况下的样式

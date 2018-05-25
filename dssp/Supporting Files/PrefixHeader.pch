@@ -334,4 +334,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define queryImgStore [NSString stringWithFormat:@"%@queryImgStore",baseUrl]
 //崩溃日志上传
 #define addAppErrorInfo [NSString stringWithFormat:@"%@addAppErrorInfo",baseUrl]
+//意见反馈
+#define feedback [NSString stringWithFormat:@"%@appQuestion/commit",baseUrl]
 #endif /* PrefixHeader_pch */

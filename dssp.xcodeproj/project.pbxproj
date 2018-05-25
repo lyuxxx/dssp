@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0043E23B20B7DFF900B9A0CD /* CUHTTPRequestCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */; };
+		0043E23C20B7DFF900B9A0CD /* CUHTTPRequestCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */; };
+		0043E23D20B7DFF900B9A0CD /* CUHTTPRequestCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */; };
 		00525DA820B3F5650064B546 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
 		00525DA920B3F5650064B546 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
 		00525DAA20B3F5650064B546 /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
@@ -701,6 +704,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0043E23920B7DFF900B9A0CD /* CUHTTPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUHTTPRequestCallback.h; sourceTree = "<group>"; };
+		0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CUHTTPRequestCallback.m; sourceTree = "<group>"; };
 		00525DA620B3F5650064B546 /* FeedbackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackController.h; sourceTree = "<group>"; };
 		00525DA720B3F5650064B546 /* FeedbackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackController.m; sourceTree = "<group>"; };
 		00525DAB20B40BBB0064B546 /* PlaceholderTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
@@ -1371,6 +1376,8 @@
 				31C504AA2062748A000CFB8F /* CheckVersionView.m */,
 				4551380620AE660100697A8C /* NSString+XY.h */,
 				4551380720AE660100697A8C /* NSString+XY.m */,
+				0043E23920B7DFF900B9A0CD /* CUHTTPRequestCallback.h */,
+				0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2214,6 +2221,7 @@
 					};
 					316CA45A1F9F3475009F541E = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -2557,6 +2565,7 @@
 				3161DDE3206C8AB500D40EE3 /* OrderCell.m in Sources */,
 				318FF87420B79DDA008B0CBD /* TZPhotoPreviewCell.m in Sources */,
 				3161DDE4206C8AB500D40EE3 /* InputAlertView.m in Sources */,
+				0043E23C20B7DFF900B9A0CD /* CUHTTPRequestCallback.m in Sources */,
 				318FF87A20B79DDA008B0CBD /* TZProgressView.m in Sources */,
 				3161DDE5206C8AB500D40EE3 /* TrackDetailViewController.m in Sources */,
 				00525DAE20B40BBB0064B546 /* PlaceholderTextView.m in Sources */,
@@ -2778,6 +2787,7 @@
 				3161DEBA206C8ABC00D40EE3 /* NSString+Size.m in Sources */,
 				318FF87520B79DDA008B0CBD /* TZPhotoPreviewCell.m in Sources */,
 				3161DEBB206C8ABC00D40EE3 /* OrderCell.m in Sources */,
+				0043E23D20B7DFF900B9A0CD /* CUHTTPRequestCallback.m in Sources */,
 				318FF87B20B79DDA008B0CBD /* TZProgressView.m in Sources */,
 				3161DEBC206C8ABC00D40EE3 /* InputAlertView.m in Sources */,
 				00525DAF20B40BBB0064B546 /* PlaceholderTextView.m in Sources */,
@@ -2999,6 +3009,7 @@
 				318B685B202AE4B300962F2A /* OrderCell.m in Sources */,
 				318FF87320B79DDA008B0CBD /* TZPhotoPreviewCell.m in Sources */,
 				456454A11FF09E2700B30401 /* InputAlertView.m in Sources */,
+				0043E23B20B7DFF900B9A0CD /* CUHTTPRequestCallback.m in Sources */,
 				318FF87920B79DDA008B0CBD /* TZProgressView.m in Sources */,
 				31F235D4204171E5002807D2 /* TrackDetailViewController.m in Sources */,
 				00525DAD20B40BBB0064B546 /* PlaceholderTextView.m in Sources */,
@@ -3460,6 +3471,7 @@
 			baseConfigurationReference = FD90459FB3727141B8AEA1F4 /* Pods-dssp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -3488,6 +3500,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "680a849a-31b8-4392-b37a-51848f7c060e";
 				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3499,6 +3512,7 @@
 			baseConfigurationReference = 811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -3622,6 +3636,7 @@
 			baseConfigurationReference = 3BF3BD5A7D333AA69A6F38CC /* Pods-dssp.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
