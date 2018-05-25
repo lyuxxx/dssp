@@ -11,7 +11,7 @@
 #import <YYCategoriesSub/YYCategories.h>
 #import "ModifyPhoneController.h"
 #import <TBActionSheet/TBActionSheet.h>
-#import <TZImagePickerController.h>
+#import "TZImagePickerController.h"
 #import "NicknameViewController.h"
 #import "AFNetworking.h"
 #import "UserModel.h"
