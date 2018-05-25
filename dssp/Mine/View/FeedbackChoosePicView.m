@@ -119,8 +119,9 @@
                                                                                     barTintColor:[UIColor redColor]
                                                                                        tintColor:[UIColor colorWithHexString:GeneralColorString]
                                                                                   titleTextColor:[UIColor colorWithHexString:GeneralColorString]];
-        
-        
+        //  不允许选择视频与GIF
+        picker.allowPickingVideo = NO;
+        picker.allowPickingGif = NO;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             picker.modalPresentationStyle = UIModalPresentationFormSheet;
         }
