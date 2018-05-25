@@ -9,7 +9,7 @@
 #import "FeedbackChoosePicView.h"
 #import "FeedbackTap.h"
 #import "FeedbackShowImageView.h"
-#import <TZImagePickerController/TZImagePickerController.h>
+#import "TZImagePickerController.h"
 #import <Photos/Photos.h>
 
 //  作为控件的imageView的tag值基数
@@ -29,7 +29,7 @@
 
 @implementation FeedbackChoosePicView
 
-#pragma mark- 初始化
+#pragma mark- 初始化#import "TZImagePickerController.h"
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setImage];

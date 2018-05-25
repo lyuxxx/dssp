@@ -12,6 +12,7 @@
 #import "ContractModel.h"
 #import "NSArray+Sudoku.h"
 @interface QueryViewController ()
+
 @property (nonatomic,strong)QueryModel *queryModel;
 @property (nonatomic,strong)ContractModel *contract;
 @end
@@ -26,8 +27,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // 下滑手势
+    UISwipeGestureRecognizer * recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
+    [self.view addGestureRecognizer:recognizer];
+    
     [self requestData];
-//    [self setupUI];
+  
+}
+
+- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
+     [self requestData];
 }
 
 -(void)requestData
@@ -35,24 +46,24 @@
     NSDictionary *paras = @{
                              @"vin": _vin
                            };
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POST:queryBindAndRNRStatus parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            
+              [hud hideAnimated:YES];
            _queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
-//            QueryViewController *queryVC =[[QueryViewController alloc] init];
-//            queryVC.queryModel = queryModel;
-//            [self.navigationController pushViewController:queryVC animated:YES];
-//            NSString *str = [NSString stringWithFormat: @"%@", dic[@"data"]];
+
             NSLog(@"666%@",_queryModel.vhlStatus);
              [self setupUI];
         } else {
+           [hud hideAnimated:YES];
             [self setupUI];
             [MBProgressHUD showText:[dic objectForKey:@"msg"]];
             
         }
     } failure:^(NSInteger code) {
+        [hud hideAnimated:YES];
         [self setupUI];
         [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
     }];
@@ -66,7 +77,7 @@
                         NSLocalizedString(@"T服务套餐开通", nil),
                         NSLocalizedString(@"完成", nil)
                         ];
-    
+
     UIView *lastView = nil;
     for (NSInteger i = 0 ; i < titles.count; i++) {
         UIView *view1 = [[UIView alloc] init];
@@ -277,8 +288,6 @@
             }
             else
             {
-                
-               
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }

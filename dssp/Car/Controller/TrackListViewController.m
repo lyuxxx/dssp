@@ -291,23 +291,25 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(appendListData)];
     footer.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    footer.hidden = YES;
-//    if (@available(iOS 11.0, *)) {
-//        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
-//            footer.maskView = [[UIView alloc] init];
-//            footer.maskView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
-//        }
-//    }
+    if (!self.sections.count) {
+        footer.hidden = YES;
+    }
+    if (@available(iOS 11.0, *)) {
+        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentNever) {
+            footer.maskView = [[UIView alloc] init];
+            footer.maskView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+        }
+    }
     footer.stateLabel.font = [UIFont fontWithName:FontName size:12];
     //    footer.stateLabel.textColor = [UIColor colorWithHexString:@"#333333"];
     if (!self.tableView.mj_footer) {
         self.tableView.mj_footer = footer;
     }
-    /**
+    [self.KVOController unobserve:self.tableView];
     //处理iphoneX显示footer问题
     [self.KVOController observe:self.tableView keyPath:@"contentOffset" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         if (@available(iOS 11.0, *)) {
-            if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
+            if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentNever) {
                 CGFloat distanceToSafeBottom = (self.tableView.contentOffset.y + CGRectGetHeight(self.tableView.frame) - self.view.safeAreaInsets.bottom) - self.tableView.contentSize.height;
                 if (distanceToSafeBottom < 0) {
                     self.tableView.mj_footer.maskView.frame = CGRectZero;
@@ -323,7 +325,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             }
         }
     }];
-    **/
+    
 }
 
 - (void)createBtns {
@@ -416,6 +418,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 
 - (void)hideDeleteButton
 {
+    [self.deleteBtn setTitle:NSLocalizedString(@"删除", nil) forState:UIControlStateNormal];
     [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.bottom);
     }];
@@ -675,13 +678,11 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (void)pullData {
     //清空
     self.currentPage = 1;
-    [self.sections removeAllObjects];
-    [self.tableView reloadData];
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
     NSDictionary *paras = @{
-//                            @"vin":@"VF7CAPSA000020154",
+//                            @"vin":@"LPAA5CJC4H2Z91846",
 //                            @"startTime":@"1519367046000",
 //                                         //1519888479.927832
 //                            @"endTime":@"1519723342000",
@@ -702,11 +703,12 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             _tableView.emptyDataSetDelegate = self;
             _tableView.emptyDataSetSource = self;
             
+            [self.sections removeAllObjects];
             [self appendSections:response.data.result];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hideAnimated:YES];
-                [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
             });
             
             if (self.sections.count) {
@@ -718,17 +720,19 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
             hud.label.text = dic[@"msg"];
             [hud hideAnimated:YES afterDelay:1];
             [self.tableView.mj_header endRefreshing];
+            [self.tableView reloadData];
         }
     } failure:^(NSInteger code) {
         hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
         [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
     }];
 }
 
 - (void)appendListData {
     NSDictionary *paras = @{
-//                            @"vin":@"VF7CAPSA000020154",
+//                            @"vin":@"LPAA5CJC4H2Z91846",
 //                            @"startTime":@"1519367046000",
 //                                         //1519888479.927832
 //                            @"endTime":@"1519723342000",
