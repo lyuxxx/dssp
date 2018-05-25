@@ -342,7 +342,7 @@
     [keywindow addSubview: inputalertView];
     
     inputalertView.clickBlock = ^(UIButton *btn, NSString *str) {
-        
+        [self.navigationController popViewControllerAnimated:YES];
     };
 }
 
