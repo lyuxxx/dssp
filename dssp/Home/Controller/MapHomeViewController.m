@@ -111,7 +111,7 @@ static dispatch_once_t mapHomeOnceToken;
     _tmpField.leftViewMode = UITextFieldViewModeAlways;
     
     [_backBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(53 * WidthCoefficient);
+        make.width.equalTo(43 * WidthCoefficient);
         make.height.equalTo(23 * WidthCoefficient);
     }];
     
@@ -128,7 +128,7 @@ static dispatch_once_t mapHomeOnceToken;
         make.width.equalTo(360 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(self.view);
-        make.top.equalTo(10 * HeightCoefficient + kStatusBarHeight);
+        make.top.equalTo(5 * HeightCoefficient + kStatusBarHeight);
     }];
     weakifySelf
     self.favoriteCallBack = ^(ResultItem *item) {///收藏夹点击回调
