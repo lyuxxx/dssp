@@ -298,8 +298,8 @@
                             @"question": question,
                             @"scene": scene
                             };
-                       
-    [CUHTTPRequest POSTUpload:feedback parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
+    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit";
+    [CUHTTPRequest POSTUpload:testUrl parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
