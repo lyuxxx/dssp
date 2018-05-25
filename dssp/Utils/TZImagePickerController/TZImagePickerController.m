@@ -283,9 +283,9 @@
 
 - (void)configDefaultImageName {
     self.takePictureImageName = @"takePicture80";
-    self.photoSelImageName = @"photo_sel_photoPickerVc";
-    self.photoDefImageName = @"photo_def_photoPickerVc";
-    self.photoNumberIconImage = [self createImageWithColor:nil size:CGSizeMake(48, 48) radius:24]; // @"photo_number_icon";
+    self.photoSelImageName = @"picker_select";//@"photo_sel_photoPickerVc";
+    self.photoDefImageName = @"picker_unselect";//@"photo_def_photoPickerVc";
+    self.photoNumberIconImage = [self createImageWithColor:[UIColor colorWithHexString:@"#AC0042"] size:CGSizeMake(48, 48) radius:24];
     self.photoPreviewOriginDefImageName = @"preview_original_def";
     self.photoOriginDefImageName = @"photo_original_def";
     self.photoOriginSelImageName = @"photo_original_sel";

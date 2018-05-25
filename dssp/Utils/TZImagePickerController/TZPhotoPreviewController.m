@@ -94,13 +94,13 @@
     _naviBar.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:0.7];
     
     _backButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [_backButton setImage:[UIImage imageNamedFromMyBundle:@"navi_back"] forState:UIControlStateNormal];
+    [_backButton setImage:[UIImage imageNamedFromMyBundle:@"arrow_back"/*@"navi_back"*/] forState:UIControlStateNormal];
     [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     _selectButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [_selectButton setImage:tzImagePickerVc.photoDefImage forState:UIControlStateNormal];
-    [_selectButton setImage:tzImagePickerVc.photoSelImage forState:UIControlStateSelected];
+    [_selectButton setImage:[UIImage imageNamed:@"browser_unselect"]/*tzImagePickerVc.photoDefImage*/ forState:UIControlStateNormal];
+    [_selectButton setImage:[UIImage imageNamed:@"browser_select"]/*tzImagePickerVc.photoSelImage*/ forState:UIControlStateSelected];
     _selectButton.imageView.clipsToBounds = YES;
     _selectButton.imageEdgeInsets = UIEdgeInsetsMake(10, 0, 10, 0);
     _selectButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -135,7 +135,7 @@
         [_originalPhotoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_originalPhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_originalPhotoButton setImage:_tzImagePickerVc.photoPreviewOriginDefImage forState:UIControlStateNormal];
-        [_originalPhotoButton setImage:_tzImagePickerVc.photoOriginSelImage forState:UIControlStateSelected];
+        [_originalPhotoButton setImage:[UIImage imageNamed:@"selector_dot"]/*_tzImagePickerVc.photoOriginSelImage*/ forState:UIControlStateSelected];
         
         _originalPhotoLabel = [[UILabel alloc] init];
         _originalPhotoLabel.textAlignment = NSTextAlignmentLeft;

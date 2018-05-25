@@ -122,6 +122,8 @@
         //  不允许选择视频与GIF
         picker.allowPickingVideo = NO;
         picker.allowPickingGif = NO;
+        picker.oKButtonTitleColorNormal = [UIColor colorWithHexString:@"#AC0042"];
+        picker.oKButtonTitleColorDisabled = [UIColor colorWithRed:172/255.0 green:0/255.0 blue:66/255.0 alpha:0.5];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             picker.modalPresentationStyle = UIModalPresentationFormSheet;
         }
@@ -202,7 +204,7 @@
     picker.navigationBar.barTintColor = barTintColor;
     //  设置导航栏的左右按钮的文字与附件颜色
     picker.navigationBar.tintColor = tintColor;
-    picker.barItemTextColor = tintColor;
+    //picker.barItemTextColor = tintColor;
     //  设置返回按钮不显示文字
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-60, 0) forBarMetrics:UIBarMetricsDefault];
     

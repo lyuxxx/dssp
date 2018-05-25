@@ -213,7 +213,7 @@ static CGFloat itemMargin = 5;
         [_originalPhotoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_originalPhotoButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
         [_originalPhotoButton setImage:tzImagePickerVc.photoOriginDefImage forState:UIControlStateNormal];
-        [_originalPhotoButton setImage:tzImagePickerVc.photoOriginSelImage forState:UIControlStateSelected];
+        [_originalPhotoButton setImage:[UIImage imageNamed:@"selector_dot"]/*tzImagePickerVc.photoOriginSelImage*/ forState:UIControlStateSelected];
         _originalPhotoButton.imageView.clipsToBounds = YES;
         _originalPhotoButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _originalPhotoButton.selected = _isSelectOriginalPhoto;
