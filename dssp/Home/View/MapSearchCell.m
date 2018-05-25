@@ -40,7 +40,7 @@
     
     self.subTitleLabel = [[UILabel alloc] init];
     _subTitleLabel.font = [UIFont fontWithName:FontName size:12];
-    _subTitleLabel.textColor = [UIColor colorWithHexString:@"#666666"];
+    _subTitleLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     [self.contentView addSubview:_subTitleLabel];
     [_subTitleLabel makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(239.35 * WidthCoefficient);

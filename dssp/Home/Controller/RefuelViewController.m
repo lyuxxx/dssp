@@ -310,7 +310,7 @@ static dispatch_once_t oilOnceToken;
             [_infoFavoriteBtn setImage:[UIImage imageNamed:@"收藏 4"] forState:UIControlStateNormal];
             [_infoFavoriteBtn setTitle:NSLocalizedString(@"已收藏", nil) forState:UIControlStateSelected];
             [_infoFavoriteBtn setImage:[UIImage imageNamed:@"已收藏"] forState:UIControlStateSelected];
-            [_infoFavoriteBtn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+            [_infoFavoriteBtn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
             _infoFavoriteBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
             [infoTop addSubview:_infoFavoriteBtn];
             [_infoFavoriteBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -433,7 +433,7 @@ static dispatch_once_t oilOnceToken;
             [_detailFavoriteBtn setImage:[UIImage imageNamed:@"收藏 4"] forState:UIControlStateNormal];
             [_detailFavoriteBtn setTitle:NSLocalizedString(@"已收藏", nil) forState:UIControlStateSelected];
             [_detailFavoriteBtn setImage:[UIImage imageNamed:@"已收藏"] forState:UIControlStateSelected];
-            [_detailFavoriteBtn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+            [_detailFavoriteBtn.titleLabel setFont:[UIFont fontWithName:FontName size:13]];
             _detailFavoriteBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
             [_detailTop addSubview:_detailFavoriteBtn];
             [_detailFavoriteBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -476,7 +476,7 @@ static dispatch_once_t oilOnceToken;
             _shrinkBtn.layer.cornerRadius = 1;
             [_shrinkBtn setTitle:NSLocalizedString(@"收起", nil) forState:UIControlStateNormal];
             _shrinkBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-            [_shrinkBtn setTitleColor:[UIColor colorWithHexString:GeneralColorString] forState:UIControlStateNormal];
+            [_shrinkBtn setTitleColor:[UIColor colorWithHexString:@"040000"] forState:UIControlStateNormal];
             [_detailView addSubview:_shrinkBtn];
             [_shrinkBtn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.bottom.equalTo(_detailView);
