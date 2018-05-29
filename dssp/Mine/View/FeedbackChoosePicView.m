@@ -56,6 +56,9 @@
         CGFloat imageViewX = i * (kImageViewWH + margin);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, 0, kImageViewWH, kImageViewWH)];
         imageView.userInteractionEnabled = YES;
+        /** 根据imagView的宽高进行铺满 对于超出的部分不显示*/
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = true;
         imageView.image = self.imageArray[i];
         imageView.tag = kImageTag + i;
         /** 因为最后一个一定是添加的图片，所以给最后一个添加一个点击添加手势*/
