@@ -44,7 +44,7 @@
     _promptLabel = promptLabel;
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(15 * HeightCoefficient);
-        make.leading.mas_equalTo(self).offset(10 * HeightCoefficient);
+        make.leading.mas_equalTo(self).offset(10 * WidthCoefficient);
     }];
     
     UILabel *imageCountLabel = [UILabel new];

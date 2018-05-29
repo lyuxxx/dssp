@@ -29,7 +29,7 @@
 
 @implementation FeedbackChoosePicView
 
-#pragma mark- 初始化#import "TZImagePickerController.h"
+#pragma mark- 初始化
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setImage];
@@ -119,11 +119,6 @@
                                                                                     barTintColor:[UIColor redColor]
                                                                                        tintColor:[UIColor colorWithHexString:GeneralColorString]
                                                                                   titleTextColor:[UIColor colorWithHexString:GeneralColorString]];
-        //  不允许选择视频与GIF
-        picker.allowPickingVideo = NO;
-        picker.allowPickingGif = NO;
-        picker.oKButtonTitleColorNormal = [UIColor colorWithHexString:@"#AC0042"];
-        picker.oKButtonTitleColorDisabled = [UIColor colorWithRed:172/255.0 green:0/255.0 blue:66/255.0 alpha:0.5];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             picker.modalPresentationStyle = UIModalPresentationFormSheet;
         }
@@ -212,6 +207,12 @@
     [picker.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleTextColor,NSForegroundColorAttributeName, nil]];
     //  一直保持有右上角的勾选框
     picker.showSelectBtn = YES;
+    //  不允许选择视频与GIF
+    picker.allowPickingVideo = NO;
+    picker.allowPickingGif = NO;
+    //  修改下面完成按钮的颜色
+    picker.oKButtonTitleColorNormal = [UIColor colorWithHexString:@"#AC0042"];
+    picker.oKButtonTitleColorDisabled = [UIColor colorWithRed:172/255.0 green:0/255.0 blue:66/255.0 alpha:0.5];
     return picker;
     
 }
