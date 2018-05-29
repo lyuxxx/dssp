@@ -298,7 +298,7 @@
                             @"question": question,
                             @"scene": scene
                             };
-    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit";
+    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit"; feedback;
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POSTUpload:testUrl parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
         [hud hideAnimated:true afterDelay:1];
