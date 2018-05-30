@@ -171,7 +171,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     [self createTop];
     [self createTableView];
     [self setupFooter];
-    [self createBtns];
+//    [self createBtns];
     [self pullDefaultData];
 }
 
@@ -295,7 +295,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
         footer.hidden = YES;
     }
     if (@available(iOS 11.0, *)) {
-        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentNever) {
+        if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
             footer.maskView = [[UIView alloc] init];
             footer.maskView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
         }
@@ -309,7 +309,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
     //处理iphoneX显示footer问题
     [self.KVOController observe:self.tableView keyPath:@"contentOffset" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         if (@available(iOS 11.0, *)) {
-            if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentNever) {
+            if (Is_Iphone_X && self.tableView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic) {
                 CGFloat distanceToSafeBottom = (self.tableView.contentOffset.y + CGRectGetHeight(self.tableView.frame) - self.view.safeAreaInsets.bottom) - self.tableView.contentSize.height;
                 if (distanceToSafeBottom < 0) {
                     self.tableView.mj_footer.maskView.frame = CGRectZero;
@@ -842,7 +842,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TrackSingleCell *cell = (TrackSingleCell *)[tableView dequeueReusableCellWithIdentifier:@"TrackSingleCell"];
     [cell configWithTrackInfo:self.sections[indexPath.section].list[indexPath.row]];
-    cell.delegate = self;
+//    cell.delegate = self;
     return cell;
 }
 
@@ -889,7 +889,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 //- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
 //    view.tintColor = [UIColor colorWithHexString:@"040000"];
 //}
-
+/**
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.isEditing) {
         // 多选
@@ -934,7 +934,7 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
         return nil;
     }
 }
-
+**/
 #pragma mark - DZNEmptyDataSetSource -
 
 //- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
@@ -1102,15 +1102,15 @@ typedef NS_ENUM(NSUInteger, ButtonTag) {
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        if (@available(iOS 11.0, *)) {
-            if (Is_Iphone_X) {
-                _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-                _tableView.contentInset = UIEdgeInsetsMake(0, 0, kBottomHeight, 0);
-                _tableView.scrollIndicatorInsets = _tableView.contentInset;
-            }
-        } else {
-            // Fallback on earlier versions
-        }
+//        if (@available(iOS 11.0, *)) {
+//            if (Is_Iphone_X) {
+//                _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+//                _tableView.contentInset = UIEdgeInsetsMake(0, 0, kBottomHeight, 0);
+//                _tableView.scrollIndicatorInsets = _tableView.contentInset;
+//            }
+//        } else {
+//            // Fallback on earlier versions
+//        }
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor clearColor];

@@ -298,7 +298,7 @@
                             @"question": question,
                             @"scene": scene
                             };
-    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit";
+    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit"; feedback;
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     [CUHTTPRequest POSTUpload:testUrl parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
         [hud hideAnimated:true afterDelay:1];
@@ -314,18 +314,6 @@
         [MBProgressHUD showText:[NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code]];
         callback.failure(code);
     }];
-    
-//    [CUHTTPRequest POST:testUrl parameters:paras success:^(id responseData) {
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//
-//        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//            callback.success(dic[@"msg"]);
-//        } else {
-//            [MBProgressHUD showText:dic[@"msg"]];
-//        }
-//    } failure:^(NSInteger code) {
-//        callback.failure(code);
-//    }];
 
 }
 
@@ -549,6 +537,8 @@
 - (FeedbackPicView *)picView {
     if (!_picView) {
         _picView = [FeedbackPicView new];
+        _picView.layer.cornerRadius = 4;
+        _picView.layer.masksToBounds = YES;
     }
     return  _picView;
 }

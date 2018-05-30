@@ -33,10 +33,10 @@
 - (void)setupUI {
     self.backgroundColor = [UIColor clearColor];
     self.contentView.backgroundColor = [UIColor clearColor];
-//    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.frame];
-    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-    self.multipleSelectionBackgroundView = [UIView new];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.frame];
+//    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+//    self.multipleSelectionBackgroundView = [UIView new];
     
     UIView *bg = [[UIView alloc] init];
     self.bg = bg;
@@ -190,7 +190,7 @@
 //    [super setEditing:editing animated:animated];
 //    [self changeCellSelectedImage];
 //}
-
+/**
 - (void)resetColor {
     self.bg.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
     
@@ -249,5 +249,5 @@
         }
     }
 }
-
+**/
 @end
