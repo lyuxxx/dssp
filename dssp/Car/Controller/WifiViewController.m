@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSString *originPassword;
 @property (nonatomic, strong) UIImageView *wifiImg;
 @property (nonatomic, strong) UIImageView *bgImgV;
+@property (nonatomic, strong) UIButton *modifyBtn;
 @end
 
 @implementation WifiViewController
@@ -200,15 +201,15 @@
     }];
     tipLabel.adjustsFontSizeToFitWidth = YES;
     
-    UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    modifyBtn.layer.cornerRadius = 2;
-    [modifyBtn addTarget:self action:@selector(modifyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [modifyBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-    [modifyBtn setTitle:NSLocalizedString(@"修改密码", nil) forState:UIControlStateNormal];
-    [modifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [modifyBtn.titleLabel setFont:[UIFont fontWithName:NSFontAttributeName size:16]];
-    [self.view addSubview:modifyBtn];
-    [modifyBtn makeConstraints:^(MASConstraintMaker *make) {
+    self.modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _modifyBtn.layer.cornerRadius = 2;
+    [_modifyBtn addTarget:self action:@selector(modifyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_modifyBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
+    [_modifyBtn setTitle:NSLocalizedString(@"修改密码", nil) forState:UIControlStateNormal];
+    [_modifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_modifyBtn.titleLabel setFont:[UIFont fontWithName:NSFontAttributeName size:16]];
+    [self.view addSubview:_modifyBtn];
+    [_modifyBtn makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(271 * WidthCoefficient);
         make.height.equalTo(44 * HeightCoefficient);
         make.centerX.equalTo(0);
@@ -239,7 +240,7 @@
 }
 
 - (void)modifyBtnClick:(UIButton *)sender {
-    
+
     if ([KuserName isEqualToString:@"18911568274"]) {
          [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
     }
@@ -253,7 +254,6 @@
         NSString *upper = [_passwordField.text uppercaseString];
         [self modifyWifiWithPassword:upper];
     }
-
 }
 
 - (void)getWifiInfo {
@@ -322,6 +322,36 @@
         hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
     }];
+    
+    __block NSInteger time = 59; //倒计时时间
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        if(time <= 0){ //倒计时结束，关闭
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置按钮的样式
+                [self.modifyBtn setTitle:@"重新修改" forState:UIControlStateNormal];
+                [self.modifyBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
+                [self.modifyBtn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+                self.modifyBtn.userInteractionEnabled = YES;
+            });
+        }else{
+            int seconds = time % 60;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置按钮显示读秒效果
+                [self.modifyBtn setTitle:[NSString stringWithFormat:@"重新修改(%.2ds)", seconds] forState:UIControlStateNormal];
+                [self.modifyBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
+                [self.modifyBtn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+                self.modifyBtn.userInteractionEnabled = NO;
+            });
+            time--;
+        }
+    });
+    dispatch_resume(_timer);
+
+    
 }
 
 - (BOOL)checkWifi:(NSString *)wifi

@@ -806,40 +806,110 @@
                     make.right.equalTo(-15 * WidthCoefficient);
                     make.width.height.equalTo(16 * WidthCoefficient);
                 }];
-                
             }
-            
-            
         }
-        
-        
     }
     
-    
-   
-    
-    
-//    self.unbindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_unbindBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    _unbindBtn.layer.cornerRadius = 2;
-//    [_unbindBtn setTitle:NSLocalizedString(@"解绑车辆", nil) forState:UIControlStateNormal];
-//    [_unbindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    _unbindBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-//    [_unbindBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
-//    [self.view addSubview:_unbindBtn];
-//    [_unbindBtn makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(271 * WidthCoefficient);
-//        make.height.equalTo(44 * HeightCoefficient);
-//        make.centerX.equalTo(0);
-//        make.top.equalTo(whiteV.bottom).offset(25 * HeightCoefficient);
-//    }];
+
+    self.unbindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_unbindBtn addTarget:self action:@selector(UnbindBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _unbindBtn.layer.cornerRadius = 2;
+    [_unbindBtn setTitle:NSLocalizedString(@"解绑车辆", nil) forState:UIControlStateNormal];
+    [_unbindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _unbindBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+    [_unbindBtn setBackgroundColor:[UIColor colorWithHexString:@"#AC0042"]];
+    [self.view addSubview:_unbindBtn];
+    [_unbindBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(271 * WidthCoefficient);
+        make.height.equalTo(44 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(whiteV.bottom).offset(25 * HeightCoefficient);
+    }];
     
 }
 
+//解绑车辆点击事件
+-(void)UnbindBtnClick:(UIButton *)sender
+{
+    if ([KuserName isEqualToString:@"18911568274"]) {
+        [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
+    }
+    else
+    {
+        if (self.unbindBtn == sender) {
+            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [InputalertView initWithTitle:@"是否解绑车辆?" img:@"解绑汽车_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+            //            InputalertView.delegate = self;
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: InputalertView];
+            
+            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                if (btn.tag == 100) {//左边按钮
+                    
+                    //                NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                    //                NSString *vin = [defaults1 objectForKey:@"vin"];
+                    NSDictionary *paras = @{
+                                            @"vin": kVin
+                                            };
+                    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+                    [CUHTTPRequest POST:removeBindRelWithUser parameters:paras success:^(id responseData) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                            [hud hideAnimated:YES];
+                            //响应事件
+                            
+                            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                            [InputalertView initWithTitle:@"车辆解绑成功,返回个人中心" img:@"解绑汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+                            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                            [keywindow addSubview: InputalertView];
+                            
+                            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                                if (btn.tag == 100) {//左边按钮
+                                    
+                                    UIViewController *viewCtl = self.navigationController.viewControllers[0];
+                                    [self.navigationController popToViewController:viewCtl animated:YES];
+                                }
+                                
+                            };
+                            
+                            
+                            
+                            //车辆解绑成功，登录保存的vin置为空字符串
+                            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                            [defaults1 setObject:@"" forKey:@"vin"];
+                            [defaults1 synchronize];
+                            
+                            //车辆解绑成功，和同为空
+                            NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                            [defaults2 setObject:@"" forKey:@"contractStatus"];
+                            [defaults2 synchronize];
+                            
+                            
+                            
+                        } else {
+                            [hud hideAnimated:YES];
+                            [MBProgressHUD showText:dic[@"msg"]];
+                        }
+                    } failure:^(NSInteger code) {
+                        hud.label.text = NSLocalizedString(@"网络异常", nil);
+                        [hud hideAnimated:YES afterDelay:1];
+                    }];
+                }
+                if(btn.tag ==101)
+                {
+                    //右边按钮
+                    NSLog(@"666%@",str);
+                    
+                }
+                
+            };
+        }
+    }
+}
+
+
 -(void)BtnClick:(UIButton *)sender
 {
-    
-   
     if (self.rightBarItem == sender) {
         if (!self.vhl) {
             return;
@@ -874,7 +944,6 @@
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         [hud hideAnimated:YES];
-                        
                         
                         InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
                         [InputalertView initWithTitle:@"车辆信息修改成功,返回个人中心" img:@"绑定汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];

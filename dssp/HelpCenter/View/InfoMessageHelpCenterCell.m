@@ -10,10 +10,12 @@
 #import "EllipsePageControl.h"
 #import "NSString+Size.h"
 #import "NSArray+Sudoku.h"
-
+#import <UIImageView+SDWebImage.h>
+#import "UIImageView+WebCache.h"
 @interface InfoMessageHelpCenterCell () <UIScrollViewDelegate>
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIImageView *avatar;
+@property (nonatomic, strong) UIImageView *bgImg;
 @property (nonatomic, strong) UILabel *nameLabel;
 //@property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UITextView *contentLabel;
@@ -94,10 +96,141 @@
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
         [dataArray1 addObject:@"是"];
         [dataArray1 addObject:@"否"];
-        
+        //没有子节点
         if (array.count == 0) {
-            self.ID = message.serviceParentId;
+            //判断是否有图片
+            if (message.serviceImage)
+            {
+                self.ID = message.serviceParentId;
+                
+                _timeLabel.text = [self stringFromDate:message.time];
+                [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
+                    if (message.showTime) {
+                        make.height.equalTo(20 * WidthCoefficient);
+                    } else {
+                        make.height.equalTo(0 * WidthCoefficient);
+                    }
+                }];
+                
+                _contentLabel.text = message.serviceDetails;
+                CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+                //_contentLabel.backgroundColor =[UIColor redColor];
+                [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(size.height);
+                }];
+                
+        
+                [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@""]];
+                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.height.equalTo(165*WidthCoefficient);
+                }];
+                
+                _contentLabel1.text = @"该提示对您是否有帮助?";
+                CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+                [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(size1.height);
+                }];
+                
+                //不显示线
+                [_line updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(0);
+                }];
+                
+                NSInteger row = 0;
+                row = ceil(dataArray1.count / 2.0f);
+                if (row > 4) {
+                    row = 4;
+                }
+                CGFloat scrollHeight = 31.5 * WidthCoefficient * row + 10 * WidthCoefficient * (row + 1);
+                [_scroll updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(scrollHeight);
+                }];
+                
+                NSInteger page = ceil(dataArray1.count / 8.0f);
+                
+                [self.scrollContentView removeAllSubviews];
+                UIView *lastView;
+                for (NSInteger i = 0; i < page; i++) {
+                    
+                    NSArray *pageArr = [NSArray array];
+                    if (i == page -1) {
+                        pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, (dataArray1.count % 8 == 0) ? 8 : dataArray1.count % 8)];
+                    } else {
+                        pageArr = [dataArray1 subarrayWithRange:NSMakeRange(8 * i, 8)];
+                    }
+                    
+                    UIView *v = [[UIView alloc] init];
+                    [self.scrollContentView addSubview:v];
+                    [v makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.width.equalTo(_scroll);
+                        if (i == 0) {
+                            make.left.equalTo(_scrollContentView);
+                        } else {
+                            make.left.equalTo(lastView.right);
+                        }
+                        //                    if (i == page - 1) {//最后一页
+                        //                        NSInteger pageRows = ceil(pageArr.count / 2.0f);
+                        //                        CGFloat pageHeight = pageRows * 31.5 * WidthCoefficient + (pageRows + 1) * 10 * WidthCoefficient;
+                        //                        make.height.equalTo(pageHeight);
+                        //                    } else {
+                        make.height.equalTo(_scroll);
+                        //                    }
+                    }];
+                    lastView = v;
+                    
+                    
+                    
+                    ///添加button
+                    NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
+                    for (NSInteger j = 0; j < pageArr.count; j++) {
+                        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+                        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                        btn.needNoRepeat = YES;
+                        btn.titleLabel.numberOfLines = 0;
+                        [btn setTitle:pageArr[j] forState:UIControlStateNormal];
+                        
+                        btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
+                        
+                        if (j==0) {
+                            
+                            btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
+                            
+                            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                            //                        [btn setImage:[UIImage imageNamed:@"用户背景"] forState:UIControlStateNormal];
+                        }
+                        else
+                        {
+                            btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
+                            [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+                        }
+                        
+                        btn.layer.cornerRadius = 4;
+                        [v addSubview:btn];
+                        [btns addObject:btn];
+                    }
+                    [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
+                }
+                [lastView makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(_scrollContentView.right);
+                }];
+                
+                
+                [_bubble updateConstraints:^(MASConstraintMaker *make) {
+                    make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
+                }];
+                
+                [self layoutIfNeeded];
+                
+                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
+                _pageControl.currentColor = [UIColor colorWithHexString:GeneralColorString];
+                _pageControl.otherColor = [UIColor colorWithHexString:@"#e6e6e6"];
+                self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
+                
+            }
+            else
+            {
             
+            self.ID = message.serviceParentId;
             _timeLabel.text = [self stringFromDate:message.time];
             [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
                 if (message.showTime) {
@@ -107,13 +240,16 @@
                 }
             }];
             
-            
-            //            NSString *string = [NSString stringWithFormat:@"%@ 该服务对您是否有帮助?", message.serviceDetails];
+          
             _contentLabel.text = message.serviceDetails;
             CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-            //_contentLabel.backgroundColor =[UIColor redColor];
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
+            }];
+                
+    
+            [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.height.equalTo(0 * WidthCoefficient);
             }];
             
             _contentLabel1.text = @"该提示对您是否有帮助?";
@@ -218,8 +354,9 @@
             
             
             self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
+          }
         }
-        
+      
         else
         {
             _scroll.scrollEnabled = YES;
@@ -238,6 +375,12 @@
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
             }];
+            
+          
+            [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                make.height.height.equalTo(0 * WidthCoefficient);
+            }];
+            
             
             _contentLabel1.text = @"";
             [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
@@ -445,6 +588,17 @@
     }];
     
     
+    self.bgImg = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.bgImg];
+    [self.bgImg makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_nameLabel).offset(10 * WidthCoefficient);
+        make.top.equalTo(_contentLabel.bottom).offset(10 * WidthCoefficient);
+        make.width.equalTo(220 * WidthCoefficient);
+        make.height.equalTo(165 * WidthCoefficient);
+    }];
+    
+    
+    
     
 //    self.contentLabel = [[UILabel alloc] init];
 //    _contentLabel.preferredMaxLayoutWidth = 220 * WidthCoefficient;
@@ -469,7 +623,7 @@
     [self.contentView addSubview:_contentLabel1];
     [_contentLabel1 makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_contentLabel);
-        make.top.equalTo(_contentLabel.bottom);
+        make.top.equalTo(_bgImg.bottom);
         make.width.equalTo(_contentLabel);
         make.height.equalTo(0);
     }];

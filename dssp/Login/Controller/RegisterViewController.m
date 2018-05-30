@@ -14,6 +14,8 @@
 #import <CUHTTPRequest/CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
 #import "AgreementViewController.h"
+#import "LoginResult.h"
+#import <YYModel/YYModel.h>
 
 @interface RegisterViewController () <UITextFieldDelegate>
 
@@ -372,8 +374,10 @@
     }
     if (sender == self.registerBtn) {
         [self.view endEditing:YES];
+    
         
         if (_attentionImgV.hidden == NO) {
+
            [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
         }
         else if (_passwordField.text.length <8 || ![self checkPassWord:_passwordField.text])
@@ -575,10 +579,10 @@
     __block NSInteger time = 3;
     
     //缓存
-    NSMutableDictionary *result = [NSMutableDictionary new];
-    [result setObject:@"" forKey:@"userName"];
-    [result setObject:@"" forKey:@"passWord"];
-    CONF_SET(@"user",result);
+//    NSMutableDictionary *result = [NSMutableDictionary new];
+//    [result setObject:@"" forKey:@"userName"];
+//    [result setObject:@"" forKey:@"passWord"];
+//    CONF_SET(@"user",result);
     
     
     UIImageView *container = [[UIImageView alloc] init];
@@ -641,8 +645,141 @@
         time -= 1;
         label2.text = [NSString stringWithFormat:@"%lds后自动跳过",time];
         if (time == 0) {
-            LoginViewController *LoginVC = [[LoginViewController alloc] init];
-            [self presentViewController:LoginVC animated:NO completion:nil];
+          
+            NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+            NSString *cid = [defaults1 objectForKey:@"cid"];
+            NSDictionary *paras = @{
+                                    @"userName": _phoneField.text,
+                                    @"userPassword": [_passwordField.text md5String],
+                                    @"phoneToken":cid
+                                    };
+            
+            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+            [CUHTTPRequest POST:userNameLogins parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                
+                LoginResult *result = [LoginResult yy_modelWithDictionary:dic];
+                if ([result.code isEqualToString:@"200"]) {
+                   [hud hideAnimated:YES];
+//                    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
+                    NSDictionary *dic1 =dic[@"data"];
+                    LoginResultData *loginResult = [LoginResultData yy_modelWithDictionary:dic1];
+                    
+                    NSString *userName = loginResult.userName;
+                    NSString *vin = loginResult.vin;
+                    NSString *vhlTStatus=loginResult.vhlTStatus;
+                    NSString *certificationStatus = loginResult.certificationStatus;
+                    
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setObject:userName forKey:@"userName"];
+                    [defaults synchronize];
+                    
+                    
+                    if ([NSString isBlankString:vin]) {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:@"" forKey:@"vin"];
+                        [defaults1 synchronize];
+                    }
+                    else
+                    {
+                        NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
+                        [defaults1 setObject:vin forKey:@"vin"];
+                        [defaults1 synchronize];
+                        
+                    }
+                    
+                    
+                    if ([NSString isBlankString:vhlTStatus]) {
+                        NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                        [defaults2 setObject:@"" forKey:@"vhlTStatus"];
+                        [defaults2 synchronize];
+                    }
+                    else
+                    {
+                        NSUserDefaults *defaults2 = [NSUserDefaults standardUserDefaults];
+                        [defaults2 setObject:vhlTStatus forKey:@"vhlTStatus"];
+                        [defaults2 synchronize];
+                        
+                    }
+                    
+                    if ([NSString isBlankString:certificationStatus]) {
+                        NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                        [defaults3 setObject:@"" forKey:@"certificationStatus"];
+                        [defaults3 synchronize];
+                    }
+                    else
+                    {
+                        NSUserDefaults *defaults3 = [NSUserDefaults standardUserDefaults];
+                        [defaults3 setObject:certificationStatus forKey:@"certificationStatus"];
+                        [defaults3 synchronize];
+                    }
+                    
+                    //缓存
+                    
+                    NSMutableDictionary *result = [NSMutableDictionary new];
+                    [result setObject:_phoneField.text forKey:@"userName"];
+                    [result setObject:_passwordField.text forKey:@"passWord"];
+                    CONF_SET(@"user",result);
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isRegisterPush"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+//                    VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+//                    vc.hidesBottomBarWhenPushed = YES;
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                    [self pullData1];
+                    
+                    if ([kVin isEqualToString:@""]) {
+
+                        UIViewController *vc = [[NSClassFromString(@"VINBindingViewController") alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        TabBarController *tabVC = [[TabBarController alloc] init];
+                        [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
+                        tabVC.hidesBottomBarWhenPushed =YES;
+                        [(RTRootNavigationController *)tabVC.viewControllers[0] pushViewController:vc animated:NO];
+                        tabVC.hidesBottomBarWhenPushed =NO;
+                        
+                        //            tabVC.selectedIndex = 3;
+                        //            RTRootNavigationController *navi = (RTRootNavigationController *)tabVC.selectedViewController;
+                        //            UIViewController *targetVC = (UIViewController *)navi.visibleViewController;
+                        //            tabVC.hidesBottomBarWhenPushed =YES;
+                        //            [navi pushViewController:vc animated:true];
+                        //            tabVC.hidesBottomBarWhenPushed =NO;
+                        
+                        
+                     
+
+                    }
+                    else
+                    {
+
+                    }
+                    
+                    
+                    
+//                    TabBarController *tabVC = [[TabBarController alloc] init];
+//                    [(RTRootNavigationController *)tabVC.viewControllers[3] pushViewController:<#(nonnull UIViewController *)#> animated:NO];
+//                    [[UIApplication sharedApplication].delegate.window setRootViewController:tabVC];
+//                    [timer invalidate];
+//                    timer = nil;
+                    
+                } else {
+                    
+                    [hud hideAnimated:YES];
+                    hud.label.text = [dic objectForKey:@"msg"];
+                    [hud hideAnimated:YES afterDelay:1];
+                }
+            } failure:^(NSInteger code) {
+              
+                hud.label.text = NSLocalizedString(@"网络异常", nil);
+                [hud hideAnimated:YES afterDelay:1];
+            }];
+            
+            
+      
+            
+//            LoginViewController *LoginVC = [[LoginViewController alloc] init];
+//            [self presentViewController:LoginVC animated:NO completion:nil];
             [timer invalidate];
             timer = nil;
         }
@@ -650,7 +787,6 @@
 }
 
 #pragma mark - UITextFieldDelegate -
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     textField.attributedPlaceholder = nil;
 }

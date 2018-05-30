@@ -273,6 +273,10 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define violationsForApp [NSString stringWithFormat:@"%@violationsForApp",baseUrl]
 ///服务知识库查询
 #define sendToServiceKnowledgeProfileValue [NSString stringWithFormat:@"%@sendToServiceKnowledgeProfileValue",baseUrl]
+//根据关键字查询服务知识信息
+#define findValueBySearchValue [NSString stringWithFormat:@"%@findValueBySearchValue",baseUrl]
+
+
 //电话号码
 #define getDefaultTelephoneNumber [NSString stringWithFormat:@"%@getDefaultTelephoneNumber",baseUrl]
 

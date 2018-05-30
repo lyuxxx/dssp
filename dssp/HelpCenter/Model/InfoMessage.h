@@ -58,11 +58,15 @@ typedef NS_ENUM(NSUInteger, InfoMessageType) {
 @property (nonatomic , copy) NSString              * serviceName;
 @property (nonatomic , copy) NSString              * serviceParentId;
 @property (nonatomic , copy) NSString              * serviceDetails;
+@property (nonatomic , copy) NSString              * serviceImage;
+@property (nonatomic , copy) NSString              * serviceUrl;
+@property (nonatomic , copy) NSString             *isLeaf;
 @property (nonatomic , assign) NSInteger              isHelp;
 @property (nonatomic , assign) NSInteger              noHelp;
 @property (nonatomic , assign) NSInteger              readingNumber;
 @property (nonatomic , assign) NSInteger              createTime;
 @property (nonatomic , assign) NSInteger              lastUpdateTime;
+
 @property (nonatomic , assign) BOOL              parent;
 @property (nonatomic , strong) NSArray <serviceKnowledgeProfileList *>    * serviceKnowledgeProfileList;
 

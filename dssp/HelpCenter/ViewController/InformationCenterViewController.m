@@ -53,7 +53,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.tableView = [[UITableView alloc] init];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50-kBottomHeight) style:UITableViewStylePlain];
     
 //     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
 //    self.tableView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
@@ -91,23 +91,23 @@
     
     
     
-//    // 注册键盘的通知hide or show
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
-//
-//    //给UITableView添加手势
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
-//    tapGesture.delegate = self;
-//    [self.tableView addGestureRecognizer:tapGesture];
-//
-//    //添加输入框
-//    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50)];
-//    self.keyView.backgroundColor = [UIColor colorWithHexString:@"#232120"];
-//
-//    [self.keyView.moreBtn addTarget:self action:@selector(clickSengMsg:) forControlEvents:UIControlEventTouchUpInside];
-//    //设置代理方法
-//    self.keyView.delegate = self;
-//    [self.view addSubview:_keyView];
+    // 注册键盘的通知hide or show
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+
+    //给UITableView添加手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    tapGesture.delegate = self;
+    [self.tableView addGestureRecognizer:tapGesture];
+
+    //添加输入框
+    self.keyView = [[DKSKeyboardView alloc] initWithFrame:CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50)];
+    self.keyView.backgroundColor = [UIColor colorWithHexString:@"#232120"];
+
+    [self.keyView.moreBtn addTarget:self action:@selector(clickSengMsg:) forControlEvents:UIControlEventTouchUpInside];
+    //设置代理方法
+    self.keyView.delegate = self;
+    [self.view addSubview:_keyView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,7 +148,6 @@
             }
         }
     }
-    
 }
 
 -(void)keyboardHides
@@ -158,9 +157,7 @@
         self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50);
         
         self.keyView.frame = CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50);
-        
     });
-    
 }
 
 // 监听键盘隐藏
@@ -169,21 +166,16 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.view.frame = CGRectMake(0,kNaviHeight, kScreenWidth, kScreenHeight);
         self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50);
-        
         self.keyView.frame = CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50);
-
     });
 }
 
-
+//点击输入框上的确定按钮
 - (void)clickSengMsg:(UIButton *)btn
 {
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
-
-    
     if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
-       
 //        dispatch_async(dispatch_get_main_queue(), ^{
             InfoMessage *messageMe = [[InfoMessage alloc] init];
             messageMe.text = self.keyView.textView.text;
@@ -191,20 +183,14 @@
             [self sendMessage:messageMe];
             
 //        });
-        
-    
-        
-
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DKSTextView" object:nil userInfo:nil];
     
-       
-        
+
         NSDictionary *result = CONF_GET(@"resultId");
         NSDictionary *result1 = CONF_GET(@"resultsourceData");
         NSDictionary *result2 = CONF_GET(@"appServiceNum");
         
         NSString *str3 =[result objectForKey:self.keyView.textView.text];
-        
         NSString *str4 =[result1 objectForKey:self.keyView.textView.text];
         NSString *str5 =[result2 objectForKey:self.keyView.textView.text];
         
@@ -215,7 +201,7 @@
                                  @"10003":@"CarflowViewController",
                                  @"10004":@"CarTrackViewController",
                                  @"10005":@"TrafficReportController",
-                                 @"10006":@"DrivingWeekReportViewController",
+                                @"10006":@"DrivingWeekReportViewController",
                                  @"10007":@"LllegalViewController",
                                  @"10013":@"RealVinViewcontroller",
                                  @"10009":@"MapUpdateViewController",
@@ -223,10 +209,7 @@
                                  @"10014":@"StorePageController",
                                  @"10015":@"OrderPageController",
                                  @"10011":@"ParkingViewController"
-                                 
                                  };
-        
-      
         if([dic3 objectForKey:str5])
         {
 //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -250,23 +233,33 @@
         else
         {
             sourceData = str4;
-            
         }
-        
-        self.keyView.textView.text = @"";
+//        self.keyView.textView.text = @"";
         NSDictionary *paras = @{
-                                @"serviceParentId":str3,
-                                @"sourceData":sourceData
+//                                @"serviceParentId":str3,
+//                                @"sourceData":sourceData
+                                @"searchKey":self.keyView.textView.text
                                 };
-        [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+        self.keyView.textView.text = @"";
+        NSString *testUrl = @"http://172.23.102.73:10095/findValueBySearchValue";
+        [CUHTTPRequest POST:findValueBySearchValue parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                NSDictionary *dic1 = dic[@"data"];
-                //                        _dataArray =[[NSMutableArray alloc] init];
-                InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-                message.type = InfoMessageTypeOther;
-                [self sendMessage:message];
+                
+                if (dic[@"data"] != nil && ![ dic[@"data"] isKindOfClass:[NSNull class]] &&  [dic[@"data"] count] != 0) {
+                    NSDictionary *dic1 = dic[@"data"];
+                    InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                    message.type = InfoMessageTypeOther;
+                    [self sendMessage:message];
+                }
+                else
+                {
+                    
+                    [MBProgressHUD showText:dic[@"查询数据失败"]];
+
+                }
+                
                 
             } else {
                 
@@ -278,8 +271,6 @@
                     [self sendMessage:message];
                     
                 });
-              
-                
 //                [MBProgressHUD showText:dic[@"msg"]];
             }
             
@@ -292,7 +283,7 @@
       
 }
 
-//发送的文zi
+//点击键盘上的确定按钮
 - (void)textViewContentText:(NSString *)textStr {
 
     //通知键盘消失
@@ -361,9 +352,8 @@
             
         }
         NSDictionary *paras = @{
-                                @"serviceParentId":str3,
-                                @"sourceData":sourceData
-                                };
+                                    @"searchKey":textStr
+                                    };
         [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
@@ -396,27 +386,27 @@
 }
 
 #pragma mark ====== 点击UITableView ======
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    //收回键盘
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
-//    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-//    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-//        return NO;
-//    }
-//    return YES;
-//}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//    收回键盘
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
+    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
+}
 
-
+//第一次请求数据
 - (void)pullData {
     
     NSDictionary *paras = @{
                             @"serviceParentId":@"0",
                             @"sourceData":@"0"
-                            
                             };
+    
+    NSString *testUrl = @"http://172.23.102.73:10095/sendToServiceKnowledgeProfileValue";
     [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             NSDictionary *dic1 = dic[@"data"];
@@ -524,7 +514,6 @@
                                  
                                      };
             
- 
             if ([sender.titleLabel.text isEqualToString:@"是"]) {
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
@@ -651,7 +640,7 @@
                     //非T车
                     if([CuvhlTStatus isEqualToString:@"0"])
                     {
-                        
+        
                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
@@ -749,6 +738,8 @@
                                         @"serviceParentId":str1,
                                         @"sourceData":sourceData
                                         };
+                
+                NSString *testUrl = @"http://172.23.102.73:10095/sendToServiceKnowledgeProfileValue";
                 [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     
@@ -756,8 +747,17 @@
                         NSDictionary *dic1 = dic[@"data"];
 //                        _dataArray =[[NSMutableArray alloc] init];
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-                        message.type = InfoMessageTypeOther;
-                        [self sendMessage:message];
+                        if (message.serviceImage) {
+                            message.type = InfoMessageTypeOther;
+                            [self sendMessage:message];
+                        }
+                        else
+                        {
+                            message.type = InfoMessageTypeOther;
+                            [self sendMessage:message];
+                        }
+                        
+                       
 
                     } else {
                         [MBProgressHUD showText:dic[@"msg"]];

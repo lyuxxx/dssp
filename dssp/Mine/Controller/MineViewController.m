@@ -88,14 +88,13 @@
     
     _dataArray=@[
                  @[
-                     @[@"coin",@"绑定车辆 / 解绑车辆"],
+//                     @[@"coin",@"绑定车辆 / 解绑车辆"],
                      @[@"汽车信息",@"车辆信息"],
                      @[@"身份证",@"实名制与T服务"],
                      @[@"合同信息",@"服务合同信息"],
                      @[@"密码",@"账户密码管理"],
                      @[@"用户手册_icon",@"用户手册"]
-//                     @[@"关于我们_icon",@"关于我们"],
-//                     @[@"feedback", @"意见反馈"]
+
                     ],
                  @[
                      @[@"关于我们_icon",@"版本信息"],
@@ -483,7 +482,7 @@
 //        NSString *isCodeName = [defaults objectForKey:@"isCodeName"];
         if (indexPath.row==0) {
             
-            cell.lab.text = [kVin isEqualToString:@""]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
+//            cell.lab.text = [kVin isEqualToString:@""]?NSLocalizedString(@"车辆绑定", nil):NSLocalizedString(@"解绑车辆", nil);
             
         }
         if (indexPath.row==1) {
@@ -543,20 +542,21 @@
             }
             else
             {
-                CarUnbindingViewController *vc =[[CarUnbindingViewController alloc] init];
+                CarStatisticsViewController *vc =[[CarStatisticsViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
                
             }
         }
+//        else if (indexPath.row == 1)
+//        {
+//            CarStatisticsViewController *vc=[[CarStatisticsViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+//
+//
+//        }
         else if (indexPath.row == 1)
-        {
-            CarStatisticsViewController *vc=[[CarStatisticsViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-           
-  
-        }else if (indexPath.row == 2)
         {
             
             RealnameViewController *vc=[[RealnameViewController alloc] init];
@@ -564,20 +564,20 @@
             [self.navigationController pushViewController:vc animated:YES];
         
         }
-        else if (indexPath.row == 3)
+        else if (indexPath.row == 2)
         {
             ContractViewController *vc=[[ContractViewController                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
             
-        }else if (indexPath.row == 4)
+        }else if (indexPath.row == 3)
         {
             AccountViewController *vc=[[AccountViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
-        else if (indexPath.row == 5)
+        else if (indexPath.row == 4)
         {
             ManualViewController *vc=[[ManualViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
@@ -663,8 +663,6 @@
 - (void)BtnClick:(UIButton *)sender {
     
     if (sender == self.setBtn) {
-        
-
         if ([kVin isEqualToString:@""]) {
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
