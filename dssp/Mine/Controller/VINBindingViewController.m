@@ -30,23 +30,38 @@
 }
 
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
+    
+    self.rt_disableInteractivePop = YES;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn addTarget:self action:@selector(backToHome2) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"arrow_back"] forState:UIControlStateNormal];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [btn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(24 * WidthCoefficient);
+    }];
+    self.navigationItem.leftBarButtonItem = left;
     // Do any additional setup after loading the view.
     [self setupUI];
+}
+
+- (void)backToHome2 {
+ 
+ [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)setupUI {
     
 //    self.navigationItem.leftBarButtonItem=nil;
-    self.navigationItem.title = NSLocalizedString(@"车辆绑定", nil);
-   
+
     UIView *whiteV = [[UIView alloc] init];
     whiteV.layer.cornerRadius = 2;
-//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-//    whiteV.layer.shadowOpacity = 0.2;
-//    whiteV.layer.shadowRadius = 7;
     whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     [self.view addSubview:whiteV];
     [whiteV makeConstraints:^(MASConstraintMaker *make) {

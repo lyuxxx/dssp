@@ -26,16 +26,59 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
     // 下滑手势
     UISwipeGestureRecognizer * recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
     [self.view addGestureRecognizer:recognizer];
     
+    
+    self.rt_disableInteractivePop = YES;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn addTarget:self action:@selector(backToHome1) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"arrow_back"] forState:UIControlStateNormal];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [btn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(24 * WidthCoefficient);
+    }];
+    self.navigationItem.leftBarButtonItem = left;
+    
     [self requestData];
   
 }
+
+- (void)backToHome1 {
+   
+    if ([self.types isEqualToString:@"2"]) {
+//        for (NSInteger i = 0; i < self.navigationController.viewControllers.count; i++) {
+//            UIViewController *vc = self.navigationController.viewControllers[i];
+//            if ([vc isKindOfClass:NSClassFromString(@"StoreTabViewController")]) {
+//                //            StoreTabViewController *tabVC = (StoreTabViewController *)vc;
+//                //            OrderPageController *pageController = [tabVC gotoOrderPageController];
+//                //            if (pageController.selectIndex != 0) {
+//                //                [pageController.menuView selectItemAtIndex:0];
+//                //            }
+//
+//
+//                [self.navigationController popToViewController:vc animated:YES];
+//            }
+//        }
+        
+         //从实名制与T服务结果查询进来的，就返回第二个界面
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+        
+      
+    }
+    else
+    {
+        //从实名制与T服务结果查询进来的，就直接返回
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+
+}
+
 
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
      [self requestData];
@@ -70,7 +113,7 @@
 }
 
 - (void)setupUI {
-    self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
+   
     NSArray *titles = @[
                         NSLocalizedString(@"实名制认证", nil),
                         NSLocalizedString(@"车辆激活", nil),

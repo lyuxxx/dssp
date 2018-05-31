@@ -11,4 +11,5 @@
 @interface QueryViewController : StoreBaseViewController
 //@property (nonatomic,strong)QueryModel *queryModel;
 @property (nonatomic,strong)NSString *vin;
+@property (nonatomic,strong)NSString *types;
 @end

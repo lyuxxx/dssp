@@ -375,7 +375,6 @@
     if (sender == self.registerBtn) {
         [self.view endEditing:YES];
     
-        
         if (_attentionImgV.hidden == NO) {
 
            [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
@@ -747,15 +746,11 @@
                         //            tabVC.hidesBottomBarWhenPushed =NO;
                         
                         
-                     
-
                     }
                     else
                     {
 
                     }
-                    
-                    
                     
 //                    TabBarController *tabVC = [[TabBarController alloc] init];
 //                    [(RTRootNavigationController *)tabVC.viewControllers[3] pushViewController:<#(nonnull UIViewController *)#> animated:NO];

@@ -222,6 +222,7 @@
             
             QueryViewController *vc = [[QueryViewController alloc] init];
             vc.vin = dic1[@"vin"];
+            vc.types = @"2";
             NSLog(@"666%@",dic1[@"vin"]);
             [self.navigationController pushViewController:vc animated:YES];
         }
