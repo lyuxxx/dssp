@@ -576,6 +576,12 @@
 		31B38BC4202D8B930086EDC8 /* InvoiceEnterpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC3202D8B930086EDC8 /* InvoiceEnterpriseViewController.m */; };
 		31B38BC7202D8E9A0086EDC8 /* OrderSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */; };
 		31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
+		31B7C85D20BF885000FDDE05 /* DrivingReportPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */; };
+		31B7C85E20BF885000FDDE05 /* DrivingReportPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */; };
+		31B7C85F20BF885000FDDE05 /* DrivingReportPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */; };
+		31B7C86220BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */; };
+		31B7C86320BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */; };
+		31B7C86420BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */; };
 		31B9DC91205A71DB00C8B840 /* UIFont+FontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */; };
 		31C112602047E1AC0094B157 /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
 		31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
@@ -954,6 +960,10 @@
 		31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitViewController.m; sourceTree = "<group>"; };
 		31B38BC8202D8F970086EDC8 /* OrderSubmitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderSubmitCell.h; sourceTree = "<group>"; };
 		31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSubmitCell.m; sourceTree = "<group>"; };
+		31B7C85B20BF885000FDDE05 /* DrivingReportPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrivingReportPageController.h; sourceTree = "<group>"; };
+		31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrivingReportPageController.m; sourceTree = "<group>"; };
+		31B7C86020BF88A100FDDE05 /* DrivingMonthReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrivingMonthReportViewController.h; sourceTree = "<group>"; };
+		31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrivingMonthReportViewController.m; sourceTree = "<group>"; };
 		31B9DC8F205A71DB00C8B840 /* UIFont+FontSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontSize.h"; sourceTree = "<group>"; };
 		31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontSize.m"; sourceTree = "<group>"; };
 		31C1125E2047E1AC0094B157 /* TrackSingleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackSingleCell.h; sourceTree = "<group>"; };
@@ -1967,8 +1977,12 @@
 				319A58C620454EEA006837DC /* TrackListViewController.m */,
 				31F235D2204171E4002807D2 /* TrackDetailViewController.h */,
 				31F235D3204171E4002807D2 /* TrackDetailViewController.m */,
+				31B7C85B20BF885000FDDE05 /* DrivingReportPageController.h */,
+				31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */,
 				310368F020469ECC00A9083E /* DrivingWeekReportViewController.h */,
 				310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */,
+				31B7C86020BF88A100FDDE05 /* DrivingMonthReportViewController.h */,
+				31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */,
 				45E56764205610B200B958E8 /* ParkingViewController.h */,
 				45E56765205610B200B958E8 /* ParkingViewController.m */,
 			);
@@ -2550,6 +2564,7 @@
 				3161DDCE206C8AB500D40EE3 /* TrafficReportModel.m in Sources */,
 				3161DDCF206C8AB500D40EE3 /* UpkeepModel.m in Sources */,
 				3161DDD0206C8AB500D40EE3 /* QueryModel.m in Sources */,
+				31B7C86320BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */,
 				3161DDD1206C8AB500D40EE3 /* HomeTopView.m in Sources */,
 				3161DDD2206C8AB500D40EE3 /* ForgotViewController.m in Sources */,
 				3161DDD3206C8AB500D40EE3 /* NSArray+Sudoku.m in Sources */,
@@ -2647,6 +2662,7 @@
 				318FF87D20B79DDA008B0CBD /* TZVideoPlayerController.m in Sources */,
 				3161DE23206C8AB500D40EE3 /* RealVinViewcontroller.m in Sources */,
 				3161DE24206C8AB500D40EE3 /* DrivingWeekReportViewController.m in Sources */,
+				31B7C85E20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				3161DE25206C8AB500D40EE3 /* ManualViewController.m in Sources */,
 				3161DE26206C8AB500D40EE3 /* PersonInCell.m in Sources */,
 				312F70FC2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
@@ -2773,6 +2789,7 @@
 				3161DEA6206C8ABC00D40EE3 /* TrafficReportModel.m in Sources */,
 				3161DEA7206C8ABC00D40EE3 /* UpkeepModel.m in Sources */,
 				3161DEA8206C8ABC00D40EE3 /* QueryModel.m in Sources */,
+				31B7C86420BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */,
 				3161DEA9206C8ABC00D40EE3 /* HomeTopView.m in Sources */,
 				3159476C207F2F4700635781 /* QueryViewController.m in Sources */,
 				3161DEAA206C8ABC00D40EE3 /* ForgotViewController.m in Sources */,
@@ -2870,6 +2887,7 @@
 				318FF87E20B79DDA008B0CBD /* TZVideoPlayerController.m in Sources */,
 				3161DEFA206C8ABC00D40EE3 /* LoginResult.m in Sources */,
 				3161DEFB206C8ABC00D40EE3 /* RealVinViewcontroller.m in Sources */,
+				31B7C85F20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				3161DEFC206C8ABC00D40EE3 /* DrivingWeekReportViewController.m in Sources */,
 				3161DEFD206C8ABC00D40EE3 /* ManualViewController.m in Sources */,
 				3161DEFE206C8ABC00D40EE3 /* PersonInCell.m in Sources */,
@@ -2996,6 +3014,7 @@
 				45153F892041130800C41E10 /* TrafficReportModel.m in Sources */,
 				450644DD20030A4A0099D7AC /* UpkeepModel.m in Sources */,
 				45ABF33620076CE0003FC560 /* QueryModel.m in Sources */,
+				31B7C86220BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
@@ -3093,6 +3112,7 @@
 				318FF87C20B79DDA008B0CBD /* TZVideoPlayerController.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */,
+				31B7C85D20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				454B78C5206272C000FABD60 /* ManualViewController.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
 				312F70FB2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,

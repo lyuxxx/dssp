@@ -505,7 +505,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 107) {
-        UIViewController *vc = [[NSClassFromString(@"DrivingWeekReportViewController") alloc] init];
+        UIViewController *vc = [[NSClassFromString(@"DrivingReportPageController") alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

@@ -1,20 +1,20 @@
 //
-//  DrivingWeekReportViewController.m
+//  DrivingMonthReportViewController.m
 //  dssp
 //
-//  Created by yxliu on 2018/2/28.
+//  Created by yxliu on 2018/5/31.
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import "DrivingWeekReportViewController.h"
+#import "DrivingMonthReportViewController.h"
 #import "DrivingReportObject.h"
 
-@interface DrivingWeekReportViewController ()
+@interface DrivingMonthReportViewController ()
 
 @property (nonatomic, copy) NSString *startTimeStamp;
 @property (nonatomic, copy) NSString *endTimeStamp;
 
-@property (nonatomic, strong) NSArray<DrivingReportWeek *> *reports;
+@property (nonatomic, strong) NSArray<DrivingReportMonth *> *reports;
 @property (nonatomic, strong) UIButton *selectedBtn;
 
 @property (nonatomic, strong) UIScrollView *topScroll;
@@ -37,7 +37,7 @@
 
 @end
 
-@implementation DrivingWeekReportViewController
+@implementation DrivingMonthReportViewController
 
 - (BOOL)needGradientBg {
     return YES;
@@ -52,18 +52,19 @@
     [self clear];
     
     [self pullDefaultData];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DrivingWeekReportViewController"];
+    [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DrivingMonthReportViewController"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [Statistics  staticsvisitTimesDataWithViewControllerType:@"DrivingWeekReportViewController"];
-    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"DrivingWeekReportViewController"];
+    [Statistics  staticsvisitTimesDataWithViewControllerType:@"DrivingMonthReportViewController"];
+    [Statistics staticsstayTimeDataWithType:@"2" WithController:@"DrivingMonthReportViewController"];
 }
 
 - (void)setupUI {
@@ -80,7 +81,7 @@
         scroll;
     });
     
-
+    
     self.contentScroll = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
         scroll.showsVerticalScrollIndicator = NO;
@@ -156,15 +157,15 @@
         }];
         
         NSArray<NSArray *> *stasTitles = @[
-                                @[NSLocalizedString(@"油耗", nil),
-                                  NSLocalizedString(@"平均油耗", nil)],
-                                @[NSLocalizedString(@"汽车制动时间", nil),
-                                  NSLocalizedString(@"疲劳驾驶提醒数", nil)],
-                                @[NSLocalizedString(@"ACC里程", nil),
-                                  NSLocalizedString(@"急刹车", nil)],
-                                @[NSLocalizedString(@"急减速", nil),
-                                  NSLocalizedString(@"急转弯", nil)]
-                                ];
+                                           @[NSLocalizedString(@"油耗", nil),
+                                             NSLocalizedString(@"平均油耗", nil)],
+                                           @[NSLocalizedString(@"汽车制动时间", nil),
+                                             NSLocalizedString(@"疲劳驾驶提醒数", nil)],
+                                           @[NSLocalizedString(@"ACC里程", nil),
+                                             NSLocalizedString(@"急刹车", nil)],
+                                           @[NSLocalizedString(@"急减速", nil),
+                                             NSLocalizedString(@"急转弯", nil)]
+                                           ];
         NSArray<NSArray *> *imgNames = @[
                                          @[@"油耗_icon",
                                            @"平均油耗_icon"],
@@ -291,7 +292,7 @@
         }];
         
         UILabel *title1 = [[UILabel alloc] init];
-        title1.text = NSLocalizedString(@"周里程排名", nil);
+        title1.text = NSLocalizedString(@"月里程排名", nil);
         title1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         title1.textColor = [UIColor whiteColor];
         [self.chartMileageContainer addSubview:title1];
@@ -356,7 +357,7 @@
         }];
         
         UILabel *title2 = [[UILabel alloc] init];
-        title2.text = NSLocalizedString(@"周油耗排名", nil);
+        title2.text = NSLocalizedString(@"月油耗排名", nil);
         title2.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         title2.textColor = [UIColor whiteColor];
         [self.chartFuelContainer addSubview:title2];
@@ -397,8 +398,9 @@
     
 }
 
+
 - (void)pullDefaultData {
-    NSDate *startDate = [[NSDate date] dateByAddingMonths:-6];
+    NSDate *startDate = [[NSDate date] dateByAddingMonths:-3];
     
     self.startTimeStamp = [self convertDateToTimestamp:startDate isStart:YES];
     self.endTimeStamp = [self convertDateToTimestamp:[NSDate date] isStart:NO];
@@ -414,14 +416,14 @@
     
     NSDictionary *paras = @{
                             @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-//                            @"vin":@"LPAA4CDC4H2Z91859",
+                            //                            @"vin":@"LPAA4CDC4H2Z91859",
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp
                             };
     [CUHTTPRequest POST:getDrivingReportWeekURL parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
-            DrivingReportWeekResponse *response = [DrivingReportWeekResponse yy_modelWithJSON:dic];
+            DrivingReportMonthResponse *response = [DrivingReportMonthResponse yy_modelWithJSON:dic];
             self.reports = response.data.record;
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -453,7 +455,7 @@
     self.harshTurnLabel.text = @"-";
 }
 
-- (void)configTopScrollWithReports:(NSArray<DrivingReportWeek *> *)reports {
+- (void)configTopScrollWithReports:(NSArray<DrivingReportMonth *> *)reports {
     [self.topScroll removeAllSubviews];
     
     UIView *content = [[UIView alloc] init];
@@ -465,12 +467,12 @@
     
     UIButton *lastBtn;
     for (NSInteger i = 0; i < reports.count; i++) {
-        DrivingReportWeek *report = reports[i];
+        DrivingReportMonth *report = reports[i];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd";
+        formatter.dateFormat = @"yyyyMM";
         formatter.timeZone = [NSTimeZone localTimeZone];
-        NSDate *startDate = [formatter dateFromString:report.startDate];
-        NSInteger weekOfYear = startDate.weekOfYear;
+        NSDate *startDate = [formatter dateFromString:report.periodMonth];
+        NSInteger month = startDate.month;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -484,7 +486,7 @@
         [btn setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateSelected | UIControlStateHighlighted];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [btn setTitle:[NSString stringWithFormat:@"第%ld周",(long)weekOfYear] forState:UIControlStateNormal];
+        [btn setTitle:[NSString stringWithFormat:@"%ld月",(long)month] forState:UIControlStateNormal];
         [content addSubview:btn];
         
         if (i == 0) {
@@ -494,14 +496,14 @@
             [btn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(content).offset(16 * WidthCoefficient);
                 make.top.equalTo(15 * WidthCoefficient);
-                make.width.equalTo(82 * WidthCoefficient);
+                make.width.equalTo(111 * WidthCoefficient);
                 make.height.equalTo(32 * WidthCoefficient);
             }];
         } else {
             [btn makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(lastBtn.right).offset(5 * WidthCoefficient);
                 make.top.equalTo(15 * WidthCoefficient);
-                make.width.equalTo(82 * WidthCoefficient);
+                make.width.equalTo(111 * WidthCoefficient);
                 make.height.equalTo(32 * WidthCoefficient);
             }];
         }
@@ -527,12 +529,12 @@
     }];
 }
 
-- (void)configWithReport:(DrivingReportWeek *)report {
+- (void)configWithReport:(DrivingReportMonth *)report {
     
     [self clear];
     
     self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.mileage];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",report.startDate,report.endDate];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@",report.periodMonth];
     self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@ L",report.totalFuelConsumed];
     self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@ L",report.averageFuelConsumed];
     self.brakeTimeLabel.text = [NSString stringWithFormat:@"%@ h",report.autoBrakeTimes];
@@ -576,13 +578,12 @@
     
     NSDate *newDate = [cal dateFromComponents:dateComps];
     
-    NSTimeInterval interval = [newDate timeIntervalSince1970];
-    NSString *timeStamp = [NSString stringWithFormat:@"%.0f",interval * 1000];
+    NSString *timeStamp = [NSString stringWithFormat:@"%ld%2ld",newDate.year,newDate.month];
     return timeStamp;
 }
 
 
-- (NSArray<DrivingReportWeek *> *)reports {
+- (NSArray<DrivingReportMonth *> *)reports {
     if (!_reports) {
         _reports = [NSArray array];
     }

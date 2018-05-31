@@ -1845,7 +1845,7 @@ typedef void(^PullWeatherFinished)(void);
                         if([KcontractStatus isEqualToString:@"1"])
                         {
                             //T车辆
-                            NSArray *csS = @[@"TrafficReportController",@"DrivingWeekReportViewController",@"TrackListViewController"];
+                            NSArray *csS = @[@"TrafficReportController",@"DrivingReportPageController",@"TrackListViewController"];
                             UIViewController *vc = [[NSClassFromString(csS[type]) alloc] init];
                             vc.hidesBottomBarWhenPushed = YES;
                             dispatch_async(dispatch_get_main_queue(), ^{

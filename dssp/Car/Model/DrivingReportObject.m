@@ -46,3 +46,24 @@
 @implementation DrivingReportWeekResponse
 
 @end
+
+
+
+
+
+
+@implementation DrivingReportMonth
+
+@end
+
+@implementation DrivingReportMonthResponseData
++ (NSDictionary<NSString *,id> *)modelContainerPropertyGenericClass {
+    return @{
+             @"record": [DrivingReportMonth class]
+             };
+}
+@end
+
+@implementation DrivingReportMonthResponse
+
+@end
