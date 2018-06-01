@@ -33,3 +33,31 @@
 @property (nonatomic, copy) NSString *msg;
 @property (nonatomic, strong) DrivingReportWeekResponseData *data;
 @end
+
+
+
+
+@interface DrivingReportMonth : NSObject <YYModel>
+@property (nonatomic, copy) NSString *periodMonth;
+@property (nonatomic, copy) NSString *vin;
+@property (nonatomic, copy) NSString *mileage;
+@property (nonatomic, copy) NSString *totalFuelConsumed;
+@property (nonatomic, copy) NSString *averageFuelConsumed;
+@property (nonatomic, copy) NSString *driverAttentionTimes;
+@property (nonatomic, copy) NSString *autoBrakeTimes;
+@property (nonatomic, copy) NSString *accMileage;
+@property (nonatomic, copy) NSString *harshAccelerationTimes;
+@property (nonatomic, copy) NSString *harshDecelerationTimes;
+@property (nonatomic, copy) NSString *harshTurnTimes;
+@end
+
+@interface DrivingReportMonthResponseData : NSObject <YYModel>
+@property (nonatomic, assign) NSInteger totalCount;
+@property (nonatomic, strong) NSArray<DrivingReportMonth *> *record;
+@end
+
+@interface DrivingReportMonthResponse : NSObject
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *msg;
+@property (nonatomic, strong) DrivingReportMonthResponseData *data;
+@end
