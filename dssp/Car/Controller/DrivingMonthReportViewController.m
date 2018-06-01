@@ -103,20 +103,26 @@
             make.width.equalTo(scroll);
         }];
         
-        self.statisticsView = [[UIView alloc] init];
-        _statisticsView.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
-        _statisticsView.layer.cornerRadius = 2;
-        _statisticsView.layer.masksToBounds = YES;
-        _statisticsView.layer.shadowOffset = CGSizeMake(0, 6);
-        _statisticsView.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
-        _statisticsView.layer.shadowRadius = 7;
-        _statisticsView.layer.shadowOpacity = 0.5;
-        [content addSubview:_statisticsView];
-        [_statisticsView makeConstraints:^(MASConstraintMaker *make) {
+        UIView *shadowV0 = [[UIView alloc] init];
+        shadowV0.layer.shadowOffset = CGSizeMake(0, 6);
+        shadowV0.layer.shadowRadius = 7;
+        shadowV0.layer.shadowOpacity = 0.5;
+        shadowV0.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
+        [content addSubview:shadowV0];
+        [shadowV0 makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(content).offset(7.5 * WidthCoefficient);
             make.width.equalTo(343 * WidthCoefficient);
             make.height.equalTo(355 * WidthCoefficient);
             make.left.equalTo(16 * WidthCoefficient);
+        }];
+        
+        self.statisticsView = [[UIView alloc] init];
+        _statisticsView.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+        _statisticsView.layer.cornerRadius = 2;
+        _statisticsView.layer.masksToBounds = YES;
+        [shadowV0 addSubview:_statisticsView];
+        [_statisticsView makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(shadowV0);
         }];
         
         UIImageView *imgV0 = [[UIImageView alloc] init];
@@ -269,20 +275,26 @@
             
         }
         
-        self.chartMileageContainer = [[UIView alloc] init];
-        _chartMileageContainer.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
-        _chartMileageContainer.layer.cornerRadius = 2;
-        _chartMileageContainer.layer.masksToBounds = YES;
-        _chartMileageContainer.layer.shadowOffset = CGSizeMake(0, 6);
-        _chartMileageContainer.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
-        _chartMileageContainer.layer.shadowRadius = 7;
-        _chartMileageContainer.layer.shadowOpacity = 0.5;
-        [content addSubview:_chartMileageContainer];
-        [_chartMileageContainer makeConstraints:^(MASConstraintMaker *make) {
+        UIView *shadowV1 = [[UIView alloc] init];
+        shadowV1.layer.shadowOffset = CGSizeMake(0, 6);
+        shadowV1.layer.shadowRadius = 7;
+        shadowV1.layer.shadowOpacity = 0.5;
+        shadowV1.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
+        [content addSubview:shadowV1];
+        [shadowV1 makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.statisticsView.bottom).offset(10 * WidthCoefficient);
             make.width.equalTo(343 * WidthCoefficient);
             make.height.equalTo(281 * WidthCoefficient);
             make.left.equalTo(16 * WidthCoefficient);
+        }];
+        
+        self.chartMileageContainer = [[UIView alloc] init];
+        _chartMileageContainer.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+        _chartMileageContainer.layer.cornerRadius = 2;
+        _chartMileageContainer.layer.masksToBounds = YES;
+        [shadowV1 addSubview:_chartMileageContainer];
+        [_chartMileageContainer makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(shadowV1);
         }];
         
         UIView *redV1 = [[UIView alloc] init];
@@ -333,21 +345,27 @@
             make.top.equalTo(redV1.bottom).offset(15.5 * WidthCoefficient);
         }];
         
-        self.chartFuelContainer = [[UIView alloc] init];
-        _chartFuelContainer.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
-        _chartFuelContainer.layer.cornerRadius = 2;
-        _chartFuelContainer.layer.masksToBounds = YES;
-        _chartFuelContainer.layer.shadowOffset = CGSizeMake(0, 6);
-        _chartFuelContainer.layer.shadowColor = [UIColor colorWithHexString:@"#000000"].CGColor;
-        _chartFuelContainer.layer.shadowRadius = 7;
-        _chartFuelContainer.layer.shadowOpacity = 0.5;
-        [content addSubview:_chartFuelContainer];
-        [_chartFuelContainer makeConstraints:^(MASConstraintMaker *make) {
+        UIView *shadowV2 = [[UIView alloc] init];
+        shadowV2.layer.shadowOffset = CGSizeMake(0, 6);
+        shadowV2.layer.shadowRadius = 7;
+        shadowV2.layer.shadowOpacity = 0.5;
+        shadowV2.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
+        [content addSubview:shadowV2];
+        [shadowV2 makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.chartMileageContainer.bottom).offset(10 * WidthCoefficient);
             make.width.equalTo(343 * WidthCoefficient);
             make.height.equalTo(281 * WidthCoefficient);
             make.left.equalTo(16 * WidthCoefficient);
             make.bottom.equalTo(content).offset(-10 * WidthCoefficient);
+        }];
+        
+        self.chartFuelContainer = [[UIView alloc] init];
+        _chartFuelContainer.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+        _chartFuelContainer.layer.cornerRadius = 2;
+        _chartFuelContainer.layer.masksToBounds = YES;
+        [shadowV2 addSubview:_chartFuelContainer];
+        [_chartFuelContainer makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(shadowV2);
         }];
         
         UIView *redV2 = [[UIView alloc] init];
