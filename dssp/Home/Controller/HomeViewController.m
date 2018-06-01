@@ -95,17 +95,14 @@ typedef void(^PullWeatherFinished)(void);
     self.trafficReporData = nil;
     // 创建信号量
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-    //创建全局并行
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_group_t group = dispatch_group_create();
+    //创建队列
+    dispatch_queue_t queue = dispatch_queue_create("pullData", NULL);
     
-    dispatch_group_enter(group);
-    dispatch_group_async(group, queue, ^{
+    dispatch_async(queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         //请求车辆位置
         if (![KcontractStatus isEqualToString:@"1"]) {
             [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
-            dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
         } else {
             
@@ -121,29 +118,24 @@ typedef void(^PullWeatherFinished)(void);
                         strongifySelf
                         //                self.topView.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
                         self.locationStr = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length];
-                        dispatch_group_leave(group);
                         dispatch_semaphore_signal(semaphore);
                     }];
                 } else {
                     [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
-                    dispatch_group_leave(group);
                     dispatch_semaphore_signal(semaphore);
                 }
             } failure:^(NSInteger code) {
                 [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
-                dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             }];
             
         }
     });
     
-    dispatch_group_enter(group);
-    dispatch_group_async(group, queue, ^{
+    dispatch_async(queue, ^{
         //请求车辆健康状态
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         if (![KcontractStatus isEqualToString:@"1"]) {
-            dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
         } else {
             NSString *numberByVin = [NSString stringWithFormat:@"%@/%@", queryTheVehicleHealthReportForLatestSevenDays,kVin];
@@ -157,21 +149,17 @@ typedef void(^PullWeatherFinished)(void);
                     self.trafficReporData.totalMileage = nil;
                     self.trafficReporData.levelFuel = nil;
                 }
-                dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             } failure:^(NSInteger code) {
-                dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             }];
         }
     });
     
-    dispatch_group_enter(group);
-    dispatch_group_async(group, queue, ^{
+    dispatch_async(queue, ^{
         //请求车辆数据
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         if (![KcontractStatus isEqualToString:@"1"]) {
-            dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
         } else {
             [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@",getVinInfoService,kVin] parameters:@{} success:^(id responseData) {
@@ -180,19 +168,16 @@ typedef void(^PullWeatherFinished)(void);
                     self.trafficReporData.totalMileage = dic[@"data"][@"totalMileage"];
                     self.trafficReporData.levelFuel = dic[@"data"][@"fuelOfLeft"];
                 }
-                dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             } failure:^(NSInteger code) {
                 self.trafficReporData.totalMileage = nil;
                 self.trafficReporData.levelFuel = nil;
-                dispatch_group_leave(group);
                 dispatch_semaphore_signal(semaphore);
             }];
         }
     });
     
-    dispatch_group_enter(group);
-    dispatch_group_async(group, queue, ^{
+    dispatch_async(queue, ^{
         //请求轮播图
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         [CUHTTPRequest POST:homeCarousel parameters:@{} success:^(id responseData) {
@@ -203,23 +188,28 @@ typedef void(^PullWeatherFinished)(void);
             } else {
                 
             }
-            dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
+            
+            //多次请求完成
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
+                //请求天气
+                [self.mgr startUpdatingLocation];
+            });
+            
         } failure:^(NSInteger code) {
-            dispatch_group_leave(group);
             dispatch_semaphore_signal(semaphore);
+            
+            //多次请求完成
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
+                //请求天气
+                [self.mgr startUpdatingLocation];
+            });
+            
         }];
-    });
-    
-    dispatch_group_notify(group, queue, ^{
-        
-        //多次请求完成
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView reloadData];
-            //请求天气
-            [self.mgr startUpdatingLocation];
-        });
     });
     
 }

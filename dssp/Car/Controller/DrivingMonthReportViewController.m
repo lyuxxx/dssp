@@ -8,9 +8,11 @@
 
 #import "DrivingMonthReportViewController.h"
 #import "DrivingReportObject.h"
+#import "RankingObject.h"
 
 @interface DrivingMonthReportViewController ()
 
+//周报告入参
 @property (nonatomic, copy) NSString *startTimeStamp;
 @property (nonatomic, copy) NSString *endTimeStamp;
 
@@ -34,6 +36,9 @@
 @property (nonatomic, strong) UILabel *harshBrakeLabel;
 @property (nonatomic, strong) UILabel *harshDecelerateLabel;
 @property (nonatomic, strong) UILabel *harshTurnLabel;
+
+@property (nonatomic, strong) RankingMonthRecordItem *mileageRanking;
+@property (nonatomic, strong) RankingMonthRecordItem *fuelRanking;
 
 @end
 
@@ -436,6 +441,71 @@
     }];
 }
 
+- (void)pullRankingWithReport:(DrivingReportMonth *)report {
+    
+    self.mileageRanking = nil;
+    self.fuelRanking = nil;
+    
+    NSString *startPara = report.periodMonth;
+    NSString *endPara = report.periodMonth;
+    
+    dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+    dispatch_queue_t queue = dispatch_queue_create("ranking", NULL);
+    dispatch_async(queue, ^{
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageMonthURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                RankingMonthResponse *response = [RankingMonthResponse yy_modelWithJSON:dic];
+                self.mileageRanking = response.data.record[0];
+                
+                dispatch_semaphore_signal(sem);
+            } else {
+                dispatch_semaphore_signal(sem);
+            }
+        } failure:^(NSInteger code) {
+            dispatch_semaphore_signal(sem);
+        }];
+    });
+    
+    dispatch_async(queue, ^{
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelMonthURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                RankingMonthResponse *response = [RankingMonthResponse yy_modelWithJSON:dic];
+                self.fuelRanking = response.data.record[0];
+                
+                dispatch_semaphore_signal(sem);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateChart];
+                });
+                
+            } else {
+                dispatch_semaphore_signal(sem);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateChart];
+                });
+                
+            }
+        } failure:^(NSInteger code) {
+            dispatch_semaphore_signal(sem);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateChart];
+            });
+            
+        }];
+    });
+    
+}
+
+- (void)updateChart {
+    
+}
+
 - (void)clear {
     self.mileageLabel.text = @"-";
     self.timeLabel.text = @"-";
@@ -537,6 +607,8 @@
     self.harshBrakeLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshDecelerationTimes];
     self.harshDecelerateLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshAccelerationTimes];
     self.harshTurnLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshTurnTimes];
+    
+    [self pullRankingWithReport:report];
 }
 
 - (void)btnClick:(UIButton *)sender {

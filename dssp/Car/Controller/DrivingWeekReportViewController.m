@@ -8,9 +8,11 @@
 
 #import "DrivingWeekReportViewController.h"
 #import "DrivingReportObject.h"
+#import "RankingObject.h"
 
 @interface DrivingWeekReportViewController ()
 
+//周报告入参
 @property (nonatomic, copy) NSString *startTimeStamp;
 @property (nonatomic, copy) NSString *endTimeStamp;
 
@@ -34,6 +36,9 @@
 @property (nonatomic, strong) UILabel *harshBrakeLabel;
 @property (nonatomic, strong) UILabel *harshDecelerateLabel;
 @property (nonatomic, strong) UILabel *harshTurnLabel;
+
+@property (nonatomic, strong) RankingWeekRecordItem *mileageRanking;
+@property (nonatomic, strong) RankingWeekRecordItem *fuelRanking;
 
 @end
 
@@ -414,7 +419,7 @@
     
     NSDictionary *paras = @{
                             @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-//                            @"vin":@"LPAA4CDC4H2Z91859",
+//                            @"vin":@"LPAA5CKC1J2074562",
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp
                             };
@@ -438,6 +443,79 @@
         hud.label.text = NSLocalizedString(@"网络异常", nil);
         [hud hideAnimated:YES afterDelay:1];
     }];
+}
+
+- (void)pullRankingWithReport:(DrivingReportWeek *)report {
+    
+    self.mileageRanking = nil;
+    self.fuelRanking = nil;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy/MM/dd";
+    dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    
+    NSString *startStr = report.startDate;
+    NSString *endStr = report.endDate;
+    NSString *startPara = [self convertDateToTimestamp:[dateFormatter dateFromString:startStr] isStart:YES];
+    NSString *endPara = [self convertDateToTimestamp:[dateFormatter dateFromString:endStr] isStart:NO];
+    
+    
+    
+    dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+    dispatch_queue_t queue = dispatch_queue_create("ranking", NULL);
+    dispatch_async(queue, ^{
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                RankingWeekResponse *response = [RankingWeekResponse yy_modelWithJSON:dic];
+                self.mileageRanking = response.data.record[0];
+                
+                dispatch_semaphore_signal(sem);
+            } else {
+                dispatch_semaphore_signal(sem);
+            }
+        } failure:^(NSInteger code) {
+            dispatch_semaphore_signal(sem);
+        }];
+    });
+    
+    dispatch_async(queue, ^{
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                RankingWeekResponse *response = [RankingWeekResponse yy_modelWithJSON:dic];
+                self.fuelRanking = response.data.record[0];
+                
+                dispatch_semaphore_signal(sem);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateChart];
+                });
+                
+            } else {
+                dispatch_semaphore_signal(sem);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateChart];
+                });
+                
+            }
+        } failure:^(NSInteger code) {
+            dispatch_semaphore_signal(sem);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateChart];
+            });
+            
+        }];
+    });
+
+}
+
+- (void)updateChart {
+    
 }
 
 - (void)clear {
@@ -541,6 +619,8 @@
     self.harshBrakeLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshDecelerationTimes];
     self.harshDecelerateLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshAccelerationTimes];
     self.harshTurnLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshTurnTimes];
+    
+    [self pullRankingWithReport:report];
 }
 
 - (void)btnClick:(UIButton *)sender {

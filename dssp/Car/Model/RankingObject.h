@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LevelListItem : NSObject
-@property (nonatomic, copy) NSString *level;
+@interface LevelListItem : NSObject <YYModel>
+@property (nonatomic, assign) NSInteger level;
 @property (nonatomic, copy) NSString *section;
-@property (nonatomic, copy) NSString *levelPercent;
+@property (nonatomic, assign) CGFloat levelPercent;
+//xy轴坐标值
+@property (nonatomic, assign) CGFloat xValue;
+@property (nonatomic, assign) CGFloat yValue;
 @end
 
 @interface RankingWeekRecordItem : NSObject <YYModel>
@@ -21,6 +24,10 @@
 @property (nonatomic, strong) NSArray<LevelListItem *> *levelList;
 @property (nonatomic, copy) NSString *startDate;
 @property (nonatomic, copy) NSString *endDate;
+//计算百分比 里程越多越好,油耗越低越好
+@property (nonatomic, assign) CGFloat mileagePercent;
+@property (nonatomic, assign) CGFloat fuelPercent;
+
 @end
 
 @interface RankingMonthRecordItem : NSObject <YYModel>
@@ -29,6 +36,10 @@
 @property (nonatomic, assign) NSInteger vehicleLevel;
 @property (nonatomic, strong) NSArray<LevelListItem *> *levelList;
 @property (nonatomic, copy) NSString *periodMonth;
+//计算百分比 里程越多越好,油耗越低越好
+@property (nonatomic, assign) CGFloat mileagePercent;
+@property (nonatomic, assign) CGFloat fuelPercent;
+
 @end
 
 
