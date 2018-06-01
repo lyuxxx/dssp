@@ -414,13 +414,7 @@
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
-    NSDictionary *paras = @{
-                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-                            //                            @"vin":@"LPAA4CDC4H2Z91859",
-                            @"startTime":self.startTimeStamp,
-                            @"endTime":self.endTimeStamp
-                            };
-    [CUHTTPRequest POST:getDrivingReportWeekURL parameters:paras success:^(id responseData) {
+    [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@",getDrivingReportMonthURL,kVin,self.startTimeStamp,self.endTimeStamp] parameters:nil success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             DrivingReportMonthResponse *response = [DrivingReportMonthResponse yy_modelWithJSON:dic];
@@ -578,7 +572,7 @@
     
     NSDate *newDate = [cal dateFromComponents:dateComps];
     
-    NSString *timeStamp = [NSString stringWithFormat:@"%ld%2ld",newDate.year,newDate.month];
+    NSString *timeStamp = [NSString stringWithFormat:@"%ld%02ld",newDate.year,newDate.month];
     return timeStamp;
 }
 

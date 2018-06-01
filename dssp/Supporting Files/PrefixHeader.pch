@@ -320,7 +320,16 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 //#define getTrackDetailURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDetailofEachVehicleTripGeo"
 ///驾驶行为报告(周)
 #define getDrivingReportWeekURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachVehicleTripByWeek",baseUrl]
-//#define getDrivingReportWeekURL @"http://sit-dssp.dstsp.com:50001/dssp-dev/v1/core/queryTheDrvingReportforEachVehicleTripByWeek"
+///驾驶行为报告(月)
+#define getDrivingReportMonthURL [NSString stringWithFormat:@"%@queryTheDrvingReportforEachMonth",baseUrl]
+//里程排名(周)
+#define getRankingMileageWeekURL [NSString stringWithFormat:@"%@queryTheVehicleDistributionOfMileageForEachWeek",baseUrl]
+//里程排名(月)
+#define getRankingMileageMonthURL [NSString stringWithFormat:@"%@queryTheVehicleDistributionOfMileageForEachMonth",baseUrl]
+//油耗排名(周)
+#define getRankingFuelWeekURL [NSString stringWithFormat:@"%@queryTheVehicleDistributionOfTheAverageFuelConsumptionForEachWeek",baseUrl]
+//油耗排名(月)
+#define getRankingFuelMonthURL [NSString stringWithFormat:@"%@queryTheVehicleDistributionOfTheAverageFuelConsumptionForEachMonth",baseUrl]
 
 
 ///获取地图升级个数
