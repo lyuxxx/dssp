@@ -708,11 +708,16 @@
 
 - (void)labelClick {
 
-    if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)])
-    {
-        [self.customDelegate sevenProrocolMethod:_URL];
+    if ([_URL isEqualToString:@""] || !_URL) {
+        return;
     }
-
+    else
+    {
+        if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)])
+        {
+            [self.customDelegate sevenProrocolMethod:_URL];
+        }
+    }
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

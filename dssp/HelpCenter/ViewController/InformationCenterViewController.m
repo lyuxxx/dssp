@@ -358,7 +358,7 @@
         }
         NSDictionary *paras = @{
                                     @"searchKey":textStr
-                                    };
+                                };
         [CUHTTPRequest POST:findValueBySearchValue parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
@@ -485,7 +485,10 @@
 //    return 380 * WidthCoefficient;//不要设置的太小
 //}
 //#endif
-
+-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }
@@ -752,7 +755,7 @@
                                         @"sourceData":sourceData
                                         };
                 
-                NSString *testUrl = @"http://172.23.102.73:10095/sendToServiceKnowledgeProfileValue";
+               
                 [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     
