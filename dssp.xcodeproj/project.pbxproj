@@ -83,6 +83,9 @@
 		3151F5AB207362CA0009998D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316CA46C1F9F3475009F541E /* Info.plist */; };
 		3159476C207F2F4700635781 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
 		315EE1071FBD34E800067FC6 /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
+		315F636F20C0E343003D2017 /* RankingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 315F636E20C0E343003D2017 /* RankingObject.m */; };
+		315F637020C0E343003D2017 /* RankingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 315F636E20C0E343003D2017 /* RankingObject.m */; };
+		315F637120C0E343003D2017 /* RankingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 315F636E20C0E343003D2017 /* RankingObject.m */; };
 		3161DDA6206C8AB500D40EE3 /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
 		3161DDA7206C8AB500D40EE3 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* Statistics.m */; };
 		3161DDA8206C8AB500D40EE3 /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
@@ -806,6 +809,8 @@
 		314E05D31FB582D6000550C7 /* TopImgButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopImgButton.m; sourceTree = "<group>"; };
 		315EE1051FBD34E800067FC6 /* RNRInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRInput.h; sourceTree = "<group>"; };
 		315EE1061FBD34E800067FC6 /* RNRInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRInput.m; sourceTree = "<group>"; };
+		315F636D20C0E343003D2017 /* RankingObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingObject.h; sourceTree = "<group>"; };
+		315F636E20C0E343003D2017 /* RankingObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankingObject.m; sourceTree = "<group>"; };
 		3161DE79206C8AB500D40EE3 /* dssp-pre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dssp-pre.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3161DF51206C8ABC00D40EE3 /* dssp-sit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dssp-sit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31699EB51FA87CC100C8FDF8 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -2008,6 +2013,8 @@
 				319A58C320452E22006837DC /* TrackObject.m */,
 				310368F32046B92800A9083E /* DrivingReportObject.h */,
 				310368F42046B92800A9083E /* DrivingReportObject.m */,
+				315F636D20C0E343003D2017 /* RankingObject.h */,
+				315F636E20C0E343003D2017 /* RankingObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2534,6 +2541,7 @@
 				3161DDAF206C8AB500D40EE3 /* HomeBtnsHeader.m in Sources */,
 				3161DDB0206C8AB500D40EE3 /* StoreSingleViewController.m in Sources */,
 				3161DDB1206C8AB500D40EE3 /* WeatherModel.m in Sources */,
+				315F637020C0E343003D2017 /* RankingObject.m in Sources */,
 				3161DDB2206C8AB500D40EE3 /* ContractCell.m in Sources */,
 				3161DDB3206C8AB500D40EE3 /* DKSTextView.m in Sources */,
 				3161DDB4206C8AB500D40EE3 /* InfoMessageHelpCenterCell.m in Sources */,
@@ -2759,6 +2767,7 @@
 				3161DE87206C8ABC00D40EE3 /* HomeBtnsHeader.m in Sources */,
 				3161DE88206C8ABC00D40EE3 /* StoreSingleViewController.m in Sources */,
 				3161DE89206C8ABC00D40EE3 /* WeatherModel.m in Sources */,
+				315F637120C0E343003D2017 /* RankingObject.m in Sources */,
 				3161DE8A206C8ABC00D40EE3 /* ContractCell.m in Sources */,
 				3161DE8B206C8ABC00D40EE3 /* DKSTextView.m in Sources */,
 				3161DE8C206C8ABC00D40EE3 /* InfoMessageHelpCenterCell.m in Sources */,
@@ -2984,6 +2993,7 @@
 				31E7B9682057A419003844E0 /* HomeBtnsHeader.m in Sources */,
 				312FE1BB2029884700B7AE48 /* StoreSingleViewController.m in Sources */,
 				4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */,
+				315F636F20C0E343003D2017 /* RankingObject.m in Sources */,
 				455036091FE246FC0088DAE0 /* ContractCell.m in Sources */,
 				454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */,
 				31AC45312022F0080044A62C /* InfoMessageHelpCenterCell.m in Sources */,
