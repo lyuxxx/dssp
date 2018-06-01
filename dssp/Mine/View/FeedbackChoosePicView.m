@@ -266,9 +266,3 @@
 
 @end
 
-@implementation UIImage (ReDraw)
-
-
-
-@end
-
