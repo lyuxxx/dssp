@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "InfoMessage.h"
+
+@protocol SevenProtocolDelegate <NSObject>
+- (void)sevenProrocolMethod:(NSString *)cellUrl;
+
+@end
+
 typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *ID,NSString *sourceData,NSString *appNum);
 @interface InfoMessageHelpCenterCell : UITableViewCell
 
+@property (nonatomic, weak) id<SevenProtocolDelegate> customDelegate;
 @property (nonatomic, strong) InfoMessage *message;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void(^)(UIButton *,NSString *,NSString *,NSString *,NSString *))block;

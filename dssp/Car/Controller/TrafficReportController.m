@@ -252,23 +252,28 @@ static NSString *const cellID = @"cell";
         make.width.equalTo(70 *WidthCoefficient);
     }];
     
+
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd"];
+    NSString *currentDateStr = [dateFormatter stringFromDate:currentDate];
     
-//    self.bgImgV1 = [[UIImageView alloc] init];
-////    _bgImgV1.backgroundColor=[UIColor redColor];
-//    _bgImgV1.image = [UIImage imageNamed:@"健康车"];
-//    [_headerView addSubview:_bgImgV1];
-//    [_bgImgV1 makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(40 *HeightCoefficient);
-//        make.height.equalTo(201*HeightCoefficient);
-//        make.width.equalTo(375*WidthCoefficient);
-//        make.centerX.equalTo(0);
-//    }];
-//
+    
+    NSTimeInterval  oneDay = 24*60*60*1;  //1天的长度
+    NSDate* theDate = [currentDate initWithTimeIntervalSinceNow:-oneDay*6];
+    NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc] init];
+    [dateFormatter1 setDateFormat:@"MM/dd"];
+    NSString *currentDateStr1 = [dateFormatter1 stringFromDate:theDate];
+    NSLog(@"系统时间为%@",currentDateStr1);
+    
+    
+    NSString *str=[NSString stringWithFormat:@"本报告为%@-%@数据",currentDateStr1,currentDateStr];
+    
     
     UILabel *Lastlabel = [[UILabel alloc] init];
     Lastlabel.font=[UIFont fontWithName:FontName size:12];
     Lastlabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    Lastlabel.text=NSLocalizedString(@"本数据为最新数据", nil);
+    Lastlabel.text=NSLocalizedString(str, nil);
     Lastlabel.textAlignment = NSTextAlignmentCenter;
     [_bgImgV addSubview:Lastlabel];
     [Lastlabel makeConstraints:^(MASConstraintMaker *make) {
@@ -356,8 +361,6 @@ static NSString *const cellID = @"cell";
         }];
      
         
-        
-        
         UIImageView *ImgV = [[UIImageView alloc] init];
         ImgV.image = [UIImage imageNamed:imgs[i]];
         [views addSubview:ImgV];
@@ -366,7 +369,6 @@ static NSString *const cellID = @"cell";
             make.width.equalTo(24*HeightCoefficient);
             make.left.equalTo(10 * WidthCoefficient);
             make.centerY.equalTo(0);
-            
         }];
         
         
@@ -391,12 +393,12 @@ static NSString *const cellID = @"cell";
         bottomlabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
 
         if (i==0) {
+            
           bottomlabel.text=NSLocalizedString(_DataArray[0], nil);
             
         }else if (i==1)
         {
           bottomlabel.text=NSLocalizedString(_DataArray[1], nil);
-            
         }
         else
         {

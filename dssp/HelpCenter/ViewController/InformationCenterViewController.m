@@ -18,7 +18,8 @@
 #import "DKSKeyboardView.h"
 #import <IQKeyboardManager.h>
 #import "RealVinViewcontroller.h"
-@interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource,DKSKeyboardDelegate>
+#import "BaseWebViewController.h"
+@interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource,DKSKeyboardDelegate,SevenProtocolDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DKSKeyboardView *keyView;
 @property (nonatomic, strong) NSMutableArray<InfoMessage *> *dataSource;
@@ -241,7 +242,7 @@
                                 @"searchKey":self.keyView.textView.text
                                 };
         self.keyView.textView.text = @"";
-        NSString *testUrl = @"http://172.23.102.73:10095/findValueBySearchValue";
+       
         [CUHTTPRequest POST:findValueBySearchValue parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
@@ -255,11 +256,15 @@
                 }
                 else
                 {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    InfoMessage *message = [[InfoMessage alloc] init];
+                    message.type = InfoMessageTypeTwo;
+                    message.choices = @[@"确定",@"关闭"];
+                    message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                    [self sendMessage:message];
                     
-                    [MBProgressHUD showText:dic[@"查询数据失败"]];
-
+                });
                 }
-                
                 
             } else {
                 
@@ -354,7 +359,7 @@
         NSDictionary *paras = @{
                                     @"searchKey":textStr
                                     };
-        [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
+        [CUHTTPRequest POST:findValueBySearchValue parameters:paras success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             
             if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
@@ -404,7 +409,6 @@
                             @"sourceData":@"0"
                             };
     
-    NSString *testUrl = @"http://172.23.102.73:10095/sendToServiceKnowledgeProfileValue";
     [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
@@ -490,10 +494,19 @@
     return self.dataSource[indexPath.row].cellHeight;
 }
 
+- (void)sevenProrocolMethod:(NSString *)cellUrl
+{
+    BaseWebViewController *vc = [[BaseWebViewController alloc] initWithURL:cellUrl];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     InfoMessage *message = self.dataSource[indexPath.row];
     
     if (message.type == InfoMessageTypeOther) {
+        
+        
         InfoMessageHelpCenterCell *cell = [InfoMessageHelpCenterCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *str1,NSString *str2,NSString *str3,NSString *str4) {
             
             NSDictionary * dic2 = @{ @"10010":@"MapHomeViewController",
@@ -757,8 +770,6 @@
                             [self sendMessage:message];
                         }
                         
-                       
-
                     } else {
                         [MBProgressHUD showText:dic[@"msg"]];
                     }
@@ -769,6 +780,7 @@
                 }];
             }
         }];
+        cell.customDelegate = self;
         cell.message = message;
         return cell;
     }

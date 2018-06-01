@@ -11,6 +11,7 @@
 #import <CUHTTPRequest.h>
 #import <MBProgressHUD+CU.h>
 #import <IQUIView+IQKeyboardToolbar.h>
+#import "YYText.h"
 
 @interface WifiViewController ()
 @property (nonatomic, strong) UILabel *wifiLabel;
@@ -112,22 +113,18 @@
     }];
     
     
-    
-    
-    UIView *whiteV = [[UIView alloc] init];
-    whiteV.layer.cornerRadius = 4;
-//    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
-//    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
-//    whiteV.layer.shadowOpacity = 0.2;
-//    whiteV.layer.shadowRadius = 7;
-    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
-    [self.view addSubview:whiteV];
-    [whiteV makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(80 * HeightCoefficient);
+    UILabel *tipLabel = [[UILabel alloc] init];
+    tipLabel.text = @"- 请在车辆启动状态下修改WIFI密码 -";
+    tipLabel.font = [UIFont systemFontOfSize:12];
+    tipLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+    [self.view addSubview:tipLabel];
+    [tipLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);
-        make.top.equalTo(_bgImgV.bottom).offset(55*HeightCoefficient);
+        make.top.equalTo(_bgImgV.bottom).offset(5 * HeightCoefficient);
+        make.height.equalTo(15 * HeightCoefficient);
     }];
+    tipLabel.adjustsFontSizeToFitWidth = YES;
+    
     
     
     UIView *redV = [[UIView alloc] init];
@@ -138,7 +135,7 @@
         make.width.equalTo(3 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(16*WidthCoefficient);
-        make.top.equalTo(_bgImgV.bottom).offset(22.5*HeightCoefficient);
+        make.top.equalTo(tipLabel.bottom).offset(20*HeightCoefficient);
     }];
     
     
@@ -152,7 +149,24 @@
         make.width.equalTo(60 * WidthCoefficient);
         make.height.equalTo(20 * HeightCoefficient);
         make.left.equalTo(redV.right).offset(5*WidthCoefficient);
-        make.top.equalTo(_bgImgV.bottom).offset(22.5*HeightCoefficient);
+        make.top.equalTo(tipLabel.bottom).offset(20*HeightCoefficient);
+    }];
+    
+    
+    
+    UIView *whiteV = [[UIView alloc] init];
+    whiteV.layer.cornerRadius = 4;
+    //    whiteV.layer.shadowOffset = CGSizeMake(0, 4);
+    //    whiteV.layer.shadowColor = [UIColor colorWithHexString:@"#d4d4d4"].CGColor;
+    //    whiteV.layer.shadowOpacity = 0.2;
+    //    whiteV.layer.shadowRadius = 7;
+    whiteV.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
+    [self.view addSubview:whiteV];
+    [whiteV makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(343 * WidthCoefficient);
+        make.height.equalTo(80 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(password.bottom).offset(15*HeightCoefficient);
     }];
     
     self.passwordField = [[UITextField alloc] init];
@@ -189,17 +203,18 @@
 //        make.top.equalTo(_passwordField.bottom).offset(14 * HeightCoefficient);
 //    }];
     
-    UILabel *tipLabel = [[UILabel alloc] init];
-    tipLabel.text = @"*请输入除去I、O的字母任意组合的八位字符";
-    tipLabel.font = [UIFont systemFontOfSize:11];
-    tipLabel.textColor = [UIColor colorWithHexString:@"#999999"];
-    [whiteV addSubview:tipLabel];
-    [tipLabel makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *tipLabel1 = [[UILabel alloc] init];
+    tipLabel1.text = @"*请输入除去I、O的字母任意组合的八位字符";
+    tipLabel1.font = [UIFont systemFontOfSize:11];
+    tipLabel1.textColor = [UIColor colorWithHexString:@"#999999"];
+    [whiteV addSubview:tipLabel1];
+    [tipLabel1 makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(0);
         make.top.equalTo(whiteV.bottom).offset(5 * HeightCoefficient);
         make.height.equalTo(15 * HeightCoefficient);
     }];
-    tipLabel.adjustsFontSizeToFitWidth = YES;
+    tipLabel1.adjustsFontSizeToFitWidth = YES;
+    
     
     self.modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _modifyBtn.layer.cornerRadius = 2;
@@ -254,6 +269,7 @@
         NSString *upper = [_passwordField.text uppercaseString];
         [self modifyWifiWithPassword:upper];
     }
+   
 }
 
 - (void)getWifiInfo {
@@ -332,18 +348,19 @@
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置按钮的样式
-                [self.modifyBtn setTitle:@"重新修改" forState:UIControlStateNormal];
+                [self.modifyBtn setTitle:@"修改密码" forState:UIControlStateNormal];
                 [self.modifyBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
-                [self.modifyBtn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+                [self.modifyBtn.titleLabel setFont:[UIFont fontWithName:FontName size:16]];
                 self.modifyBtn.userInteractionEnabled = YES;
             });
         }else{
             int seconds = time % 60;
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置按钮显示读秒效果
-                [self.modifyBtn setTitle:[NSString stringWithFormat:@"重新修改(%.2ds)", seconds] forState:UIControlStateNormal];
+                [self.modifyBtn setTitle:[NSString stringWithFormat:@"修改密码(%.2ds)", seconds] forState:UIControlStateNormal];
                 [self.modifyBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
-                [self.modifyBtn.titleLabel setFont:[UIFont fontWithName:FontName size:12]];
+                [_modifyBtn setBackgroundColor:[UIColor colorWithHexString:@"#999999"]];
+                [self.modifyBtn.titleLabel setFont:[UIFont fontWithName:FontName size:16]];
                 self.modifyBtn.userInteractionEnabled = NO;
             });
             time--;

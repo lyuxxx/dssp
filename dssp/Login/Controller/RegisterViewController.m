@@ -423,45 +423,7 @@
             
             
         }
-        
-        
-//        if (_attentionImgV.hidden == YES && [UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])] && _agreeBtn.selected == YES) {
-//            NSDictionary *paras = @{
-//
-//            @"randomCode": _authField.text,
-//            @"userName": _phoneField.text,
-//            @"userPassword": [_passwordField.text md5String]
-//
-//               };
-//
-//            NSLog(@"6666%@",paras);
-//            MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-//            [CUHTTPRequest POST:registerUrl parameters:paras success:^(id responseData) {
-//                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-//                    [hud hideAnimated:YES];
-//                    [self registerSuccess];
-//                } else {
-//                    hud.label.text = [dic objectForKey:@"msg"];
-//                    [hud hideAnimated:YES afterDelay:1];
-//                }
-//            } failure:^(NSInteger code) {
-//                hud.label.text = [NSString stringWithFormat:@"%@:%ld",NSLocalizedString(@"请求失败", nil),code];
-//                [hud hideAnimated:YES afterDelay:1];
-//            }];
-//        } else {
-//            if (_attentionImgV.hidden == NO) {
-//                [MBProgressHUD showText:NSLocalizedString(@"手机号有误", nil)];
-//            } else {
-//                if (![UIImagePNGRepresentation(_checkImgV.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"check"])]) {
-//                    [MBProgressHUD showText:NSLocalizedString(@"请再次确认密码", nil)];
-//                } else {
-//                    if (_agreeBtn.selected == NO) {
-//                        [MBProgressHUD showText:NSLocalizedString(@"请同意用户协议", nil)];
-//                    }
-//                }
-//            }
-//        }
+
     }
     if (sender == self.skipBtn) {
         TabBarController *tabVC = [[TabBarController alloc] init];
@@ -629,7 +591,7 @@
     
     UILabel *label2 = [[UILabel alloc] init];
     label2.textAlignment = NSTextAlignmentCenter;
-    label2.text = [NSString stringWithFormat:@"%lds后自动跳过",time];
+    label2.text = [NSString stringWithFormat:@"%lds后自动登录",time];
     label2.font = [UIFont fontWithName:FontName size:11];
     label2.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [container addSubview:label2];
@@ -642,7 +604,7 @@
     
     [NSTimer scheduledTimerWithTimeInterval:1 block:^(NSTimer * _Nonnull timer) {
         time -= 1;
-        label2.text = [NSString stringWithFormat:@"%lds后自动跳过",time];
+        label2.text = [NSString stringWithFormat:@"%lds后自动登录",time];
         if (time == 0) {
           
             NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
@@ -729,7 +691,6 @@
 //                    [self pullData1];
                     
                     if ([kVin isEqualToString:@""]) {
-
                         UIViewController *vc = [[NSClassFromString(@"VINBindingViewController") alloc] init];
                         vc.hidesBottomBarWhenPushed = YES;
                         TabBarController *tabVC = [[TabBarController alloc] init];
