@@ -27,3 +27,9 @@ typedef void(^imageCountCallback)(NSString *imageCount);
 @property (nonatomic, copy) imageCountCallback imageCountCallback;
 
 @end
+
+@interface UIImage (ReDraw)
+
+- (UIImage *)reDrawImageWithWidth:(CGFloat)width height:(CGFloat)height;
+
+@end

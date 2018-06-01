@@ -58,8 +58,8 @@
         imageView.userInteractionEnabled = YES;
         /** 根据imagView的宽高进行铺满 对于超出的部分不显示*/
         imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = true;
-        imageView.image = self.imageArray[i];
+        imageView.clipsToBounds = false;
+        imageView.image = [self.imageArray[i] imageByResizeToSize:CGSizeMake(kImageViewWH * kScreenScale, kImageViewWH * kScreenScale) contentMode:UIViewContentModeScaleAspectFill];
         imageView.tag = kImageTag + i;
         /** 因为最后一个一定是添加的图片，所以给最后一个添加一个点击添加手势*/
         if (i == [self.imageArray count] - 1) {
@@ -73,12 +73,14 @@
             /** 为图片添加一个右上角的删除按钮并且添加一个点击显示大图的手势*/
             UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             CGFloat removeX = kImageViewWH * 4 / 5;
-            CGFloat removeW = kImageViewWH / 5;
-            removeBtn.frame = CGRectMake(removeX, 0, removeW, removeW);
-            [removeBtn setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
+            CGFloat removeW = 16 * WidthCoefficient;
+            removeBtn.frame = CGRectMake(0, 0, removeW, removeW);
+            removeBtn.center = CGPointMake(imageView.frame.size.width, imageView.frame.origin.y);
+            [removeBtn setImage:[UIImage imageNamed:@"delete_pic"] forState:UIControlStateNormal];
             [removeBtn addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
             removeBtn.tag = i;
             [imageView addSubview:removeBtn];
+            [imageView bringSubviewToFront:removeBtn];
             
             
             FeedbackTap *tapGes = [[FeedbackTap alloc] initWithTarget:self action:@selector(tapImage:)];
@@ -261,6 +263,12 @@
     }
     return _imageArray;
 }
+
+@end
+
+@implementation UIImage (ReDraw)
+
+
 
 @end
 
