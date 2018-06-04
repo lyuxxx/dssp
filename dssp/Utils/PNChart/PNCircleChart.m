@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import "PNChart/PNCircleChart.h"
+#import "PNCircleChart.h"
 
 @implementation PNCircleChart
 

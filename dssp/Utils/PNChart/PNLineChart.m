@@ -211,7 +211,7 @@
             labelText = xLabels[index];
 
             NSInteger x = 2 * self.chartMarginLeft + (index) * self.xLabelWidth - (self.xLabelWidth/2);//(NSInteger) (index * _xLabelWidth + _chartMarginLeft);
-            NSInteger y = (NSInteger) (_chartMarginBottom + _chartCavanHeight);
+            NSInteger y = (NSInteger) (_chartMarginBottom + _chartCavanHeight) + 7;//xLabel坐标向下偏移
 
             PNChartLabel *label = [[PNChartLabel alloc] initWithFrame:CGRectMake(x, y, (NSInteger) _xLabelWidth, (NSInteger) _chartMarginBottom)];
             [label setTextAlignment:NSTextAlignmentCenter];
@@ -332,7 +332,6 @@
 
 - (void)populateChartLines {
     for (NSUInteger lineIndex = 0; lineIndex < self.chartData.count; lineIndex++) {
-        UIBezierPath *path = [UIBezierPath bezierPath];
         NSArray<UIBezierPath *> *progressLines = self.chartPath[lineIndex];
         // each chart line can be divided into multiple paths because
         // we need ot draw each path with different color
@@ -353,7 +352,6 @@
             [self.layer addSublayer:chartLine];
             [self.chartLineArray[lineIndex] addObject:chartLine];
             progressLineIndex++;
-            [path appendPath:progressLinePath];
         }
     }
 }
@@ -824,7 +822,7 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
             CGPoint point;
             for (NSUInteger i = 0; i < [self.xLabels count]; i++) {
                 point = CGPointMake(2 * _chartMarginLeft + (i * _xLabelWidth), _chartMarginBottom + _chartCavanHeight);
-                CGContextMoveToPoint(ctx, point.x, point.y + 2);//是x轴分割线向下
+                CGContextMoveToPoint(ctx, point.x, point.y + 7);//是x轴分割线向下
                 CGContextAddLineToPoint(ctx, point.x, point.y);
                 CGContextStrokePath(ctx);
             }
@@ -1058,7 +1056,7 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
 - (void)setShadeBackground {
     CAGradientLayer *gradientLayerShade = [[CAGradientLayer alloc] init];
     gradientLayerShade.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    gradientLayerShade.colors = @[(id)[UIColor blueColor].CGColor, (id)[UIColor redColor].CGColor];
+    gradientLayerShade.colors = @[(id)[UIColor colorWithHexString:@"#2687ee"].CGColor, (id)[UIColor colorWithHexString:@"#ac0042"].CGColor];
     gradientLayerShade.startPoint = CGPointMake(0, 0.5);
     gradientLayerShade.endPoint = CGPointMake(1, 0.5);
     gradientLayerShade.locations = @[@0, @1];

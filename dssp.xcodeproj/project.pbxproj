@@ -662,6 +662,9 @@
 		31F70B3220C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
 		31F70B3320C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
 		31F70B3420C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
+		31F70B3720C4D1FB009B2D58 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */; };
+		31F70B3820C4D1FB009B2D58 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */; };
+		31F70B3920C4D1FB009B2D58 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */; };
 		4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99B1FECA94A00A1E47E /* CarflowViewController.m */; };
 		4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99E1FECA97100A1E47E /* UpkeepViewController.m */; };
 		4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A31FECAB0200A1E47E /* CarflowCell.m */; };
@@ -1106,6 +1109,8 @@
 		31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartData.m; sourceTree = "<group>"; };
 		31F70B0020C4CF35009B2D58 /* PNScatterChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartDataItem.h; sourceTree = "<group>"; };
 		31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
+		31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
+		31F70B3620C4D1FB009B2D58 /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
 		3BF3BD5A7D333AA69A6F38CC /* Pods-dssp.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.adhoc.xcconfig"; sourceTree = "<group>"; };
 		4505B99A1FECA94A00A1E47E /* CarflowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarflowViewController.h; sourceTree = "<group>"; };
 		4505B99B1FECA94A00A1E47E /* CarflowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowViewController.m; sourceTree = "<group>"; };
@@ -1456,6 +1461,8 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				31F70B3620C4D1FB009B2D58 /* UICountingLabel.h */,
+				31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */,
 				31F70ADE20C4CF35009B2D58 /* PNChart */,
 				318FF83720B79DDA008B0CBD /* TZImagePickerController */,
 				312F70EB2071FFBD0072C824 /* SDCycleScrollView */,
@@ -2685,6 +2692,7 @@
 				3161DDB7206C8AB500D40EE3 /* BaseViewController.m in Sources */,
 				3161DDB8206C8AB500D40EE3 /* CommodityHeaderView.m in Sources */,
 				3161DDB9206C8AB500D40EE3 /* VhlModel.m in Sources */,
+				31F70B3820C4D1FB009B2D58 /* UICountingLabel.m in Sources */,
 				3161DDBB206C8AB500D40EE3 /* CommodityDescriptionCell.m in Sources */,
 				3161DDBC206C8AB500D40EE3 /* TrafficReportCell.m in Sources */,
 				3161DDBD206C8AB500D40EE3 /* QGLocationTransform.m in Sources */,
@@ -2927,6 +2935,7 @@
 				3161DE8F206C8ABC00D40EE3 /* BaseViewController.m in Sources */,
 				3161DE90206C8ABC00D40EE3 /* CommodityHeaderView.m in Sources */,
 				3161DE91206C8ABC00D40EE3 /* VhlModel.m in Sources */,
+				31F70B3920C4D1FB009B2D58 /* UICountingLabel.m in Sources */,
 				3161DE93206C8ABC00D40EE3 /* CommodityDescriptionCell.m in Sources */,
 				3161DE94206C8ABC00D40EE3 /* TrafficReportCell.m in Sources */,
 				3161DE95206C8ABC00D40EE3 /* QGLocationTransform.m in Sources */,
@@ -3169,6 +3178,7 @@
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				312FE1CF202A9BE100B7AE48 /* CommodityHeaderView.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
+				31F70B3720C4D1FB009B2D58 /* UICountingLabel.m in Sources */,
 				31F235DD204177ED002807D2 /* CommodityDescriptionCell.m in Sources */,
 				45153F8C204113C800C41E10 /* TrafficReportCell.m in Sources */,
 				450644E020032C8F0099D7AC /* QGLocationTransform.m in Sources */,

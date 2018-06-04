@@ -9,6 +9,7 @@
 #import "DrivingWeekReportViewController.h"
 #import "DrivingReportObject.h"
 #import "RankingObject.h"
+#import "PNChart.h"
 
 @interface DrivingWeekReportViewController ()
 
@@ -39,6 +40,9 @@
 
 @property (nonatomic, strong) RankingWeekRecordItem *mileageRanking;
 @property (nonatomic, strong) RankingWeekRecordItem *fuelRanking;
+
+@property (nonatomic, strong) PNLineChart *mileageChart;
+@property (nonatomic, strong) PNLineChart *fuelChart;
 
 @end
 
@@ -295,7 +299,70 @@
         [_chartMileageContainer makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(shadowV1);
         }];
+        /**
+        self.mileageChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 51 * WidthCoefficient, 343 * WidthCoefficient, 210 * WidthCoefficient)];
+        [self.chartMileageContainer addSubview:self.mileageChart];
+        self.mileageChart.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+        self.mileageChart.axisColor = [UIColor colorWithHexString:@"#2f2726"];
+        self.mileageChart.xLabelColor = [UIColor colorWithHexString:@"#999999"];
+        self.mileageChart.showCoordinateAxis = YES;
+        self.mileageChart.yLabelFormat = @"%1.1f";
+        self.mileageChart.xLabelFont = [UIFont fontWithName:FontName size:10];
+        [self.mileageChart setXLabels:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11"]];
+        self.mileageChart.showGenYLabels = NO;
+        self.mileageChart.showYGridLines = NO;
         
+        //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
+        //Only if you needed
+        self.mileageChart.yFixedValueMax = 200;
+        self.mileageChart.yFixedValueMin = 0.0;
+        
+        [self.mileageChart setYLabels:@[
+                                     @"0",
+                                     @"50",
+                                     @"100",
+                                     @"150",
+                                     @"200",
+                                     @"250",
+                                     @"300",
+                                     ]
+         ];
+        
+        // Line Chart #1
+        NSArray *data01Array = @[@124, @134, @128, @127, @144, @139, @134, @134, @132, @130, @116, @95];
+        PNLineChartData *data01 = [PNLineChartData new];
+        data01.dataTitle = @"Alpha";
+        //        data01.color = PNFreshGreen;
+        data01.pointLabelColor = [UIColor blackColor];
+        data01.alpha = 0.3f;
+        data01.showPointLabel = NO;
+        data01.pointLabelFont = [UIFont fontWithName:@"Helvetica-Light" size:9.0];
+        data01.itemCount = data01Array.count;
+        data01.inflexionPointColor = PNRed;
+        data01.inflexionPointStyle = PNLineChartPointStyleNone;
+        data01.getData = ^(NSUInteger index) {
+            CGFloat yValue = [data01Array[index] floatValue];
+            return [PNLineChartDataItem dataItemWithY:yValue];
+        };
+        
+        self.mileageChart.chartData = @[data01];
+        [self.mileageChart.chartData enumerateObjectsUsingBlock:^(PNLineChartData *obj, NSUInteger idx, BOOL *stop) {
+            obj.pointLabelColor = [UIColor blackColor];
+        }];
+        self.mileageChart.displayAnimated = NO;
+        self.mileageChart.showSmoothLines = YES;
+        
+        [self.mileageChart strokeChart];
+        
+        CGPoint p = [((NSArray *)self.mileageChart.pathPoints[0])[1] CGPointValue];
+        UIImageView *v = [[UIImageView alloc] initWithFrame:CGRectMake(p.x - 8, p.y - 8, 16, 16)];
+        v.image = [UIImage imageNamed:@"用户排名位置"];
+        //        [self.lineChart strokeChart];
+        [self.mileageChart addSubview:v];
+        [self.mileageChart bringSubviewToFront:v];
+        
+        [self.chartMileageContainer addSubview:self.mileageChart];
+        **/
         UIView *redV1 = [[UIView alloc] init];
         redV1.layer.cornerRadius = 1.5;
         redV1.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
