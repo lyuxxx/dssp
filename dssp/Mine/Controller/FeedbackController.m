@@ -284,7 +284,7 @@
         NSArray<UIImage *> *images = self.choosePicView.imageArray;
         
         for (UIImage *image in images) {
-            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            NSData *data = UIImageJPEGRepresentation(image, 0.5);
             if (data) {
                 [imageDatas addObject:data];
             }
@@ -299,9 +299,9 @@
                             @"question": question,
                             @"scene": scene
                             };
-    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit"; feedback;
+    NSString *testUrl = @"http://172.23.105.209:12005/appQuestion/commit"; feedback; //@"http://172.23.102.73:12005/appQuestion/commit"
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    [CUHTTPRequest POSTUpload:testUrl parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
+    [CUHTTPRequest POSTUpload:feedback parameters:paras uploadType:(UploadDownloadType_Images) dataArray:imageDatas success:^(id responseData) {
         [hud hideAnimated:true afterDelay:1];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
 
