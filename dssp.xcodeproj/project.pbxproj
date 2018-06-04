@@ -611,6 +611,57 @@
 		31F235D72041722C002807D2 /* MapUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D62041722C002807D2 /* MapUtility.m */; };
 		31F235DA204177C4002807D2 /* CommodityDescriptionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */; };
 		31F235DD204177ED002807D2 /* CommodityDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */; };
+		31F70B0220C4CF35009B2D58 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F70ADF20C4CF35009B2D58 /* Info.plist */; };
+		31F70B0320C4CF35009B2D58 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F70ADF20C4CF35009B2D58 /* Info.plist */; };
+		31F70B0420C4CF35009B2D58 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F70ADF20C4CF35009B2D58 /* Info.plist */; };
+		31F70B0520C4CF35009B2D58 /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE120C4CF35009B2D58 /* PNBar.m */; };
+		31F70B0620C4CF35009B2D58 /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE120C4CF35009B2D58 /* PNBar.m */; };
+		31F70B0720C4CF35009B2D58 /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE120C4CF35009B2D58 /* PNBar.m */; };
+		31F70B0820C4CF35009B2D58 /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE320C4CF35009B2D58 /* PNBarChart.m */; };
+		31F70B0920C4CF35009B2D58 /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE320C4CF35009B2D58 /* PNBarChart.m */; };
+		31F70B0A20C4CF35009B2D58 /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE320C4CF35009B2D58 /* PNBarChart.m */; };
+		31F70B0B20C4CF35009B2D58 /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE720C4CF35009B2D58 /* PNChartLabel.m */; };
+		31F70B0C20C4CF35009B2D58 /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE720C4CF35009B2D58 /* PNChartLabel.m */; };
+		31F70B0D20C4CF35009B2D58 /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE720C4CF35009B2D58 /* PNChartLabel.m */; };
+		31F70B0E20C4CF35009B2D58 /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE920C4CF35009B2D58 /* PNCircleChart.m */; };
+		31F70B0F20C4CF35009B2D58 /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE920C4CF35009B2D58 /* PNCircleChart.m */; };
+		31F70B1020C4CF35009B2D58 /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE920C4CF35009B2D58 /* PNCircleChart.m */; };
+		31F70B1120C4CF35009B2D58 /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEB20C4CF35009B2D58 /* PNColor.m */; };
+		31F70B1220C4CF35009B2D58 /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEB20C4CF35009B2D58 /* PNColor.m */; };
+		31F70B1320C4CF35009B2D58 /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEB20C4CF35009B2D58 /* PNColor.m */; };
+		31F70B1420C4CF35009B2D58 /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AED20C4CF35009B2D58 /* PNGenericChart.m */; };
+		31F70B1520C4CF35009B2D58 /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AED20C4CF35009B2D58 /* PNGenericChart.m */; };
+		31F70B1620C4CF35009B2D58 /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AED20C4CF35009B2D58 /* PNGenericChart.m */; };
+		31F70B1720C4CF35009B2D58 /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEF20C4CF35009B2D58 /* PNLineChart.m */; };
+		31F70B1820C4CF35009B2D58 /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEF20C4CF35009B2D58 /* PNLineChart.m */; };
+		31F70B1920C4CF35009B2D58 /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEF20C4CF35009B2D58 /* PNLineChart.m */; };
+		31F70B1A20C4CF35009B2D58 /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF120C4CF35009B2D58 /* PNLineChartData.m */; };
+		31F70B1B20C4CF35009B2D58 /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF120C4CF35009B2D58 /* PNLineChartData.m */; };
+		31F70B1C20C4CF35009B2D58 /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF120C4CF35009B2D58 /* PNLineChartData.m */; };
+		31F70B1D20C4CF35009B2D58 /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */; };
+		31F70B1E20C4CF35009B2D58 /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */; };
+		31F70B1F20C4CF35009B2D58 /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */; };
+		31F70B2020C4CF35009B2D58 /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF520C4CF35009B2D58 /* PNPieChart.m */; };
+		31F70B2120C4CF35009B2D58 /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF520C4CF35009B2D58 /* PNPieChart.m */; };
+		31F70B2220C4CF35009B2D58 /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF520C4CF35009B2D58 /* PNPieChart.m */; };
+		31F70B2320C4CF35009B2D58 /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */; };
+		31F70B2420C4CF35009B2D58 /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */; };
+		31F70B2520C4CF35009B2D58 /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */; };
+		31F70B2620C4CF35009B2D58 /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF920C4CF35009B2D58 /* PNRadarChart.m */; };
+		31F70B2720C4CF35009B2D58 /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF920C4CF35009B2D58 /* PNRadarChart.m */; };
+		31F70B2820C4CF35009B2D58 /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF920C4CF35009B2D58 /* PNRadarChart.m */; };
+		31F70B2920C4CF35009B2D58 /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */; };
+		31F70B2A20C4CF35009B2D58 /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */; };
+		31F70B2B20C4CF35009B2D58 /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */; };
+		31F70B2C20C4CF35009B2D58 /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */; };
+		31F70B2D20C4CF35009B2D58 /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */; };
+		31F70B2E20C4CF35009B2D58 /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */; };
+		31F70B2F20C4CF35009B2D58 /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */; };
+		31F70B3020C4CF35009B2D58 /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */; };
+		31F70B3120C4CF35009B2D58 /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */; };
+		31F70B3220C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
+		31F70B3320C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
+		31F70B3420C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
 		4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99B1FECA94A00A1E47E /* CarflowViewController.m */; };
 		4505B99F1FECA97100A1E47E /* UpkeepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99E1FECA97100A1E47E /* UpkeepViewController.m */; };
 		4505B9A41FECAB0200A1E47E /* CarflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A31FECAB0200A1E47E /* CarflowCell.m */; };
@@ -1020,6 +1071,41 @@
 		31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommodityDescriptionTitleCell.m; sourceTree = "<group>"; };
 		31F235DB204177ED002807D2 /* CommodityDescriptionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommodityDescriptionCell.h; sourceTree = "<group>"; };
 		31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommodityDescriptionCell.m; sourceTree = "<group>"; };
+		31F70ADF20C4CF35009B2D58 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31F70AE020C4CF35009B2D58 /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
+		31F70AE120C4CF35009B2D58 /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
+		31F70AE220C4CF35009B2D58 /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
+		31F70AE320C4CF35009B2D58 /* PNBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBarChart.m; sourceTree = "<group>"; };
+		31F70AE420C4CF35009B2D58 /* PNChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChart.h; sourceTree = "<group>"; };
+		31F70AE520C4CF35009B2D58 /* PNChartDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChartDelegate.h; sourceTree = "<group>"; };
+		31F70AE620C4CF35009B2D58 /* PNChartLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChartLabel.h; sourceTree = "<group>"; };
+		31F70AE720C4CF35009B2D58 /* PNChartLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNChartLabel.m; sourceTree = "<group>"; };
+		31F70AE820C4CF35009B2D58 /* PNCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCircleChart.h; sourceTree = "<group>"; };
+		31F70AE920C4CF35009B2D58 /* PNCircleChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCircleChart.m; sourceTree = "<group>"; };
+		31F70AEA20C4CF35009B2D58 /* PNColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNColor.h; sourceTree = "<group>"; };
+		31F70AEB20C4CF35009B2D58 /* PNColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNColor.m; sourceTree = "<group>"; };
+		31F70AEC20C4CF35009B2D58 /* PNGenericChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGenericChart.h; sourceTree = "<group>"; };
+		31F70AED20C4CF35009B2D58 /* PNGenericChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGenericChart.m; sourceTree = "<group>"; };
+		31F70AEE20C4CF35009B2D58 /* PNLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChart.h; sourceTree = "<group>"; };
+		31F70AEF20C4CF35009B2D58 /* PNLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChart.m; sourceTree = "<group>"; };
+		31F70AF020C4CF35009B2D58 /* PNLineChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChartData.h; sourceTree = "<group>"; };
+		31F70AF120C4CF35009B2D58 /* PNLineChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChartData.m; sourceTree = "<group>"; };
+		31F70AF220C4CF35009B2D58 /* PNLineChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChartDataItem.h; sourceTree = "<group>"; };
+		31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChartDataItem.m; sourceTree = "<group>"; };
+		31F70AF420C4CF35009B2D58 /* PNPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPieChart.h; sourceTree = "<group>"; };
+		31F70AF520C4CF35009B2D58 /* PNPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPieChart.m; sourceTree = "<group>"; };
+		31F70AF620C4CF35009B2D58 /* PNPieChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPieChartDataItem.h; sourceTree = "<group>"; };
+		31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPieChartDataItem.m; sourceTree = "<group>"; };
+		31F70AF820C4CF35009B2D58 /* PNRadarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRadarChart.h; sourceTree = "<group>"; };
+		31F70AF920C4CF35009B2D58 /* PNRadarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRadarChart.m; sourceTree = "<group>"; };
+		31F70AFA20C4CF35009B2D58 /* PNRadarChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRadarChartDataItem.h; sourceTree = "<group>"; };
+		31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRadarChartDataItem.m; sourceTree = "<group>"; };
+		31F70AFC20C4CF35009B2D58 /* PNScatterChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChart.h; sourceTree = "<group>"; };
+		31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChart.m; sourceTree = "<group>"; };
+		31F70AFE20C4CF35009B2D58 /* PNScatterChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartData.h; sourceTree = "<group>"; };
+		31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartData.m; sourceTree = "<group>"; };
+		31F70B0020C4CF35009B2D58 /* PNScatterChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartDataItem.h; sourceTree = "<group>"; };
+		31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
 		3BF3BD5A7D333AA69A6F38CC /* Pods-dssp.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.adhoc.xcconfig"; sourceTree = "<group>"; };
 		4505B99A1FECA94A00A1E47E /* CarflowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarflowViewController.h; sourceTree = "<group>"; };
 		4505B99B1FECA94A00A1E47E /* CarflowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarflowViewController.m; sourceTree = "<group>"; };
@@ -1370,6 +1456,7 @@
 		313070C31FBA885300A0DE71 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				31F70ADE20C4CF35009B2D58 /* PNChart */,
 				318FF83720B79DDA008B0CBD /* TZImagePickerController */,
 				312F70EB2071FFBD0072C824 /* SDCycleScrollView */,
 				454CE6D22046909C003221F3 /* AddressPickerView */,
@@ -1994,6 +2081,48 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		31F70ADE20C4CF35009B2D58 /* PNChart */ = {
+			isa = PBXGroup;
+			children = (
+				31F70ADF20C4CF35009B2D58 /* Info.plist */,
+				31F70AE020C4CF35009B2D58 /* PNBar.h */,
+				31F70AE120C4CF35009B2D58 /* PNBar.m */,
+				31F70AE220C4CF35009B2D58 /* PNBarChart.h */,
+				31F70AE320C4CF35009B2D58 /* PNBarChart.m */,
+				31F70AE420C4CF35009B2D58 /* PNChart.h */,
+				31F70AE520C4CF35009B2D58 /* PNChartDelegate.h */,
+				31F70AE620C4CF35009B2D58 /* PNChartLabel.h */,
+				31F70AE720C4CF35009B2D58 /* PNChartLabel.m */,
+				31F70AE820C4CF35009B2D58 /* PNCircleChart.h */,
+				31F70AE920C4CF35009B2D58 /* PNCircleChart.m */,
+				31F70AEA20C4CF35009B2D58 /* PNColor.h */,
+				31F70AEB20C4CF35009B2D58 /* PNColor.m */,
+				31F70AEC20C4CF35009B2D58 /* PNGenericChart.h */,
+				31F70AED20C4CF35009B2D58 /* PNGenericChart.m */,
+				31F70AEE20C4CF35009B2D58 /* PNLineChart.h */,
+				31F70AEF20C4CF35009B2D58 /* PNLineChart.m */,
+				31F70AF020C4CF35009B2D58 /* PNLineChartData.h */,
+				31F70AF120C4CF35009B2D58 /* PNLineChartData.m */,
+				31F70AF220C4CF35009B2D58 /* PNLineChartDataItem.h */,
+				31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */,
+				31F70AF420C4CF35009B2D58 /* PNPieChart.h */,
+				31F70AF520C4CF35009B2D58 /* PNPieChart.m */,
+				31F70AF620C4CF35009B2D58 /* PNPieChartDataItem.h */,
+				31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */,
+				31F70AF820C4CF35009B2D58 /* PNRadarChart.h */,
+				31F70AF920C4CF35009B2D58 /* PNRadarChart.m */,
+				31F70AFA20C4CF35009B2D58 /* PNRadarChartDataItem.h */,
+				31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */,
+				31F70AFC20C4CF35009B2D58 /* PNScatterChart.h */,
+				31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */,
+				31F70AFE20C4CF35009B2D58 /* PNScatterChartData.h */,
+				31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */,
+				31F70B0020C4CF35009B2D58 /* PNScatterChartDataItem.h */,
+				31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */,
+			);
+			path = PNChart;
+			sourceTree = "<group>";
+		};
 		4505B9A01FECAAD600A1E47E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2301,6 +2430,7 @@
 				3161DE6F206C8AB500D40EE3 /* Localizable.strings in Resources */,
 				3161DE70206C8AB500D40EE3 /* Address.plist in Resources */,
 				318FF86820B79DDA008B0CBD /* TZImagePickerController.bundle in Resources */,
+				31F70B0320C4CF35009B2D58 /* Info.plist in Resources */,
 				3161DE71206C8AB500D40EE3 /* Assets.xcassets in Resources */,
 				3161DE72206C8AB500D40EE3 /* application.html in Resources */,
 			);
@@ -2318,6 +2448,7 @@
 				3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */,
 				3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */,
 				31A22923206CA223002326AD /* dssp-sit.plist in Resources */,
+				31F70B0420C4CF35009B2D58 /* Info.plist in Resources */,
 				3161DF4A206C8ABC00D40EE3 /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2334,6 +2465,7 @@
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				45147D642086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
 				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
+				31F70B0220C4CF35009B2D58 /* Info.plist in Resources */,
 				316CA4681F9F3475009F541E /* Assets.xcassets in Resources */,
 				3151F5AB207362CA0009998D /* Info.plist in Resources */,
 				454858102005EA6500170D85 /* application.html in Resources */,
@@ -2535,9 +2667,12 @@
 				3161DDA9206C8AB500D40EE3 /* EvaluateViewController.m in Sources */,
 				3161DDAA206C8AB500D40EE3 /* TrackObject.m in Sources */,
 				3161DDAB206C8AB500D40EE3 /* PrivacypolicyController.m in Sources */,
+				31F70B3020C4CF35009B2D58 /* PNScatterChartData.m in Sources */,
 				3161DDAC206C8AB500D40EE3 /* UIFont+FontSize.m in Sources */,
 				3161DDAD206C8AB500D40EE3 /* StorePageController.m in Sources */,
+				31F70B2720C4CF35009B2D58 /* PNRadarChart.m in Sources */,
 				3161DDAE206C8AB500D40EE3 /* CarBindingViewController.m in Sources */,
+				31F70B2120C4CF35009B2D58 /* PNPieChart.m in Sources */,
 				3161DDAF206C8AB500D40EE3 /* HomeBtnsHeader.m in Sources */,
 				3161DDB0206C8AB500D40EE3 /* StoreSingleViewController.m in Sources */,
 				3161DDB1206C8AB500D40EE3 /* WeatherModel.m in Sources */,
@@ -2546,6 +2681,7 @@
 				3161DDB3206C8AB500D40EE3 /* DKSTextView.m in Sources */,
 				3161DDB4206C8AB500D40EE3 /* InfoMessageHelpCenterCell.m in Sources */,
 				3161DDB5206C8AB500D40EE3 /* HomeBtn.m in Sources */,
+				31F70B1820C4CF35009B2D58 /* PNLineChart.m in Sources */,
 				3161DDB7206C8AB500D40EE3 /* BaseViewController.m in Sources */,
 				3161DDB8206C8AB500D40EE3 /* CommodityHeaderView.m in Sources */,
 				3161DDB9206C8AB500D40EE3 /* VhlModel.m in Sources */,
@@ -2574,6 +2710,7 @@
 				3161DDD0206C8AB500D40EE3 /* QueryModel.m in Sources */,
 				31B7C86320BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */,
 				3161DDD1206C8AB500D40EE3 /* HomeTopView.m in Sources */,
+				31F70B0920C4CF35009B2D58 /* PNBarChart.m in Sources */,
 				3161DDD2206C8AB500D40EE3 /* ForgotViewController.m in Sources */,
 				3161DDD3206C8AB500D40EE3 /* NSArray+Sudoku.m in Sources */,
 				3161DDD4206C8AB500D40EE3 /* CarSeriesViewController.m in Sources */,
@@ -2635,6 +2772,7 @@
 				3161DE03206C8AB500D40EE3 /* InfoMessageUserCell.m in Sources */,
 				3161DE04206C8AB500D40EE3 /* HomeCarLocationCell.m in Sources */,
 				3161DE05206C8AB500D40EE3 /* QDataSaver.m in Sources */,
+				31F70B3320C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */,
 				3161DE06206C8AB500D40EE3 /* TrackListHeaderView.m in Sources */,
 				3161DE07206C8AB500D40EE3 /* CheckVersionView.m in Sources */,
 				008DC4C920B5022E003EB24F /* FeedbackChoosePicView.m in Sources */,
@@ -2643,8 +2781,10 @@
 				3161DE0A206C8AB500D40EE3 /* UITabBar+badge.m in Sources */,
 				3161DE0B206C8AB500D40EE3 /* UITextView+Placeholder.m in Sources */,
 				008DC4CF20B5022E003EB24F /* FeedbackTap.m in Sources */,
+				31F70B2420C4CF35009B2D58 /* PNPieChartDataItem.m in Sources */,
 				3161DE0C206C8AB500D40EE3 /* MapUtility.m in Sources */,
 				3161DE0D206C8AB500D40EE3 /* BaseWebViewController.m in Sources */,
+				31F70B2D20C4CF35009B2D58 /* PNScatterChart.m in Sources */,
 				3161DE0E206C8AB500D40EE3 /* MapView.m in Sources */,
 				3161DE0F206C8AB500D40EE3 /* LllegadetailController.m in Sources */,
 				318FF87120B79DDA008B0CBD /* TZPhotoPickerController.m in Sources */,
@@ -2673,18 +2813,23 @@
 				31B7C85E20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				3161DE25206C8AB500D40EE3 /* ManualViewController.m in Sources */,
 				3161DE26206C8AB500D40EE3 /* PersonInCell.m in Sources */,
+				31F70B0620C4CF35009B2D58 /* PNBar.m in Sources */,
 				312F70FC2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
 				3161DE27206C8AB500D40EE3 /* SubscribeModel.m in Sources */,
 				3161DE28206C8AB500D40EE3 /* CarflowModel.m in Sources */,
 				3161DE29206C8AB500D40EE3 /* StoreObject.m in Sources */,
 				3161DE2A206C8AB500D40EE3 /* LoginViewController.m in Sources */,
 				318FF87720B79DDA008B0CBD /* TZPhotoPreviewController.m in Sources */,
+				31F70B0C20C4CF35009B2D58 /* PNChartLabel.m in Sources */,
+				31F70B0F20C4CF35009B2D58 /* PNCircleChart.m in Sources */,
 				3161DE2B206C8AB500D40EE3 /* SendPoiProgressView.m in Sources */,
 				3161DE2C206C8AB500D40EE3 /* MapUpdateObject.m in Sources */,
 				3161DE2D206C8AB500D40EE3 /* OrderObject.m in Sources */,
 				3161DE2E206C8AB500D40EE3 /* OrderPageController.m in Sources */,
 				318FF86E20B79DDA008B0CBD /* TZLocationManager.m in Sources */,
 				318FF86220B79DDA008B0CBD /* TZImageCropManager.m in Sources */,
+				31F70B1520C4CF35009B2D58 /* PNGenericChart.m in Sources */,
+				31F70B1220C4CF35009B2D58 /* PNColor.m in Sources */,
 				3161DE2F206C8AB500D40EE3 /* RemindViewController.m in Sources */,
 				3161DE30206C8AB500D40EE3 /* CarUnbindingViewController.m in Sources */,
 				3161DE31206C8AB500D40EE3 /* HomeCarReportCell.m in Sources */,
@@ -2706,6 +2851,7 @@
 				3161DE3F206C8AB500D40EE3 /* FindlistModel.m in Sources */,
 				3161DE40206C8AB500D40EE3 /* OrderViewController.m in Sources */,
 				3161DE41206C8AB500D40EE3 /* MineCell.m in Sources */,
+				31F70B1E20C4CF35009B2D58 /* PNLineChartDataItem.m in Sources */,
 				3161DE42206C8AB500D40EE3 /* DrivingReportWeekCell.m in Sources */,
 				312F71022071FFBD0072C824 /* TADotView.m in Sources */,
 				3161DE43206C8AB500D40EE3 /* CarTrackModel.m in Sources */,
@@ -2713,12 +2859,14 @@
 				3161DE45206C8AB500D40EE3 /* AppDelegate.m in Sources */,
 				3161DE46206C8AB500D40EE3 /* CarflowViewController.m in Sources */,
 				3161DE47206C8AB500D40EE3 /* HomeBannerCell.m in Sources */,
+				31F70B2A20C4CF35009B2D58 /* PNRadarChartDataItem.m in Sources */,
 				3161DE48206C8AB500D40EE3 /* CatchCrash.m in Sources */,
 				312F710B2071FFBD0072C824 /* SDCycleScrollView.m in Sources */,
 				3161DE49206C8AB500D40EE3 /* RangePickerCell.m in Sources */,
 				3161DE4A206C8AB500D40EE3 /* MapUpdateHelpViewController.m in Sources */,
 				3161DE4B206C8AB500D40EE3 /* CarInfoViewController.m in Sources */,
 				3161DE4C206C8AB500D40EE3 /* SubscribedatailController.m in Sources */,
+				31F70B1B20C4CF35009B2D58 /* PNLineChartData.m in Sources */,
 				3161DE4D206C8AB500D40EE3 /* ParkingViewController.m in Sources */,
 				3161DE4E206C8AB500D40EE3 /* InfoMessageLeftCell.m in Sources */,
 				3161DE4F206C8AB500D40EE3 /* HomeCarStateCell.m in Sources */,
@@ -2761,9 +2909,12 @@
 				3161DE81206C8ABC00D40EE3 /* EvaluateViewController.m in Sources */,
 				3161DE82206C8ABC00D40EE3 /* TrackObject.m in Sources */,
 				3161DE83206C8ABC00D40EE3 /* PrivacypolicyController.m in Sources */,
+				31F70B3120C4CF35009B2D58 /* PNScatterChartData.m in Sources */,
 				3161DE84206C8ABC00D40EE3 /* UIFont+FontSize.m in Sources */,
 				3161DE85206C8ABC00D40EE3 /* StorePageController.m in Sources */,
+				31F70B2820C4CF35009B2D58 /* PNRadarChart.m in Sources */,
 				3161DE86206C8ABC00D40EE3 /* CarBindingViewController.m in Sources */,
+				31F70B2220C4CF35009B2D58 /* PNPieChart.m in Sources */,
 				3161DE87206C8ABC00D40EE3 /* HomeBtnsHeader.m in Sources */,
 				3161DE88206C8ABC00D40EE3 /* StoreSingleViewController.m in Sources */,
 				3161DE89206C8ABC00D40EE3 /* WeatherModel.m in Sources */,
@@ -2772,6 +2923,7 @@
 				3161DE8B206C8ABC00D40EE3 /* DKSTextView.m in Sources */,
 				3161DE8C206C8ABC00D40EE3 /* InfoMessageHelpCenterCell.m in Sources */,
 				3161DE8D206C8ABC00D40EE3 /* HomeBtn.m in Sources */,
+				31F70B1920C4CF35009B2D58 /* PNLineChart.m in Sources */,
 				3161DE8F206C8ABC00D40EE3 /* BaseViewController.m in Sources */,
 				3161DE90206C8ABC00D40EE3 /* CommodityHeaderView.m in Sources */,
 				3161DE91206C8ABC00D40EE3 /* VhlModel.m in Sources */,
@@ -2800,6 +2952,7 @@
 				3161DEA8206C8ABC00D40EE3 /* QueryModel.m in Sources */,
 				31B7C86420BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */,
 				3161DEA9206C8ABC00D40EE3 /* HomeTopView.m in Sources */,
+				31F70B0A20C4CF35009B2D58 /* PNBarChart.m in Sources */,
 				3159476C207F2F4700635781 /* QueryViewController.m in Sources */,
 				3161DEAA206C8ABC00D40EE3 /* ForgotViewController.m in Sources */,
 				3161DEAB206C8ABC00D40EE3 /* NSArray+Sudoku.m in Sources */,
@@ -2861,6 +3014,7 @@
 				3161DEDA206C8ABC00D40EE3 /* ContractdetailViewController.m in Sources */,
 				3161DEDB206C8ABC00D40EE3 /* InfoMessageUserCell.m in Sources */,
 				3161DEDC206C8ABC00D40EE3 /* HomeCarLocationCell.m in Sources */,
+				31F70B3420C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */,
 				3161DEDD206C8ABC00D40EE3 /* QDataSaver.m in Sources */,
 				3161DEDE206C8ABC00D40EE3 /* TrackListHeaderView.m in Sources */,
 				008DC4CA20B5022E003EB24F /* FeedbackChoosePicView.m in Sources */,
@@ -2869,8 +3023,10 @@
 				3161DEE1206C8ABC00D40EE3 /* OrderSubmitViewController.m in Sources */,
 				3161DEE2206C8ABC00D40EE3 /* UITabBar+badge.m in Sources */,
 				008DC4D020B5022E003EB24F /* FeedbackTap.m in Sources */,
+				31F70B2520C4CF35009B2D58 /* PNPieChartDataItem.m in Sources */,
 				3161DEE3206C8ABC00D40EE3 /* UITextView+Placeholder.m in Sources */,
 				3161DEE4206C8ABC00D40EE3 /* MapUtility.m in Sources */,
+				31F70B2E20C4CF35009B2D58 /* PNScatterChart.m in Sources */,
 				3161DEE5206C8ABC00D40EE3 /* BaseWebViewController.m in Sources */,
 				3161DEE6206C8ABC00D40EE3 /* MapView.m in Sources */,
 				318FF87220B79DDA008B0CBD /* TZPhotoPickerController.m in Sources */,
@@ -2899,18 +3055,23 @@
 				31B7C85F20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				3161DEFC206C8ABC00D40EE3 /* DrivingWeekReportViewController.m in Sources */,
 				3161DEFD206C8ABC00D40EE3 /* ManualViewController.m in Sources */,
+				31F70B0720C4CF35009B2D58 /* PNBar.m in Sources */,
 				3161DEFE206C8ABC00D40EE3 /* PersonInCell.m in Sources */,
 				312F70FD2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
 				3161DEFF206C8ABC00D40EE3 /* SubscribeModel.m in Sources */,
 				3161DF00206C8ABC00D40EE3 /* CarflowModel.m in Sources */,
 				3161DF01206C8ABC00D40EE3 /* StoreObject.m in Sources */,
 				318FF87820B79DDA008B0CBD /* TZPhotoPreviewController.m in Sources */,
+				31F70B0D20C4CF35009B2D58 /* PNChartLabel.m in Sources */,
+				31F70B1020C4CF35009B2D58 /* PNCircleChart.m in Sources */,
 				3161DF02206C8ABC00D40EE3 /* LoginViewController.m in Sources */,
 				3161DF03206C8ABC00D40EE3 /* SendPoiProgressView.m in Sources */,
 				3161DF04206C8ABC00D40EE3 /* MapUpdateObject.m in Sources */,
 				3161DF05206C8ABC00D40EE3 /* OrderObject.m in Sources */,
 				318FF86F20B79DDA008B0CBD /* TZLocationManager.m in Sources */,
 				318FF86320B79DDA008B0CBD /* TZImageCropManager.m in Sources */,
+				31F70B1620C4CF35009B2D58 /* PNGenericChart.m in Sources */,
+				31F70B1320C4CF35009B2D58 /* PNColor.m in Sources */,
 				3161DF06206C8ABC00D40EE3 /* OrderPageController.m in Sources */,
 				3161DF07206C8ABC00D40EE3 /* RemindViewController.m in Sources */,
 				3161DF08206C8ABC00D40EE3 /* CarUnbindingViewController.m in Sources */,
@@ -2932,6 +3093,7 @@
 				3161DF16206C8ABC00D40EE3 /* CarInfoModel.m in Sources */,
 				3161DF17206C8ABC00D40EE3 /* FindlistModel.m in Sources */,
 				3161DF18206C8ABC00D40EE3 /* OrderViewController.m in Sources */,
+				31F70B1F20C4CF35009B2D58 /* PNLineChartDataItem.m in Sources */,
 				3161DF19206C8ABC00D40EE3 /* MineCell.m in Sources */,
 				3161DF1A206C8ABC00D40EE3 /* DrivingReportWeekCell.m in Sources */,
 				312F71032071FFBD0072C824 /* TADotView.m in Sources */,
@@ -2939,12 +3101,14 @@
 				3161DF1C206C8ABC00D40EE3 /* RNRInput.m in Sources */,
 				3161DF1D206C8ABC00D40EE3 /* AppDelegate.m in Sources */,
 				3161DF1E206C8ABC00D40EE3 /* CarflowViewController.m in Sources */,
+				31F70B2B20C4CF35009B2D58 /* PNRadarChartDataItem.m in Sources */,
 				3161DF1F206C8ABC00D40EE3 /* HomeBannerCell.m in Sources */,
 				3161DF20206C8ABC00D40EE3 /* CatchCrash.m in Sources */,
 				312F710C2071FFBD0072C824 /* SDCycleScrollView.m in Sources */,
 				3161DF21206C8ABC00D40EE3 /* RangePickerCell.m in Sources */,
 				3161DF22206C8ABC00D40EE3 /* MapUpdateHelpViewController.m in Sources */,
 				3161DF23206C8ABC00D40EE3 /* CarInfoViewController.m in Sources */,
+				31F70B1C20C4CF35009B2D58 /* PNLineChartData.m in Sources */,
 				3161DF24206C8ABC00D40EE3 /* SubscribedatailController.m in Sources */,
 				3161DF25206C8ABC00D40EE3 /* ParkingViewController.m in Sources */,
 				3161DF26206C8ABC00D40EE3 /* InfoMessageLeftCell.m in Sources */,
@@ -2987,9 +3151,12 @@
 				3172B57E202BF0C5006D3749 /* EvaluateViewController.m in Sources */,
 				319A58C420452E22006837DC /* TrackObject.m in Sources */,
 				4548580E2005B53200170D85 /* PrivacypolicyController.m in Sources */,
+				31F70B2F20C4CF35009B2D58 /* PNScatterChartData.m in Sources */,
 				31B9DC91205A71DB00C8B840 /* UIFont+FontSize.m in Sources */,
 				310368EF2046882200A9083E /* StorePageController.m in Sources */,
+				31F70B2620C4CF35009B2D58 /* PNRadarChart.m in Sources */,
 				316B6CEC1FB97F6A008A6094 /* CarBindingViewController.m in Sources */,
+				31F70B2020C4CF35009B2D58 /* PNPieChart.m in Sources */,
 				31E7B9682057A419003844E0 /* HomeBtnsHeader.m in Sources */,
 				312FE1BB2029884700B7AE48 /* StoreSingleViewController.m in Sources */,
 				4592B39F1FDE1C07000ADCA0 /* WeatherModel.m in Sources */,
@@ -2998,6 +3165,7 @@
 				454B78BF2061F05100FABD60 /* DKSTextView.m in Sources */,
 				31AC45312022F0080044A62C /* InfoMessageHelpCenterCell.m in Sources */,
 				31E7B9522057A092003844E0 /* HomeBtn.m in Sources */,
+				31F70B1720C4CF35009B2D58 /* PNLineChart.m in Sources */,
 				31699EB71FA87CC100C8FDF8 /* BaseViewController.m in Sources */,
 				312FE1CF202A9BE100B7AE48 /* CommodityHeaderView.m in Sources */,
 				45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */,
@@ -3026,6 +3194,7 @@
 				45ABF33620076CE0003FC560 /* QueryModel.m in Sources */,
 				31B7C86220BF88A100FDDE05 /* DrivingMonthReportViewController.m in Sources */,
 				31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */,
+				31F70B0820C4CF35009B2D58 /* PNBarChart.m in Sources */,
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
@@ -3087,6 +3256,7 @@
 				31AC45342022F0210044A62C /* InfoMessageUserCell.m in Sources */,
 				319096CA20636EAF0032BC43 /* HomeCarLocationCell.m in Sources */,
 				45765273204E7BBE006585BA /* QDataSaver.m in Sources */,
+				31F70B3220C4CF35009B2D58 /* PNScatterChartDataItem.m in Sources */,
 				31C112632047EB9C0094B157 /* TrackListHeaderView.m in Sources */,
 				31C504AB2062748A000CFB8F /* CheckVersionView.m in Sources */,
 				008DC4C820B5022E003EB24F /* FeedbackChoosePicView.m in Sources */,
@@ -3095,8 +3265,10 @@
 				4570EFED1FFE4B0700FA6355 /* UITabBar+badge.m in Sources */,
 				3172B581202BF1BE006D3749 /* UITextView+Placeholder.m in Sources */,
 				008DC4CE20B5022E003EB24F /* FeedbackTap.m in Sources */,
+				31F70B2320C4CF35009B2D58 /* PNPieChartDataItem.m in Sources */,
 				31F235D72041722C002807D2 /* MapUtility.m in Sources */,
 				31C504A820624D6F000CFB8F /* BaseWebViewController.m in Sources */,
+				31F70B2C20C4CF35009B2D58 /* PNScatterChart.m in Sources */,
 				31A469F31FF1E78B00C8236E /* MapView.m in Sources */,
 				454C7448201823F600108F1E /* LllegadetailController.m in Sources */,
 				318FF87020B79DDA008B0CBD /* TZPhotoPickerController.m in Sources */,
@@ -3125,18 +3297,23 @@
 				31B7C85D20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				454B78C5206272C000FABD60 /* ManualViewController.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
+				31F70B0520C4CF35009B2D58 /* PNBar.m in Sources */,
 				312F70FB2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
 				455F36951FF4F3BA00D09A63 /* SubscribeModel.m in Sources */,
 				455F36981FF6140F00D09A63 /* CarflowModel.m in Sources */,
 				31D5C8DC202FE9DE00A44C5C /* StoreObject.m in Sources */,
 				31699EC11FA87E6900C8FDF8 /* LoginViewController.m in Sources */,
 				318FF87620B79DDA008B0CBD /* TZPhotoPreviewController.m in Sources */,
+				31F70B0B20C4CF35009B2D58 /* PNChartLabel.m in Sources */,
+				31F70B0E20C4CF35009B2D58 /* PNCircleChart.m in Sources */,
 				31CB2B99200763350085FBA1 /* SendPoiProgressView.m in Sources */,
 				319A58BE20450A19006837DC /* MapUpdateObject.m in Sources */,
 				31D5C8DF202FE9EF00A44C5C /* OrderObject.m in Sources */,
 				312FE1BE2029885200B7AE48 /* OrderPageController.m in Sources */,
 				318FF86D20B79DDA008B0CBD /* TZLocationManager.m in Sources */,
 				318FF86120B79DDA008B0CBD /* TZImageCropManager.m in Sources */,
+				31F70B1420C4CF35009B2D58 /* PNGenericChart.m in Sources */,
+				31F70B1120C4CF35009B2D58 /* PNColor.m in Sources */,
 				31CA75FA1FE75DEE007BDC97 /* RemindViewController.m in Sources */,
 				4570EFDC1FFB939F00FA6355 /* CarUnbindingViewController.m in Sources */,
 				31E7B96B2057B78F003844E0 /* HomeCarReportCell.m in Sources */,
@@ -3158,6 +3335,7 @@
 				4596798B1FDFDA9C008A0C67 /* FindlistModel.m in Sources */,
 				318B685E202AEBF500962F2A /* OrderViewController.m in Sources */,
 				459F22591FBC118300BA13CB /* MineCell.m in Sources */,
+				31F70B1D20C4CF35009B2D58 /* PNLineChartDataItem.m in Sources */,
 				310368F82046C8C700A9083E /* DrivingReportWeekCell.m in Sources */,
 				312F71012071FFBD0072C824 /* TADotView.m in Sources */,
 				4570EFF01FFF292B00FA6355 /* CarTrackModel.m in Sources */,
@@ -3165,12 +3343,14 @@
 				316CA4601F9F3475009F541E /* AppDelegate.m in Sources */,
 				4505B99C1FECA94A00A1E47E /* CarflowViewController.m in Sources */,
 				31129246205D07620049A647 /* HomeBannerCell.m in Sources */,
+				31F70B2920C4CF35009B2D58 /* PNRadarChartDataItem.m in Sources */,
 				31ADB3BE205F8C3B002F79CE /* CatchCrash.m in Sources */,
 				312F710A2071FFBD0072C824 /* SDCycleScrollView.m in Sources */,
 				310368EC2045682300A9083E /* RangePickerCell.m in Sources */,
 				3125E9DF201F0F6D009F6650 /* MapUpdateHelpViewController.m in Sources */,
 				459F22541FBBCD7D00BA13CB /* CarInfoViewController.m in Sources */,
 				450644E320039A2A0099D7AC /* SubscribedatailController.m in Sources */,
+				31F70B1A20C4CF35009B2D58 /* PNLineChartData.m in Sources */,
 				45E56766205610B200B958E8 /* ParkingViewController.m in Sources */,
 				45685FD12043B42600017989 /* InfoMessageLeftCell.m in Sources */,
 				31E7B9592057A2C4003844E0 /* HomeCarStateCell.m in Sources */,
