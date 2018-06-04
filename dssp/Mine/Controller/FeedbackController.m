@@ -12,6 +12,7 @@
 #import "FeedbackChoosePicView.h"
 #import "CUHTTPRequestCallback.h"
 
+//  定义宏
 #define kActivityQuestion 100
 #define kCarQuestion 101
 #define kAppQuestion 102
