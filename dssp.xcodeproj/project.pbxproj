@@ -749,6 +749,9 @@
 		45A145C51FD7E239002C0A78 /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
 		45A145C81FD8D61B002C0A78 /* ContractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C71FD8D61B002C0A78 /* ContractModel.m */; };
 		45A145CB1FD8DC69002C0A78 /* ContractDetailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */; };
+		45A39D8620C4EE3600EDC42F /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A39D8520C4EE3600EDC42F /* NSArray+Log.m */; };
+		45A39D8720C4EE3600EDC42F /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A39D8520C4EE3600EDC42F /* NSArray+Log.m */; };
+		45A39D8820C4EE3600EDC42F /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A39D8520C4EE3600EDC42F /* NSArray+Log.m */; };
 		45ABF33620076CE0003FC560 /* QueryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABF33520076CE0003FC560 /* QueryModel.m */; };
 		45CAA32020B54162002EE39D /* UserprotocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CAA31F20B54162002EE39D /* UserprotocolViewController.m */; };
 		45CAA32120B54162002EE39D /* UserprotocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CAA31F20B54162002EE39D /* UserprotocolViewController.m */; };
@@ -1264,6 +1267,8 @@
 		45A145C71FD8D61B002C0A78 /* ContractModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractModel.m; sourceTree = "<group>"; };
 		45A145C91FD8DC69002C0A78 /* ContractDetailed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractDetailed.h; sourceTree = "<group>"; };
 		45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractDetailed.m; sourceTree = "<group>"; };
+		45A39D8420C4EE3600EDC42F /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		45A39D8520C4EE3600EDC42F /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		45ABF33420076CE0003FC560 /* QueryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryModel.h; sourceTree = "<group>"; };
 		45ABF33520076CE0003FC560 /* QueryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryModel.m; sourceTree = "<group>"; };
 		45CAA31E20B54162002EE39D /* UserprotocolViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserprotocolViewController.h; sourceTree = "<group>"; };
@@ -1463,6 +1468,7 @@
 			children = (
 				31F70B3620C4D1FB009B2D58 /* UICountingLabel.h */,
 				31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */,
+				45A39D8320C4EE3600EDC42F /* Unicode->Log */,
 				31F70ADE20C4CF35009B2D58 /* PNChart */,
 				318FF83720B79DDA008B0CBD /* TZImagePickerController */,
 				312F70EB2071FFBD0072C824 /* SDCycleScrollView */,
@@ -2271,6 +2277,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		45A39D8320C4EE3600EDC42F /* Unicode->Log */ = {
+			isa = PBXGroup;
+			children = (
+				45A39D8420C4EE3600EDC42F /* NSArray+Log.h */,
+				45A39D8520C4EE3600EDC42F /* NSArray+Log.m */,
+			);
+			path = "Unicode->Log";
+			sourceTree = "<group>";
+		};
 		970D93E9BFE3ED1AE5671BF8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2820,6 +2835,7 @@
 				3161DE24206C8AB500D40EE3 /* DrivingWeekReportViewController.m in Sources */,
 				31B7C85E20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				3161DE25206C8AB500D40EE3 /* ManualViewController.m in Sources */,
+				45A39D8720C4EE3600EDC42F /* NSArray+Log.m in Sources */,
 				3161DE26206C8AB500D40EE3 /* PersonInCell.m in Sources */,
 				31F70B0620C4CF35009B2D58 /* PNBar.m in Sources */,
 				312F70FC2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
@@ -3063,6 +3079,7 @@
 				3161DEFB206C8ABC00D40EE3 /* RealVinViewcontroller.m in Sources */,
 				31B7C85F20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				3161DEFC206C8ABC00D40EE3 /* DrivingWeekReportViewController.m in Sources */,
+				45A39D8820C4EE3600EDC42F /* NSArray+Log.m in Sources */,
 				3161DEFD206C8ABC00D40EE3 /* ManualViewController.m in Sources */,
 				31F70B0720C4CF35009B2D58 /* PNBar.m in Sources */,
 				3161DEFE206C8ABC00D40EE3 /* PersonInCell.m in Sources */,
@@ -3306,6 +3323,7 @@
 				310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */,
 				31B7C85D20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
 				454B78C5206272C000FABD60 /* ManualViewController.m in Sources */,
+				45A39D8620C4EE3600EDC42F /* NSArray+Log.m in Sources */,
 				4599C9B91FF1E70800B23713 /* PersonInCell.m in Sources */,
 				31F70B0520C4CF35009B2D58 /* PNBar.m in Sources */,
 				312F70FB2071FFBD0072C824 /* TAAbstractDotView.m in Sources */,
