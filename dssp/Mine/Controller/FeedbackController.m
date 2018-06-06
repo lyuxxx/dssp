@@ -160,7 +160,8 @@
     [self.feedbackArea addSubview:self.inputCountLabel];
     [self.inputCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.mas_equalTo(self.feedbackArea).offset(-10 * WidthCoefficient);
-        make.bottom.mas_equalTo(self.feedbackArea).offset(-10 * HeightCoefficient);;
+        //make.bottom.mas_equalTo(self.feedbackArea).offset(-10 * HeightCoefficient);
+        make.top.mas_equalTo(self.textView.mas_bottom);
         make.width.mas_equalTo(100 * WidthCoefficient);
     }];
     
