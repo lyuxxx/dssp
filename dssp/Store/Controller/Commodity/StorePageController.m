@@ -19,6 +19,7 @@
 @implementation StorePageController
 
 - (void)viewDidLoad {
+    self.navigationItem.title = NSLocalizedString(@"商城", nil);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Notification) name:@"StorePageControllerRefresh" object:nil];
     [super viewDidLoad];

@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = NSLocalizedString(@"订单", nil);
     self.automaticallyCalculatesItemWidths = YES;
     
     self.view.clipsToBounds = YES;

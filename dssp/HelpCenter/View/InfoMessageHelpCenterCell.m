@@ -576,7 +576,7 @@
             
             if (dataArray.count > 2) {//显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(1 * WidthCoefficient);
+                    make.height.equalTo(0 * WidthCoefficient);//make.height.equalTo(1 * WidthCoefficient); 与安卓保持一致都不显示线
                 }];
             } else {//不显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
