@@ -122,12 +122,12 @@
                 NSArray *urlArr = [NSArray new];
                 NSString *str;
                 
-                if (message.serviceDetails) {
-                     str = message.serviceDetails;
+                if (message.serviceDetails && message.serviceDetails.isNotBlank) {
+                    str = message.serviceDetails;
                 }
                 else
                 {
-                     str = @"";
+                    str = message.serviceName;
                 }
                 
                 if([self isURL:str]) {
@@ -189,7 +189,14 @@
                     
                 }
                 
-                [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@""]];
+                if (message.isLeaf) {
+                    [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@""]];
+                } else {
+                    NSData * imageData =[[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                    
+                    UIImage *photo = [UIImage imageWithData:imageData];
+                    self.bgImg.image = photo;
+                }
                 [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
                     make.height.height.equalTo(165*WidthCoefficient);
                 }];
@@ -312,12 +319,13 @@
             
                 NSArray *urlArr = [NSArray new];
                 NSString *str;
-                if (message.serviceDetails) {
+
+                if (message.serviceDetails && message.serviceDetails.isNotBlank) {
                     str = message.serviceDetails;
                 }
                 else
                 {
-                    str = @"";
+                    str = message.serviceName;
                 }
                 if([self isURL:str]) {
                 _contentLabel.text = str;
@@ -501,12 +509,12 @@
             NSArray *urlArr = [NSArray new];
             NSString *str;
             
-            if (message.serviceDetails) {
+            if (message.serviceDetails && message.serviceDetails.isNotBlank) {
                 str = message.serviceDetails;
             }
             else
             {
-                str = @"";
+                str = message.serviceName;
             }
             
             if([self isURL:str]) {

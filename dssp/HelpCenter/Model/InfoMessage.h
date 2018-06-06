@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, InfoMessageType) {
 @property (nonatomic , copy) NSString              * serviceDetails;
 @property (nonatomic , copy) NSString              * serviceImage;
 @property (nonatomic , copy) NSString              * serviceUrl;
-@property (nonatomic , copy) NSString             *isLeaf;
+@property (nonatomic , assign) BOOL             isLeaf;
 @property (nonatomic , assign) NSInteger              isHelp;
 @property (nonatomic , assign) NSInteger              noHelp;
 @property (nonatomic , assign) NSInteger              readingNumber;
