@@ -11,10 +11,12 @@
 #import "QueryModel.h"
 #import "ContractModel.h"
 #import "NSArray+Sudoku.h"
+#import <MJRefresh.h>
 @interface QueryViewController ()
 
 @property (nonatomic,strong)QueryModel *queryModel;
 @property (nonatomic,strong)ContractModel *contract;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @end
 
 @implementation QueryViewController
@@ -28,10 +30,10 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = NSLocalizedString(@"实名制结果查询", nil);
     // 下滑手势
-    UISwipeGestureRecognizer * recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
-    [self.view addGestureRecognizer:recognizer];
+//    UISwipeGestureRecognizer * recognizer;
+//    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+//    [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
+//    [self.view addGestureRecognizer:recognizer];
     
     
     self.rt_disableInteractivePop = YES;
@@ -43,6 +45,20 @@
         make.width.height.equalTo(24 * WidthCoefficient);
     }];
     self.navigationItem.leftBarButtonItem = left;
+    
+    //  添加scrollView
+    [self.view addSubview:self.scrollView];
+    self.scrollView.frame = self.view.frame;
+    __weak typeof(self) weakSelf = self;
+    self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf requestData];
+        
+        //  延时操作
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.scrollView.mj_header endRefreshing];
+        });
+        
+    }];
     
     [self requestData];
   
@@ -98,7 +114,7 @@
            _queryModel =[QueryModel yy_modelWithDictionary:dic[@"data"]];
 
             NSLog(@"666%@",_queryModel.vhlStatus);
-             [self setupUI];
+            [self setupUI];
         } else {
            [hud hideAnimated:YES];
             [self setupUI];
@@ -125,7 +141,7 @@
     for (NSInteger i = 0 ; i < titles.count; i++) {
         UIView *view1 = [[UIView alloc] init];
         view1.backgroundColor = [UIColor clearColor];
-        [self.view addSubview:view1];
+        [self.scrollView addSubview:view1];
         
         UIImageView *logo = [[UIImageView alloc] init];
 //        logo.image = [UIImage imageNamed:@"selected"];
@@ -160,7 +176,7 @@
         
         UIView *lineview = [[UIView alloc] init];
         lineview.backgroundColor = [UIColor colorWithHexString:@"#D1D1D6"];
-        [self.view addSubview:lineview];
+        [self.scrollView addSubview:lineview];
 
         if (i==0) {
             
@@ -430,30 +446,31 @@
         }
        }
     
-            UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            nextBtn.layer.cornerRadius = 2;
-            [nextBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
-            [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-            [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-            [self.view addSubview:nextBtn];
-            [nextBtn makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(271 * WidthCoefficient);
-                make.height.equalTo(44 * HeightCoefficient);
-                make.centerX.equalTo(0);
-                make.top.equalTo(297 * HeightCoefficient);
-            }];
+    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    nextBtn.layer.cornerRadius = 2;
+    [nextBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
+    [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+    [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
+    [self.scrollView addSubview:nextBtn];
+    [nextBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(271 * WidthCoefficient);
+        make.height.equalTo(44 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(297 * HeightCoefficient);
+    }];
     
     
     UIImageView *logoImg =[[UIImageView alloc] init];
     logoImg.image =[UIImage imageNamed:@"Rectangle"];
-    [self.view addSubview:logoImg];
+    [self.scrollView addSubview:logoImg];
     [logoImg makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(-(60*HeightCoefficient+kBottomHeight));
+        //make.bottom.mas_equalTo(self.view).offset(-(60*HeightCoefficient+kBottomHeight));
         make.width.equalTo (343*WidthCoefficient);
         make.height.equalTo (111*HeightCoefficient);
-        make.centerX.equalTo(0);
+        make.centerX.equalTo(self.scrollView);
+        make.top.mas_equalTo(nextBtn).offset(135 * HeightCoefficient);
     }];
     
     
@@ -467,22 +484,38 @@
     
     NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:title.count];
     
+    
+    UILabel *lab = [[UILabel alloc] init];
+    lab.textAlignment = NSTextAlignmentLeft;
+    lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
+    lab.font = [UIFont fontWithName:FontName size:13];
+    lab.text = NSLocalizedString(@"审核状态说明", nil);
+    [logoImg addSubview:lab];
+    [lab makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(180 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        
+        make.left.equalTo(10*WidthCoefficient);
+        make.top.equalTo(10*WidthCoefficient);
+        
+    }];
+    
     for (NSInteger i = 0 ; i < title.count; i++) {
         
-        UILabel *lab = [[UILabel alloc] init];
-        lab.textAlignment = NSTextAlignmentLeft;
-        lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
-        lab.font = [UIFont fontWithName:FontName size:13];
-        lab.text = NSLocalizedString(@"审核状态说明", nil);
-        [logoImg addSubview:lab];
-        [lab makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(180 * WidthCoefficient);
-            make.height.equalTo(20 * HeightCoefficient);
-            
-            make.left.equalTo(10*WidthCoefficient);
-            make.top.equalTo(10*WidthCoefficient);
-            
-        }];
+//        UILabel *lab = [[UILabel alloc] init];
+//        lab.textAlignment = NSTextAlignmentLeft;
+//        lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
+//        lab.font = [UIFont fontWithName:FontName size:13];
+//        lab.text = NSLocalizedString(@"审核状态说明", nil);
+//        [logoImg addSubview:lab];
+//        [lab makeConstraints:^(MASConstraintMaker *make) {
+//            make.width.equalTo(180 * WidthCoefficient);
+//            make.height.equalTo(20 * HeightCoefficient);
+//
+//            make.left.equalTo(10*WidthCoefficient);
+//            make.top.equalTo(10*WidthCoefficient);
+//
+//        }];
         
         
         UIView *views = [[UIView alloc] init];
@@ -547,7 +580,7 @@
   
     CGFloat contentH = tmpRect.size.height;
     lab2.font = [UIFont fontWithName:FontName size:13];
-    [self.view addSubview:lab2];
+    [self.scrollView addSubview:lab2];
     [lab2 makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(contentH+1);
         make.top.equalTo(logoImg.bottom).offset(10*HeightCoefficient);
@@ -577,5 +610,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [UIScrollView new];
+    }
+    return  _scrollView;
+}
 
 @end
