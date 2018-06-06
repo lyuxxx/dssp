@@ -211,7 +211,7 @@
             labelText = xLabels[index];
 
             NSInteger x = 2 * self.chartMarginLeft + (index) * self.xLabelWidth - (self.xLabelWidth/2);//(NSInteger) (index * _xLabelWidth + _chartMarginLeft);
-            NSInteger y = (NSInteger) (_chartMarginBottom + _chartCavanHeight) + 7;//xLabel坐标向下偏移
+            NSInteger y = (NSInteger) (_chartMarginBottom + _chartCavanHeight) + 8;//xLabel坐标向下偏移
 
             PNChartLabel *label = [[PNChartLabel alloc] initWithFrame:CGRectMake(x, y, (NSInteger) _xLabelWidth, (NSInteger) _chartMarginBottom)];
             [label setTextAlignment:NSTextAlignmentCenter];
@@ -401,7 +401,7 @@
         pointLayer.path = pointPath.CGPath;
         
         //  zhujilong: 创建临时layer 将路径的layer全部添加进去再来进行遮罩
-        CALayer *tempLayer = [CALayer new];
+//        CALayer *tempLayer = [CALayer new];
 
         [CATransaction begin];
         for (NSUInteger index = 0; index < progressLines.count; index++) {
@@ -410,11 +410,11 @@
             [chartLine addAnimation:self.pathAnimation forKey:@"strokeEndAnimation"];
             chartLine.strokeEnd = 1.0;
 
-            
-            [tempLayer addSublayer:chartLine];
+
+//            [tempLayer addSublayer:chartLine];
         }
-        
-        self.gradientLayer.mask = tempLayer;
+    
+//        self.gradientLayer.mask = tempLayer;
 
         // if you want cancel the point animation, comment this code, the point will show immediately
         if (chartData.inflexionPointStyle != PNLineChartPointStyleNone) {
@@ -487,7 +487,8 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
 
             yValue = chartData.getData(i).y;
 
-            CGFloat x = (i * _xLabelWidth + _chartMarginLeft + _xLabelWidth / 2.0);
+//            CGFloat x = (i * _xLabelWidth + _chartMarginLeft + _xLabelWidth / 2.0);
+            CGFloat x = (i * _xLabelWidth + 2 * _chartMarginLeft);//修改划线起始位置
             CGFloat y = [self yValuePositionInLineChart:yValue];
 
             // Circular point  数据点为空心圆
@@ -579,7 +580,7 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
 
                 if (i > 0) {
                     from = [NSValue valueWithCGPoint:CGPointMake(last_x, last_y)];
-                    to = [NSValue valueWithCGPoint:CGPointMake(x, y)];
+                    to = [NSValue valueWithCGPoint:CGPointMake(x + 0.5, y)];//+0.5去除线段间的空隙
                 }
             }
             if(from != nil && to != nil) {
@@ -611,10 +612,10 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
         if (self.showSmoothLines && chartData.itemCount >= 4) {
             for (NSDictionary<NSString *, NSValue *> *item in progressLinePaths) {
                 NSArray<NSDictionary *> *calculatedRanges =
-                        [self colorRangesBetweenP1:[item[@"from"] CGPointValue]
-                                                P2:[item[@"to"] CGPointValue]
-                                       rangeColors:chartData.rangeColors
-                                      defaultColor:defaultColor];
+                [self colorRangesBetweenP1:[item[@"from"] CGPointValue]
+                                        P2:[item[@"to"] CGPointValue]
+                               rangeColors:chartData.rangeColors
+                              defaultColor:defaultColor];
                 for (NSDictionary *range in calculatedRanges) {
 //                    NSLog(@"range : %@ range: %@ color %@", range[@"from"], range[@"to"], range[@"color"]);
                     UIBezierPath *currentProgressLine = [UIBezierPath bezierPath];
@@ -822,8 +823,8 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
             CGPoint point;
             for (NSUInteger i = 0; i < [self.xLabels count]; i++) {
                 point = CGPointMake(2 * _chartMarginLeft + (i * _xLabelWidth), _chartMarginBottom + _chartCavanHeight);
-                CGContextMoveToPoint(ctx, point.x, point.y + 7);//是x轴分割线向下
-                CGContextAddLineToPoint(ctx, point.x, point.y);
+                CGContextMoveToPoint(ctx, point.x, point.y + 8);//x轴分割线向下
+                CGContextAddLineToPoint(ctx, point.x, point.y + 3);//x轴分割线与x轴间距
                 CGContextStrokePath(ctx);
             }
 
@@ -1048,7 +1049,7 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
     // do not create curved line chart by default
     _showSmoothLines = NO;
     
-    [self setShadeBackground];
+//    [self setShadeBackground];
 
 }
 

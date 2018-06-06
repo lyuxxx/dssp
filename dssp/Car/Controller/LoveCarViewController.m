@@ -183,7 +183,7 @@
 
 - (void)setupUI {
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(16 * WidthCoefficient, kNaviHeight - kStatusBarHeight - 37 * WidthCoefficient, 79.5 * WidthCoefficient, 30 * WidthCoefficient)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(16 * WidthCoefficient, kNaviHeight - kStatusBarHeight - 34 * WidthCoefficient, 48 * WidthCoefficient, 24 * WidthCoefficient)];
     title.textAlignment = NSTextAlignmentLeft;
     title.font = [UIFont fontWithName:@"PingFangSC-Medium" size:24];
     title.textColor = [UIColor whiteColor];

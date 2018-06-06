@@ -28,6 +28,10 @@
 @property (nonatomic, assign) CGFloat mileagePercent;
 @property (nonatomic, assign) CGFloat fuelPercent;
 
+@property (nonatomic, strong) NSArray *xLabels;
+@property (nonatomic, strong) NSArray *yData;
+@property (nonatomic, assign) NSInteger userIndex;
+
 @end
 
 @interface RankingMonthRecordItem : NSObject <YYModel>
@@ -39,6 +43,10 @@
 //计算百分比 里程越多越好,油耗越低越好
 @property (nonatomic, assign) CGFloat mileagePercent;
 @property (nonatomic, assign) CGFloat fuelPercent;
+
+@property (nonatomic, strong) NSArray *xLabels;
+@property (nonatomic, strong) NSArray *yData;
+@property (nonatomic, assign) NSInteger userIndex;
 
 @end
 

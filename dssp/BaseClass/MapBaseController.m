@@ -151,7 +151,7 @@ static dispatch_once_t mapBaseOnceToken;
                             @"routeType": @"0",
                             @"vin": kVin,
                             @"destinationPoiName": name,
-                            @"address": address,
+                            @"address": address.length > 100 ? [address substringToIndex:100] : address,
                             @"destinationLongitude": [NSString stringWithFormat:@"%f",location.longitude],
                             @"destinationLatitude": [NSString stringWithFormat:@"%f",location.latitude],
                             @"tel":telephone

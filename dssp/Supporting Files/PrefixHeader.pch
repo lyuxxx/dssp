@@ -349,4 +349,6 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define addAppErrorInfo [NSString stringWithFormat:@"%@addAppErrorInfo",baseUrl]
 //意见反馈
 #define feedback [NSString stringWithFormat:@"%@appQuestion/commit",baseUrl]
+//查询是否为RCC车辆 没有显示屏不显示poi发送功能
+#define checkRccStatusURL [NSString stringWithFormat:@"%@rcc/status",baseUrl]
 #endif /* PrefixHeader_pch */

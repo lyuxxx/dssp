@@ -78,6 +78,7 @@ typedef void(^PullWeatherFinished)(void);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopupView" object:nil userInfo:nil];
     
+    [self checkRccStatus];
     [self postCustByMobile];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"HomeViewController"];
 }
@@ -211,6 +212,10 @@ typedef void(^PullWeatherFinished)(void);
             
         }];
     });
+    
+}
+
+- (void)checkRccStatus {
     
 }
 

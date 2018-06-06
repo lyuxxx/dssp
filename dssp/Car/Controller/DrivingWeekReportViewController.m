@@ -10,6 +10,7 @@
 #import "DrivingReportObject.h"
 #import "RankingObject.h"
 #import "PNChart.h"
+#import <YYText.h>
 
 @interface DrivingWeekReportViewController ()
 
@@ -31,18 +32,22 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *fuelTotalLabel;
 @property (nonatomic, strong) UILabel *fuelAverageLabel;
-@property (nonatomic, strong) UILabel *brakeTimeLabel;
-@property (nonatomic, strong) UILabel *attentionTimesLabel;
-@property (nonatomic, strong) UILabel *accMileageLabel;
+//@property (nonatomic, strong) UILabel *brakeTimeLabel;
+//@property (nonatomic, strong) UILabel *attentionTimesLabel;
+//@property (nonatomic, strong) UILabel *accMileageLabel;
 @property (nonatomic, strong) UILabel *harshBrakeLabel;
-@property (nonatomic, strong) UILabel *harshDecelerateLabel;
-@property (nonatomic, strong) UILabel *harshTurnLabel;
+@property (nonatomic, strong) UILabel *harshAccelerateLabel;
+//@property (nonatomic, strong) UILabel *harshTurnLabel;
 
 @property (nonatomic, strong) RankingWeekRecordItem *mileageRanking;
 @property (nonatomic, strong) RankingWeekRecordItem *fuelRanking;
 
 @property (nonatomic, strong) PNLineChart *mileageChart;
 @property (nonatomic, strong) PNLineChart *fuelChart;
+@property (nonatomic, strong) UIImageView *mileageUserPoint;
+@property (nonatomic, strong) UIImageView *fuelUserPoint;
+@property (nonatomic, strong) YYLabel *mileageUserPercentLabel;
+@property (nonatomic, strong) YYLabel *fuelUserPercentLabel;
 
 @end
 
@@ -115,7 +120,7 @@
         [shadowV0 makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(content).offset(7.5 * WidthCoefficient);
             make.width.equalTo(343 * WidthCoefficient);
-            make.height.equalTo(355 * WidthCoefficient);
+            make.height.equalTo(229 * WidthCoefficient);
             make.left.equalTo(16 * WidthCoefficient);
         }];
         
@@ -170,28 +175,41 @@
             make.right.equalTo(-20 * WidthCoefficient);
         }];
         
+//        NSArray<NSArray *> *stasTitles = @[
+//                                @[NSLocalizedString(@"油耗", nil),
+//                                  NSLocalizedString(@"平均油耗", nil)],
+//                                @[NSLocalizedString(@"汽车制动时间", nil),
+//                                  NSLocalizedString(@"疲劳驾驶提醒数", nil)],
+//                                @[NSLocalizedString(@"ACC里程", nil),
+//                                  NSLocalizedString(@"急刹车", nil)],
+//                                @[NSLocalizedString(@"急加速", nil),
+//                                  NSLocalizedString(@"急转弯", nil)]
+//                                ];
+//        NSArray<NSArray *> *imgNames = @[
+//                                         @[@"油耗_icon",
+//                                           @"平均油耗_icon"],
+//                                         @[@"制动时间_icon",
+//                                           @"注意次数_icon"],
+//                                         @[@"acc里程_icon",
+//                                           @"急刹车_icon"],
+//                                         @[@"急加速_icon",
+//                                           @"急转弯_icon"]
+//                                         ];
+        
         NSArray<NSArray *> *stasTitles = @[
-                                @[NSLocalizedString(@"油耗", nil),
-                                  NSLocalizedString(@"平均油耗", nil)],
-                                @[NSLocalizedString(@"汽车制动时间", nil),
-                                  NSLocalizedString(@"疲劳驾驶提醒数", nil)],
-                                @[NSLocalizedString(@"ACC里程", nil),
-                                  NSLocalizedString(@"急刹车", nil)],
-                                @[NSLocalizedString(@"急减速", nil),
-                                  NSLocalizedString(@"急转弯", nil)]
-                                ];
+                                           @[NSLocalizedString(@"油耗", nil),
+                                             NSLocalizedString(@"平均油耗", nil)],
+                                           @[NSLocalizedString(@"急刹车", nil),
+                                             NSLocalizedString(@"急加速", nil)]
+                                           ];
         NSArray<NSArray *> *imgNames = @[
                                          @[@"油耗_icon",
                                            @"平均油耗_icon"],
-                                         @[@"制动时间_icon",
-                                           @"注意次数_icon"],
-                                         @[@"acc里程_icon",
-                                           @"急刹车_icon"],
-                                         @[@"急减速_icon",
-                                           @"急转弯_icon"]
+                                         @[@"急刹车_icon",
+                                           @"急加速_icon"]
                                          ];
         
-        for (NSInteger i = 0; i < 8; i++) {
+        for (NSInteger i = 0; i < 4; i++) {
             NSInteger row = i / 2;
             NSInteger col = i % 2;
             
@@ -237,17 +255,9 @@
             } else if (i == 1) {
                 self.fuelAverageLabel = label1;
             } else if (i == 2) {
-                self.brakeTimeLabel = label1;
-            } else if (i == 3) {
-                self.attentionTimesLabel = label1;
-            } else if (i == 4) {
-                self.accMileageLabel = label1;
-            } else if (i == 5) {
                 self.harshBrakeLabel = label1;
-            } else if (i == 6) {
-                self.harshDecelerateLabel = label1;
-            } else if (i == 7) {
-                self.harshTurnLabel = label1;
+            } else {
+                self.harshAccelerateLabel = label1;
             }
             
             //横向分割线
@@ -299,70 +309,7 @@
         [_chartMileageContainer makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(shadowV1);
         }];
-        /**
-        self.mileageChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 51 * WidthCoefficient, 343 * WidthCoefficient, 210 * WidthCoefficient)];
-        [self.chartMileageContainer addSubview:self.mileageChart];
-        self.mileageChart.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
-        self.mileageChart.axisColor = [UIColor colorWithHexString:@"#2f2726"];
-        self.mileageChart.xLabelColor = [UIColor colorWithHexString:@"#999999"];
-        self.mileageChart.showCoordinateAxis = YES;
-        self.mileageChart.yLabelFormat = @"%1.1f";
-        self.mileageChart.xLabelFont = [UIFont fontWithName:FontName size:10];
-        [self.mileageChart setXLabels:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11"]];
-        self.mileageChart.showGenYLabels = NO;
-        self.mileageChart.showYGridLines = NO;
         
-        //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
-        //Only if you needed
-        self.mileageChart.yFixedValueMax = 200;
-        self.mileageChart.yFixedValueMin = 0.0;
-        
-        [self.mileageChart setYLabels:@[
-                                     @"0",
-                                     @"50",
-                                     @"100",
-                                     @"150",
-                                     @"200",
-                                     @"250",
-                                     @"300",
-                                     ]
-         ];
-        
-        // Line Chart #1
-        NSArray *data01Array = @[@124, @134, @128, @127, @144, @139, @134, @134, @132, @130, @116, @95];
-        PNLineChartData *data01 = [PNLineChartData new];
-        data01.dataTitle = @"Alpha";
-        //        data01.color = PNFreshGreen;
-        data01.pointLabelColor = [UIColor blackColor];
-        data01.alpha = 0.3f;
-        data01.showPointLabel = NO;
-        data01.pointLabelFont = [UIFont fontWithName:@"Helvetica-Light" size:9.0];
-        data01.itemCount = data01Array.count;
-        data01.inflexionPointColor = PNRed;
-        data01.inflexionPointStyle = PNLineChartPointStyleNone;
-        data01.getData = ^(NSUInteger index) {
-            CGFloat yValue = [data01Array[index] floatValue];
-            return [PNLineChartDataItem dataItemWithY:yValue];
-        };
-        
-        self.mileageChart.chartData = @[data01];
-        [self.mileageChart.chartData enumerateObjectsUsingBlock:^(PNLineChartData *obj, NSUInteger idx, BOOL *stop) {
-            obj.pointLabelColor = [UIColor blackColor];
-        }];
-        self.mileageChart.displayAnimated = NO;
-        self.mileageChart.showSmoothLines = YES;
-        
-        [self.mileageChart strokeChart];
-        
-        CGPoint p = [((NSArray *)self.mileageChart.pathPoints[0])[1] CGPointValue];
-        UIImageView *v = [[UIImageView alloc] initWithFrame:CGRectMake(p.x - 8, p.y - 8, 16, 16)];
-        v.image = [UIImage imageNamed:@"用户排名位置"];
-        //        [self.lineChart strokeChart];
-        [self.mileageChart addSubview:v];
-        [self.mileageChart bringSubviewToFront:v];
-        
-        [self.chartMileageContainer addSubview:self.mileageChart];
-        **/
         UIView *redV1 = [[UIView alloc] init];
         redV1.layer.cornerRadius = 1.5;
         redV1.backgroundColor = [UIColor colorWithHexString:@"#ac0042"];
@@ -387,14 +334,16 @@
         }];
         
         UILabel *unitLabel1 = [[UILabel alloc] init];
-        unitLabel1.font = [UIFont fontWithName:FontName size:13];
+        unitLabel1.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+        unitLabel1.font = [UIFont fontWithName:FontName size:10];
         unitLabel1.textColor = [UIColor colorWithHexString:@"#999999"];
         unitLabel1.text = NSLocalizedString(@"单位:km", nil);
         [self.chartMileageContainer addSubview:unitLabel1];
         [unitLabel1 makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(-20 * WidthCoefficient);
-            make.top.equalTo(21.5 * WidthCoefficient);
+            make.left.equalTo(5);
+            make.bottom.equalTo(- 15 * WidthCoefficient);
             make.height.equalTo(16 * WidthCoefficient);
+            make.width.equalTo(50 * WidthCoefficient);
         }];
         
         UILabel *yTitleLabel1 = [[UILabel alloc] init];
@@ -408,7 +357,7 @@
             make.width.equalTo(10 * WidthCoefficient);
             make.height.equalTo(60 * WidthCoefficient);
             make.left.equalTo(20 * WidthCoefficient);
-            make.top.equalTo(redV1.bottom).offset(15.5 * WidthCoefficient);
+            make.top.equalTo(redV1.bottom).offset(76 * WidthCoefficient);
         }];
         
         UIView *shadowV2 = [[UIView alloc] init];
@@ -446,26 +395,28 @@
         }];
         
         UILabel *title2 = [[UILabel alloc] init];
-        title2.text = NSLocalizedString(@"周油耗排名", nil);
+        title2.text = NSLocalizedString(@"周平均油耗排名", nil);
         title2.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
         title2.textColor = [UIColor whiteColor];
         [self.chartFuelContainer addSubview:title2];
         [title2 makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(redV2.right).offset(5 * WidthCoefficient);
-            make.width.equalTo(96 * WidthCoefficient);
             make.height.equalTo(16 * WidthCoefficient);
             make.centerY.equalTo(redV2);
         }];
         
         UILabel *unitLabel2 = [[UILabel alloc] init];
-        unitLabel2.font = [UIFont fontWithName:FontName size:13];
+        unitLabel2.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+        unitLabel2.numberOfLines = 0;
+        unitLabel2.font = [UIFont fontWithName:FontName size:10];
         unitLabel2.textColor = [UIColor colorWithHexString:@"#999999"];
-        unitLabel2.text = NSLocalizedString(@"单位:L", nil);
+        unitLabel2.text = NSLocalizedString(@"单位:\nL/百公里", nil);
         [self.chartFuelContainer addSubview:unitLabel2];
         [unitLabel2 makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(-20 * WidthCoefficient);
-            make.top.equalTo(21.5 * WidthCoefficient);
-            make.height.equalTo(16 * WidthCoefficient);
+            make.left.equalTo(10);
+            make.bottom.equalTo(-10 * WidthCoefficient);
+            make.height.equalTo(28 * WidthCoefficient);
+            make.width.equalTo(50 * WidthCoefficient);
         }];
         
         UILabel *yTitleLabel2 = [[UILabel alloc] init];
@@ -479,7 +430,7 @@
             make.width.equalTo(10 * WidthCoefficient);
             make.height.equalTo(60 * WidthCoefficient);
             make.left.equalTo(20 * WidthCoefficient);
-            make.top.equalTo(redV2.bottom).offset(15.5 * WidthCoefficient);
+            make.top.equalTo(redV2.bottom).offset(76 * WidthCoefficient);
         }];
         
         scroll;
@@ -520,9 +471,8 @@
             });
             
         } else {
-            [hud hideAnimated:YES];
-            //            hud.label.text = dic[@"msg"];
-            //            [hud hideAnimated:YES afterDelay:1];
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
         hud.label.text = NSLocalizedString(@"网络异常", nil);
@@ -531,6 +481,8 @@
 }
 
 - (void)pullRankingWithReport:(DrivingReportWeek *)report {
+    
+    [MBProgressHUD showMessage:@""];
     
     self.mileageRanking = nil;
     self.fuelRanking = nil;
@@ -550,7 +502,7 @@
     dispatch_queue_t queue = dispatch_queue_create("ranking", NULL);
     dispatch_async(queue, ^{
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageWeekURL,@"LPAA5CKC1J2074562",startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingWeekResponse *response = [RankingWeekResponse yy_modelWithJSON:dic];
@@ -567,7 +519,7 @@
     
     dispatch_async(queue, ^{
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelWeekURL,@"LPAA5CKC1J2074562",startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingWeekResponse *response = [RankingWeekResponse yy_modelWithJSON:dic];
@@ -601,6 +553,174 @@
 
 - (void)updateChart {
     
+    [MBProgressHUD hideHUD];
+    
+    [self updateMileageChart];
+    
+    [self updateFuelChart];
+    
+}
+
+- (void)updateMileageChart {
+    //里程排名表
+    [self.mileageChart removeFromSuperview];
+    self.mileageChart = nil;
+    [self.mileageUserPercentLabel removeFromSuperview];
+    self.mileageUserPercentLabel = nil;
+    
+    self.mileageChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 51 * WidthCoefficient, 343 * WidthCoefficient, 210 * WidthCoefficient)];
+    [self.chartMileageContainer addSubview:self.mileageChart];
+    self.mileageChart.userInteractionEnabled = NO;
+    self.mileageChart.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+    self.mileageChart.axisColor = [UIColor colorWithHexString:@"#2f2726"];
+    self.mileageChart.xLabelColor = [UIColor colorWithHexString:@"#999999"];
+    self.mileageChart.showCoordinateAxis = YES;
+    //    self.mileageChart.yLabelFormat = @"%1.1f";
+    self.mileageChart.xLabelFont = [UIFont fontWithName:FontName size:10];
+    [self.mileageChart setXLabels:self.mileageRanking.xLabels];
+    self.mileageChart.showGenYLabels = NO;
+    self.mileageChart.showYGridLines = NO;
+    
+    //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
+    //Only if you needed
+    self.mileageChart.yFixedValueMax = 100;
+    self.mileageChart.yFixedValueMin = 0.0;
+    
+    PNLineChartData *data01 = [PNLineChartData new];
+    data01.color = [UIColor colorWithHexString:@"#2687ee"];
+    data01.lineWidth = 3;
+    data01.alpha = 0.3f;
+    data01.showPointLabel = NO;
+    data01.itemCount = self.mileageRanking.yData.count;
+    data01.inflexionPointStyle = PNLineChartPointStyleNone;
+    data01.getData = ^(NSUInteger index) {
+        CGFloat yValue = [self.mileageRanking.yData[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    
+    self.mileageChart.chartData = @[data01];
+    //    [self.mileageChart.chartData enumerateObjectsUsingBlock:^(PNLineChartData *obj, NSUInteger idx, BOOL *stop) {
+    //        obj.pointLabelColor = [UIColor blackColor];
+    //    }];
+    self.mileageChart.displayAnimated = NO;
+    self.mileageChart.showSmoothLines = YES;
+    
+    [self.mileageChart strokeChart];
+    
+    if (self.mileageRanking) {
+        CGPoint p = [((NSArray *)self.mileageChart.pathPoints[0])[self.mileageRanking.userIndex] CGPointValue];
+        self.mileageUserPoint.frame = CGRectMake(p.x - 8, p.y - 8, 16, 16);
+        //        [self.lineChart strokeChart];
+        [self.mileageChart addSubview:self.mileageUserPoint];
+        [self.mileageChart bringSubviewToFront:self.mileageUserPoint];
+    }
+    
+    [self.chartMileageContainer addSubview:self.mileageChart];
+    [self.chartMileageContainer insertSubview:self.mileageChart atIndex:0];
+    
+    self.mileageUserPercentLabel = [[YYLabel alloc] init];
+    _mileageUserPercentLabel.backgroundColor = [UIColor colorWithRed:47.0/255.0 green:39.0/255.0 blue:38.0/255.0 alpha:0.5];
+    NSString *oriStr = [NSString stringWithFormat:@"您本周里程超过了%.0f%%的用户",self.mileageRanking.mileagePercent];
+    NSRange range = [oriStr rangeOfString:[NSString stringWithFormat:@"%.0f%%",self.mileageRanking.mileagePercent]];
+    NSMutableAttributedString *userPercent = [[NSMutableAttributedString alloc] initWithString:oriStr];
+    userPercent.yy_alignment = NSTextAlignmentCenter;
+    userPercent.yy_font = [UIFont fontWithName:FontName size:13];
+    userPercent.yy_color = [UIColor colorWithHexString:@"#999999"];
+    [userPercent yy_setFont:[UIFont fontWithName:@"PingFangSC-Medium" size:16] range:range];
+    [userPercent yy_setColor:[UIColor colorWithHexString:@"#e2cd8d"] range:range];
+    _mileageUserPercentLabel.attributedText = userPercent;
+    if (!_mileageRanking) {
+        _mileageUserPercentLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"暂无数据", nil) attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:13],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
+        _mileageUserPercentLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    [self.chartMileageContainer addSubview:_mileageUserPercentLabel];
+    [_mileageUserPercentLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(201.5 * WidthCoefficient);
+        make.height.equalTo(36 * WidthCoefficient);
+        make.right.equalTo(-20 * WidthCoefficient);
+        make.top.equalTo(51 * WidthCoefficient);
+    }];
+}
+
+- (void)updateFuelChart {
+    //油耗排名表
+    [self.fuelChart removeFromSuperview];
+    self.fuelChart = nil;
+    [self.fuelUserPercentLabel removeFromSuperview];
+    self.fuelUserPercentLabel = nil;
+    
+    self.fuelChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 51 * WidthCoefficient, 343 * WidthCoefficient, 210 * WidthCoefficient)];
+    [self.chartFuelContainer addSubview:self.fuelChart];
+    self.fuelChart.userInteractionEnabled = NO;
+    self.fuelChart.backgroundColor = [UIColor colorWithHexString:@"#120f0e"];
+    self.fuelChart.axisColor = [UIColor colorWithHexString:@"#2f2726"];
+    self.fuelChart.xLabelColor = [UIColor colorWithHexString:@"#999999"];
+    self.fuelChart.showCoordinateAxis = YES;
+    //    self.mileageChart.yLabelFormat = @"%1.1f";
+    self.fuelChart.xLabelFont = [UIFont fontWithName:FontName size:10];
+    [self.fuelChart setXLabels:self.fuelRanking.xLabels];
+    self.fuelChart.showGenYLabels = NO;
+    self.fuelChart.showYGridLines = NO;
+    
+    //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
+    //Only if you needed
+    self.fuelChart.yFixedValueMax = 100;
+    self.fuelChart.yFixedValueMin = 0.0;
+    
+    PNLineChartData *data01 = [PNLineChartData new];
+    data01.color = [UIColor colorWithHexString:@"ea764d"];
+    data01.lineWidth = 3;
+    data01.alpha = 0.3f;
+    data01.showPointLabel = NO;
+    data01.itemCount = self.fuelRanking.yData.count;
+    data01.inflexionPointStyle = PNLineChartPointStyleNone;
+    data01.getData = ^(NSUInteger index) {
+        CGFloat yValue = [self.fuelRanking.yData[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    
+    self.fuelChart.chartData = @[data01];
+    //    [self.fuelChart.chartData enumerateObjectsUsingBlock:^(PNLineChartData *obj, NSUInteger idx, BOOL *stop) {
+    //        obj.pointLabelColor = [UIColor blackColor];
+    //    }];
+    self.fuelChart.displayAnimated = NO;
+    self.fuelChart.showSmoothLines = YES;
+    
+    [self.fuelChart strokeChart];
+    
+    if (self.fuelRanking) {
+        CGPoint p = [((NSArray *)self.fuelChart.pathPoints[0])[self.fuelRanking.userIndex] CGPointValue];
+        self.fuelUserPoint.frame = CGRectMake(p.x - 8, p.y - 8, 16, 16);
+        //        [self.lineChart strokeChart];
+        [self.fuelChart addSubview:self.fuelUserPoint];
+        [self.fuelChart bringSubviewToFront:self.fuelUserPoint];
+    }
+    
+    [self.chartFuelContainer addSubview:self.fuelChart];
+    [self.chartFuelContainer insertSubview:self.fuelChart atIndex:0];
+    
+    self.fuelUserPercentLabel = [[YYLabel alloc] init];
+    _fuelUserPercentLabel.backgroundColor = [UIColor colorWithRed:47.0/255.0 green:39.0/255.0 blue:38.0/255.0 alpha:0.5];
+    NSString *oriStr = [NSString stringWithFormat:@"您本周油耗超过了%.0f%%的用户",self.fuelRanking.fuelPercent];
+    NSRange range = [oriStr rangeOfString:[NSString stringWithFormat:@"%.0f%%",self.fuelRanking.fuelPercent]];
+    NSMutableAttributedString *userPercent = [[NSMutableAttributedString alloc] initWithString:oriStr];
+    userPercent.yy_alignment = NSTextAlignmentCenter;
+    userPercent.yy_font = [UIFont fontWithName:FontName size:13];
+    userPercent.yy_color = [UIColor colorWithHexString:@"#999999"];
+    [userPercent yy_setFont:[UIFont fontWithName:@"PingFangSC-Medium" size:16] range:range];
+    [userPercent yy_setColor:[UIColor colorWithHexString:@"#e2cd8d"] range:range];
+    _fuelUserPercentLabel.attributedText = userPercent;
+    if (!_fuelRanking) {
+        _fuelUserPercentLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"暂无数据", nil) attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:13],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
+        _fuelUserPercentLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    [self.chartFuelContainer addSubview:_fuelUserPercentLabel];
+    [_fuelUserPercentLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(201.5 * WidthCoefficient);
+        make.height.equalTo(36 * WidthCoefficient);
+        make.right.equalTo(-20 * WidthCoefficient);
+        make.top.equalTo(51 * WidthCoefficient);
+    }];
 }
 
 - (void)clear {
@@ -608,12 +728,12 @@
     self.timeLabel.text = @"-";
     self.fuelTotalLabel.text = @"-";
     self.fuelAverageLabel.text = @"-";
-    self.brakeTimeLabel.text = @"-";
-    self.attentionTimesLabel.text = @"-";
-    self.accMileageLabel.text = @"-";
+//    self.brakeTimeLabel.text = @"-";
+//    self.attentionTimesLabel.text = @"-";
+//    self.accMileageLabel.text = @"-";
     self.harshBrakeLabel.text = @"-";
-    self.harshDecelerateLabel.text = @"-";
-    self.harshTurnLabel.text = @"-";
+    self.harshAccelerateLabel.text = @"-";
+//    self.harshTurnLabel.text = @"-";
 }
 
 - (void)configTopScrollWithReports:(NSArray<DrivingReportWeek *> *)reports {
@@ -698,12 +818,12 @@
     self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",report.startDate,report.endDate];
     self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@ L",report.totalFuelConsumed];
     self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@ L",report.averageFuelConsumed];
-    self.brakeTimeLabel.text = [NSString stringWithFormat:@"%@ h",report.autoBrakeTimes];
-    self.attentionTimesLabel.text = [NSString stringWithFormat:@"%@ 次",report.driverAttentionTimes];
-    self.accMileageLabel.text = [NSString stringWithFormat:@"%@ km",report.accMileage];
+//    self.brakeTimeLabel.text = [NSString stringWithFormat:@"%@ h",report.autoBrakeTimes];
+//    self.attentionTimesLabel.text = [NSString stringWithFormat:@"%@ 次",report.driverAttentionTimes];
+//    self.accMileageLabel.text = [NSString stringWithFormat:@"%@ km",report.accMileage];
     self.harshBrakeLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshDecelerationTimes];
-    self.harshDecelerateLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshAccelerationTimes];
-    self.harshTurnLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshTurnTimes];
+    self.harshAccelerateLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshAccelerationTimes];
+//    self.harshTurnLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshTurnTimes];
     
     [self pullRankingWithReport:report];
 }
@@ -752,6 +872,22 @@
         _reports = [NSArray array];
     }
     return _reports;
+}
+
+- (UIImageView *)mileageUserPoint {
+    if (!_mileageUserPoint) {
+        _mileageUserPoint = [[UIImageView alloc] init];
+        _mileageUserPoint.image = [UIImage imageNamed:@"用户排名位置"];
+    }
+    return _mileageUserPoint;
+}
+
+- (UIImageView *)fuelUserPoint {
+    if (!_fuelUserPoint) {
+        _fuelUserPoint = [[UIImageView alloc] init];
+        _fuelUserPoint.image = [UIImage imageNamed:@"用户排名位置"];
+    }
+    return _fuelUserPoint;
 }
 
 @end

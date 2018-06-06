@@ -36,17 +36,26 @@
     
     _mileagePercent = 0;
     _fuelPercent = 0;
+    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:_levelList.count];
+    NSMutableArray *yTmp = [NSMutableArray arrayWithCapacity:_levelList.count];
     
     for (NSInteger i = 0; i < _levelList.count; i++) {
         LevelListItem *item = _levelList[i];
+        //获取用户点所在index
+        if (item.level == _vehicleLevel) {
+            _userIndex = i;
+        }
         if (_vehicleLevel >= item.level) {
             _mileagePercent += item.levelPercent;
         }
         if (_vehicleLevel <= item.level) {
             _fuelPercent += item.levelPercent;
         }
+        [tmp addObject:[NSString stringWithFormat:@"%.0f",item.xValue]];
+        [yTmp addObject:[NSNumber numberWithFloat:item.levelPercent]];
     }
-    
+    _xLabels = [NSArray arrayWithArray:tmp];
+    _yData = [NSArray arrayWithArray:yTmp];
     
     return YES;
 }
@@ -65,17 +74,26 @@
     
     _mileagePercent = 0;
     _fuelPercent = 0;
+    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:_levelList.count];
+    NSMutableArray *yTmp = [NSMutableArray arrayWithCapacity:_levelList.count];
     
     for (NSInteger i = 0; i < _levelList.count; i++) {
         LevelListItem *item = _levelList[i];
+        //获取用户点所在index
+        if (item.level == _vehicleLevel) {
+            _userIndex = i;
+        }
         if (_vehicleLevel >= item.level) {
             _mileagePercent += item.levelPercent;
         }
         if (_vehicleLevel <= item.level) {
             _fuelPercent += item.levelPercent;
         }
+        [tmp addObject:[NSString stringWithFormat:@"%.0f",item.xValue]];
+        [yTmp addObject:[NSNumber numberWithFloat:item.levelPercent]];
     }
-    
+    _xLabels = [NSArray arrayWithArray:tmp];
+    _yData = [NSArray arrayWithArray:yTmp];
     
     return YES;
 }
