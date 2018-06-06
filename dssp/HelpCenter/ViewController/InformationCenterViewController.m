@@ -19,6 +19,7 @@
 #import <IQKeyboardManager.h>
 #import "RealVinViewcontroller.h"
 #import "BaseWebViewController.h"
+#import "FeedbackShowImageView.h"
 @interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource,DKSKeyboardDelegate,SevenProtocolDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DKSKeyboardView *keyView;
@@ -497,11 +498,38 @@
     return self.dataSource[indexPath.row].cellHeight;
 }
 
+#pragma mark- HelperCenterCell的代理方法
 - (void)sevenProrocolMethod:(NSString *)cellUrl
 {
     BaseWebViewController *vc = [[BaseWebViewController alloc] initWithURL:cellUrl];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)showPic:(UIImage *)image {
+    
+    NSLog("手势的点击事件");
+    #warning 这里为了复用意见反馈的预览图片 所以对传入的参数进行了封装 9999 是预定的tag初始值 因为对于图片数组的会移除最后一个 所以这里添加了一个空图片对象
+    NSMutableArray<UIImage *> *imageArray = [NSMutableArray array];
+    [imageArray addObject:image];
+    [imageArray addObject:[UIImage new]];
+
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *maskview = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    maskview.backgroundColor = [UIColor blackColor];
+    [window addSubview:maskview];
+    
+    FeedbackShowImageView *fbImageV = [[FeedbackShowImageView alloc] initWithFrame:[UIScreen mainScreen].bounds byClick:9999 appendArray:imageArray];
+    [fbImageV show:maskview didFinish:^(){
+        [UIView animateWithDuration:0.5f animations:^{
+            fbImageV.alpha = 0.0f;
+            maskview.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [fbImageV removeFromSuperview];
+            [maskview removeFromSuperview];
+        }];
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -519,7 +547,7 @@
                                      @"10003":@"CarflowViewController",
                                      @"10004":@"CarTrackViewController",
                                      @"10005":@"TrafficReportController",
-                                     @"10006":@"DrivingReportPageViewController",
+                                     @"10006":@"DrivingReportPageController",//@"DrivingReportPageViewController",
                                      @"10007":@"LllegalViewController",
                                      @"10013":@"RealVinViewcontroller",
                                      @"10009":@"MapUpdateViewController",
@@ -544,7 +572,7 @@
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
                         message.choices = @[@"确定",@"关闭"];
-                        message.serviceDetails = @"欢迎使用智能客服服务?";
+                        message.serviceDetails = @"是否继续使用智能客服服务？";//@"欢迎使用智能客服服务?";
                         [self sendMessage:message];
                         
                     } else {
@@ -683,8 +711,9 @@
                         {
                             //T车辆
                             if ([KuserName isEqualToString:@"18911568274"]) {
-            
-                                if([str4 isEqualToString:@"10013"])
+                                
+                                //  游客模式下 实名认证 地图升级 进行拦截
+                                if([str4 isEqualToString:@"10013"] || [str4 isEqualToString:@"10009"])
                                 {
                                     [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
                                     
@@ -700,10 +729,11 @@
                             }
                             else
                             {
-                          
-                            UIViewController *vc = [[NSClassFromString([dic2 objectForKey:str4]) alloc] init];
-                            vc.hidesBottomBarWhenPushed = YES;
-                            [self.navigationController pushViewController:vc animated:YES];
+                                NSLog("这之前没有问题");
+                                NSString *vcString = [dic2 objectForKey:str4];
+                                UIViewController *vc = [[NSClassFromString([dic2 objectForKey:str4]) alloc] init];
+                                vc.hidesBottomBarWhenPushed = YES;
+                                [self.navigationController pushViewController:vc animated:YES];
                             }
                             
                         }

@@ -11,7 +11,7 @@
 
 @protocol SevenProtocolDelegate <NSObject>
 - (void)sevenProrocolMethod:(NSString *)cellUrl;
-
+- (void)showPic:(UIImage *)image;
 @end
 
 typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *ID,NSString *sourceData,NSString *appNum);

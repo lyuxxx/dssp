@@ -193,6 +193,7 @@
                 [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
                     make.height.height.equalTo(165*WidthCoefficient);
                 }];
+                //
                 
                 _contentLabel1.text = @"该提示对您是否有帮助?";
                 CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
@@ -720,6 +721,17 @@
     }
 }
 
+- (void)bgImageTapAction {
+    //  如果图片为空就直接返回
+    if (self.bgImg.image == nil) {
+        return;
+    }else {
+        if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)]) {
+            [self.customDelegate showPic:self.bgImg.image];
+        }
+    }
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -791,6 +803,9 @@
         make.width.equalTo(220 * WidthCoefficient);
         make.height.equalTo(165 * WidthCoefficient);
     }];
+    //  为图片添加手势
+    UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgImageTapAction)];
+    [self addGestureRecognizer:imageTap];
     
     
 //    self.contentLabel = [[UITextView alloc] init];
