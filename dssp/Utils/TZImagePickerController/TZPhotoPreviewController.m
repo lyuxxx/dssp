@@ -361,11 +361,11 @@
         return;
     }
     
-    // 如果没有选中过照片 点击确定时选中当前预览的照片
-    if (_tzImagePickerVc.selectedModels.count == 0 && _tzImagePickerVc.minImagesCount <= 0) {
-        TZAssetModel *model = _models[_currentIndex];
-        [_tzImagePickerVc addSelectedModel:model];
-    }
+    // 如果没有选中过照片 点击确定时选中当前预览的照片 为了满足公司的需求 把这段代码给注释掉了
+//    if (_tzImagePickerVc.selectedModels.count == 0 && _tzImagePickerVc.minImagesCount <= 0) {
+//        TZAssetModel *model = _models[_currentIndex];
+//        [_tzImagePickerVc addSelectedModel:model];
+//    }
     if (_tzImagePickerVc.allowCrop) { // 裁剪状态
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_currentIndex inSection:0];
         TZPhotoPreviewCell *cell = (TZPhotoPreviewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
