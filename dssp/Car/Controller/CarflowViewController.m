@@ -249,6 +249,7 @@
     
     
     UILabel *Lastlabel = [[UILabel alloc] init];
+    Lastlabel.hidden = YES;
     Lastlabel.font=[UIFont fontWithName:FontName size:11];
 //    Lastlabel.backgroundColor = [UIColor colorWithHexString:@"#A18E79"];
     Lastlabel.layer.cornerRadius = 20 * HeightCoefficient/2;
