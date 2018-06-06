@@ -61,6 +61,9 @@ typedef void(^PullWeatherFinished)(void);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"rccStatus"];
+    
     //    [self.tabBarController.tabBar showBadgeOnItemIndex:1];
     [self setupUI];
     [self pullData];
@@ -216,7 +219,18 @@ typedef void(^PullWeatherFinished)(void);
 }
 
 - (void)checkRccStatus {
-    
+    if ([kVin isNotBlank] && kRccStatus == nil) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@",checkRccStatusURL,kVin] parameters:nil success:^(id responseData) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            if ([dic[@"code"] isEqualToString:@"200"]) {
+                NSInteger status = ((NSNumber *)dic[@"data"]).integerValue;//2:rcc 1:非rcc
+                [[NSUserDefaults standardUserDefaults] setInteger:status forKey:@"rccStatus"];
+            }
+            
+        } failure:^(NSInteger code) {
+            
+        }];
+    }
 }
 
 - (void)postCustByMobile

@@ -97,7 +97,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 #define KcertificationStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"certificationStatus"]
 #define KcontractStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"contractStatus"]
 #define kphonenumber [[NSUserDefaults standardUserDefaults] objectForKey:@"phonenumber"]
-
+#define kRccStatus [[NSUserDefaults standardUserDefaults] objectForKey:@"rccStatus"]
 
 
 #define KuserName [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]

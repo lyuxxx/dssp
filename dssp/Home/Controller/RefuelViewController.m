@@ -294,6 +294,9 @@ static dispatch_once_t oilOnceToken;
             }];
             
             self.poiSendBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
+            if (self.isRcc) {
+                self.poiSendBtn.hidden = YES;
+            }
             [_poiSendBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_poiSendBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
             [_infoView addSubview:_poiSendBtn];
@@ -444,6 +447,9 @@ static dispatch_once_t oilOnceToken;
             }];
             
             self.detailSendBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
+            if (self.isRcc) {
+                self.detailSendBtn.hidden = YES;
+            }
             [_detailSendBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_detailSendBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
             [_detailTop addSubview:_detailSendBtn];

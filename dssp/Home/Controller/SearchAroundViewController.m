@@ -611,6 +611,9 @@
         }];
         
         POISendBtn *sendPOIBtn = [POISendBtn buttonWithType:UIButtonTypeCustom];
+        if (self.isRcc) {
+            sendPOIBtn.hidden = YES;
+        }
         [sendPOIBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [sendPOIBtn setBackgroundImage:[UIImage imageNamed:@"Group 4"] forState:UIControlStateNormal];
         [_infoView addSubview:sendPOIBtn];

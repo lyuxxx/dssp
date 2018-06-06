@@ -226,6 +226,12 @@ static dispatch_once_t mapBaseOnceToken;
     self.navigationController.navigationBar.hidden = YES;
     self.rt_disableInteractivePop = YES;
     
+    //rcc
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"rccStatus"] == 2) {
+        self.isRcc = YES;
+    }
+    
+    
     self.favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_favoriteBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     [_favoriteBtn setImage:[UIImage imageNamed:@"favoritesfolder"] forState:UIControlStateNormal];

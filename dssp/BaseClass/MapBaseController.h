@@ -33,6 +33,8 @@ typedef void(^CheckCarLocationOver)(void);
 @property (nonatomic, copy) CheckCarLocationOver checkCarLocationOver;
 @property (nonatomic, copy) NSString *carCity;
 
+@property (nonatomic, assign) BOOL isRcc;
+
 - (instancetype)initWithType:(PoiType)type;
 
 - (void)checkPoiWithCpid:(NSString *)cpid inResult:(void (^)(BOOL,NSString *))result;

@@ -276,6 +276,16 @@
 //        make.right.equalTo(-16 * WidthCoefficient);
 //        make.left.equalTo(16 * WidthCoefficient);
 //    }];
+    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"rccStatus"] == 2) {
+        UIImageView *imgV = [[UIImageView alloc] init];
+        imgV.image = [UIImage imageNamed:@"rcc_bg"];
+        [_tableView addSubview:imgV];
+        [imgV makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(140 * HeightCoefficient);
+            make.left.bottom.right.equalTo(_tableView);
+        }];
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
