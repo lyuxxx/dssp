@@ -43,6 +43,7 @@
     }];
     
     UILabel *botLabel = [[UILabel alloc] init];
+    botLabel.textAlignment = NSTextAlignmentCenter;
     botLabel.text = NSLocalizedString(@"DS车联网服务协议", nil);
     
     botLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];

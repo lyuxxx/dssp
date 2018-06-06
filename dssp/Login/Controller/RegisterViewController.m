@@ -720,15 +720,18 @@
 //                    timer = nil;
                     
                 } else {
-                    
-                    [hud hideAnimated:YES];
                     hud.label.text = [dic objectForKey:@"msg"];
                     [hud hideAnimated:YES afterDelay:1];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self jumpImg1];
+                    });
                 }
             } failure:^(NSInteger code) {
-              
                 hud.label.text = NSLocalizedString(@"网络异常", nil);
                 [hud hideAnimated:YES afterDelay:1];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self jumpImg1];
+                });
             }];
             
             

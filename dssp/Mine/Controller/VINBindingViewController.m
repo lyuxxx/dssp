@@ -190,25 +190,52 @@
                             else
                             {
                                 
-                                ///非T跳车辆绑定填写页面
-                                CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                                vc.bingVin = _vinField.text;
-                                vc.doptCode = _enginenNumber.text;
-                                vc.carbind = _carbind;
-                                [self.navigationController pushViewController:vc animated:YES];
+                                PopupView *InputalertView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                                [InputalertView initWithTitle:@"您当前输入的是非T车,是否继续绑定?" img:@"账号警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                                //            InputalertView.delegate = self;
+                                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                                [keywindow addSubview: InputalertView];
                                 
+                                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                                    if (btn.tag == 100) {//左边按钮
+                                        ///非T跳车辆绑定填写页面
+                                        CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                                        vc.bingVin = _vinField.text;
+                                        vc.doptCode = _enginenNumber.text;
+                                        vc.carbind = _carbind;
+                                        [self.navigationController pushViewController:vc animated:YES];
+                                    }
+                                    if(btn.tag ==101)
+                                    {
+                                        
+                                    }
+                                };
                             }
    
                         }
                         else
                         {
                           
-                            ///非T跳车辆绑定填写页面
-                            CarBindingViewController *vc = [[CarBindingViewController alloc] init];
-                            vc.bingVin = _vinField.text;
-                            vc.doptCode = _enginenNumber.text;
-                            vc.carbind = _carbind;
-                            [self.navigationController pushViewController:vc animated:YES];
+                            PopupView *InputalertView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                            [InputalertView initWithTitle:@"您当前输入的是非T车,是否继续绑定?" img:@"账号警告" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                            //            InputalertView.delegate = self;
+                            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+                            [keywindow addSubview: InputalertView];
+                            
+                            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                                if (btn.tag == 100) {//左边按钮
+                                    ///非T跳车辆绑定填写页面
+                                    CarBindingViewController *vc = [[CarBindingViewController alloc] init];
+                                    vc.bingVin = _vinField.text;
+                                    vc.doptCode = _enginenNumber.text;
+                                    vc.carbind = _carbind;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                }
+                                if(btn.tag ==101)
+                                {
+                                    
+                                }
+                            };
                         }
         
                     } else {
