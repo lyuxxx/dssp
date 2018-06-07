@@ -20,6 +20,10 @@
 #import "RealVinViewcontroller.h"
 #import "BaseWebViewController.h"
 #import "FeedbackShowImageView.h"
+
+//  作为控件的imageView的tag值基数
+#define kImageTag 9999
+
 @interface InformationCenterViewController () <UITableViewDelegate, UITableViewDataSource,DKSKeyboardDelegate,SevenProtocolDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DKSKeyboardView *keyView;
@@ -519,7 +523,7 @@
     maskview.backgroundColor = [UIColor blackColor];
     [window addSubview:maskview];
     
-    FeedbackShowImageView *fbImageV = [[FeedbackShowImageView alloc] initWithFrame:[UIScreen mainScreen].bounds byClick:9999 appendArray:imageArray];
+    FeedbackShowImageView *fbImageV = [[FeedbackShowImageView alloc] initWithFrame:[UIScreen mainScreen].bounds byClick:kImageTag appendArray:imageArray];
     [fbImageV show:maskview didFinish:^(){
         [UIView animateWithDuration:0.5f animations:^{
             fbImageV.alpha = 0.0f;

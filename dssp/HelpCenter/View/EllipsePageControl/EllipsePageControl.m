@@ -246,7 +246,7 @@
 
 
 -(void)clickAction:(UITapGestureRecognizer*)recognizer{
-    
+    return;
     NSInteger index=recognizer.view.tag-1000;
     
     NSLog(@"-----:%ld",index);
