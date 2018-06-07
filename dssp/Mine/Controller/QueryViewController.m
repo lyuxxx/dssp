@@ -129,6 +129,13 @@
 }
 
 - (void)setupUI {
+    
+    //[[self.scrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (UIView *subView in self.scrollView.subviews) {
+        if (!([subView isKindOfClass:[MJRefreshNormalHeader class]])) {
+            [subView removeFromSuperview];
+        }
+    }
    
     NSArray *titles = @[
                         NSLocalizedString(@"实名制认证", nil),
