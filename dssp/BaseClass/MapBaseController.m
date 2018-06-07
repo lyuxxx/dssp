@@ -359,23 +359,29 @@ static dispatch_once_t mapBaseOnceToken;
             CLLocationDegrees latitude = [dic[@"data"][@"position"][@"latitude"] doubleValue];
             CLLocationDegrees longitude = [dic[@"data"][@"position"][@"longitude"] doubleValue];
             CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
-            weakifySelf
-            [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
-                strongifySelf
-                if (self.carAnnotation) {
-                    [self.mapView removeAnnotation:self.carAnnotation];
-                    self.carAnnotation = nil;
-                }
-                [self saveCarLocationWithCoordinate:location];
-                self.carAnnotation = [[CarAnnotation alloc] init];
-                _carAnnotation.coordinate = location;
-                _carAnnotation.title = NSLocalizedString(@"车辆位置", nil);
-                _carAnnotation.subtitle = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
-                self.carCity = regeoInfo.city;
-                [self.mapView addAnnotation:_carAnnotation];
-                [self.mapView setCenterCoordinate:location];
-                [hud hideAnimated:YES];
-            }];
+            if (latitude > 0 && longitude >0) {
+                weakifySelf
+                [[MapSearchManager sharedManager] reGeoInfo:location returnBlock:^(MapReGeoInfo *regeoInfo) {
+                    strongifySelf
+                    if (self.carAnnotation) {
+                        [self.mapView removeAnnotation:self.carAnnotation];
+                        self.carAnnotation = nil;
+                    }
+                    [self saveCarLocationWithCoordinate:location];
+                    self.carAnnotation = [[CarAnnotation alloc] init];
+                    _carAnnotation.coordinate = location;
+                    _carAnnotation.title = NSLocalizedString(@"车辆位置", nil);
+                    _carAnnotation.subtitle = [regeoInfo.formattedAddress substringFromIndex:regeoInfo.province.length + regeoInfo.city.length + regeoInfo.district.length + regeoInfo.township.length];
+                    self.carCity = regeoInfo.city;
+                    [self.mapView addAnnotation:_carAnnotation];
+                    [self.mapView setCenterCoordinate:location];
+                    [hud hideAnimated:YES];
+                }];
+            } else {
+                [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
+                hud.label.text = NSLocalizedString(@"车辆位置可能有误", nil);
+                [hud hideAnimated:YES afterDelay:1];
+            }
         } else {
             [self saveCarLocationWithCoordinate:CLLocationCoordinate2DMake(0, 0)];
             hud.label.text = dic[@"msg"];
