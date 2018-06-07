@@ -54,13 +54,15 @@
         // 4张正方形图片,5个间距
         CGFloat margin = (kScreenWidth - 52 * WidthCoefficient - 4 * kImageViewWH) / 3;
         CGFloat imageViewX = i * (kImageViewWH + margin);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, 0, kImageViewWH, kImageViewWH)];
+        //x删除图片宽度为16,所以y为8
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, 8 * WidthCoefficient, kImageViewWH, kImageViewWH)];
         imageView.userInteractionEnabled = YES;
         /** 根据imagView的宽高进行铺满 对于超出的部分不显示*/
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = false;
         imageView.image = [self.imageArray[i] imageByResizeToSize:CGSizeMake(kImageViewWH * kScreenScale, kImageViewWH * kScreenScale) contentMode:UIViewContentModeScaleAspectFill];
         imageView.tag = kImageTag + i;
+        [self addSubview:imageView];
         /** 因为最后一个一定是添加的图片，所以给最后一个添加一个点击添加手势*/
         if (i == [self.imageArray count] - 1) {
             if (i == 4) {
@@ -73,21 +75,21 @@
             /** 为图片添加一个右上角的删除按钮并且添加一个点击显示大图的手势*/
             UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             CGFloat removeX = kImageViewWH * 4 / 5;
-            CGFloat removeW = 40 * WidthCoefficient;
+            CGFloat removeW = 16 * WidthCoefficient;
             removeBtn.frame = CGRectMake(0, 0, removeW, removeW);
-            removeBtn.center = CGPointMake(imageView.frame.size.width, imageView.frame.origin.y);
+            //进行坐标转换
+            CGPoint point = [self convertPoint:CGPointMake(imageView.bounds.size.width, 0) fromView:imageView];
+            removeBtn.center = point;
             [removeBtn setImage:[UIImage imageNamed:@"delete_pic"] forState:UIControlStateNormal];
             [removeBtn addTarget:self action:@selector(removeImage:) forControlEvents:UIControlEventTouchUpInside];
             removeBtn.tag = i;
-            [imageView addSubview:removeBtn];
-            [imageView bringSubviewToFront:removeBtn];
+            [self addSubview:removeBtn];
             
             
             FeedbackTap *tapGes = [[FeedbackTap alloc] initWithTarget:self action:@selector(tapImage:)];
             tapGes.imageArray = self.imageArray;
             [imageView addGestureRecognizer:tapGes];
         }
-        [self addSubview:imageView];
     }
 }
 

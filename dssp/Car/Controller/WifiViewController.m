@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIImageView *wifiImg;
 @property (nonatomic, strong) UIImageView *bgImgV;
 @property (nonatomic, strong) UIButton *modifyBtn;
+@property (nonatomic, copy) NSString *wifiSsid;
 @end
 
 @implementation WifiViewController
@@ -302,6 +303,7 @@
             }
             
             if (wifiSsid) {
+                self.wifiSsid = wifiSsid;
                 self.originPassword = wifiPassword;
                 _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
 //                _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
@@ -319,6 +321,7 @@
 
 - (void)modifyWifiWithPassword:(NSString *)password {
     NSDictionary *paras = @{
+                            @"wifiSsid": self.wifiSsid,
                             @"wifiPassword": password
                             };
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];

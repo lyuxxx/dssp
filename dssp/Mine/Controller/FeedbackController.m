@@ -187,10 +187,10 @@
     
     [self.picView addSubview:self.choosePicView];
     [self.choosePicView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(self.picView).offset(10 * WidthCoefficient);
-        make.trailing.bottom.mas_equalTo(self.picView).offset(-10 * WidthCoefficient);
-        make.bottom.mas_equalTo(self.picView);
-        make.top.mas_equalTo(self.picView).offset(40 * HeightCoefficient);
+        make.left.mas_equalTo(self.picView).offset(10 * WidthCoefficient);
+        make.bottom.mas_equalTo(self.picView).offset(-10 * HeightCoefficient);
+        make.right.equalTo(self.picView);
+        make.top.mas_equalTo(self.picView).offset(40 * HeightCoefficient - 8 * WidthCoefficient);
     }];
     
     [self.view addSubview:self.commintButton];
