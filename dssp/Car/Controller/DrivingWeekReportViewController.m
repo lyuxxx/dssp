@@ -340,10 +340,10 @@
         unitLabel1.text = NSLocalizedString(@"单位:km", nil);
         [self.chartMileageContainer addSubview:unitLabel1];
         [unitLabel1 makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(5);
-            make.bottom.equalTo(- 15 * WidthCoefficient);
+            make.left.equalTo(10);
+            make.bottom.equalTo(-17 * WidthCoefficient);
             make.height.equalTo(16 * WidthCoefficient);
-            make.width.equalTo(50 * WidthCoefficient);
+            make.width.equalTo(41 * WidthCoefficient);
         }];
         
         UILabel *yTitleLabel1 = [[UILabel alloc] init];
@@ -416,7 +416,7 @@
             make.left.equalTo(10);
             make.bottom.equalTo(-10 * WidthCoefficient);
             make.height.equalTo(28 * WidthCoefficient);
-            make.width.equalTo(50 * WidthCoefficient);
+//            make.width.equalTo(50 * WidthCoefficient);
         }];
         
         UILabel *yTitleLabel2 = [[UILabel alloc] init];
