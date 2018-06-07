@@ -73,7 +73,7 @@
             /** 为图片添加一个右上角的删除按钮并且添加一个点击显示大图的手势*/
             UIButton *removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             CGFloat removeX = kImageViewWH * 4 / 5;
-            CGFloat removeW = 30 * WidthCoefficient;
+            CGFloat removeW = 40 * WidthCoefficient;
             removeBtn.frame = CGRectMake(0, 0, removeW, removeW);
             removeBtn.center = CGPointMake(imageView.frame.size.width, imageView.frame.origin.y);
             [removeBtn setImage:[UIImage imageNamed:@"delete_pic"] forState:UIControlStateNormal];

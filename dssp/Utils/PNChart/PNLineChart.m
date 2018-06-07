@@ -1031,7 +1031,8 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
 
 //    _chartMargin = 40;
 
-    _chartMarginLeft = 25.0;
+    // zhujilong 原始数据 _chartMarginLeft = 25
+    _chartMarginLeft = 18.0;
     _chartMarginRight = 25.0;
     _chartMarginTop = 25.0;
     _chartMarginBottom = 25.0;
