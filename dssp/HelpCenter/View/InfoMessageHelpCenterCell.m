@@ -492,7 +492,7 @@
             self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
           }
         }
-       //有字节点
+       //有子节点
         else
         {
             _scroll.scrollEnabled = YES;
@@ -508,14 +508,14 @@
             
             NSArray *urlArr = [NSArray new];
             NSString *str;
-            
-            if (message.serviceDetails && message.serviceDetails.isNotBlank) {
-                str = message.serviceDetails;
-            }
-            else
-            {
-                str = message.serviceName;
-            }
+            str = message.serviceName;
+//            if (message.serviceDetails && message.serviceDetails.isNotBlank) {
+//                str = message.serviceDetails;
+//            }
+//            else
+//            {
+//                str = message.serviceName;
+//            }
             
             if([self isURL:str]) {
                 _contentLabel.text = str;
