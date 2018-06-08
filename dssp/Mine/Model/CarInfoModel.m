@@ -17,7 +17,7 @@
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSString *typeName = dic[@"typeName"];
-    if ([typeName containsString:@"_RCC"]) {
+    if ([typeName isKindOfClass:[NSString class]] && [typeName containsString:@"_RCC"]) {
         _typeName = [typeName stringByReplacingOccurrencesOfString:@"_RCC" withString:@""];
     }
     return YES;
@@ -35,7 +35,7 @@
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSString *typeName = dic[@"vhlTypeName"];
-    if ([typeName containsString:@"_RCC"]) {
+    if ([typeName isKindOfClass:[NSString class]] && [typeName containsString:@"_RCC"]) {
         _vhlTypeName = [typeName stringByReplacingOccurrencesOfString:@"_RCC" withString:@""];
     }
     return YES;
