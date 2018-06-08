@@ -266,8 +266,12 @@ static NSString *const cellID = @"cell";
     NSString *currentDateStr1 = [dateFormatter1 stringFromDate:theDate];
     NSLog(@"系统时间为%@",currentDateStr1);
     
+    NSDate *endDate = [[NSDate date] dateByAddingDays:-1];
+    NSDate *startDate = [[NSDate date] dateByAddingDays:-8];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MM/dd";
     
-    NSString *str=[NSString stringWithFormat:@"本报告为%@-%@数据",currentDateStr1,currentDateStr];
+    NSString *str=[NSString stringWithFormat:@"本报告为%@-%@数据",[formatter stringFromDate:startDate],[formatter stringFromDate:endDate]];
     
     
     UILabel *Lastlabel = [[UILabel alloc] init];
