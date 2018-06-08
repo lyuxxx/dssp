@@ -267,7 +267,7 @@ static NSString *const cellID = @"cell";
     NSLog(@"系统时间为%@",currentDateStr1);
     
     NSDate *endDate = [[NSDate date] dateByAddingDays:-1];
-    NSDate *startDate = [[NSDate date] dateByAddingDays:-8];
+    NSDate *startDate = [[NSDate date] dateByAddingDays:-7];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"MM/dd";
     
