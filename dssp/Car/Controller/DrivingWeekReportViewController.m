@@ -455,7 +455,7 @@
     
     NSDictionary *paras = @{
 //                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
-                            @"vin":@"LPAA5CKC1J2074562",
+                            @"vin":kVin,
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp
                             };
@@ -502,7 +502,7 @@
     dispatch_queue_t queue = dispatch_queue_create("ranking", NULL);
     dispatch_async(queue, ^{
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageWeekURL,@"LPAA5CKC1J2074562",startPara,endPara] parameters:nil success:^(id responseData) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingWeekResponse *response = [RankingWeekResponse yy_modelWithJSON:dic];
@@ -519,7 +519,7 @@
     
     dispatch_async(queue, ^{
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelWeekURL,@"LPAA5CKC1J2074562",startPara,endPara] parameters:nil success:^(id responseData) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingWeekResponse *response = [RankingWeekResponse yy_modelWithJSON:dic];

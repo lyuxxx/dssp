@@ -456,7 +456,7 @@
     
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     
-    [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@",getDrivingReportMonthURL,@"LPAA4CDC4H2Z91859",self.startTimeStamp,self.endTimeStamp] parameters:nil success:^(id responseData) {
+    [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@",getDrivingReportMonthURL,kVin,self.startTimeStamp,self.endTimeStamp] parameters:nil success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         if ([dic[@"code"] isEqualToString:@"200"]) {
             DrivingReportMonthResponse *response = [DrivingReportMonthResponse yy_modelWithJSON:dic];
@@ -491,7 +491,7 @@
     dispatch_queue_t queue = dispatch_queue_create("ranking", NULL);
     dispatch_async(queue, ^{
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageMonthURL,@"LPAA4CDC4H2Z91859",startPara,endPara] parameters:nil success:^(id responseData) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageMonthURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingMonthResponse *response = [RankingMonthResponse yy_modelWithJSON:dic];
@@ -508,7 +508,7 @@
     
     dispatch_async(queue, ^{
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelMonthURL,@"LPAA4CDC4H2Z91859",startPara,endPara] parameters:nil success:^(id responseData) {
+        [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelMonthURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingMonthResponse *response = [RankingMonthResponse yy_modelWithJSON:dic];
