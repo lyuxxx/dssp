@@ -34,7 +34,7 @@
         if (detail.choosePriceType == 1) {//原价
             
         } else if (detail.choosePriceType == 2) {//现价
-            _promotionStr = [NSString stringWithFormat:@"满减%@元",detail.subtractCash];
+            _promotionStr = [NSString stringWithFormat:@"满减%@元",@(detail.subtractCash.floatValue)];
         } else if (detail.choosePriceType == 3) {//折扣价
             _promotionStr = [NSString stringWithFormat:@"活动%.1f折",detail.discountRate.floatValue * 10];
         }
