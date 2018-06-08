@@ -6,4 +6,13 @@
              @"vhlId" : @"id"
              };
 }
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSString *typeName = dic[@"vhlTypeName"];
+    if ([typeName containsString:@"_RCC"]) {
+        _vhlTypeName = [typeName stringByReplacingOccurrencesOfString:@"_RCC" withString:@""];
+    }
+    return YES;
+}
+
 @end

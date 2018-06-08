@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-@interface VhlModel :NSObject
+@interface VhlModel :NSObject <YYModel>
 //车辆Id
 @property (nonatomic , copy) NSString *vhlId;
 //车架号
