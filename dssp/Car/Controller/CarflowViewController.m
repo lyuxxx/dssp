@@ -284,7 +284,7 @@
         [_tableView addSubview:imgV];
         [imgV makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(140 * HeightCoefficient);
-            make.left.bottom.right.equalTo(_tableView);
+            make.left.bottom.right.equalTo(self.view);
         }];
     }
 }

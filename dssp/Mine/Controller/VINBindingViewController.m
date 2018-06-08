@@ -217,7 +217,7 @@
                         {
                           
                             PopupView *InputalertView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                            [InputalertView initWithTitle:@"您当前输入的是非T车,是否继续绑定?" img:@"账号警告" type:9 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
+                            [InputalertView initWithTitle:@"您当前输入的是非T车,是否继续绑定?" img:@"账号警告" type:11 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"是",@"否", nil] ];
                             //            InputalertView.delegate = self;
                             UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
                             [keywindow addSubview: InputalertView];
