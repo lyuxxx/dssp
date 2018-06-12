@@ -99,57 +99,6 @@ static NSString *const cellID = @"cell";
     [Statistics staticsstayTimeDataWithType:@"2" WithController:@"TrafficReportController"];
 }
 
-#pragma mark 懒加载
--(NSMutableArray *)titleArray{
-    
-    if (_titleArray == nil) {
-        
-        _titleArray = [NSMutableArray array];
-    }
-    return _titleArray;
-}
-
-#pragma mark 懒加载
--(NSMutableArray *)isExpland{
-    
-    if (_isExpland == nil) {
-        
-        _isExpland = [NSMutableArray array];
-    }
-    return _isExpland;
-}
-
-
-#pragma mark 懒加载
--(NSMutableArray *)cellArray1{
-    
-    if (_cellArray1 == nil) {
-        
-        _cellArray1 = [NSMutableArray array];
-    }
-    return _cellArray1;
-}
-
-#pragma mark 懒加载
--(NSMutableArray *)cellArray2{
-    
-    if (_cellArray2 == nil) {
-        
-        _cellArray2 = [NSMutableArray array];
-    }
-    return _cellArray2;
-}
-
-#pragma mark 懒加载
--(NSMutableArray *)cellArray3{
-    
-    if (_cellArray3 == nil) {
-        
-        _cellArray3 = [NSMutableArray array];
-    }
-    return _cellArray3;
-}
-
 -(void)requestData
 {
     
@@ -289,15 +238,16 @@ static NSString *const cellID = @"cell";
     
 
     UIView *bg = [[UIView alloc] init];
-    
+
 //     bg.backgroundColor = [UIColor grayColor];
     bg.backgroundColor = [UIColor colorWithHexString:@"#120F0E"];
     bg.layer.cornerRadius = 4;
-  
+
     [_headerView addSubview:bg];
     [bg makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(343 * WidthCoefficient);
-        make.height.equalTo(126 * HeightCoefficient/2);
+//        make.height.equalTo(126 * HeightCoefficient/2);
+        make.height.equalTo(0);
         make.centerX.equalTo(0);
         make.top.equalTo(Lastlabel.bottom).offset(20*HeightCoefficient);
     }];
@@ -330,7 +280,7 @@ static NSString *const cellID = @"cell";
     [_DataArray addObject:_trafficReporData.mileageBeforeMaintenance?mileageBeforeMaintenance:@"-"];
     [_DataArray addObject:_trafficReporData.levelFuel?_trafficReporData.levelFuel:@"12"];
     
-    
+    return;
      NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:titles.count];
     
    
@@ -494,7 +444,9 @@ static NSString *const cellID = @"cell";
         make.edges.equalTo(self.view).offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,368*HeightCoefficient)];
+//    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,368*HeightCoefficient)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth,260*HeightCoefficient)];
+
 //     _headerView.backgroundColor=[UIColor redColor];
     _headerView.backgroundColor=[UIColor colorWithHexString:@"#040000"];
     _tableView.tableHeaderView=_headerView;
@@ -601,7 +553,6 @@ static NSString *const cellID = @"cell";
     CGRect tmpRect= [cellModel boundingRectWithSize:CGSizeMake(223 * WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0]} context:nil];
    
     CGFloat contentH = tmpRect.size.height+28 *HeightCoefficient;
-    NSLog(@"显示高度:%f",contentH);
     return contentH;
 }
 
@@ -724,19 +675,51 @@ static NSString *const cellID = @"cell";
     [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark -lazy load-
+-(NSMutableArray *)titleArray{
+    
+    if (_titleArray == nil) {
+        
+        _titleArray = [NSMutableArray array];
+    }
+    return _titleArray;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSMutableArray *)isExpland{
+    
+    if (_isExpland == nil) {
+        
+        _isExpland = [NSMutableArray array];
+    }
+    return _isExpland;
 }
-*/
+
+
+-(NSMutableArray *)cellArray1{
+    
+    if (_cellArray1 == nil) {
+        
+        _cellArray1 = [NSMutableArray array];
+    }
+    return _cellArray1;
+}
+
+-(NSMutableArray *)cellArray2{
+    
+    if (_cellArray2 == nil) {
+        
+        _cellArray2 = [NSMutableArray array];
+    }
+    return _cellArray2;
+}
+
+-(NSMutableArray *)cellArray3{
+    
+    if (_cellArray3 == nil) {
+        
+        _cellArray3 = [NSMutableArray array];
+    }
+    return _cellArray3;
+}
 
 @end
