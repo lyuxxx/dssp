@@ -8,6 +8,12 @@
 
 #import "InputAlertView.h"
 #import <YYCategoriesSub/YYCategories.h>
+
+//  实名制查询第一步提示按钮的tag 需要根据其重新布局其高度
+#define kStepOne 100
+//  实名制查询第二步提示按钮的tag 需要根据其重新布局其高度
+#define kStepTwo 101
+
 @implementation InputAlertView
 
 - (id)initWithFrame:(CGRect)frame
@@ -100,20 +106,51 @@
             break;
             
         case 10:
-            //上面是图片，下面是文字
-            [self.alertview makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(270 * WidthCoefficient);
-                make.height.equalTo(210 * HeightCoefficient);
-                make.centerX.equalTo(0);
-                make.centerY.equalTo(0);
-            }];
             
-            [_tipLable makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(200 * WidthCoefficient);
-                make.height.equalTo(60 * HeightCoefficient);
-                make.centerX.equalTo(0);
-                make.top.equalTo(88 * HeightCoefficient);
-            }];
+            if (self.tag == kStepOne) {
+                [self.alertview makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(270 * WidthCoefficient);
+                    make.height.equalTo(230 * HeightCoefficient);
+                    make.centerX.equalTo(0);
+                    make.centerY.equalTo(0);
+                }];
+                
+                [_tipLable makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(200 * WidthCoefficient);
+                    make.height.equalTo(80 * HeightCoefficient);
+                    make.centerX.equalTo(0);
+                    make.top.equalTo(88 * HeightCoefficient);
+                }];
+            }else if (self.tag == kStepTwo) {
+                [self.alertview makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(270 * WidthCoefficient);
+                    make.height.equalTo(250 * HeightCoefficient);
+                    make.centerX.equalTo(0);
+                    make.centerY.equalTo(0);
+                }];
+                
+                [_tipLable makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(200 * WidthCoefficient);
+                    make.height.equalTo(100 * HeightCoefficient);
+                    make.centerX.equalTo(0);
+                    make.top.equalTo(88 * HeightCoefficient);
+                }];
+            }else {
+                [self.alertview makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(270 * WidthCoefficient);
+                    make.height.equalTo(210 * HeightCoefficient);
+                    make.centerX.equalTo(0);
+                    make.centerY.equalTo(0);
+                }];
+                
+                [_tipLable makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(200 * WidthCoefficient);
+                    make.height.equalTo(60 * HeightCoefficient);
+                    make.centerX.equalTo(0);
+                    make.top.equalTo(88 * HeightCoefficient);
+                }];
+            }
+
             [self creatViewInAlert];
             [self createBtnTitle:_btnTitleArr];
             break;

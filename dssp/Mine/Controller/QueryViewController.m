@@ -13,6 +13,11 @@
 #import "NSArray+Sudoku.h"
 #import <MJRefresh.h>
 
+//  第一步提示按钮的tag
+#define kStepOne 100
+//  第二步提示按钮的tag
+#define kStepTwo 101
+
 @interface QueryViewController ()
 
 @property (nonatomic,strong)QueryModel *queryModel;
@@ -133,6 +138,8 @@
                         NSLocalizedString(@"T服务套餐开通", nil),
                         NSLocalizedString(@"完成", nil)
                         ];
+    
+    
 
     UIView *lastView = nil;
     for (NSInteger i = 0 ; i < titles.count; i++) {
@@ -176,7 +183,7 @@
         //  文字
         UILabel *lab1 = [[UILabel alloc] init];
         lab1.textAlignment = NSTextAlignmentLeft;
-         lab1.text = titles[i];
+        lab1.text = titles[i];
         CGSize size = [lab1.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:16],NSFontAttributeName,nil]];
         //  名字的W
         CGFloat nameW = size.width;
@@ -200,6 +207,14 @@
             make.left.equalTo(28 * WidthCoefficient);
             make.top.equalTo(logo.bottom).offset(0);
         }];
+        
+        //  提示按钮
+        UIButton *tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        tipButton.frame = CGRectMake(0, 0, 50 * WidthCoefficient, 20 * HeightCoefficient);
+        [tipButton setImage:[UIImage imageNamed:@"realName_tip"] forState:UIControlStateNormal];
+        [tipButton setImage:[UIImage imageNamed:@"realName_tip"] forState:UIControlStateHighlighted];
+        [tipButton addTarget:self action:@selector(tipButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        tipButton.hidden = NO;
         
         
         if (i==0) {
@@ -238,6 +253,13 @@
                 
             }];
             
+            //  第一步的提示按钮的布局
+            [view1 addSubview:tipButton];
+            tipButton.tag = kStepOne;
+            [tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.leading.mas_equalTo(lab1.trailing).offset(5 * WidthCoefficient);
+                make.centerY.mas_equalTo(view1);
+            }];
             
             if ([_queryModel.rnrStatus isEqualToString:@"0"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
@@ -246,12 +268,16 @@
                 [lab1 updateConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(180*WidthCoefficient);
                 }];
+
             } else if ([_queryModel.rnrStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
                 logo.image = [UIImage imageNamed:@"审核中_icon"];
                 lab.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
                 lab.hidden = NO;
                 lineview1.hidden = NO;
+                
+                //  执行中 不隐藏 提示按钮
+                tipButton.hidden = NO;
             } else if ([_queryModel.rnrStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"实名制认证成功";
@@ -271,6 +297,9 @@
                 [lab1 updateConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(280*WidthCoefficient);
                 }];
+                
+                //  执行失败 不隐藏 提示按钮
+                tipButton.hidden = NO;
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -279,10 +308,19 @@
         }
         if (i==1) {
             
+            //  第二步的提示按钮的布局
+            [view1 addSubview:tipButton];
+            tipButton.tag = kStepTwo;
+            [tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.leading.mas_equalTo(lab1.trailing).offset(5 * WidthCoefficient);
+                make.centerY.mas_equalTo(view1);
+            }];
+            
             if ([_queryModel.rcStatus isEqualToString:@"0"])
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
+                tipButton.hidden = NO;
             }
             else if ([_queryModel.rcStatus isEqualToString:@"1"])
             {
@@ -292,9 +330,10 @@
                 logo.image = [UIImage imageNamed:@"审核中_icon"];
                 [lab1 updateConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(180*WidthCoefficient);
-   
                 }];
-               
+                
+                //  执行中 不隐藏 提示按钮
+                tipButton.hidden = NO;
             }
             else if ([_queryModel.rcStatus isEqualToString:@"2"])
             {
@@ -316,6 +355,9 @@
                     make.width.equalTo(180*WidthCoefficient);
                     
                 }];
+                
+                //  执行失败 不隐藏 提示按钮
+                tipButton.hidden = NO;
             }
             else
             {
@@ -543,12 +585,59 @@
      
  }
 
-#pragma mark- 下一步按钮的点击事件
+#pragma mark- 按钮的点击事件
+
+
+/**
+ 下一步按钮的点击
+ */
 -(void)nextBtnClick
 {
     UIViewController *viewCtl = self.navigationController.viewControllers[0];
     [self.navigationController popToViewController:viewCtl animated:YES];
 }
+
+/**
+ 提示按钮的点击
+ */
+- (void)tipButtonAction:(UIButton *)button {
+    NSString *title = @"";
+    if (button.tag == kStepOne) {
+        NSLog("第一步的提示按钮点击");
+        title = @"如果提交的实名信息超过2个小时未成功,请联系人工客服处理";
+    }else if (button.tag == kStepTwo) {
+        NSLog("第二步的提示按钮点击");
+        title = @"如果车辆激活超过2个小时未成功,请尝试一下操作:\n1.在户外启动车辆十分钟\n2.拨打人工客服处理";
+    }else {
+        
+    }
+    
+    //  type 9 是单个选项按钮
+    //  type 10 是双选项按钮
+    //  type 11 是输入框
+    InputAlertView *inputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    inputalertView.tag = button.tag;
+    [inputalertView initWithTitle:title img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"联系客服",nil] ];
+    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    [keywindow addSubview: inputalertView];
+    
+    inputalertView.clickBlock = ^(UIButton *btn, NSString *str) {
+        //   100 是左边的按钮 101 是右边的按钮
+        if (btn.tag == 101) {
+            [self contactCustomerService];
+        }
+    };
+}
+
+#pragma mark- 打电话的方法
+- (void)contactCustomerService {
+    if (@available(iOS 10.0, *)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telephones] options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telephones]];
+    }
+}
+
 
 #pragma mark- 懒加载
 - (UIScrollView *)scrollView {
