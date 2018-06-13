@@ -301,6 +301,7 @@
 
 -(void)confirmBtnClick:(UIButton *)btn
 {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
     if (_carbind.isExist) {
         if([_carbind.vhlTStatus isEqualToString:@"1"])
         {
@@ -360,6 +361,7 @@
                                     @"pageSize":@"5"
                                     };
             [CUHTTPRequest POST:queryContractForApp parameters:paras success:^(id responseData) {
+                
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                 if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                     NSArray *dataArray =dic[@"data"][@"result"];
@@ -387,8 +389,9 @@
                     
                     
                 }
+                [hud hideAnimated:YES];
             } failure:^(NSInteger code) {
-                
+                [hud hideAnimated:YES];
             }];
         
 //            缓存T状态
@@ -398,14 +401,14 @@
             
             if (isPush) {
                 
-                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
-                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                [keywindow addSubview: InputalertView];
+//                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: InputalertView];
+//
+//                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
                 
-                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
                         
                         NSString *vin = _carbind.vin;
                         NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
@@ -419,9 +422,9 @@
                         vc.hidesBottomBarWhenPushed = YES;
                         [self.navigationController pushViewController:vc animated:YES];
                         
-                    }
-                    
-                };
+//                    }
+//
+//                };
                 
 //                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
 //                                                                               message:@"车辆绑定成功,跳转实名制页面"
@@ -447,23 +450,23 @@
             }else
             {
                 
-                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
-                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                [keywindow addSubview: InputalertView];
+//                InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//                [InputalertView initWithTitle:@"车辆绑定成功,跳转实名制页面" img:@"绑定汽车_icon" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: InputalertView];
+//
+//                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
                 
-                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
                         RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
                         vc.vin=_carbind.vin;
                         vc.isSuccess = @"1";
                         vc.hidesBottomBarWhenPushed = YES;
                         [self.navigationController pushViewController:vc animated:YES];
                         
-                    }
-                    
-                };
+//                    }
+//
+//                };
 //                NSLog(@"是从MineViewController过来的页面");
 //                [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
                 
@@ -471,10 +474,12 @@
             
         }
         else {
-            [MBProgressHUD showText:dic[@"msg"]];
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
-        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
+        [hud hideAnimated:YES afterDelay:1];
     }];
     
     
@@ -491,20 +496,5 @@
     }
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

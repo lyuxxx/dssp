@@ -780,6 +780,8 @@
 //        _isExiststr = @"false";
 //    }
     
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
+    
     NSDictionary *paras = @{
                             @"vin": _bingVin,
                             @"doptCode": _doptCode,
@@ -847,8 +849,9 @@
                     
                     
                 }
+                [hud hideAnimated:YES];
             } failure:^(NSInteger code) {
-                
+                [hud hideAnimated:YES];
             }];
             
             
@@ -858,14 +861,14 @@
           
             if (isPush) {
                 
-                 PopupView  *InputalertView = [[PopupView  alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [InputalertView initWithTitle:@"车辆绑定成功,返回个人中心" img:@"绑定汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
-                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                [keywindow addSubview: InputalertView];
+//                 PopupView  *InputalertView = [[PopupView  alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//                [InputalertView initWithTitle:@"车辆绑定成功,返回个人中心" img:@"绑定汽车_icon" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定", nil] ];
+//                UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+//                [keywindow addSubview: InputalertView];
+//
+//                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+//                    if (btn.tag == 100) {//左边按钮
                 
-                InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-                    if (btn.tag == 100) {//左边按钮
-                        
                         NSString *vin = _bingVin;
                         NSUserDefaults *defaults1 = [NSUserDefaults standardUserDefaults];
                         [defaults1 setObject:vin forKey:@"vin"];
@@ -879,15 +882,16 @@
 //                        vc.hidesBottomBarWhenPushed = YES;
 //                        [self.navigationController pushViewController:vc animated:YES];
                         
-                    }
-                    
-                };
+//                    }
+//
+//                };
                 
 
                 
             }else
             {
                 NSLog(@"是从MineViewController过来的页面");
+                [hud hideAnimated:YES];
                 [MBProgressHUD showText:NSLocalizedString(@"绑定成功", nil)];
             }
             
@@ -907,10 +911,12 @@
             //                }];
         }
         else {
-            [MBProgressHUD showText:dic[@"msg"]];
+            hud.label.text = dic[@"msg"];
+            [hud hideAnimated:YES afterDelay:1];
         }
     } failure:^(NSInteger code) {
-        [MBProgressHUD showText:NSLocalizedString(@"网络异常", nil)];
+        hud.label.text = NSLocalizedString(@"网络异常", nil);
+        [hud hideAnimated:YES afterDelay:1];
     }];
 }
 
