@@ -631,9 +631,9 @@
 #pragma mark- 打电话的方法
 - (void)contactCustomerService {
     if (@available(iOS 10.0, *)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telephones] options:@{} completionHandler:nil];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"] options:@{} completionHandler:nil];
     } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telephones]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"]];
     }
 }
 
