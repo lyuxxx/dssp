@@ -214,7 +214,7 @@
         [tipButton setImage:[UIImage imageNamed:@"realName_tip"] forState:UIControlStateNormal];
         [tipButton setImage:[UIImage imageNamed:@"realName_tip"] forState:UIControlStateHighlighted];
         [tipButton addTarget:self action:@selector(tipButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        tipButton.hidden = NO;
+        tipButton.hidden = YES;
         
         
         if (i==0) {
@@ -320,7 +320,6 @@
             {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
-                tipButton.hidden = NO;
             }
             else if ([_queryModel.rcStatus isEqualToString:@"1"])
             {
