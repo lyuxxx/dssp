@@ -449,7 +449,7 @@
     lab.textAlignment = NSTextAlignmentLeft;
     lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
     lab.font = [UIFont fontWithName:FontName size:13];
-    lab.text = NSLocalizedString(@"审核状态说明", nil);
+    lab.text = NSLocalizedString(@"执行状态查询说明", nil);
     [logoImg addSubview:lab];
     [lab makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(180 * WidthCoefficient);
@@ -460,9 +460,9 @@
     
     //  状态的4个Label
     NSArray *title = @[
-                       NSLocalizedString(@"审核成功", nil),
-                       NSLocalizedString(@"审核中", nil),
-                       NSLocalizedString(@"审核失败", nil),
+                       NSLocalizedString(@"执行成功", nil),
+                       NSLocalizedString(@"执行中", nil),
+                       NSLocalizedString(@"执行失败", nil),
                        NSLocalizedString(@"未执行", nil)
                        ];
     
