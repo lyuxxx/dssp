@@ -817,7 +817,7 @@
     self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.mileage];
     self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",report.startDate,report.endDate];
     self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@ L",report.totalFuelConsumed];
-    self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@ L",report.averageFuelConsumed];
+    self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@ L/百公里",report.averageFuelConsumed];
 //    self.brakeTimeLabel.text = [NSString stringWithFormat:@"%@ h",report.autoBrakeTimes];
 //    self.attentionTimesLabel.text = [NSString stringWithFormat:@"%@ 次",report.driverAttentionTimes];
 //    self.accMileageLabel.text = [NSString stringWithFormat:@"%@ km",report.accMileage];
