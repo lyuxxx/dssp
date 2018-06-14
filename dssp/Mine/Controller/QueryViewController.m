@@ -184,15 +184,11 @@
         UILabel *lab1 = [[UILabel alloc] init];
         lab1.textAlignment = NSTextAlignmentLeft;
         lab1.text = titles[i];
-        CGSize size = [lab1.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:16],NSFontAttributeName,nil]];
-        //  名字的W
-        CGFloat nameW = size.width;
         lab1.font = [UIFont fontWithName:FontName size:16];
         [view1 addSubview:lab1];
         [lab1 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(nameW+1);
             make.height.equalTo(22.5 * HeightCoefficient);
-            make.centerY.equalTo(0);
+            make.centerY.equalTo(view1);
             make.left.equalTo(logo.right).offset(18*WidthCoefficient);
             
         }];
@@ -210,7 +206,7 @@
         
         //  提示按钮
         UIButton *tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        tipButton.frame = CGRectMake(0, 0, 50 * WidthCoefficient, 20 * HeightCoefficient);
+        tipButton.frame = CGRectMake(0, 0, 20 * WidthCoefficient, 20 * HeightCoefficient);
         [tipButton setImage:[UIImage imageNamed:@"realName_tip"] forState:UIControlStateNormal];
         [tipButton setImage:[UIImage imageNamed:@"realName_tip"] forState:UIControlStateHighlighted];
         [tipButton addTarget:self action:@selector(tipButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -218,40 +214,6 @@
         
         
         if (i==0) {
-    
-            UIView *lineview1 = [[UIView alloc] init];
-            lineview1.backgroundColor = [UIColor colorWithHexString:@"#E2CD8D"];
-            lineview1.hidden = YES;
-            [view1 addSubview:lineview1];
-            [lineview1 makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(49 * WidthCoefficient);
-                make.height.equalTo(1 * HeightCoefficient);
-                make.centerY.equalTo(0);
-                make.left.equalTo(lab1.right).offset(10 * WidthCoefficient);
-            }];
-            
-            
-            
-            UILabel *lab = [[UILabel alloc] init];
-            lab.textAlignment = NSTextAlignmentLeft;
-            lab.textColor = [UIColor colorWithHexString:@"#666666"];
-            lab.hidden = YES;
-            lab.text = NSLocalizedString(@"人工审核中", nil);
-            CGSize size = [lab.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:FontName size:16],NSFontAttributeName,nil]];
-            // 名字的H
-            //    CGFloat nameH = size.height;
-            // 名字的W
-            CGFloat nameW1 = size.width;
-            lab.font = [UIFont fontWithName:FontName size:16];
-        
-            [view1 addSubview:lab];
-            [lab makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(nameW1+1);
-                make.height.equalTo(22.5 * HeightCoefficient);
-                make.centerY.equalTo(0);
-                make.left.equalTo(lineview1.right).offset(10*WidthCoefficient);
-                
-            }];
             
             //  第一步的提示按钮的布局
             [view1 addSubview:tipButton];
@@ -265,16 +227,11 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 lab1.text = @"未提交实名认证";
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                }];
 
             } else if ([_queryModel.rnrStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
                 logo.image = [UIImage imageNamed:@"审核中_icon"];
-                lab.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
-                lab.hidden = NO;
-                lineview1.hidden = NO;
+                lab1.text = [lab1.text stringByAppendingString: @" ——— 人工审核中"];
                 
                 //  执行中 不隐藏 提示按钮
                 tipButton.hidden = NO;
@@ -282,9 +239,6 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"实名制认证成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                }];
             } else if ([_queryModel.rnrStatus isEqualToString:@"3"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 lab1.text = @"未提交实名认证";
@@ -294,9 +248,6 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"实名制认证失败,请重新提交";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(280*WidthCoefficient);
-                }];
                 
                 //  执行失败 不隐藏 提示按钮
                 tipButton.hidden = NO;
@@ -316,50 +267,28 @@
                 make.centerY.mas_equalTo(view1);
             }];
             
-            if ([_queryModel.rcStatus isEqualToString:@"0"])
-            {
+            if ([_queryModel.rcStatus isEqualToString:@"0"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
-            }
-            else if ([_queryModel.rcStatus isEqualToString:@"1"])
-            {
+            } else if ([_queryModel.rcStatus isEqualToString:@"1"]) {
                 
                 lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
                 lab1.text = @"车辆配置中";
                 logo.image = [UIImage imageNamed:@"审核中_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                }];
                 
                 //  执行中 不隐藏 提示按钮
                 tipButton.hidden = NO;
-            }
-            else if ([_queryModel.rcStatus isEqualToString:@"2"])
-            {
+            } else if ([_queryModel.rcStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"车辆激活成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                   
-                    
-                }];
-            }
-            else if ([_queryModel.rcStatus isEqualToString:@"3"])
-            {
+            } else if ([_queryModel.rcStatus isEqualToString:@"3"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"车辆激活失败";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                    
-                }];
-                
                 //  执行失败 不隐藏 提示按钮
                 tipButton.hidden = NO;
-            }
-            else
-            {
+            } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
@@ -370,27 +299,15 @@
             if ([_queryModel.simStatus isEqualToString:@"0"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
-            }
-            else if ([_queryModel.simStatus isEqualToString:@"1"])
-            {
+            } else if ([_queryModel.simStatus isEqualToString:@"1"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"T服务开通成功";
                 logo.image = [UIImage imageNamed:@"认证成功_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                }];
-            }
-            else if ([_queryModel.simStatus isEqualToString:@"2"])
-            {
+            } else if ([_queryModel.simStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"T服务开通失败";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
-                [lab1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(180*WidthCoefficient);
-                }];
-            }
-            else
-            {
+            } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
             }
