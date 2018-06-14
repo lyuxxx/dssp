@@ -9,7 +9,7 @@
 #import "SearchresultViewController.h"
 #import "QueryViewController.h"
 #import "QueryModel.h"
-@interface SearchresultViewController ()
+@interface SearchresultViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *vinField;
 @end
 
@@ -81,6 +81,8 @@
     
     self.vinField = [[UITextField alloc] init];
 //    _vinField.text = kVin?kVin:NSLocalizedString(@"", nil);
+    _vinField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    _vinField.delegate = self;
    _vinField.text = kVin;
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
     _vinField.leftViewMode = UITextFieldViewModeAlways;
@@ -156,19 +158,17 @@
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UITextFieldDelegate -
+//vin号大写
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+    
+    if (lowercaseCharRange.location != NSNotFound) {
+        textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]];
+        return NO;
+    }
+    
+    return YES;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

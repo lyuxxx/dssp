@@ -15,7 +15,7 @@
 #import "CarBindingViewController.h"
 #import "MineViewController.h"
 #import "CarBindingTViewController.h"
-@interface VINBindingViewController ()
+@interface VINBindingViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *vinField;
 @property (nonatomic, strong) UITextField *enginenNumber;
@@ -95,6 +95,8 @@
     }];
     
     self.vinField = [[UITextField alloc] init];
+    _vinField.delegate = self;
+    _vinField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
     _vinField.leftViewMode = UITextFieldViewModeAlways;
     _vinField.textColor = [UIColor colorWithHexString:@"#040000"];
@@ -254,6 +256,19 @@
 ////            }
 //    
 //    }
+}
+
+#pragma mark - UITextFieldDelegate -
+//vin号大写
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+    
+    if (lowercaseCharRange.location != NSNotFound) {
+        textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]];
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

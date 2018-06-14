@@ -14,7 +14,7 @@
 #import <CUHTTPRequest.h>
 #import "RNRViewController.h"
 #import "RNRPhotoViewController.h"
-@interface RealVinViewcontroller ()
+@interface RealVinViewcontroller () <UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *vinField;
 @end
 
@@ -81,6 +81,8 @@
     }];
     
     self.vinField = [[UITextField alloc] init];
+    _vinField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    _vinField.delegate = self;
 //    _vinField.text = [kVin isEqualToString:@""]?kVins:kVin;
     _vinField.text = kVin;
     _vinField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10 * WidthCoefficient, 22.5 * HeightCoefficient)];
@@ -209,15 +211,19 @@
 //    }
 }
 
-@end
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITextFieldDelegate -
+//vin号大写
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+    
+    if (lowercaseCharRange.location != NSNotFound) {
+        textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]];
+        return NO;
+    }
+    
+    return YES;
 }
-*/
+
+@end
 
 
