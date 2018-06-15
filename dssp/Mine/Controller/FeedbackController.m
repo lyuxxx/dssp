@@ -328,7 +328,7 @@
 - (void)showSuccessHub {
     InputAlertView *inputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     [inputalertView initWithTitle:@"提交成功,谢谢您的反馈" img:@"feedback_success" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"关闭",nil] ];
-    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    UIView *keywindow = [[UIApplication sharedApplication] keyWindow];
     [keywindow addSubview: inputalertView];
     
     inputalertView.clickBlock = ^(UIButton *btn, NSString *str) {

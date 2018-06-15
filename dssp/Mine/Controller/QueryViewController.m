@@ -11,6 +11,7 @@
 #import "QueryModel.h"
 #import "ContractModel.h"
 #import "NSArray+Sudoku.h"
+#import "QueryAlertView.h"
 #import <MJRefresh.h>
 
 //  第一步提示按钮的tag
@@ -517,6 +518,35 @@
  提示按钮的点击
  */
 - (void)tipButtonAction:(UIButton *)button {
+    [self alertShow:button];
+}
+
+#pragma mark- 打电话的方法
+- (void)contactCustomerService {
+    if (@available(iOS 10.0, *)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"] options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"]];
+    }
+}
+
+
+#pragma mark- 懒加载
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [UIScrollView new];
+    }
+    return  _scrollView;
+}
+
+#pragma mark- 新的弹窗方法
+- (void)alertShow:(UIButton *)button {
+    QueryAlertView *alertView = [[QueryAlertView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) tag:button.tag];
+    [alertView show];
+}
+
+#pragma mark- 旧的弹窗方法
+- (void)oldAlertShow:(UIButton *)button {
     NSString *title = @"";
     if (button.tag == kStepOne) {
         NSLog("第一步的提示按钮点击");
@@ -543,24 +573,6 @@
             [self contactCustomerService];
         }
     };
-}
-
-#pragma mark- 打电话的方法
-- (void)contactCustomerService {
-    if (@available(iOS 10.0, *)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"] options:@{} completionHandler:nil];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"]];
-    }
-}
-
-
-#pragma mark- 懒加载
-- (UIScrollView *)scrollView {
-    if (!_scrollView) {
-        _scrollView = [UIScrollView new];
-    }
-    return  _scrollView;
 }
 
 @end

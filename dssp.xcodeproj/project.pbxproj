@@ -758,6 +758,9 @@
 		45CAA32220B54162002EE39D /* UserprotocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CAA31F20B54162002EE39D /* UserprotocolViewController.m */; };
 		45E56766205610B200B958E8 /* ParkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E56765205610B200B958E8 /* ParkingViewController.m */; };
 		51FE503B268BD7D19B128D30 /* libPods-dssp-pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */; };
+		61F9409A20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
+		61F9409B20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
+		61F9409C20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		B4E793C4594FF59DD3ADE5A9 /* libPods-dssp-sit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */; };
 /* End PBXBuildFile section */
@@ -1277,6 +1280,8 @@
 		45E56765205610B200B958E8 /* ParkingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkingViewController.m; sourceTree = "<group>"; };
 		47718D396166F40879830BBF /* Pods-dssp-pre.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.release.xcconfig"; sourceTree = "<group>"; };
 		495DF2284984A0C87B8E6724 /* Pods-dssp-sit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-sit.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-sit/Pods-dssp-sit.release.xcconfig"; sourceTree = "<group>"; };
+		61F9409820D337E6001958EB /* QueryAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryAlertView.h; sourceTree = "<group>"; };
+		61F9409920D337E6001958EB /* QueryAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryAlertView.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-pre.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2273,6 +2278,8 @@
 				008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */,
 				008DC4C520B5022D003EB24F /* FeedbackTap.h */,
 				008DC4C620B5022D003EB24F /* FeedbackTap.m */,
+				61F9409820D337E6001958EB /* QueryAlertView.h */,
+				61F9409920D337E6001958EB /* QueryAlertView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2740,6 +2747,7 @@
 				3161DDD5206C8AB500D40EE3 /* InvoiceIndividualViewController.m in Sources */,
 				3161DDD6206C8AB500D40EE3 /* LllegalViewController.m in Sources */,
 				3161DDD7206C8AB500D40EE3 /* OrderSubmitCell.m in Sources */,
+				61F9409B20D337E6001958EB /* QueryAlertView.m in Sources */,
 				3161DDD8206C8AB500D40EE3 /* SearchAroundViewController.m in Sources */,
 				3161DDD9206C8AB500D40EE3 /* RnunbindViewController.m in Sources */,
 				3161DDDB206C8AB500D40EE3 /* InformationCenterViewController.m in Sources */,
@@ -2984,6 +2992,7 @@
 				3161DEAC206C8ABC00D40EE3 /* CarSeriesViewController.m in Sources */,
 				3161DEAD206C8ABC00D40EE3 /* InvoiceIndividualViewController.m in Sources */,
 				3161DEAE206C8ABC00D40EE3 /* LllegalViewController.m in Sources */,
+				61F9409C20D337E6001958EB /* QueryAlertView.m in Sources */,
 				3161DEAF206C8ABC00D40EE3 /* OrderSubmitCell.m in Sources */,
 				3161DEB0206C8ABC00D40EE3 /* SearchAroundViewController.m in Sources */,
 				3161DEB1206C8ABC00D40EE3 /* RnunbindViewController.m in Sources */,
@@ -3228,6 +3237,7 @@
 				31B38BC1202D8B800086EDC8 /* InvoiceIndividualViewController.m in Sources */,
 				454C744220181C0C00108F1E /* LllegalViewController.m in Sources */,
 				31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */,
+				61F9409A20D337E6001958EB /* QueryAlertView.m in Sources */,
 				31A469F61FF1EC5E00C8236E /* SearchAroundViewController.m in Sources */,
 				4505B9AD1FECF6CE00A1E47E /* RnunbindViewController.m in Sources */,
 				31AC45282022E8DD0044A62C /* InformationCenterViewController.m in Sources */,
