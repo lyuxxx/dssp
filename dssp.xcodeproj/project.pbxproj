@@ -761,6 +761,9 @@
 		61F9409A20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
 		61F9409B20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
 		61F9409C20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
+		61F940B620D3A917001958EB /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F940B520D3A917001958EB /* QueryAlertController.m */; };
+		61F940B720D3A917001958EB /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F940B520D3A917001958EB /* QueryAlertController.m */; };
+		61F940B820D3A917001958EB /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F940B520D3A917001958EB /* QueryAlertController.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		B4E793C4594FF59DD3ADE5A9 /* libPods-dssp-sit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */; };
 /* End PBXBuildFile section */
@@ -1282,6 +1285,8 @@
 		495DF2284984A0C87B8E6724 /* Pods-dssp-sit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-sit.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-sit/Pods-dssp-sit.release.xcconfig"; sourceTree = "<group>"; };
 		61F9409820D337E6001958EB /* QueryAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryAlertView.h; sourceTree = "<group>"; };
 		61F9409920D337E6001958EB /* QueryAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryAlertView.m; sourceTree = "<group>"; };
+		61F940B420D3A917001958EB /* QueryAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryAlertController.h; sourceTree = "<group>"; };
+		61F940B520D3A917001958EB /* QueryAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryAlertController.m; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-pre.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2038,6 +2043,8 @@
 				4555CFC320313EC70029598E /* NicknameViewController.m */,
 				455F36901FF4CCF400D09A63 /* QueryViewController.h */,
 				455F36911FF4CCF400D09A63 /* QueryViewController.m */,
+				61F940B420D3A917001958EB /* QueryAlertController.h */,
+				61F940B520D3A917001958EB /* QueryAlertController.m */,
 				454B78C3206272C000FABD60 /* ManualViewController.h */,
 				454B78C4206272C000FABD60 /* ManualViewController.m */,
 				454A23ED2068A1C100CA3ED0 /* AboutmeViewController.h */,
@@ -2744,6 +2751,7 @@
 				3161DDD2206C8AB500D40EE3 /* ForgotViewController.m in Sources */,
 				3161DDD3206C8AB500D40EE3 /* NSArray+Sudoku.m in Sources */,
 				3161DDD4206C8AB500D40EE3 /* CarSeriesViewController.m in Sources */,
+				61F940B720D3A917001958EB /* QueryAlertController.m in Sources */,
 				3161DDD5206C8AB500D40EE3 /* InvoiceIndividualViewController.m in Sources */,
 				3161DDD6206C8AB500D40EE3 /* LllegalViewController.m in Sources */,
 				3161DDD7206C8AB500D40EE3 /* OrderSubmitCell.m in Sources */,
@@ -2989,6 +2997,7 @@
 				3159476C207F2F4700635781 /* QueryViewController.m in Sources */,
 				3161DEAA206C8ABC00D40EE3 /* ForgotViewController.m in Sources */,
 				3161DEAB206C8ABC00D40EE3 /* NSArray+Sudoku.m in Sources */,
+				61F940B820D3A917001958EB /* QueryAlertController.m in Sources */,
 				3161DEAC206C8ABC00D40EE3 /* CarSeriesViewController.m in Sources */,
 				3161DEAD206C8ABC00D40EE3 /* InvoiceIndividualViewController.m in Sources */,
 				3161DEAE206C8ABC00D40EE3 /* LllegalViewController.m in Sources */,
@@ -3234,6 +3243,7 @@
 				459679911FE0B7DE008A0C67 /* ForgotViewController.m in Sources */,
 				31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */,
 				316B6CF31FB99BA7008A6094 /* CarSeriesViewController.m in Sources */,
+				61F940B620D3A917001958EB /* QueryAlertController.m in Sources */,
 				31B38BC1202D8B800086EDC8 /* InvoiceIndividualViewController.m in Sources */,
 				454C744220181C0C00108F1E /* LllegalViewController.m in Sources */,
 				31B38BCA202D8F970086EDC8 /* OrderSubmitCell.m in Sources */,
