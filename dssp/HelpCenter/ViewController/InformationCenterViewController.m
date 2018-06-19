@@ -20,6 +20,7 @@
 #import "RealVinViewcontroller.h"
 #import "BaseWebViewController.h"
 #import "FeedbackShowImageView.h"
+#import "UserModel.h"
 
 //  作为控件的imageView的tag值基数
 #define kImageTag 9999
@@ -44,6 +45,7 @@
     self.navigationItem.title = NSLocalizedString(@"智能管家", nil);
     [self createTableView];
     [self pullData];
+    [self refreshUserModel];
    
 }
 
@@ -879,6 +881,45 @@
     }
     
     return nil;
+}
+
+#pragma mark- 更新个人信息的头像 用于右边cell的头像获取使用
+- (void)refreshUserModel {
+
+    NSDictionary *paras = @{
+                            
+                            };
+    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic1 = dic[@"data"];
+            UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
+            
+            [self downloadImageToFileWithUserModel:userModel];
+        } else {
+            
+        }
+    } failure:^(NSInteger code) {
+        
+        
+    }];
+}
+
+- (void)downloadImageToFileWithUserModel: (UserModel *)userModel {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *imagePath = [path stringByAppendingString:UserHead];
+    
+    NSURL *imageUrl = [[NSURL alloc] initWithString:userModel.headPortrait];
+    [[SDWebImageManager.sharedManager imageDownloader] downloadImageWithURL:imageUrl options:SDWebImageDownloaderHighPriority progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+        if (!image) {
+            //  如果获取的图片为空 给其赋默认值
+            image = [UIImage imageNamed:@"用户头像"];
+        }
+        BOOL writeSuccess = [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:true];
+        NSLog(@"写入成功了吗");
+    }];
 }
 
 #pragma mark - lazy load -

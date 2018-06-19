@@ -22,6 +22,7 @@
 
 @implementation InfoMessageUserCell
 
+#pragma mark- 初始化
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     InfoMessageUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageUserCell"];
     return cell;
@@ -31,58 +32,22 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupUI];
-        [self pullData];
     }
     return self;
 }
 
--(void)pullData
-{
-    NSDictionary *paras = @{
-                          
-                            };
-    [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-    
-        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            NSDictionary *dic1 = dic[@"data"];
-            self.userModel = [UserModel yy_modelWithDictionary:dic1];
-            
-            [self.avatar sd_setImageWithURL:[NSURL URLWithString:_userModel.headPortrait] placeholderImage:[UIImage imageNamed:@"默认头像"]];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.avatar downloadImage:_userModel.headPortrait placeholder:nil success:^(CUImageCacheType cacheType, UIImage *image) {
-//
-//                } failure:^(NSError *error) {
-//
-//                } received:^(CGFloat progress) {
-//
-//                }];
-//            });
-            
-        } else {
-            
-//            [MBProgressHUD showText:dic[@"msg"]];
-        }
-        
-        
-    } failure:^(NSInteger code) {
-        
-        
-    }];
-    
-    
-    
-}
-
+#pragma mark- 搭建界面
 - (void)setupUI {
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
     self.contentView.backgroundColor = [UIColor clearColor];
+    
+    //  时间的Label
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _timeLabel.font = [UIFont fontWithName:FontName size:11];
     _timeLabel.preferredMaxLayoutWidth = 150 * WidthCoefficient;
+    
     [self.contentView addSubview:_timeLabel];
     [_timeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(0 * WidthCoefficient);
@@ -90,18 +55,16 @@
         make.top.equalTo(10 * WidthCoefficient);
     }];
     
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"photo.png"];
-    NSLog(@"imageFile->>%@",imageFilePath);
-    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
+    //  头像
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *imagePath = [path stringByAppendingString:UserHead];
+    NSLog(@"imageFile->>%@",imagePath);
+    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imagePath];
     self.avatar = [[UIImageView alloc] init];
-//    self.avatar.image = selfPhoto?selfPhoto:[UIImage imageNamed:@"用户头像"];
-    
+    self.avatar.image = selfPhoto;
     self.avatar.clipsToBounds=YES;
     self.avatar.layer.cornerRadius=40 * HeightCoefficient/2;
-//      self.avatar.image = [UIImage imageNamed:_userModel.headPortrait];
     
     [self.contentView addSubview:self.avatar];
     [self.avatar makeConstraints:^(MASConstraintMaker *make) {
@@ -110,6 +73,7 @@
         make.width.height.equalTo(40 * WidthCoefficient);
     }];
     
+    //  输入的文字label
     self.label = [[UILabel alloc] init];
     self.label.font = [UIFont fontWithName:FontName size:14];
     self.label.textColor = [UIColor whiteColor];
@@ -125,6 +89,7 @@
         make.height.equalTo(21 * WidthCoefficient);
     }];
     
+    //  用户背景
     self.bubble = [[UIImageView alloc] init];
     self.bubble.image = [UIImage imageNamed:@"用户背景"];
     [self.contentView addSubview:self.bubble];
@@ -135,6 +100,7 @@
     
 }
 
+#pragma mark- Model的set方法
 - (void)setMessage:(InfoMessage *)message {
     _message = message;
     if (message.type == InfoMessageTypeOther) {
@@ -161,6 +127,7 @@
     message.cellHeight = CGRectGetMaxY(self.bubble.frame) + 20 * WidthCoefficient;
 }
 
+#pragma mark- NSDate转字符串
 - (NSString *)stringFromDate:(NSDate *)date {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"M月d日 HH:mm";

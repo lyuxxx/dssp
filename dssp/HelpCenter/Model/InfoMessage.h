@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 typedef NS_ENUM(NSUInteger, InfoMessageType) {
-    InfoMessageTypeMe = 0,
-    InfoMessageTypeOther,
-    InfoMessageTypeTwo
+    InfoMessageTypeMe = 0, //  右侧的cell
+    InfoMessageTypeOther,  //  左侧的功能cell
+    InfoMessageTypeTwo     //  左侧的底部有是否的cell
   
     
 };
