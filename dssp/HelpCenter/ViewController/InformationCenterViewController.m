@@ -20,6 +20,7 @@
 #import "RealVinViewcontroller.h"
 #import "BaseWebViewController.h"
 #import "FeedbackShowImageView.h"
+#import "StoreTabViewController.h"
 
 //  作为控件的imageView的tag值基数
 #define kImageTag 9999
@@ -718,20 +719,43 @@
                                 }
                                 else
                                 {
-                                    
-                                    UIViewController *vc = [[NSClassFromString([dic2 objectForKey:appNum]) alloc] init];
-                                    vc.hidesBottomBarWhenPushed = YES;
-                                    [self.navigationController pushViewController:vc animated:YES];
+                                    if ([dic2[appNum] isEqualToString:@"StorePageController"]) {
+                                        StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
+                                        storeTab.hidesBottomBarWhenPushed = YES;
+                                        [self.navigationController pushViewController:storeTab animated:YES];
+                                    } else if ([dic2[appNum] isEqualToString:@"OrderPageController"]) {
+                                        StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
+                                        storeTab.hidesBottomBarWhenPushed = YES;
+                                        [self.navigationController pushViewController:storeTab animated:YES];
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                            [storeTab gotoOrderPageController];
+                                        });
+                                    } else {
+                                        UIViewController *vc = [[NSClassFromString([dic2 objectForKey:appNum]) alloc] init];
+                                        vc.hidesBottomBarWhenPushed = YES;
+                                        [self.navigationController pushViewController:vc animated:YES];
+                                    }
                                 }
                                 
                             }
                             else
                             {
-                                NSLog("这之前没有问题");
-                                NSString *vcString = [dic2 objectForKey:appNum];
-                                UIViewController *vc = [[NSClassFromString([dic2 objectForKey:appNum]) alloc] init];
-                                vc.hidesBottomBarWhenPushed = YES;
-                                [self.navigationController pushViewController:vc animated:YES];
+                                if ([dic2[appNum] isEqualToString:@"StorePageController"]) {
+                                    StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
+                                    storeTab.hidesBottomBarWhenPushed = YES;
+                                    [self.navigationController pushViewController:storeTab animated:YES];
+                                } else if ([dic2[appNum] isEqualToString:@"OrderPageController"]) {
+                                    StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
+                                    storeTab.hidesBottomBarWhenPushed = YES;
+                                    [self.navigationController pushViewController:storeTab animated:YES];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                        [storeTab gotoOrderPageController];
+                                    });
+                                } else {
+                                    UIViewController *vc = [[NSClassFromString([dic2 objectForKey:appNum]) alloc] init];
+                                    vc.hidesBottomBarWhenPushed = YES;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                }
                             }
                             
                         }
