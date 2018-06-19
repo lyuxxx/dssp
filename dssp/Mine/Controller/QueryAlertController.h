@@ -6,11 +6,13 @@
 //  Copyright © 2018年 capsa. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "StoreBaseViewController.h"
 
 /**
  实名制查询弹框控制器
  */
-@interface QueryAlertController : UIViewController
+@interface QueryAlertController : StoreBaseViewController
+
+@property (nonatomic, assign) NSUInteger tag;
 
 @end
