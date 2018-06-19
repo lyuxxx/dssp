@@ -138,7 +138,7 @@
         self.view.frame = tempRec;
     }
     // 由于可见的界面缩小了，TableView也要跟着变化Frame
-    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50- rec.size.height);
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50- rec.size.height - kBottomHeight);
     if (self.dataSource.count != 0)
     {
         if (@available(iOS 11.0, *)) {
@@ -155,7 +155,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.view.frame = CGRectMake(0,kNaviHeight, kScreenWidth, kScreenHeight);
-        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50);
+        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50 - kBottomHeight);
         
         self.keyView.frame = CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50);
     });
@@ -166,7 +166,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.view.frame = CGRectMake(0,kNaviHeight, kScreenWidth, kScreenHeight);
-        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight-50);
+        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50 - kBottomHeight);
         self.keyView.frame = CGRectMake(0, kScreenHeight -kNaviHeight-50-kBottomHeight, kScreenWidth, 50);
     });
 }
@@ -223,66 +223,67 @@
 //            });
               self.keyView.textView.text = @"";
             
-        }
-        
-        else
-        {
-        NSString *sourceData = nil;
-        if ([NSString isBlankString:str4] ) {
-            sourceData = @"0";
-        }
-        else
-        {
-            sourceData = str4;
-        }
-//        self.keyView.textView.text = @"";
-        NSDictionary *paras = @{
-//                                @"serviceParentId":str3,
-//                                @"sourceData":sourceData
-                                @"searchKey":self.keyView.textView.text
-                                };
-        self.keyView.textView.text = @"";
-       
-        [CUHTTPRequest POST:findValueBySearchValue parameters:paras success:^(id responseData) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            
-            if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                
-                if (dic[@"data"] != nil && ![ dic[@"data"] isKindOfClass:[NSNull class]] &&  [dic[@"data"] count] != 0) {
-                    NSDictionary *dic1 = dic[@"data"];
-                    InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-                    message.type = InfoMessageTypeOther;
-                    [self sendMessage:message];
-                }
-                else
-                {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    InfoMessage *message = [[InfoMessage alloc] init];
-                    message.type = InfoMessageTypeTwo;
-                    message.choices = @[@"确定",@"关闭"];
-                    message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
-                    [self sendMessage:message];
-                    
-                });
-                }
-                
+        } else {
+            NSString *sourceData = nil;
+            if ([NSString isBlankString:str4] ) {
+                sourceData = @"0";
             } else {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    InfoMessage *message = [[InfoMessage alloc] init];
-                    message.type = InfoMessageTypeTwo;
-                    message.choices = @[@"确定",@"关闭"];
-                    message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
-                    [self sendMessage:message];
-                    
-                });
-//                [MBProgressHUD showText:dic[@"msg"]];
+                sourceData = str4;
             }
-            
-        } failure:^(NSInteger code) {
-            
-            
-        }];
+    //        self.keyView.textView.text = @"";
+            NSDictionary *paras = @{
+    //                                @"serviceParentId":str3,
+    //                                @"sourceData":sourceData
+                                    @"searchKey":self.keyView.textView.text
+                                    };
+            self.keyView.textView.text = @"";
+           
+            [CUHTTPRequest POST:findValueBySearchValue parameters:paras success:^(id responseData) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                
+                if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+                    
+                    if (dic[@"data"] != nil && ![ dic[@"data"] isKindOfClass:[NSNull class]] &&  [dic[@"data"] count] != 0) {
+                        NSDictionary *dic1 = dic[@"data"];
+                        InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                        if ([message.serviceName isEqualToString:@"未查询到相关信息!"]) {
+                            message.type = InfoMessageTypeTwo;
+                            message.choices = @[@"确定",@"关闭"];
+                            message.serviceDetails = @"未查询到相关信息!\n是否继续使用智能客服服务?";
+                            [self sendMessage:message];
+                        }else {
+                            message.type = InfoMessageTypeOther;
+                            [self sendMessage:message];
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            InfoMessage *message = [[InfoMessage alloc] init];
+                            message.type = InfoMessageTypeTwo;
+                            message.choices = @[@"确定",@"关闭"];
+                            message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                            [self sendMessage:message];
+                            
+                        });
+                    }
+                    
+                } else {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        InfoMessage *message = [[InfoMessage alloc] init];
+                        message.type = InfoMessageTypeTwo;
+                        message.choices = @[@"确定",@"关闭"];
+                        message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                        [self sendMessage:message];
+                        
+                    });
+    //                [MBProgressHUD showText:dic[@"msg"]];
+                }
+                
+            } failure:^(NSInteger code) {
+                
+                
+            }];
     }
  }
       
