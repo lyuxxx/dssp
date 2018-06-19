@@ -63,7 +63,7 @@ __strong __typeof(&*weakSelf)self = weakSelf;
 #define FontName @"PingFangSC-Regular"
 #define GeneralColorString @"#a18e79"
 /** 保存图片的路径最后一段名称*/
-#define UserHead @"/userHead.png"
+#define UserHead @"/UserHead/userHead.png"
 
 #define  adjustsScrollViewInsets_NO(scrollView,vc)\
 do { \

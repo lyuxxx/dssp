@@ -936,14 +936,20 @@
     NSString *path = [paths objectAtIndex:0];
     NSString *imagePath = [path stringByAppendingString:UserHead];
     
+    //  创建文件夹
+    if (![NSFileManager.defaultManager fileExistsAtPath:[path stringByAppendingString:@"/UserHead"]]) {
+        [NSFileManager.defaultManager createDirectoryAtPath:[path stringByAppendingString:@"/UserHead"] withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
     NSURL *imageUrl = [[NSURL alloc] initWithString:userModel.headPortrait];
     [[SDWebImageManager.sharedManager imageDownloader] downloadImageWithURL:imageUrl options:SDWebImageDownloaderHighPriority progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
         if (!image) {
             //  如果获取的图片为空 给其赋默认值
             image = [UIImage imageNamed:@"用户头像"];
         }
-        BOOL writeSuccess = [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:true];
-        NSLog(@"写入成功了吗");
+        
+        //  写入文件夹
+        [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:true];
     }];
 }
 
