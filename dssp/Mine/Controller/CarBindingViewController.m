@@ -345,9 +345,11 @@
                 if (i == 0) {
                     _field.text = _bingVin;
                     self.vinField = _field;
+                    _vinField.delegate = self;
                 } else if (i == 1) {
                     _field.text = _doptCode;
                     self.doptField = _field;
+                    _doptField.delegate = self;
                 }
                 else if (i == 2) {
 //                    _field.text = _doptCode;
@@ -576,6 +578,9 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == _vinField || textField == _doptField) {
+        return NO;
+    }
     _selectedField = textField;
     if (textField == _carModels) {
         self.dataSource = self.genders;
