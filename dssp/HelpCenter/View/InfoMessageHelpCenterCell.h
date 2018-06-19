@@ -14,7 +14,8 @@
 - (void)showPic:(UIImage *)image;
 @end
 
-typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *ID,NSString *sourceData,NSString *appNum);
+typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *serviceParentId,NSString *sourceData,NSString *appNum);
+
 @interface InfoMessageHelpCenterCell : UITableViewCell
 
 @property (nonatomic, weak) id<SevenProtocolDelegate> customDelegate;

@@ -75,7 +75,7 @@
 }
 
 - (void)setupUI {
-    
+    self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 //    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
     self.contentView.backgroundColor = [UIColor clearColor];

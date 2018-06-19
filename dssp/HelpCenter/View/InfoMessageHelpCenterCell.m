@@ -31,7 +31,7 @@
 @property (nonatomic, strong) NSMutableDictionary *result2;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 
-@property (nonatomic, copy) NSString *ID;
+//@property (nonatomic, copy) NSString *ID;
 
 @property (nonatomic, copy) NSString *URL;
 
@@ -108,7 +108,7 @@
             //判断是否有图片
             if (message.serviceImage)
             {
-                self.ID = message.serviceParentId;
+//                self.ID = message.serviceParentId;
                 
                 _timeLabel.text = [self stringFromDate:message.time];
                 [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
@@ -307,7 +307,7 @@
             else
             {
             
-            self.ID = message.serviceParentId;
+//            self.ID = message.serviceParentId;
             _timeLabel.text = [self stringFromDate:message.time];
             [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
                 if (message.showTime) {
@@ -910,7 +910,7 @@
         NSString *sourceData = [_result1 objectForKey:sender.titleLabel.text];
         NSString *appNum = [_result2 objectForKey:sender.titleLabel.text];
         NSLog(@"2233%@",sourceData);
-        self.serviceClickBlock(sender,Idstr,self.ID,sourceData,appNum);
+        self.serviceClickBlock(sender,Idstr,_message.serviceParentId,sourceData,appNum);
     }
 }
 
@@ -940,19 +940,25 @@
 
 - (NSArray*)getURLFromStr:(NSString *)string {
     NSError *error;
+    /**
     //可以识别url的正则表达式
     NSString *regulaStr = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)";
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
          options:NSRegularExpressionCaseInsensitive error:&error];
+     NSArray *arrayOfAllMatches = [regex matchesInString:string options:0
+     range:NSMakeRange(0, [string length])];
+    **/
+    NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
+    NSArray *arrayOfAllMatches = [dataDetector matchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, string.length)];
     
-    NSArray *arrayOfAllMatches = [regex matchesInString:string options:0
-                        range:NSMakeRange(0, [string length])];
     //NSString *subStr;
     NSMutableArray *arr=[[NSMutableArray alloc] init];
     for (NSTextCheckingResult *match in arrayOfAllMatches){
-        NSString* substringForMatch;
-        substringForMatch = [string substringWithRange:match.range];
+        if (match.resultType != NSTextCheckingTypeLink) {
+            continue;
+        }
+        NSString* substringForMatch = [string substringWithRange:match.range];
         [arr addObject:substringForMatch];
     }
     return arr;
