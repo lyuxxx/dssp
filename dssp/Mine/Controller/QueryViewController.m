@@ -12,6 +12,7 @@
 #import "ContractModel.h"
 #import "NSArray+Sudoku.h"
 #import "QueryAlertView.h"
+#import "QueryAlertController.h"
 #import <MJRefresh.h>
 
 //  第一步提示按钮的tag
@@ -236,6 +237,7 @@
                 
                 //  执行中 不隐藏 提示按钮
                 tipButton.hidden = NO;
+                [self queryAlertControllerPresentWithTag:kStepOne];
             } else if ([_queryModel.rnrStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"实名制认证成功";
@@ -252,6 +254,7 @@
                 
                 //  执行失败 不隐藏 提示按钮
                 tipButton.hidden = NO;
+                [self queryAlertControllerPresentWithTag:kStepOne];
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -279,6 +282,7 @@
                 
                 //  执行中 不隐藏 提示按钮
                 tipButton.hidden = NO;
+                [self queryAlertControllerPresentWithTag:kStepTwo];
             } else if ([_queryModel.rcStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"车辆激活成功";
@@ -289,6 +293,7 @@
                 logo.image = [UIImage imageNamed:@"失败_icon"];
                 //  执行失败 不隐藏 提示按钮
                 tipButton.hidden = NO;
+                [self queryAlertControllerPresentWithTag:kStepTwo];
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -518,7 +523,8 @@
  提示按钮的点击
  */
 - (void)tipButtonAction:(UIButton *)button {
-    [self alertShow:button];
+    //[self alertShow:button];
+    [self queryAlertControllerPresentWithTag:button.tag];
 }
 
 #pragma mark- 打电话的方法
@@ -573,6 +579,13 @@
             [self contactCustomerService];
         }
     };
+}
+
+#pragma mark- alertController present
+- (void) queryAlertControllerPresentWithTag:(NSInteger)tag {
+    QueryAlertController *queryAlerVC = [QueryAlertController new];
+    queryAlerVC.tag = tag;
+    [self presentViewController:queryAlerVC animated:true completion:nil];
 }
 
 @end
