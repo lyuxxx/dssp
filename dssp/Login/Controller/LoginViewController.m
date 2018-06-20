@@ -992,6 +992,10 @@
 //判断手机号码格式是否正确
 - (BOOL)valiMobile:(NSString *)mobile
 {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",@"^[1]\\d{10}$"];
+    return [predicate evaluateWithObject:mobile];
+    
+    
     //    mobile = [mobile stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (mobile.length != 11)
     {
