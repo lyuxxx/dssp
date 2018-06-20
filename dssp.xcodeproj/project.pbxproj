@@ -758,6 +758,9 @@
 		45CAA32220B54162002EE39D /* UserprotocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CAA31F20B54162002EE39D /* UserprotocolViewController.m */; };
 		45E56766205610B200B958E8 /* ParkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E56765205610B200B958E8 /* ParkingViewController.m */; };
 		51FE503B268BD7D19B128D30 /* libPods-dssp-pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */; };
+		61708C4820D9F16F002A627E /* QueryTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61708C4720D9F16F002A627E /* QueryTipView.m */; };
+		61708C4920D9F170002A627E /* QueryTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61708C4720D9F16F002A627E /* QueryTipView.m */; };
+		61708C4A20D9F170002A627E /* QueryTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61708C4720D9F16F002A627E /* QueryTipView.m */; };
 		61F9409A20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
 		61F9409B20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
 		61F9409C20D337E6001958EB /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
@@ -1283,6 +1286,8 @@
 		45E56765205610B200B958E8 /* ParkingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkingViewController.m; sourceTree = "<group>"; };
 		47718D396166F40879830BBF /* Pods-dssp-pre.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.release.xcconfig"; sourceTree = "<group>"; };
 		495DF2284984A0C87B8E6724 /* Pods-dssp-sit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-sit.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-sit/Pods-dssp-sit.release.xcconfig"; sourceTree = "<group>"; };
+		61708C4620D9F16F002A627E /* QueryTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryTipView.h; sourceTree = "<group>"; };
+		61708C4720D9F16F002A627E /* QueryTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryTipView.m; sourceTree = "<group>"; };
 		61F9409820D337E6001958EB /* QueryAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryAlertView.h; sourceTree = "<group>"; };
 		61F9409920D337E6001958EB /* QueryAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryAlertView.m; sourceTree = "<group>"; };
 		61F940B420D3A917001958EB /* QueryAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryAlertController.h; sourceTree = "<group>"; };
@@ -2287,6 +2292,8 @@
 				008DC4C620B5022D003EB24F /* FeedbackTap.m */,
 				61F9409820D337E6001958EB /* QueryAlertView.h */,
 				61F9409920D337E6001958EB /* QueryAlertView.m */,
+				61708C4620D9F16F002A627E /* QueryTipView.h */,
+				61708C4720D9F16F002A627E /* QueryTipView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2847,6 +2854,7 @@
 				3161DE21206C8AB500D40EE3 /* NoticeCell.m in Sources */,
 				3161DE22206C8AB500D40EE3 /* LoginResult.m in Sources */,
 				318FF87D20B79DDA008B0CBD /* TZVideoPlayerController.m in Sources */,
+				61708C4920D9F170002A627E /* QueryTipView.m in Sources */,
 				3161DE23206C8AB500D40EE3 /* RealVinViewcontroller.m in Sources */,
 				3161DE24206C8AB500D40EE3 /* DrivingWeekReportViewController.m in Sources */,
 				31B7C85E20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
@@ -3093,6 +3101,7 @@
 				3161DEF8206C8ABC00D40EE3 /* WMViewController.m in Sources */,
 				3161DEF9206C8ABC00D40EE3 /* NoticeCell.m in Sources */,
 				318FF87E20B79DDA008B0CBD /* TZVideoPlayerController.m in Sources */,
+				61708C4A20D9F170002A627E /* QueryTipView.m in Sources */,
 				3161DEFA206C8ABC00D40EE3 /* LoginResult.m in Sources */,
 				3161DEFB206C8ABC00D40EE3 /* RealVinViewcontroller.m in Sources */,
 				31B7C85F20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,
@@ -3339,6 +3348,7 @@
 				455974681FE8EAB400D7910A /* NoticeCell.m in Sources */,
 				310A07D01FA95B6D00DC9529 /* LoginResult.m in Sources */,
 				318FF87C20B79DDA008B0CBD /* TZVideoPlayerController.m in Sources */,
+				61708C4820D9F16F002A627E /* QueryTipView.m in Sources */,
 				459679871FDF700A008A0C67 /* RealVinViewcontroller.m in Sources */,
 				310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */,
 				31B7C85D20BF885000FDDE05 /* DrivingReportPageController.m in Sources */,

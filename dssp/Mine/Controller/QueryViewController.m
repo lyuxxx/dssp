@@ -13,6 +13,7 @@
 #import "NSArray+Sudoku.h"
 #import "QueryAlertView.h"
 #import "QueryAlertController.h"
+#import "QueryTipView.h"
 #import <MJRefresh.h>
 
 //  第一步提示按钮的tag
@@ -20,7 +21,7 @@
 //  第二步提示按钮的tag
 #define kStepTwo 101
 
-@interface QueryViewController ()
+@interface QueryViewController () <QueryTipViewDelegate>
 
 @property (nonatomic,strong)QueryModel *queryModel;
 @property (nonatomic,strong)ContractModel *contract;
@@ -128,12 +129,153 @@
     
     // 用上面这个方法 连下拉加载的view也干掉了 不行
     //[[self.scrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    // 干掉子空间 然后重新布局
     for (UIView *subView in self.scrollView.subviews) {
         if (!([subView isKindOfClass:[MJRefreshNormalHeader class]])) {
             [subView removeFromSuperview];
         }
     }
-   
+    
+    // 返回首页
+    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    nextBtn.layer.cornerRadius = 2;
+    [nextBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
+    [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
+    [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
+    [self.scrollView addSubview:nextBtn];
+    [nextBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(271 * WidthCoefficient);
+        make.height.equalTo(44 * HeightCoefficient);
+        make.centerX.equalTo(0);
+        make.top.equalTo(297 * HeightCoefficient);
+    }];
+    
+    QueryTipView *tipView = [QueryTipView new];
+    [self.scrollView addSubview:tipView];
+    [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo (343*WidthCoefficient);
+        //make.height.equalTo (155*HeightCoefficient);
+        make.centerX.equalTo(self.scrollView);
+        make.top.mas_equalTo(nextBtn).offset(108 * HeightCoefficient);
+    }];
+    tipView.delegate = self;
+    tipView.hidden = true;
+
+    
+    // 虚线背景
+    UIImageView *logoImg =[[UIImageView alloc] init];
+    logoImg.image =[UIImage imageNamed:@"Rectangle"];
+    [self.scrollView addSubview:logoImg];
+    [logoImg makeConstraints:^(MASConstraintMaker *make) {
+        //make.bottom.mas_equalTo(self.view).offset(-(60*HeightCoefficient+kBottomHeight));
+        make.width.equalTo (343*WidthCoefficient);
+        make.height.equalTo (111*HeightCoefficient);
+        make.centerX.equalTo(self.scrollView);
+        make.top.mas_equalTo(nextBtn).offset(135 * HeightCoefficient);
+    }];
+
+    //  审核状态说明
+    UILabel *lab = [[UILabel alloc] init];
+    lab.textAlignment = NSTextAlignmentLeft;
+    lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
+    lab.font = [UIFont fontWithName:FontName size:13];
+    lab.text = NSLocalizedString(@"执行状态查询说明", nil);
+    [logoImg addSubview:lab];
+    [lab makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(180 * WidthCoefficient);
+        make.height.equalTo(20 * HeightCoefficient);
+        make.left.equalTo(10*WidthCoefficient);
+        make.top.equalTo(10*WidthCoefficient);
+    }];
+
+    //  状态的4个Label
+    NSArray *title = @[
+                       NSLocalizedString(@"执行成功", nil),
+                       NSLocalizedString(@"执行中", nil),
+                       NSLocalizedString(@"执行失败", nil),
+                       NSLocalizedString(@"未执行", nil)
+                       ];
+
+    NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:title.count];
+
+    for (NSInteger i = 0 ; i < title.count; i++) {
+
+        UIView *views = [[UIView alloc] init];
+        [logoImg addSubview:views];
+        [viewArray addObject:views];
+
+
+        UIImageView *logo = [[UIImageView alloc] init];
+
+        [views addSubview:logo];
+        [logo makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(18 * WidthCoefficient);
+            make.height.equalTo(18 * WidthCoefficient);
+            make.centerY.equalTo(0);
+            make.left.equalTo(0 *WidthCoefficient);
+        }];
+
+
+        UILabel *lab1 = [[UILabel alloc] init];
+        lab1.textAlignment = NSTextAlignmentLeft;
+
+        lab1.font = [UIFont fontWithName:FontName size:13];
+        lab1.text = title[i];
+        [views addSubview:lab1];
+        [lab1 makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(150 * WidthCoefficient);
+            make.height.equalTo(22.5 * HeightCoefficient);
+            make.centerY.equalTo(0);
+            make.left.equalTo(logo.right).offset(10*WidthCoefficient);
+
+        }];
+
+        if (i==0) {
+            lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
+            logo.image = [UIImage imageNamed:@"认证成功_icon"];
+        }
+        if (i==1) {
+
+            lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
+            logo.image = [UIImage imageNamed:@"审核中_icon"];
+        }
+        if (i==2) {
+            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
+            logo.image = [UIImage imageNamed:@"失败_icon"];
+        }
+        if (i==3) {
+            lab1.textColor = [UIColor colorWithHexString:@"#999999"];
+            logo.image = [UIImage imageNamed:@"认证中_icon"];
+        }
+
+    }
+
+    //  流水布局
+    [viewArray mas_distributeSudokuViewsWithFixedItemWidth:100*WidthCoefficient fixedItemHeight:20* HeightCoefficient warpCount:2 topSpacing:47 * HeightCoefficient bottomSpacing:12 * HeightCoefficient leadSpacing:10 * WidthCoefficient tailSpacing:100 * WidthCoefficient];
+
+    //  最下面的一段话
+    UILabel *lab2 = [[UILabel alloc] init];
+    lab2.textAlignment = NSTextAlignmentLeft;
+    [lab2 setNumberOfLines:0];
+    lab2.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    lab2.text = @"*如果车辆激活超过两个小时未成功，请联系人工客服处理";
+    CGRect tmpRect= [lab2.text boundingRectWithSize:CGSizeMake(343*WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:13]} context:nil];
+
+    CGFloat contentH = tmpRect.size.height;
+    lab2.font = [UIFont fontWithName:FontName size:13];
+    [self.scrollView addSubview:lab2];
+    [lab2 makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(contentH+1);
+        make.top.equalTo(logoImg.bottom).offset(10*HeightCoefficient);
+        make.left.equalTo(16*WidthCoefficient);
+        make.right.equalTo(-16*WidthCoefficient);
+    }];
+    
+    
+    //  状态列表的布局
     NSArray *titles = @[
                         NSLocalizedString(@"实名制认证", nil),
                         NSLocalizedString(@"车辆激活", nil),
@@ -236,8 +378,11 @@
                 lab1.text = [lab1.text stringByAppendingString: @" ——— 人工审核中"];
                 
                 //  执行中 不隐藏 提示按钮
-                tipButton.hidden = NO;
-                [self queryAlertControllerPresentWithTag:kStepOne];
+                //tipButton.hidden = NO;
+                //[self queryAlertControllerPresentWithTag:kStepOne];
+                logoImg.hidden = true;
+                lab2.hidden = true;
+                tipView.hidden = false;
             } else if ([_queryModel.rnrStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"实名制认证成功";
@@ -253,8 +398,11 @@
                 logo.image = [UIImage imageNamed:@"失败_icon"];
                 
                 //  执行失败 不隐藏 提示按钮
-                tipButton.hidden = NO;
-                [self queryAlertControllerPresentWithTag:kStepOne];
+                //tipButton.hidden = NO;
+                //[self queryAlertControllerPresentWithTag:kStepOne];
+                logoImg.hidden = true;
+                lab2.hidden = true;
+                tipView.hidden = false;
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -281,8 +429,11 @@
                 logo.image = [UIImage imageNamed:@"审核中_icon"];
                 
                 //  执行中 不隐藏 提示按钮
-                tipButton.hidden = NO;
-                [self queryAlertControllerPresentWithTag:kStepTwo];
+                //tipButton.hidden = NO;
+                //[self queryAlertControllerPresentWithTag:kStepTwo];
+                logoImg.hidden = true;
+                lab2.hidden = true;
+                tipView.hidden = false;
             } else if ([_queryModel.rcStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"车辆激活成功";
@@ -291,9 +442,13 @@
                 lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
                 lab1.text = @"车辆激活失败";
                 logo.image = [UIImage imageNamed:@"失败_icon"];
+                
                 //  执行失败 不隐藏 提示按钮
-                tipButton.hidden = NO;
-                [self queryAlertControllerPresentWithTag:kStepTwo];
+                //tipButton.hidden = NO;
+                //[self queryAlertControllerPresentWithTag:kStepTwo];
+                logoImg.hidden = true;
+                lab2.hidden = true;
+                tipView.hidden = false;
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -379,132 +534,6 @@
             lineview.hidden = YES;
         }
     }
-    
-    // 返回首页
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    nextBtn.layer.cornerRadius = 2;
-    [nextBtn setTitle:NSLocalizedString(@"返回首页", nil) forState:UIControlStateNormal];
-    [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    nextBtn.titleLabel.font = [UIFont fontWithName:FontName size:16];
-    [nextBtn setBackgroundColor:[UIColor colorWithHexString:GeneralColorString]];
-    [self.scrollView addSubview:nextBtn];
-    [nextBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(271 * WidthCoefficient);
-        make.height.equalTo(44 * HeightCoefficient);
-        make.centerX.equalTo(0);
-        make.top.equalTo(297 * HeightCoefficient);
-    }];
-    
-    // 虚线背景
-    UIImageView *logoImg =[[UIImageView alloc] init];
-    logoImg.image =[UIImage imageNamed:@"Rectangle"];
-    [self.scrollView addSubview:logoImg];
-    [logoImg makeConstraints:^(MASConstraintMaker *make) {
-        //make.bottom.mas_equalTo(self.view).offset(-(60*HeightCoefficient+kBottomHeight));
-        make.width.equalTo (343*WidthCoefficient);
-        make.height.equalTo (111*HeightCoefficient);
-        make.centerX.equalTo(self.scrollView);
-        make.top.mas_equalTo(nextBtn).offset(135 * HeightCoefficient);
-    }];
-    
-    //  审核状态说明
-    UILabel *lab = [[UILabel alloc] init];
-    lab.textAlignment = NSTextAlignmentLeft;
-    lab.textColor = [UIColor colorWithHexString:@"#A18E79"];
-    lab.font = [UIFont fontWithName:FontName size:13];
-    lab.text = NSLocalizedString(@"执行状态查询说明", nil);
-    [logoImg addSubview:lab];
-    [lab makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(180 * WidthCoefficient);
-        make.height.equalTo(20 * HeightCoefficient);
-        make.left.equalTo(10*WidthCoefficient);
-        make.top.equalTo(10*WidthCoefficient);
-    }];
-    
-    //  状态的4个Label
-    NSArray *title = @[
-                       NSLocalizedString(@"执行成功", nil),
-                       NSLocalizedString(@"执行中", nil),
-                       NSLocalizedString(@"执行失败", nil),
-                       NSLocalizedString(@"未执行", nil)
-                       ];
-    
-    NSMutableArray<UIView *> *viewArray = [NSMutableArray arrayWithCapacity:title.count];
-    
-    for (NSInteger i = 0 ; i < title.count; i++) {
-
-        UIView *views = [[UIView alloc] init];
-        [logoImg addSubview:views];
-        [viewArray addObject:views];
-        
-
-        UIImageView *logo = [[UIImageView alloc] init];
-
-        [views addSubview:logo];
-        [logo makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(18 * WidthCoefficient);
-            make.height.equalTo(18 * WidthCoefficient);
-            make.centerY.equalTo(0);
-            make.left.equalTo(0 *WidthCoefficient);
-        }];
-
-
-        UILabel *lab1 = [[UILabel alloc] init];
-        lab1.textAlignment = NSTextAlignmentLeft;
-     
-        lab1.font = [UIFont fontWithName:FontName size:13];
-        lab1.text = title[i];
-        [views addSubview:lab1];
-        [lab1 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(150 * WidthCoefficient);
-            make.height.equalTo(22.5 * HeightCoefficient);
-            make.centerY.equalTo(0);
-            make.left.equalTo(logo.right).offset(10*WidthCoefficient);
-
-        }];
-
-        if (i==0) {
-            lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
-            logo.image = [UIImage imageNamed:@"认证成功_icon"];
-        }
-        if (i==1) {
-
-            lab1.textColor = [UIColor colorWithHexString:@"#E2CD8D"];
-            logo.image = [UIImage imageNamed:@"审核中_icon"];
-        }
-        if (i==2) {
-            lab1.textColor = [UIColor colorWithHexString:@"#AC0042"];
-            logo.image = [UIImage imageNamed:@"失败_icon"];
-        }
-        if (i==3) {
-            lab1.textColor = [UIColor colorWithHexString:@"#999999"];
-            logo.image = [UIImage imageNamed:@"认证中_icon"];
-        }
-        
-    }
-    
-    //  流水布局
-    [viewArray mas_distributeSudokuViewsWithFixedItemWidth:100*WidthCoefficient fixedItemHeight:20* HeightCoefficient warpCount:2 topSpacing:47 * HeightCoefficient bottomSpacing:12 * HeightCoefficient leadSpacing:10 * WidthCoefficient tailSpacing:100 * WidthCoefficient];
-    
-    //  最下面的一段话
-    UILabel *lab2 = [[UILabel alloc] init];
-    lab2.textAlignment = NSTextAlignmentLeft;
-    [lab2 setNumberOfLines:0];
-    lab2.textColor = [UIColor colorWithHexString:@"#ffffff"];
-    lab2.text = @"*如果车辆激活超过两个小时未成功，请联系人工客服处理";
-    CGRect tmpRect= [lab2.text boundingRectWithSize:CGSizeMake(343*WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:13]} context:nil];
-  
-    CGFloat contentH = tmpRect.size.height;
-    lab2.font = [UIFont fontWithName:FontName size:13];
-    [self.scrollView addSubview:lab2];
-    [lab2 makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(contentH+1);
-        make.top.equalTo(logoImg.bottom).offset(10*HeightCoefficient);
-        make.left.equalTo(16*WidthCoefficient);
-        make.right.equalTo(-16*WidthCoefficient);
-    }];
-     
  }
 
 #pragma mark- 按钮的点击事件
@@ -586,6 +615,11 @@
     QueryAlertController *queryAlerVC = [QueryAlertController new];
     queryAlerVC.tag = tag;
     [self presentViewController:queryAlerVC animated:true completion:nil];
+}
+
+#pragma mark- QueryTipView的代理
+- (void)queryTipView:(QueryTipView *)queryTipView callButtonAction:(UIButton *)button {
+    [self contactCustomerService];
 }
 
 @end
