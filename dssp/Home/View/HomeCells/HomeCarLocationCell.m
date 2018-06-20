@@ -47,6 +47,7 @@ typedef void(^LocationClick)(YYLabel *);
     [locationStr appendAttributedString:attachment];
     [locationStr yy_appendString:str];
     locationStr.yy_alignment = NSTextAlignmentCenter;
+    locationStr.yy_lineBreakMode = NSLineBreakByWordWrapping;
     [locationStr addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(1, [str rangeOfString:str].length)];
     [locationStr yy_setTextHighlightRange:NSMakeRange(1, [str rangeOfString:str].length) color:[UIColor whiteColor] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         if (self.locationClick) {
@@ -77,6 +78,7 @@ typedef void(^LocationClick)(YYLabel *);
     [location appendAttributedString:attachment];
     [location yy_appendString:locationStr];
     location.yy_alignment = NSTextAlignmentCenter;
+    location.yy_lineBreakMode = NSLineBreakByWordWrapping;
     [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(1, [locationStr rangeOfString:locationStr].length)];
     [location yy_setTextHighlightRange:NSMakeRange(1, [locationStr rangeOfString:locationStr].length) color:[UIColor whiteColor] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         if (self.locationClick) {
@@ -87,8 +89,8 @@ typedef void(^LocationClick)(YYLabel *);
     CGSize size = CGSizeMake(kScreenWidth - 32 * WidthCoefficient, CGFLOAT_MAX);
     YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
     [_locationLabel updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(layout.textBoundingRect.size.height);
-        make.width.equalTo(layout.textBoundingRect.size.width);
+        make.height.equalTo(layout.textBoundingSize.height);
+        make.width.equalTo(layout.textBoundingSize.width);
     }];
 }
 
@@ -104,6 +106,7 @@ typedef void(^LocationClick)(YYLabel *);
     [location appendAttributedString:attachment];
     [location yy_appendString:locationStr];
     location.yy_alignment = NSTextAlignmentCenter;
+    location.yy_lineBreakMode = NSLineBreakByWordWrapping;
     [location addAttributes:@{NSFontAttributeName:locationFont,NSForegroundColorAttributeName:[UIColor whiteColor]} range:NSMakeRange(1, [locationStr rangeOfString:locationStr].length)];
     [location yy_setTextHighlightRange:NSMakeRange(1, [locationStr rangeOfString:locationStr].length) color:[UIColor whiteColor] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         
@@ -111,7 +114,7 @@ typedef void(^LocationClick)(YYLabel *);
     CGSize size = CGSizeMake(kScreenWidth - 32 * WidthCoefficient, CGFLOAT_MAX);
     YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:size text:location];
     
-    return layout.textBoundingRect.size.height + 10 * WidthCoefficient;
+    return layout.textBoundingSize.height + 10 * WidthCoefficient;
 }
 
 @end
