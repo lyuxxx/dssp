@@ -261,7 +261,7 @@
     lab2.textAlignment = NSTextAlignmentLeft;
     [lab2 setNumberOfLines:0];
     lab2.textColor = [UIColor colorWithHexString:@"#ffffff"];
-    lab2.text = @"*如果车辆激活超过两个小时未成功，请联系人工客服处理";
+    lab2.text = @"*如果超过半小时车辆还未激活成功，请联系人工客服处理";
     CGRect tmpRect= [lab2.text boundingRectWithSize:CGSizeMake(343*WidthCoefficient, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:FontName size:13]} context:nil];
 
     CGFloat contentH = tmpRect.size.height;
