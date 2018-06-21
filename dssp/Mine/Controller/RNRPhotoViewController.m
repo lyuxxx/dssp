@@ -220,11 +220,20 @@
 
 //        };
             
-            QueryViewController *vc = [[QueryViewController alloc] init];
-            vc.vin = dic1[@"vin"];
-            vc.types = @"2";
-            NSLog(@"666%@",dic1[@"vin"]);
-            [self.navigationController pushViewController:vc animated:YES];
+            InputAlertView *inputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+            inputalertView.tag = 101; //  第二步 车辆激活 这个没有使用宏 注意
+            [inputalertView initWithTitle:@"请将车开至信号好的地方，并启动车辆10分钟，\n以完成激活" img:@"car" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"知道了",nil] ];
+            UIView *keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: inputalertView];
+
+            
+            inputalertView.clickBlock = ^(UIButton *btn, NSString *str) {
+                QueryViewController *vc = [[QueryViewController alloc] init];
+                vc.vin = dic1[@"vin"];
+                vc.types = @"2";
+                NSLog(@"666%@",dic1[@"vin"]);
+                [self.navigationController pushViewController:vc animated:YES];
+            };
         }
       else
         {
@@ -344,6 +353,16 @@
 
 }
 
-
+#pragma mark- 提交成功的Hub
+- (void)showSuccessHub {
+    InputAlertView *inputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    [inputalertView initWithTitle:@"请将车开至移动信号好的地方，并启动车辆10分钟，以完成激活" img:@"car" type:9 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"我知道了",nil] ];
+    UIView *keywindow = [[UIApplication sharedApplication] keyWindow];
+    [keywindow addSubview: inputalertView];
+    
+    inputalertView.clickBlock = ^(UIButton *btn, NSString *str) {
+        //[self.navigationController popViewControllerAnimated:YES];
+    };
+}
 
 @end

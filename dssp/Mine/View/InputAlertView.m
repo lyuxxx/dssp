@@ -87,6 +87,36 @@
     switch (_type) {
             
         case 9:
+        
+        if (self.tag == kStepOne) {
+            [self.alertview makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(270 * WidthCoefficient);
+                make.height.equalTo(230 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.centerY.equalTo(0);
+            }];
+            
+            [_tipLable makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(200 * WidthCoefficient);
+                make.height.equalTo(80 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.top.equalTo(88 * HeightCoefficient);
+            }];
+        }else if (self.tag == kStepTwo) {
+            [self.alertview makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(270 * WidthCoefficient);
+                make.height.equalTo(230 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.centerY.equalTo(0);
+            }];
+            
+            [_tipLable makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(200 * WidthCoefficient);
+                make.height.equalTo(80 * HeightCoefficient);
+                make.centerX.equalTo(0);
+                make.top.equalTo(88 * HeightCoefficient);
+            }];
+        }else {
             //上面是图片，下面是文字
             [self.alertview makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(270 * WidthCoefficient);
@@ -101,6 +131,9 @@
                 make.centerX.equalTo(0);
                 make.top.equalTo(88 * HeightCoefficient);
             }];
+            
+        }
+
             [self creatViewInAlert9];
             //            [self createBtnTitle:_btnTitleArr];
             break;
