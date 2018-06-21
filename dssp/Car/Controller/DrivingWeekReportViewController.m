@@ -57,6 +57,8 @@
 @property (nonatomic, assign) NSInteger lastcontentOffset;
 ///用于记录空白占位图
 @property (nonatomic, strong) UIView *emptyDataSetView;
+///用于记录topScroll空白占位图
+@property (nonatomic, strong) UIView *topEmptyView;
 
 @end
 
@@ -880,6 +882,18 @@
 }
 
 - (void)showEmptyDataSet {
+    
+    if (self.topEmptyView) {
+        [self.topEmptyView removeFromSuperview];
+        self.topEmptyView = nil;
+    }
+    self.topEmptyView = [[UIView alloc] init];
+    self.topEmptyView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+    [self.topScroll addSubview:self.topEmptyView];
+    [self.topEmptyView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.topScroll);
+    }];
+    
     self.contentScroll.emptyDataSetSource = self;
     self.contentScroll.emptyDataSetDelegate = self;
     [self.contentScroll reloadEmptyDataSet];
@@ -894,6 +908,12 @@
 }
 
 - (void)hideEmptyDataSet {
+    
+    if (self.topEmptyView) {
+        [self.topEmptyView removeFromSuperview];
+        self.topEmptyView = nil;
+    }
+    
     if (self.emptyDataSetView) {
         self.emptyDataSetView.hidden = YES;
     }
