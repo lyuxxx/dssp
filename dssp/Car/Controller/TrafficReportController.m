@@ -254,6 +254,7 @@ static NSString *const cellID = @"cell";
     
 
     UILabel *Lastlabel1 = [[UILabel alloc] init];
+    Lastlabel1.hidden = YES;
     Lastlabel1.font=[UIFont fontWithName:FontName size:12];
     Lastlabel1.textColor = [UIColor colorWithHexString:@"#999999"];
     Lastlabel1.text=NSLocalizedString(@"-以下为详细报告-", nil);

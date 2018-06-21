@@ -11,8 +11,12 @@
 #import "RankingObject.h"
 #import "PNChart.h"
 #import <YYText.h>
+#import <UIScrollView+EmptyDataSet.h>
+#import <MJRefresh.h>
 
-@interface DrivingWeekReportViewController ()
+#define JUDGE(_K) (_K ? _K : @"-")
+
+@interface DrivingWeekReportViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIScrollViewDelegate>
 
 //周报告入参
 @property (nonatomic, copy) NSString *startTimeStamp;
@@ -49,6 +53,11 @@
 @property (nonatomic, strong) YYLabel *mileageUserPercentLabel;
 @property (nonatomic, strong) YYLabel *fuelUserPercentLabel;
 
+///添加此属性的作用，根据差值，判断ScrollView是上滑还是下拉
+@property (nonatomic, assign) NSInteger lastcontentOffset;
+///用于记录空白占位图
+@property (nonatomic, strong) UIView *emptyDataSetView;
+
 @end
 
 @implementation DrivingWeekReportViewController
@@ -65,7 +74,8 @@
     
     [self clear];
     
-    [self pullDefaultData];
+    [self.contentScroll.mj_header beginRefreshing];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,6 +94,7 @@
     
     self.topScroll = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
+        scroll.backgroundColor = [UIColor colorWithHexString:@"#040000"];
         [self.view addSubview:scroll];
         [scroll makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view);
@@ -97,6 +108,7 @@
 
     self.contentScroll = ({
         UIScrollView *scroll = [[UIScrollView alloc] init];
+        scroll.delegate = self;
         scroll.showsVerticalScrollIndicator = NO;
         [self.view addSubview:scroll];
         [scroll makeConstraints:^(MASConstraintMaker *make) {
@@ -436,6 +448,8 @@
         scroll;
     });
     
+    
+    self.contentScroll.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullDefaultData)];
 }
 
 - (void)pullDefaultData {
@@ -451,10 +465,7 @@
     
     self.reports = nil;
     
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    
     NSDictionary *paras = @{
-//                            @"vin":[[NSUserDefaults standardUserDefaults] objectForKey:@"vin"],
                             @"vin":kVin,
                             @"startTime":self.startTimeStamp,
                             @"endTime":self.endTimeStamp
@@ -465,24 +476,27 @@
             DrivingReportWeekResponse *response = [DrivingReportWeekResponse yy_modelWithJSON:dic];
             self.reports = response.data.record;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [hud hideAnimated:YES];
-                [self configTopScrollWithReports:self.reports];
-            });
+            if (self.reports.count) {
+                [self hideEmptyDataSet];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self configTopScrollWithReports:self.reports];
+                });
+            } else {
+                [self.contentScroll.mj_header endRefreshing];
+                [self showEmptyDataSet];
+            }
             
         } else {
-            hud.label.text = dic[@"msg"];
-            [hud hideAnimated:YES afterDelay:1];
+            [self.contentScroll.mj_header endRefreshing];
+            [self showEmptyDataSet];
         }
     } failure:^(NSInteger code) {
-        hud.label.text = NSLocalizedString(@"网络异常", nil);
-        [hud hideAnimated:YES afterDelay:1];
+        [self.contentScroll.mj_header endRefreshing];
+        [self showEmptyDataSet];
     }];
 }
 
 - (void)pullRankingWithReport:(DrivingReportWeek *)report {
-    
-    [MBProgressHUD showMessage:@""];
     
     self.mileageRanking = nil;
     self.fuelRanking = nil;
@@ -553,12 +567,11 @@
 
 - (void)updateChart {
     
-    [MBProgressHUD hideHUD];
-    
     [self updateMileageChart];
     
     [self updateFuelChart];
     
+    [self.contentScroll.mj_header endRefreshing];
 }
 
 - (void)updateMileageChart {
@@ -814,15 +827,15 @@
     
     [self clear];
     
-    self.mileageLabel.text = [NSString stringWithFormat:@"%@km",report.mileage];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",report.startDate,report.endDate];
-    self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@ L",report.totalFuelConsumed];
-    self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@ L/百公里",report.averageFuelConsumed];
+    self.mileageLabel.text = [NSString stringWithFormat:@"%@km",JUDGE(report.mileage)];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",report.startDate ? report.startDate : @"",report.endDate ? report.endDate : @""];
+    self.fuelTotalLabel.text = [NSString stringWithFormat:@"%@ L",JUDGE(report.totalFuelConsumed)];
+    self.fuelAverageLabel.text = [NSString stringWithFormat:@"%@ L/百公里",JUDGE(report.averageFuelConsumed)];
 //    self.brakeTimeLabel.text = [NSString stringWithFormat:@"%@ h",report.autoBrakeTimes];
 //    self.attentionTimesLabel.text = [NSString stringWithFormat:@"%@ 次",report.driverAttentionTimes];
 //    self.accMileageLabel.text = [NSString stringWithFormat:@"%@ km",report.accMileage];
-    self.harshBrakeLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshDecelerationTimes];
-    self.harshAccelerateLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshAccelerationTimes];
+    self.harshBrakeLabel.text = [NSString stringWithFormat:@"%@ 次",JUDGE(report.harshDecelerationTimes)];
+    self.harshAccelerateLabel.text = [NSString stringWithFormat:@"%@ 次",JUDGE(report.harshAccelerationTimes)];
 //    self.harshTurnLabel.text = [NSString stringWithFormat:@"%@ 次",report.harshTurnTimes];
     
     [self pullRankingWithReport:report];
@@ -866,6 +879,83 @@
     return timeStamp;
 }
 
+- (void)showEmptyDataSet {
+    self.contentScroll.emptyDataSetSource = self;
+    self.contentScroll.emptyDataSetDelegate = self;
+    [self.contentScroll reloadEmptyDataSet];
+    for (UIView *view in self.contentScroll.subviews) {
+        if ([view isKindOfClass:NSClassFromString(@"DZNEmptyDataSetView")]) {
+            self.emptyDataSetView = view;
+            self.emptyDataSetView.hidden = NO;
+            self.emptyDataSetView.backgroundColor = [UIColor colorWithHexString:@"#040000"];
+            break;
+        }
+    }
+}
+
+- (void)hideEmptyDataSet {
+    if (self.emptyDataSetView) {
+        self.emptyDataSetView.hidden = YES;
+    }
+}
+
+#pragma mark - DZNEmptyDataSetSource -
+
+//- (NSAttributedString *)titleF                                                                                    orEmptyDataSet:(UIScrollView *)scrollView {
+//    NSString *text = NSLocalizedString(@"暂无订单", nil);
+//    UIFont *font = [UIFont fontWithName:FontName size:16];
+//    UIColor *textColor = [UIColor colorWithHexString:@"999999"];
+//    NSMutableDictionary *attributes = [NSMutableDictionary new];
+//    [attributes setObject:font forKey:NSFontAttributeName];
+//    [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+//    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+//}
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIImage imageNamed:@"暂无数据"];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return - 30 * WidthCoefficient;
+}
+
+#pragma mark - DZNEmptyDataSetDelegate -
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
+    return YES;
+}
+
+- (void)emptyDataSetWillAppear:(UIScrollView *)scrollView {
+    [UIView animateWithDuration:0.25 animations:^{
+        scrollView.contentOffset = CGPointZero;
+    }];
+}
+
+#pragma mark - UIScrollViewDelegate -
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat hight = scrollView.frame.size.height;
+    CGFloat contentOffset = scrollView.contentOffset.y;
+    CGFloat distanceFromBottom = scrollView.contentSize.height - contentOffset;
+    CGFloat offset = contentOffset - self.lastcontentOffset;
+    self.lastcontentOffset = contentOffset;
+    
+    if (offset > 0 && contentOffset > 0) {
+        NSLog(@"上拉行为");
+        if (scrollView.emptyDataSetVisible) {
+            scrollView.contentOffset = CGPointMake(0, 0);
+        }
+    }
+    if (offset < 0 && distanceFromBottom > hight) {
+        NSLog(@"下拉行为");
+    }
+    if (contentOffset == 0) {
+        NSLog(@"滑动到顶部");
+    }
+    if (distanceFromBottom < hight) {
+        NSLog(@"滑动到底部");
+    }
+}
 
 - (NSArray<DrivingReportWeek *> *)reports {
     if (!_reports) {

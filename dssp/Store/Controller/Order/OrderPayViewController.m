@@ -245,68 +245,83 @@ typedef NS_ENUM(NSUInteger, PayType) {
     NSURLSession *session = [NSURLSession sharedSession];
     
     [[session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSError *inerror;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
-        NSString *returnCode = dic[@"message"][@"returnCode"];
-        if ([returnCode isEqualToString:@"SUCCESS"]) {
-            
+        if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [hud hideAnimated:YES];
-                [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
-            });
-            
-            NSDictionary *orderInfo = dic[@"message"][@"orderInfo"];
-            CUPayTool *manager = [CUPayTool getInstance];
-            [manager wechatPayWithAppId:WXAppId partnerId:orderInfo[@"partner"] prepayId:orderInfo[@"prepayId"] package:orderInfo[@"package"] nonceStr:orderInfo[@"noncestr"] timeStamp:orderInfo[@"timestamp"] sign:orderInfo[@"sign"] respBlock:^(NSInteger respCode, NSString *respMsg) {
-                
-                //处理支付结果
-                
-                if (respCode == 0) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
-                            [self.navigationController pushViewController:vc animated:YES];
-                        });
-                    });
-                } else if (respCode == -1) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
-                            [self.navigationController pushViewController:vc animated:YES];
-                        });
-                    });
-                } else if (respCode == -2) {
-                    
-                } else if (respCode == -3) {//未安装微信
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showText:NSLocalizedString(@"您未安装微信", nil)];
-                    });
-                } else if (respCode == -99) {
-                    
-                }
-                
-                if (respCode != -3) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showText:respMsg];
-                    });
-                }
-                
-            }];
-        } else if ([returnCode isEqualToString:@"FAIL"]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                hud.label.text = dic[@"message"][@"returnMsg"];
+                hud.label.text = NSLocalizedString(@"网络异常", nil);
                 [hud hideAnimated:YES afterDelay:1];
             });
-            
         } else {
-            NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
-            NSInteger statusCode = [res statusCode];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",statusCode];
-                [hud hideAnimated:YES afterDelay:1];
-            });
-            
+            if (!data) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    hud.label.text = NSLocalizedString(@"网络异常", nil);
+                    [hud hideAnimated:YES afterDelay:1];
+                });
+            } else {
+                NSError *inerror;
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
+                NSString *returnCode = dic[@"message"][@"returnCode"];
+                if ([returnCode isEqualToString:@"SUCCESS"]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                        [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+                    });
+                    
+                    NSDictionary *orderInfo = dic[@"message"][@"orderInfo"];
+                    CUPayTool *manager = [CUPayTool getInstance];
+                    [manager wechatPayWithAppId:WXAppId partnerId:orderInfo[@"partner"] prepayId:orderInfo[@"prepayId"] package:orderInfo[@"package"] nonceStr:orderInfo[@"noncestr"] timeStamp:orderInfo[@"timestamp"] sign:orderInfo[@"sign"] respBlock:^(NSInteger respCode, NSString *respMsg) {
+                        
+                        //处理支付结果
+                        
+                        if (respCode == 0) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                });
+                            });
+                        } else if (respCode == -1) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                });
+                            });
+                        } else if (respCode == -2) {
+                            
+                        } else if (respCode == -3) {//未安装微信
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD showText:NSLocalizedString(@"您未安装微信", nil)];
+                            });
+                        } else if (respCode == -99) {
+                            
+                        }
+                        
+                        if (respCode != -3) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD showText:respMsg];
+                            });
+                        }
+                        
+                    }];
+                } else if ([returnCode isEqualToString:@"FAIL"]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        hud.label.text = dic[@"message"][@"returnMsg"];
+                        [hud hideAnimated:YES afterDelay:1];
+                    });
+                    
+                } else {
+                    NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+                    NSInteger statusCode = [res statusCode];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",statusCode];
+                        [hud hideAnimated:YES afterDelay:1];
+                    });
+                    
+                }
+            }
         }
+        
     }] resume];
     
 }
@@ -367,61 +382,76 @@ typedef NS_ENUM(NSUInteger, PayType) {
     NSURLSession *session = [NSURLSession sharedSession];
     
     [[session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        NSString *returnCode = dic[@"message"][@"returnCode"];
-        if ([returnCode isEqualToString:@"SUCCESS"]) {
-            
+        if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [hud hideAnimated:YES];
-                [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+                hud.label.text = NSLocalizedString(@"网络异常", nil);
+                [hud hideAnimated:YES afterDelay:1];
             });
-            
-            NSString *orderInfo = dic[@"message"][@"orderInfo"];
-            CUPayTool *manager = [CUPayTool getInstance];
-            [manager aliPayOrder:orderInfo scheme:@"dssp" respBlock:^(NSInteger respCode, NSString *respMsg) {
-                
-                //处理支付结果
-                
-                if (respCode == 0) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
-                            [self.navigationController pushViewController:vc animated:YES];
-                        });
-                    });
-                } else if (respCode == -1) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
-                            [self.navigationController pushViewController:vc animated:YES];
-                        });
-                    });
-                } else if (respCode == -2) {
+        } else {
+            if (!data) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    hud.label.text = NSLocalizedString(@"网络异常", nil);
+                    [hud hideAnimated:YES afterDelay:1];
+                });
+            } else {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                NSString *returnCode = dic[@"message"][@"returnCode"];
+                if ([returnCode isEqualToString:@"SUCCESS"]) {
                     
-                } else if (respCode == -99) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                        [self.payBtn setTitle:NSLocalizedString(@"正在支付", nil) forState:UIControlStateNormal];
+                    });
+                    
+                    NSString *orderInfo = dic[@"message"][@"orderInfo"];
+                    CUPayTool *manager = [CUPayTool getInstance];
+                    [manager aliPayOrder:orderInfo scheme:@"dssp" respBlock:^(NSInteger respCode, NSString *respMsg) {
+                        
+                        //处理支付结果
+                        
+                        if (respCode == 0) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                });
+                            });
+                        } else if (respCode == -1) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    PayCompleteViewController *vc = [[PayCompleteViewController alloc] initWithPayRequest:[self createTmpRequestForOrderQueryWithRequest:request message:message]];
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                });
+                            });
+                        } else if (respCode == -2) {
+                            
+                        } else if (respCode == -99) {
+                            
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [MBProgressHUD showText:respMsg];
+                        });
+                        
+                    }];
+                } else if ([returnCode isEqualToString:@"FAIL"]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        hud.label.text = dic[@"message"][@"returnMsg"];
+                        [hud hideAnimated:YES afterDelay:1];
+                    });
+                    
+                } else {
+                    NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+                    NSInteger statusCode = [res statusCode];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",statusCode];
+                        [hud hideAnimated:YES afterDelay:1];
+                    });
                     
                 }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showText:respMsg];
-                });
-
-            }];
-        } else if ([returnCode isEqualToString:@"FAIL"]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                hud.label.text = dic[@"message"][@"returnMsg"];
-                [hud hideAnimated:YES afterDelay:1];
-            });
-            
-        } else {
-            NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
-            NSInteger statusCode = [res statusCode];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                hud.label.text = [NSString stringWithFormat:@"请求失败:%ld",statusCode];
-                [hud hideAnimated:YES afterDelay:1];
-            });
-            
+            }
         }
+        
     }] resume];
     
 }

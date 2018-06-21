@@ -254,44 +254,52 @@ typedef NS_ENUM(NSUInteger, PayState) {
     
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        NSError *inerror;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
-        NSLog(@"%@",dic);
-        if (dic[@"message"]) {
-            if ([dic[@"message"][@"returnCode"] isEqualToString:@"SUCCESS"]) {
-                NSString *tradeState = dic[@"message"][@"tradeState"];
-                if ([tradeState isEqualToString:@"TRADE_SUCCESS"]) {
-                    self.payState = PayStateOK;
-                    NSString *orderNo = dic[@"message"][@"orderNo"];
-                    NSString *totalFee = dic[@"message"][@"totalFee"];
-                    NSString *tradeTime = dic[@"message"][@"tradeTime"];
-                    
-                    NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
-                    formatter0.dateFormat = @"yyyyMMddHHmmss";
-                    formatter0.timeZone = [NSTimeZone localTimeZone];
-                    
-                    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-                    formatter1.dateFormat = @"yyyy/MM/dd HH:mm:ss";
-                    formatter1.timeZone = [NSTimeZone localTimeZone];
-                    NSDate *date = [formatter0 dateFromString:tradeTime];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.orderNoLabel.text = orderNo;
-                        self.paymentLabel.text = [NSString stringWithFormat:@"¥%@",totalFee];
-                        self.timeLabel.text = [formatter1 stringFromDate:date];
-                    });
-                    
-                } else {
-                    self.payState = PayStateFail;
-                }
-            } else if ([dic[@"message"][@"returnCode"] isEqualToString:@"FAIL"]) {
-                self.payState = PayStateFail;
-            }
+        if (error) {
+
         } else {
-            NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
-            NSInteger statusCode = [res statusCode];
+            if (!data) {
+                
+            } else {
+                NSError *inerror;
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&inerror];
+                NSLog(@"%@",dic);
+                if (dic[@"message"]) {
+                    if ([dic[@"message"][@"returnCode"] isEqualToString:@"SUCCESS"]) {
+                        NSString *tradeState = dic[@"message"][@"tradeState"];
+                        if ([tradeState isEqualToString:@"TRADE_SUCCESS"]) {
+                            self.payState = PayStateOK;
+                            NSString *orderNo = dic[@"message"][@"orderNo"];
+                            NSString *totalFee = dic[@"message"][@"totalFee"];
+                            NSString *tradeTime = dic[@"message"][@"tradeTime"];
+                            
+                            NSDateFormatter *formatter0 = [[NSDateFormatter alloc] init];
+                            formatter0.dateFormat = @"yyyyMMddHHmmss";
+                            formatter0.timeZone = [NSTimeZone localTimeZone];
+                            
+                            NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+                            formatter1.dateFormat = @"yyyy/MM/dd HH:mm:ss";
+                            formatter1.timeZone = [NSTimeZone localTimeZone];
+                            NSDate *date = [formatter0 dateFromString:tradeTime];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                self.orderNoLabel.text = orderNo;
+                                self.paymentLabel.text = [NSString stringWithFormat:@"¥%@",totalFee];
+                                self.timeLabel.text = [formatter1 stringFromDate:date];
+                            });
+                            
+                        } else {
+                            self.payState = PayStateFail;
+                        }
+                    } else if ([dic[@"message"][@"returnCode"] isEqualToString:@"FAIL"]) {
+                        self.payState = PayStateFail;
+                    }
+                } else {
+                    NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+                    NSInteger statusCode = [res statusCode];
+                }
+            }
         }
+        
     }] resume];
 }
 
