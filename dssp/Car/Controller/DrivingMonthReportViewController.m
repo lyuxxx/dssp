@@ -496,6 +496,8 @@
 
 - (void)pullRankingWithReport:(DrivingReportMonth *)report {
     
+    [MBProgressHUD showMessage:@""];
+    
     self.mileageRanking = nil;
     self.fuelRanking = nil;
     
@@ -560,6 +562,8 @@
     [self updateMileageChart];
     
     [self updateFuelChart];
+    
+    [MBProgressHUD hideHUD];
     
     [self.contentScroll.mj_header endRefreshing];
 }
