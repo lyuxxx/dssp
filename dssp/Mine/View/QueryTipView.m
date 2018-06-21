@@ -8,6 +8,11 @@
 
 #import "QueryTipView.h"
 
+//  第一步提示按钮的tag
+#define kStepOne 100
+//  第二步提示按钮的tag
+#define kStepTwo 101
+
 @interface QueryTipView()
 
 /** 说明的label*/
@@ -24,10 +29,10 @@
 @implementation QueryTipView
 
 #pragma mark- 初始化
-- (instancetype)init
-{
+- (instancetype)initWithTag:(NSInteger)tag {
     self = [super init];
     if (self) {
+        self.tag = tag;
         [self setUpUI];
     }
     return self;
@@ -48,7 +53,8 @@
     
     [self addSubview:self.stepLabel];
     [self.stepLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.explainLabel.bottom).offset(7 * HeightCoefficient);
+        //make.top.mas_equalTo(self.explainLabel.bottom).offset(7 * HeightCoefficient);
+        make.top.mas_equalTo(self).offset(20 * HeightCoefficient);
         make.leading.trailing.mas_equalTo(self.explainLabel);
     }];
     
@@ -75,7 +81,7 @@
         _explainLabel = [UILabel new];
         _explainLabel.textColor = [UIColor colorWithHexString:@"#A18E79"];
         _explainLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
-        _explainLabel.text = NSLocalizedString(@"如果车辆激活超过2个小时未成功,请尝试以下操作:", nil);
+        _explainLabel.text = @"";//NSLocalizedString(@"如果车辆激活超过2个小时未成功,请尝试以下操作:", nil);
         _explainLabel.numberOfLines = 0;
     }
     return _explainLabel;
@@ -87,18 +93,27 @@
         _stepLabel.textColor = [UIColor whiteColor];
         _stepLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
         _stepLabel.numberOfLines = 0;
-        _stepLabel.text = @"1.在户外启动车辆十分钟\n2.拨打人工客服处理";
+        
+        NSString *text = @"";
+        if (self.tag == kStepOne) {
+            text = @"a. 如果您提交的实名认证信息存在上传照片不清晰的问题、会进入人工审核，人工审核存在一定延时，需等待\nb. 人工审核已驳回，则需要再次提交实名认证信息";
+        }else if (self.tag == kStepTwo) {
+            text = @"a. 请将车开至移动信号好的地方，并启动车辆10分钟，以完成激活\nb. 如果车辆仍未激活，请拨打400电话";
+        }
+        
+        _stepLabel.text = text;
     }
     return _stepLabel;
 }
 
 - (UIButton *)callButton {
     if (!_callButton) {
+        NSString *buttonTitle = [NSString stringWithFormat:@"点击拨打%@",kphonenumber];
         _callButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_callButton setImage:[UIImage imageNamed:@"call_service"] forState:UIControlStateNormal];
         [_callButton setImage:[UIImage imageNamed:@"call_service"] forState:UIControlStateHighlighted];
-        [_callButton setTitle:@"点击拨打400-650-5556" forState:UIControlStateNormal];
-        [_callButton setTitle:@"点击拨打400-650-5556" forState:UIControlStateHighlighted];
+        [_callButton setTitle:buttonTitle forState:UIControlStateNormal];
+        [_callButton setTitle:buttonTitle forState:UIControlStateHighlighted];
         [_callButton addTarget:self action:@selector(callButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         _callButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
         _callButton.layer.borderWidth = 1 / [UIScreen.mainScreen scale];

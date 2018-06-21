@@ -153,18 +153,6 @@
         make.top.equalTo(297 * HeightCoefficient);
     }];
     
-    QueryTipView *tipView = [QueryTipView new];
-    [self.scrollView addSubview:tipView];
-    [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo (343*WidthCoefficient);
-        //make.height.equalTo (155*HeightCoefficient);
-        make.centerX.equalTo(self.scrollView);
-        make.top.mas_equalTo(nextBtn).offset(108 * HeightCoefficient);
-    }];
-    tipView.delegate = self;
-    tipView.hidden = true;
-
-    
     // 虚线背景
     UIImageView *logoImg =[[UIImageView alloc] init];
     logoImg.image =[UIImage imageNamed:@"Rectangle"];
@@ -382,7 +370,7 @@
                 //[self queryAlertControllerPresentWithTag:kStepOne];
                 logoImg.hidden = true;
                 lab2.hidden = true;
-                tipView.hidden = false;
+                [self setUpQueryTipViewWithNextBtn:nextBtn tag:kStepOne];
             } else if ([_queryModel.rnrStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"实名制认证成功";
@@ -402,7 +390,7 @@
                 //[self queryAlertControllerPresentWithTag:kStepOne];
                 logoImg.hidden = true;
                 lab2.hidden = true;
-                tipView.hidden = false;
+                [self setUpQueryTipViewWithNextBtn:nextBtn tag:kStepOne];
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -433,7 +421,7 @@
                 //[self queryAlertControllerPresentWithTag:kStepTwo];
                 logoImg.hidden = true;
                 lab2.hidden = true;
-                tipView.hidden = false;
+                [self setUpQueryTipViewWithNextBtn:nextBtn tag:kStepTwo];
             } else if ([_queryModel.rcStatus isEqualToString:@"2"]) {
                 lab1.textColor = [UIColor colorWithHexString:@"#00FFB4"];
                 lab1.text = @"车辆激活成功";
@@ -448,7 +436,7 @@
                 //[self queryAlertControllerPresentWithTag:kStepTwo];
                 logoImg.hidden = true;
                 lab2.hidden = true;
-                tipView.hidden = false;
+                [self setUpQueryTipViewWithNextBtn:nextBtn tag:kStepTwo];
             } else {
                 lab1.textColor = [UIColor colorWithHexString:@"#999999"];
                 logo.image = [UIImage imageNamed:@"认证中_icon"];
@@ -559,9 +547,9 @@
 #pragma mark- 打电话的方法
 - (void)contactCustomerService {
     if (@available(iOS 10.0, *)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"] options:@{} completionHandler:nil];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]] options:@{} completionHandler:nil];
     } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:400-650-5556"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
     }
 }
 
@@ -615,6 +603,19 @@
     QueryAlertController *queryAlerVC = [QueryAlertController new];
     queryAlerVC.tag = tag;
     [self presentViewController:queryAlerVC animated:true completion:nil];
+}
+    
+#pragma mark- QueryTipView的创建与布局
+- (void)setUpQueryTipViewWithNextBtn:(UIButton *)nextBtn tag:(NSInteger)tag  {
+    QueryTipView *tipView = [[QueryTipView alloc] initWithTag:tag];
+    [self.scrollView addSubview:tipView];
+    [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo (343*WidthCoefficient);
+        //make.height.equalTo (155*HeightCoefficient);
+        make.centerX.equalTo(self.scrollView);
+        make.top.mas_equalTo(nextBtn).offset(108 * HeightCoefficient);
+    }];
+    tipView.delegate = self;
 }
 
 #pragma mark- QueryTipView的代理

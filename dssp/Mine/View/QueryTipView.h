@@ -20,5 +20,7 @@
 @interface QueryTipView : UIImageView
 
 @property (nonatomic, weak) id<QueryTipViewDelegate> delegate;
+    
+- (instancetype)initWithTag:(NSInteger)tag;
 
 @end
