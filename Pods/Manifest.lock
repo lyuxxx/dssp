@@ -115,7 +115,7 @@ SPEC REPOS:
     - CUProgressHUD
     - UIImageViewSDWebImage
     - YYCategoriesSub
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Alipay-SDK
     - AMap3DMap
@@ -190,6 +190,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 214d31f8216b284fbcddd1e3e0ddaeb564107d78
+PODFILE CHECKSUM: f0b856953690bc12eea5a99b8885cb3469bfbb34
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

@@ -28,6 +28,7 @@
 		008DC4D320B5044B003EB24F /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
 		008DC4D420B5044B003EB24F /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
 		008DC4D520B5044B003EB24F /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
+		0B270B44A988A6130E16104C /* libPods-dssp-preStandby.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 021DD294A587AE2032B5961F /* libPods-dssp-preStandby.a */; };
 		310368EC2045682300A9083E /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
 		310368EF2046882200A9083E /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
 		310368F220469ECC00A9083E /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
@@ -601,6 +602,524 @@
 		31DDD2561FBABB7900D37DED /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
 		31DFA7E720649F0E009C0D90 /* UIButton+NoRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DFA7E520649F0D009C0D90 /* UIButton+NoRepeat.m */; };
 		31E4E6181FB9295D00BF954E /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		31E6D03720DCAD160093E2AC /* NSString+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 4551380720AE660100697A8C /* NSString+XY.m */; };
+		31E6D03820DCAD160093E2AC /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
+		31E6D03920DCAD160093E2AC /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* Statistics.m */; };
+		31E6D03A20DCAD160093E2AC /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
+		31E6D03B20DCAD160093E2AC /* EvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B57D202BF0C5006D3749 /* EvaluateViewController.m */; };
+		31E6D03C20DCAD160093E2AC /* TrackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C320452E22006837DC /* TrackObject.m */; };
+		31E6D03D20DCAD160093E2AC /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
+		31E6D03E20DCAD160093E2AC /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */; };
+		31E6D03F20DCAD160093E2AC /* UIFont+FontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */; };
+		31E6D04020DCAD160093E2AC /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
+		31E6D04120DCAD160093E2AC /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF920C4CF35009B2D58 /* PNRadarChart.m */; };
+		31E6D04220DCAD160093E2AC /* CarBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */; };
+		31E6D04320DCAD160093E2AC /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF520C4CF35009B2D58 /* PNPieChart.m */; };
+		31E6D04420DCAD160093E2AC /* HomeBtnsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9672057A419003844E0 /* HomeBtnsHeader.m */; };
+		31E6D04520DCAD160093E2AC /* StoreSingleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BA2029884700B7AE48 /* StoreSingleViewController.m */; };
+		31E6D04620DCAD160093E2AC /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
+		31E6D04720DCAD160093E2AC /* RankingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 315F636E20C0E343003D2017 /* RankingObject.m */; };
+		31E6D04820DCAD160093E2AC /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
+		31E6D04920DCAD160093E2AC /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
+		31E6D04A20DCAD160093E2AC /* InfoMessageHelpCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45302022F0080044A62C /* InfoMessageHelpCenterCell.m */; };
+		31E6D04B20DCAD160093E2AC /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
+		31E6D04C20DCAD160093E2AC /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEF20C4CF35009B2D58 /* PNLineChart.m */; };
+		31E6D04D20DCAD160093E2AC /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
+		31E6D04E20DCAD160093E2AC /* CommodityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1CE202A9BE100B7AE48 /* CommodityHeaderView.m */; };
+		31E6D04F20DCAD160093E2AC /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
+		31E6D05020DCAD160093E2AC /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */; };
+		31E6D05120DCAD160093E2AC /* CommodityDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */; };
+		31E6D05220DCAD160093E2AC /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
+		31E6D05320DCAD160093E2AC /* QGLocationTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DF20032C8F0099D7AC /* QGLocationTransform.m */; };
+		31E6D05420DCAD160093E2AC /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
+		31E6D05520DCAD160093E2AC /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
+		31E6D05620DCAD160093E2AC /* MapUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158925201B0DC100A4AEFB /* MapUpdateViewController.m */; };
+		31E6D05720DCAD160093E2AC /* UIButton+NoRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DFA7E520649F0D009C0D90 /* UIButton+NoRepeat.m */; };
+		31E6D05820DCAD160093E2AC /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
+		31E6D05920DCAD160093E2AC /* MapSearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */; };
+		31E6D05A20DCAD160093E2AC /* CarUnbindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE41FFCDC0E00FA6355 /* CarUnbindModel.m */; };
+		31E6D05B20DCAD160093E2AC /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
+		31E6D05C20DCAD160093E2AC /* SearchresultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */; };
+		31E6D05D20DCAD160093E2AC /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
+		31E6D05E20DCAD160093E2AC /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
+		31E6D05F20DCAD160093E2AC /* CommodityPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA2202C38410086EDC8 /* CommodityPriceCell.m */; };
+		31E6D06020DCAD160093E2AC /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
+		31E6D06120DCAD160093E2AC /* LllegaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744420181E1800108F1E /* LllegaCell.m */; };
+		31E6D06220DCAD160093E2AC /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
+		31E6D06320DCAD160093E2AC /* RefuelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */; };
+		31E6D06420DCAD160093E2AC /* UserprotocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CAA31F20B54162002EE39D /* UserprotocolViewController.m */; };
+		31E6D06520DCAD160093E2AC /* TrafficReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F882041130800C41E10 /* TrafficReportModel.m */; };
+		31E6D06620DCAD160093E2AC /* UpkeepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DC20030A4A0099D7AC /* UpkeepModel.m */; };
+		31E6D06720DCAD160093E2AC /* QueryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABF33520076CE0003FC560 /* QueryModel.m */; };
+		31E6D06820DCAD160093E2AC /* DrivingMonthReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */; };
+		31E6D06920DCAD160093E2AC /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		31E6D06A20DCAD160093E2AC /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE320C4CF35009B2D58 /* PNBarChart.m */; };
+		31E6D06B20DCAD160093E2AC /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679901FE0B7DE008A0C67 /* ForgotViewController.m */; };
+		31E6D06C20DCAD160093E2AC /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
+		31E6D06D20DCAD160093E2AC /* CarSeriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF21FB99BA7008A6094 /* CarSeriesViewController.m */; };
+		31E6D06E20DCAD160093E2AC /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F940B520D3A917001958EB /* QueryAlertController.m */; };
+		31E6D06F20DCAD160093E2AC /* InvoiceIndividualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC0202D8B800086EDC8 /* InvoiceIndividualViewController.m */; };
+		31E6D07020DCAD160093E2AC /* LllegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744120181C0C00108F1E /* LllegalViewController.m */; };
+		31E6D07120DCAD160093E2AC /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
+		31E6D07220DCAD160093E2AC /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
+		31E6D07320DCAD160093E2AC /* SearchAroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */; };
+		31E6D07420DCAD160093E2AC /* RnunbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */; };
+		31E6D07520DCAD160093E2AC /* InformationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45272022E8DD0044A62C /* InformationCenterViewController.m */; };
+		31E6D07620DCAD160093E2AC /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
+		31E6D07720DCAD160093E2AC /* ModifyPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */; };
+		31E6D07820DCAD160093E2AC /* CarflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A31FECAB0200A1E47E /* CarflowCell.m */; };
+		31E6D07920DCAD160093E2AC /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
+		31E6D07A20DCAD160093E2AC /* TrafficReportdatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F912041461400C41E10 /* TrafficReportdatailCell.m */; };
+		31E6D07B20DCAD160093E2AC /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
+		31E6D07C20DCAD160093E2AC /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84320B79DDA008B0CBD /* TZImageManager.m */; };
+		31E6D07D20DCAD160093E2AC /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
+		31E6D07E20DCAD160093E2AC /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC452D2022EDB10044A62C /* NSString+Size.m */; };
+		31E6D07F20DCAD160093E2AC /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
+		31E6D08020DCAD160093E2AC /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84C20B79DDA008B0CBD /* TZPhotoPreviewCell.m */; };
+		31E6D08120DCAD160093E2AC /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
+		31E6D08220DCAD160093E2AC /* CUHTTPRequestCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */; };
+		31E6D08320DCAD160093E2AC /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85020B79DDA008B0CBD /* TZProgressView.m */; };
+		31E6D08420DCAD160093E2AC /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D3204171E4002807D2 /* TrackDetailViewController.m */; };
+		31E6D08520DCAD160093E2AC /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
+		31E6D08620DCAD160093E2AC /* RNRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF51FB99F4A008A6094 /* RNRViewController.m */; };
+		31E6D08720DCAD160093E2AC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
+		31E6D08820DCAD160093E2AC /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
+		31E6D08920DCAD160093E2AC /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
+		31E6D08A20DCAD160093E2AC /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
+		31E6D08B20DCAD160093E2AC /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F42071FFBD0072C824 /* TAPageControl.m */; };
+		31E6D08C20DCAD160093E2AC /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
+		31E6D08D20DCAD160093E2AC /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
+		31E6D08E20DCAD160093E2AC /* CommodityCommentFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BAB202C38BF0086EDC8 /* CommodityCommentFooterCell.m */; };
+		31E6D08F20DCAD160093E2AC /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581E1BD2050F64A00B435B5 /* PopupView.m */; };
+		31E6D09020DCAD160093E2AC /* ModifyPhonesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */; };
+		31E6D09120DCAD160093E2AC /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C12062018700FABD60 /* AgreementViewController.m */; };
+		31E6D09220DCAD160093E2AC /* CarBindingTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarBindingTViewController.m */; };
+		31E6D09320DCAD160093E2AC /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84620B79DDA008B0CBD /* TZImagePickerController.m */; };
+		31E6D09420DCAD160093E2AC /* RNRPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF81FB9A56A008A6094 /* RNRPhotoViewController.m */; };
+		31E6D09520DCAD160093E2AC /* GetActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */; };
+		31E6D09620DCAD160093E2AC /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD66261FDFD5BB0049D48D /* FavoriteCell.m */; };
+		31E6D09720DCAD160093E2AC /* RealnameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A61FECE45E00A1E47E /* RealnameViewController.m */; };
+		31E6D09820DCAD160093E2AC /* CommodityCommentHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA5202C386A0086EDC8 /* CommodityCommentHeaderCell.m */; };
+		31E6D09920DCAD160093E2AC /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
+		31E6D09A20DCAD160093E2AC /* CommodityBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B9C202C38060086EDC8 /* CommodityBannerCell.m */; };
+		31E6D09B20DCAD160093E2AC /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
+		31E6D09C20DCAD160093E2AC /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */; };
+		31E6D09D20DCAD160093E2AC /* PoiOptionBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF88320B7B610008B0CBD /* PoiOptionBtn.m */; };
+		31E6D09E20DCAD160093E2AC /* ActivationCodeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235CF204170B4002807D2 /* ActivationCodeListViewController.m */; };
+		31E6D09F20DCAD160093E2AC /* InfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC452A2022E9250044A62C /* InfoMessage.m */; };
+		31E6D0A020DCAD160093E2AC /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
+		31E6D0A120DCAD160093E2AC /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
+		31E6D0A220DCAD160093E2AC /* TrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C620454EEA006837DC /* TrackListViewController.m */; };
+		31E6D0A320DCAD160093E2AC /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83F20B79DDA008B0CBD /* TZGifPhotoPreviewController.m */; };
+		31E6D0A420DCAD160093E2AC /* CarTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */; };
+		31E6D0A520DCAD160093E2AC /* ContractdetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */; };
+		31E6D0A620DCAD160093E2AC /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
+		31E6D0A720DCAD160093E2AC /* InfoMessageUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45332022F0210044A62C /* InfoMessageUserCell.m */; };
+		31E6D0A820DCAD160093E2AC /* HomeCarLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 319096C920636EAF0032BC43 /* HomeCarLocationCell.m */; };
+		31E6D0A920DCAD160093E2AC /* QDataSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765271204E7BBE006585BA /* QDataSaver.m */; };
+		31E6D0AA20DCAD160093E2AC /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
+		31E6D0AB20DCAD160093E2AC /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
+		31E6D0AC20DCAD160093E2AC /* CheckVersionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504AA2062748A000CFB8F /* CheckVersionView.m */; };
+		31E6D0AD20DCAD160093E2AC /* FeedbackChoosePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */; };
+		31E6D0AE20DCAD160093E2AC /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CE51FB94A35008A6094 /* WifiViewController.m */; };
+		31E6D0AF20DCAD160093E2AC /* OrderSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */; };
+		31E6D0B020DCAD160093E2AC /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFEC1FFE4B0700FA6355 /* UITabBar+badge.m */; };
+		31E6D0B120DCAD160093E2AC /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */; };
+		31E6D0B220DCAD160093E2AC /* FeedbackTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C620B5022D003EB24F /* FeedbackTap.m */; };
+		31E6D0B320DCAD160093E2AC /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */; };
+		31E6D0B420DCAD160093E2AC /* MapUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D62041722C002807D2 /* MapUtility.m */; };
+		31E6D0B520DCAD160093E2AC /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504A720624D6F000CFB8F /* BaseWebViewController.m */; };
+		31E6D0B620DCAD160093E2AC /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */; };
+		31E6D0B720DCAD160093E2AC /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F11FF1E78B00C8236E /* MapView.m */; };
+		31E6D0B820DCAD160093E2AC /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
+		31E6D0B920DCAD160093E2AC /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84A20B79DDA008B0CBD /* TZPhotoPickerController.m */; };
+		31E6D0BA20DCAD160093E2AC /* CommodityCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BB2202D36990086EDC8 /* CommodityCommentsViewController.m */; };
+		31E6D0BB20DCAD160093E2AC /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
+		31E6D0BC20DCAD160093E2AC /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
+		31E6D0BD20DCAD160093E2AC /* YYStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B578202BEFF9006D3749 /* YYStarView.m */; };
+		31E6D0BE20DCAD160093E2AC /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453718A32044052D009D0E99 /* UserModel.m */; };
+		31E6D0BF20DCAD160093E2AC /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
+		31E6D0C020DCAD160093E2AC /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EBC1FA87D0900C8FDF8 /* TabBarController.m */; };
+		31E6D0C120DCAD160093E2AC /* OilStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D1FDCD1FF494440021D47C /* OilStation.m */; };
+		31E6D0C220DCAD160093E2AC /* EllipsePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45372022F5E80044A62C /* EllipsePageControl.m */; };
+		31E6D0C320DCAD160093E2AC /* StoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1B72029883200B7AE48 /* StoreTabViewController.m */; };
+		31E6D0C420DCAD160093E2AC /* InvoicePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BBD202D8A8F0086EDC8 /* InvoicePageController.m */; };
+		31E6D0C520DCAD160093E2AC /* CarStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */; };
+		31E6D0C620DCAD160093E2AC /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83D20B79DDA008B0CBD /* TZAssetModel.m */; };
+		31E6D0C720DCAD160093E2AC /* CommodityCommentsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BB7202D4B0B0086EDC8 /* CommodityCommentsListCell.m */; };
+		31E6D0C820DCAD160093E2AC /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
+		31E6D0C920DCAD160093E2AC /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
+		31E6D0CA20DCAD160093E2AC /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85420B79DDA008B0CBD /* UIView+Layout.m */; };
+		31E6D0CB20DCAD160093E2AC /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
+		31E6D0CC20DCAD160093E2AC /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
+		31E6D0CD20DCAD160093E2AC /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85220B79DDA008B0CBD /* TZVideoPlayerController.m */; };
+		31E6D0CE20DCAD160093E2AC /* QueryTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61708C4720D9F16F002A627E /* QueryTipView.m */; };
+		31E6D0CF20DCAD160093E2AC /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
+		31E6D0D020DCAD160093E2AC /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
+		31E6D0D120DCAD160093E2AC /* DrivingReportPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */; };
+		31E6D0D220DCAD160093E2AC /* ManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C4206272C000FABD60 /* ManualViewController.m */; };
+		31E6D0D320DCAD160093E2AC /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A39D8520C4EE3600EDC42F /* NSArray+Log.m */; };
+		31E6D0D420DCAD160093E2AC /* PersonInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9B81FF1E70800B23713 /* PersonInCell.m */; };
+		31E6D0D520DCAD160093E2AC /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE120C4CF35009B2D58 /* PNBar.m */; };
+		31E6D0D620DCAD160093E2AC /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */; };
+		31E6D0D720DCAD160093E2AC /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
+		31E6D0D820DCAD160093E2AC /* CarflowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36971FF6140F00D09A63 /* CarflowModel.m */; };
+		31E6D0D920DCAD160093E2AC /* StoreObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5C8DB202FE9DE00A44C5C /* StoreObject.m */; };
+		31E6D0DA20DCAD160093E2AC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC01FA87E6900C8FDF8 /* LoginViewController.m */; };
+		31E6D0DB20DCAD160093E2AC /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84E20B79DDA008B0CBD /* TZPhotoPreviewController.m */; };
+		31E6D0DC20DCAD160093E2AC /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE720C4CF35009B2D58 /* PNChartLabel.m */; };
+		31E6D0DD20DCAD160093E2AC /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE920C4CF35009B2D58 /* PNCircleChart.m */; };
+		31E6D0DE20DCAD160093E2AC /* SendPoiProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CB2B98200763350085FBA1 /* SendPoiProgressView.m */; };
+		31E6D0DF20DCAD160093E2AC /* MapUpdateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BD20450A19006837DC /* MapUpdateObject.m */; };
+		31E6D0E020DCAD160093E2AC /* OrderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5C8DE202FE9EF00A44C5C /* OrderObject.m */; };
+		31E6D0E120DCAD160093E2AC /* OrderPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BD2029885200B7AE48 /* OrderPageController.m */; };
+		31E6D0E220DCAD160093E2AC /* TZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84820B79DDA008B0CBD /* TZLocationManager.m */; };
+		31E6D0E320DCAD160093E2AC /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84120B79DDA008B0CBD /* TZImageCropManager.m */; };
+		31E6D0E420DCAD160093E2AC /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AED20C4CF35009B2D58 /* PNGenericChart.m */; };
+		31E6D0E520DCAD160093E2AC /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEB20C4CF35009B2D58 /* PNColor.m */; };
+		31E6D0E620DCAD160093E2AC /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
+		31E6D0E720DCAD160093E2AC /* CarUnbindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */; };
+		31E6D0E820DCAD160093E2AC /* HomeCarReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B96A2057B78F003844E0 /* HomeCarReportCell.m */; };
+		31E6D0E920DCAD160093E2AC /* DrivingReportObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F42046B92800A9083E /* DrivingReportObject.m */; };
+		31E6D0EA20DCAD160093E2AC /* ContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679981FE13328008A0C67 /* ContractViewController.m */; };
+		31E6D0EB20DCAD160093E2AC /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
+		31E6D0EC20DCAD160093E2AC /* OrderPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BBA202D70EE0086EDC8 /* OrderPayViewController.m */; };
+		31E6D0ED20DCAD160093E2AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
+		31E6D0EE20DCAD160093E2AC /* UpkeepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99E1FECA97100A1E47E /* UpkeepViewController.m */; };
+		31E6D0EF20DCAD160093E2AC /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B0214204FF9DA0038EC9C /* MaintainViewController.m */; };
+		31E6D0F020DCAD160093E2AC /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
+		31E6D0F120DCAD160093E2AC /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */; };
+		31E6D0F220DCAD160093E2AC /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */; };
+		31E6D0F320DCAD160093E2AC /* BlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576525F204E2B5E006585BA /* BlankView.m */; };
+		31E6D0F420DCAD160093E2AC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58B720441EFB006837DC /* OrderDetailViewController.m */; };
+		31E6D0F520DCAD160093E2AC /* LllegaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453218DB201EC3650064369F /* LllegaModel.m */; };
+		31E6D0F620DCAD160093E2AC /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83B20B79DDA008B0CBD /* TZAssetCell.m */; };
+		31E6D0F720DCAD160093E2AC /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
+		31E6D0F820DCAD160093E2AC /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
+		31E6D0F920DCAD160093E2AC /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
+		31E6D0FA20DCAD160093E2AC /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
+		31E6D0FB20DCAD160093E2AC /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */; };
+		31E6D0FC20DCAD160093E2AC /* DrivingReportWeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F72046C8C700A9083E /* DrivingReportWeekCell.m */; };
+		31E6D0FD20DCAD160093E2AC /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F22071FFBD0072C824 /* TADotView.m */; };
+		31E6D0FE20DCAD160093E2AC /* CarTrackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFEF1FFF292B00FA6355 /* CarTrackModel.m */; };
+		31E6D0FF20DCAD160093E2AC /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
+		31E6D10020DCAD160093E2AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA45F1F9F3475009F541E /* AppDelegate.m */; };
+		31E6D10120DCAD160093E2AC /* CarflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99B1FECA94A00A1E47E /* CarflowViewController.m */; };
+		31E6D10220DCAD160093E2AC /* HomeBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31129245205D07620049A647 /* HomeBannerCell.m */; };
+		31E6D10320DCAD160093E2AC /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */; };
+		31E6D10420DCAD160093E2AC /* CatchCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ADB3BD205F8C3B002F79CE /* CatchCrash.m */; };
+		31E6D10520DCAD160093E2AC /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F82071FFBD0072C824 /* SDCycleScrollView.m */; };
+		31E6D10620DCAD160093E2AC /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
+		31E6D10720DCAD160093E2AC /* MapUpdateHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */; };
+		31E6D10820DCAD160093E2AC /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
+		31E6D10920DCAD160093E2AC /* SubscribedatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644E220039A2A0099D7AC /* SubscribedatailController.m */; };
+		31E6D10A20DCAD160093E2AC /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF120C4CF35009B2D58 /* PNLineChartData.m */; };
+		31E6D10B20DCAD160093E2AC /* ParkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E56765205610B200B958E8 /* ParkingViewController.m */; };
+		31E6D10C20DCAD160093E2AC /* InfoMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45685FD02043B42600017989 /* InfoMessageLeftCell.m */; };
+		31E6D10D20DCAD160093E2AC /* HomeCarStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */; };
+		31E6D10E20DCAD160093E2AC /* InvoiceEnterpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC3202D8B930086EDC8 /* InvoiceEnterpriseViewController.m */; };
+		31E6D10F20DCAD160093E2AC /* FindByAllModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */; };
+		31E6D11020DCAD160093E2AC /* PayCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BA20443604006837DC /* PayCompleteViewController.m */; };
+		31E6D11120DCAD160093E2AC /* CommodityCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA8202C389C0086EDC8 /* CommodityCommentCell.m */; };
+		31E6D11220DCAD160093E2AC /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */; };
+		31E6D11320DCAD160093E2AC /* CommodityNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B9F202C382A0086EDC8 /* CommodityNameCell.m */; };
+		31E6D11420DCAD160093E2AC /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
+		31E6D11520DCAD160093E2AC /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
+		31E6D11620DCAD160093E2AC /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
+		31E6D11720DCAD160093E2AC /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
+		31E6D11820DCAD160093E2AC /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
+		31E6D11920DCAD160093E2AC /* UpkeepdetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */; };
+		31E6D11A20DCAD160093E2AC /* ContractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C71FD8D61B002C0A78 /* ContractModel.m */; };
+		31E6D11B20DCAD160093E2AC /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
+		31E6D11C20DCAD160093E2AC /* NSDictionary+NilSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 313305191FFB730C0067CDFC /* NSDictionary+NilSafe.m */; };
+		31E6D11D20DCAD160093E2AC /* MapHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */; };
+		31E6D11E20DCAD160093E2AC /* CommodityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1C8202A917F00B7AE48 /* CommodityCell.m */; };
+		31E6D11F20DCAD160093E2AC /* CommodityDetailCellsConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B98202C29EA0086EDC8 /* CommodityDetailCellsConfigurator.m */; };
+		31E6D12020DCAD160093E2AC /* CommodityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B91202C278E0086EDC8 /* CommodityDetailViewController.m */; };
+		31E6D12120DCAD160093E2AC /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83920B79DDA008B0CBD /* NSBundle+TZImagePicker.m */; };
+		31E6D12220DCAD160093E2AC /* ContractDetailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */; };
+		31E6D12320DCAD160093E2AC /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 454CE6E0204698E6003221F3 /* GFAddressPicker.m */; };
+		31E6D12420DCAD160093E2AC /* CarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 310FC5641FFF489A00F18312 /* CarAnnotation.m */; };
+		31E6D12520DCAD160093E2AC /* AboutmeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A23EE2068A1C100CA3ED0 /* AboutmeViewController.m */; };
+		31E6D12620DCAD160093E2AC /* CommodityDescriptionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */; };
+		31E6D12820DCAD160093E2AC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
+		31E6D12920DCAD160093E2AC /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
+		31E6D12A20DCAD160093E2AC /* libPods-dssp-pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */; };
+		31E6D12C20DCAD160093E2AC /* dssp-pre.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A2291C206CA223002326AD /* dssp-pre.plist */; };
+		31E6D12D20DCAD160093E2AC /* waiting.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31CB2B9A200766DF0085FBA1 /* waiting.gif */; };
+		31E6D12E20DCAD160093E2AC /* server_pre.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED32058D1B10009B742 /* server_pre.cer */; };
+		31E6D12F20DCAD160093E2AC /* ds_service_protocols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 45147D632086279A00FABEA7 /* ds_service_protocols.txt */; };
+		31E6D13020DCAD160093E2AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
+		31E6D13120DCAD160093E2AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
+		31E6D13220DCAD160093E2AC /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454CE6DE204698E5003221F3 /* Address.plist */; };
+		31E6D13320DCAD160093E2AC /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 318FF84420B79DDA008B0CBD /* TZImagePickerController.bundle */; };
+		31E6D13420DCAD160093E2AC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F70ADF20C4CF35009B2D58 /* Info.plist */; };
+		31E6D13520DCAD160093E2AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4671F9F3475009F541E /* Assets.xcassets */; };
+		31E6D13620DCAD160093E2AC /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
+		31E6D14220DCADD40093E2AC /* infoStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14120DCADD40093E2AC /* infoStandby.plist */; };
+		31E6D14320DCADD40093E2AC /* infoStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14120DCADD40093E2AC /* infoStandby.plist */; };
+		31E6D14420DCADD40093E2AC /* infoStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14120DCADD40093E2AC /* infoStandby.plist */; };
+		31E6D14520DCADD40093E2AC /* infoStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14120DCADD40093E2AC /* infoStandby.plist */; };
+		31E6D14720DCADDF0093E2AC /* dssp-preStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */; };
+		31E6D14820DCADDF0093E2AC /* dssp-preStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */; };
+		31E6D14920DCADDF0093E2AC /* dssp-preStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */; };
+		31E6D14A20DCADDF0093E2AC /* dssp-preStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */; };
+		31E6D14E20DCADEF0093E2AC /* NSString+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 4551380720AE660100697A8C /* NSString+XY.m */; };
+		31E6D14F20DCADEF0093E2AC /* CarBindingInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CFB26C1FC2733C00130C52 /* CarBindingInput.m */; };
+		31E6D15020DCADEF0093E2AC /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576526E204E7BB4006585BA /* Statistics.m */; };
+		31E6D15120DCADEF0093E2AC /* TrafficReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8E2041391700C41E10 /* TrafficReportController.m */; };
+		31E6D15220DCADEF0093E2AC /* EvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B57D202BF0C5006D3749 /* EvaluateViewController.m */; };
+		31E6D15320DCADEF0093E2AC /* TrackObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C320452E22006837DC /* TrackObject.m */; };
+		31E6D15420DCADEF0093E2AC /* PrivacypolicyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548580D2005B53200170D85 /* PrivacypolicyController.m */; };
+		31E6D15520DCADEF0093E2AC /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFF20C4CF35009B2D58 /* PNScatterChartData.m */; };
+		31E6D15620DCADEF0093E2AC /* UIFont+FontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B9DC90205A71DB00C8B840 /* UIFont+FontSize.m */; };
+		31E6D15720DCADEF0093E2AC /* StorePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EE2046882200A9083E /* StorePageController.m */; };
+		31E6D15820DCADEF0093E2AC /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF920C4CF35009B2D58 /* PNRadarChart.m */; };
+		31E6D15920DCADEF0093E2AC /* CarBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CEB1FB97F6A008A6094 /* CarBindingViewController.m */; };
+		31E6D15A20DCADEF0093E2AC /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF520C4CF35009B2D58 /* PNPieChart.m */; };
+		31E6D15B20DCADEF0093E2AC /* HomeBtnsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9672057A419003844E0 /* HomeBtnsHeader.m */; };
+		31E6D15C20DCADEF0093E2AC /* StoreSingleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BA2029884700B7AE48 /* StoreSingleViewController.m */; };
+		31E6D15D20DCADEF0093E2AC /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4592B39E1FDE1C07000ADCA0 /* WeatherModel.m */; };
+		31E6D15E20DCADEF0093E2AC /* RankingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 315F636E20C0E343003D2017 /* RankingObject.m */; };
+		31E6D15F20DCADEF0093E2AC /* ContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455036081FE246FC0088DAE0 /* ContractCell.m */; };
+		31E6D16020DCADEF0093E2AC /* DKSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BD2061F05100FABD60 /* DKSTextView.m */; };
+		31E6D16120DCADEF0093E2AC /* InfoMessageHelpCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45302022F0080044A62C /* InfoMessageHelpCenterCell.m */; };
+		31E6D16220DCADEF0093E2AC /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
+		31E6D16320DCADEF0093E2AC /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEF20C4CF35009B2D58 /* PNLineChart.m */; };
+		31E6D16420DCADEF0093E2AC /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EB61FA87CC100C8FDF8 /* BaseViewController.m */; };
+		31E6D16520DCADEF0093E2AC /* CommodityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1CE202A9BE100B7AE48 /* CommodityHeaderView.m */; };
+		31E6D16620DCADEF0093E2AC /* VhlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C41FD7E239002C0A78 /* VhlModel.m */; };
+		31E6D16720DCADEF0093E2AC /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B3520C4D1FA009B2D58 /* UICountingLabel.m */; };
+		31E6D16820DCADEF0093E2AC /* CommodityDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235DC204177ED002807D2 /* CommodityDescriptionCell.m */; };
+		31E6D16920DCADEF0093E2AC /* TrafficReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F8B204113C800C41E10 /* TrafficReportCell.m */; };
+		31E6D16A20DCADEF0093E2AC /* QGLocationTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DF20032C8F0099D7AC /* QGLocationTransform.m */; };
+		31E6D16B20DCADEF0093E2AC /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07DF1FA96BF800DC9529 /* MineViewController.m */; };
+		31E6D16C20DCADEF0093E2AC /* FeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DA720B3F5650064B546 /* FeedbackController.m */; };
+		31E6D16D20DCADEF0093E2AC /* MapUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158925201B0DC100A4AEFB /* MapUpdateViewController.m */; };
+		31E6D16E20DCADEF0093E2AC /* UIButton+NoRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DFA7E520649F0D009C0D90 /* UIButton+NoRepeat.m */; };
+		31E6D16F20DCADEF0093E2AC /* POISendBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B9151FDE184700B8FBD3 /* POISendBtn.m */; };
+		31E6D17020DCADEF0093E2AC /* MapSearchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 310C75081FC7B5C300B3A7D0 /* MapSearchHistory.m */; };
+		31E6D17120DCADEF0093E2AC /* CarUnbindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE41FFCDC0E00FA6355 /* CarUnbindModel.m */; };
+		31E6D17220DCADEF0093E2AC /* StoreBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31091650203EA53300C50D0E /* StoreBaseViewController.m */; };
+		31E6D17320DCADEF0093E2AC /* SearchresultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A91FECF3CE00A1E47E /* SearchresultViewController.m */; };
+		31E6D17420DCADEF0093E2AC /* ContractdetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDE1FFC788D00FA6355 /* ContractdetailCell.m */; };
+		31E6D17520DCADEF0093E2AC /* LocationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313AC7DE1FAC5ABD00A3662E /* LocationAnnotationView.m */; };
+		31E6D17620DCADEF0093E2AC /* CommodityPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA2202C38410086EDC8 /* CommodityPriceCell.m */; };
+		31E6D17720DCADEF0093E2AC /* VINBindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070D11FBA9BD900A0DE71 /* VINBindingViewController.m */; };
+		31E6D17820DCADEF0093E2AC /* LllegaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744420181E1800108F1E /* LllegaCell.m */; };
+		31E6D17920DCADEF0093E2AC /* TopImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E05D31FB582D6000550C7 /* TopImgButton.m */; };
+		31E6D17A20DCADEF0093E2AC /* RefuelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F0B7FE1FF3A9BF00A25F4B /* RefuelViewController.m */; };
+		31E6D17B20DCADEF0093E2AC /* UserprotocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CAA31F20B54162002EE39D /* UserprotocolViewController.m */; };
+		31E6D17C20DCADEF0093E2AC /* TrafficReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F882041130800C41E10 /* TrafficReportModel.m */; };
+		31E6D17D20DCADEF0093E2AC /* UpkeepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644DC20030A4A0099D7AC /* UpkeepModel.m */; };
+		31E6D17E20DCADEF0093E2AC /* QueryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABF33520076CE0003FC560 /* QueryModel.m */; };
+		31E6D17F20DCADEF0093E2AC /* DrivingMonthReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C86120BF88A100FDDE05 /* DrivingMonthReportViewController.m */; };
+		31E6D18020DCADEF0093E2AC /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E4E6171FB9295D00BF954E /* HomeTopView.m */; };
+		31E6D18120DCADEF0093E2AC /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE320C4CF35009B2D58 /* PNBarChart.m */; };
+		31E6D18220DCADEF0093E2AC /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679901FE0B7DE008A0C67 /* ForgotViewController.m */; };
+		31E6D18320DCADEF0093E2AC /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2551FBABB7900D37DED /* NSArray+Sudoku.m */; };
+		31E6D18420DCADEF0093E2AC /* CarSeriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF21FB99BA7008A6094 /* CarSeriesViewController.m */; };
+		31E6D18520DCADEF0093E2AC /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F940B520D3A917001958EB /* QueryAlertController.m */; };
+		31E6D18620DCADEF0093E2AC /* InvoiceIndividualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC0202D8B800086EDC8 /* InvoiceIndividualViewController.m */; };
+		31E6D18720DCADEF0093E2AC /* LllegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C744120181C0C00108F1E /* LllegalViewController.m */; };
+		31E6D18820DCADEF0093E2AC /* OrderSubmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC9202D8F970086EDC8 /* OrderSubmitCell.m */; };
+		31E6D18920DCADEF0093E2AC /* QueryAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F9409920D337E6001958EB /* QueryAlertView.m */; };
+		31E6D18A20DCADEF0093E2AC /* SearchAroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F51FF1EC5E00C8236E /* SearchAroundViewController.m */; };
+		31E6D18B20DCADEF0093E2AC /* RnunbindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9AC1FECF6CE00A1E47E /* RnunbindViewController.m */; };
+		31E6D18C20DCADEF0093E2AC /* InformationCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45272022E8DD0044A62C /* InformationCenterViewController.m */; };
+		31E6D18D20DCADEF0093E2AC /* RNRFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070CE1FBA924000A0DE71 /* RNRFinishedViewController.m */; };
+		31E6D18E20DCADEF0093E2AC /* ModifyPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BB1FF1F00900B23713 /* ModifyPhoneController.m */; };
+		31E6D18F20DCADEF0093E2AC /* CarflowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A31FECAB0200A1E47E /* CarflowCell.m */; };
+		31E6D19020DCADEF0093E2AC /* MapSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBC1FC66E6800AFF915 /* MapSearchCell.m */; };
+		31E6D19120DCADEF0093E2AC /* TrafficReportdatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45153F912041461400C41E10 /* TrafficReportdatailCell.m */; };
+		31E6D19220DCADEF0093E2AC /* ForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C7A271FDE3FA700E4652F /* ForecastModel.m */; };
+		31E6D19320DCADEF0093E2AC /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84320B79DDA008B0CBD /* TZImageManager.m */; };
+		31E6D19420DCADEF0093E2AC /* FeedbackShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */; };
+		31E6D19520DCADEF0093E2AC /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC452D2022EDB10044A62C /* NSString+Size.m */; };
+		31E6D19620DCADEF0093E2AC /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
+		31E6D19720DCADEF0093E2AC /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84C20B79DDA008B0CBD /* TZPhotoPreviewCell.m */; };
+		31E6D19820DCADEF0093E2AC /* InputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456454A01FF09E2700B30401 /* InputAlertView.m */; };
+		31E6D19920DCADEF0093E2AC /* CUHTTPRequestCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0043E23A20B7DFF900B9A0CD /* CUHTTPRequestCallback.m */; };
+		31E6D19A20DCADEF0093E2AC /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85020B79DDA008B0CBD /* TZProgressView.m */; };
+		31E6D19B20DCADEF0093E2AC /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D3204171E4002807D2 /* TrackDetailViewController.m */; };
+		31E6D19C20DCADEF0093E2AC /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DAC20B40BBB0064B546 /* PlaceholderTextView.m */; };
+		31E6D19D20DCADEF0093E2AC /* RNRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF51FB99F4A008A6094 /* RNRViewController.m */; };
+		31E6D19E20DCADEF0093E2AC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D31FA96AD500DC9529 /* HomeViewController.m */; };
+		31E6D19F20DCADEF0093E2AC /* ActivationCodeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3115892E201B21F900A4AEFB /* ActivationCodeListCell.m */; };
+		31E6D1A020DCADEF0093E2AC /* DKSKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78BB2061F05100FABD60 /* DKSKeyboardView.m */; };
+		31E6D1A120DCADEF0093E2AC /* PersonInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF1731FEB502900E48445 /* PersonInViewController.m */; };
+		31E6D1A220DCADEF0093E2AC /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F42071FFBD0072C824 /* TAPageControl.m */; };
+		31E6D1A320DCADEF0093E2AC /* UIImagePickerController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 313070C51FBA888000A0DE71 /* UIImagePickerController+StatusBar.m */; };
+		31E6D1A420DCADEF0093E2AC /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36871FF3A4A500D09A63 /* NoticeModel.m */; };
+		31E6D1A520DCADEF0093E2AC /* CommodityCommentFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BAB202C38BF0086EDC8 /* CommodityCommentFooterCell.m */; };
+		31E6D1A620DCADEF0093E2AC /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581E1BD2050F64A00B435B5 /* PopupView.m */; };
+		31E6D1A720DCADEF0093E2AC /* ModifyPhonesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9BE1FF21BBD00B23713 /* ModifyPhonesController.m */; };
+		31E6D1A820DCADEF0093E2AC /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C12062018700FABD60 /* AgreementViewController.m */; };
+		31E6D1A920DCADEF0093E2AC /* CarBindingTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFD81FFB541600FA6355 /* CarBindingTViewController.m */; };
+		31E6D1AA20DCADEF0093E2AC /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84620B79DDA008B0CBD /* TZImagePickerController.m */; };
+		31E6D1AB20DCADEF0093E2AC /* RNRPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CF81FB9A56A008A6094 /* RNRPhotoViewController.m */; };
+		31E6D1AC20DCADEF0093E2AC /* GetActivationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31158928201B198C00A4AEFB /* GetActivationCodeViewController.m */; };
+		31E6D1AD20DCADEF0093E2AC /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD66261FDFD5BB0049D48D /* FavoriteCell.m */; };
+		31E6D1AE20DCADEF0093E2AC /* RealnameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B9A61FECE45E00A1E47E /* RealnameViewController.m */; };
+		31E6D1AF20DCADEF0093E2AC /* CommodityCommentHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA5202C386A0086EDC8 /* CommodityCommentHeaderCell.m */; };
+		31E6D1B020DCADEF0093E2AC /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCBF1FC68C6000AFF915 /* DiscoverViewController.m */; };
+		31E6D1B120DCADEF0093E2AC /* CommodityBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B9C202C38060086EDC8 /* CommodityBannerCell.m */; };
+		31E6D1B220DCADEF0093E2AC /* TrackSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1125F2047E1AC0094B157 /* TrackSingleCell.m */; };
+		31E6D1B320DCADEF0093E2AC /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F02071FFBD0072C824 /* TAAnimatedDotView.m */; };
+		31E6D1B420DCADEF0093E2AC /* PoiOptionBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF88320B7B610008B0CBD /* PoiOptionBtn.m */; };
+		31E6D1B520DCADEF0093E2AC /* ActivationCodeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235CF204170B4002807D2 /* ActivationCodeListViewController.m */; };
+		31E6D1B620DCADEF0093E2AC /* InfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC452A2022E9250044A62C /* InfoMessage.m */; };
+		31E6D1B720DCADEF0093E2AC /* MapBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469EF1FF1E75100C8236E /* MapBaseController.m */; };
+		31E6D1B820DCADEF0093E2AC /* POI.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B98611FD7F24C00ABB638 /* POI.m */; };
+		31E6D1B920DCADEF0093E2AC /* TrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58C620454EEA006837DC /* TrackListViewController.m */; };
+		31E6D1BA20DCADEF0093E2AC /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83F20B79DDA008B0CBD /* TZGifPhotoPreviewController.m */; };
+		31E6D1BB20DCADEF0093E2AC /* CarTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFE11FFC7D6C00FA6355 /* CarTrackViewController.m */; };
+		31E6D1BC20DCADEF0093E2AC /* ContractdetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596799B1FE1417C008A0C67 /* ContractdetailViewController.m */; };
+		31E6D1BD20DCADEF0093E2AC /* FeedbackPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00525DB120B41B310064B546 /* FeedbackPicView.m */; };
+		31E6D1BE20DCADEF0093E2AC /* InfoMessageUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45332022F0210044A62C /* InfoMessageUserCell.m */; };
+		31E6D1BF20DCADEF0093E2AC /* HomeCarLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 319096C920636EAF0032BC43 /* HomeCarLocationCell.m */; };
+		31E6D1C020DCADEF0093E2AC /* QDataSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765271204E7BBE006585BA /* QDataSaver.m */; };
+		31E6D1C120DCADEF0093E2AC /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70B0120C4CF35009B2D58 /* PNScatterChartDataItem.m */; };
+		31E6D1C220DCADEF0093E2AC /* TrackListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C112622047EB9C0094B157 /* TrackListHeaderView.m */; };
+		31E6D1C320DCADEF0093E2AC /* CheckVersionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504AA2062748A000CFB8F /* CheckVersionView.m */; };
+		31E6D1C420DCADEF0093E2AC /* FeedbackChoosePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C320B5022D003EB24F /* FeedbackChoosePicView.m */; };
+		31E6D1C520DCADEF0093E2AC /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316B6CE51FB94A35008A6094 /* WifiViewController.m */; };
+		31E6D1C620DCADEF0093E2AC /* OrderSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC6202D8E9A0086EDC8 /* OrderSubmitViewController.m */; };
+		31E6D1C720DCADEF0093E2AC /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFEC1FFE4B0700FA6355 /* UITabBar+badge.m */; };
+		31E6D1C820DCADEF0093E2AC /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B580202BF1BD006D3749 /* UITextView+Placeholder.m */; };
+		31E6D1C920DCADEF0093E2AC /* FeedbackTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 008DC4C620B5022D003EB24F /* FeedbackTap.m */; };
+		31E6D1CA20DCADEF0093E2AC /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF720C4CF35009B2D58 /* PNPieChartDataItem.m */; };
+		31E6D1CB20DCADEF0093E2AC /* MapUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D62041722C002807D2 /* MapUtility.m */; };
+		31E6D1CC20DCADEF0093E2AC /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C504A720624D6F000CFB8F /* BaseWebViewController.m */; };
+		31E6D1CD20DCADEF0093E2AC /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFD20C4CF35009B2D58 /* PNScatterChart.m */; };
+		31E6D1CE20DCADEF0093E2AC /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A469F11FF1E78B00C8236E /* MapView.m */; };
+		31E6D1CF20DCADEF0093E2AC /* LllegadetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454C7447201823F600108F1E /* LllegadetailController.m */; };
+		31E6D1D020DCADEF0093E2AC /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84A20B79DDA008B0CBD /* TZPhotoPickerController.m */; };
+		31E6D1D120DCADEF0093E2AC /* CommodityCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BB2202D36990086EDC8 /* CommodityCommentsViewController.m */; };
+		31E6D1D220DCADEF0093E2AC /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559744F1FE77B1F00D7910A /* AccountViewController.m */; };
+		31E6D1D320DCADEF0093E2AC /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974521FE7AA5A00D7910A /* NoticeViewController.m */; };
+		31E6D1D420DCADEF0093E2AC /* YYStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3172B578202BEFF9006D3749 /* YYStarView.m */; };
+		31E6D1D520DCADEF0093E2AC /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453718A32044052D009D0E99 /* UserModel.m */; };
+		31E6D1D620DCADEF0093E2AC /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3196AB911FDF717F009B9189 /* FavoritesViewController.m */; };
+		31E6D1D720DCADEF0093E2AC /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EBC1FA87D0900C8FDF8 /* TabBarController.m */; };
+		31E6D1D820DCADEF0093E2AC /* OilStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D1FDCD1FF494440021D47C /* OilStation.m */; };
+		31E6D1D920DCADEF0093E2AC /* EllipsePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AC45372022F5E80044A62C /* EllipsePageControl.m */; };
+		31E6D1DA20DCADEF0093E2AC /* StoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1B72029883200B7AE48 /* StoreTabViewController.m */; };
+		31E6D1DB20DCADEF0093E2AC /* InvoicePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BBD202D8A8F0086EDC8 /* InvoicePageController.m */; };
+		31E6D1DC20DCADEF0093E2AC /* CarStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4550360B1FE255AA0088DAE0 /* CarStatisticsViewController.m */; };
+		31E6D1DD20DCADEF0093E2AC /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83D20B79DDA008B0CBD /* TZAssetModel.m */; };
+		31E6D1DE20DCADEF0093E2AC /* CommodityCommentsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BB7202D4B0B0086EDC8 /* CommodityCommentsListCell.m */; };
+		31E6D1DF20DCADEF0093E2AC /* LeftImgButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CCCB31FC57CCC00AFF915 /* LeftImgButton.m */; };
+		31E6D1E020DCADEF0093E2AC /* WMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451744F01FEB99A4008CC890 /* WMViewController.m */; };
+		31E6D1E120DCADEF0093E2AC /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85420B79DDA008B0CBD /* UIView+Layout.m */; };
+		31E6D1E220DCADEF0093E2AC /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974671FE8EAB300D7910A /* NoticeCell.m */; };
+		31E6D1E320DCADEF0093E2AC /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07CF1FA95B6D00DC9529 /* LoginResult.m */; };
+		31E6D1E420DCADEF0093E2AC /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF85220B79DDA008B0CBD /* TZVideoPlayerController.m */; };
+		31E6D1E520DCADEF0093E2AC /* QueryTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61708C4720D9F16F002A627E /* QueryTipView.m */; };
+		31E6D1E620DCADEF0093E2AC /* RealVinViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679861FDF700A008A0C67 /* RealVinViewcontroller.m */; };
+		31E6D1E720DCADEF0093E2AC /* DrivingWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F120469ECC00A9083E /* DrivingWeekReportViewController.m */; };
+		31E6D1E820DCADEF0093E2AC /* DrivingReportPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B7C85C20BF885000FDDE05 /* DrivingReportPageController.m */; };
+		31E6D1E920DCADEF0093E2AC /* ManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B78C4206272C000FABD60 /* ManualViewController.m */; };
+		31E6D1EA20DCADEF0093E2AC /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A39D8520C4EE3600EDC42F /* NSArray+Log.m */; };
+		31E6D1EB20DCADEF0093E2AC /* PersonInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4599C9B81FF1E70800B23713 /* PersonInCell.m */; };
+		31E6D1EC20DCADEF0093E2AC /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE120C4CF35009B2D58 /* PNBar.m */; };
+		31E6D1ED20DCADEF0093E2AC /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70EE2071FFBD0072C824 /* TAAbstractDotView.m */; };
+		31E6D1EE20DCADEF0093E2AC /* SubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36941FF4F3BA00D09A63 /* SubscribeModel.m */; };
+		31E6D1EF20DCADEF0093E2AC /* CarflowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36971FF6140F00D09A63 /* CarflowModel.m */; };
+		31E6D1F020DCADEF0093E2AC /* StoreObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5C8DB202FE9DE00A44C5C /* StoreObject.m */; };
+		31E6D1F120DCADEF0093E2AC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC01FA87E6900C8FDF8 /* LoginViewController.m */; };
+		31E6D1F220DCADEF0093E2AC /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84E20B79DDA008B0CBD /* TZPhotoPreviewController.m */; };
+		31E6D1F320DCADEF0093E2AC /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE720C4CF35009B2D58 /* PNChartLabel.m */; };
+		31E6D1F420DCADEF0093E2AC /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AE920C4CF35009B2D58 /* PNCircleChart.m */; };
+		31E6D1F520DCADEF0093E2AC /* SendPoiProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CB2B98200763350085FBA1 /* SendPoiProgressView.m */; };
+		31E6D1F620DCADEF0093E2AC /* MapUpdateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BD20450A19006837DC /* MapUpdateObject.m */; };
+		31E6D1F720DCADEF0093E2AC /* OrderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D5C8DE202FE9EF00A44C5C /* OrderObject.m */; };
+		31E6D1F820DCADEF0093E2AC /* OrderPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1BD2029885200B7AE48 /* OrderPageController.m */; };
+		31E6D1F920DCADEF0093E2AC /* TZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84820B79DDA008B0CBD /* TZLocationManager.m */; };
+		31E6D1FA20DCADEF0093E2AC /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF84120B79DDA008B0CBD /* TZImageCropManager.m */; };
+		31E6D1FB20DCADEF0093E2AC /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AED20C4CF35009B2D58 /* PNGenericChart.m */; };
+		31E6D1FC20DCADEF0093E2AC /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AEB20C4CF35009B2D58 /* PNColor.m */; };
+		31E6D1FD20DCADEF0093E2AC /* RemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CA75F91FE75DEE007BDC97 /* RemindViewController.m */; };
+		31E6D1FE20DCADEF0093E2AC /* CarUnbindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFDB1FFB939F00FA6355 /* CarUnbindingViewController.m */; };
+		31E6D1FF20DCADEF0093E2AC /* HomeCarReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B96A2057B78F003844E0 /* HomeCarReportCell.m */; };
+		31E6D20020DCADEF0093E2AC /* DrivingReportObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F42046B92800A9083E /* DrivingReportObject.m */; };
+		31E6D20120DCADEF0093E2AC /* ContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679981FE13328008A0C67 /* ContractViewController.m */; };
+		31E6D20220DCADEF0093E2AC /* SubscriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 450AF16E1FE9F9B900E48445 /* SubscriCell.m */; };
+		31E6D20320DCADEF0093E2AC /* OrderPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BBA202D70EE0086EDC8 /* OrderPayViewController.m */; };
+		31E6D20420DCADEF0093E2AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA46D1F9F3475009F541E /* main.m */; };
+		31E6D20520DCADEF0093E2AC /* UpkeepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99E1FECA97100A1E47E /* UpkeepViewController.m */; };
+		31E6D20620DCADEF0093E2AC /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B0214204FF9DA0038EC9C /* MaintainViewController.m */; };
+		31E6D20720DCADEF0093E2AC /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455974551FE7AA7A00D7910A /* SubscribeViewController.m */; };
+		31E6D20820DCADEF0093E2AC /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70FA2071FFBD0072C824 /* UIView+SDExtension.m */; };
+		31E6D20920DCADEF0093E2AC /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459679951FE0CAA4008A0C67 /* NewPasswordViewController.m */; };
+		31E6D20A20DCADEF0093E2AC /* BlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4576525F204E2B5E006585BA /* BlankView.m */; };
+		31E6D20B20DCADEF0093E2AC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58B720441EFB006837DC /* OrderDetailViewController.m */; };
+		31E6D20C20DCADEF0093E2AC /* LllegaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 453218DB201EC3650064369F /* LllegaModel.m */; };
+		31E6D20D20DCADEF0093E2AC /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83B20B79DDA008B0CBD /* TZAssetCell.m */; };
+		31E6D20E20DCADEF0093E2AC /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F5F401FBD6D3400DFD3F5 /* CarInfoModel.m */; };
+		31E6D20F20DCADEF0093E2AC /* FindlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798A1FDFDA9C008A0C67 /* FindlistModel.m */; };
+		31E6D21020DCADEF0093E2AC /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
+		31E6D21120DCADEF0093E2AC /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22581FBC118300BA13CB /* MineCell.m */; };
+		31E6D21220DCADEF0093E2AC /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF320C4CF35009B2D58 /* PNLineChartDataItem.m */; };
+		31E6D21320DCADEF0093E2AC /* DrivingReportWeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368F72046C8C700A9083E /* DrivingReportWeekCell.m */; };
+		31E6D21420DCADEF0093E2AC /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F22071FFBD0072C824 /* TADotView.m */; };
+		31E6D21520DCADEF0093E2AC /* CarTrackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4570EFEF1FFF292B00FA6355 /* CarTrackModel.m */; };
+		31E6D21620DCADEF0093E2AC /* RNRInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 315EE1061FBD34E800067FC6 /* RNRInput.m */; };
+		31E6D21720DCADEF0093E2AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 316CA45F1F9F3475009F541E /* AppDelegate.m */; };
+		31E6D21820DCADEF0093E2AC /* CarflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4505B99B1FECA94A00A1E47E /* CarflowViewController.m */; };
+		31E6D21920DCADEF0093E2AC /* HomeBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31129245205D07620049A647 /* HomeBannerCell.m */; };
+		31E6D21A20DCADEF0093E2AC /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AFB20C4CF35009B2D58 /* PNRadarChartDataItem.m */; };
+		31E6D21B20DCADEF0093E2AC /* CatchCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ADB3BD205F8C3B002F79CE /* CatchCrash.m */; };
+		31E6D21C20DCADEF0093E2AC /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F82071FFBD0072C824 /* SDCycleScrollView.m */; };
+		31E6D21D20DCADEF0093E2AC /* RangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310368EB2045682300A9083E /* RangePickerCell.m */; };
+		31E6D21E20DCADEF0093E2AC /* MapUpdateHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3125E9DE201F0F6D009F6650 /* MapUpdateHelpViewController.m */; };
+		31E6D21F20DCADEF0093E2AC /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459F22531FBBCD7D00BA13CB /* CarInfoViewController.m */; };
+		31E6D22020DCADEF0093E2AC /* SubscribedatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450644E220039A2A0099D7AC /* SubscribedatailController.m */; };
+		31E6D22120DCADEF0093E2AC /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F70AF120C4CF35009B2D58 /* PNLineChartData.m */; };
+		31E6D22220DCADEF0093E2AC /* ParkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E56765205610B200B958E8 /* ParkingViewController.m */; };
+		31E6D22320DCADEF0093E2AC /* InfoMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45685FD02043B42600017989 /* InfoMessageLeftCell.m */; };
+		31E6D22420DCADEF0093E2AC /* HomeCarStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */; };
+		31E6D22520DCADEF0093E2AC /* InvoiceEnterpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BC3202D8B930086EDC8 /* InvoiceEnterpriseViewController.m */; };
+		31E6D22620DCADEF0093E2AC /* FindByAllModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4596798D1FDFDCCD008A0C67 /* FindByAllModel.m */; };
+		31E6D22720DCADEF0093E2AC /* PayCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A58BA20443604006837DC /* PayCompleteViewController.m */; };
+		31E6D22820DCADEF0093E2AC /* CommodityCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38BA8202C389C0086EDC8 /* CommodityCommentCell.m */; };
+		31E6D22920DCADEF0093E2AC /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F70F62071FFBD0072C824 /* SDCollectionViewCell.m */; };
+		31E6D22A20DCADEF0093E2AC /* CommodityNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B9F202C382A0086EDC8 /* CommodityNameCell.m */; };
+		31E6D22B20DCADEF0093E2AC /* LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45147D532085EE6F00FABEA7 /* LeftButton.m */; };
+		31E6D22C20DCADEF0093E2AC /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F36911FF4CCF400D09A63 /* QueryViewController.m */; };
+		31E6D22D20DCADEF0093E2AC /* LoveCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDD2501FBABA0000D37DED /* LoveCarViewController.m */; };
+		31E6D22E20DCADEF0093E2AC /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31699EC31FA87E8400C8FDF8 /* RegisterViewController.m */; };
+		31E6D22F20DCADEF0093E2AC /* NicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4555CFC320313EC70029598E /* NicknameViewController.m */; };
+		31E6D23020DCADEF0093E2AC /* UpkeepdetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456ABDA32027FF6F00F4A7E6 /* UpkeepdetailController.m */; };
+		31E6D23120DCADEF0093E2AC /* ContractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145C71FD8D61B002C0A78 /* ContractModel.m */; };
+		31E6D23220DCADEF0093E2AC /* WBAFNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 318148071FD6964300F00A4D /* WBAFNetworkingLogger.m */; };
+		31E6D23320DCADEF0093E2AC /* NSDictionary+NilSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 313305191FFB730C0067CDFC /* NSDictionary+NilSafe.m */; };
+		31E6D23420DCADEF0093E2AC /* MapHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310A07D91FA96BDB00DC9529 /* MapHomeViewController.m */; };
+		31E6D23520DCADEF0093E2AC /* CommodityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 312FE1C8202A917F00B7AE48 /* CommodityCell.m */; };
+		31E6D23620DCADEF0093E2AC /* CommodityDetailCellsConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B98202C29EA0086EDC8 /* CommodityDetailCellsConfigurator.m */; };
+		31E6D23720DCADEF0093E2AC /* CommodityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B38B91202C278E0086EDC8 /* CommodityDetailViewController.m */; };
+		31E6D23820DCADEF0093E2AC /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83920B79DDA008B0CBD /* NSBundle+TZImagePicker.m */; };
+		31E6D23920DCADEF0093E2AC /* ContractDetailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A145CA1FD8DC69002C0A78 /* ContractDetailed.m */; };
+		31E6D23A20DCADEF0093E2AC /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 454CE6E0204698E6003221F3 /* GFAddressPicker.m */; };
+		31E6D23B20DCADEF0093E2AC /* CarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 310FC5641FFF489A00F18312 /* CarAnnotation.m */; };
+		31E6D23C20DCADEF0093E2AC /* AboutmeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A23EE2068A1C100CA3ED0 /* AboutmeViewController.m */; };
+		31E6D23D20DCADEF0093E2AC /* CommodityDescriptionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F235D9204177C4002807D2 /* CommodityDescriptionTitleCell.m */; };
+		31E6D23F20DCADEF0093E2AC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454858112005EE6C00170D85 /* WebKit.framework */; };
+		31E6D24020DCADEF0093E2AC /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
+		31E6D24220DCADEF0093E2AC /* waiting.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31CB2B9A200766DF0085FBA1 /* waiting.gif */; };
+		31E6D24320DCADEF0093E2AC /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED12058D1A90009B742 /* client.p12 */; };
+		31E6D24420DCADEF0093E2AC /* dssp-preStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */; };
+		31E6D24520DCADEF0093E2AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4691F9F3475009F541E /* LaunchScreen.storyboard */; };
+		31E6D24620DCADEF0093E2AC /* server_formal.cer in Resources */ = {isa = PBXBuildFile; fileRef = 31129249205D23900049A647 /* server_formal.cer */; };
+		31E6D24720DCADEF0093E2AC /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 318FF84420B79DDA008B0CBD /* TZImagePickerController.bundle */; };
+		31E6D24820DCADEF0093E2AC /* infoStandby.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31E6D14120DCADD40093E2AC /* infoStandby.plist */; };
+		31E6D24920DCADEF0093E2AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313070CB1FBA89C500A0DE71 /* Localizable.strings */; };
+		31E6D24A20DCADEF0093E2AC /* ds_service_protocols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 45147D632086279A00FABEA7 /* ds_service_protocols.txt */; };
+		31E6D24B20DCADEF0093E2AC /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454CE6DE204698E5003221F3 /* Address.plist */; };
+		31E6D24C20DCADEF0093E2AC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F70ADF20C4CF35009B2D58 /* Info.plist */; };
+		31E6D24D20DCADEF0093E2AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316CA4671F9F3475009F541E /* Assets.xcassets */; };
+		31E6D24E20DCADEF0093E2AC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316CA46C1F9F3475009F541E /* Info.plist */; };
+		31E6D24F20DCADEF0093E2AC /* application.html in Resources */ = {isa = PBXBuildFile; fileRef = 4548580F2005EA6500170D85 /* application.html */; };
 		31E7B9522057A092003844E0 /* HomeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9512057A092003844E0 /* HomeBtn.m */; };
 		31E7B9592057A2C4003844E0 /* HomeCarStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9582057A2C4003844E0 /* HomeCarStateCell.m */; };
 		31E7B9682057A419003844E0 /* HomeBtnsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E7B9672057A419003844E0 /* HomeBtnsHeader.m */; };
@@ -769,6 +1288,7 @@
 		61F940B820D3A917001958EB /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F940B520D3A917001958EB /* QueryAlertController.m */; };
 		8A54DFC8AEDFFF8510DD234A /* libPods-dssp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E308A48E870A88C38635BC22 /* libPods-dssp.a */; };
 		B4E793C4594FF59DD3ADE5A9 /* libPods-dssp-sit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */; };
+		B8086DAF5B64115E014F4B99 /* libPods-dsspStandby.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5ABB25455BD9FC507C00FF /* libPods-dsspStandby.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -796,8 +1316,11 @@
 		008DC4C720B5022E003EB24F /* FeedbackChoosePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackChoosePicView.h; sourceTree = "<group>"; };
 		008DC4D120B5044B003EB24F /* FeedbackShowImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackShowImageView.h; sourceTree = "<group>"; };
 		008DC4D220B5044B003EB24F /* FeedbackShowImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackShowImageView.m; sourceTree = "<group>"; };
+		021DD294A587AE2032B5961F /* libPods-dssp-preStandby.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-preStandby.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-sit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2375556C246CBB5807A7DD7C /* Pods-dssp-preStandby.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-preStandby.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-preStandby/Pods-dssp-preStandby.adhoc.xcconfig"; sourceTree = "<group>"; };
 		280DE9284EE6BAC9FD1D9690 /* Pods-dssp-pre.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.adhoc.xcconfig"; sourceTree = "<group>"; };
+		2B5ABB25455BD9FC507C00FF /* libPods-dsspStandby.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspStandby.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		310368EA2045682300A9083E /* RangePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangePickerCell.h; sourceTree = "<group>"; };
 		310368EB2045682300A9083E /* RangePickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RangePickerCell.m; sourceTree = "<group>"; };
 		310368ED2046882200A9083E /* StorePageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorePageController.h; sourceTree = "<group>"; };
@@ -1066,6 +1589,10 @@
 		31DFA7E620649F0E009C0D90 /* UIButton+NoRepeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NoRepeat.h"; sourceTree = "<group>"; };
 		31E4E6161FB9295D00BF954E /* HomeTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTopView.h; sourceTree = "<group>"; };
 		31E4E6171FB9295D00BF954E /* HomeTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTopView.m; sourceTree = "<group>"; };
+		31E6D13D20DCAD160093E2AC /* dssp-preStandby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dssp-preStandby.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E6D14120DCADD40093E2AC /* infoStandby.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = infoStandby.plist; sourceTree = "<group>"; };
+		31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "dssp-preStandby.plist"; sourceTree = "<group>"; };
+		31E6D25620DCADEF0093E2AC /* dsspStandby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dsspStandby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E7B9502057A092003844E0 /* HomeBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeBtn.h; sourceTree = "<group>"; };
 		31E7B9512057A092003844E0 /* HomeBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeBtn.m; sourceTree = "<group>"; };
 		31E7B9572057A2C4003844E0 /* HomeCarStateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCarStateCell.h; sourceTree = "<group>"; };
@@ -1292,10 +1819,15 @@
 		61F9409920D337E6001958EB /* QueryAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryAlertView.m; sourceTree = "<group>"; };
 		61F940B420D3A917001958EB /* QueryAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryAlertController.h; sourceTree = "<group>"; };
 		61F940B520D3A917001958EB /* QueryAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryAlertController.m; sourceTree = "<group>"; };
+		72BB075F87C571A62D2B8D19 /* Pods-dsspStandby.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspStandby.release.xcconfig"; path = "Pods/Target Support Files/Pods-dsspStandby/Pods-dsspStandby.release.xcconfig"; sourceTree = "<group>"; };
+		794E647310A1211F814DCB81 /* Pods-dsspStandby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspStandby.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dsspStandby/Pods-dsspStandby.debug.xcconfig"; sourceTree = "<group>"; };
+		7B44F0692C5BA2771F5BB741 /* Pods-dssp-preStandby.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-preStandby.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-preStandby/Pods-dssp-preStandby.release.xcconfig"; sourceTree = "<group>"; };
 		811888EF83C98D3C045A8588 /* Pods-dssp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp.release.xcconfig"; path = "Pods/Target Support Files/Pods-dssp/Pods-dssp.release.xcconfig"; sourceTree = "<group>"; };
+		99356F0C29DB985F8F48A6CF /* Pods-dssp-preStandby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-preStandby.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-preStandby/Pods-dssp-preStandby.debug.xcconfig"; sourceTree = "<group>"; };
 		A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dsspUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp-pre.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C22951389B6978767A82DF1E /* Pods-dssp-sit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-sit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-sit/Pods-dssp-sit.debug.xcconfig"; sourceTree = "<group>"; };
+		CFBA57E8DC5BAC05B68C610C /* Pods-dsspStandby.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dsspStandby.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dsspStandby/Pods-dsspStandby.adhoc.xcconfig"; sourceTree = "<group>"; };
 		E308A48E870A88C38635BC22 /* libPods-dssp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dssp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8F725B347EC644A72EC2D4 /* Pods-dssp-pre.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-pre.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-pre/Pods-dssp-pre.debug.xcconfig"; sourceTree = "<group>"; };
 		EF89099FC4552B97B6AB51B8 /* Pods-dssp-sit.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dssp-sit.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-dssp-sit/Pods-dssp-sit.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -1339,6 +1871,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E6D12720DCAD160093E2AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6D12820DCAD160093E2AC /* WebKit.framework in Frameworks */,
+				31E6D12920DCAD160093E2AC /* libPods-dssp.a in Frameworks */,
+				31E6D12A20DCAD160093E2AC /* libPods-dssp-pre.a in Frameworks */,
+				0B270B44A988A6130E16104C /* libPods-dssp-preStandby.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31E6D23E20DCADEF0093E2AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6D23F20DCADEF0093E2AC /* WebKit.framework in Frameworks */,
+				31E6D24020DCADEF0093E2AC /* libPods-dssp.a in Frameworks */,
+				B8086DAF5B64115E014F4B99 /* libPods-dsspStandby.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1350,6 +1903,8 @@
 				A1D79D067F979E7A32A8F2ED /* libPods-dsspUITests.a */,
 				B8EDAC62536565F6043D7C47 /* libPods-dssp-pre.a */,
 				027479B4E608B8B8F0CF099C /* libPods-dssp-sit.a */,
+				021DD294A587AE2032B5961F /* libPods-dssp-preStandby.a */,
+				2B5ABB25455BD9FC507C00FF /* libPods-dsspStandby.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1583,6 +2138,8 @@
 		3151F5A720735D6E0009998D /* config */ = {
 			isa = PBXGroup;
 			children = (
+				31E6D14020DCAD640093E2AC /* proStandby */,
+				31E6D13F20DCAD540093E2AC /* preStandby */,
 				3151F5A820735D8B0009998D /* pro */,
 				3151F5A920735DA50009998D /* pre */,
 				3151F5AA20735DAA0009998D /* sit */,
@@ -1684,6 +2241,8 @@
 				316CA4731F9F3475009F541E /* dsspUITests.xctest */,
 				3161DE79206C8AB500D40EE3 /* dssp-pre.app */,
 				3161DF51206C8ABC00D40EE3 /* dssp-sit.app */,
+				31E6D13D20DCAD160093E2AC /* dssp-preStandby.app */,
+				31E6D25620DCADEF0093E2AC /* dsspStandby.app */,
 			);
 			name = Products;
 			path = ..;
@@ -1956,6 +2515,22 @@
 				31EEDDE01FBBCA140012BA92 /* Controller */,
 			);
 			path = Car;
+			sourceTree = "<group>";
+		};
+		31E6D13F20DCAD540093E2AC /* preStandby */ = {
+			isa = PBXGroup;
+			children = (
+				31E6D14620DCADDF0093E2AC /* dssp-preStandby.plist */,
+			);
+			path = preStandby;
+			sourceTree = "<group>";
+		};
+		31E6D14020DCAD640093E2AC /* proStandby */ = {
+			isa = PBXGroup;
+			children = (
+				31E6D14120DCADD40093E2AC /* infoStandby.plist */,
+			);
+			path = proStandby;
 			sourceTree = "<group>";
 		};
 		31E7B9532057A279003844E0 /* HomeCells */ = {
@@ -2319,6 +2894,12 @@
 				3BF3BD5A7D333AA69A6F38CC /* Pods-dssp.adhoc.xcconfig */,
 				280DE9284EE6BAC9FD1D9690 /* Pods-dssp-pre.adhoc.xcconfig */,
 				EF89099FC4552B97B6AB51B8 /* Pods-dssp-sit.adhoc.xcconfig */,
+				99356F0C29DB985F8F48A6CF /* Pods-dssp-preStandby.debug.xcconfig */,
+				7B44F0692C5BA2771F5BB741 /* Pods-dssp-preStandby.release.xcconfig */,
+				2375556C246CBB5807A7DD7C /* Pods-dssp-preStandby.adhoc.xcconfig */,
+				794E647310A1211F814DCB81 /* Pods-dsspStandby.debug.xcconfig */,
+				72BB075F87C571A62D2B8D19 /* Pods-dsspStandby.release.xcconfig */,
+				CFBA57E8DC5BAC05B68C610C /* Pods-dsspStandby.adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2404,6 +2985,46 @@
 			productReference = 316CA4731F9F3475009F541E /* dsspUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		31E6D03420DCAD160093E2AC /* dssp-preStandby */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31E6D13920DCAD160093E2AC /* Build configuration list for PBXNativeTarget "dssp-preStandby" */;
+			buildPhases = (
+				31E6D03520DCAD160093E2AC /* [CP] Check Pods Manifest.lock */,
+				31E6D03620DCAD160093E2AC /* Sources */,
+				31E6D12720DCAD160093E2AC /* Frameworks */,
+				31E6D12B20DCAD160093E2AC /* Resources */,
+				31E6D13720DCAD160093E2AC /* [CP] Copy Pods Resources */,
+				31E6D13820DCAD160093E2AC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "dssp-preStandby";
+			productName = dssp;
+			productReference = 31E6D13D20DCAD160093E2AC /* dssp-preStandby.app */;
+			productType = "com.apple.product-type.application";
+		};
+		31E6D14B20DCADEF0093E2AC /* dsspStandby */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31E6D25220DCADEF0093E2AC /* Build configuration list for PBXNativeTarget "dsspStandby" */;
+			buildPhases = (
+				31E6D14C20DCADEF0093E2AC /* [CP] Check Pods Manifest.lock */,
+				31E6D14D20DCADEF0093E2AC /* Sources */,
+				31E6D23E20DCADEF0093E2AC /* Frameworks */,
+				31E6D24120DCADEF0093E2AC /* Resources */,
+				31E6D25020DCADEF0093E2AC /* [CP] Copy Pods Resources */,
+				31E6D25120DCADEF0093E2AC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dsspStandby;
+			productName = dssp;
+			productReference = 31E6D25620DCADEF0093E2AC /* dsspStandby.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2437,6 +3058,12 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 316CA45A1F9F3475009F541E;
 					};
+					31E6D03420DCAD160093E2AC = {
+						ProvisioningStyle = Manual;
+					};
+					31E6D14B20DCADEF0093E2AC = {
+						ProvisioningStyle = Manual;
+					};
 				};
 			};
 			buildConfigurationList = 316CA4561F9F3475009F541E /* Build configuration list for PBXProject "dssp" */;
@@ -2455,6 +3082,8 @@
 				316CA45A1F9F3475009F541E /* dssp */,
 				3161DDA3206C8AB500D40EE3 /* dssp-pre */,
 				3161DE7B206C8ABC00D40EE3 /* dssp-sit */,
+				31E6D14B20DCADEF0093E2AC /* dsspStandby */,
+				31E6D03420DCAD160093E2AC /* dssp-preStandby */,
 				316CA4721F9F3475009F541E /* dsspUITests */,
 			);
 		};
@@ -2468,7 +3097,9 @@
 				31A2291F206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DE6A206C8AB500D40EE3 /* waiting.gif in Resources */,
 				3161DE6B206C8AB500D40EE3 /* server_pre.cer in Resources */,
+				31E6D14820DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
 				45147D652086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
+				31E6D14320DCADD40093E2AC /* infoStandby.plist in Resources */,
 				3161DE6D206C8AB500D40EE3 /* LaunchScreen.storyboard in Resources */,
 				3161DE6F206C8AB500D40EE3 /* Localizable.strings in Resources */,
 				3161DE70206C8AB500D40EE3 /* Address.plist in Resources */,
@@ -2485,12 +3116,14 @@
 			files = (
 				3161DF42206C8ABC00D40EE3 /* waiting.gif in Resources */,
 				45147D662086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
+				31E6D14920DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
 				3161DF45206C8ABC00D40EE3 /* LaunchScreen.storyboard in Resources */,
 				318FF86920B79DDA008B0CBD /* TZImagePickerController.bundle in Resources */,
 				3161DF47206C8ABC00D40EE3 /* Localizable.strings in Resources */,
 				3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */,
 				3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */,
 				31A22923206CA223002326AD /* dssp-sit.plist in Resources */,
+				31E6D14420DCADD40093E2AC /* infoStandby.plist in Resources */,
 				31F70B0420C4CF35009B2D58 /* Info.plist in Resources */,
 				3161DF4A206C8ABC00D40EE3 /* application.html in Resources */,
 			);
@@ -2502,9 +3135,11 @@
 			files = (
 				31CB2B9B200766DF0085FBA1 /* waiting.gif in Resources */,
 				3189EED22058D1AA0009B742 /* client.p12 in Resources */,
+				31E6D14720DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				3112924A205D23900049A647 /* server_formal.cer in Resources */,
 				318FF86720B79DDA008B0CBD /* TZImagePickerController.bundle in Resources */,
+				31E6D14220DCADD40093E2AC /* infoStandby.plist in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
 				45147D642086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
 				454CE6E1204698E6003221F3 /* Address.plist in Resources */,
@@ -2519,6 +3154,47 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31E6D12B20DCAD160093E2AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6D12C20DCAD160093E2AC /* dssp-pre.plist in Resources */,
+				31E6D12D20DCAD160093E2AC /* waiting.gif in Resources */,
+				31E6D12E20DCAD160093E2AC /* server_pre.cer in Resources */,
+				31E6D14A20DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
+				31E6D12F20DCAD160093E2AC /* ds_service_protocols.txt in Resources */,
+				31E6D14520DCADD40093E2AC /* infoStandby.plist in Resources */,
+				31E6D13020DCAD160093E2AC /* LaunchScreen.storyboard in Resources */,
+				31E6D13120DCAD160093E2AC /* Localizable.strings in Resources */,
+				31E6D13220DCAD160093E2AC /* Address.plist in Resources */,
+				31E6D13320DCAD160093E2AC /* TZImagePickerController.bundle in Resources */,
+				31E6D13420DCAD160093E2AC /* Info.plist in Resources */,
+				31E6D13520DCAD160093E2AC /* Assets.xcassets in Resources */,
+				31E6D13620DCAD160093E2AC /* application.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31E6D24120DCADEF0093E2AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6D24220DCADEF0093E2AC /* waiting.gif in Resources */,
+				31E6D24320DCADEF0093E2AC /* client.p12 in Resources */,
+				31E6D24420DCADEF0093E2AC /* dssp-preStandby.plist in Resources */,
+				31E6D24520DCADEF0093E2AC /* LaunchScreen.storyboard in Resources */,
+				31E6D24620DCADEF0093E2AC /* server_formal.cer in Resources */,
+				31E6D24720DCADEF0093E2AC /* TZImagePickerController.bundle in Resources */,
+				31E6D24820DCADEF0093E2AC /* infoStandby.plist in Resources */,
+				31E6D24920DCADEF0093E2AC /* Localizable.strings in Resources */,
+				31E6D24A20DCADEF0093E2AC /* ds_service_protocols.txt in Resources */,
+				31E6D24B20DCADEF0093E2AC /* Address.plist in Resources */,
+				31E6D24C20DCADEF0093E2AC /* Info.plist in Resources */,
+				31E6D24D20DCADEF0093E2AC /* Assets.xcassets in Resources */,
+				31E6D24E20DCADEF0093E2AC /* Info.plist in Resources */,
+				31E6D24F20DCADEF0093E2AC /* application.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2684,6 +3360,120 @@
 			shellScript = "\"${SRCROOT}/Scripts/iconVersioning.sh\"\n\"${SRCROOT}/Scripts/Move_dSYM_To_Storage.sh\"";
 		};
 		3181480B1FD7969700F00A4D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Scripts/iconVersioning.sh\"\n\"${SRCROOT}/Scripts/Move_dSYM_To_Storage.sh\"";
+		};
+		31E6D03520DCAD160093E2AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dssp-preStandby-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31E6D13720DCAD160093E2AC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-dssp-preStandby/Pods-dssp-preStandby-resources.sh",
+				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
+				"${PODS_ROOT}/Alipay-SDK/SDK/AlipaySDK.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CUProgressHUD/CUProgressHUD.bundle",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CUProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dssp-preStandby/Pods-dssp-preStandby-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31E6D13820DCAD160093E2AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Scripts/iconVersioning.sh\"\n\"${SRCROOT}/Scripts/Move_dSYM_To_Storage.sh\"";
+		};
+		31E6D14C20DCADEF0093E2AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dsspStandby-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31E6D25020DCADEF0093E2AC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-dsspStandby/Pods-dsspStandby-resources.sh",
+				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
+				"${PODS_ROOT}/Alipay-SDK/SDK/AlipaySDK.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CUProgressHUD/CUProgressHUD.bundle",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CUProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dsspStandby/Pods-dsspStandby-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31E6D25120DCADEF0093E2AC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3448,6 +4238,500 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E6D03620DCAD160093E2AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6D03720DCAD160093E2AC /* NSString+XY.m in Sources */,
+				31E6D03820DCAD160093E2AC /* CarBindingInput.m in Sources */,
+				31E6D03920DCAD160093E2AC /* Statistics.m in Sources */,
+				31E6D03A20DCAD160093E2AC /* TrafficReportController.m in Sources */,
+				31E6D03B20DCAD160093E2AC /* EvaluateViewController.m in Sources */,
+				31E6D03C20DCAD160093E2AC /* TrackObject.m in Sources */,
+				31E6D03D20DCAD160093E2AC /* PrivacypolicyController.m in Sources */,
+				31E6D03E20DCAD160093E2AC /* PNScatterChartData.m in Sources */,
+				31E6D03F20DCAD160093E2AC /* UIFont+FontSize.m in Sources */,
+				31E6D04020DCAD160093E2AC /* StorePageController.m in Sources */,
+				31E6D04120DCAD160093E2AC /* PNRadarChart.m in Sources */,
+				31E6D04220DCAD160093E2AC /* CarBindingViewController.m in Sources */,
+				31E6D04320DCAD160093E2AC /* PNPieChart.m in Sources */,
+				31E6D04420DCAD160093E2AC /* HomeBtnsHeader.m in Sources */,
+				31E6D04520DCAD160093E2AC /* StoreSingleViewController.m in Sources */,
+				31E6D04620DCAD160093E2AC /* WeatherModel.m in Sources */,
+				31E6D04720DCAD160093E2AC /* RankingObject.m in Sources */,
+				31E6D04820DCAD160093E2AC /* ContractCell.m in Sources */,
+				31E6D04920DCAD160093E2AC /* DKSTextView.m in Sources */,
+				31E6D04A20DCAD160093E2AC /* InfoMessageHelpCenterCell.m in Sources */,
+				31E6D04B20DCAD160093E2AC /* HomeBtn.m in Sources */,
+				31E6D04C20DCAD160093E2AC /* PNLineChart.m in Sources */,
+				31E6D04D20DCAD160093E2AC /* BaseViewController.m in Sources */,
+				31E6D04E20DCAD160093E2AC /* CommodityHeaderView.m in Sources */,
+				31E6D04F20DCAD160093E2AC /* VhlModel.m in Sources */,
+				31E6D05020DCAD160093E2AC /* UICountingLabel.m in Sources */,
+				31E6D05120DCAD160093E2AC /* CommodityDescriptionCell.m in Sources */,
+				31E6D05220DCAD160093E2AC /* TrafficReportCell.m in Sources */,
+				31E6D05320DCAD160093E2AC /* QGLocationTransform.m in Sources */,
+				31E6D05420DCAD160093E2AC /* MineViewController.m in Sources */,
+				31E6D05520DCAD160093E2AC /* FeedbackController.m in Sources */,
+				31E6D05620DCAD160093E2AC /* MapUpdateViewController.m in Sources */,
+				31E6D05720DCAD160093E2AC /* UIButton+NoRepeat.m in Sources */,
+				31E6D05820DCAD160093E2AC /* POISendBtn.m in Sources */,
+				31E6D05920DCAD160093E2AC /* MapSearchHistory.m in Sources */,
+				31E6D05A20DCAD160093E2AC /* CarUnbindModel.m in Sources */,
+				31E6D05B20DCAD160093E2AC /* StoreBaseViewController.m in Sources */,
+				31E6D05C20DCAD160093E2AC /* SearchresultViewController.m in Sources */,
+				31E6D05D20DCAD160093E2AC /* ContractdetailCell.m in Sources */,
+				31E6D05E20DCAD160093E2AC /* LocationAnnotationView.m in Sources */,
+				31E6D05F20DCAD160093E2AC /* CommodityPriceCell.m in Sources */,
+				31E6D06020DCAD160093E2AC /* VINBindingViewController.m in Sources */,
+				31E6D06120DCAD160093E2AC /* LllegaCell.m in Sources */,
+				31E6D06220DCAD160093E2AC /* TopImgButton.m in Sources */,
+				31E6D06320DCAD160093E2AC /* RefuelViewController.m in Sources */,
+				31E6D06420DCAD160093E2AC /* UserprotocolViewController.m in Sources */,
+				31E6D06520DCAD160093E2AC /* TrafficReportModel.m in Sources */,
+				31E6D06620DCAD160093E2AC /* UpkeepModel.m in Sources */,
+				31E6D06720DCAD160093E2AC /* QueryModel.m in Sources */,
+				31E6D06820DCAD160093E2AC /* DrivingMonthReportViewController.m in Sources */,
+				31E6D06920DCAD160093E2AC /* HomeTopView.m in Sources */,
+				31E6D06A20DCAD160093E2AC /* PNBarChart.m in Sources */,
+				31E6D06B20DCAD160093E2AC /* ForgotViewController.m in Sources */,
+				31E6D06C20DCAD160093E2AC /* NSArray+Sudoku.m in Sources */,
+				31E6D06D20DCAD160093E2AC /* CarSeriesViewController.m in Sources */,
+				31E6D06E20DCAD160093E2AC /* QueryAlertController.m in Sources */,
+				31E6D06F20DCAD160093E2AC /* InvoiceIndividualViewController.m in Sources */,
+				31E6D07020DCAD160093E2AC /* LllegalViewController.m in Sources */,
+				31E6D07120DCAD160093E2AC /* OrderSubmitCell.m in Sources */,
+				31E6D07220DCAD160093E2AC /* QueryAlertView.m in Sources */,
+				31E6D07320DCAD160093E2AC /* SearchAroundViewController.m in Sources */,
+				31E6D07420DCAD160093E2AC /* RnunbindViewController.m in Sources */,
+				31E6D07520DCAD160093E2AC /* InformationCenterViewController.m in Sources */,
+				31E6D07620DCAD160093E2AC /* RNRFinishedViewController.m in Sources */,
+				31E6D07720DCAD160093E2AC /* ModifyPhoneController.m in Sources */,
+				31E6D07820DCAD160093E2AC /* CarflowCell.m in Sources */,
+				31E6D07920DCAD160093E2AC /* MapSearchCell.m in Sources */,
+				31E6D07A20DCAD160093E2AC /* TrafficReportdatailCell.m in Sources */,
+				31E6D07B20DCAD160093E2AC /* ForecastModel.m in Sources */,
+				31E6D07C20DCAD160093E2AC /* TZImageManager.m in Sources */,
+				31E6D07D20DCAD160093E2AC /* FeedbackShowImageView.m in Sources */,
+				31E6D07E20DCAD160093E2AC /* NSString+Size.m in Sources */,
+				31E6D07F20DCAD160093E2AC /* OrderCell.m in Sources */,
+				31E6D08020DCAD160093E2AC /* TZPhotoPreviewCell.m in Sources */,
+				31E6D08120DCAD160093E2AC /* InputAlertView.m in Sources */,
+				31E6D08220DCAD160093E2AC /* CUHTTPRequestCallback.m in Sources */,
+				31E6D08320DCAD160093E2AC /* TZProgressView.m in Sources */,
+				31E6D08420DCAD160093E2AC /* TrackDetailViewController.m in Sources */,
+				31E6D08520DCAD160093E2AC /* PlaceholderTextView.m in Sources */,
+				31E6D08620DCAD160093E2AC /* RNRViewController.m in Sources */,
+				31E6D08720DCAD160093E2AC /* HomeViewController.m in Sources */,
+				31E6D08820DCAD160093E2AC /* ActivationCodeListCell.m in Sources */,
+				31E6D08920DCAD160093E2AC /* DKSKeyboardView.m in Sources */,
+				31E6D08A20DCAD160093E2AC /* PersonInViewController.m in Sources */,
+				31E6D08B20DCAD160093E2AC /* TAPageControl.m in Sources */,
+				31E6D08C20DCAD160093E2AC /* UIImagePickerController+StatusBar.m in Sources */,
+				31E6D08D20DCAD160093E2AC /* NoticeModel.m in Sources */,
+				31E6D08E20DCAD160093E2AC /* CommodityCommentFooterCell.m in Sources */,
+				31E6D08F20DCAD160093E2AC /* PopupView.m in Sources */,
+				31E6D09020DCAD160093E2AC /* ModifyPhonesController.m in Sources */,
+				31E6D09120DCAD160093E2AC /* AgreementViewController.m in Sources */,
+				31E6D09220DCAD160093E2AC /* CarBindingTViewController.m in Sources */,
+				31E6D09320DCAD160093E2AC /* TZImagePickerController.m in Sources */,
+				31E6D09420DCAD160093E2AC /* RNRPhotoViewController.m in Sources */,
+				31E6D09520DCAD160093E2AC /* GetActivationCodeViewController.m in Sources */,
+				31E6D09620DCAD160093E2AC /* FavoriteCell.m in Sources */,
+				31E6D09720DCAD160093E2AC /* RealnameViewController.m in Sources */,
+				31E6D09820DCAD160093E2AC /* CommodityCommentHeaderCell.m in Sources */,
+				31E6D09920DCAD160093E2AC /* DiscoverViewController.m in Sources */,
+				31E6D09A20DCAD160093E2AC /* CommodityBannerCell.m in Sources */,
+				31E6D09B20DCAD160093E2AC /* TrackSingleCell.m in Sources */,
+				31E6D09C20DCAD160093E2AC /* TAAnimatedDotView.m in Sources */,
+				31E6D09D20DCAD160093E2AC /* PoiOptionBtn.m in Sources */,
+				31E6D09E20DCAD160093E2AC /* ActivationCodeListViewController.m in Sources */,
+				31E6D09F20DCAD160093E2AC /* InfoMessage.m in Sources */,
+				31E6D0A020DCAD160093E2AC /* MapBaseController.m in Sources */,
+				31E6D0A120DCAD160093E2AC /* POI.m in Sources */,
+				31E6D0A220DCAD160093E2AC /* TrackListViewController.m in Sources */,
+				31E6D0A320DCAD160093E2AC /* TZGifPhotoPreviewController.m in Sources */,
+				31E6D0A420DCAD160093E2AC /* CarTrackViewController.m in Sources */,
+				31E6D0A520DCAD160093E2AC /* ContractdetailViewController.m in Sources */,
+				31E6D0A620DCAD160093E2AC /* FeedbackPicView.m in Sources */,
+				31E6D0A720DCAD160093E2AC /* InfoMessageUserCell.m in Sources */,
+				31E6D0A820DCAD160093E2AC /* HomeCarLocationCell.m in Sources */,
+				31E6D0A920DCAD160093E2AC /* QDataSaver.m in Sources */,
+				31E6D0AA20DCAD160093E2AC /* PNScatterChartDataItem.m in Sources */,
+				31E6D0AB20DCAD160093E2AC /* TrackListHeaderView.m in Sources */,
+				31E6D0AC20DCAD160093E2AC /* CheckVersionView.m in Sources */,
+				31E6D0AD20DCAD160093E2AC /* FeedbackChoosePicView.m in Sources */,
+				31E6D0AE20DCAD160093E2AC /* WifiViewController.m in Sources */,
+				31E6D0AF20DCAD160093E2AC /* OrderSubmitViewController.m in Sources */,
+				31E6D0B020DCAD160093E2AC /* UITabBar+badge.m in Sources */,
+				31E6D0B120DCAD160093E2AC /* UITextView+Placeholder.m in Sources */,
+				31E6D0B220DCAD160093E2AC /* FeedbackTap.m in Sources */,
+				31E6D0B320DCAD160093E2AC /* PNPieChartDataItem.m in Sources */,
+				31E6D0B420DCAD160093E2AC /* MapUtility.m in Sources */,
+				31E6D0B520DCAD160093E2AC /* BaseWebViewController.m in Sources */,
+				31E6D0B620DCAD160093E2AC /* PNScatterChart.m in Sources */,
+				31E6D0B720DCAD160093E2AC /* MapView.m in Sources */,
+				31E6D0B820DCAD160093E2AC /* LllegadetailController.m in Sources */,
+				31E6D0B920DCAD160093E2AC /* TZPhotoPickerController.m in Sources */,
+				31E6D0BA20DCAD160093E2AC /* CommodityCommentsViewController.m in Sources */,
+				31E6D0BB20DCAD160093E2AC /* AccountViewController.m in Sources */,
+				31E6D0BC20DCAD160093E2AC /* NoticeViewController.m in Sources */,
+				31E6D0BD20DCAD160093E2AC /* YYStarView.m in Sources */,
+				31E6D0BE20DCAD160093E2AC /* UserModel.m in Sources */,
+				31E6D0BF20DCAD160093E2AC /* FavoritesViewController.m in Sources */,
+				31E6D0C020DCAD160093E2AC /* TabBarController.m in Sources */,
+				31E6D0C120DCAD160093E2AC /* OilStation.m in Sources */,
+				31E6D0C220DCAD160093E2AC /* EllipsePageControl.m in Sources */,
+				31E6D0C320DCAD160093E2AC /* StoreTabViewController.m in Sources */,
+				31E6D0C420DCAD160093E2AC /* InvoicePageController.m in Sources */,
+				31E6D0C520DCAD160093E2AC /* CarStatisticsViewController.m in Sources */,
+				31E6D0C620DCAD160093E2AC /* TZAssetModel.m in Sources */,
+				31E6D0C720DCAD160093E2AC /* CommodityCommentsListCell.m in Sources */,
+				31E6D0C820DCAD160093E2AC /* LeftImgButton.m in Sources */,
+				31E6D0C920DCAD160093E2AC /* WMViewController.m in Sources */,
+				31E6D0CA20DCAD160093E2AC /* UIView+Layout.m in Sources */,
+				31E6D0CB20DCAD160093E2AC /* NoticeCell.m in Sources */,
+				31E6D0CC20DCAD160093E2AC /* LoginResult.m in Sources */,
+				31E6D0CD20DCAD160093E2AC /* TZVideoPlayerController.m in Sources */,
+				31E6D0CE20DCAD160093E2AC /* QueryTipView.m in Sources */,
+				31E6D0CF20DCAD160093E2AC /* RealVinViewcontroller.m in Sources */,
+				31E6D0D020DCAD160093E2AC /* DrivingWeekReportViewController.m in Sources */,
+				31E6D0D120DCAD160093E2AC /* DrivingReportPageController.m in Sources */,
+				31E6D0D220DCAD160093E2AC /* ManualViewController.m in Sources */,
+				31E6D0D320DCAD160093E2AC /* NSArray+Log.m in Sources */,
+				31E6D0D420DCAD160093E2AC /* PersonInCell.m in Sources */,
+				31E6D0D520DCAD160093E2AC /* PNBar.m in Sources */,
+				31E6D0D620DCAD160093E2AC /* TAAbstractDotView.m in Sources */,
+				31E6D0D720DCAD160093E2AC /* SubscribeModel.m in Sources */,
+				31E6D0D820DCAD160093E2AC /* CarflowModel.m in Sources */,
+				31E6D0D920DCAD160093E2AC /* StoreObject.m in Sources */,
+				31E6D0DA20DCAD160093E2AC /* LoginViewController.m in Sources */,
+				31E6D0DB20DCAD160093E2AC /* TZPhotoPreviewController.m in Sources */,
+				31E6D0DC20DCAD160093E2AC /* PNChartLabel.m in Sources */,
+				31E6D0DD20DCAD160093E2AC /* PNCircleChart.m in Sources */,
+				31E6D0DE20DCAD160093E2AC /* SendPoiProgressView.m in Sources */,
+				31E6D0DF20DCAD160093E2AC /* MapUpdateObject.m in Sources */,
+				31E6D0E020DCAD160093E2AC /* OrderObject.m in Sources */,
+				31E6D0E120DCAD160093E2AC /* OrderPageController.m in Sources */,
+				31E6D0E220DCAD160093E2AC /* TZLocationManager.m in Sources */,
+				31E6D0E320DCAD160093E2AC /* TZImageCropManager.m in Sources */,
+				31E6D0E420DCAD160093E2AC /* PNGenericChart.m in Sources */,
+				31E6D0E520DCAD160093E2AC /* PNColor.m in Sources */,
+				31E6D0E620DCAD160093E2AC /* RemindViewController.m in Sources */,
+				31E6D0E720DCAD160093E2AC /* CarUnbindingViewController.m in Sources */,
+				31E6D0E820DCAD160093E2AC /* HomeCarReportCell.m in Sources */,
+				31E6D0E920DCAD160093E2AC /* DrivingReportObject.m in Sources */,
+				31E6D0EA20DCAD160093E2AC /* ContractViewController.m in Sources */,
+				31E6D0EB20DCAD160093E2AC /* SubscriCell.m in Sources */,
+				31E6D0EC20DCAD160093E2AC /* OrderPayViewController.m in Sources */,
+				31E6D0ED20DCAD160093E2AC /* main.m in Sources */,
+				31E6D0EE20DCAD160093E2AC /* UpkeepViewController.m in Sources */,
+				31E6D0EF20DCAD160093E2AC /* MaintainViewController.m in Sources */,
+				31E6D0F020DCAD160093E2AC /* SubscribeViewController.m in Sources */,
+				31E6D0F120DCAD160093E2AC /* UIView+SDExtension.m in Sources */,
+				31E6D0F220DCAD160093E2AC /* NewPasswordViewController.m in Sources */,
+				31E6D0F320DCAD160093E2AC /* BlankView.m in Sources */,
+				31E6D0F420DCAD160093E2AC /* OrderDetailViewController.m in Sources */,
+				31E6D0F520DCAD160093E2AC /* LllegaModel.m in Sources */,
+				31E6D0F620DCAD160093E2AC /* TZAssetCell.m in Sources */,
+				31E6D0F720DCAD160093E2AC /* CarInfoModel.m in Sources */,
+				31E6D0F820DCAD160093E2AC /* FindlistModel.m in Sources */,
+				31E6D0F920DCAD160093E2AC /* OrderViewController.m in Sources */,
+				31E6D0FA20DCAD160093E2AC /* MineCell.m in Sources */,
+				31E6D0FB20DCAD160093E2AC /* PNLineChartDataItem.m in Sources */,
+				31E6D0FC20DCAD160093E2AC /* DrivingReportWeekCell.m in Sources */,
+				31E6D0FD20DCAD160093E2AC /* TADotView.m in Sources */,
+				31E6D0FE20DCAD160093E2AC /* CarTrackModel.m in Sources */,
+				31E6D0FF20DCAD160093E2AC /* RNRInput.m in Sources */,
+				31E6D10020DCAD160093E2AC /* AppDelegate.m in Sources */,
+				31E6D10120DCAD160093E2AC /* CarflowViewController.m in Sources */,
+				31E6D10220DCAD160093E2AC /* HomeBannerCell.m in Sources */,
+				31E6D10320DCAD160093E2AC /* PNRadarChartDataItem.m in Sources */,
+				31E6D10420DCAD160093E2AC /* CatchCrash.m in Sources */,
+				31E6D10520DCAD160093E2AC /* SDCycleScrollView.m in Sources */,
+				31E6D10620DCAD160093E2AC /* RangePickerCell.m in Sources */,
+				31E6D10720DCAD160093E2AC /* MapUpdateHelpViewController.m in Sources */,
+				31E6D10820DCAD160093E2AC /* CarInfoViewController.m in Sources */,
+				31E6D10920DCAD160093E2AC /* SubscribedatailController.m in Sources */,
+				31E6D10A20DCAD160093E2AC /* PNLineChartData.m in Sources */,
+				31E6D10B20DCAD160093E2AC /* ParkingViewController.m in Sources */,
+				31E6D10C20DCAD160093E2AC /* InfoMessageLeftCell.m in Sources */,
+				31E6D10D20DCAD160093E2AC /* HomeCarStateCell.m in Sources */,
+				31E6D10E20DCAD160093E2AC /* InvoiceEnterpriseViewController.m in Sources */,
+				31E6D10F20DCAD160093E2AC /* FindByAllModel.m in Sources */,
+				31E6D11020DCAD160093E2AC /* PayCompleteViewController.m in Sources */,
+				31E6D11120DCAD160093E2AC /* CommodityCommentCell.m in Sources */,
+				31E6D11220DCAD160093E2AC /* SDCollectionViewCell.m in Sources */,
+				31E6D11320DCAD160093E2AC /* CommodityNameCell.m in Sources */,
+				31E6D11420DCAD160093E2AC /* LeftButton.m in Sources */,
+				31E6D11520DCAD160093E2AC /* QueryViewController.m in Sources */,
+				31E6D11620DCAD160093E2AC /* LoveCarViewController.m in Sources */,
+				31E6D11720DCAD160093E2AC /* RegisterViewController.m in Sources */,
+				31E6D11820DCAD160093E2AC /* NicknameViewController.m in Sources */,
+				31E6D11920DCAD160093E2AC /* UpkeepdetailController.m in Sources */,
+				31E6D11A20DCAD160093E2AC /* ContractModel.m in Sources */,
+				31E6D11B20DCAD160093E2AC /* WBAFNetworkingLogger.m in Sources */,
+				31E6D11C20DCAD160093E2AC /* NSDictionary+NilSafe.m in Sources */,
+				31E6D11D20DCAD160093E2AC /* MapHomeViewController.m in Sources */,
+				31E6D11E20DCAD160093E2AC /* CommodityCell.m in Sources */,
+				31E6D11F20DCAD160093E2AC /* CommodityDetailCellsConfigurator.m in Sources */,
+				31E6D12020DCAD160093E2AC /* CommodityDetailViewController.m in Sources */,
+				31E6D12120DCAD160093E2AC /* NSBundle+TZImagePicker.m in Sources */,
+				31E6D12220DCAD160093E2AC /* ContractDetailed.m in Sources */,
+				31E6D12320DCAD160093E2AC /* GFAddressPicker.m in Sources */,
+				31E6D12420DCAD160093E2AC /* CarAnnotation.m in Sources */,
+				31E6D12520DCAD160093E2AC /* AboutmeViewController.m in Sources */,
+				31E6D12620DCAD160093E2AC /* CommodityDescriptionTitleCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31E6D14D20DCADEF0093E2AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6D14E20DCADEF0093E2AC /* NSString+XY.m in Sources */,
+				31E6D14F20DCADEF0093E2AC /* CarBindingInput.m in Sources */,
+				31E6D15020DCADEF0093E2AC /* Statistics.m in Sources */,
+				31E6D15120DCADEF0093E2AC /* TrafficReportController.m in Sources */,
+				31E6D15220DCADEF0093E2AC /* EvaluateViewController.m in Sources */,
+				31E6D15320DCADEF0093E2AC /* TrackObject.m in Sources */,
+				31E6D15420DCADEF0093E2AC /* PrivacypolicyController.m in Sources */,
+				31E6D15520DCADEF0093E2AC /* PNScatterChartData.m in Sources */,
+				31E6D15620DCADEF0093E2AC /* UIFont+FontSize.m in Sources */,
+				31E6D15720DCADEF0093E2AC /* StorePageController.m in Sources */,
+				31E6D15820DCADEF0093E2AC /* PNRadarChart.m in Sources */,
+				31E6D15920DCADEF0093E2AC /* CarBindingViewController.m in Sources */,
+				31E6D15A20DCADEF0093E2AC /* PNPieChart.m in Sources */,
+				31E6D15B20DCADEF0093E2AC /* HomeBtnsHeader.m in Sources */,
+				31E6D15C20DCADEF0093E2AC /* StoreSingleViewController.m in Sources */,
+				31E6D15D20DCADEF0093E2AC /* WeatherModel.m in Sources */,
+				31E6D15E20DCADEF0093E2AC /* RankingObject.m in Sources */,
+				31E6D15F20DCADEF0093E2AC /* ContractCell.m in Sources */,
+				31E6D16020DCADEF0093E2AC /* DKSTextView.m in Sources */,
+				31E6D16120DCADEF0093E2AC /* InfoMessageHelpCenterCell.m in Sources */,
+				31E6D16220DCADEF0093E2AC /* HomeBtn.m in Sources */,
+				31E6D16320DCADEF0093E2AC /* PNLineChart.m in Sources */,
+				31E6D16420DCADEF0093E2AC /* BaseViewController.m in Sources */,
+				31E6D16520DCADEF0093E2AC /* CommodityHeaderView.m in Sources */,
+				31E6D16620DCADEF0093E2AC /* VhlModel.m in Sources */,
+				31E6D16720DCADEF0093E2AC /* UICountingLabel.m in Sources */,
+				31E6D16820DCADEF0093E2AC /* CommodityDescriptionCell.m in Sources */,
+				31E6D16920DCADEF0093E2AC /* TrafficReportCell.m in Sources */,
+				31E6D16A20DCADEF0093E2AC /* QGLocationTransform.m in Sources */,
+				31E6D16B20DCADEF0093E2AC /* MineViewController.m in Sources */,
+				31E6D16C20DCADEF0093E2AC /* FeedbackController.m in Sources */,
+				31E6D16D20DCADEF0093E2AC /* MapUpdateViewController.m in Sources */,
+				31E6D16E20DCADEF0093E2AC /* UIButton+NoRepeat.m in Sources */,
+				31E6D16F20DCADEF0093E2AC /* POISendBtn.m in Sources */,
+				31E6D17020DCADEF0093E2AC /* MapSearchHistory.m in Sources */,
+				31E6D17120DCADEF0093E2AC /* CarUnbindModel.m in Sources */,
+				31E6D17220DCADEF0093E2AC /* StoreBaseViewController.m in Sources */,
+				31E6D17320DCADEF0093E2AC /* SearchresultViewController.m in Sources */,
+				31E6D17420DCADEF0093E2AC /* ContractdetailCell.m in Sources */,
+				31E6D17520DCADEF0093E2AC /* LocationAnnotationView.m in Sources */,
+				31E6D17620DCADEF0093E2AC /* CommodityPriceCell.m in Sources */,
+				31E6D17720DCADEF0093E2AC /* VINBindingViewController.m in Sources */,
+				31E6D17820DCADEF0093E2AC /* LllegaCell.m in Sources */,
+				31E6D17920DCADEF0093E2AC /* TopImgButton.m in Sources */,
+				31E6D17A20DCADEF0093E2AC /* RefuelViewController.m in Sources */,
+				31E6D17B20DCADEF0093E2AC /* UserprotocolViewController.m in Sources */,
+				31E6D17C20DCADEF0093E2AC /* TrafficReportModel.m in Sources */,
+				31E6D17D20DCADEF0093E2AC /* UpkeepModel.m in Sources */,
+				31E6D17E20DCADEF0093E2AC /* QueryModel.m in Sources */,
+				31E6D17F20DCADEF0093E2AC /* DrivingMonthReportViewController.m in Sources */,
+				31E6D18020DCADEF0093E2AC /* HomeTopView.m in Sources */,
+				31E6D18120DCADEF0093E2AC /* PNBarChart.m in Sources */,
+				31E6D18220DCADEF0093E2AC /* ForgotViewController.m in Sources */,
+				31E6D18320DCADEF0093E2AC /* NSArray+Sudoku.m in Sources */,
+				31E6D18420DCADEF0093E2AC /* CarSeriesViewController.m in Sources */,
+				31E6D18520DCADEF0093E2AC /* QueryAlertController.m in Sources */,
+				31E6D18620DCADEF0093E2AC /* InvoiceIndividualViewController.m in Sources */,
+				31E6D18720DCADEF0093E2AC /* LllegalViewController.m in Sources */,
+				31E6D18820DCADEF0093E2AC /* OrderSubmitCell.m in Sources */,
+				31E6D18920DCADEF0093E2AC /* QueryAlertView.m in Sources */,
+				31E6D18A20DCADEF0093E2AC /* SearchAroundViewController.m in Sources */,
+				31E6D18B20DCADEF0093E2AC /* RnunbindViewController.m in Sources */,
+				31E6D18C20DCADEF0093E2AC /* InformationCenterViewController.m in Sources */,
+				31E6D18D20DCADEF0093E2AC /* RNRFinishedViewController.m in Sources */,
+				31E6D18E20DCADEF0093E2AC /* ModifyPhoneController.m in Sources */,
+				31E6D18F20DCADEF0093E2AC /* CarflowCell.m in Sources */,
+				31E6D19020DCADEF0093E2AC /* MapSearchCell.m in Sources */,
+				31E6D19120DCADEF0093E2AC /* TrafficReportdatailCell.m in Sources */,
+				31E6D19220DCADEF0093E2AC /* ForecastModel.m in Sources */,
+				31E6D19320DCADEF0093E2AC /* TZImageManager.m in Sources */,
+				31E6D19420DCADEF0093E2AC /* FeedbackShowImageView.m in Sources */,
+				31E6D19520DCADEF0093E2AC /* NSString+Size.m in Sources */,
+				31E6D19620DCADEF0093E2AC /* OrderCell.m in Sources */,
+				31E6D19720DCADEF0093E2AC /* TZPhotoPreviewCell.m in Sources */,
+				31E6D19820DCADEF0093E2AC /* InputAlertView.m in Sources */,
+				31E6D19920DCADEF0093E2AC /* CUHTTPRequestCallback.m in Sources */,
+				31E6D19A20DCADEF0093E2AC /* TZProgressView.m in Sources */,
+				31E6D19B20DCADEF0093E2AC /* TrackDetailViewController.m in Sources */,
+				31E6D19C20DCADEF0093E2AC /* PlaceholderTextView.m in Sources */,
+				31E6D19D20DCADEF0093E2AC /* RNRViewController.m in Sources */,
+				31E6D19E20DCADEF0093E2AC /* HomeViewController.m in Sources */,
+				31E6D19F20DCADEF0093E2AC /* ActivationCodeListCell.m in Sources */,
+				31E6D1A020DCADEF0093E2AC /* DKSKeyboardView.m in Sources */,
+				31E6D1A120DCADEF0093E2AC /* PersonInViewController.m in Sources */,
+				31E6D1A220DCADEF0093E2AC /* TAPageControl.m in Sources */,
+				31E6D1A320DCADEF0093E2AC /* UIImagePickerController+StatusBar.m in Sources */,
+				31E6D1A420DCADEF0093E2AC /* NoticeModel.m in Sources */,
+				31E6D1A520DCADEF0093E2AC /* CommodityCommentFooterCell.m in Sources */,
+				31E6D1A620DCADEF0093E2AC /* PopupView.m in Sources */,
+				31E6D1A720DCADEF0093E2AC /* ModifyPhonesController.m in Sources */,
+				31E6D1A820DCADEF0093E2AC /* AgreementViewController.m in Sources */,
+				31E6D1A920DCADEF0093E2AC /* CarBindingTViewController.m in Sources */,
+				31E6D1AA20DCADEF0093E2AC /* TZImagePickerController.m in Sources */,
+				31E6D1AB20DCADEF0093E2AC /* RNRPhotoViewController.m in Sources */,
+				31E6D1AC20DCADEF0093E2AC /* GetActivationCodeViewController.m in Sources */,
+				31E6D1AD20DCADEF0093E2AC /* FavoriteCell.m in Sources */,
+				31E6D1AE20DCADEF0093E2AC /* RealnameViewController.m in Sources */,
+				31E6D1AF20DCADEF0093E2AC /* CommodityCommentHeaderCell.m in Sources */,
+				31E6D1B020DCADEF0093E2AC /* DiscoverViewController.m in Sources */,
+				31E6D1B120DCADEF0093E2AC /* CommodityBannerCell.m in Sources */,
+				31E6D1B220DCADEF0093E2AC /* TrackSingleCell.m in Sources */,
+				31E6D1B320DCADEF0093E2AC /* TAAnimatedDotView.m in Sources */,
+				31E6D1B420DCADEF0093E2AC /* PoiOptionBtn.m in Sources */,
+				31E6D1B520DCADEF0093E2AC /* ActivationCodeListViewController.m in Sources */,
+				31E6D1B620DCADEF0093E2AC /* InfoMessage.m in Sources */,
+				31E6D1B720DCADEF0093E2AC /* MapBaseController.m in Sources */,
+				31E6D1B820DCADEF0093E2AC /* POI.m in Sources */,
+				31E6D1B920DCADEF0093E2AC /* TrackListViewController.m in Sources */,
+				31E6D1BA20DCADEF0093E2AC /* TZGifPhotoPreviewController.m in Sources */,
+				31E6D1BB20DCADEF0093E2AC /* CarTrackViewController.m in Sources */,
+				31E6D1BC20DCADEF0093E2AC /* ContractdetailViewController.m in Sources */,
+				31E6D1BD20DCADEF0093E2AC /* FeedbackPicView.m in Sources */,
+				31E6D1BE20DCADEF0093E2AC /* InfoMessageUserCell.m in Sources */,
+				31E6D1BF20DCADEF0093E2AC /* HomeCarLocationCell.m in Sources */,
+				31E6D1C020DCADEF0093E2AC /* QDataSaver.m in Sources */,
+				31E6D1C120DCADEF0093E2AC /* PNScatterChartDataItem.m in Sources */,
+				31E6D1C220DCADEF0093E2AC /* TrackListHeaderView.m in Sources */,
+				31E6D1C320DCADEF0093E2AC /* CheckVersionView.m in Sources */,
+				31E6D1C420DCADEF0093E2AC /* FeedbackChoosePicView.m in Sources */,
+				31E6D1C520DCADEF0093E2AC /* WifiViewController.m in Sources */,
+				31E6D1C620DCADEF0093E2AC /* OrderSubmitViewController.m in Sources */,
+				31E6D1C720DCADEF0093E2AC /* UITabBar+badge.m in Sources */,
+				31E6D1C820DCADEF0093E2AC /* UITextView+Placeholder.m in Sources */,
+				31E6D1C920DCADEF0093E2AC /* FeedbackTap.m in Sources */,
+				31E6D1CA20DCADEF0093E2AC /* PNPieChartDataItem.m in Sources */,
+				31E6D1CB20DCADEF0093E2AC /* MapUtility.m in Sources */,
+				31E6D1CC20DCADEF0093E2AC /* BaseWebViewController.m in Sources */,
+				31E6D1CD20DCADEF0093E2AC /* PNScatterChart.m in Sources */,
+				31E6D1CE20DCADEF0093E2AC /* MapView.m in Sources */,
+				31E6D1CF20DCADEF0093E2AC /* LllegadetailController.m in Sources */,
+				31E6D1D020DCADEF0093E2AC /* TZPhotoPickerController.m in Sources */,
+				31E6D1D120DCADEF0093E2AC /* CommodityCommentsViewController.m in Sources */,
+				31E6D1D220DCADEF0093E2AC /* AccountViewController.m in Sources */,
+				31E6D1D320DCADEF0093E2AC /* NoticeViewController.m in Sources */,
+				31E6D1D420DCADEF0093E2AC /* YYStarView.m in Sources */,
+				31E6D1D520DCADEF0093E2AC /* UserModel.m in Sources */,
+				31E6D1D620DCADEF0093E2AC /* FavoritesViewController.m in Sources */,
+				31E6D1D720DCADEF0093E2AC /* TabBarController.m in Sources */,
+				31E6D1D820DCADEF0093E2AC /* OilStation.m in Sources */,
+				31E6D1D920DCADEF0093E2AC /* EllipsePageControl.m in Sources */,
+				31E6D1DA20DCADEF0093E2AC /* StoreTabViewController.m in Sources */,
+				31E6D1DB20DCADEF0093E2AC /* InvoicePageController.m in Sources */,
+				31E6D1DC20DCADEF0093E2AC /* CarStatisticsViewController.m in Sources */,
+				31E6D1DD20DCADEF0093E2AC /* TZAssetModel.m in Sources */,
+				31E6D1DE20DCADEF0093E2AC /* CommodityCommentsListCell.m in Sources */,
+				31E6D1DF20DCADEF0093E2AC /* LeftImgButton.m in Sources */,
+				31E6D1E020DCADEF0093E2AC /* WMViewController.m in Sources */,
+				31E6D1E120DCADEF0093E2AC /* UIView+Layout.m in Sources */,
+				31E6D1E220DCADEF0093E2AC /* NoticeCell.m in Sources */,
+				31E6D1E320DCADEF0093E2AC /* LoginResult.m in Sources */,
+				31E6D1E420DCADEF0093E2AC /* TZVideoPlayerController.m in Sources */,
+				31E6D1E520DCADEF0093E2AC /* QueryTipView.m in Sources */,
+				31E6D1E620DCADEF0093E2AC /* RealVinViewcontroller.m in Sources */,
+				31E6D1E720DCADEF0093E2AC /* DrivingWeekReportViewController.m in Sources */,
+				31E6D1E820DCADEF0093E2AC /* DrivingReportPageController.m in Sources */,
+				31E6D1E920DCADEF0093E2AC /* ManualViewController.m in Sources */,
+				31E6D1EA20DCADEF0093E2AC /* NSArray+Log.m in Sources */,
+				31E6D1EB20DCADEF0093E2AC /* PersonInCell.m in Sources */,
+				31E6D1EC20DCADEF0093E2AC /* PNBar.m in Sources */,
+				31E6D1ED20DCADEF0093E2AC /* TAAbstractDotView.m in Sources */,
+				31E6D1EE20DCADEF0093E2AC /* SubscribeModel.m in Sources */,
+				31E6D1EF20DCADEF0093E2AC /* CarflowModel.m in Sources */,
+				31E6D1F020DCADEF0093E2AC /* StoreObject.m in Sources */,
+				31E6D1F120DCADEF0093E2AC /* LoginViewController.m in Sources */,
+				31E6D1F220DCADEF0093E2AC /* TZPhotoPreviewController.m in Sources */,
+				31E6D1F320DCADEF0093E2AC /* PNChartLabel.m in Sources */,
+				31E6D1F420DCADEF0093E2AC /* PNCircleChart.m in Sources */,
+				31E6D1F520DCADEF0093E2AC /* SendPoiProgressView.m in Sources */,
+				31E6D1F620DCADEF0093E2AC /* MapUpdateObject.m in Sources */,
+				31E6D1F720DCADEF0093E2AC /* OrderObject.m in Sources */,
+				31E6D1F820DCADEF0093E2AC /* OrderPageController.m in Sources */,
+				31E6D1F920DCADEF0093E2AC /* TZLocationManager.m in Sources */,
+				31E6D1FA20DCADEF0093E2AC /* TZImageCropManager.m in Sources */,
+				31E6D1FB20DCADEF0093E2AC /* PNGenericChart.m in Sources */,
+				31E6D1FC20DCADEF0093E2AC /* PNColor.m in Sources */,
+				31E6D1FD20DCADEF0093E2AC /* RemindViewController.m in Sources */,
+				31E6D1FE20DCADEF0093E2AC /* CarUnbindingViewController.m in Sources */,
+				31E6D1FF20DCADEF0093E2AC /* HomeCarReportCell.m in Sources */,
+				31E6D20020DCADEF0093E2AC /* DrivingReportObject.m in Sources */,
+				31E6D20120DCADEF0093E2AC /* ContractViewController.m in Sources */,
+				31E6D20220DCADEF0093E2AC /* SubscriCell.m in Sources */,
+				31E6D20320DCADEF0093E2AC /* OrderPayViewController.m in Sources */,
+				31E6D20420DCADEF0093E2AC /* main.m in Sources */,
+				31E6D20520DCADEF0093E2AC /* UpkeepViewController.m in Sources */,
+				31E6D20620DCADEF0093E2AC /* MaintainViewController.m in Sources */,
+				31E6D20720DCADEF0093E2AC /* SubscribeViewController.m in Sources */,
+				31E6D20820DCADEF0093E2AC /* UIView+SDExtension.m in Sources */,
+				31E6D20920DCADEF0093E2AC /* NewPasswordViewController.m in Sources */,
+				31E6D20A20DCADEF0093E2AC /* BlankView.m in Sources */,
+				31E6D20B20DCADEF0093E2AC /* OrderDetailViewController.m in Sources */,
+				31E6D20C20DCADEF0093E2AC /* LllegaModel.m in Sources */,
+				31E6D20D20DCADEF0093E2AC /* TZAssetCell.m in Sources */,
+				31E6D20E20DCADEF0093E2AC /* CarInfoModel.m in Sources */,
+				31E6D20F20DCADEF0093E2AC /* FindlistModel.m in Sources */,
+				31E6D21020DCADEF0093E2AC /* OrderViewController.m in Sources */,
+				31E6D21120DCADEF0093E2AC /* MineCell.m in Sources */,
+				31E6D21220DCADEF0093E2AC /* PNLineChartDataItem.m in Sources */,
+				31E6D21320DCADEF0093E2AC /* DrivingReportWeekCell.m in Sources */,
+				31E6D21420DCADEF0093E2AC /* TADotView.m in Sources */,
+				31E6D21520DCADEF0093E2AC /* CarTrackModel.m in Sources */,
+				31E6D21620DCADEF0093E2AC /* RNRInput.m in Sources */,
+				31E6D21720DCADEF0093E2AC /* AppDelegate.m in Sources */,
+				31E6D21820DCADEF0093E2AC /* CarflowViewController.m in Sources */,
+				31E6D21920DCADEF0093E2AC /* HomeBannerCell.m in Sources */,
+				31E6D21A20DCADEF0093E2AC /* PNRadarChartDataItem.m in Sources */,
+				31E6D21B20DCADEF0093E2AC /* CatchCrash.m in Sources */,
+				31E6D21C20DCADEF0093E2AC /* SDCycleScrollView.m in Sources */,
+				31E6D21D20DCADEF0093E2AC /* RangePickerCell.m in Sources */,
+				31E6D21E20DCADEF0093E2AC /* MapUpdateHelpViewController.m in Sources */,
+				31E6D21F20DCADEF0093E2AC /* CarInfoViewController.m in Sources */,
+				31E6D22020DCADEF0093E2AC /* SubscribedatailController.m in Sources */,
+				31E6D22120DCADEF0093E2AC /* PNLineChartData.m in Sources */,
+				31E6D22220DCADEF0093E2AC /* ParkingViewController.m in Sources */,
+				31E6D22320DCADEF0093E2AC /* InfoMessageLeftCell.m in Sources */,
+				31E6D22420DCADEF0093E2AC /* HomeCarStateCell.m in Sources */,
+				31E6D22520DCADEF0093E2AC /* InvoiceEnterpriseViewController.m in Sources */,
+				31E6D22620DCADEF0093E2AC /* FindByAllModel.m in Sources */,
+				31E6D22720DCADEF0093E2AC /* PayCompleteViewController.m in Sources */,
+				31E6D22820DCADEF0093E2AC /* CommodityCommentCell.m in Sources */,
+				31E6D22920DCADEF0093E2AC /* SDCollectionViewCell.m in Sources */,
+				31E6D22A20DCADEF0093E2AC /* CommodityNameCell.m in Sources */,
+				31E6D22B20DCADEF0093E2AC /* LeftButton.m in Sources */,
+				31E6D22C20DCADEF0093E2AC /* QueryViewController.m in Sources */,
+				31E6D22D20DCADEF0093E2AC /* LoveCarViewController.m in Sources */,
+				31E6D22E20DCADEF0093E2AC /* RegisterViewController.m in Sources */,
+				31E6D22F20DCADEF0093E2AC /* NicknameViewController.m in Sources */,
+				31E6D23020DCADEF0093E2AC /* UpkeepdetailController.m in Sources */,
+				31E6D23120DCADEF0093E2AC /* ContractModel.m in Sources */,
+				31E6D23220DCADEF0093E2AC /* WBAFNetworkingLogger.m in Sources */,
+				31E6D23320DCADEF0093E2AC /* NSDictionary+NilSafe.m in Sources */,
+				31E6D23420DCADEF0093E2AC /* MapHomeViewController.m in Sources */,
+				31E6D23520DCADEF0093E2AC /* CommodityCell.m in Sources */,
+				31E6D23620DCADEF0093E2AC /* CommodityDetailCellsConfigurator.m in Sources */,
+				31E6D23720DCADEF0093E2AC /* CommodityDetailViewController.m in Sources */,
+				31E6D23820DCADEF0093E2AC /* NSBundle+TZImagePicker.m in Sources */,
+				31E6D23920DCADEF0093E2AC /* ContractDetailed.m in Sources */,
+				31E6D23A20DCADEF0093E2AC /* GFAddressPicker.m in Sources */,
+				31E6D23B20DCADEF0093E2AC /* CarAnnotation.m in Sources */,
+				31E6D23C20DCADEF0093E2AC /* AboutmeViewController.m in Sources */,
+				31E6D23D20DCADEF0093E2AC /* CommodityDescriptionTitleCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4043,6 +5327,244 @@
 			};
 			name = AdHoc;
 		};
+		31E6D13A20DCAD160093E2AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99356F0C29DB985F8F48A6CF /* Pods-dssp-preStandby.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = TTHP924WDZ;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+					"DEVELOPMENT=4",
+				);
+				INFOPLIST_FILE = "dssp/config/preStandby/dssp-preStandby.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "57d4c7fe-4b43-49d5-9e9d-97349191618a";
+				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		31E6D13B20DCAD160093E2AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B44F0692C5BA2771F5BB741 /* Pods-dssp-preStandby.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = TTHP924WDZ;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+					"DEVELOPMENT=4",
+				);
+				INFOPLIST_FILE = "dssp/config/preStandby/dssp-preStandby.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fe8442-73cf-448b-b298-324ff170d66e";
+				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		31E6D13C20DCAD160093E2AC /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2375556C246CBB5807A7DD7C /* Pods-dssp-preStandby.adhoc.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = TTHP924WDZ;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+					"DEVELOPMENT=4",
+				);
+				INFOPLIST_FILE = "dssp/config/preStandby/dssp-preStandby.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "99dd68dd-33c0-42b8-9a27-dc693f0e17ca";
+				PROVISIONING_PROFILE_SPECIFIER = dsspAdHoc;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = AdHoc;
+		};
+		31E6D25320DCADEF0093E2AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 794E647310A1211F814DCB81 /* Pods-dsspStandby.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = TTHP924WDZ;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+					"DEVELOPMENT=5",
+				);
+				INFOPLIST_FILE = dssp/config/proStandby/InfoStandby.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "57d4c7fe-4b43-49d5-9e9d-97349191618a";
+				PROVISIONING_PROFILE_SPECIFIER = dsspdevelop;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		31E6D25420DCADEF0093E2AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72BB075F87C571A62D2B8D19 /* Pods-dsspStandby.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = TTHP924WDZ;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+					"DEVELOPMENT=5",
+				);
+				INFOPLIST_FILE = dssp/config/proStandby/InfoStandby.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fe8442-73cf-448b-b298-324ff170d66e";
+				PROVISIONING_PROFILE_SPECIFIER = dsspdistribution;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		31E6D25520DCADEF0093E2AC /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFBA57E8DC5BAC05B68C610C /* Pods-dsspStandby.adhoc.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Versioned";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dssp/dssp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = TTHP924WDZ;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/dssp/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+					"DEVELOPMENT=5",
+				);
+				INFOPLIST_FILE = dssp/config/proStandby/InfoStandby.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dssp/Utils/UMessage_Sdk_1.5.0a",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.capsa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "99dd68dd-33c0-42b8-9a27-dc693f0e17ca";
+				PROVISIONING_PROFILE_SPECIFIER = dsspAdHoc;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = AdHoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4092,6 +5614,26 @@
 				316CA4801F9F3475009F541E /* Debug */,
 				316CA4811F9F3475009F541E /* Release */,
 				31A04AA6208625D000A2D1C4 /* AdHoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31E6D13920DCAD160093E2AC /* Build configuration list for PBXNativeTarget "dssp-preStandby" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31E6D13A20DCAD160093E2AC /* Debug */,
+				31E6D13B20DCAD160093E2AC /* Release */,
+				31E6D13C20DCAD160093E2AC /* AdHoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31E6D25220DCADEF0093E2AC /* Build configuration list for PBXNativeTarget "dsspStandby" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31E6D25320DCADEF0093E2AC /* Debug */,
+				31E6D25420DCADEF0093E2AC /* Release */,
+				31E6D25520DCADEF0093E2AC /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -129,7 +129,7 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 #define telephones @"tel:010-82208136"
 
-#else                 //SIT
+#elif DEVELOPMENT == 0 //SIT
 
 #define baseUrl @"http://sit-dssp.dstsp.com:50001/dssp/v1/core/"
 ///获取支付签名参数
@@ -138,6 +138,28 @@ typedef NS_ENUM(NSUInteger, PoiType) {
 
 ///统计
 #define uploading @"http://sit-dssp.dstsp.com:50001/dssp/v1/message/monitoring/uploading"
+#define telephones @"tel:010-82208136"
+
+#elif DEVELOPMENT == 5 //proStandby
+
+#define baseUrl @"http://123.125.218.27:50006/dssp/v1/core/"
+///获取支付签名参数
+#define appCreatePay @"http://123.125.218.27:50006/dssp/v1/payment/v1/appCreatePay"
+#define payOrderQuery @"http://123.125.218.27:50006/dssp/v1/payment/v1/orderQuery"
+
+///统计
+#define uploading @"http://123.125.218.27:50006/dssp/v1/message/monitoring/uploading"
+#define telephones @"tel:010-82208136"
+
+#elif DEVELOPMENT == 4 //preStandby
+
+#define baseUrl @"http://123.125.218.27:50006/dssp/v1/core/"
+///获取支付签名参数
+#define appCreatePay @"http://123.125.218.27:50006/dssp/v1/payment/v1/appCreatePay"
+#define payOrderQuery @"http://123.125.218.27:50006/dssp/v1/payment/v1/orderQuery"
+
+///统计
+#define uploading @"http://123.125.218.27:50006/dssp/v1/message/monitoring/uploading"
 #define telephones @"tel:010-82208136"
 
 #endif
