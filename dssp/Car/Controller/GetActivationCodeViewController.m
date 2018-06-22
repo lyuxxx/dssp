@@ -62,7 +62,7 @@
         [topV addSubview:label];
         [label makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(10 * WidthCoefficient);
-            make.height.equalTo(10 * HeightCoefficient);
+            make.height.equalTo(20 * HeightCoefficient);
             make.width.equalTo(70 * WidthCoefficient);
             make.top.equalTo((10 + 30 * i) * HeightCoefficient);
         }];
@@ -74,7 +74,7 @@
         [label1 makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(label.right).offset(10 * WidthCoefficient);
             make.height.equalTo(20 * HeightCoefficient);
-            make.top.equalTo(label.top);
+            make.centerY.equalTo(label);
         }];
         if (i == 0) {
             self.userNameLabel = label1;
@@ -123,7 +123,7 @@
         make.height.equalTo(150.5 * HeightCoefficient - 50.5 * HeightCoefficient);
     }];
     
-    NSArray *botTitles = @[@"硬件码",@"检验码",@"数据版本"];
+    NSArray *botTitles = @[@"硬件码(System ID)",@"检验码(ACC Code)",@"数据版本"];
     NSArray *placeHolders = @[@"请输入系统id",@"请输入ACC码",@"请输入数据版本"];
     for (NSInteger i = 0; i < 2; i++) {
         UILabel *label = [[UILabel alloc] init];
@@ -134,7 +134,7 @@
         [label makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(15 * WidthCoefficient);
             make.height.equalTo(21 * HeightCoefficient);
-            make.width.equalTo(70 * WidthCoefficient);
+            make.width.equalTo(130 * WidthCoefficient);
             make.top.equalTo((15 + 50 * i) * HeightCoefficient);
         }];
         
