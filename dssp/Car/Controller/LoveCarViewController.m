@@ -335,6 +335,12 @@
     NSArray *imgTitles = @[@"智慧出行_icon",@"油价查询_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"地图升级_icon",@"呼叫中心_icon"];
     NSMutableArray<TopImgButton *> *btns = [NSMutableArray new];
     
+    //rcc
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"rccStatus"] == 2) {
+        titles = @[NSLocalizedString(@"智慧出行", nil),NSLocalizedString(@"油价查询", nil),NSLocalizedString(@"车载WIFI", nil),NSLocalizedString(@"预约保养", nil),NSLocalizedString(@"车载流量", nil),NSLocalizedString(@"车辆追踪", nil),NSLocalizedString(@"车况报告", nil),NSLocalizedString(@"驾驶行为", nil),NSLocalizedString(@"违章查询", nil),NSLocalizedString(@"行车日志", nil),NSLocalizedString(@"一键呼叫", nil)];
+        imgTitles = @[@"智慧出行_icon",@"油价查询_icon",@"车载WIFI_icon",@"预约保养_icon",@"流量查询_icon",@"车辆追踪_icon",@"车况报告_icon",@"驾驶行为_icon",@"违章查询_icon",@"行车日志_icon",@"呼叫中心_icon"];
+    }
+    
     for (NSInteger i = 0; i < titles.count; i++) {
         TopImgButton *btn = [TopImgButton buttonWithType:UIButtonTypeCustom];
         btn.tag = 100 + i;
@@ -520,38 +526,64 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 110) {
-        if ([KuserName isEqualToString:@"18911568274"]) {
-            [MBProgressHUD showText:@"当前为游客模式，无此操作权限"];
-            return;
+        //rcc
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"rccStatus"] == 2) {
+            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [InputalertView initWithTitle:@"拨打电话至DS客服中心?" img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
+            //            InputalertView.delegate = self;
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: InputalertView];
+            
+            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                if (btn.tag == 100) {//左边按钮
+                    
+                    
+                }
+                if(btn.tag ==101)
+                {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
+                    });
+                    
+                }
+                
+            };
+        } else {
+            if ([KuserName isEqualToString:@"18911568274"]) {
+                [MBProgressHUD showText:@"当前为游客模式，无此操作权限"];
+                return;
+            }
+            UIViewController *vc = [[NSClassFromString(@"MapUpdateViewController") alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
-        UIViewController *vc = [[NSClassFromString(@"MapUpdateViewController") alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag == 111) {
-        
-        InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        [InputalertView initWithTitle:@"拨打电话至DS客服中心?" img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
-        //            InputalertView.delegate = self;
-        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-        [keywindow addSubview: InputalertView];
-        
-        InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
-            if (btn.tag == 100) {//左边按钮
-               
-
-            }
-            if(btn.tag ==101)
-            {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
-                });
-               
-            }
+        //rcc
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"rccStatus"] == 2) {
             
-        };
-        
-        
+        } else {
+            InputAlertView *InputalertView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+            [InputalertView initWithTitle:@"拨打电话至DS客服中心?" img:@"电话_icon" type:10 btnNum:2 btntitleArr:[NSArray arrayWithObjects:@"取消",@"确定", nil] ];
+            //            InputalertView.delegate = self;
+            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+            [keywindow addSubview: InputalertView];
+            
+            InputalertView.clickBlock = ^(UIButton *btn,NSString *str) {
+                if (btn.tag == 100) {//左边按钮
+                    
+                    
+                }
+                if(btn.tag ==101)
+                {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
+                    });
+                    
+                }
+                
+            };
+        }
        
     }
 }

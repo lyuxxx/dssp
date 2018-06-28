@@ -31,20 +31,21 @@
 @property (nonatomic, strong) NSMutableDictionary *result2;
 @property (nonatomic, copy) ServiceClickBlock serviceClickBlock;
 
-//@property (nonatomic, copy) NSString *ID;
-
 @property (nonatomic, copy) NSString *URL;
-
-//@property (nonatomic, strong) NSMutableAttributedString *one;
-
-@property (nonatomic, strong) UIButton * modifyBtn;
 
 @end
 
 @implementation InfoMessageHelpCenterCell
 
+- (void)dealloc {
+    NSLog(@"%@ dealloc",NSStringFromClass([self class]));
+}
+
 + (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *,NSString *))block {
     InfoMessageHelpCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageHelpCenterCell"];
+    if (!cell) {
+        cell = [[InfoMessageHelpCenterCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoMessageHelpCenterCell"];
+    }
      cell.backgroundColor = [UIColor clearColor];
     cell.serviceClickBlock = block;
     return cell;
@@ -101,8 +102,8 @@
     {
         _scroll.scrollEnabled = NO;
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
-        [dataArray1 addObject:@"是"];
-        [dataArray1 addObject:@"否"];
+        [dataArray1 addObject:@"已解答"];
+        [dataArray1 addObject:@"未解答"];
         //没有子节点
         if (array.count == 0) {
             //判断是否有图片
@@ -129,80 +130,139 @@
                 {
                     str = message.serviceName;
                 }
-                
-                if([self isURL:str]) {
-                    _contentLabel.text = str;
-//                    _contentLabel.textColor =[UIColor whiteColor];
-                    CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(size.height);
-                    }];
-
-                } else {
-                
-                    urlArr = [self getURLFromStr:str];
-                    
-                    if (urlArr.count==0) {
-                        _URL = @"";
-                    }
-                    else
-                    {
-                        _URL = (NSString *)urlArr[0] ;
-                    }
-                    
-//                    NSString *text = message.serviceDetails;
-                    CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(size.height+5);
-                    }];
-
-                    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:str];
-
-                    /**
-                     *  设置整段文本size
-                     */
-                    one.yy_font = [UIFont fontWithName:FontName size:15];
-                    one.yy_color = [UIColor whiteColor];
-
-                    NSRange range = [str rangeOfString:_URL];
-                    //                    [_one yy_setTextUnderline:[YYTextDecoration decorationWithStyle:YYTextLineStyleSingle] range:range];
-                    [one yy_setFont:[UIFont boldSystemFontOfSize:15] range:range];
-
-                    /**
-                     *  被标记的文字颜色
-                     */
-                    UIColor *textColor = [UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000];
-                  
-                    [one yy_setTextHighlightRange:range color:textColor backgroundColor:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-
-                        NSLog(@"1323423");
-
-                    }];
-
-                    _contentLabel.attributedText = one;
-                    
-                    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
-                    // 2. 将点击事件添加到label上
-                    [_contentLabel addGestureRecognizer:labelTapGestureRecognizer];
-                    _contentLabel.userInteractionEnabled = YES;
-                    // 可以理解为设置label可被点击
-                    
-                }
+                [self configLabel:_contentLabel withString:str];
+//                if([self isURL:str]) {
+//                    _contentLabel.text = str;
+////                    _contentLabel.textColor =[UIColor whiteColor];
+//                    CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+//                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+//                        make.height.equalTo(size.height);
+//                    }];
+//
+//                } else {
+//
+//                    urlArr = [self getURLFromStr:str];
+//
+//                    if (urlArr.count==0) {
+//                        _URL = @"";
+//                    }
+//                    else
+//                    {
+//                        _URL = (NSString *)urlArr[0] ;
+//                    }
+//
+////                    NSString *text = message.serviceDetails;
+//                    CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+//                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+//                        make.height.equalTo(size.height+5);
+//                    }];
+//
+//                    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:str];
+//
+//                    /**
+//                     *  设置整段文本size
+//                     */
+//                    one.yy_font = [UIFont fontWithName:FontName size:15];
+//                    one.yy_color = [UIColor whiteColor];
+//
+//                    NSRange range = [str rangeOfString:_URL];
+//                    //                    [_one yy_setTextUnderline:[YYTextDecoration decorationWithStyle:YYTextLineStyleSingle] range:range];
+//                    [one yy_setFont:[UIFont boldSystemFontOfSize:15] range:range];
+//
+//                    /**
+//                     *  被标记的文字颜色
+//                     */
+//                    UIColor *textColor = [UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000];
+//
+//                    [one yy_setTextHighlightRange:range color:textColor backgroundColor:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+//
+//                        NSLog(@"1323423");
+//
+//                    }];
+//
+//                    _contentLabel.attributedText = one;
+//
+//                    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
+//                    // 2. 将点击事件添加到label上
+//                    [_contentLabel addGestureRecognizer:labelTapGestureRecognizer];
+//                    _contentLabel.userInteractionEnabled = YES;
+//                    // 可以理解为设置label可被点击
+//
+//                }
                 
                 if (message.isLeaf) {
-                    [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@""]];
+                    BOOL fromCache = NO;
+                    weakifySelf
+                    //先从sd缓存取图片
+                    NSString *cacheKey = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:message.serviceImage]];
+                    if (cacheKey) {
+                       UIImage *cacheImg = [[SDImageCache sharedImageCache] imageFromCacheForKey:cacheKey];
+                        if (cacheImg) {
+                            //获取图片宽高
+                            UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:cacheImg];
+                            
+                            self.bgImg.image = cacheImg;
+                            [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                                make.height.equalTo(220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame));
+                            }];
+                            fromCache = YES;
+                            [self.customDelegate removeStoredHeightWithCell:self];
+                        }
+                    }
+                    if (fromCache == NO) {
+                        [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@"chatbox_loading"] options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                            if (image) {
+                                //获取图片宽高
+                                UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:image];
+                                CGFloat showHeight = 220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame);
+                                strongifySelf
+                                
+                                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                                    make.height.equalTo(showHeight);
+                                }];
+                                
+                                [self layoutIfNeeded];
+                                
+                                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
+                                self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
+                                
+                                NSLog(@"!!!%@",NSStringFromCGRect(_bubble.bounds));
+                                
+                                [self.customDelegate updateTableViewWithCell:self CellHeight:self.message.cellHeight DownloadSuccess:YES];
+                            } else {
+                                strongifySelf
+                                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                                    make.height.equalTo(165 * WidthCoefficient);
+                                }];
+                                
+                                self.bgImg.image = [UIImage imageNamed:@"chatbox_fail"];
+                                
+                                [self layoutIfNeeded];
+                                
+                                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
+                                self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
+                                
+                                NSLog(@"!!!%@",NSStringFromCGRect(_bubble.bounds));
+                                
+                                [self.customDelegate updateTableViewWithCell:self CellHeight:self.message.cellHeight DownloadSuccess:NO];
+                            }
+                        }];
+                    }
                 } else {
                     NSData * imageData =[[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
                     
                     UIImage *photo = [UIImage imageWithData:imageData];
+                    
+                    //获取图片宽高
+                    UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:photo];
+                    
                     self.bgImg.image = photo;
+                    [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.equalTo(220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame));
+                    }];
                 }
-                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.height.equalTo(165*WidthCoefficient);
-                }];
-                //
                 
-                _contentLabel1.text = @"该提示对您是否有帮助?";
+                _contentLabel1.text = @"是否解答您的问题?";
                 CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
                 [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
                     make.height.equalTo(size1.height);
@@ -327,68 +387,69 @@
                 {
                     str = message.serviceName;
                 }
-                if([self isURL:str]) {
-                _contentLabel.text = str;
-//                _contentLabel.textColor =[UIColor whiteColor];
-                CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(size.height+5);
-                    }];
-                    
-                } else {
-                    
-                    urlArr = [self getURLFromStr:str];
-                    
-                    if (urlArr.count==0) {
-                        _URL = @"";
-                    }
-                    else
-                    {
-                        _URL = (NSString *)urlArr[0] ;
-                    }
-                    
-                    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:str];
-                    CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(size.height+5);
-                    }];
-                    
-                    // 设置整段文本size
-                    one.yy_font = [UIFont fontWithName:FontName size:15];
-                    one.yy_color = [UIColor whiteColor];
-
-                    //获得range， 只设置标记文字的size、下划线
-                    NSRange range = [str rangeOfString:_URL];
-//                    [_one yy_setTextUnderline:[YYTextDecoration decorationWithStyle:YYTextLineStyleSingle] range:range];
-                    [one yy_setFont:[UIFont boldSystemFontOfSize:15] range:range];
-
-                //被标记的文字颜色
-                  UIColor *textColor = [UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000];
-
-
-                [one yy_setTextHighlightRange:range color:textColor backgroundColor:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-                        
-                        NSLog(@"1323423");
-                        
-                    }];
-                    
-    
-                    _contentLabel.attributedText = one;
-                    
-                    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
-                    // 2. 将点击事件添加到label上
-                    [_contentLabel addGestureRecognizer:labelTapGestureRecognizer];
-                    _contentLabel.userInteractionEnabled = YES;
-                    // 可以理解为设置label可被点击
-                 
-                    
-                }
+                [self configLabel:_contentLabel withString:str];
+//                if([self isURL:str]) {
+//                _contentLabel.text = str;
+////                _contentLabel.textColor =[UIColor whiteColor];
+//                CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+//                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+//                        make.height.equalTo(size.height+5);
+//                    }];
+//
+//                } else {
+//
+//                    urlArr = [self getURLFromStr:str];
+//
+//                    if (urlArr.count==0) {
+//                        _URL = @"";
+//                    }
+//                    else
+//                    {
+//                        _URL = (NSString *)urlArr[0] ;
+//                    }
+//
+//                    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:str];
+//                    CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+//                    [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+//                        make.height.equalTo(size.height+5);
+//                    }];
+//
+//                    // 设置整段文本size
+//                    one.yy_font = [UIFont fontWithName:FontName size:15];
+//                    one.yy_color = [UIColor whiteColor];
+//
+//                    //获得range， 只设置标记文字的size、下划线
+//                    NSRange range = [str rangeOfString:_URL];
+////                    [_one yy_setTextUnderline:[YYTextDecoration decorationWithStyle:YYTextLineStyleSingle] range:range];
+//                    [one yy_setFont:[UIFont boldSystemFontOfSize:15] range:range];
+//
+//                //被标记的文字颜色
+//                  UIColor *textColor = [UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000];
+//
+//
+//                [one yy_setTextHighlightRange:range color:textColor backgroundColor:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+//
+//                        NSLog(@"1323423");
+//
+//                    }];
+//
+//
+//                    _contentLabel.attributedText = one;
+//
+//                    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
+//                    // 2. 将点击事件添加到label上
+//                    [_contentLabel addGestureRecognizer:labelTapGestureRecognizer];
+//                    _contentLabel.userInteractionEnabled = YES;
+//                    // 可以理解为设置label可被点击
+//
+//
+//                }
                 
             [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
                     make.height.height.equalTo(0 * WidthCoefficient);
             }];
             
-            _contentLabel1.text = @"该提示对您是否有帮助?";
+            _contentLabel1.text = @"是否解答您的问题?";
             CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
                 [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
                     make.height.equalTo(size1.height);
@@ -516,59 +577,59 @@
 //            {
 //                str = message.serviceName;
 //            }
-            
-            if([self isURL:str]) {
-                _contentLabel.text = str;
-                //_contentLabel.textColor =[UIColor whiteColor];
-                CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-                [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(size.height);
-                }];
-                
-            } else {
-                
-                urlArr = [self getURLFromStr:str];
-                if (urlArr.count==0) {
-                    _URL = @"";
-                }
-                else
-                {
-                    _URL = (NSString *)urlArr[0] ;
-                }
-                
-                NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:str];
-                CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-                [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(size.height+5);
-                }];
-                
-                // 设置整段文本size
-                one.yy_font = [UIFont fontWithName:FontName size:15];
-                one.yy_color = [UIColor whiteColor];
-                
-                //获得range， 只设置标记文字的size、下划线
-                NSRange range = [str rangeOfString:_URL];
-                //                    [_one yy_setTextUnderline:[YYTextDecoration decorationWithStyle:YYTextLineStyleSingle] range:range];
-                [one yy_setFont:[UIFont boldSystemFontOfSize:15] range:range];
-                
-                //被标记的文字颜色
-                UIColor *textColor = [UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000];
-                
-                [one yy_setTextHighlightRange:range color:textColor backgroundColor:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull str, NSRange range, CGRect rect) {
-                    
-                    NSLog(@"1323423");
-                    
-                }];
-                
-                _contentLabel.attributedText = one;
-                
-                UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
-                // 2. 将点击事件添加到label上
-                [_contentLabel addGestureRecognizer:labelTapGestureRecognizer];
-                _contentLabel.userInteractionEnabled = YES;
-                // 可以理解为设置label可被点击
-                
-            }
+            [self configLabel:_contentLabel withString:str];
+//            if([self isURL:str]) {
+//                _contentLabel.text = str;
+//                //_contentLabel.textColor =[UIColor whiteColor];
+//                CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+//                [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+//                    make.height.equalTo(size.height);
+//                }];
+//
+//            } else {
+//
+//                urlArr = [self getURLFromStr:str];
+//                if (urlArr.count==0) {
+//                    _URL = @"";
+//                }
+//                else
+//                {
+//                    _URL = (NSString *)urlArr[0] ;
+//                }
+//
+//                NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:str];
+//                CGSize size = [str stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+//                [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+//                    make.height.equalTo(size.height+5);
+//                }];
+//
+//                // 设置整段文本size
+//                one.yy_font = [UIFont fontWithName:FontName size:15];
+//                one.yy_color = [UIColor whiteColor];
+//
+//                //获得range， 只设置标记文字的size、下划线
+//                NSRange range = [str rangeOfString:_URL];
+//                //                    [_one yy_setTextUnderline:[YYTextDecoration decorationWithStyle:YYTextLineStyleSingle] range:range];
+//                [one yy_setFont:[UIFont boldSystemFontOfSize:15] range:range];
+//
+//                //被标记的文字颜色
+//                UIColor *textColor = [UIColor colorWithRed:0.093 green:0.492 blue:1.000 alpha:1.000];
+//
+//                [one yy_setTextHighlightRange:range color:textColor backgroundColor:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull str, NSRange range, CGRect rect) {
+//
+//                    NSLog(@"1323423");
+//
+//                }];
+//
+//                _contentLabel.attributedText = one;
+//
+//                UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
+//                // 2. 将点击事件添加到label上
+//                [_contentLabel addGestureRecognizer:labelTapGestureRecognizer];
+//                _contentLabel.userInteractionEnabled = YES;
+//                // 可以理解为设置label可被点击
+//
+//            }
             
             
           
@@ -715,19 +776,19 @@
     }
 }
 
-- (void)labelClick {
-
-    if ([_URL isEqualToString:@""] || !_URL) {
-        return;
-    }
-    else
-    {
-        if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)])
-        {
-            [self.customDelegate sevenProrocolMethod:_URL];
-        }
-    }
-}
+//- (void)labelClick {
+//
+//    if ([_URL isEqualToString:@""] || !_URL) {
+//        return;
+//    }
+//    else
+//    {
+//        if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)])
+//        {
+//            [self.customDelegate sevenProrocolMethod:_URL];
+//        }
+//    }
+//}
 
 - (void)bgImageTapAction {
     //  如果图片为空就直接返回
@@ -806,14 +867,14 @@
     _bgImg.userInteractionEnabled = YES;
     [self.contentView addSubview:self.bgImg];
     [self.bgImg makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_nameLabel).offset(10 * WidthCoefficient);
+        make.left.equalTo(_contentLabel);
         make.top.equalTo(_contentLabel.bottom).offset(10 * WidthCoefficient);
         make.width.equalTo(220 * WidthCoefficient);
         make.height.equalTo(165 * WidthCoefficient);
     }];
     //  为图片添加手势
     UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgImageTapAction)];
-    [self addGestureRecognizer:imageTap];
+    [self.bgImg addGestureRecognizer:imageTap];
     
     
 //    self.contentLabel = [[UITextView alloc] init];
@@ -848,9 +909,9 @@
     _contentLabel1.textColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.contentView addSubview:_contentLabel1];
     [_contentLabel1 makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_contentLabel);
+        make.left.equalTo(_bgImg);
         make.top.equalTo(_bgImg.bottom);
-        make.width.equalTo(_contentLabel);
+        make.width.equalTo(_bgImg);
         make.height.equalTo(0);
     }];
     
@@ -871,8 +932,8 @@
     [self.contentView addSubview:_scroll];
     [_scroll makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_line.bottom);
-        make.centerX.equalTo(_contentLabel1);
-        make.width.equalTo(_contentLabel1).offset(10 * WidthCoefficient);
+        make.centerX.equalTo(_line);
+        make.width.equalTo(_line);
         make.height.equalTo(176 * WidthCoefficient);
     }];
     
@@ -922,8 +983,9 @@
 
 
 
-
+//该函数没有用
 - (BOOL)isURL:(NSString *)url {
+    return NO;
     if(url.length < 1)
         return NO;
     if (url.length>4 && [[url substringToIndex:4] isEqualToString:@"www."]) {
@@ -962,6 +1024,116 @@
         [arr addObject:substringForMatch];
     }
     return arr;
+}
+
+- (void)configLabel:(YYLabel *)label withString:(NSString *)text {
+    
+    NSMutableAttributedString *oriAttStr = [[NSMutableAttributedString alloc] initWithString:text];
+    oriAttStr.yy_font = [UIFont fontWithName:FontName size:15];
+    oriAttStr.yy_color = [UIColor whiteColor];
+    label.attributedText = oriAttStr;
+    
+    //a标签正则
+    NSString *regex_alabel = @"<a href=(?:.*?)>(.*?)<\\/a>";
+    
+    //匹配多个a标签
+    NSArray *array_alabel = [self arrayOfCaptureComponentsOfString:text matchedByRegex:regex_alabel];
+    
+    if (array_alabel.count) {
+        //先把html a标签去掉
+        NSString *labelText = [text stringByReplacingOccurrencesOfString:@"<a href=(.*?)>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, text.length)];
+        labelText = [labelText stringByReplacingOccurrencesOfString:@"<\\/a>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, labelText.length)];
+        
+        //样式文本
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:labelText];
+        attStr.yy_font = [UIFont fontWithName:FontName size:15];
+        attStr.yy_color = [UIColor whiteColor];
+        
+        for (NSArray *array in array_alabel) {
+            //获得链接显示文字的range,高亮颜色
+            NSRange range = [labelText rangeOfString:array[1]];
+            [attStr yy_setFont:[UIFont fontWithName:FontName size:15] range:range];
+            [attStr yy_setColor:[UIColor colorWithHexString:GeneralColorString] range:range];
+            
+            //高亮状态
+            YYTextHighlight *highlight = [YYTextHighlight new];
+            //数据信息存储,用于稍后点击获取url
+            NSString *origin = array[0];
+            NSString *linkStr = [self subStringForString:origin From:@"href=" to:@">"];
+            linkStr = [self getURLFromString:linkStr];
+            highlight.userInfo = @{@"linkUrl": linkStr};
+            [attStr yy_setTextHighlight:highlight range:range];
+        }
+        label.attributedText = attStr;
+    }
+    
+    weakifySelf
+    label.highlightTapAction = ^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        YYTextHighlight *highlight = [text attribute:YYTextHighlightAttributeName atIndex:range.location effectiveRange:NULL];
+        NSDictionary *userInfo = highlight.userInfo;
+        NSString *linkText = userInfo[@"linkUrl"];
+        if (linkText) {
+            strongifySelf
+            //跳转网页
+            if (self.customDelegate && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)]) {
+                [self.customDelegate sevenProrocolMethod:linkText];
+            };
+        }
+    };
+    
+    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) text:label.attributedText];
+    [label updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(layout.textBoundingSize.height);
+    }];
+}
+
+- (NSString *)getURLFromString:(NSString *)string {
+    NSError *error;
+    NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
+    NSArray *arrayOfAllMatches = [dataDetector matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    for (NSTextCheckingResult *match in arrayOfAllMatches) {
+        if (match.resultType != NSTextCheckingTypeLink) {
+            continue;
+        }
+        NSString *substringForMatch = [string substringWithRange:match.range];
+        return substringForMatch;
+    }
+    return nil;
+}
+
+- (NSString *)subStringForString:(NSString *)string From:(NSString *)startString to:(NSString *)endString{
+    
+    NSRange startRange = [string rangeOfString:startString];
+    NSRange endRange = [string rangeOfString:endString];
+    NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
+    return [string substringWithRange:range];
+    
+}
+
+- (NSArray *)arrayOfCaptureComponentsOfString:(NSString *)data matchedByRegex:(NSString *)regex
+{
+    NSError *error;
+    NSRegularExpression *regExpression = [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    NSMutableArray *test = [NSMutableArray array];
+    
+    NSArray *matches = [regExpression matchesInString:data options:NSMatchingReportProgress range:NSMakeRange(0, data.length)];
+    
+    for(NSTextCheckingResult *match in matches) {
+        NSMutableArray *result = [NSMutableArray arrayWithCapacity:match.numberOfRanges];
+        for(NSInteger i=0; i<match.numberOfRanges; i++) {
+            NSRange matchRange = [match rangeAtIndex:i];
+            NSString *matchStr = nil;
+            if(matchRange.location != NSNotFound) {
+                matchStr = [data substringWithRange:matchRange];
+            } else {
+                matchStr = @"";
+            }
+            [result addObject:matchStr];
+        }
+        [test addObject:result];
+    }
+    return test;
 }
 
 @end

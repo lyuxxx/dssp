@@ -30,9 +30,15 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DKSKeyboardView *keyView;
 @property (nonatomic, strong) NSMutableArray<InfoMessage *> *dataSource;
+
+@property (nonatomic, strong) NSMutableDictionary *imgCellHeightDict;
 @end
 
 @implementation InformationCenterViewController
+
+- (void)dealloc {
+    NSLog(@"%@ dealloc",NSStringFromClass([self class]));
+}
 
 - (BOOL)needGradientBg {
     return NO;
@@ -61,7 +67,8 @@
 //    self.tableView.backgroundColor = [UIColor redColor];
     self.tableView.backgroundColor= [UIColor clearColor];
     
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"背景"]];
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.image = [UIImage imageNamed:@"背景"];
     self.tableView.backgroundView = imageView;
     
     if (@available(iOS 11.0, *)) {
@@ -74,9 +81,9 @@
     self.tableView.dataSource = self;
 //     adjustsScrollViewInsets_NO(_tableView,self);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
-    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
-     [self.tableView registerClass:[InfoMessageLeftCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageLeftCell class])];
+//    [self.tableView registerClass:[InfoMessageHelpCenterCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageHelpCenterCell class])];
+//    [self.tableView registerClass:[InfoMessageUserCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageUserCell class])];
+//     [self.tableView registerClass:[InfoMessageLeftCell class] forCellReuseIdentifier:NSStringFromClass([InfoMessageLeftCell class])];
     [self.view addSubview:self.tableView];
     
 //    [self.tableView makeConstraints:^(MASConstraintMaker *make) {
@@ -96,9 +103,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
 
+    weakifySelf
     //给UITableView添加手势
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
-    tapGesture.delegate = self;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        strongifySelf
+        [self.keyView.textView resignFirstResponder];
+    }];;
+    tapGesture.cancelsTouchesInView = NO;
+    tapGesture.numberOfTapsRequired = 1;
+//    tapGesture.delegate = self;
     [self.tableView addGestureRecognizer:tapGesture];
 
     //添加输入框
@@ -176,7 +189,7 @@
 {
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
-    if (self.keyView.textView.text.length>1 ||self.keyView.textView.text.length == 1) {
+    if (self.keyView.textView.text.length) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
             InfoMessage *messageMe = [[InfoMessage alloc] init];
             messageMe.text = self.keyView.textView.text;
@@ -216,7 +229,7 @@
 //            dispatch_async(dispatch_get_main_queue(), ^{
                 InfoMessage *message = [[InfoMessage alloc] init];
                 message.type = InfoMessageTypeTwo;
-                message.choices = @[@"确定",@"关闭"];
+                message.choices = @[@"已解答",@"未解答"];
                 message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
                 [self sendMessage:message];
               
@@ -248,8 +261,8 @@
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
                         if ([message.serviceName isEqualToString:@"未查询到相关信息!"]) {
                             message.type = InfoMessageTypeTwo;
-                            message.choices = @[@"确定",@"关闭"];
-                            message.serviceDetails = @"未查询到相关信息!\n是否继续使用智能客服服务?";
+                            message.choices = @[@"已解答",@"未解答"];
+                            message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                             [self sendMessage:message];
                         }else {
                             message.type = InfoMessageTypeOther;
@@ -260,7 +273,7 @@
                         dispatch_async(dispatch_get_main_queue(), ^{
                             InfoMessage *message = [[InfoMessage alloc] init];
                             message.type = InfoMessageTypeTwo;
-                            message.choices = @[@"确定",@"关闭"];
+                            message.choices = @[@"已解答",@"未解答"];
                             message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
                             [self sendMessage:message];
                             
@@ -272,7 +285,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
-                        message.choices = @[@"确定",@"关闭"];
+                        message.choices = @[@"已解答",@"未解答"];
                         message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
                         [self sendMessage:message];
                         
@@ -282,7 +295,6 @@
                 
             } failure:^(NSInteger code) {
                 
-                
             }];
     }
  }
@@ -291,7 +303,8 @@
 
 //点击键盘上的确定按钮
 - (void)textViewContentText:(NSString *)textStr {
-
+    [self clickSengMsg:nil];
+    return;
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
     
@@ -462,16 +475,16 @@
  
 }
 
-#pragma mark ====== 点击UITableView ======
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    //    收回键盘
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
-    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-        return NO;
-    }
-    return YES;
-}
+//#pragma mark ====== 点击UITableView ======
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//    //    收回键盘
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
+//    //若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+//    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+//        return NO;
+//    }
+//    return YES;
+//}
 
 #pragma mark- HelperCenterCell的代理方法
 - (void)sevenProrocolMethod:(NSString *)cellUrl
@@ -482,7 +495,7 @@
 }
 
 - (void)showPic:(UIImage *)image {
-    
+    [self.keyView.textView resignFirstResponder];
     NSLog("手势的点击事件");
 #warning 这里为了复用意见反馈的预览图片 所以对传入的参数进行了封装 9999 是预定的tag初始值 因为对于图片数组的会移除最后一个 所以这里添加了一个空图片对象
     NSMutableArray<UIImage *> *imageArray = [NSMutableArray array];
@@ -505,6 +518,57 @@
         }];
         
     }];
+}
+
+- (void)updateTableViewWithCell:(InfoMessageHelpCenterCell *)cell CellHeight:(CGFloat)height DownloadSuccess:(BOOL)success {
+    NSInteger row = [self.dataSource indexOfObject:cell.message];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    //存储过当前cellHeight
+    if (![[self.imgCellHeightDict allKeys] containsObject:indexPath]) {
+        [self.imgCellHeightDict setObject:[NSNumber numberWithFloat:height] forKey:indexPath];
+        [self updateTableViewWithIndexPath:indexPath];
+    } else {//存储过
+        CGFloat storedHeight = ((NSNumber *)[self.imgCellHeightDict objectForKey:indexPath]).floatValue;
+        NSLog(@"###%f\n%f",storedHeight,height);
+        if (fabs(storedHeight - height) > 0.000001) {
+            [self.imgCellHeightDict setObject:[NSNumber numberWithFloat:height] forKey:indexPath];
+            [self updateTableViewWithIndexPath:indexPath];
+        }
+    }
+}
+
+- (void)removeStoredHeightWithCell:(InfoMessageHelpCenterCell *)cell {
+    NSInteger row = [self.dataSource indexOfObject:cell.message];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    if ([[self.imgCellHeightDict allKeys] containsObject:indexPath]) {
+        [self.imgCellHeightDict removeObjectForKey:indexPath];
+        [self updateTableViewWithIndexPath:indexPath];
+    }
+}
+
+- (void)updateTableViewWithIndexPath:(NSIndexPath *)indexPath {
+    NSArray<NSIndexPath *> *indexPaths = [self.tableView indexPathsForVisibleRows];
+    if ([indexPaths containsObject:indexPath]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView beginUpdates];
+//            [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadData];
+            [self.tableView endUpdates];
+            
+            if (self.dataSource.count != 0)
+            {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (@available(iOS 11.0, *)) {
+                        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                    } else {
+                        if (self.tableView.contentSize.height > self.tableView.bounds.size.height) {
+                            [self.tableView scrollToBottomAnimated:NO];
+                        }
+                    }
+                });
+            }
+        });
+    }
 }
 
 #pragma mark - UITableViewDelegate -
@@ -531,12 +595,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[self.imgCellHeightDict allKeys] containsObject:indexPath]) {
+        return ((NSNumber *)[self.imgCellHeightDict objectForKey:indexPath]).floatValue;
+    }
     return self.dataSource[indexPath.row].cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     InfoMessage *message = self.dataSource[indexPath.row];
-    
+    weakifySelf
     if (message.type == InfoMessageTypeOther) {
         
         
@@ -560,7 +627,7 @@
                                      
                                      };
             
-            if ([sender.titleLabel.text isEqualToString:@"是"]) {
+            if ([sender.titleLabel.text isEqualToString:@"已解答"]) {
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
                                         @"noHelp": @"1",
@@ -573,8 +640,9 @@
                         //                        [MBProgressHUD showText:@"提交反馈成功"];
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
-                        message.choices = @[@"确定",@"关闭"];
-                        message.serviceDetails = @"是否继续使用智能客服服务？";//@"欢迎使用智能客服服务?";
+                        message.choices = nil;
+                        message.serviceDetails = @"感谢您的支持!";//@"欢迎使用智能客服服务?";
+                        strongifySelf
                         [self sendMessage:message];
                         
                     } else {
@@ -586,7 +654,7 @@
                     
                 }];
             }
-            else if ([sender.titleLabel.text isEqualToString:@"否"])
+            else if ([sender.titleLabel.text isEqualToString:@"未解答"])
             {
                 NSDictionary *paras = @{
                                         @"isHelp": @"1",
@@ -599,8 +667,9 @@
                         //                        [MBProgressHUD showText:@"提交反馈成功"];
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
-                        message.choices = @[@"咨询客服",@"关闭"];
-                        message.serviceDetails = @"是否拨打客服电话继续咨询?";
+                        message.choices = @[@"拨打热线",@"不用了"];
+                        message.serviceDetails = @"是否拨打400客服热线进一步咨询?";
+                        strongifySelf
                         [self sendMessage:message];
                         
                     } else {
@@ -672,6 +741,7 @@
                         
                         if(btn.tag ==100)
                         {
+                            strongifySelf
                             //响应事件
                             VINBindingViewController *vc=[[VINBindingViewController alloc] init];
                             vc.hidesBottomBarWhenPushed = YES;
@@ -698,7 +768,7 @@
                         
                         popupView.clickBlock = ^(UIButton *btn,NSString *str) {
                             if (btn.tag == 100) {//左边按钮
-                                
+                                strongifySelf
                                 RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
                                 [self.navigationController pushViewController:vc animated:YES];
                                 
@@ -722,6 +792,7 @@
                                 }
                                 else
                                 {
+                                    strongifySelf
                                     if ([dic2[appNum] isEqualToString:@"StorePageController"]) {
                                         StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
                                         storeTab.hidesBottomBarWhenPushed = YES;
@@ -743,6 +814,7 @@
                             }
                             else
                             {
+                                strongifySelf
                                 if ([dic2[appNum] isEqualToString:@"StorePageController"]) {
                                     StoreTabViewController *storeTab = [[StoreTabViewController alloc] init];
                                     storeTab.hidesBottomBarWhenPushed = YES;
@@ -786,7 +858,7 @@
             }
             else
             {
-                
+                strongifySelf
                 InfoMessage *messageMe = [[InfoMessage alloc] init];
                 messageMe.text = sender.titleLabel.text;
                 messageMe.type = InfoMessageTypeMe;
@@ -809,7 +881,7 @@
                 
                 [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    
+                    strongifySelf
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
                         NSDictionary *dic1 = dic[@"data"];
                         //                        _dataArray =[[NSMutableArray alloc] init];
@@ -844,10 +916,10 @@
         return cell;
     }
     if (message.type == InfoMessageTypeTwo) {
-        
+        weakifySelf
         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *serviceId,NSString *serviceParentId,NSString *sourceData,NSString *appNum) {
             
-            if ([sender.titleLabel.text isEqualToString:@"确定"]) {
+            if ([sender.titleLabel.text isEqualToString:@"确定"]) {//没有用
                 
                 NSDictionary *paras = @{
                                         @"serviceParentId":@"0",
@@ -869,7 +941,7 @@
                         NSDate *datenow = [NSDate date];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            
+                            strongifySelf
                             message.time = datenow;
                             message.type = InfoMessageTypeOther;
                             [self sendMessage:message];
@@ -886,7 +958,7 @@
                     
                 }];
             }
-            else if([sender.titleLabel.text isEqualToString:@"咨询客服"])
+            else if([sender.titleLabel.text isEqualToString:@"拨打热线"])
             {
                 
                 NSString *str = [NSString stringWithFormat:@"tel://%@",kphonenumber];
@@ -895,9 +967,27 @@
                 
                 
             }
-            else if([sender.titleLabel.text isEqualToString:@"关闭"])
+            else if([sender.titleLabel.text isEqualToString:@"不用了"] || [sender.titleLabel.text isEqualToString:@"已解答"])
             {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    InfoMessage *message = [[InfoMessage alloc] init];
+                    message.type = InfoMessageTypeTwo;
+                    message.choices = nil;
+                    message.serviceDetails = @"感谢您的支持!";//@"欢迎使用智能客服服务?";
+                    strongifySelf
+                    [self sendMessage:message];
+                });
+                
+            } else if ([sender.titleLabel.text isEqualToString:@"未解答"]) {
+                InfoMessage *message = [[InfoMessage alloc] init];
+                message.type = InfoMessageTypeTwo;
+                message.choices = @[@"拨打热线",@"不用了"];
+                message.serviceDetails = @"是否拨打400客服热线进一步咨询?";
+                strongifySelf
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self sendMessage:message];
+                });
             }
             
         }];
@@ -960,6 +1050,13 @@
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
+}
+
+- (NSMutableDictionary *)imgCellHeightDict {
+    if (!_imgCellHeightDict) {
+        _imgCellHeightDict = [NSMutableDictionary dictionary];
+    }
+    return _imgCellHeightDict;
 }
 
 @end

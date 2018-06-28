@@ -25,6 +25,9 @@
 #pragma mark- 初始化
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     InfoMessageUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageUserCell"];
+    if (!cell) {
+        cell = [[InfoMessageUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoMessageUserCell"];
+    }
     return cell;
 }
 

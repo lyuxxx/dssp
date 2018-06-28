@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "InfoMessage.h"
 
+@class InfoMessageHelpCenterCell;
+
 @protocol SevenProtocolDelegate <NSObject>
 - (void)sevenProrocolMethod:(NSString *)cellUrl;
 - (void)showPic:(UIImage *)image;
+- (void)updateTableViewWithCell:(InfoMessageHelpCenterCell *)cell CellHeight:(CGFloat)height DownloadSuccess:(BOOL)success;
+- (void)removeStoredHeightWithCell:(InfoMessageHelpCenterCell *)cell;
 @end
 
 typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *serviceParentId,NSString *sourceData,NSString *appNum);

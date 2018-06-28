@@ -33,6 +33,9 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView serviceBlock:(void (^)(UIButton *,NSString *,NSString *,NSString *,NSString *))block {
     InfoMessageLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoMessageLeftCell"];
+    if (!cell) {
+        cell = [[InfoMessageLeftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoMessageLeftCell"];
+    }
     cell.serviceClickBlock = block;
     return cell;
 }
@@ -111,6 +114,12 @@
             row = 4;
         }
         CGFloat scrollHeight = 31.5 * WidthCoefficient * row + 10 * WidthCoefficient * (row + 1);
+        if (!dataArray1.count) {
+            scrollHeight = 0;
+            [_line updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_contentLabel.bottom);
+            }];
+        }
         [_scroll updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(scrollHeight);
         }];
