@@ -1052,8 +1052,8 @@
         for (NSArray *array in array_alabel) {
             //获得链接显示文字的range,高亮颜色
             NSRange range = [labelText rangeOfString:array[1]];
-            [attStr yy_setFont:[UIFont fontWithName:FontName size:15] range:range];
-            [attStr yy_setColor:[UIColor colorWithHexString:GeneralColorString] range:range];
+            [attStr yy_setFont:[UIFont fontWithName:@"PingFangSC-Semibold" size:15] range:range];
+            [attStr yy_setColor:[UIColor colorWithHexString:@"e2cd8d"] range:range];
             
             //高亮状态
             YYTextHighlight *highlight = [YYTextHighlight new];
