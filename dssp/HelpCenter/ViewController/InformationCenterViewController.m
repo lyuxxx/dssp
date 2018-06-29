@@ -230,7 +230,7 @@
                 InfoMessage *message = [[InfoMessage alloc] init];
                 message.type = InfoMessageTypeTwo;
                 message.choices = @[@"已解答",@"未解答"];
-                message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                 [self sendMessage:message];
               
 //            });
@@ -274,7 +274,7 @@
                             InfoMessage *message = [[InfoMessage alloc] init];
                             message.type = InfoMessageTypeTwo;
                             message.choices = @[@"已解答",@"未解答"];
-                            message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                            message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                             [self sendMessage:message];
                             
                         });
@@ -286,7 +286,7 @@
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
                         message.choices = @[@"已解答",@"未解答"];
-                        message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                        message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                         [self sendMessage:message];
                         
                     });
@@ -350,8 +350,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 InfoMessage *message = [[InfoMessage alloc] init];
                 message.type = InfoMessageTypeTwo;
-                message.choices = @[@"确定",@"关闭"];
-                message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                message.choices = @[@"已解答",@"未解答"];
+                message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                 [self sendMessage:message];
                 
             });
@@ -388,8 +388,8 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     InfoMessage *message = [[InfoMessage alloc] init];
                     message.type = InfoMessageTypeTwo;
-                    message.choices = @[@"确定",@"关闭"];
-                    message.serviceDetails = @"没有查询到问题，是否继续使用智能客服服务?";
+                    message.choices = @[@"已解答",@"未解答"];
+                    message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                     [self sendMessage:message];
                     
                 });
