@@ -504,57 +504,49 @@
     NSString *startPara = report.periodMonth;
     NSString *endPara = report.periodMonth;
     
-    dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+    
     dispatch_queue_t queue = dispatch_queue_create("ranking", NULL);
-    dispatch_async(queue, ^{
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
         [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingMileageMonthURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingMonthResponse *response = [RankingMonthResponse yy_modelWithJSON:dic];
                 self.mileageRanking = response.data.record[0];
                 
-                dispatch_semaphore_signal(sem);
+                dispatch_group_leave(group);
             } else {
-                dispatch_semaphore_signal(sem);
+                dispatch_group_leave(group);
             }
         } failure:^(NSInteger code) {
-            dispatch_semaphore_signal(sem);
+            dispatch_group_leave(group);
         }];
     });
     
-    dispatch_async(queue, ^{
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
         [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelMonthURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
             if ([dic[@"code"] isEqualToString:@"200"]) {
                 RankingMonthResponse *response = [RankingMonthResponse yy_modelWithJSON:dic];
                 self.fuelRanking = response.data.record[0];
                 
-                dispatch_semaphore_signal(sem);
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self updateChart];
-                });
-                
+                dispatch_group_leave(group);
             } else {
-                dispatch_semaphore_signal(sem);
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self updateChart];
-                });
-                
+                dispatch_group_leave(group);
             }
         } failure:^(NSInteger code) {
-            dispatch_semaphore_signal(sem);
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self updateChart];
-            });
-            
+            dispatch_group_leave(group);
         }];
     });
     
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateChart];
+        });
+    });
 }
 
 - (void)updateChart {
