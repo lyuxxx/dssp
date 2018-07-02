@@ -302,25 +302,29 @@
 -(void)confirmBtnClick:(UIButton *)btn
 {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
-    if (_carbind.isExist) {
-        if([_carbind.vhlTStatus isEqualToString:@"1"])
-        {
-//            T车
-            _vhlTStatustr = @"1";
-            _isExiststr = @"true";
-        }
-        else
-        {
-            _vhlTStatustr = @"0";
-            _isExiststr = @"false";
-        }
-    }
-    else
-    {
-        _vhlTStatustr = @"0";
-        _isExiststr = @"false";
-        
-    }
+//    if (_carbind.isExist) {
+//        if([_carbind.vhlTStatus isEqualToString:@"1"])
+//        {
+////            T车
+//            _vhlTStatustr = @"1";
+//            _isExiststr = @"true";
+//        }
+//        else
+//        {
+//            _vhlTStatustr = @"0";
+//            _isExiststr = @"false";
+//        }
+//    }
+//    else
+//    {
+//        _vhlTStatustr = @"0";
+//        _isExiststr = @"false";
+//
+//    }
+    
+    _vhlTStatustr = _carbind.vhlTStatus;
+    _isExiststr = _carbind.isExist ? @"true": @"false" ;
+    
     NSDictionary *paras = @{
                             @"vin": _carbind.vin,
                             @"doptCode":_carbind.doptCode,
