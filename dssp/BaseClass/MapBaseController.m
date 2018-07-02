@@ -84,7 +84,7 @@ static dispatch_once_t mapBaseOnceToken;
                             @"longitude": [NSString stringWithFormat:@"%f",location.longitude],
                             @"latitude": [NSString stringWithFormat:@"%f",location.latitude],
                             @"tel": tel,
-                            @"address": address,
+                            @"address": address.length > 100 ? [address substringToIndex:100] : address,
                             @"cpId": cpid,
                             @"poiType": typeStr
                             };
