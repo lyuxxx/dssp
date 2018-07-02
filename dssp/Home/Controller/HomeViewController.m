@@ -1716,13 +1716,15 @@ typedef void(^PullWeatherFinished)(void);
             //            NSArray *location=[test objectForKey:@"FormattedAddressLines"];
             //            NSString *str= [location objectAtIndex:0];
             //            self.topView.locationStr = str;
-            [[MapSearchManager sharedManager] weatherLive:test[@"City"] returnBlock:^(MapWeatherLive *weatherInfo) {
-                strongifySelf
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                formatter.dateFormat = @"EEEE";
-                NSString *week = [formatter stringFromDate:[NSDate date]];
-                self.navigationItem.title = [NSString stringWithFormat:@"%@ %@  %@℃",week,weatherInfo.weather,weatherInfo.temperature];
-            }];
+            if (test[@"City"]) {
+                [[MapSearchManager sharedManager] weatherLive:test[@"City"] returnBlock:^(MapWeatherLive *weatherInfo) {
+                    strongifySelf
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"EEEE";
+                    NSString *week = [formatter stringFromDate:[NSDate date]];
+                    self.navigationItem.title = [NSString stringWithFormat:@"%@ %@  %@℃",week,weatherInfo.weather,weatherInfo.temperature];
+                }];
+            }
         }
     }];
 }
