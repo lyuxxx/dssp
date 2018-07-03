@@ -107,7 +107,7 @@
         //没有子节点
         if (array.count == 0) {
             //判断是否有图片
-            if (message.serviceImage)
+            if (message.serviceImage && [message.serviceImage isNotBlank])
             {
 //                self.ID = message.serviceParentId;
                 
