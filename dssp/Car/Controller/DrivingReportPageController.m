@@ -10,8 +10,10 @@
 #import "DrivingWeekReportViewController.h"
 #import "DrivingMonthReportViewController.h"
 
-@interface DrivingReportPageController ()
+NSString * const DrivingReportScreenShotNotificationName = @"DrivingReportScreenShotNotificationName";
 
+@interface DrivingReportPageController ()
+@property (nonatomic, strong) UIButton *screenShotIcon;
 @end
 
 @implementation DrivingReportPageController
@@ -45,6 +47,16 @@
     
     self.view.clipsToBounds = YES;
     
+    self.screenShotIcon = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_screenShotIcon setImage:[UIImage imageNamed:@"screenshot_icon"] forState:UIControlStateNormal];
+    [_screenShotIcon addTarget:self action:@selector(screenshotNotification) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:_screenShotIcon];
+    self.navigationItem.rightBarButtonItem = item;
+    [_screenShotIcon makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(24);
+    }];
+    self.enableScreenShot = NO;
+    
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight);
     gradient.colors = @[(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#040000"].CGColor,(id)[UIColor colorWithHexString:@"#212121"].CGColor];
@@ -53,6 +65,19 @@
     gradient.endPoint = CGPointMake(0.5, 1);
     [self.view.layer addSublayer:gradient];
     [self.view.layer insertSublayer:gradient atIndex:0];
+}
+
+- (void)setEnableScreenShot:(BOOL)enableScreenShot {
+    _enableScreenShot = enableScreenShot;
+    if (_enableScreenShot) {
+        _screenShotIcon.hidden = NO;
+    } else {
+        _screenShotIcon.hidden = YES;
+    }
+}
+
+- (void)screenshotNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:DrivingReportScreenShotNotificationName object:nil];
 }
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {

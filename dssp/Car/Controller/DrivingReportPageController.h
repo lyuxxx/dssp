@@ -8,6 +8,10 @@
 
 #import "WMPageController.h"
 
+extern NSString * const DrivingReportScreenShotNotificationName;
+
 @interface DrivingReportPageController : WMPageController
+
+@property (nonatomic, assign) BOOL enableScreenShot;
 
 @end

@@ -61,7 +61,7 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setImage:[UIImage imageNamed:@"arrow行车轨迹"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"track_detail_back"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [backBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -101,7 +101,7 @@
     _top.layer.mask = maskLayer;
     _top.layer.masksToBounds = YES;
     
-    self.mapView.logoCenter = CGPointMake(35, 299 * HeightCoefficient);
+    self.mapView.logoCenter = CGPointMake(35, 269 * HeightCoefficient);
 }
 
 - (void)backBtnClick:(UIButton *)sender {
@@ -167,7 +167,7 @@
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
     [_mapView makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(320 * HeightCoefficient);
+        make.height.equalTo(290 * HeightCoefficient);
         make.width.equalTo(kScreenWidth);
         make.top.equalTo(self.view);
         make.left.right.equalTo(self.view);
@@ -187,7 +187,7 @@
     [topV makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(80 * HeightCoefficient);
         make.width.equalTo(kScreenWidth);
-        make.top.equalTo(self.mapView.bottom).offset(-10 * HeightCoefficient);
+        make.top.equalTo(self.mapView.bottom).offset(-9.5 * HeightCoefficient);
         make.centerX.equalTo(self.view);
     }];
     
@@ -243,7 +243,7 @@
     [self.view addSubview:midV];
     [midV makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(kScreenWidth);
-        make.height.equalTo(100 * HeightCoefficient);
+        make.height.equalTo(120);
         make.top.equalTo(line.bottom);
         make.centerX.equalTo(self.view);
     }];
@@ -256,12 +256,12 @@
         } else {
             dot.backgroundColor = [UIColor colorWithHexString:@"ac0042"];
         }
-        dot.layer.cornerRadius = 3 * WidthCoefficient;
+        dot.layer.cornerRadius = 3;
         [midV addSubview:dot];
         [dot makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.equalTo(6 * WidthCoefficient);
-            make.left.equalTo(16 * WidthCoefficient);
-            make.top.equalTo((17 + 50 * i) * HeightCoefficient);
+            make.width.height.equalTo(6);
+            make.left.equalTo(16);
+            make.top.equalTo(17 + 50 * i);
         }];
         
         UILabel *label0 = [[UILabel alloc] init];
@@ -271,38 +271,37 @@
         label0.text = midTitles[i];
         [midV addSubview:label0];
         [label0 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(35 * WidthCoefficient);
-            make.height.equalTo(20 * HeightCoefficient);
-            make.left.equalTo(dot.right).offset(5 * WidthCoefficient);
+            make.width.equalTo(35);
+            make.height.equalTo(20);
+            make.left.equalTo(dot.right).offset(5);
             make.centerY.equalTo(dot);
         }];
         
         YYLabel *label1 = [[YYLabel alloc] init];
         label1.textVerticalAlignment = YYTextVerticalAlignmentTop;
-        label1.textContainerInset = UIEdgeInsetsMake(2 * WidthCoefficient, 0, 2 * WidthCoefficient, 0);
+        label1.textContainerInset = UIEdgeInsetsMake(0 , 0, 0 , 0);
         label1.numberOfLines = 2;
         label1.font = [UIFont fontWithName:FontName size:14];
         label1.textColor = [UIColor colorWithHexString:@"#ffffff"];
         label1.textAlignment = NSTextAlignmentLeft;
         [midV addSubview:label1];
         [label1 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(222 * WidthCoefficient);
-            make.height.equalTo(40 * HeightCoefficient);
-            make.left.equalTo(label0.right).offset(5 * WidthCoefficient);
+            make.width.equalTo(222);
+            make.height.equalTo(40);
+            make.left.equalTo(label0.right).offset(5);
             make.top.equalTo(label0);
         }];
         
         UILabel *label2 = [[UILabel alloc] init];
-        label2.text = @"12:35:35";
         label2.font = [UIFont fontWithName:FontName size:14];
         label2.adjustsFontSizeToFitWidth = YES;
         label2.textColor = [UIColor colorWithHexString:@"#999999"];
         label2.textAlignment = NSTextAlignmentRight;
         [midV addSubview:label2];
         [label2 makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(60 * WidthCoefficient);
-            make.height.equalTo(20 * HeightCoefficient);
-            make.right.equalTo(-16 * WidthCoefficient);
+            make.width.equalTo(60);
+            make.height.equalTo(20);
+            make.right.equalTo(-16);
             make.top.equalTo(label1);
         }];
         
@@ -315,6 +314,87 @@
         }
     }
     
+    UIView *line1 = [[UIView alloc] init];
+    line1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Line"]];
+    [self.view addSubview:line1];
+    [line1 makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(343 * WidthCoefficient);
+        make.height.equalTo(1 * HeightCoefficient);
+        make.top.equalTo(midV.bottom);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    UIView *botV = [[UIView alloc] init];
+    [self.view addSubview:botV];
+    [botV makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line1.bottom);
+        make.left.right.bottom.equalTo(self.view);
+    }];
+    
+    NSArray *botImgNames = @[@"里程_icon",@"时间_icon",@"速度_icon",@"油耗_icon"];
+    NSArray *botTitles = @[NSLocalizedString(@"单次里程", nil),NSLocalizedString(@"所用时间", nil),NSLocalizedString(@"平均速度", nil),NSLocalizedString(@"单次油耗", nil)];
+    
+    for (NSInteger i = 0; i < botImgNames.count; i++) {
+        
+        UIImageView *imgV = [[UIImageView alloc] init];
+        imgV.image = [UIImage imageNamed:botImgNames[i]];
+        [botV addSubview:imgV];
+        [imgV makeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.equalTo(16 * WidthCoefficient);
+            make.left.equalTo(16 * WidthCoefficient);
+            make.top.equalTo((12 + 41 * i) * HeightCoefficient);
+        }];
+        
+        UILabel *label0 = [[UILabel alloc] init];
+        label0.font = [UIFont fontWithName:FontName size:15];
+        label0.textColor = [UIColor colorWithHexString:@"#999999"];
+        label0.text = botTitles[i];
+        [botV addSubview:label0];
+        [label0 makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(100 * WidthCoefficient);
+            make.height.equalTo(20 * HeightCoefficient);
+            make.left.equalTo(imgV.right).offset(10 * WidthCoefficient);
+            make.centerY.equalTo(imgV);
+        }];
+        
+        UILabel *label1 = [[UILabel alloc] init];
+        label1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
+        label1.adjustsFontSizeToFitWidth = YES;
+        label1.textColor = [UIColor whiteColor];
+        label1.text = @"-";
+        [botV addSubview:label1];
+        [label1 makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(-16 * WidthCoefficient);
+            make.height.equalTo(20 * HeightCoefficient);
+            make.centerY.equalTo(imgV);
+        }];
+        
+        UIView *botLine = [[UIView alloc] init];
+        botLine.backgroundColor = [UIColor colorWithHexString:@"#1e1918"];
+        [botV addSubview:botLine];
+        [botLine makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(317 * WidthCoefficient);
+            make.height.equalTo(1 * HeightCoefficient);
+            make.top.equalTo(imgV.bottom).offset(12 * HeightCoefficient);
+            make.left.equalTo(42 * WidthCoefficient);
+        }];
+        
+        if (i == botImgNames.count - 1) {
+            [botLine removeFromSuperview];
+        }
+        
+        if (i == 0) {
+            self.mileageLabel = label1;
+        } else if (i == 1) {
+            self.durationLabel = label1;
+        } else if (i == 2) {
+            self.averageSpeedLabel = label1;
+        } else if (i == 3) {
+            self.fuelConsumedLabel = label1;
+        }
+    }
+    
+    /**
     UIScrollView *scroll = [[UIScrollView alloc] init];
     scroll.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:scroll];
@@ -412,6 +492,7 @@
     [lastV makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(content).offset(-16 * WidthCoefficient);
     }];
+     **/
 }
 
 - (void)showTrackWithCoordinates:(NSArray<TrackDetailRecordItem *> *)coordinates {

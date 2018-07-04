@@ -13,6 +13,9 @@
 #import <YYText.h>
 #import <UIScrollView+EmptyDataSet.h>
 #import <MJRefresh.h>
+#import <Photos/Photos.h>
+#import "DrivingReportPageController.h"
+#import <UIViewController+WMPageController.h>
 
 #define JUDGE(_K) (_K ? _K : @"-")
 
@@ -68,6 +71,10 @@
     return YES;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DrivingReportScreenShotNotificationName object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -78,12 +85,19 @@
     
     [self.contentScroll.mj_header beginRefreshing];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShotRanking) name:DrivingReportScreenShotNotificationName object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [Statistics staticsstayTimeDataWithType:@"1" WithController:@"DrivingWeekReportViewController"];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self dealWithScreenShotIconWhenViewDidAppear];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -849,6 +863,140 @@
     }
 }
 
+#pragma mark - 截图相关 -
+
+- (void)screenShotRanking {
+    
+    if (self.wm_pageController.currentViewController != self) {
+        return;
+    }
+    
+    [self checkAuthorization:^(BOOL authorized) {
+        if (authorized) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage* viewImage = nil;
+                UIScrollView *scrollView = self.contentScroll;
+                UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, scrollView.opaque, [UIScreen mainScreen].scale);
+                {
+                    CGPoint savedContentOffset = scrollView.contentOffset;
+                    CGRect savedFrame = scrollView.frame;
+                    
+                    scrollView.contentOffset = CGPointZero;
+                    scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+                    
+                    [scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
+                    viewImage = UIGraphicsGetImageFromCurrentImageContext();
+                    
+                    scrollView.contentOffset = savedContentOffset;
+                    scrollView.frame = savedFrame;
+                }
+                UIGraphicsEndImageContext();
+                
+                UIView *whiteV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+                whiteV.backgroundColor = [UIColor whiteColor];
+                [[UIApplication sharedApplication].delegate.window addSubview:whiteV];
+                [UIView animateWithDuration:0.75 animations:^{
+                    whiteV.backgroundColor = [UIColor clearColor];
+                } completion:^(BOOL finished) {
+                    [whiteV removeFromSuperview];
+                    if (viewImage) {
+                        UIImageWriteToSavedPhotosAlbum(viewImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+                    }
+                }];
+            });
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            //修改message的内容，字号，颜色。使用的key值是“attributedMessage"
+            NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"提示"];
+            [title addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:16] range:NSMakeRange(0, [[title string] length])];
+            [title addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#040000"] range:NSMakeRange(0, [[title string] length])];
+            [alertController setValue:title forKey:@"attributedTitle"];
+            
+            //修改message的内容，字号，颜色。使用的key值是“attributedMessage"
+            NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"请在设置中打开相册读写权限以完成此次保存"];
+            [message addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, [[message string] length])];
+            [message addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#040000"] range:NSMakeRange(0, [[message string] length])];
+            [alertController setValue:message forKey:@"attributedMessage"];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [cancelAction setValue:[UIColor colorWithHexString:@"#040000"] forKey:@"titleTextColor"];
+            
+            //修改按钮的颜色，同上可以使用同样的方法修改内容，样式
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+            }];
+            [defaultAction setValue:[UIColor colorWithHexString:@"#ac0042"] forKey:@"titleTextColor"];
+            
+            [alertController addAction:cancelAction];
+            [alertController addAction:defaultAction];
+            
+            //修改背景色
+            UIView *subview = alertController.view.subviews.firstObject;
+            UIView *alertContentView = subview.subviews.firstObject;
+            alertContentView.backgroundColor = [UIColor whiteColor];
+            alertContentView.layer.cornerRadius = 15;
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        }
+    }];
+    
+    
+    
+    
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    NSString *msg = nil ;
+    
+    if(error != NULL){
+        msg = @"保存图片失败" ;
+    }else{
+        msg = @"保存图片成功，可到相册查看" ;
+    }
+    [MBProgressHUD showText:@"截图保存至相册成功"];
+}
+
+- (void)checkAuthorization:(void (^)(BOOL))callback {
+    PHAuthorizationStatus authorStatus = [PHPhotoLibrary authorizationStatus];
+    if (authorStatus != PHAuthorizationStatusAuthorized) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            switch (status) {
+                case PHAuthorizationStatusAuthorized: //已获取权限
+                    callback(YES);
+                    break;
+                    
+                case PHAuthorizationStatusDenied: //用户已经明确否认了这一照片数据的应用程序访问
+                    callback(NO);
+                    break;
+                    
+                case PHAuthorizationStatusRestricted://此应用程序没有被授权访问的照片数据。可能是家长控制权限
+                    callback(NO);
+                    break;
+                    
+                default://其他。。。
+                    callback(NO);
+                    break;
+            }
+        }];
+    } else {
+        callback(YES);
+    }
+}
+
+- (void)dealWithScreenShotIconWhenViewDidAppear {
+    if (self.emptyDataSetView && self.emptyDataSetView.hidden == NO) {
+        ((DrivingReportPageController *)self.wm_pageController).enableScreenShot = NO;
+    }
+    if (self.emptyDataSetView && self.emptyDataSetView.hidden == YES) {
+        ((DrivingReportPageController *)self.wm_pageController).enableScreenShot = YES;
+    }
+}
+
 ///用于选择日期后转化为接口入参
 - (NSString *)convertDateToTimestamp:(NSDate *)date isStart:(BOOL)isStart {
     
@@ -877,6 +1025,8 @@
 
 - (void)showEmptyDataSet {
     
+    ((DrivingReportPageController *)self.wm_pageController).enableScreenShot = NO;
+    
     if (self.topEmptyView) {
         [self.topEmptyView removeFromSuperview];
         self.topEmptyView = nil;
@@ -902,6 +1052,8 @@
 }
 
 - (void)hideEmptyDataSet {
+    
+    ((DrivingReportPageController *)self.wm_pageController).enableScreenShot = YES;
     
     if (self.topEmptyView) {
         [self.topEmptyView removeFromSuperview];
