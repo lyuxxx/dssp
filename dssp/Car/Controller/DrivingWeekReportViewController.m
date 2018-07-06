@@ -724,7 +724,7 @@
     
     self.fuelUserPercentLabel = [[YYLabel alloc] init];
     _fuelUserPercentLabel.backgroundColor = [UIColor colorWithRed:47.0/255.0 green:39.0/255.0 blue:38.0/255.0 alpha:0.5];
-    NSString *oriStr = [NSString stringWithFormat:@"您本周油耗超过了%.0f%%的用户",self.fuelRanking.fuelPercent];
+    NSString *oriStr = [NSString stringWithFormat:@"您本周油耗优于%.0f%%的用户",self.fuelRanking.fuelPercent];
     NSRange range = [oriStr rangeOfString:[NSString stringWithFormat:@"%.0f%%",self.fuelRanking.fuelPercent]];
     NSMutableAttributedString *userPercent = [[NSMutableAttributedString alloc] initWithString:oriStr];
     userPercent.yy_alignment = NSTextAlignmentCenter;
@@ -1107,19 +1107,19 @@
     self.lastcontentOffset = contentOffset;
     
     if (offset > 0 && contentOffset > 0) {
-        NSLog(@"上拉行为");
+//        NSLog(@"上拉行为");
         if (scrollView.emptyDataSetVisible) {
             scrollView.contentOffset = CGPointMake(0, 0);
         }
     }
     if (offset < 0 && distanceFromBottom > hight) {
-        NSLog(@"下拉行为");
+//        NSLog(@"下拉行为");
     }
     if (contentOffset == 0) {
-        NSLog(@"滑动到顶部");
+//        NSLog(@"滑动到顶部");
     }
     if (distanceFromBottom < hight) {
-        NSLog(@"滑动到底部");
+//        NSLog(@"滑动到底部");
     }
 }
 

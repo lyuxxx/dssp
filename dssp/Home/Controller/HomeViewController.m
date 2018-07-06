@@ -93,6 +93,10 @@ typedef void(^PullWeatherFinished)(void);
 }
 
 - (void)pullData {
+    
+    //请求天气
+    [self.mgr startUpdatingLocation];
+    
     //清空数据
     self.carousel = nil;
     self.locationStr = nil;
@@ -209,8 +213,6 @@ typedef void(^PullWeatherFinished)(void);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
-                //请求天气
-                [self.mgr startUpdatingLocation];
             });
             
         }];

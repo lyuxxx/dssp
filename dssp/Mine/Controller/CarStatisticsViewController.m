@@ -15,7 +15,7 @@
 #import "InputAlertView.h"
 
 
-@interface CarStatisticsViewController ()
+@interface CarStatisticsViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIScrollView *sc;
 @property (nonatomic, strong) UIButton *unbindBtn;
 @property (nonatomic, strong) UIButton *rightBarItem;
@@ -582,7 +582,7 @@
                 _vhlLisenceField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont fontWithName:FontName size:15]}];
                 _vhlLisenceField.userInteractionEnabled=NO;
                 //            [field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-                
+                _vhlLisenceField.delegate = self;
                 [whiteV addSubview:_vhlLisenceField];
                 [_vhlLisenceField makeConstraints:^(MASConstraintMaker *make) {
                     
@@ -922,11 +922,11 @@
                 [MBProgressHUD showText:NSLocalizedString(@"请输入发动机号后七位", nil)];
                 
             }
-            else if (_vhlLisenceField.text.length !=7) {
-                
-                [MBProgressHUD showText:NSLocalizedString(@"请输入7位车牌号", nil)];
-            }
-            else if (_doptCodeField.text.length == 7 &&_vhlLisenceField.text.length ==7)
+//            else if (_vhlLisenceField.text.length !=7) {
+//
+//                [MBProgressHUD showText:NSLocalizedString(@"请输入7位车牌号", nil)];
+//            }
+            else if (_doptCodeField.text.length == 7)
             {
                 _doptCodeField.userInteractionEnabled=NO;
                 _vhlLisenceField.userInteractionEnabled=NO;
@@ -1003,19 +1003,34 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - UITextFieldDelegate -
+//车牌号限制
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSString *endString;
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+
+//    NSRange punctuationRange = [string rangeOfCharacterFromSet:[NSCharacterSet punctuationCharacterSet]];
+    
+    NSMutableCharacterSet *illegalSet = [NSMutableCharacterSet punctuationCharacterSet];
+    [illegalSet addCharactersInString:@"[]{}（#%-*+=_）\\|~(＜＞$%^&*)_+"];
+    
+    NSRange punctuationRange = [string rangeOfCharacterFromSet:illegalSet];
+
+    NSRange whitespaceAndNewlineRange = [string rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if (lowercaseCharRange.location != NSNotFound || punctuationRange.location != NSNotFound || whitespaceAndNewlineRange.location != NSNotFound) {
+        endString = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]];
+        endString = [endString stringByTrimmingCharactersInSet:illegalSet];
+        endString = [endString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        textField.text = endString;
+
+        return NO;
+    }
+
+    return YES;
+    
+}
 
 @end
