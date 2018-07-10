@@ -327,6 +327,7 @@
             make.width.equalTo(343 * WidthCoefficient);
             make.height.equalTo(281 * WidthCoefficient);
             make.left.equalTo(16 * WidthCoefficient);
+            make.bottom.equalTo(content).offset(-20 * WidthCoefficient);
         }];
         
         self.chartMileageContainer = [[UIView alloc] init];
@@ -387,7 +388,7 @@
             make.left.equalTo(20 * WidthCoefficient);
             make.top.equalTo(redV1.bottom).offset(76 * WidthCoefficient);
         }];
-        
+        /**
         UIView *shadowV2 = [[UIView alloc] init];
         shadowV2.layer.shadowOffset = CGSizeMake(0, 6);
         shadowV2.layer.shadowRadius = 7;
@@ -460,7 +461,7 @@
             make.left.equalTo(20 * WidthCoefficient);
             make.top.equalTo(redV2.bottom).offset(76 * WidthCoefficient);
         }];
-        
+        **/
         scroll;
     });
     
@@ -548,7 +549,7 @@
             dispatch_group_leave(group);
         }];
     });
-    
+    /**
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         [CUHTTPRequest GET:[NSString stringWithFormat:@"%@/%@/%@/%@/brand",getRankingFuelWeekURL,kVin,startPara,endPara] parameters:nil success:^(id responseData) {
@@ -565,7 +566,7 @@
             dispatch_group_leave(group);
         }];
     });
-
+     **/
     dispatch_group_notify(group, queue, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateChart];
@@ -577,7 +578,7 @@
     
     [self updateMileageChart];
     
-    [self updateFuelChart];
+//    [self updateFuelChart];
     
     [MBProgressHUD hideHUD];
     
