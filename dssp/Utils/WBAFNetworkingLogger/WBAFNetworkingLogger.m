@@ -70,6 +70,10 @@ static void * WBNetworkRequestStartDate = &WBNetworkRequestStartDate;
     NSString *body = nil;
     if ([request HTTPBody]) {
         body = [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding];
+    } else {
+        if (task.originalRequest.HTTPBody) {
+            body = [[NSString alloc] initWithData:task.originalRequest.HTTPBody encoding:NSUTF8StringEncoding];
+        }
     }
     
     switch (self.level) {
