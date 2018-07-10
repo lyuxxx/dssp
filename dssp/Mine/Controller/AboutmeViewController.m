@@ -52,8 +52,14 @@
     
     
     NSString *string = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *changelogPath = [[NSBundle mainBundle] pathForResource:@"changelog" ofType:@"plist"];
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:changelogPath];
+    //changelog由fastlane输入
+    if (dic && dic[@"changelog"]) {
+        string = dic[@"changelog"];
+    }
     UILabel *versionLbael = [[UILabel alloc] init];
-    versionLbael.text = [NSString stringWithFormat:@"版本号 %@",NSLocalizedString(string, nil)];
+    versionLbael.text = [NSString stringWithFormat:@"版本号 %@",string];
     versionLbael.textColor = [UIColor colorWithHexString:@"#ffffff"];
     versionLbael.font =[UIFont fontWithName:@"PingFangSC-Regular" size:15];
     [bgV addSubview:versionLbael];

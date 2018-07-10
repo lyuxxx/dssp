@@ -109,59 +109,61 @@ static NSString *const cellID = @"cell";
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
             [hud hideAnimated:YES];
             _trafficReporData =[TrafficReporData yy_modelWithDictionary:dic[@"data"]];
-
-            self.imgArray = [NSMutableArray array];
-            self.imgArray1 = [NSMutableArray array];
-            self.result = [NSMutableDictionary new];
-            NSMutableArray *vehicleSystem =[NSMutableArray array];
-            NSMutableArray *alertPriority =[NSMutableArray array];
-            
-            if ( _trafficReporData.healthAlerts != nil && ![ _trafficReporData.healthAlerts isKindOfClass:[NSNull class]] &&  _trafficReporData.healthAlerts.count != 0){
-                
-                for (NSDictionary *dic in _trafficReporData.healthAlerts) {
-                    HealthAlertsItem *healthAlerts = [HealthAlertsItem yy_modelWithDictionary:dic];
-                    //保存title数组
-                    [self.titleArray addObject:healthAlerts.vehicleSystemName];
-                    
-                    [vehicleSystem addObject:healthAlerts.vehicleSystem];
-                    [alertPriority addObject:healthAlerts.alertPriority];
-                    [self.cellArray1 addObject:healthAlerts.record];
-                }
-            }
-            else
-            {
+            if (!_trafficReporData) {
                 [self blankUI];
+            } else {
+                self.imgArray = [NSMutableArray array];
+                self.imgArray1 = [NSMutableArray array];
+                self.result = [NSMutableDictionary new];
+                NSMutableArray *vehicleSystem =[NSMutableArray array];
+                NSMutableArray *alertPriority =[NSMutableArray array];
+                
+                if ( _trafficReporData.healthAlerts != nil && ![ _trafficReporData.healthAlerts isKindOfClass:[NSNull class]] &&  _trafficReporData.healthAlerts.count != 0){
+                    
+                    for (NSDictionary *dic in _trafficReporData.healthAlerts) {
+                        HealthAlertsItem *healthAlerts = [HealthAlertsItem yy_modelWithDictionary:dic];
+                        //保存title数组
+                        [self.titleArray addObject:healthAlerts.vehicleSystemName];
+                        
+                        [vehicleSystem addObject:healthAlerts.vehicleSystem];
+                        [alertPriority addObject:healthAlerts.alertPriority];
+                        [self.cellArray1 addObject:healthAlerts.record];
+                    }
+                }
+                else
+                {
+                    [self blankUI];
+                }
+                
+                NSDictionary * dic2 = @{ @"TPMS status":@"胎压_icon",
+                                         @"Steering system":@"转向系统_icon",
+                                         @"Electronic system":@"电器系统_icon",
+                                         @"engine system":@"发动机_icon",
+                                         @"Electronic lighting system":@"电器系统灯光_icon",
+                                         @"Gearbox system":@"变速箱_icon",
+                                         @"Airbag system":@"气囊_icon",
+                                         @"Braking system":@"制动系统_icon"
+                                         };
+                
+                
+                NSDictionary * dic3 = @{
+                                        @"low":@"低风险",
+                                        @"high":@"高风险",
+                                        @"health":@"健康"
+                                        };
+                
+                for (int i = 0; i < self.titleArray.count; i++) {
+                    [self.isExpland addObject:@1];
+                    //             [_result setObject:imgs[i] forKey:titles[i]];
+                    [_imgArray addObject:[dic2 objectForKey:vehicleSystem[i]]?[dic2 objectForKey:vehicleSystem[i]]:@""];
+                    [_imgArray1 addObject:[dic3 objectForKey:alertPriority[i]]?[dic3 objectForKey:alertPriority[i]]:@""];
+                }
+                
+                [_tableView reloadData];
+                [self initTableView];
+                [self setupUI];
+                self.trafficReporData =_trafficReporData;
             }
-
-            NSDictionary * dic2 = @{ @"TPMS status":@"胎压_icon",
-                                     @"Steering system":@"转向系统_icon",
-                                     @"Electronic system":@"电器系统_icon",
-                                     @"engine system":@"发动机_icon",
-                                     @"Electronic lighting system":@"电器系统灯光_icon",
-                                     @"Gearbox system":@"变速箱_icon",
-                                     @"Airbag system":@"气囊_icon",
-                                     @"Braking system":@"制动系统_icon"
-                                     };
-            
-            
-            NSDictionary * dic3 = @{
-                                     @"low":@"低风险",
-                                     @"high":@"高风险",
-                                     @"health":@"健康"
-                                     };
-            
-            for (int i = 0; i < self.titleArray.count; i++) {
-             [self.isExpland addObject:@1];
-//             [_result setObject:imgs[i] forKey:titles[i]];
-             [_imgArray addObject:[dic2 objectForKey:vehicleSystem[i]]?[dic2 objectForKey:vehicleSystem[i]]:@""];
-             [_imgArray1 addObject:[dic3 objectForKey:alertPriority[i]]?[dic3 objectForKey:alertPriority[i]]:@""];
-            }
-            
-            [_tableView reloadData];
-            [self initTableView];
-            [self setupUI];
-            self.trafficReporData =_trafficReporData;
- 
         } else {
             [self blankUI];
             [hud hideAnimated:YES];

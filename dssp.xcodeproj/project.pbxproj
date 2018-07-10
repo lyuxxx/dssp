@@ -495,6 +495,11 @@
 		3189EED22058D1AA0009B742 /* client.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 3189EED12058D1A90009B742 /* client.p12 */; };
 		318B685B202AE4B300962F2A /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685A202AE4B300962F2A /* OrderCell.m */; };
 		318B685E202AEBF500962F2A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318B685D202AEBF500962F2A /* OrderViewController.m */; };
+		318FF54E20F48C71004AD8F5 /* changelog.plist in Resources */ = {isa = PBXBuildFile; fileRef = 318FF54D20F48C71004AD8F5 /* changelog.plist */; };
+		318FF54F20F48C71004AD8F5 /* changelog.plist in Resources */ = {isa = PBXBuildFile; fileRef = 318FF54D20F48C71004AD8F5 /* changelog.plist */; };
+		318FF55020F48C71004AD8F5 /* changelog.plist in Resources */ = {isa = PBXBuildFile; fileRef = 318FF54D20F48C71004AD8F5 /* changelog.plist */; };
+		318FF55120F48C71004AD8F5 /* changelog.plist in Resources */ = {isa = PBXBuildFile; fileRef = 318FF54D20F48C71004AD8F5 /* changelog.plist */; };
+		318FF55220F48C71004AD8F5 /* changelog.plist in Resources */ = {isa = PBXBuildFile; fileRef = 318FF54D20F48C71004AD8F5 /* changelog.plist */; };
 		318FF85520B79DDA008B0CBD /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83920B79DDA008B0CBD /* NSBundle+TZImagePicker.m */; };
 		318FF85620B79DDA008B0CBD /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83920B79DDA008B0CBD /* NSBundle+TZImagePicker.m */; };
 		318FF85720B79DDA008B0CBD /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 318FF83920B79DDA008B0CBD /* NSBundle+TZImagePicker.m */; };
@@ -1451,6 +1456,7 @@
 		318B685A202AE4B300962F2A /* OrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
 		318B685C202AEBF500962F2A /* OrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		318B685D202AEBF500962F2A /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		318FF54D20F48C71004AD8F5 /* changelog.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = changelog.plist; sourceTree = "<group>"; };
 		318FF83820B79DDA008B0CBD /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
 		318FF83920B79DDA008B0CBD /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
 		318FF83A20B79DDA008B0CBD /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
@@ -2143,6 +2149,7 @@
 				3151F5A820735D8B0009998D /* pro */,
 				3151F5A920735DA50009998D /* pre */,
 				3151F5AA20735DAA0009998D /* sit */,
+				318FF54D20F48C71004AD8F5 /* changelog.plist */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -3097,6 +3104,7 @@
 				31A2291F206CA223002326AD /* dssp-pre.plist in Resources */,
 				3161DE6A206C8AB500D40EE3 /* waiting.gif in Resources */,
 				3161DE6B206C8AB500D40EE3 /* server_pre.cer in Resources */,
+				318FF54F20F48C71004AD8F5 /* changelog.plist in Resources */,
 				31E6D14820DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
 				45147D652086279A00FABEA7 /* ds_service_protocols.txt in Resources */,
 				31E6D14320DCADD40093E2AC /* infoStandby.plist in Resources */,
@@ -3123,6 +3131,7 @@
 				3161DF48206C8ABC00D40EE3 /* Address.plist in Resources */,
 				3161DF49206C8ABC00D40EE3 /* Assets.xcassets in Resources */,
 				31A22923206CA223002326AD /* dssp-sit.plist in Resources */,
+				318FF55020F48C71004AD8F5 /* changelog.plist in Resources */,
 				31E6D14420DCADD40093E2AC /* infoStandby.plist in Resources */,
 				31F70B0420C4CF35009B2D58 /* Info.plist in Resources */,
 				3161DF4A206C8ABC00D40EE3 /* application.html in Resources */,
@@ -3138,6 +3147,7 @@
 				31E6D14720DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
 				316CA46B1F9F3475009F541E /* LaunchScreen.storyboard in Resources */,
 				3112924A205D23900049A647 /* server_formal.cer in Resources */,
+				318FF54E20F48C71004AD8F5 /* changelog.plist in Resources */,
 				318FF86720B79DDA008B0CBD /* TZImagePickerController.bundle in Resources */,
 				31E6D14220DCADD40093E2AC /* infoStandby.plist in Resources */,
 				313070C91FBA89C500A0DE71 /* Localizable.strings in Resources */,
@@ -3164,6 +3174,7 @@
 				31E6D12C20DCAD160093E2AC /* dssp-pre.plist in Resources */,
 				31E6D12D20DCAD160093E2AC /* waiting.gif in Resources */,
 				31E6D12E20DCAD160093E2AC /* server_pre.cer in Resources */,
+				318FF55220F48C71004AD8F5 /* changelog.plist in Resources */,
 				31E6D14A20DCADDF0093E2AC /* dssp-preStandby.plist in Resources */,
 				31E6D12F20DCAD160093E2AC /* ds_service_protocols.txt in Resources */,
 				31E6D14520DCADD40093E2AC /* infoStandby.plist in Resources */,
@@ -3186,6 +3197,7 @@
 				31E6D24420DCADEF0093E2AC /* dssp-preStandby.plist in Resources */,
 				31E6D24520DCADEF0093E2AC /* LaunchScreen.storyboard in Resources */,
 				31E6D24620DCADEF0093E2AC /* server_formal.cer in Resources */,
+				318FF55120F48C71004AD8F5 /* changelog.plist in Resources */,
 				31E6D24720DCADEF0093E2AC /* TZImagePickerController.bundle in Resources */,
 				31E6D24820DCADEF0093E2AC /* infoStandby.plist in Resources */,
 				31E6D24920DCADEF0093E2AC /* Localizable.strings in Resources */,

@@ -27,6 +27,12 @@ def prepare_version(options)
         target: options[:scheme]
     )
 
+    set_info_plist_value(
+        path: "./dssp/config/changelog.plist",
+        key: "changelog",
+        value: options[:changelog]
+      )
+
 end
 
 platform :ios do
