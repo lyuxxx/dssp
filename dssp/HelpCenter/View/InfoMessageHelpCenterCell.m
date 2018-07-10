@@ -265,12 +265,13 @@
                 _contentLabel1.text = @"是否解答您的问题?";
                 CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
                 [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(size1.height);
+                    make.height.equalTo(size1.height + 5);
                 }];
                 
                 //不显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(0);
+                    //make.height.equalTo(0);
+                    make.height.equalTo(1 * WidthCoefficient);
                 }];
                 
                 NSInteger row = 0;
@@ -452,12 +453,13 @@
             _contentLabel1.text = @"是否解答您的问题?";
             CGSize size1 = [_contentLabel1.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
                 [_contentLabel1 updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(size1.height);
+                    make.height.equalTo(size1.height + 5);
             }];
             
             //不显示线
             [_line updateConstraints:^(MASConstraintMaker *make) {
-                make.height.equalTo(0);
+                //make.height.equalTo(0);
+                make.height.equalTo(1 * WidthCoefficient);
             }];
             
             NSInteger row = 0;
@@ -645,11 +647,13 @@
             
             if (dataArray.count > 2) {//显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(0 * WidthCoefficient);//make.height.equalTo(1 * WidthCoefficient); 与安卓保持一致都不显示线
+                    make.height.equalTo(0 * WidthCoefficient);
+                    //make.height.equalTo(1 * WidthCoefficient); 与安卓保持一致都不显示线
                 }];
             } else {//不显示线
                 [_line updateConstraints:^(MASConstraintMaker *make) {
                     make.height.equalTo(0);
+                    //make.height.equalTo(1 * WidthCoefficient);
                 }];
             }
             
@@ -910,11 +914,12 @@
     [self.contentView addSubview:_contentLabel1];
     [_contentLabel1 makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_bgImg);
-        make.top.equalTo(_bgImg.bottom);
+        make.top.equalTo(_bgImg.bottom).offset(10 * HeightCoefficient);
         make.width.equalTo(_bgImg);
         make.height.equalTo(0);
     }];
     
+    /*
     self.line = [[UIView alloc] init];
     _line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dashLine"]];
     [self.contentView addSubview:_line];
@@ -924,6 +929,17 @@
         make.height.equalTo(1 * WidthCoefficient);
         make.top.equalTo(_contentLabel1.bottom).offset(10 * WidthCoefficient);
     }];
+    */
+    
+    self.line = [[UIView alloc] init];
+    _line.backgroundColor = [UIColor colorWithHexString: @"#A18E79"];
+    [self.contentView addSubview:_line];
+    [_line makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_contentLabel1);
+        make.leading.trailing.equalTo(_contentLabel1);
+        make.height.equalTo(1 * WidthCoefficient);
+        make.top.equalTo(_contentLabel1.top).offset(-2.5);
+    }];
     
     self.scroll = [[UIScrollView alloc] init];
     _scroll.delegate = self;
@@ -931,9 +947,11 @@
     _scroll.showsHorizontalScrollIndicator = NO;
     [self.contentView addSubview:_scroll];
     [_scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_line.bottom);
+        make.top.equalTo(_contentLabel1.bottom).offset(10 * WidthCoefficient);
+        //make.top.equalTo(_line.bottom);
         make.centerX.equalTo(_line);
-        make.width.equalTo(_line);
+        //make.width.equalTo(_line);
+        make.width.equalTo(_contentLabel1).offset(10 * WidthCoefficient);
         make.height.equalTo(176 * WidthCoefficient);
     }];
     
