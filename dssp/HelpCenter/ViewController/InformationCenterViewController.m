@@ -229,7 +229,7 @@
 //            dispatch_async(dispatch_get_main_queue(), ^{
                 InfoMessage *message = [[InfoMessage alloc] init];
                 message.type = InfoMessageTypeTwo;
-                message.choices = @[@"已解答",@"未解答"];
+                message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                 message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                 [self sendMessage:message];
               
@@ -261,7 +261,7 @@
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
                         if ([message.serviceName isEqualToString:@"未查询到相关信息!"]) {
                             message.type = InfoMessageTypeTwo;
-                            message.choices = @[@"已解答",@"未解答"];
+                            message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                             message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                             [self sendMessage:message];
                         }else {
@@ -273,7 +273,7 @@
                         dispatch_async(dispatch_get_main_queue(), ^{
                             InfoMessage *message = [[InfoMessage alloc] init];
                             message.type = InfoMessageTypeTwo;
-                            message.choices = @[@"已解答",@"未解答"];
+                            message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                             message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                             [self sendMessage:message];
                             
@@ -285,7 +285,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         InfoMessage *message = [[InfoMessage alloc] init];
                         message.type = InfoMessageTypeTwo;
-                        message.choices = @[@"已解答",@"未解答"];
+                        message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                         message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                         [self sendMessage:message];
                         
@@ -350,7 +350,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 InfoMessage *message = [[InfoMessage alloc] init];
                 message.type = InfoMessageTypeTwo;
-                message.choices = @[@"已解答",@"未解答"];
+                message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                 message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                 [self sendMessage:message];
                 
@@ -388,7 +388,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     InfoMessage *message = [[InfoMessage alloc] init];
                     message.type = InfoMessageTypeTwo;
-                    message.choices = @[@"已解答",@"未解答"];
+                    message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                     message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                     [self sendMessage:message];
                     
