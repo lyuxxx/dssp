@@ -53,33 +53,28 @@
         serviceKnowledgeProfileList *serviceList = [serviceKnowledgeProfileList yy_modelWithDictionary:dic];
         if (serviceList.serviceName) {
             [dataArray addObject:serviceList.serviceName];
-        }
-        else
-        {
+        } else {
             
         }
+        
         [self.result setObject:serviceList.infoMessagedatailId forKey:serviceList.serviceName];
         [self.result1 setObject:serviceList.sourceData forKey:serviceList.serviceName];
         [self.result2 setObject:serviceList.appServiceNum forKey:serviceList.serviceName];
     }
     
-    NSLog(@"%@",message);
+    NSLog(@"message: %@",message);
     
     if (message.type == InfoMessageTypeMe) {
         return;
-    }
-    else if (message.type == InfoMessageTypeOther)
-    {
-         return;
-    }
-    else if (message.type == InfoMessageTypeTwo){
+    } else if (message.type == InfoMessageTypeOther) {
+        return;
+    } else if (message.type == InfoMessageTypeTwo){
         
         self.ID = @"";
         
         NSMutableArray *dataArray1= [[NSMutableArray alloc] init];
         dataArray1 = [NSMutableArray arrayWithArray:message.choices];
-//        [dataArray1 addObject:@"确定"];
-//        [dataArray1 addObject:@"关闭"];
+        
         _timeLabel.text = [self stringFromDate:message.time];
         [_timeLabel updateConstraints:^(MASConstraintMaker *make) {
             if (message.showTime) {
@@ -92,21 +87,18 @@
     
         _contentLabel.text = message.serviceDetails;
         CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-        
-        //            _contentLabel.backgroundColor =[UIColor redColor];
         [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(size.height);
         }];
-
-        if (dataArray1.count > 2) {//显示线
-            [_line updateConstraints:^(MASConstraintMaker *make) {
+        
+        [_line updateConstraints:^(MASConstraintMaker *make) {
+            if (dataArray1.count > 2) {
                 make.height.equalTo(1 * WidthCoefficient);
-            }];
-        } else {//不显示线
-            [_line updateConstraints:^(MASConstraintMaker *make) {
+            }else {
                 make.height.equalTo(0);
-            }];
-        }
+            }
+            
+        }];
         
         NSInteger row = 0;
         row = ceil(dataArray1.count / 2.0f);
@@ -150,8 +142,6 @@
             }];
             lastView = v;
             
-            
-            
             ///添加button
             NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
             for (NSInteger j = 0; j < pageArr.count; j++) {
@@ -164,12 +154,9 @@
                 if (j==0) {
                     
                     btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
-                    
                     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                    //                        [btn setImage:[UIImage imageNamed:@"用户背景"] forState:UIControlStateNormal];
-                }
-                else
-                {
+                    
+                } else {
                     btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                     [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
                 }
@@ -217,11 +204,6 @@
         self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
         
     }
-    
-    
-    
-    
-    
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -235,8 +217,8 @@
 - (void)setupUI {
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f9f8f8"];
-      self.contentView.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
+    
     self.timeLabel = [[UILabel alloc] init];
     _timeLabel.textColor = [UIColor colorWithHexString:@"#999999"];
     _timeLabel.font = [UIFont fontWithName:FontName size:11];
@@ -312,9 +294,10 @@
         make.height.equalTo(self.scroll);
     }];
     
-//    self.pageControl = [[EllipsePageControl alloc] init];
-//    
-//    [self.contentView addSubview:_pageControl];
+    /*
+    self.pageControl = [[EllipsePageControl alloc] init];
+    [self.contentView addSubview:_pageControl];
+    */
     
     self.bubble = [[UIImageView alloc] init];
     _bubble.image = [UIImage imageNamed:@"管家背景"];

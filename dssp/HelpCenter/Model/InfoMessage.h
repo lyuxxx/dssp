@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, InfoMessageType) {
 
 @property (nonatomic , assign) NSInteger              currentPage;
 @property (nonatomic , assign) NSInteger              pageSize;
-@property (nonatomic , copy)   NSString *infoMessagedatailId;
+@property (nonatomic , copy)   NSString              *infoMessagedatailId;
 @property (nonatomic , copy)   NSString              * serviceType;
 @property (nonatomic , copy)   NSString              * serviceName;
 @property (nonatomic , copy)   NSString              * serviceParentId;
