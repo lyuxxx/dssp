@@ -281,10 +281,8 @@
             btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
             
             if (j==0) {
-                
                 btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                
             } else {
                 btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                 [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
@@ -295,7 +293,11 @@
             [btns addObject:btn];
         }
         
-        [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
+        //[btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
+        [btns mas_distributeSudokuViewsWithFixedItemWidth:220 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
+        UIButton *secondButton = (UIButton *)btns[1];
+        secondButton.hidden = true;
+        
     }
     [lastView makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_scrollContentView.right);
