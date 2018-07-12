@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UIImageView *bgImg;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) YYLabel *contentLabel;
-@property (nonatomic, strong) UILabel *tipLaebel;
+@property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIScrollView *scroll;
 @property (nonatomic, strong) UIView *scrollContentView;
@@ -152,8 +152,8 @@
             }];
             
             //  有子节点 没有提示语 与 分割线
-            _tipLaebel.text = @"";
-            [_tipLaebel updateConstraints:^(MASConstraintMaker *make) {
+            _tipLabel.text = @"";
+            [_tipLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(0);
             }];
             
@@ -263,14 +263,14 @@
     [self.bgImg addGestureRecognizer:imageTap];
 
     //  提示语
-    self.tipLaebel = [[UILabel alloc] init];
-    _tipLaebel.preferredMaxLayoutWidth = 220 * WidthCoefficient;
-    _tipLaebel.numberOfLines = 0;
-    _tipLaebel.lineBreakMode = NSLineBreakByWordWrapping;
-    _tipLaebel.font = [UIFont fontWithName:FontName size:15];
-    _tipLaebel.textColor = [UIColor colorWithHexString:@"#ffffff"];
-    [self.contentView addSubview:_tipLaebel];
-    [_tipLaebel makeConstraints:^(MASConstraintMaker *make) {
+    self.tipLabel = [[UILabel alloc] init];
+    _tipLabel.preferredMaxLayoutWidth = 220 * WidthCoefficient;
+    _tipLabel.numberOfLines = 0;
+    _tipLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _tipLabel.font = [UIFont fontWithName:FontName size:15];
+    _tipLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    [self.contentView addSubview:_tipLabel];
+    [_tipLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_bgImg);
         make.top.equalTo(_bgImg.bottom).offset(10 * HeightCoefficient);
         make.width.equalTo(_bgImg);
@@ -282,10 +282,10 @@
     _line.backgroundColor = [UIColor colorWithHexString: @"#A18E79"];
     [self.contentView addSubview:_line];
     [_line makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_tipLaebel);
-        make.leading.trailing.equalTo(_tipLaebel);
+        make.centerX.equalTo(_tipLabel);
+        make.leading.trailing.equalTo(_tipLabel);
         make.height.equalTo(1 * WidthCoefficient);
-        make.top.equalTo(_tipLaebel.top).offset(-2.5);
+        make.top.equalTo(_tipLabel.top).offset(-2.5);
     }];
     
     //  索引用的scrollView 有节点的时候 显示 功能 没有的时候显示 "已解答" "未解答" 两个按钮
@@ -295,9 +295,9 @@
     _scroll.showsHorizontalScrollIndicator = NO;
     [self.contentView addSubview:_scroll];
     [_scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_tipLaebel.bottom).offset(10 * WidthCoefficient);
+        make.top.equalTo(_tipLabel.bottom).offset(10 * WidthCoefficient);
         make.centerX.equalTo(_line);
-        make.width.equalTo(_tipLaebel).offset(10 * WidthCoefficient);
+        make.width.equalTo(_tipLabel).offset(10 * WidthCoefficient);
         make.height.equalTo(176 * WidthCoefficient);
     }];
     
@@ -331,7 +331,7 @@
     if (self.bgImg.image == nil) {
         return;
     }else {
-        if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(sevenProrocolMethod:)]) {
+        if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(showPic:)]) {
             [self.customDelegate showPic:self.bgImg.image];
         }
     }
@@ -345,6 +345,12 @@
         NSString *appNum = [_result2 objectForKey:sender.titleLabel.text];
         NSLog(@"sourceData: %@",sourceData);
         self.serviceClickBlock(sender,Idstr,_message.serviceParentId,sourceData,appNum);
+    }
+}
+
+- (void)functionButton:(UIButton *)sender {
+    if (self.customDelegate != nil && [self.customDelegate respondsToSelector:@selector(functionButtonAction:)]) {
+        [self.customDelegate functionButtonAction:sender];
     }
 }
 
@@ -445,9 +451,9 @@
 
 #pragma mark- 处理tipLabel
 - (void)configTipLabelAndLineWithText:(NSString *)text {
-    _tipLaebel.text = text;
-    CGSize size1 = [_tipLaebel.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
-    [_tipLaebel updateConstraints:^(MASConstraintMaker *make) {
+    _tipLabel.text = text;
+    CGSize size1 = [_tipLabel.text stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+    [_tipLabel updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(size1.height + 5);
     }];
     
@@ -632,19 +638,81 @@
         make.right.equalTo(_scrollContentView.right);
     }];
     
-    if (page > 1) {
-        
+    //  搜索情况下 有子节点返回 在scrollView的下面添加提示信息
+    
+    //  如果是搜索的有跳转 进if 默认的进else
+    if ( -1 > 0) {
         [_bubble updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(_scroll).offset(15 * WidthCoefficient);
+            if (page > 1) {
+                make.bottom.equalTo(_scroll).offset(95 * WidthCoefficient);
+            }else {
+                make.bottom.equalTo(_scroll).offset(90 * WidthCoefficient);
+            }
         }];
         
-    } else {
-        
-        [_bubble updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
+        //  猜你喜欢的虚线
+        UIView *line = [[UIView alloc] init];
+        line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"guess_you_like"]];
+        [self.contentView addSubview:line];
+        [line makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_contentLabel);
+            make.width.equalTo(_contentLabel).offset(20 * WidthCoefficient);
+            make.height.equalTo(10 * WidthCoefficient);
+            make.top.equalTo(self.scroll.bottom).offset(15 * WidthCoefficient);
         }];
         
+        //  反馈按钮
+        UIButton *feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [feedbackButton setTitle:@"反馈问题" forState:UIControlStateNormal];
+        feedbackButton.backgroundColor = [UIColor clearColor];
+        [feedbackButton setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
+        feedbackButton.layer.borderWidth = 1.0;
+        feedbackButton.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
+        feedbackButton.layer.cornerRadius = 4;
+        feedbackButton.titleLabel.font = [UIFont fontWithName:FontName size:12];
+        feedbackButton.tag = feedbackTag;
+        [feedbackButton addTarget:self action:@selector(functionButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.contentView addSubview:feedbackButton];
+        [feedbackButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(self.scroll).offset(5 * WidthCoefficient);
+            make.width.equalTo(105 * WidthCoefficient);
+            make.height.equalTo(31.5* WidthCoefficient);
+            make.top.equalTo(line.bottom).offset(15 * WidthCoefficient);
+        }];
+        
+        //  拨打热线按钮
+        UIButton *contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [contactButton setTitle:@"拨打热线" forState:UIControlStateNormal];
+        contactButton.backgroundColor = [UIColor clearColor];
+        [contactButton setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
+        contactButton.layer.borderWidth = 1.0;
+        contactButton.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
+        contactButton.layer.cornerRadius = 4;
+        contactButton.titleLabel.font = [UIFont fontWithName:FontName size:12];
+        contactButton.tag = contactServiceTag;
+        [contactButton addTarget:self action:@selector(functionButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.contentView addSubview:contactButton];
+        [contactButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(self.scroll).offset(-5 * WidthCoefficient);
+            make.width.equalTo(105 * WidthCoefficient);
+            make.height.equalTo(31.5* WidthCoefficient);
+            make.top.equalTo(line.bottom).offset(15 * WidthCoefficient);
+        }];
+
+        
+    }else {
+        [_bubble updateConstraints:^(MASConstraintMaker *make) {
+            if (page > 1) {
+                make.bottom.equalTo(_scroll).offset(15 * WidthCoefficient);
+            }else {
+                make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
+            }
+        }];
     }
+    
+
     
     [self layoutIfNeeded];
     

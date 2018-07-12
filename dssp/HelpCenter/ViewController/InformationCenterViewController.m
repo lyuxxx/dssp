@@ -22,6 +22,7 @@
 #import "FeedbackShowImageView.h"
 #import "UserModel.h"
 #import "StoreTabViewController.h"
+#import "FeedbackController.h"
 
 //  作为控件的imageView的tag值基数
 #define kImageTag 9999
@@ -411,6 +412,17 @@
     }
 }
 
+- (void)functionButtonAction:(UIButton *)button {
+    if (button.tag == feedbackTag) {
+        FeedbackController *feedbackController = [FeedbackController new];
+        [self.navigationController pushViewController:feedbackController animated:YES];
+    }else if (button.tag == contactServiceTag) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
+    }else {
+        
+    }
+}
+
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 /**
@@ -572,7 +584,6 @@
                 NSDictionary *paras = @{
                                         @"serviceParentId":@"0",
                                         @"sourceData":@"0"
-                                        
                                         };
                 [CUHTTPRequest POST:sendToServiceKnowledgeProfileValue parameters:paras success:^(id responseData) {
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
@@ -593,7 +604,6 @@
                             message.time = datenow;
                             message.type = InfoMessageTypeOther;
                             [self sendMessage:message];
-                            
                         });
                         
                     } else {
@@ -628,6 +638,12 @@
                     strongifySelf
                     [self sendMessage:message];
                 });
+            } else if ([sender.titleLabel.text isEqualToString:@"我要反馈"]) {
+                /*
+                FeedbackController *feedbackController = [FeedbackController new];
+                strongifySelf
+                [self.navigationController pushViewController:feedbackController animated:YES];
+                 */
             }
             
         }];

@@ -169,12 +169,12 @@
     }];
     
     self.line = [[UIView alloc] init];
-    _line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dashLine"]];
+    _line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"guess_you_like"]];
     [self.contentView addSubview:_line];
     [_line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_contentLabel);
-        make.width.equalTo(_contentLabel).offset(10 * WidthCoefficient);
-        make.height.equalTo(1 * WidthCoefficient);
+        make.width.equalTo(_contentLabel).offset(20 * WidthCoefficient);
+        make.height.equalTo(10 * WidthCoefficient);
         make.top.equalTo(_contentLabel.bottom).offset(10 * WidthCoefficient);
     }];
     
@@ -185,7 +185,7 @@
     _scroll.showsHorizontalScrollIndicator = NO;
     [self.contentView addSubview:_scroll];
     [_scroll makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_line.bottom);
+        make.top.equalTo(_line.bottom).offset(10 * WidthCoefficient);
         make.centerX.equalTo(_contentLabel);
         make.width.equalTo(_contentLabel).offset(10 * WidthCoefficient);
         make.height.equalTo(176 * WidthCoefficient);
@@ -229,6 +229,9 @@
 
 #pragma mark- 处理没有子节点 最下方的 已解答与未解答 按钮
 - (void)configNoNodeByAnswerAndUnanswer:(NSArray<NSString *>*)titleArray {
+    
+    titleArray = @[@"反馈问题", @"拨打热线"];
+    
     NSInteger row = 0;
     row = ceil(titleArray.count / 2.0f);
     if (row > 4) {
@@ -280,23 +283,33 @@
             btn.needNoRepeat = YES;
             btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
             
-            if (j==0) {
+            /*
+            if (j==1) {
                 btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             } else {
                 btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
                 [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
             }
+            */
             
+            btn.backgroundColor = [UIColor clearColor];
+            [btn setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
+            btn.layer.borderWidth = 1.0;
+            btn.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
             btn.layer.cornerRadius = 4;
+            
             [v addSubview:btn];
             [btns addObject:btn];
         }
         
-        //[btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
+        [btns mas_distributeSudokuViewsWithFixedItemWidth:105 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
+        
+        /*
         [btns mas_distributeSudokuViewsWithFixedItemWidth:220 * WidthCoefficient fixedItemHeight:31.5 * WidthCoefficient warpCount:2 topSpacing:10 * WidthCoefficient bottomSpacing:10 * WidthCoefficient leadSpacing:5 * WidthCoefficient tailSpacing:5 * WidthCoefficient];
         UIButton *secondButton = (UIButton *)btns[1];
         secondButton.hidden = true;
+        */
         
     }
     [lastView makeConstraints:^(MASConstraintMaker *make) {

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "InfoMessage.h"
 
+#define feedbackTag 100
+#define contactServiceTag 101
+
 @class InfoMessageHelpCenterCell;
 
 @protocol SevenProtocolDelegate <NSObject>
@@ -16,6 +19,7 @@
 - (void)showPic:(UIImage *)image;
 - (void)updateTableViewWithCell:(InfoMessageHelpCenterCell *)cell CellHeight:(CGFloat)height DownloadSuccess:(BOOL)success;
 - (void)removeStoredHeightWithCell:(InfoMessageHelpCenterCell *)cell;
+- (void)functionButtonAction:(UIButton *)button;
 @end
 
 typedef void(^ServiceClickBlock)(UIButton *sender,NSString *serviceId,NSString *serviceParentId,NSString *sourceData,NSString *appNum);
