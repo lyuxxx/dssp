@@ -30,7 +30,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DKSKeyboardView *keyView;
 @property (nonatomic, strong) NSMutableArray<InfoMessage *> *dataSource;
-
 @property (nonatomic, strong) NSMutableDictionary *imgCellHeightDict;
 @property (nonatomic, strong) NSDictionary *funcDict;
 @end
@@ -110,18 +109,17 @@
 #pragma mark- 监听键盘弹出
 - (void)keyBoardShow:(NSNotification *)noti {
     // 咱们取自己需要的就好了
-    CGRect rec = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSLog(@"%@",NSStringFromCGRect(rec));
+    CGRect rect = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSLog(@"rect:%@",NSStringFromCGRect(rect));
     // 小于，说明覆盖了输入框
-    if ([UIScreen mainScreen].bounds.size.height - rec.size.height < self.inputView.frame.origin.y + self.inputView.frame.size.height)
-    {
+    if ([UIScreen mainScreen].bounds.size.height - rect.size.height < self.inputView.frame.origin.y + self.inputView.frame.size.height) {
         // 把我们整体的View往上移动
         CGRect tempRec = self.view.frame;
-        tempRec.origin.y = - (rec.size.height);
+        tempRec.origin.y = - (rect.size.height);
         self.view.frame = tempRec;
     }
     // 由于可见的界面缩小了，TableView也要跟着变化Frame
-    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50- rec.size.height - kBottomHeight);
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviHeight - 50- rect.size.height - kBottomHeight);
     if (self.dataSource.count != 0) {
         [self tableViewScrollToBottom];
     }
@@ -270,7 +268,6 @@
     
     } failure:^(NSInteger code) {
         
-        
     }];
     
 }
@@ -408,7 +405,6 @@
             if (self.dataSource.count != 0) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self tableViewScrollToBottom];
-                    
                 });
             }
         });
@@ -444,107 +440,46 @@
             
             // 点击的是已解答按钮
             if ([sender.titleLabel.text isEqualToString:@"已解答"]) {
-                NSDictionary *paras = @{
-                                        @"isHelp": @"1",
-                                        @"noHelp": @"1",
-                                        @"id":serviceParentId
-                                        };
-                [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
-                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    
-                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        //                        [MBProgressHUD showText:@"提交反馈成功"];
-                        InfoMessage *message = [[InfoMessage alloc] init];
-                        message.type = InfoMessageTypeTwo;
-                        message.choices = nil;
-                        message.serviceDetails = @"感谢您的支持!";//@"欢迎使用智能客服服务?";
-                        strongifySelf
-                        [self sendMessage:message];
-                        
-                    } else {
-                        
-                        [MBProgressHUD showText:dic[@"msg"]];
-                    }
-                    
-                } failure:^(NSInteger code) {
-                    
-                }];
+                strongifySelf
+                
+                InfoMessage *message = [[InfoMessage alloc] init];
+                message.type = InfoMessageTypeTwo;
+                message.choices = nil;
+                message.serviceDetails = @"感谢您的支持!";//@"欢迎使用智能客服服务?";
+                
+                [self infoMessageHelpCenterCellTouchAnswerOrUnanswerWithMessage:message serviceParentId:serviceParentId];
+                
             }//  点击的未解答按钮
             else if ([sender.titleLabel.text isEqualToString:@"未解答"]) {
-            
-                NSDictionary *paras = @{
-                                        @"isHelp": @"1",
-                                        @"noHelp": @"1",
-                                        @"id":serviceParentId
-                                        };
-                [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
-                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-                    if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        //                        [MBProgressHUD showText:@"提交反馈成功"];
-                        InfoMessage *message = [[InfoMessage alloc] init];
-                        message.type = InfoMessageTypeTwo;
-                        message.choices = @[@"拨打热线",@"不用了"];
-                        message.serviceDetails = @"是否拨打400客服热线进一步咨询?";
-                        strongifySelf
-                        [self sendMessage:message];
-                        
-                    } else {
-                        
-                        [MBProgressHUD showText:dic[@"msg"]];
-                    }
-                    
-                } failure:^(NSInteger code) {
-                    
-                }];
+                strongifySelf
+                
+                InfoMessage *message = [[InfoMessage alloc] init];
+                message.type = InfoMessageTypeTwo;
+                message.choices = @[@"拨打热线",@"不用了"];
+                message.serviceDetails = @"是否拨打400客服热线进一步咨询?";
+                
+                [self infoMessageHelpCenterCellTouchAnswerOrUnanswerWithMessage:message serviceParentId:serviceParentId];
             }//  点击了跳转功能按钮
             else if ([self.funcDict objectForKey:appNum]) {
             
                 //  判断车辆是否绑定过
                 if ([kVin isEqualToString:@""]) {
                     
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                    InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                    [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                    //            InputalertView.delegate = self;
-                    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                    [keywindow addSubview: popupView];
-                    
-                    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                        
-                        if(btn.tag ==100)
-                        {
-                            strongifySelf
-                            //响应事件
-                            VINBindingViewController *vc=[[VINBindingViewController alloc] init];
-                            vc.hidesBottomBarWhenPushed = YES;
-                            [self.navigationController pushViewController:vc animated:YES];
-                            
-                        }
-                        
-                    };
+                    strongifySelf
+                    [self infoMessageHelpCenterCellBindingCarInfoTips:^{
+                        //响应事件
+                        VINBindingViewController *vc=[[VINBindingViewController alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }];
                 } else {
                     //非T车
                     if([CuvhlTStatus isEqualToString:@"0"]) {
-                        
-                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                        [[NSUserDefaults standardUserDefaults] synchronize];
-                        
-                        PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                        [popupView initWithTitle:@"您当前不是T用户无法使用服务,若想使用服务,请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                        UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                        [keywindow addSubview: popupView];
-                        
-                        popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                            if (btn.tag == 100) {//左边按钮
-                                strongifySelf
-                                RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
-                                [self.navigationController pushViewController:vc animated:YES];
-                                
-                            }
-                            
-                        };
+                        strongifySelf
+                        [self infoMessageHelpCenterCellUpdateTUserTips:^{
+                            RealVinViewcontroller *vc=[[RealVinViewcontroller alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }];
                     }
                     // T车
                     else if ([CuvhlTStatus isEqualToString:@"1"]) {
@@ -556,7 +491,6 @@
                                 //  游客模式下 实名认证 地图升级 进行拦截 其他的允许跳转
                                 if([appNum isEqualToString:@"10013"] || [appNum isEqualToString:@"10009"]) {
                                     [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
-                                    
                                 } else {
                                     strongifySelf
                                     [self jumpByFuncDictWihtAppNum:appNum];
@@ -567,21 +501,11 @@
                                 [self jumpByFuncDictWihtAppNum:appNum];
                             }
                             
-                        } else {
-                            
-                            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
-                            [[NSUserDefaults standardUserDefaults] synchronize];
-                            
-                            PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
-                            [popupView initWithTitle:@"您当前不是T用户无法使用服务,若想使用服务,请升级为T用户!" img:@"首页弹窗背景1" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
-                            UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
-                            [keywindow addSubview: popupView];
-                            
-                            popupView.clickBlock = ^(UIButton *btn,NSString *str) {
-                                if (btn.tag == 100) {//左边按钮
-                                    
-                                }
-                            };
+                        }
+                        //  其他情况 其实和CuvhlTStatus isEqualToString:@"0" 的写法基本是一样的 不知道有什么意义
+                        else {
+                            strongifySelf
+                            [self infoMessageHelpCenterCellUpdateTUserTips:nil];
                         }
                     }
                 }
@@ -596,10 +520,8 @@
                 NSString *sourceData = nil;
                 if ([NSString isBlankString:sourceDataTmp] ) {
                     sourceData = @"0";
-                }
-                else {
+                } else {
                     sourceData = sourceDataTmp;
-                    
                 }
                 NSDictionary *paras = @{
                                         @"serviceParentId":serviceId,
@@ -611,8 +533,8 @@
                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
                     strongifySelf
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        NSDictionary *dic1 = dic[@"data"];
-                        InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                        NSDictionary *dict = dic[@"data"];
+                        InfoMessage *message = [InfoMessage yy_modelWithDictionary:dict];
                         if (message.serviceImage) {
                             message.type = InfoMessageTypeOther;
                             [self sendMessage:message];
@@ -643,7 +565,6 @@
     }
     
     if (message.type == InfoMessageTypeTwo) {
-        weakifySelf
         InfoMessageLeftCell *cell = [InfoMessageLeftCell cellWithTableView:tableView serviceBlock:^(UIButton *sender,NSString *serviceId,NSString *serviceParentId,NSString *sourceData,NSString *appNum) {
             
             if ([sender.titleLabel.text isEqualToString:@"确定"]) {//没有用
@@ -658,9 +579,9 @@
                     
                     
                     if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-                        NSDictionary *dic1 = dic[@"data"];
+                        NSDictionary *dict = dic[@"data"];
                         
-                        InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
+                        InfoMessage *message = [InfoMessage yy_modelWithDictionary:dict];
                         
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                         //设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
@@ -684,18 +605,9 @@
                     
                     
                 }];
-            }
-            else if([sender.titleLabel.text isEqualToString:@"拨打热线"])
-            {
-                
-                NSString *str = [NSString stringWithFormat:@"tel://%@",kphonenumber];
-                
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-                
-                
-            }
-            else if([sender.titleLabel.text isEqualToString:@"不用了"] || [sender.titleLabel.text isEqualToString:@"已解答"])
-            {
+            } else if([sender.titleLabel.text isEqualToString:@"拨打热线"]) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
+            } else if([sender.titleLabel.text isEqualToString:@"不用了"] || [sender.titleLabel.text isEqualToString:@"已解答"]) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     InfoMessage *message = [[InfoMessage alloc] init];
@@ -707,12 +619,13 @@
                 });
                 
             } else if ([sender.titleLabel.text isEqualToString:@"未解答"]) {
-                InfoMessage *message = [[InfoMessage alloc] init];
-                message.type = InfoMessageTypeTwo;
-                message.choices = @[@"拨打热线",@"不用了"];
-                message.serviceDetails = @"是否拨打400客服热线进一步咨询?";
-                strongifySelf
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    InfoMessage *message = [[InfoMessage alloc] init];
+                    message.type = InfoMessageTypeTwo;
+                    message.choices = @[@"拨打热线",@"不用了"];
+                    message.serviceDetails = @"是否拨打400客服热线进一步咨询?";
+                    strongifySelf
                     [self sendMessage:message];
                 });
             }
@@ -734,25 +647,83 @@
     [self clickSengMsg:nil];
 }
 
+#pragma mark- InfoMessageHelpCenterCell类型 中 点击 已解答与未解答
+- (void)infoMessageHelpCenterCellTouchAnswerOrUnanswerWithMessage:(InfoMessage *)message serviceParentId: (NSString *)serviceParentId {
+    NSDictionary *paras = @{
+                            @"isHelp": @"1",
+                            @"noHelp": @"1",
+                            @"id":serviceParentId
+                            };
+    [CUHTTPRequest POST:dynamicUpdateServiceKnowledgeProfileById parameters:paras success:^(id responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
+            [self sendMessage:message];
+        } else {
+            [MBProgressHUD showText:dic[@"msg"]];
+        }
+        
+    } failure:^(NSInteger code) {
+        
+    }];
+}
+
+#pragma mark- InfoMessageHelpCenterCell类型 中 绑定车辆信息的提示
+- (void)infoMessageHelpCenterCellBindingCarInfoTips:(void (^)(void))runable {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    InputAlertView *popupView = [[InputAlertView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [popupView initWithTitle:@"检测到您未绑定车辆信息,请绑定!" img:@"首页弹窗背景" type:12 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+    //            InputalertView.delegate = self;
+    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    [keywindow addSubview: popupView];
+    
+    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+        
+        if(btn.tag ==100) {
+            if (runable) {
+                runable();
+            }
+        }
+    };
+}
+
+#pragma mark- InfoMessageHelpCenterCell类型 中 升级为T车用户的提示
+- (void)infoMessageHelpCenterCellUpdateTUserTips:(void (^)(void))runable {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isPush"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    PopupView *popupView = [[PopupView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-kTabbarHeight)];
+    [popupView initWithTitle:@"您当前不是T用户无法使用服务,若想使用服务,请升级为T用户!" img:@"首页弹窗背景" type:10 btnNum:1 btntitleArr:[NSArray arrayWithObjects:@"确定",nil] ];
+    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    [keywindow addSubview: popupView];
+    
+    popupView.clickBlock = ^(UIButton *btn,NSString *str) {
+        if (btn.tag == 100) {//左边按钮
+            if (runable) {
+                runable();
+            }
+        }
+    };
+}
+
 #pragma mark- 更新个人信息的头像 用于右边cell的头像获取使用
 - (void)refreshUserModel {
 
-    NSDictionary *paras = @{
-                            
-                            };
+    NSDictionary *paras = @{};
     [CUHTTPRequest POST:queryUser parameters:paras success:^(id responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
         
         if ([[dic objectForKey:@"code"] isEqualToString:@"200"]) {
-            NSDictionary *dic1 = dic[@"data"];
-            UserModel *userModel = [UserModel yy_modelWithDictionary:dic1];
+            NSDictionary *dict = dic[@"data"];
+            UserModel *userModel = [UserModel yy_modelWithDictionary:dict];
             
             [self downloadImageToFileWithUserModel:userModel];
         } else {
             
         }
     } failure:^(NSInteger code) {
-        
         
     }];
 }
@@ -797,23 +768,22 @@
 
 - (NSDictionary *)funcDict {
     if (!_funcDict) {
-        _funcDict = @{ @"10010":@"MapHomeViewController",
-                                 @"10012":@"RefuelViewController",
-                                 @"10001":@"WifiViewController",
-                                 @"10002":@"UpkeepViewController",
-                                 @"10003":@"CarflowViewController",
-                                 @"10004":@"CarTrackViewController",
-                                 @"10005":@"TrafficReportController",
-                                 @"10006":@"DrivingReportPageController",
-                                 @"10007":@"LllegalViewController",
-                                 @"10013":@"RealVinViewcontroller",
-                                 @"10009":@"MapUpdateViewController",
-                                 @"10008":@"TrackListViewController",
-                                 @"10014":@"StorePageController",
-                                 @"10015":@"OrderPageController",
-                                 @"10011":@"ParkingViewController"
-                                 
-                                 };
+        _funcDict = @{@"10010":@"MapHomeViewController",
+                      @"10012":@"RefuelViewController",
+                      @"10001":@"WifiViewController",
+                      @"10002":@"UpkeepViewController",
+                      @"10003":@"CarflowViewController",
+                      @"10004":@"CarTrackViewController",
+                      @"10005":@"TrafficReportController",
+                      @"10006":@"DrivingReportPageController",
+                      @"10007":@"LllegalViewController",
+                      @"10013":@"RealVinViewcontroller",
+                      @"10009":@"MapUpdateViewController",
+                      @"10008":@"TrackListViewController",
+                      @"10014":@"StorePageController",
+                      @"10015":@"OrderPageController",
+                      @"10011":@"ParkingViewController"
+                     };
     }
     return _funcDict;
 }
@@ -824,4 +794,3 @@
 }
 
 @end
-

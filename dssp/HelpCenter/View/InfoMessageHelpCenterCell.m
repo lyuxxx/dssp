@@ -379,80 +379,66 @@
 #pragma mark- 处理bgView
 - (void)configBgViewWithMessage:(InfoMessage *)message {
     //  isLeaf 说明 传过来的图片是是url形式的 那么就使用SDWebImage进行图片处理
-    if (message.isLeaf) {
-        BOOL fromCache = NO;
-        weakifySelf
-        //  先从sd缓存取图片
-        NSString *cacheKey = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:message.serviceImage]];
-        if (cacheKey) {
-            UIImage *cacheImg = [[SDImageCache sharedImageCache] imageFromCacheForKey:cacheKey];
-            if (cacheImg) {
-                //获取图片宽高
-                UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:cacheImg];
-                
-                self.bgImg.image = cacheImg;
-                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.equalTo(220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame));
-                }];
-                fromCache = YES;
-                [self.customDelegate removeStoredHeightWithCell:self];
-            }
-        }
-        
-        //  缓存读不到 通过SD进行网络读取
-        if (fromCache == NO) {
-            [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@"chatbox_loading"] options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                
-                //  图片存在 就使用图片 否则使用占坑图片
-                if (image) {
-                    //获取图片宽高
-                    UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:image];
-                    CGFloat showHeight = 220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame);
-                    strongifySelf
-                    
-                    [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(showHeight);
-                    }];
-                    
-                    [self layoutIfNeeded];
-                    
-                    _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
-                    self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
-                    
-                    NSLog(@"!!!%@",NSStringFromCGRect(_bubble.bounds));
-                    
-                    [self.customDelegate updateTableViewWithCell:self CellHeight:self.message.cellHeight DownloadSuccess:YES];
-                } else {
-                    strongifySelf
-                    [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(165 * WidthCoefficient);
-                    }];
-                    
-                    self.bgImg.image = [UIImage imageNamed:@"chatbox_fail"];
-                    
-                    [self layoutIfNeeded];
-                    
-                    _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
-                    self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
-                    
-                    NSLog(@"!!!%@",NSStringFromCGRect(_bubble.bounds));
-                    
-                    [self.customDelegate updateTableViewWithCell:self CellHeight:self.message.cellHeight DownloadSuccess:NO];
-                }
+    
+    BOOL fromCache = NO;
+    weakifySelf
+    //  先从sd缓存取图片
+    NSString *cacheKey = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:message.serviceImage]];
+    if (cacheKey) {
+        UIImage *cacheImg = [[SDImageCache sharedImageCache] imageFromCacheForKey:cacheKey];
+        if (cacheImg) {
+            //获取图片宽高
+            UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:cacheImg];
+            
+            self.bgImg.image = cacheImg;
+            [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame));
             }];
+            fromCache = YES;
+            [self.customDelegate removeStoredHeightWithCell:self];
         }
-    } else {
-        //  处理通过字符串过来的图片
-        NSData * imageData =[[NSData alloc] initWithBase64EncodedString:message.serviceImage options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        
-        UIImage *photo = [UIImage imageWithData:imageData];
-        
-        //获取图片宽高
-        UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:photo];
-        
-        self.bgImg.image = photo;
-        [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame));
+    }
+    
+    //  缓存读不到 通过SD进行网络读取
+    if (fromCache == NO) {
+        [self.bgImg sd_setImageWithURL:[NSURL URLWithString:message.serviceImage] placeholderImage:[UIImage imageNamed:@"chatbox_loading"] options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            
+            //  图片存在 就使用图片 否则使用占坑图片
+            if (image) {
+                //获取图片宽高
+                UIImageView *tmpImgV = [[UIImageView alloc] initWithImage:image];
+                CGFloat showHeight = 220 * WidthCoefficient * CGRectGetHeight(tmpImgV.frame) / CGRectGetWidth(tmpImgV.frame);
+                strongifySelf
+                
+                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(showHeight);
+                }];
+                
+                [self layoutIfNeeded];
+                
+                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
+                self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
+                
+                NSLog(@"!!!%@",NSStringFromCGRect(_bubble.bounds));
+                
+                [self.customDelegate updateTableViewWithCell:self CellHeight:self.message.cellHeight DownloadSuccess:YES];
+            } else {
+                strongifySelf
+                [self.bgImg updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.equalTo(165 * WidthCoefficient);
+                }];
+                
+                self.bgImg.image = [UIImage imageNamed:@"chatbox_fail"];
+                
+                [self layoutIfNeeded];
+                
+                _pageControl.frame = CGRectMake(_scroll.frame.origin.x, _scroll.frame.origin.y + _scroll.frame.size.height, _scroll.frame.size.width, 0);
+                self.message.cellHeight = CGRectGetMaxY(_bubble.frame) + 10 * WidthCoefficient;
+                
+                NSLog(@"!!!%@",NSStringFromCGRect(_bubble.bounds));
+                
+                [self.customDelegate updateTableViewWithCell:self CellHeight:self.message.cellHeight DownloadSuccess:NO];
+            }
         }];
     }
 }

@@ -84,7 +84,7 @@
         }];
         
         NSString *noResultStr = @"未查询到相关信息。\n请致电DS CONNECT客服热线400-626-6998咨询";
-        _contentLabel.text = noResultStr;//message.serviceDetails;
+        _contentLabel.text = message.serviceDetails;
         
         /*
         CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
