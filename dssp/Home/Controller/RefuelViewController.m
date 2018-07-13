@@ -210,11 +210,15 @@ static dispatch_once_t oilOnceToken;
         annotation.subtitle = station.address;
         [arr addObject:annotation];
     }
-    if (self.mapView.userLocation) {
-       [arr addObject:self.mapView.userLocation];
+    if (self.carAnnotation) {//有车辆位置
+        [arr addObject:self.carAnnotation];
+    } else {//没有车辆位置
+        if (self.mapView.userLocation) {
+            [arr addObject:self.mapView.userLocation];
+        }
     }
     [self.mapView addAnnotations:arr];
-    [self.mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient, 50 * WidthCoefficient) animated:YES];
+    [self.mapView showAnnotations:arr edgePadding:UIEdgeInsetsMake(70 * WidthCoefficient, 70 * WidthCoefficient, 70 * WidthCoefficient, 70 * WidthCoefficient) animated:YES];
 }
 
 - (OilStation *)checkCorrespondingStation:(MAAnnotationView *)view {
