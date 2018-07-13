@@ -147,8 +147,13 @@
 }
 
 #pragma mark- 点击输入框上的确定按钮
-- (void)clickSengMsg:(UIButton *)btn
-{
+- (void)clickSengMsg:(UIButton *)btn {
+    
+    if (!self.keyView.textView.text.isNotBlank) {
+        [MBProgressHUD showText:@"您还未输入任何内容"];
+        return;
+    }
+    
     //通知键盘消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardHide" object:nil];
     if (self.keyView.textView.text.length) {
@@ -203,7 +208,7 @@
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
                         if ([message.serviceType isEqualToString:@"1000"] && [message.serviceName isEqualToString:@"未查询到相关信息，请致电DS CONNECT 客服热线400-626-6998 咨询"]) {
                             message.type = InfoMessageTypeTwo;
-                            message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
+                            message.choices = @[@"反馈问题", @"拨打热线"];//@[@"已解答",@"未解答"];
                             message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                             [self sendMessage:message];
                         }else if ([message.serviceType isEqualToString:@"1000"] && [message.serviceName isEqualToString:@"查询到以下问题，请选择："]) {
@@ -229,11 +234,11 @@
                     message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                     [self sendMessage:message];
                         
-    //                [MBProgressHUD showText:dic[@"msg"]];
+                    //[MBProgressHUD showText:dic[@"msg"]];
                 }
                 
             } failure:^(NSInteger code) {
-                
+                [MBProgressHUD showText:@"网络异常"];
             }];
     }
  }
@@ -265,12 +270,11 @@
             [self sendMessage:message];
             
         } else {
-            
             [MBProgressHUD showText:dic[@"msg"]];
         }
     
     } failure:^(NSInteger code) {
-        
+        [MBProgressHUD showText:@"网络异常"];
     }];
     
 }
@@ -562,8 +566,7 @@
                     }
                     
                 } failure:^(NSInteger code) {
-                    
-                    
+                    [MBProgressHUD showText:@"网络异常"];
                 }];
             }
         }];
@@ -614,8 +617,7 @@
                     }
                     
                 } failure:^(NSInteger code) {
-                    
-                    
+                    [MBProgressHUD showText:@"网络异常"];
                 }];
             } else if([sender.titleLabel.text isEqualToString:@"拨打热线"]) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",kphonenumber]]];
@@ -678,9 +680,8 @@
         } else {
             [MBProgressHUD showText:dic[@"msg"]];
         }
-        
     } failure:^(NSInteger code) {
-        
+        [MBProgressHUD showText:@"网络异常"];
     }];
 }
 

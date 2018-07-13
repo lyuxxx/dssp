@@ -84,7 +84,29 @@
         }];
         
         NSString *noResultStr = @"未查询到相关信息。\n请致电DS CONNECT客服热线400-626-6998咨询";
-        _contentLabel.text = message.serviceName;//message.serviceDetails;
+        //_contentLabel.text = message.serviceName;//message.serviceDetails;
+        
+        if (message.choices == nil) {
+            self.contentLabel.text = message.serviceDetails;
+            self.line.hidden = true;
+            CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+            [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(size.height);
+            }];
+        }else if ([message.choices containsObject:@"不用了"]) {
+            self.contentLabel.text = message.serviceDetails;
+            self.line.hidden = true;
+            CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+            [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(size.height);
+            }];
+        }else {
+            self.contentLabel.text = message.serviceName;
+            CGSize size = [message.serviceName stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
+            [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(size.height);
+            }];
+        }
         
         /*
         CGSize size = [message.serviceDetails stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
@@ -230,7 +252,7 @@
 #pragma mark- 处理没有子节点 最下方的 已解答与未解答 按钮
 - (void)configNoNodeByAnswerAndUnanswer:(NSArray<NSString *>*)titleArray {
     
-    titleArray = @[@"反馈问题", @"拨打热线"];
+    //titleArray = @[@"反馈问题", @"拨打热线"];
     
     NSInteger row = 0;
     row = ceil(titleArray.count / 2.0f);
@@ -283,20 +305,21 @@
             btn.needNoRepeat = YES;
             btn.titleLabel.font = [UIFont fontWithName:FontName size:12];
             
-            /*
-            if (j==1) {
-                btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
-                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            } else {
-                btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
-                [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+            if ([titleArray containsObject:@"不用了"]) {
+                if (j==0) {
+                    btn.backgroundColor  = [UIColor colorWithHexString:@"#AC0042"];
+                    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                } else {
+                    btn.backgroundColor = [UIColor colorWithHexString:@"#413E3D"];
+                    [btn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+                }
+            }else {
+                btn.backgroundColor = [UIColor clearColor];
+                [btn setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
+                btn.layer.borderWidth = 1.0;
+                btn.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
             }
-            */
             
-            btn.backgroundColor = [UIColor clearColor];
-            [btn setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
-            btn.layer.borderWidth = 1.0;
-            btn.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
             btn.layer.cornerRadius = 4;
             
             [v addSubview:btn];
