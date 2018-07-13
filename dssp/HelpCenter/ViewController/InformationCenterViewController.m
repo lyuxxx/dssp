@@ -201,14 +201,16 @@
                     if (dic[@"data"] != nil && ![ dic[@"data"] isKindOfClass:[NSNull class]] &&  [dic[@"data"] count] != 0) {
                         NSDictionary *dic1 = dic[@"data"];
                         InfoMessage *message = [InfoMessage yy_modelWithDictionary:dic1];
-                        if ([message.serviceName isEqualToString:@"未查询到相关信息!"]) {
+                        if ([message.serviceType isEqualToString:@"1000"] && [message.serviceName isEqualToString:@"未查询到相关信息，请致电DS CONNECT 客服热线400-626-6998 咨询"]) {
                             message.type = InfoMessageTypeTwo;
                             message.choices = @[@"拨打热线",@"不用了"];//@[@"已解答",@"未解答"];
                             message.serviceDetails = @"未查询到相关信息!\n是否解答您的问题?";
                             [self sendMessage:message];
-                        }else {
+                        }else if ([message.serviceType isEqualToString:@"1000"] && [message.serviceName isEqualToString:@"查询到以下问题，请选择："]) {
                             message.type = InfoMessageTypeOther;
                             [self sendMessage:message];
+                        }else {
+                            
                         }
                     }
                     else {
@@ -638,12 +640,10 @@
                     strongifySelf
                     [self sendMessage:message];
                 });
-            } else if ([sender.titleLabel.text isEqualToString:@"我要反馈"]) {
-                /*
+            } else if ([sender.titleLabel.text isEqualToString:@"反馈问题"]) {
                 FeedbackController *feedbackController = [FeedbackController new];
                 strongifySelf
                 [self.navigationController pushViewController:feedbackController animated:YES];
-                 */
             }
             
         }];

@@ -32,6 +32,10 @@
 
 @property (nonatomic, copy) NSString *URL;
 
+@property (nonatomic, strong) UIView *guessLine;
+@property (nonatomic, strong) UIButton *feedbackButton;
+@property (nonatomic, strong) UIButton *contactButton;
+
 @end
 
 @implementation InfoMessageHelpCenterCell
@@ -177,7 +181,7 @@
             */
             
             //  有子节点 各个功能按钮的跳转处理
-            [self configNodeByFunctionJump:dataArray];
+            [self configNodeByFunctionJump:dataArray withMessage:message];
         }
     }
 }
@@ -323,6 +327,62 @@
     }];
     [self.contentView insertSubview:_bubble belowSubview:_contentLabel];
     
+    
+    //  猜你喜欢的虚线
+    self.guessLine = [[UIView alloc] init];
+    self.guessLine.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"guess_you_like"]];
+    self.guessLine.hidden = true;
+    
+    [self.contentView addSubview:self.guessLine];
+    [self.guessLine makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_contentLabel);
+        make.width.equalTo(_contentLabel).offset(20 * WidthCoefficient);
+        make.height.equalTo(10 * WidthCoefficient);
+        make.top.equalTo(self.scroll.bottom).offset(15 * WidthCoefficient);
+    }];
+    
+    //  反馈按钮
+    self.feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.feedbackButton setTitle:@"反馈问题" forState:UIControlStateNormal];
+    self.feedbackButton.backgroundColor = [UIColor clearColor];
+    [self.feedbackButton setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
+    self.feedbackButton.layer.borderWidth = 1.0;
+    self.feedbackButton.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
+    self.feedbackButton.layer.cornerRadius = 4;
+    self.feedbackButton.titleLabel.font = [UIFont fontWithName:FontName size:12];
+    self.feedbackButton.tag = feedbackTag;
+    [self.feedbackButton addTarget:self action:@selector(functionButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.feedbackButton.hidden = true;
+    
+    [self.contentView addSubview:self.feedbackButton];
+    [self.feedbackButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.scroll).offset(5 * WidthCoefficient);
+        make.width.equalTo(105 * WidthCoefficient);
+        make.height.equalTo(31.5* WidthCoefficient);
+        make.top.equalTo(self.guessLine.bottom).offset(15 * WidthCoefficient);
+    }];
+    
+    
+    //  拨打热线按钮
+    self.contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.contactButton setTitle:@"拨打热线" forState:UIControlStateNormal];
+    self.contactButton.backgroundColor = [UIColor clearColor];
+    [self.contactButton setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
+    self.contactButton.layer.borderWidth = 1.0;
+    self.contactButton.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
+    self.contactButton.layer.cornerRadius = 4;
+    self.contactButton.titleLabel.font = [UIFont fontWithName:FontName size:12];
+    self.contactButton.tag = contactServiceTag;
+    [self.contactButton addTarget:self action:@selector(functionButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.contactButton.hidden = true;
+    
+    [self.contentView addSubview:self.contactButton];
+    [self.contactButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.scroll).offset(-5 * WidthCoefficient);
+        make.width.equalTo(105 * WidthCoefficient);
+        make.height.equalTo(31.5* WidthCoefficient);
+        make.top.equalTo(self.guessLine.bottom).offset(15 * WidthCoefficient);
+    }];
 }
 
 #pragma mark- 图片的点击事件
@@ -501,8 +561,6 @@
         }];
         lastView = v;
         
-        
-        
         ///添加button
         NSMutableArray *btns = [NSMutableArray arrayWithCapacity:pageArr.count];
         for (NSInteger j = 0; j < pageArr.count; j++) {
@@ -537,6 +595,14 @@
         make.right.equalTo(_scrollContentView.right);
     }];
     
+    //  猜你喜欢的虚线
+    self.guessLine.hidden = true;
+    
+    //  反馈按钮
+    self.feedbackButton.hidden = true;
+    
+    //  拨打热线按钮
+    self.contactButton.hidden = true;
     
     [_bubble updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
@@ -551,7 +617,7 @@
 }
 
 #pragma mark- 处理有子节点 各个功能按钮的跳转
-- (void)configNodeByFunctionJump:(NSMutableArray<NSString *>*)dataArray {
+- (void)configNodeByFunctionJump:(NSMutableArray<NSString *>*)dataArray withMessage:(InfoMessage *)message {
     NSInteger row = 0;
     row = ceil(dataArray.count / 2.0f);
     if (row > 4) {
@@ -641,7 +707,7 @@
     //  搜索情况下 有子节点返回 在scrollView的下面添加提示信息
     
     //  如果是搜索的有跳转 进if 默认的进else
-    if ( -1 > 0) {
+    if ([message.serviceType isEqualToString:@"1000"]) {
         [_bubble updateConstraints:^(MASConstraintMaker *make) {
             if (page > 1) {
                 make.bottom.equalTo(_scroll).offset(95 * WidthCoefficient);
@@ -651,55 +717,13 @@
         }];
         
         //  猜你喜欢的虚线
-        UIView *line = [[UIView alloc] init];
-        line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"guess_you_like"]];
-        [self.contentView addSubview:line];
-        [line makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(_contentLabel);
-            make.width.equalTo(_contentLabel).offset(20 * WidthCoefficient);
-            make.height.equalTo(10 * WidthCoefficient);
-            make.top.equalTo(self.scroll.bottom).offset(15 * WidthCoefficient);
-        }];
+        self.guessLine.hidden = false;
         
         //  反馈按钮
-        UIButton *feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [feedbackButton setTitle:@"反馈问题" forState:UIControlStateNormal];
-        feedbackButton.backgroundColor = [UIColor clearColor];
-        [feedbackButton setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
-        feedbackButton.layer.borderWidth = 1.0;
-        feedbackButton.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
-        feedbackButton.layer.cornerRadius = 4;
-        feedbackButton.titleLabel.font = [UIFont fontWithName:FontName size:12];
-        feedbackButton.tag = feedbackTag;
-        [feedbackButton addTarget:self action:@selector(functionButton:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.contentView addSubview:feedbackButton];
-        [feedbackButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.leading.equalTo(self.scroll).offset(5 * WidthCoefficient);
-            make.width.equalTo(105 * WidthCoefficient);
-            make.height.equalTo(31.5* WidthCoefficient);
-            make.top.equalTo(line.bottom).offset(15 * WidthCoefficient);
-        }];
+        self.feedbackButton.hidden = false;
         
         //  拨打热线按钮
-        UIButton *contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [contactButton setTitle:@"拨打热线" forState:UIControlStateNormal];
-        contactButton.backgroundColor = [UIColor clearColor];
-        [contactButton setTitleColor:[UIColor colorWithHexString:@"#A18E79"] forState:UIControlStateNormal];
-        contactButton.layer.borderWidth = 1.0;
-        contactButton.layer.borderColor = [[UIColor colorWithHexString:@"#413E3D"] CGColor];
-        contactButton.layer.cornerRadius = 4;
-        contactButton.titleLabel.font = [UIFont fontWithName:FontName size:12];
-        contactButton.tag = contactServiceTag;
-        [contactButton addTarget:self action:@selector(functionButton:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.contentView addSubview:contactButton];
-        [contactButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.trailing.equalTo(self.scroll).offset(-5 * WidthCoefficient);
-            make.width.equalTo(105 * WidthCoefficient);
-            make.height.equalTo(31.5* WidthCoefficient);
-            make.top.equalTo(line.bottom).offset(15 * WidthCoefficient);
-        }];
+        self.contactButton.hidden = false;
 
         
     }else {
@@ -710,6 +734,19 @@
                 make.bottom.equalTo(_scroll).offset(10 * WidthCoefficient);
             }
         }];
+        
+//        [self.feedbackButton removeFromSuperview];
+//        [self.contactButton removeFromSuperview];
+//        [self.guessLine removeFromSuperview];
+        
+        //  猜你喜欢的虚线
+        self.guessLine.hidden = true;
+        
+        //  反馈按钮
+        self.feedbackButton.hidden = true;
+        
+        //  拨打热线按钮
+        self.contactButton.hidden = true;
     }
     
 
