@@ -80,7 +80,7 @@
     _wifiLabel.textColor = [UIColor whiteColor];
      _wifiLabel.textAlignment = NSTextAlignmentCenter;
     _wifiLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-    _wifiLabel.text = @"WIFI名:未知";
+    _wifiLabel.text = @"WIFI:未知";
     [_bgImgV addSubview:_wifiLabel];
     [_wifiLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_bgImgV);
@@ -305,7 +305,7 @@
             if (wifiSsid) {
                 self.wifiSsid = wifiSsid;
                 self.originPassword = wifiPassword;
-                _wifiLabel.text = [NSString stringWithFormat:@"WIFI名: %@",wifiSsid];
+                _wifiLabel.text = [NSString stringWithFormat:@"WIFI: %@",wifiSsid];
 //                _passwordField.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:self.originPassword attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"]}];
                 _passwordField.text = self.originPassword;
                 

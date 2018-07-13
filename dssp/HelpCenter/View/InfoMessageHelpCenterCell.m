@@ -735,10 +735,6 @@
             }
         }];
         
-//        [self.feedbackButton removeFromSuperview];
-//        [self.contactButton removeFromSuperview];
-//        [self.guessLine removeFromSuperview];
-        
         //  猜你喜欢的虚线
         self.guessLine.hidden = true;
         

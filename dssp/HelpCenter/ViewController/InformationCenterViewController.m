@@ -504,7 +504,7 @@
                                 
                                 //  游客模式下 实名认证 地图升级 进行拦截 其他的允许跳转
                                 if([appNum isEqualToString:@"10013"] || [appNum isEqualToString:@"10009"]) {
-                                    [MBProgressHUD showText:NSLocalizedString(@"当前为游客模式，无此操作权限", nil)];
+                                    [MBProgressHUD showText:NSLocalizedString(@"当前您为游客账户，不能做此操作", nil)];
                                 } else {
                                     strongifySelf
                                     [self jumpByFuncDictWihtAppNum:appNum];
