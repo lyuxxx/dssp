@@ -26,7 +26,7 @@
     
     //  placeHolderLabel
     UILabel *placeHolderLabel = [[UILabel alloc] init];
-    placeHolderLabel.text = NSLocalizedString(@"提供5个字以上的问题描述以便我们提供更好的帮助", nil);
+    placeHolderLabel.text = NSLocalizedString(@"请填写5个字以上的问题描述以便我们提供更好的帮助", nil);
     placeHolderLabel.font = [UIFont systemFontOfSize:14];
     placeHolderLabel.numberOfLines = 0;
     placeHolderLabel.textColor = [UIColor lightGrayColor];

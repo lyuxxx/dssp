@@ -32,7 +32,7 @@
 
 @property (nonatomic, copy) NSString *URL;
 
-@property (nonatomic, strong) UIView *guessLine;
+@property (nonatomic, strong) UIImageView *guessLine;
 @property (nonatomic, strong) UIButton *feedbackButton;
 @property (nonatomic, strong) UIButton *contactButton;
 
@@ -329,8 +329,7 @@
     
     
     //  猜你喜欢的虚线
-    self.guessLine = [[UIView alloc] init];
-    self.guessLine.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"guess_you_like"]];
+    self.guessLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"guess_you_like"]];
     self.guessLine.hidden = true;
     
     [self.contentView addSubview:self.guessLine];

@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UILabel *contentLabel1;
-@property (nonatomic, strong) UIView *line;
+@property (nonatomic, strong) UIImageView *line;
 @property (nonatomic, strong) UIScrollView *scroll;
 @property (nonatomic, strong) UIView *scrollContentView;
 @property (nonatomic, strong) EllipsePageControl *pageControl;
@@ -102,9 +102,13 @@
             }];
         }else {
             self.contentLabel.text = message.serviceName;
+            self.line.hidden = false;
             CGSize size = [message.serviceName stringSizeWithContentSize:CGSizeMake(220 * WidthCoefficient, MAXFLOAT) font:[UIFont fontWithName:FontName size:15]];
             [_contentLabel updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(size.height);
+            }];
+            [_line updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_contentLabel.bottom).offset(10 * WidthCoefficient);
             }];
         }
         
@@ -190,8 +194,7 @@
         make.height.equalTo(67 * WidthCoefficient);
     }];
     
-    self.line = [[UIView alloc] init];
-    _line.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"guess_you_like"]];
+    self.line = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"guess_you_like"]];
     [self.contentView addSubview:_line];
     [_line makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_contentLabel);
