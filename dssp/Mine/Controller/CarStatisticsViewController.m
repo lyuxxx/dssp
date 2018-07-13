@@ -922,10 +922,10 @@
                 [MBProgressHUD showText:NSLocalizedString(@"请输入发动机号后七位", nil)];
                 
             }
-//            else if (_vhlLisenceField.text.length !=7) {
-//
-//                [MBProgressHUD showText:NSLocalizedString(@"请输入7位车牌号", nil)];
-//            }
+            else if (![_vhlLisenceField.text isNotBlank]) {
+                
+                [MBProgressHUD showText:NSLocalizedString(@"请输入车牌号", nil)];
+            }
             else if (_doptCodeField.text.length == 7)
             {
                 _doptCodeField.userInteractionEnabled=NO;
@@ -933,10 +933,12 @@
                 _modifyImg.hidden = YES;
                 _modifyImg1.hidden = YES;
                 
+                NSString *plate = [self filterLicense:_vhlLisenceField.text];
+                
                 NSDictionary *paras = @{
                                         @"vin":_vinField.text,
                                         @"doptCode":_doptCodeField.text,
-                                        @"vhlLisence":_vhlLisenceField.text
+                                        @"vhlLisence":plate
                                         };
                 
                 MBProgressHUD *hud = [MBProgressHUD showMessage:@""];
@@ -1003,24 +1005,30 @@
     
 }
 
+- (NSString *)filterLicense:(NSString *)license {
+    NSCharacterSet *set = [[NSCharacterSet characterSetWithCharactersInString:@"京沪浙苏粤鲁晋冀豫川渝辽吉黑皖鄂津贵云桂琼青新藏蒙宁甘陕闽赣湘ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"] invertedSet];
+    NSString *plate = [[license componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""];
+    return plate;
+}
+
 #pragma mark - UITextFieldDelegate -
 //车牌号限制
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     NSString *endString;
 
-    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+//    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
 
 //    NSRange punctuationRange = [string rangeOfCharacterFromSet:[NSCharacterSet punctuationCharacterSet]];
     
     NSMutableCharacterSet *illegalSet = [NSMutableCharacterSet punctuationCharacterSet];
-    [illegalSet addCharactersInString:@"[]{}（#%-*+=_）\\|~(＜＞$%^&*)_+"];
+    [illegalSet addCharactersInString:@"[]{}（#%-*+=_）\\|~(<>＜＞$%^&*)_+"];
     
     NSRange punctuationRange = [string rangeOfCharacterFromSet:illegalSet];
 
     NSRange whitespaceAndNewlineRange = [string rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-    if (lowercaseCharRange.location != NSNotFound || punctuationRange.location != NSNotFound || whitespaceAndNewlineRange.location != NSNotFound) {
+    if (punctuationRange.location != NSNotFound || whitespaceAndNewlineRange.location != NSNotFound) {
         endString = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]];
         endString = [endString stringByTrimmingCharactersInSet:illegalSet];
         endString = [endString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -1031,6 +1039,13 @@
 
     return YES;
     
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField.text.length > 7) {
+        textField.text = [textField.text substringToIndex:7];
+    }
+    textField.text = [self filterLicense:[textField.text uppercaseString]];
 }
 
 @end
